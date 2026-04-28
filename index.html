@@ -5,135 +5,81 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blend — The personalization engine for product brands</title>
 <meta name="description" content="Upload your catalog, build a quiz in an afternoon, and recommend the right product to every customer — with the data to back it up.">
-
-<!-- Open Graph / social -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blend — The personalization engine for product brands">
 <meta property="og:description" content="Upload your catalog, build a quiz in an afternoon, and recommend the right product to every customer — with the data to back it up.">
 <meta property="og:url" content="https://blend-technologies.com">
 <meta property="og:image" content="https://blend-technologies.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-
-<!-- Favicon (inline SVG — gold-on-ink to match brand) -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000000'/%3E%3Crect x='7' y='7' width='18' height='18' rx='4' fill='%23B47F39'/%3E%3C/svg%3E">
-
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-393.1400000000001%200%202733.8%202733.8%22%20width%3D%22133.49%22%20height%3D%22133.49%22%3E%3Cg%20transform%3D%22translate%280%202104.4%29%20scale%281%20-1%29%22%20fill%3D%22%23000000%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Cpath%20d%3D%22M165%200V1490H714Q873%201490%20977.0%201438.0Q1081%201386%201132.0%201297.5Q1183%201209%201183%201099Q1183%201006%201149.0%20942.5Q1115%20879%201057.5%20840.5Q1000%20802%20931%20784V769Q1006%20766%201077.0%20721.5Q1148%20677%201194.5%20596.5Q1241%20516%201241%20401Q1241%20288%201187.5%20197.0Q1134%20106%201023.0%2053.0Q912%200%20738%200ZM393%20196H715Q875%20196%20945.0%20258.0Q1015%20320%201015%20412Q1015%20484%20979.5%20542.0Q944%20600%20879.0%20634.5Q814%20669%20724%20669H393ZM393%20845H692Q767%20845%20828.0%20874.0Q889%20903%20924.0%20956.0Q959%201009%20959%201080Q959%201172%20895.0%201233.5Q831%201295%20698%201295H393Z%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%281324.52%200%29%22%3E%3Cpath%20d%3D%22M311%20-15Q249%20-15%20206.0%2028.0Q163%2071%20163%20132Q163%20194%20206.0%20236.5Q249%20279%20311%20279Q372%20279%20415.0%20236.5Q458%20194%20458%20132Q458%2071%20415.0%2028.0Q372%20-15%20311%20-15Z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <style>
-/* =========================================================
-   BLEND MARKETING SITE — V3
-   Refined from v2 (2026-04-22 → 2026-04-22 feedback pass)
-   — palette: gold #B47F39 / cream #FAF8F2 / black #000
-   — American English
-   — real quiz, real personas, real pricing
-   ========================================================= */
-
-/* ------------- Design tokens --------------------------------------- */
 :root{
-  --ink:#0A0A0A;                  /* softened black for text */
+  --ink:#0A0A0A;
   --ink-80:rgba(10,10,10,.80);
   --ink-60:rgba(10,10,10,.60);
-  --ink-soft:#141414;             /* for dark section backgrounds */
-  --cream:#FAF8F2;                /* warm off-white background */
-  --cream-2:#F1EDE0;              /* slightly warmer cream (zones) */
-  --subtle:#F7F7F7;               /* neutral light alt band */
-  --gold:#B47F39;                 /* primary accent, CTAs, highlights */
-  --gold-pressed:#96682B;         /* pressed state */
-  --gold-soft:#F0E2CC;            /* tint */
-  --sand:#E7CFA3;                 /* secondary warm tone */
+  --cream:#FAF8F2;
+  --subtle:#F7F7F7;
+  --gold:#B47F39;
+  --gold-pressed:#96682B;
+  --gold-soft:#F0E2CC;
+  --sand:#E7CFA3;
   --sand-soft:#F5E7C9;
-  --muted:#6B6B6B;                /* 4.8:1 on cream */
+  --muted:#6B6B6B;
   --muted-on-dark:rgba(255,255,255,.72);
   --line:#E3DDCC;
   --line-strong:#D1C9B2;
   --white:#ffffff;
-  --red-soft:#D8614A;             /* for "needs attention" pills in results */
-  --green-soft:#6AA84F;            /* for "on track" */
-
-  --r-sm:10px;
-  --r-md:16px;
-  --r-lg:22px;
-  --r-xl:28px;
-
+  --red-soft:#D8614A;
+  --green-soft:#6AA84F;
+  --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;
   --shadow-sm:0 1px 2px rgba(0,0,0,.03),0 2px 8px rgba(0,0,0,.03);
   --shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
   --shadow-lg:0 2px 6px rgba(0,0,0,.05),0 20px 40px rgba(0,0,0,.08);
-
-  --nav-h:68px;
-  --content:1200px;
+  --nav-h:68px;--content:1200px;
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;
-  font-feature-settings:"cv11","ss01","ss03";
-  font-size:16px;
-  line-height:1.55;
-  color:var(--ink);
-  background:var(--cream);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
+body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--gold);padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;z-index:200}
 .skip:focus{left:16px}
-
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .h1{font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-.025em;font-weight:600;margin:0}
 .h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.022em;font-weight:600;margin:0}
-.h3{font-size:clamp(20px,2.2vw,26px);line-height:1.25;letter-spacing:-.015em;font-weight:600;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 
-/* ------------- Buttons --------------------------------------------- */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:600;letter-spacing:-.005em;
-  transition:background .18s ease, color .18s ease, border-color .18s ease;
-  white-space:nowrap;min-height:44px;
-}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease, color .18s ease, border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold);color:var(--white)}
-.btn-primary:hover{background:#1f1f1f}
+.btn-primary:hover{background:var(--gold-pressed)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
 .btn-ghost:hover{border-color:var(--ink);background:var(--white)}
 .btn-ghost:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.btn-dark{background:var(--ink);color:var(--white)}
-.btn-dark:hover{background:#1f1f1f}
-.btn-link{padding:0;border-radius:0;font-size:14.5px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--ink);min-height:auto}
 .btn-sm{padding:9px 14px;font-size:13.5px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:15.5px;min-height:50px}
 
-/* ------------- Nav -------------------------------------------------- */
-.nav{
-  position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);
-  backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
-  transition:border-color .2s ease;
-  border-bottom:1px solid transparent;
-}
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent;}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
-.logo{display:inline-flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.015em;font-size:17px;min-height:44px;padding:4px 0;justify-self:start}
-.logo-dot{width:18px;height:18px;border-radius:5px;background:var(--ink);position:relative;flex-shrink:0}
-.logo-dot::after{content:"";position:absolute;inset:4px;border-radius:2px;background:var(--gold)}
+.logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
+.logo svg{display:block;height:26px;width:auto}
 .nav-links{display:flex;align-items:center;gap:32px;justify-self:center}
-.nav-links a{font-size:13.5px;color:var(--ink-80);font-weight:500;padding:12px 0;position:relative;letter-spacing:-.005em}
+.nav-links a{font-size:13.5px;color:var(--ink-80);font-weight:500;padding:12px 0;letter-spacing:-.005em}
 .nav-links a:hover{color:var(--ink)}
 .nav-links a:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:4px}
 .nav-actions{display:flex;align-items:center;gap:10px;justify-self:end}
 .nav-login{font-size:13.5px;color:var(--ink-60);padding:10px 8px;font-weight:500;min-height:40px;display:inline-flex;align-items:center;letter-spacing:-.005em}
 .nav-login:hover{color:var(--ink)}
-
-/* Hamburger (mobile) */
 .nav-toggle{display:none;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;margin-left:4px}
 .nav-toggle:hover{background:rgba(0,0,0,.06)}
-.nav-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .nav-toggle span{position:relative;width:20px;height:14px;display:block}
 .nav-toggle span::before,.nav-toggle span::after,.nav-toggle span i{content:"";position:absolute;left:0;right:0;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s ease, opacity .2s ease, top .2s ease}
 .nav-toggle span::before{top:0}
@@ -142,7 +88,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .nav.open .nav-toggle span::before{top:6px;transform:rotate(45deg)}
 .nav.open .nav-toggle span::after{top:6px;transform:rotate(-45deg)}
 .nav.open .nav-toggle span i{opacity:0}
-
 @media (max-width:860px){
   .nav-inner{grid-template-columns:1fr auto}
   .nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(250,248,242,.98);backdrop-filter:blur(14px);flex-direction:column;gap:0;margin:0;padding:8px 20px 24px;border-bottom:1px solid var(--line);box-shadow:var(--shadow-md);justify-self:stretch}
@@ -154,14 +99,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .nav-actions .btn{padding:10px 16px;font-size:14px}
 }
 
-/* ------------- Hero ------------------------------------------------- */
-.hero{
-  padding:72px 0 96px;
-  background:var(--cream);
-  position:relative;
-  overflow:hidden;
-  border-bottom:1px solid var(--line);
-}
+/* Hero */
+.hero{padding:72px 0 96px;background:var(--cream);position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
 .hero-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:center;padding:8px 0}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .hero-title{margin-top:14px}
@@ -169,32 +108,19 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-ctas{margin-top:32px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .hero-foot{margin-top:24px;font-size:13px;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
-
-/* hero visual — quiz preview that mirrors real Blend quiz styling */
 .hero-visual{position:relative;min-height:580px;padding-top:8px}
 .hero-stage{position:relative;width:100%;height:520px}
-
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
 .card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-
-/* Quiz preview — single-select with progress bar, check circles, dark Continue */
-.quiz{
-  position:absolute;top:0;left:0;width:62%;padding:26px 28px 22px;z-index:2;
-  background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);
-}
+.quiz{position:absolute;top:0;left:0;width:62%;padding:26px 28px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:11.5px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
 .qprog-fill{height:100%;width:40%;background:var(--ink);border-radius:999px}
 .quiz .qtitle{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;margin:0}
 .quiz .qopts{margin-top:16px;display:grid;gap:7px}
-.qopt{
-  padding:12px 14px;border:1px solid var(--line);border-radius:10px;
-  font-size:13.5px;font-weight:500;cursor:pointer;transition:border-color .18s ease, background .18s ease;
-  background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);
-}
+.qopt{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:500;cursor:pointer;transition:border-color .18s ease, background .18s ease;background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
 .qopt:hover{border-color:var(--line-strong)}
-.qopt:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .qopt.active{border-color:var(--ink);background:var(--cream)}
 .qopt-label{flex:1;min-width:0}
 .qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .18s ease, border-color .18s ease}
@@ -202,20 +128,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .qopt.active .qopt-check{background:var(--ink);border-color:var(--ink)}
 .qopt.active .qopt-check svg{opacity:1}
 .qopt.active .qopt-check svg path{stroke:var(--white) !important}
-.quiz-next{
-  margin-top:18px;display:inline-flex;align-items:center;gap:6px;
-  padding:9px 18px;background:var(--ink);color:var(--white);
-  border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;
-}
+.quiz-next{margin-top:18px;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--ink);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
-
-/* connector arrow — hidden in layered layup */
 .hero-arrow{display:none}
-
-.results{
-  position:absolute;top:110px;right:0;width:60%;padding:24px 24px;z-index:3;min-width:0;
-}
+.results{position:absolute;top:110px;right:0;width:60%;padding:24px;z-index:3;min-width:0;}
 .results .rlabel{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 .results .rtitle{margin-top:10px;font-size:19px;font-weight:700;line-height:1.25}
 .results .rhint{margin-top:6px;font-size:12px;color:rgba(255,255,255,.6)}
@@ -224,8 +141,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .rswatch{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--white);font-weight:700;font-size:11px;letter-spacing:.02em}
 .rname{font-size:13px;font-weight:600;line-height:1.25}
 .rreason{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;line-height:1.3}
-.rpill{background:var(--gold);color:var(--white);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700}
-
 @media (max-width:960px){
   .hero{padding:32px 0 56px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -234,41 +149,31 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .quiz,.results{position:static;width:100%}
 }
 
-/* ------------- Section scaffolding --------------------------------- */
+/* Sections */
 .section{padding:112px 0}
 .section-head{max-width:680px;margin:0 auto 64px;text-align:center}
 .section-head .eyebrow{margin-bottom:16px;display:inline-block}
 .section-head .h2{margin-bottom:18px}
 .section-cream{background:var(--cream)}
 .section-subtle{background:var(--subtle)}
-.section-dark{background:var(--ink);color:var(--white)}
-.section-dark .eyebrow{color:rgba(255,255,255,.6)}
-.section-dark .lead{color:var(--muted-on-dark)}
 @media (max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
 
-/* ------------- How it works ---------------------------------------- */
+/* How it works */
 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative}
 .steps::before{content:"";position:absolute;left:32px;right:32px;top:22px;height:1px;background:var(--line-strong);z-index:0}
 .step{position:relative;padding:0 4px;z-index:1}
 .step-n{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--ink-60);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .2s ease, border-color .2s ease, color .2s ease;font-feature-settings:"tnum"}
-.step-body{padding:16px 4px 4px;margin-top:14px;transition:opacity .2s ease}
+.step-body{padding:16px 4px 4px;margin-top:14px}
 .step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em}
 .step p{margin:0;font-size:13.5px;color:var(--ink-60);line-height:1.5}
-/* default: step 5 is the active one */
-.step:nth-child(5) .step-n{background:var(--ink);border-color:var(--ink);color:var(--white)}
-/* hover any step — that step becomes the only active one */
 .steps:hover .step .step-n{background:var(--cream);border-color:var(--line-strong);color:var(--ink-60)}
 .step:hover .step-n{background:var(--ink) !important;border-color:var(--ink) !important;color:var(--white) !important}
 .steps:hover .step:not(:hover) h3{color:var(--ink-60)}
 .steps:hover .step:not(:hover) p{opacity:.7}
-@media (max-width:960px){
-  .steps{grid-template-columns:1fr 1fr;gap:28px}
-  .steps::before{display:none}
-  .step:nth-child(5){grid-column:1/-1}
-}
+@media (max-width:960px){.steps{grid-template-columns:1fr 1fr;gap:28px}.steps::before{display:none}.step:nth-child(5){grid-column:1/-1}}
 @media (max-width:520px){.steps{grid-template-columns:1fr}.step:nth-child(5){grid-column:auto}}
 
-/* ------------- Two-sided split ------------------------------------- */
+/* Split */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .split-card{padding:40px;border-radius:20px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .split-card.customers{background:var(--white);border:1px solid var(--line)}
@@ -280,14 +185,32 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .split-bullets li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:var(--ink-80)}
 .split-bullets li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:9px;flex-shrink:0}
 .split-card.brand .split-bullets li{color:rgba(255,255,255,.78)}
-
-/* Shared insight pill used in plan + personas */
 .insight-pill{background:var(--subtle);color:var(--ink-80);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;white-space:nowrap;border:1px solid var(--line)}
 .insight-pill.warn{background:#FAEEEB;color:#8A2A1A;border-color:#F0D8D2}
 
-/* Shared dashboard visual — both sides use identical dark treatment */
+/* Customer-side: lighter report card */
+.report-card{margin-top:auto;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.report-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.report-card-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.report-card-pill{font-size:10px;color:var(--gold-pressed);letter-spacing:.06em;text-transform:uppercase;font-weight:600;background:var(--gold-soft);padding:3px 8px;border-radius:999px}
+.report-products{display:grid;gap:7px}
+.rp-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--white);border:1px solid var(--line);border-radius:9px}
+.rp-swatch{width:30px;height:30px;border-radius:6px;background:var(--ink);display:grid;place-items:center;color:var(--white);font-size:9px;font-weight:700;flex-shrink:0;letter-spacing:.02em}
+.rp-info{flex:1;min-width:0}
+.rp-name{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.2}
+.rp-reason{font-size:11px;color:var(--muted);margin-top:1px}
+.rp-badge{flex-shrink:0;font-size:10px;font-weight:600;color:var(--gold-pressed);background:var(--gold-soft);padding:2px 7px;border-radius:999px}
+.report-nutrients{background:var(--white);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+.report-nut-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.report-nut-row{display:grid;grid-template-columns:72px 1fr 32px;align-items:center;gap:6px;margin-bottom:5px}
+.report-nut-row:last-child{margin-bottom:0}
+.report-nut-lab{font-size:10px;color:var(--ink-80);font-weight:500}
+.report-nut-track{height:5px;background:var(--line);border-radius:999px;overflow:hidden}
+.report-nut-fill{height:100%;border-radius:999px}
+.report-nut-val{font-size:10px;color:var(--muted);font-weight:600;text-align:right}
+
+/* Brand side dashboard */
 .dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;color:var(--white)}
-.split-card.customers .dash{background:#0F0F0F;color:var(--white)}
 .dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
 .dash-pill{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;font-weight:600;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:999px}
@@ -303,17 +226,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .dash-bar-track{height:6px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
 .dash-bar-fill{height:100%;background:var(--gold);border-radius:999px}
 .dash-bar-val{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;text-align:right;letter-spacing:.02em}
+@media (max-width:860px){.split{grid-template-columns:1fr}.split-card{min-height:auto}}
 
-@media (max-width:860px){
-  .split{grid-template-columns:1fr}
-  .split-card{min-height:auto}
-}
-
-/* ------------- Persona carousel ------------------------------------ */
+/* Personas */
 .personas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .persona{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .18s ease}
 .persona:hover{border-color:var(--line-strong)}
-.persona-head{padding:22px 22px 14px;display:flex;align-items:center;gap:14px;position:relative}
+.persona-head{padding:22px 22px 14px;display:flex;align-items:center;gap:14px}
 .persona-score{width:48px;height:48px;border-radius:50%;background:conic-gradient(var(--ring,var(--green-soft)) 0 var(--pct,80%),var(--ring-rest,var(--gold-soft)) var(--pct,80%) 100%);display:grid;place-items:center;position:relative;flex-shrink:0}
 .persona-score::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--white)}
 .persona-score span{position:relative;z-index:1;font-weight:600;font-size:14px;font-feature-settings:"tnum"}
@@ -322,41 +241,41 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .persona-desc{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.4}
 .persona-body{padding:4px 22px 22px;display:flex;flex-direction:column;flex:1}
 .persona-insights{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
-.persona-insights .insight-pill{font-size:11px;font-weight:500}
 .persona-list{display:grid;gap:8px}
 .prow{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:center;padding:9px 10px;background:var(--subtle);border-radius:8px}
 .pswatch{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;color:var(--white);font-weight:600;font-size:10px;letter-spacing:.02em}
 .pname{font-size:13px;font-weight:600;line-height:1.25}
 .preason{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
-.ppill{background:var(--gold);color:var(--white);padding:3px 8px;border-radius:999px;font-size:10px;font-weight:600}
 @media (max-width:860px){.personas{grid-template-columns:1fr}}
 
-/* ------------- Science band ---------------------------------------- */
+/* Science */
 .science{position:relative;padding:112px 0;background:var(--ink);color:var(--white);overflow:hidden}
 .science .wrap{position:relative;z-index:1}
 .science-head{max-width:680px}
 .science-head .eyebrow{color:rgba(255,255,255,.6)}
 .science-head h2{margin-top:14px}
 .science-head .lead{color:var(--muted-on-dark);margin-top:18px}
-
 .science-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:64px}
-.sci-stat{padding:32px 28px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.04);}
+.sci-stat{padding:28px 24px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
 .sci-n{font-size:44px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
-.sci-label{margin-top:14px;font-size:14px;font-weight:600;letter-spacing:-.005em}
+.sci-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
 .sci-sub{margin-top:6px;font-size:13px;color:var(--muted-on-dark);line-height:1.5}
-.sci-method{border:1px solid var(--gold);background:rgba(180,127,57,.08);cursor:pointer;transition:all .2s ease;}
-.sci-method .sci-n{color:var(--gold);font-size:32px;margin-bottom:4px;}
-.sci-method .sci-label{color:var(--white);}
-.sci-method .sci-sub{color:rgba(255,255,255,.7);}
-.sci-method{grid-column:1 / -1;text-align:center;margin-top:8px;}
-.sci-method:hover{background:rgba(180,127,57,.14);border-color:var(--gold-pressed);}
-
-@media (max-width:960px){.science-stats{grid-template-columns:1fr 1fr}}
+/* Methodology CTA card */
+.sci-method{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease, border-color .2s ease;margin-top:4px}
+.sci-method:hover{background:rgba(180,127,57,.15);border-color:var(--gold-soft)}
+.sci-method-left{display:flex;align-items:center;gap:16px}
+.sci-method-icon{width:44px;height:44px;border-radius:10px;background:rgba(180,127,57,.2);border:1px solid rgba(180,127,57,.4);display:grid;place-items:center;flex-shrink:0}
+.sci-method-copy .sci-method-label{font-size:15px;font-weight:600;color:var(--white);letter-spacing:-.01em}
+.sci-method-copy .sci-method-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px}
+.sci-method-arrow{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--gold);white-space:nowrap}
+.sci-method-arrow svg{transition:transform .2s ease}
+.sci-method:hover .sci-method-arrow svg{transform:translateX(4px)}
+@media (max-width:960px){.science-stats{grid-template-columns:1fr 1fr}.sci-method{flex-direction:column;align-items:flex-start;gap:16px}}
 @media (max-width:560px){.science-stats{grid-template-columns:1fr}}
 
-/* ------------- Integrations ---------------------------------------- */
-.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:0 auto;}
-.int{padding:32px 24px;text-align:center;position:relative;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--line);border-radius:14px;}
+/* Integrations */
+.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:0 auto}
+.int{padding:32px 24px;text-align:center;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--line);border-radius:14px}
 .int-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
 .int-mark{height:32px;display:grid;place-items:center;margin-bottom:4px}
 .int-status{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
@@ -365,16 +284,53 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .int-more a{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:1px;font-weight:500}
 @media (max-width:640px){.int-grid{grid-template-columns:1fr}}
 
-/* ------------- Pricing --------------------------------------------- */
-.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto;}
-.tier{padding:36px 32px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:18px;position:relative;background:var(--white);border:1px solid var(--line);border-radius:16px;}
-.tier.featured{background:#FBF7EE;position:relative;border-color:var(--line-strong);}
+/* White-label section */
+.wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.wl-copy{padding:8px 0}
+.wl-copy .eyebrow{margin-bottom:16px;display:inline-block}
+.wl-copy .h2{margin-bottom:18px}
+.wl-copy .lead{margin-bottom:32px}
+.wl-traits{display:grid;gap:12px;margin-top:0}
+.wl-trait{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--white);border:1px solid var(--line);border-radius:12px;transition:border-color .18s ease}
+.wl-trait:hover{border-color:var(--line-strong)}
+.wl-trait-icon{width:36px;height:36px;border-radius:8px;background:var(--gold-soft);display:grid;place-items:center;flex-shrink:0}
+.wl-trait-icon svg{color:var(--gold-pressed)}
+.wl-trait-copy .wl-trait-label{font-size:14px;font-weight:600;letter-spacing:-.005em;color:var(--ink)}
+.wl-trait-copy .wl-trait-sub{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5}
+.wl-preview{background:var(--ink);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px;min-height:480px}
+.wl-preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wl-preview-brand{display:flex;align-items:center;gap:8px}
+.wl-preview-dot{width:24px;height:24px;border-radius:6px;background:var(--gold);display:grid;place-items:center}
+.wl-preview-name{font-size:14px;font-weight:700;color:var(--white);letter-spacing:-.01em}
+.wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);padding:3px 8px;border-radius:999px}
+.wl-quiz-preview{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px}
+.wl-qprog{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.wl-qprog-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:500;white-space:nowrap}
+.wl-qprog-bar{flex:1;height:2px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden}
+.wl-qprog-fill{height:100%;width:60%;background:var(--gold);border-radius:999px}
+.wl-qtitle{font-size:15px;font-weight:600;color:var(--white);line-height:1.3;margin:0 0 12px}
+.wl-qopts{display:grid;gap:6px}
+.wl-qopt{padding:10px 12px;border:1px solid rgba(255,255,255,.1);border-radius:8px;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:space-between}
+.wl-qopt.active{border-color:var(--gold);background:rgba(180,127,57,.1);color:var(--white)}
+.wl-qopt-check{width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:grid;place-items:center}
+.wl-qopt.active .wl-qopt-check{background:var(--gold);border-color:var(--gold)}
+.wl-cta-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--gold);color:var(--white);border-radius:7px;font-size:12.5px;font-weight:600;}
+.wl-tagline{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.02em}
+.wl-attrs{display:flex;flex-wrap:wrap;gap:6px}
+.wl-attr{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:3px 9px;border-radius:999px}
+@media (max-width:860px){.wl-grid{grid-template-columns:1fr}.wl-preview{min-height:auto}}
+
+/* Pricing */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
+.tier{padding:36px 32px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:18px;position:relative;background:var(--white);border:1px solid var(--line);border-radius:16px}
+.tier.featured{background:#FBF7EE;border-color:var(--line-strong)}
 .tier.featured::before{content:"Most popular";position:absolute;top:20px;right:20px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--gold-pressed);text-transform:uppercase}
 .tier-name{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
 .tier-price{font-size:38px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
 .tier-per{font-size:13.5px;color:var(--muted);font-weight:400;margin-left:4px}
 .tier-blurb{font-size:13.5px;color:var(--ink-80);margin:0;min-height:44px;line-height:1.5}
-.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0;}
+.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0}
 .tier-list li{display:flex;gap:10px;align-items:center;font-size:13.5px;line-height:1.5;color:var(--ink-80)}
 .tier-list li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23B47F39' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;margin-top:3px;flex-shrink:0}
 .tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
@@ -391,12 +347,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pricing-foot summary::-webkit-details-marker{display:none}
 .pricing-foot details[open] summary{border-bottom-color:var(--ink)}
 .pricing-foot details p{margin-top:14px;color:var(--ink-80);max-width:560px;margin-left:auto;margin-right:auto;text-align:left;background:var(--white);padding:16px;border:1px solid var(--line);border-radius:10px;font-size:13px}
+@media (max-width:860px){.pricing{grid-template-columns:1fr}}
 
-@media (max-width:860px){
-  .pricing{grid-template-columns:1fr}
-}
-
-/* ------------- Vertical selector ----------------------------------- */
+/* Vertical grid */
 .vertical-grid{display:grid;grid-template-columns:repeat(4,1fr) 1.1fr;gap:12px}
 .vtile{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px 20px;text-align:center;transition:border-color .18s ease;position:relative;display:flex;flex-direction:column;align-items:center;min-height:200px}
 .vtile:hover{border-color:var(--line-strong)}
@@ -415,7 +368,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media (max-width:960px){.vertical-grid{grid-template-columns:repeat(3,1fr)}.vtile.talk{grid-column:1/-1}}
 @media (max-width:520px){.vertical-grid{grid-template-columns:1fr 1fr}.vtile.talk{grid-column:1/-1}}
 
-/* ------------- Closer ---------------------------------------------- */
+/* Closer */
 .closer{padding:128px 0;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
 .closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(34px,4.6vw,56px)}
 .closer .lead{margin:0 auto 32px;max-width:520px}
@@ -423,12 +376,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot{margin-top:28px;font-size:13px;color:var(--muted)}
 .closer-foot a{color:var(--ink);border-bottom:1px solid var(--ink)}
 
-/* ------------- Footer ---------------------------------------------- */
+/* Footer */
 .footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px}
-.footer-brand .logo{color:var(--white)}
+.footer-brand .logo svg{display:block;height:24px;width:auto}
 .footer-tag{margin-top:14px;font-size:13.5px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
 .footer-news{margin-top:24px;display:flex;gap:8px;max-width:360px}
 .footer-news label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -442,19 +395,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-col a{font-size:13.5px;color:rgba(255,255,255,.78);transition:color .15s ease}
 .footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(255,255,255,.45)}
 @media (max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
-
-/* ------------- Utility --------------------------------------------- */
-.center{text-align:center}
 </style>
 </head>
 <body>
-
 <a href="#main" class="skip">Skip to content</a>
 
-<!-- ======================= NAV ======================= -->
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#" class="logo" aria-label="Blend home"><span class="logo-dot" aria-hidden="true"></span> Blend</a>
+    <a href="#" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#000000"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
     <nav class="nav-links" aria-label="Primary" id="nav-links">
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
@@ -473,7 +421,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
 <main id="main">
 
-<!-- ======================= HERO ======================= -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-grid">
@@ -490,48 +437,30 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           <span>Live in 24h</span>
         </div>
       </div>
-
-      <!-- Hero visual: real Blend quiz preview layered with results. -->
       <div class="hero-visual" aria-hidden="true">
         <div class="hero-stage">
           <div class="quiz" id="quiz">
-            <span class="quiz-prebuilt">Pre-built quiz</span>
             <div class="qprog">
               <span class="qprog-label">Question 2 of 5</span>
               <div class="qprog-bar"><div class="qprog-fill"></div></div>
             </div>
-            <div class="qtitle">What's your biggest sleep challenge?</div>
+            <div class="qtitle">What&#39;s your biggest sleep challenge?</div>
             <div class="qopts" role="radiogroup" aria-label="Sample quiz options">
               <button class="qopt" data-i="0" role="radio" aria-checked="false"><span class="qopt-label">Falling asleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
               <button class="qopt" data-i="1" role="radio" aria-checked="false"><span class="qopt-label">Staying asleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
               <button class="qopt active" data-i="2" role="radio" aria-checked="true"><span class="qopt-label">Waking too early</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
               <button class="qopt" data-i="3" role="radio" aria-checked="false"><span class="qopt-label">Feeling rested</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
             </div>
-            <button class="quiz-next" type="button">Continue →</button>
+            <button class="quiz-next" type="button">Continue &#8594;</button>
           </div>
-
-          <svg class="hero-arrow" viewBox="0 0 80 60" fill="none">
-            <path d="M6 32 Q36 -2 70 26" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-dasharray="4 4"/>
-            <path d="M60 18 L72 28 L60 32" stroke="#000" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-          </svg>
-
           <div class="card card-dark results">
             <div class="rlabel">Your wellness plan</div>
             <div class="rtitle">Personalized picks, scored and explained</div>
             <div class="rhint">Wellness report, nutritional gaps, serving amounts, etc.</div>
             <div class="rows">
-              <div class="rrow">
-                <div class="rswatch" style="background:#2A2A2A">Mg</div>
-                <div><div class="rname">Magnesium Bisglycinate · 400mg</div><div class="rreason">Supports sleep. Before bed.</div></div>
-              </div>
-              <div class="rrow">
-                <div class="rswatch" style="background:#2A2A2A">L-T</div>
-                <div><div class="rname">L-Theanine · 200mg</div><div class="rreason">Calm focus. Morning.</div></div>
-              </div>
-              <div class="rrow">
-                <div class="rswatch" style="background:#2A2A2A">Mel</div>
-                <div><div class="rname">Melatonin · 0.5mg</div><div class="rreason">Supports sleep. Before bed.</div></div>
-              </div>
+              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Mg</div><div><div class="rname">Magnesium Bisglycinate &#xB7; 400mg</div><div class="rreason">Supports sleep. Before bed.</div></div></div>
+              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">L-T</div><div><div class="rname">L-Theanine &#xB7; 200mg</div><div class="rreason">Calm focus. Morning.</div></div></div>
+              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Mel</div><div><div class="rname">Melatonin &#xB7; 0.5mg</div><div class="rreason">Supports sleep. Before bed.</div></div></div>
             </div>
           </div>
         </div>
@@ -540,11 +469,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
-<!-- =========================================================
-     TRUST BAR — hidden until real customer logos exist
-     ========================================================= -->
-
-<!-- ======================= HOW IT WORKS ======================= -->
 <section class="section section-cream" id="how">
   <div class="wrap">
     <div class="section-head">
@@ -552,46 +476,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <h2 class="h2">From catalog to matched customer in five steps.</h2>
     </div>
     <div class="steps">
-      <div class="step">
-        <div class="step-n">1</div>
-        <div class="step-body">
-          <h3>Upload catalog</h3>
-          <p>Import a CSV or connect Shopify — we automatically standardize your data.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-n">2</div>
-        <div class="step-body">
-          <h3>Build your quiz</h3>
-          <p>Start from a proven template. Customize format, design, and copy — no code needed.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-n">3</div>
-        <div class="step-body">
-          <h3>Deploy anywhere</h3>
-          <p>Embed on your site, launch on a Blend subdomain, or use a dedicated landing page.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-n">4</div>
-        <div class="step-body">
-          <h3>Product matching</h3>
-          <p>Each response is scored across your catalog — delivering recommendations customers trust.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-n">5</div>
-        <div class="step-body">
-          <h3>Measure &amp; learn</h3>
-          <p>Capture zero-party data and uncover insights about your customers and market.</p>
-        </div>
-      </div>
+      <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Upload catalog</h3><p>Import a CSV or connect Shopify &#8212; we automatically standardize your data.</p></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Build your quiz</h3><p>Start from a proven template. Customize format, design, and copy &#8212; no code needed.</p></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Deploy anywhere</h3><p>Embed on your site, launch on a Blend subdomain, or use a dedicated landing page.</p></div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-body"><h3>Product matching</h3><p>Each response is scored across your catalog &#8212; delivering recommendations customers trust.</p></div></div>
+      <div class="step"><div class="step-n">5</div><div class="step-body"><h3>Measure &amp; learn</h3><p>Capture zero-party data and uncover insights about your customers and market.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- ======================= TWO-SIDED SPLIT ======================= -->
 <section class="section section-subtle">
   <div class="wrap">
     <div class="section-head">
@@ -601,100 +494,90 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     </div>
     <div class="split">
       <div class="split-card customers">
-        <span class="split-pill gold">FOR YOUR CUSTOMERS</span>
+        <span class="split-pill">FOR YOUR CUSTOMERS</span>
         <h3>A short quiz that leads to a plan they actually trust.</h3>
         <ul class="split-bullets">
-          <li>Questions designed by you — no signup friction</li>
+          <li>Questions designed by you &#8212; no signup friction</li>
           <li>Recommendations explained, never pushed</li>
           <li>A personalized wellness plan they can actually follow</li>
           <li>Clear guidance: what to take, when, and how much</li>
           <li>A flexible basket they can edit before checkout</li>
         </ul>
-        <!-- Customer-facing visual: wellness report dashboard (mirrors right side) -->
-        <div class="dash" aria-hidden="true">
-          <div class="dash-head">
-            <span class="dash-title">Wellness report</span>
-            <span class="dash-pill">Personalized</span>
+        <div class="report-card" aria-hidden="true">
+          <div class="report-card-head">
+            <span class="report-card-title">Your wellness plan</span>
+            <span class="report-card-pill">3 picks</span>
           </div>
-          <div class="dash-grid">
-            <div class="dash-tile">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
-                <line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/>
-                <line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/>
-                <line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <polygon points="40,18 58,28 56,54 30,58 22,38" fill="rgba(180,127,57,.35)" stroke="#B47F39" stroke-width="1.5" stroke-linejoin="round"/>
-              </svg>
-              <span class="dash-tile-lab">Nutritional gaps</span>
+          <div class="report-products">
+            <div class="rp-row">
+              <div class="rp-swatch">Mg</div>
+              <div class="rp-info">
+                <div class="rp-name">Magnesium Bisglycinate</div>
+                <div class="rp-reason">Supports sleep quality &amp; relaxation</div>
+              </div>
+              <span class="rp-badge">400mg</span>
             </div>
-            <div class="dash-tile">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
-                <line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/>
-                <line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/>
-                <line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <polygon points="40,14 60,28 62,52 38,64 18,48 22,26" fill="rgba(231,207,163,.3)" stroke="#E7CFA3" stroke-width="1.5" stroke-linejoin="round"/>
-              </svg>
-              <span class="dash-tile-lab">Wellness score</span>
+            <div class="rp-row">
+              <div class="rp-swatch">D3</div>
+              <div class="rp-info">
+                <div class="rp-name">Vitamin D3 + K2</div>
+                <div class="rp-reason">Immunity, bone density, mood</div>
+              </div>
+              <span class="rp-badge">2000IU</span>
+            </div>
+            <div class="rp-row">
+              <div class="rp-swatch" style="background:#2A5A2A">Ω3</div>
+              <div class="rp-info">
+                <div class="rp-name">Omega-3 Fish Oil</div>
+                <div class="rp-reason">Heart health &amp; cognitive function</div>
+              </div>
+              <span class="rp-badge">1g</span>
             </div>
           </div>
-          <div class="dash-bars">
-            <span class="dash-bars-title">Goals breakdown</span>
-            <div class="dash-bar"><span class="dash-bar-lab">Energy</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:85%"></div></div><span class="dash-bar-val">85%</span></div>
-            <div class="dash-bar"><span class="dash-bar-lab">Sleep</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:72%"></div></div><span class="dash-bar-val">72%</span></div>
-            <div class="dash-bar"><span class="dash-bar-lab">Focus</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:68%"></div></div><span class="dash-bar-val">68%</span></div>
-            <div class="dash-bar"><span class="dash-bar-lab">Recovery</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:54%"></div></div><span class="dash-bar-val">54%</span></div>
+          <div class="report-nutrients">
+            <div class="report-nut-title">Key nutrient gaps</div>
+            <div class="report-nut-row">
+              <span class="report-nut-lab">Vitamin D</span>
+              <div class="report-nut-track"><div class="report-nut-fill" style="width:32%;background:#D8614A"></div></div>
+              <span class="report-nut-val" style="color:#D8614A">32%</span>
+            </div>
+            <div class="report-nut-row">
+              <span class="report-nut-lab">Magnesium</span>
+              <div class="report-nut-track"><div class="report-nut-fill" style="width:58%;background:var(--gold)"></div></div>
+              <span class="report-nut-val">58%</span>
+            </div>
+            <div class="report-nut-row">
+              <span class="report-nut-lab">Omega-3</span>
+              <div class="report-nut-track"><div class="report-nut-fill" style="width:44%;background:var(--gold)"></div></div>
+              <span class="report-nut-val">44%</span>
+            </div>
+            <div class="report-nut-row">
+              <span class="report-nut-lab">Zinc</span>
+              <div class="report-nut-track"><div class="report-nut-fill" style="width:75%;background:var(--green-soft)"></div></div>
+              <span class="report-nut-val" style="color:var(--green-soft)">75%</span>
+            </div>
           </div>
         </div>
       </div>
-
       <div class="split-card brand">
-        <span class="split-pill sand">FOR YOUR BRAND</span>
+        <span class="split-pill">FOR YOUR BRAND</span>
         <h3>How Blend drives the metrics that matter.</h3>
         <ul class="split-bullets">
-          <li>Higher AOV — customers buy complete bundles</li>
-          <li>More repeat purchases — plans build habit and retention</li>
+          <li>Higher AOV &#8212; customers buy complete bundles</li>
+          <li>More repeat purchases &#8212; plans build habit and retention</li>
           <li>Confident cross-sell across your full catalog</li>
-          <li>Zero-party data — rich, actionable customer insights</li>
+          <li>Zero-party data &#8212; rich, actionable customer insights</li>
           <li>Smarter segmentation and lifecycle marketing</li>
         </ul>
-        <!-- Brand-facing visual: User Insights analytics dashboard -->
         <div class="dash" aria-hidden="true">
-          <div class="dash-head">
-            <span class="dash-title">User insights</span>
-            <span class="dash-pill">Last 30 days</span>
-          </div>
+          <div class="dash-head"><span class="dash-title">User insights</span><span class="dash-pill">Last 30 days</span></div>
           <div class="dash-grid">
             <div class="dash-tile">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
-                <line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/>
-                <line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/>
-                <line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <polygon points="40,16 60,32 54,56 28,56 20,38" fill="rgba(180,127,57,.35)" stroke="#B47F39" stroke-width="1.5" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/><circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/><line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/><line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/><line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/><line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/><polygon points="40,16 60,32 54,56 28,56 20,38" fill="rgba(180,127,57,.35)" stroke="#B47F39" stroke-width="1.5" stroke-linejoin="round"/></svg>
               <span class="dash-tile-lab">Age distribution</span>
             </div>
             <div class="dash-tile">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-                <circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
-                <line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/>
-                <line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/>
-                <line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/>
-                <polygon points="40,14 58,28 64,48 44,62 22,48 24,28" fill="rgba(231,207,163,.3)" stroke="#E7CFA3" stroke-width="1.5" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/><circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/><line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/><line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/><line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/><line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/><polygon points="40,14 58,28 64,48 44,62 22,48 24,28" fill="rgba(231,207,163,.3)" stroke="#E7CFA3" stroke-width="1.5" stroke-linejoin="round"/></svg>
               <span class="dash-tile-lab">Diet distribution</span>
             </div>
           </div>
@@ -711,51 +594,35 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
-<!-- ======================= PERSONA CAROUSEL ======================= -->
 <section class="section section-cream">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Built around your customer</span>
       <h2 class="h2">Every quiz ends with a plan they actually trust.</h2>
-      <p class="lead">Three profiles. Each pick comes with the reasons behind it — and the wellness insights that shaped it.</p>
+      <p class="lead">Three profiles. Each pick comes with the reasons behind it &#8212; and the wellness insights that shaped it.</p>
     </div>
     <div class="personas">
       <article class="persona">
         <div class="persona-head">
           <div class="persona-score" style="--pct:82%"><span>82</span></div>
-          <div class="persona-head-copy">
-            <div class="persona-name">Alex, 25</div>
-            <div class="persona-desc">Super active, runner, fit. Healthy lifestyle.</div>
-          </div>
+          <div class="persona-head-copy"><div class="persona-name">Alex, 25</div><div class="persona-desc">Super active, runner, fit. Healthy lifestyle.</div></div>
         </div>
         <div class="persona-body">
-          <div class="persona-insights">
-            <span class="insight-pill">Build muscle</span>
-            <span class="insight-pill">Endurance</span>
-            <span class="insight-pill warn">High cholesterol</span>
-          </div>
+          <div class="persona-insights"><span class="insight-pill">Build muscle</span><span class="insight-pill">Endurance</span><span class="insight-pill warn">High cholesterol</span></div>
           <div class="persona-list">
             <div class="prow"><div class="pswatch" style="background:#2A2A2A">Cas</div><div><div class="pname">Casein Protein</div><div class="preason">Overnight muscle recovery.</div></div></div>
             <div class="prow"><div class="pswatch" style="background:#2A2A2A">Crt</div><div><div class="pname">Creatine Monohydrate</div><div class="preason">Strength &amp; endurance.</div></div></div>
-            <div class="prow"><div class="pswatch" style="background:#2A2A2A">Ω-3</div><div><div class="pname">Omega-3 Fish Oil</div><div class="preason">Heart &amp; recovery.</div></div></div>
+            <div class="prow"><div class="pswatch" style="background:#2A2A2A">&#937;-3</div><div><div class="pname">Omega-3 Fish Oil</div><div class="preason">Heart &amp; recovery.</div></div></div>
           </div>
         </div>
       </article>
-
       <article class="persona">
         <div class="persona-head">
           <div class="persona-score" style="--pct:38%;--ring:#D8614A;--ring-rest:#F6D8D3"><span>38</span></div>
-          <div class="persona-head-copy">
-            <div class="persona-name">Emma, 40</div>
-            <div class="persona-desc">Sedentary. Overweight. No medical conditions.</div>
-          </div>
+          <div class="persona-head-copy"><div class="persona-name">Emma, 40</div><div class="persona-desc">Sedentary. Overweight. No medical conditions.</div></div>
         </div>
         <div class="persona-body">
-          <div class="persona-insights">
-            <span class="insight-pill">Healthy aging</span>
-            <span class="insight-pill">Lose weight</span>
-            <span class="insight-pill warn">Low calcium</span>
-          </div>
+          <div class="persona-insights"><span class="insight-pill">Healthy aging</span><span class="insight-pill">Lose weight</span><span class="insight-pill warn">Low calcium</span></div>
           <div class="persona-list">
             <div class="prow"><div class="pswatch" style="background:#2A2A2A">Ca</div><div><div class="pname">Calcium</div><div class="preason">Bones, muscle, heart.</div></div></div>
             <div class="prow"><div class="pswatch" style="background:#2A2A2A">GT</div><div><div class="pname">Green Tea Extract</div><div class="preason">Weight loss &amp; antioxidants.</div></div></div>
@@ -763,24 +630,16 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           </div>
         </div>
       </article>
-
       <article class="persona">
         <div class="persona-head">
           <div class="persona-score" style="--pct:75%"><span>75</span></div>
-          <div class="persona-head-copy">
-            <div class="persona-name">Sophie, 30</div>
-            <div class="persona-desc">Lightly active. Diabetes. Low-carb lifestyle.</div>
-          </div>
+          <div class="persona-head-copy"><div class="persona-name">Sophie, 30</div><div class="persona-desc">Lightly active. Diabetes. Low-carb lifestyle.</div></div>
         </div>
         <div class="persona-body">
-          <div class="persona-insights">
-            <span class="insight-pill">General health</span>
-            <span class="insight-pill warn">Low Vitamin D3</span>
-            <span class="insight-pill warn">Low iron</span>
-          </div>
+          <div class="persona-insights"><span class="insight-pill">General health</span><span class="insight-pill warn">Low Vitamin D3</span><span class="insight-pill warn">Low iron</span></div>
           <div class="persona-list">
             <div class="prow"><div class="pswatch" style="background:#2A2A2A">D3</div><div><div class="pname">Vitamin D3</div><div class="preason">Immunity &amp; mood.</div></div></div>
-            <div class="prow"><div class="pswatch" style="background:#2A2A2A">Ω-3</div><div><div class="pname">Omega-3 Fish Oil</div><div class="preason">Heart &amp; cognitive.</div></div></div>
+            <div class="prow"><div class="pswatch" style="background:#2A2A2A">&#937;-3</div><div><div class="pname">Omega-3 Fish Oil</div><div class="preason">Heart &amp; cognitive.</div></div></div>
             <div class="prow"><div class="pswatch" style="background:#2A2A2A">Fe</div><div><div class="pname">Iron</div><div class="preason">Energy &amp; hemoglobin.</div></div></div>
           </div>
         </div>
@@ -789,13 +648,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
-<!-- ======================= SCIENCE BAND (ELEVATED) ======================= -->
 <section class="science" id="science">
   <div class="wrap">
     <div class="science-head">
-      <span class="eyebrow">DATA-DRIVEN · PRACTITIONER-REVIEWED</span>
+      <span class="eyebrow">Data-driven &#xB7; Practitioner-reviewed</span>
       <h2 class="h2">A scoring model you can audit, line by line.</h2>
-      <p class="lead">Transparent attribute-level scoring, practitioner-reviewed. We blend <em>your</em> catalog data into the algorithm — no black boxes.</p>
+      <p class="lead">Transparent attribute-level scoring built into your catalog &#8212; no black boxes, no guesswork.</p>
     </div>
     <div class="science-stats">
       <div class="sci-stat">
@@ -806,7 +664,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <div class="sci-stat">
         <div class="sci-n">80+</div>
         <div class="sci-label">Attributes per product</div>
-        <div class="sci-sub">Ingredients, dosing, interactions, evidence level — all scored.</div>
+        <div class="sci-sub">Ingredients, dosing, interactions, evidence level &#8212; all scored.</div>
       </div>
       <div class="sci-stat">
         <div class="sci-n">100%</div>
@@ -816,20 +674,27 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <div class="sci-stat">
         <div class="sci-n">1:1</div>
         <div class="sci-label">Tuned to your brand</div>
-        <div class="sci-sub">Your catalog, your customers, your questions — your algorithm.</div>
+        <div class="sci-sub">Your catalog, your customers, your questions &#8212; your algorithm.</div>
       </div>
-       <div class="sci-stat sci-method">
-        <div class="sci-n">→</div>
-        <div class="sci-label">See methodology</div>
-        <div class="sci-sub">How scoring works, step by step.</div>
-      </div>
+      <a href="mailto:contact@blend-technologies.com" class="sci-method" aria-label="Request methodology documentation">
+        <div class="sci-method-left">
+          <div class="sci-method-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B47F39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+          </div>
+          <div class="sci-method-copy">
+            <div class="sci-method-label">See the methodology</div>
+            <div class="sci-method-sub">How scoring works, step by step. Request the full documentation.</div>
+          </div>
+        </div>
+        <div class="sci-method-arrow">
+          Request access
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Try-live section lives on its own page: try.html -->
-
-<!-- ======================= INTEGRATIONS ======================= -->
 <section class="section section-cream">
   <div class="wrap">
     <div class="section-head">
@@ -838,26 +703,121 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     </div>
     <div class="int-grid">
       <div class="int native">
-        <div class="int-mark">
-          <!-- Shopify (simplified shopping bag mark in brand green) -->
-          <svg width="30" height="30" viewBox="0 0 26 26" fill="none"><path d="M18.5 6.2c-.1-.5-.5-.8-.9-.8-.1 0-1.4.1-1.4.1s-.9-.9-1-1c-.1-.1-.3-.1-.4-.1-.1 0-1.9.6-1.9.6s-1.5-1.4-1.6-1.5c-.1-.1-.3-.1-.3-.1-.2 0-4.4 1.4-4.4 1.4S5.1 7 5 7.2C4.9 7.4 3 20.4 3 20.4l13.3 2.3 5.6-1.2-3.4-15.3z" fill="#95BF47"/><path d="M17.6 5.4c-.1 0-.9.3-2.1.7 0-.6-.1-1.4-.4-2.1.8.1 1.7.7 2.5 1.4zm-3 1c-.8.2-1.7.5-2.6.8.3-1 .8-2 1.5-2.7.3-.3.6-.5 1-.7.3.7.3 1.6.1 2.6zm-1.2-4c.2 0 .4.1.6.2-.4.2-.7.4-1 .7-.9 1-1.5 2.4-1.7 3.7-.8.2-1.5.5-2.2.7.5-1.8 1.9-5.2 4.3-5.3z" fill="#5E8E3E"/></svg>
-        </div>
+        <div class="int-mark"><svg width="30" height="30" viewBox="0 0 26 26" fill="none"><path d="M18.5 6.2c-.1-.5-.5-.8-.9-.8-.1 0-1.4.1-1.4.1s-.9-.9-1-1c-.1-.1-.3-.1-.4-.1-.1 0-1.9.6-1.9.6s-1.5-1.4-1.6-1.5c-.1-.1-.3-.1-.3-.1-.2 0-4.4 1.4-4.4 1.4S5.1 7 5 7.2C4.9 7.4 3 20.4 3 20.4l13.3 2.3 5.6-1.2-3.4-15.3z" fill="#95BF47"/><path d="M17.6 5.4c-.1 0-.9.3-2.1.7 0-.6-.1-1.4-.4-2.1.8.1 1.7.7 2.5 1.4zm-3 1c-.8.2-1.7.5-2.6.8.3-1 .8-2 1.5-2.7.3-.3.6-.5 1-.7.3.7.3 1.6.1 2.6zm-1.2-4c.2 0 .4.1.6.2-.4.2-.7.4-1 .7-.9 1-1.5 2.4-1.7 3.7-.8.2-1.5.5-2.2.7.5-1.8 1.9-5.2 4.3-5.3z" fill="#5E8E3E"/></svg></div>
         <div class="int-name">Shopify</div>
         <div class="int-status">Native sync</div>
       </div>
       <div class="int">
-        <div class="int-mark">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
-        </div>
+        <div class="int-mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
         <div class="int-name">CSV</div>
         <div class="int-status">Import + export</div>
       </div>
     </div>
-    <p class="int-more">Other e-commerce platforms coming soon — WooCommerce, BigCommerce, Magento, and more. <a href="mailto:contact@blend-technologies.com">Tell us what you run on</a> and we'll put it at the top of the list.</p>
+    <p class="int-more">Other e-commerce platforms coming soon &#8212; WooCommerce, BigCommerce, Magento, and more. <a href="mailto:contact@blend-technologies.com">Tell us what you run on</a> and we&#39;ll put it at the top of the list.</p>
   </div>
 </section>
 
-<!-- ======================= PRICING ======================= -->
+<!-- WHITE-LABEL SECTION -->
+<section class="section section-subtle" id="customize">
+  <div class="wrap">
+    <div class="wl-grid">
+      <div class="wl-copy">
+        <span class="eyebrow">Fully white-label</span>
+        <h2 class="h2" style="margin-top:16px;margin-bottom:18px">Your quiz. Your brand. Completely.</h2>
+        <p class="lead" style="margin-bottom:32px">Every touchpoint is configurable &#8212; so it feels native to your brand, not like a third-party tool bolted on.</p>
+        <div class="wl-traits">
+          <div class="wl-trait">
+            <div class="wl-trait-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+            </div>
+            <div class="wl-trait-copy">
+              <div class="wl-trait-label">Colors &amp; visual design</div>
+              <div class="wl-trait-sub">Match your brand palette exactly &#8212; fonts, colors, button styles, corner radius.</div>
+            </div>
+          </div>
+          <div class="wl-trait">
+            <div class="wl-trait-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div class="wl-trait-copy">
+              <div class="wl-trait-label">Questions &amp; logic</div>
+              <div class="wl-trait-sub">Define your own question set, branching logic, and answer options.</div>
+            </div>
+          </div>
+          <div class="wl-trait">
+            <div class="wl-trait-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17h7M17 14v7"/></svg>
+            </div>
+            <div class="wl-trait-copy">
+              <div class="wl-trait-label">Format &amp; length</div>
+              <div class="wl-trait-sub">Single-choice, multi-select, sliders, short or long &#8212; any flow you need.</div>
+            </div>
+          </div>
+          <div class="wl-trait">
+            <div class="wl-trait-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="wl-trait-copy">
+              <div class="wl-trait-label">Tone &amp; copy</div>
+              <div class="wl-trait-sub">Write it in your voice &#8212; clinical, friendly, premium, conversational.</div>
+            </div>
+          </div>
+          <div class="wl-trait">
+            <div class="wl-trait-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div class="wl-trait-copy">
+              <div class="wl-trait-label">Embed anywhere</div>
+              <div class="wl-trait-sub">Inline on your site, standalone page, or a Blend-hosted subdomain.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wl-preview" aria-hidden="true">
+        <div class="wl-preview-head">
+          <div class="wl-preview-brand">
+            <div class="wl-preview-dot">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="wl-preview-name">YourBrand</span>
+          </div>
+          <span class="wl-preview-badge">Powered by Blend</span>
+        </div>
+        <div class="wl-quiz-preview">
+          <div class="wl-qprog">
+            <span class="wl-qprog-label">Question 3 of 6</span>
+            <div class="wl-qprog-bar"><div class="wl-qprog-fill"></div></div>
+          </div>
+          <div class="wl-qtitle">What are your main health goals?</div>
+          <div class="wl-qopts">
+            <div class="wl-qopt active">
+              <span>Build lean muscle</span>
+              <div class="wl-qopt-check"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="wl-qopt active">
+              <span>Boost energy</span>
+              <div class="wl-qopt-check"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="wl-qopt"><span>Improve sleep</span><div class="wl-qopt-check"></div></div>
+            <div class="wl-qopt"><span>Support immunity</span><div class="wl-qopt-check"></div></div>
+          </div>
+        </div>
+        <div class="wl-cta-row">
+          <button class="wl-btn">Continue &#8594;</button>
+          <span class="wl-tagline">yourbrand.com/quiz</span>
+        </div>
+        <div class="wl-attrs">
+          <span class="wl-attr">Your colors</span>
+          <span class="wl-attr">Your font</span>
+          <span class="wl-attr">Your copy</span>
+          <span class="wl-attr">Your domain</span>
+          <span class="wl-attr">Your logo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section section-cream" id="pricing">
   <div class="wrap">
     <div class="section-head">
@@ -905,7 +865,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           <li>Priority support</li>
           <li>Dedicated personalization</li>
         </ul>
-        <a href="mailto:contact@blend-technologies.com" class="tier-cta dark">Start free trial</a>
+        <a href="mailto:contact@blend-technologies.com" class="tier-cta dark">Talk to us</a>
       </div>
     </div>
     <div class="pricing-foot">
@@ -918,60 +878,48 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
-<!-- ======================= VERTICAL SELECTOR (moved to bottom) ======================= -->
 <section class="section section-subtle">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Roadmap</span>
       <h2 class="h2">Today health. Next, everything else.</h2>
-      <p class="lead">Live for wellness brands now. Same engine, same schema, same analytics — ready for the next vertical.</p>
+      <p class="lead">Live for wellness brands now. Same engine, same schema, same analytics &#8212; ready for the next vertical.</p>
     </div>
     <div class="vertical-grid">
       <article class="vtile">
-        <div class="vicon" style="background:var(--gold-soft)">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12a5 5 0 0 1 10 0c0 3-3 5-5 9-2-4-5-6-5-9z"/><circle cx="12" cy="12" r="2"/></svg>
-        </div>
+        <div class="vicon" style="background:var(--gold-soft)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12a5 5 0 0 1 10 0c0 3-3 5-5 9-2-4-5-6-5-9z"/><circle cx="12" cy="12" r="2"/></svg></div>
         <div class="vname">Health</div>
         <div class="vnote">Supplements, vitamins, wellness</div>
         <span class="vbadge vbadge-live">LIVE</span>
       </article>
       <article class="vtile">
-        <div class="vicon" style="background:#FDE8EE">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7 6 11a6 6 0 1 1-12 0c0-4 3-7 6-11z"/></svg>
-        </div>
+        <div class="vicon" style="background:#FDE8EE"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7 6 11a6 6 0 1 1-12 0c0-4 3-7 6-11z"/></svg></div>
         <div class="vname">Beauty</div>
         <div class="vnote">Skincare, haircare, cosmetics</div>
         <span class="vbadge vbadge-soon">Q4 2026</span>
       </article>
       <article class="vtile">
-        <div class="vicon" style="background:var(--sand-soft)">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>
-        </div>
+        <div class="vicon" style="background:var(--sand-soft)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></div>
         <div class="vname">Food</div>
         <div class="vnote">Nutrition, snacks, meal plans</div>
         <span class="vbadge vbadge-soon">Q2 2027</span>
       </article>
       <article class="vtile">
-        <div class="vicon" style="background:#EFEBFF">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 0M4 10l16 0M7 10l2 10h6l2-10"/></svg>
-        </div>
+        <div class="vicon" style="background:#EFEBFF"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 0M4 10l16 0M7 10l2 10h6l2-10"/></svg></div>
         <div class="vname">Fashion</div>
         <div class="vnote">Apparel, footwear, accessories</div>
         <span class="vbadge vbadge-soon">Exploration</span>
       </article>
       <a href="mailto:contact@blend-technologies.com" class="vtile talk" aria-label="Talk to us about your catalog">
-        <div class="vicon" style="background:rgba(180,127,57,.2)">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B47F39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-        </div>
+        <div class="vicon" style="background:rgba(180,127,57,.2)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B47F39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></div>
         <div class="vname">Your vertical?</div>
         <div class="vnote">Talk to us about your catalog.</div>
-        <span class="vbadge">Let's talk →</span>
+        <span class="vbadge">Let&#39;s talk &#8594;</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ======================= CLOSER ======================= -->
 <section class="closer" id="contact">
   <div class="wrap">
     <span class="eyebrow">Ready when you are</span>
@@ -987,14 +935,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
 </main>
 
-<!-- ======================= FOOTER ======================= -->
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="logo" aria-label="Blend home"><span class="logo-dot" aria-hidden="true"></span> Blend</a>
+        <a href="#" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#FFFFFF"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
         <p class="footer-tag">The personalization engine for product brands.</p>
-        <!-- Newsletter form: action is a placeholder — wire to your ESP when ready -->
         <form class="footer-news" id="news-form" action="#" method="post" novalidate>
           <label for="news-email">Your work email</label>
           <input type="email" id="news-email" name="email" placeholder="Your work email" required autocomplete="email">
@@ -1021,60 +967,45 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year">2026</span> Blend Technologies. All rights reserved.</span>
+      <span>&#169; <span id="year">2026</span> Blend Technologies. All rights reserved.</span>
       <span>Monthly product newsletter. One email. No fluff.</span>
     </div>
   </div>
 </footer>
 
 <script>
-// Dynamic copyright year
 document.getElementById('year').textContent = new Date().getFullYear();
-
-// Sticky nav shadow on scroll
 const nav = document.getElementById('nav');
 const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
 setScrolled();
-window.addEventListener('scroll', setScrolled, { passive: true });
-
-// Mobile nav toggle
+window.addEventListener('scroll', setScrolled, {passive:true});
 const toggle = document.getElementById('nav-toggle');
 const links = document.getElementById('nav-links');
 toggle.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(open));
 });
-// Close mobile nav on link click
 links.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => {
     nav.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
   });
 });
-
-// Quiz interaction — single-select (radio group)
 const quiz = document.getElementById('quiz');
 if (quiz) {
   const opts = quiz.querySelectorAll('.qopt');
   opts.forEach(btn => {
     btn.addEventListener('click', () => {
-      opts.forEach(o => {
-        o.classList.remove('active');
-        o.setAttribute('aria-checked', 'false');
-      });
+      opts.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-checked', 'false'); });
       btn.classList.add('active');
       btn.setAttribute('aria-checked', 'true');
     });
   });
 }
-
-// Newsletter form handler (replace with real endpoint)
 const newsForm = document.getElementById('news-form');
 if (newsForm) {
   newsForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    // TODO: POST to your ESP endpoint. Example:
-    //   fetch('/api/subscribe', { method: 'POST', body: new FormData(newsForm) })
     const btn = document.getElementById('news-submit');
     const input = document.getElementById('news-email');
     btn.textContent = 'Thanks ✓';
@@ -1084,6 +1015,5 @@ if (newsForm) {
   });
 }
 </script>
-
 </body>
 </html>
