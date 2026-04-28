@@ -329,7 +329,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .wl-brand-logo svg, .wl-brand-logo img{width:18px;height:18px;display:block}
 .wl-preview-name{font-size:14px;font-weight:700;color:var(--p-text);letter-spacing:-.01em;transition:font-family .4s ease,color .4s ease;font-family:var(--p-font)}
 .wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--p-text-dim);background:var(--p-surface);padding:3px 8px;border-radius:999px;transition:color .4s ease,background .4s ease}
-.wl-quiz-preview{background:var(--p-surface);border:1px solid var(--p-border);border-radius:var(--p-radius);padding:20px;transition:background .4s ease,border-color .4s ease,border-radius .4s ease}
+.wl-quiz-content{display: flex; flex-direction: column; gap: 14px;}
 .wl-qprog{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .wl-qprog-label{font-size:10.5px;color:var(--p-text-dim);font-weight:500;white-space:nowrap;transition:color .4s ease;font-family:var(--p-font)}
 .wl-qprog-bar{flex:1;height:2px;background:var(--p-border);border-radius:999px;overflow:hidden;transition:background .4s ease}
@@ -784,7 +784,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
             </div>
           </div>
           <!-- Quiz -->
-          <div class="wl-quiz-preview">
+          <div class="wl-quiz-content">
             <div class="wl-qprog">
               <span class="wl-qprog-label">Question 3 of 6</span>
               <div class="wl-qprog-bar"><div class="wl-qprog-fill"></div></div>
@@ -1045,7 +1045,7 @@ if (newsForm) {
       quizTitle:'What goals do you want to tackle?'
     },
     forest: {
-      accent:'#5EC26A', accentSoft:'rgba(94,194,106,.15)',
+      bg:'#1B3A2D', accent:'#5EC26A', accentSoft:'rgba(94,194,106,.15)',
       text:'#E8F5EA', textDim:'rgba(232,245,234,.5)',
       surface:'rgba(255,255,255,.05)', border:'rgba(255,255,255,.1)',
       logoBg:'#5EC26A', brandName:'VerdantHealth', tagline:'verdant.co/discover',
