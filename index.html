@@ -207,7 +207,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   padding:9px 18px;background:var(--ink);color:var(--white);
   border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;
 }
-.quiz-next:hover{background:#B47F39}
+.quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 
 /* connector arrow — hidden in layered layup */
@@ -257,9 +257,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* default: step 5 is the active one */
 .step:nth-child(5) .step-n{background:var(--ink);border-color:var(--ink);color:var(--white)}
 /* hover any step — that step becomes the only active one */
-.steps:hover .step:nth-child(5) .step-n{background:var(--cream);border-color:var(--line-strong);color:var(--ink-60)}
-.steps:hover .step:nth-child(5) h3{color:var(--ink-60)}
-.steps:hover .step:nth-child(5) p{color:var(--ink-60)}
+.steps:hover .step .step-n{background:var(--cream);border-color:var(--line-strong);color:var(--ink-60)}
 .step:hover .step-n{background:var(--ink) !important;border-color:var(--ink) !important;color:var(--white) !important}
 .steps:hover .step:not(:hover) h3{color:var(--ink-60)}
 .steps:hover .step:not(:hover) p{opacity:.7}
