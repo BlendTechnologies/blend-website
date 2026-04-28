@@ -15,24 +15,17 @@
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <style>
+/* ============================================================
+   BLEND MARKETING SITE
+   ============================================================ */
 :root{
-  --ink:#0A0A0A;
-  --ink-80:rgba(10,10,10,.80);
-  --ink-60:rgba(10,10,10,.60);
-  --cream:#FAF8F2;
-  --subtle:#F7F7F7;
-  --gold:#B47F39;
-  --gold-pressed:#96682B;
-  --gold-soft:#F0E2CC;
-  --sand:#E7CFA3;
-  --sand-soft:#F5E7C9;
-  --muted:#6B6B6B;
-  --muted-on-dark:rgba(255,255,255,.72);
-  --line:#E3DDCC;
-  --line-strong:#D1C9B2;
-  --white:#ffffff;
-  --red-soft:#D8614A;
-  --green-soft:#6AA84F;
+  --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
+  --cream:#FAF8F2;--subtle:#F7F7F7;
+  --gold:#B47F39;--gold-pressed:#96682B;--gold-soft:#F0E2CC;
+  --sand:#E7CFA3;--sand-soft:#F5E7C9;
+  --muted:#6B6B6B;--muted-on-dark:rgba(255,255,255,.72);
+  --line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;
+  --red-soft:#D8614A;--green-soft:#6AA84F;
   --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;
   --shadow-sm:0 1px 2px rgba(0,0,0,.03),0 2px 8px rgba(0,0,0,.03);
   --shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
@@ -54,8 +47,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.022em;font-weight:600;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 
-/* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease, color .18s ease, border-color .18s ease;white-space:nowrap;min-height:44px;}
+/* --- Buttons --- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold);color:var(--white)}
 .btn-primary:hover{background:var(--gold-pressed)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -65,7 +58,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .btn-sm{padding:9px 14px;font-size:13.5px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:15.5px;min-height:50px}
 
-/* Nav */
+/* --- Nav --- */
 .nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent;}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
@@ -81,14 +74,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .nav-toggle{display:none;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;margin-left:4px}
 .nav-toggle:hover{background:rgba(0,0,0,.06)}
 .nav-toggle span{position:relative;width:20px;height:14px;display:block}
-.nav-toggle span::before,.nav-toggle span::after,.nav-toggle span i{content:"";position:absolute;left:0;right:0;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s ease, opacity .2s ease, top .2s ease}
+.nav-toggle span::before,.nav-toggle span::after,.nav-toggle span i{content:"";position:absolute;left:0;right:0;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s ease,opacity .2s ease,top .2s ease}
 .nav-toggle span::before{top:0}
 .nav-toggle span i{top:6px;display:block}
 .nav-toggle span::after{top:12px}
 .nav.open .nav-toggle span::before{top:6px;transform:rotate(45deg)}
 .nav.open .nav-toggle span::after{top:6px;transform:rotate(-45deg)}
 .nav.open .nav-toggle span i{opacity:0}
-@media (max-width:860px){
+@media(max-width:860px){
   .nav-inner{grid-template-columns:1fr auto}
   .nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(250,248,242,.98);backdrop-filter:blur(14px);flex-direction:column;gap:0;margin:0;padding:8px 20px 24px;border-bottom:1px solid var(--line);box-shadow:var(--shadow-md);justify-self:stretch}
   .nav.open .nav-links{display:flex}
@@ -99,7 +92,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .nav-actions .btn{padding:10px 16px;font-size:14px}
 }
 
-/* Hero */
+/* --- Hero --- */
 .hero{padding:72px 0 96px;background:var(--cream);position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
 .hero-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:center;padding:8px 0}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -119,15 +112,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .qprog-fill{height:100%;width:40%;background:var(--ink);border-radius:999px}
 .quiz .qtitle{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;margin:0}
 .quiz .qopts{margin-top:16px;display:grid;gap:7px}
-.qopt{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:500;cursor:pointer;transition:border-color .18s ease, background .18s ease;background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
+.qopt{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:500;cursor:pointer;transition:border-color .18s ease,background .18s ease;background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
 .qopt:hover{border-color:var(--line-strong)}
 .qopt.active{border-color:var(--ink);background:var(--cream)}
 .qopt-label{flex:1;min-width:0}
-.qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .18s ease, border-color .18s ease}
+.qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .18s ease,border-color .18s ease}
 .qopt-check svg{width:9px;height:9px;opacity:0;transition:opacity .18s ease}
 .qopt.active .qopt-check{background:var(--ink);border-color:var(--ink)}
 .qopt.active .qopt-check svg{opacity:1}
-.qopt.active .qopt-check svg path{stroke:var(--white) !important}
+.qopt.active .qopt-check svg path{stroke:var(--white)!important}
 .quiz-next{margin-top:18px;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--ink);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
@@ -141,7 +134,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .rswatch{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--white);font-weight:700;font-size:11px;letter-spacing:.02em}
 .rname{font-size:13px;font-weight:600;line-height:1.25}
 .rreason{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;line-height:1.3}
-@media (max-width:960px){
+@media(max-width:960px){
   .hero{padding:32px 0 56px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
   .hero-visual{min-height:auto;padding-top:0}
@@ -149,31 +142,31 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .quiz,.results{position:static;width:100%}
 }
 
-/* Sections */
+/* --- Sections --- */
 .section{padding:112px 0}
 .section-head{max-width:680px;margin:0 auto 64px;text-align:center}
 .section-head .eyebrow{margin-bottom:16px;display:inline-block}
 .section-head .h2{margin-bottom:18px}
 .section-cream{background:var(--cream)}
 .section-subtle{background:var(--subtle)}
-@media (max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
+@media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
 
-/* How it works */
+/* --- How it works --- */
 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative}
 .steps::before{content:"";position:absolute;left:32px;right:32px;top:22px;height:1px;background:var(--line-strong);z-index:0}
 .step{position:relative;padding:0 4px;z-index:1}
-.step-n{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--ink-60);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .2s ease, border-color .2s ease, color .2s ease;font-feature-settings:"tnum"}
+.step-n{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--ink-60);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .2s ease,border-color .2s ease,color .2s ease;font-feature-settings:"tnum"}
 .step-body{padding:16px 4px 4px;margin-top:14px}
 .step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em}
 .step p{margin:0;font-size:13.5px;color:var(--ink-60);line-height:1.5}
 .steps:hover .step .step-n{background:var(--cream);border-color:var(--line-strong);color:var(--ink-60)}
-.step:hover .step-n{background:var(--ink) !important;border-color:var(--ink) !important;color:var(--white) !important}
+.step:hover .step-n{background:var(--ink)!important;border-color:var(--ink)!important;color:var(--white)!important}
 .steps:hover .step:not(:hover) h3{color:var(--ink-60)}
 .steps:hover .step:not(:hover) p{opacity:.7}
-@media (max-width:960px){.steps{grid-template-columns:1fr 1fr;gap:28px}.steps::before{display:none}.step:nth-child(5){grid-column:1/-1}}
-@media (max-width:520px){.steps{grid-template-columns:1fr}.step:nth-child(5){grid-column:auto}}
+@media(max-width:960px){.steps{grid-template-columns:1fr 1fr;gap:28px}.steps::before{display:none}.step:nth-child(5){grid-column:1/-1}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}.step:nth-child(5){grid-column:auto}}
 
-/* Split */
+/* --- Split section --- */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .split-card{padding:40px;border-radius:20px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .split-card.customers{background:var(--white);border:1px solid var(--line)}
@@ -188,7 +181,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .insight-pill{background:var(--subtle);color:var(--ink-80);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;white-space:nowrap;border:1px solid var(--line)}
 .insight-pill.warn{background:#FAEEEB;color:#8A2A1A;border-color:#F0D8D2}
 
-/* Customer-side: lighter report card */
+/* Customer report card */
 .report-card{margin-top:auto;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
 .report-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:12px}
 .report-card-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
@@ -209,7 +202,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .report-nut-fill{height:100%;border-radius:999px}
 .report-nut-val{font-size:10px;color:var(--muted);font-weight:600;text-align:right}
 
-/* Brand side dashboard */
+/* Brand dashboard */
 .dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;color:var(--white)}
 .dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
@@ -226,9 +219,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .dash-bar-track{height:6px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
 .dash-bar-fill{height:100%;background:var(--gold);border-radius:999px}
 .dash-bar-val{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;text-align:right;letter-spacing:.02em}
-@media (max-width:860px){.split{grid-template-columns:1fr}.split-card{min-height:auto}}
+@media(max-width:860px){.split{grid-template-columns:1fr}.split-card{min-height:auto}}
 
-/* Personas */
+/* --- Personas --- */
 .personas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .persona{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .18s ease}
 .persona:hover{border-color:var(--line-strong)}
@@ -246,9 +239,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pswatch{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;color:var(--white);font-weight:600;font-size:10px;letter-spacing:.02em}
 .pname{font-size:13px;font-weight:600;line-height:1.25}
 .preason{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
-@media (max-width:860px){.personas{grid-template-columns:1fr}}
+@media(max-width:860px){.personas{grid-template-columns:1fr}}
 
-/* Science */
+/* --- Science --- */
 .science{position:relative;padding:112px 0;background:var(--ink);color:var(--white);overflow:hidden}
 .science .wrap{position:relative;z-index:1}
 .science-head{max-width:680px}
@@ -260,8 +253,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .sci-n{font-size:44px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
 .sci-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
 .sci-sub{margin-top:6px;font-size:13px;color:var(--muted-on-dark);line-height:1.5}
-/* Methodology CTA card */
-.sci-method{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease, border-color .2s ease;margin-top:4px}
+.sci-method{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease,border-color .2s ease;margin-top:4px}
 .sci-method:hover{background:rgba(180,127,57,.15);border-color:var(--gold-soft)}
 .sci-method-left{display:flex;align-items:center;gap:16px}
 .sci-method-icon{width:44px;height:44px;border-radius:10px;background:rgba(180,127,57,.2);border:1px solid rgba(180,127,57,.4);display:grid;place-items:center;flex-shrink:0}
@@ -270,10 +262,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .sci-method-arrow{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--gold);white-space:nowrap}
 .sci-method-arrow svg{transition:transform .2s ease}
 .sci-method:hover .sci-method-arrow svg{transform:translateX(4px)}
-@media (max-width:960px){.science-stats{grid-template-columns:1fr 1fr}.sci-method{flex-direction:column;align-items:flex-start;gap:16px}}
-@media (max-width:560px){.science-stats{grid-template-columns:1fr}}
+@media(max-width:960px){.science-stats{grid-template-columns:1fr 1fr}.sci-method{flex-direction:column;align-items:flex-start;gap:16px}}
+@media(max-width:560px){.science-stats{grid-template-columns:1fr}}
 
-/* Integrations */
+/* --- Integrations --- */
 .int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:0 auto}
 .int{padding:32px 24px;text-align:center;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--line);border-radius:14px}
 .int-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
@@ -282,46 +274,95 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .int.native .int-status{color:var(--gold-pressed)}
 .int-more{font-size:13.5px;color:var(--muted);margin-top:22px;text-align:center;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6}
 .int-more a{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:1px;font-weight:500}
-@media (max-width:640px){.int-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.int-grid{grid-template-columns:1fr}}
 
-/* White-label section */
-.wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-.wl-copy{padding:8px 0}
-.wl-copy .eyebrow{margin-bottom:16px;display:inline-block}
-.wl-copy .h2{margin-bottom:18px}
-.wl-copy .lead{margin-bottom:32px}
-.wl-traits{display:grid;gap:12px;margin-top:0}
-.wl-trait{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--white);border:1px solid var(--line);border-radius:12px;transition:border-color .18s ease}
-.wl-trait:hover{border-color:var(--line-strong)}
-.wl-trait-icon{width:36px;height:36px;border-radius:8px;background:var(--gold-soft);display:grid;place-items:center;flex-shrink:0}
-.wl-trait-icon svg{color:var(--gold-pressed)}
-.wl-trait-copy .wl-trait-label{font-size:14px;font-weight:600;letter-spacing:-.005em;color:var(--ink)}
-.wl-trait-copy .wl-trait-sub{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5}
-.wl-preview{background:var(--ink);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px;min-height:480px}
+/* ============================================================
+   WHITE-LABEL SECTION — aligned with section rhythm
+   ============================================================ */
+.wl-section{padding:112px 0;background:var(--subtle)}
+@media(max-width:860px){.wl-section{padding:80px 0}}
+
+/* Header — same as other section-heads but left-aligned */
+.wl-head{margin-bottom:56px}
+.wl-head .eyebrow{margin-bottom:14px;display:inline-block}
+.wl-head .h2{margin-bottom:16px;max-width:600px}
+.wl-head .lead{max-width:580px}
+
+/* Two-column layout: traits list on left, interactive preview on right */
+.wl-body{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media(max-width:860px){.wl-body{grid-template-columns:1fr;gap:36px}}
+
+/* Trait list — uses same visual language as the steps */
+.wl-traits{display:grid;gap:0}
+.wl-trait{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+.wl-trait:first-child{padding-top:0}
+.wl-trait:last-child{border-bottom:0;padding-bottom:0}
+.wl-trait-n{width:32px;height:32px;border-radius:8px;background:var(--gold-soft);border:1px solid var(--line-strong);display:grid;place-items:center;flex-shrink:0;transition:background .2s ease,border-color .2s ease}
+.wl-trait:hover .wl-trait-n{background:var(--ink);border-color:var(--ink)}
+.wl-trait:hover .wl-trait-n svg{stroke:var(--white)!important}
+.wl-trait-copy{flex:1;min-width:0;padding-top:2px}
+.wl-trait-label{font-size:14.5px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.2}
+.wl-trait-sub{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}
+
+/* Interactive preview panel */
+.wl-preview-wrap{position:sticky;top:calc(var(--nav-h) + 24px)}
+.wl-preview{
+  border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;
+  /* CSS custom props driven by JS */
+  --p-bg:var(--ink);
+  --p-accent:#B47F39;
+  --p-accent-soft:rgba(180,127,57,.15);
+  --p-accent-border:rgba(180,127,57,.5);
+  --p-text:#ffffff;
+  --p-text-dim:rgba(255,255,255,.55);
+  --p-surface:rgba(255,255,255,.05);
+  --p-border:rgba(255,255,255,.1);
+  --p-font:"Inter","Inter var",sans-serif;
+  --p-radius:10px;
+  background:var(--p-bg);
+  font-family:var(--p-font);
+  transition:background .4s ease,color .4s ease;
+}
 .wl-preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.wl-preview-brand{display:flex;align-items:center;gap:8px}
-.wl-preview-dot{width:24px;height:24px;border-radius:6px;background:var(--gold);display:grid;place-items:center}
-.wl-preview-name{font-size:14px;font-weight:700;color:var(--white);letter-spacing:-.01em}
-.wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);padding:3px 8px;border-radius:999px}
-.wl-quiz-preview{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px}
+.wl-preview-brand{display:flex;align-items:center;gap:9px}
+.wl-brand-logo{width:28px;height:28px;border-radius:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .4s ease}
+.wl-brand-logo svg, .wl-brand-logo img{width:18px;height:18px;display:block}
+.wl-preview-name{font-size:14px;font-weight:700;color:var(--p-text);letter-spacing:-.01em;transition:font-family .4s ease,color .4s ease;font-family:var(--p-font)}
+.wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--p-text-dim);background:var(--p-surface);padding:3px 8px;border-radius:999px;transition:color .4s ease,background .4s ease}
+.wl-quiz-preview{background:var(--p-surface);border:1px solid var(--p-border);border-radius:var(--p-radius);padding:20px;transition:background .4s ease,border-color .4s ease,border-radius .4s ease}
 .wl-qprog{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.wl-qprog-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:500;white-space:nowrap}
-.wl-qprog-bar{flex:1;height:2px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden}
-.wl-qprog-fill{height:100%;width:60%;background:var(--gold);border-radius:999px}
-.wl-qtitle{font-size:15px;font-weight:600;color:var(--white);line-height:1.3;margin:0 0 12px}
+.wl-qprog-label{font-size:10.5px;color:var(--p-text-dim);font-weight:500;white-space:nowrap;transition:color .4s ease;font-family:var(--p-font)}
+.wl-qprog-bar{flex:1;height:2px;background:var(--p-border);border-radius:999px;overflow:hidden;transition:background .4s ease}
+.wl-qprog-fill{height:100%;width:60%;background:var(--p-accent);border-radius:999px;transition:background .4s ease}
+.wl-qtitle{font-size:15px;font-weight:600;color:var(--p-text);line-height:1.3;margin:0 0 12px;transition:color .4s ease,font-family .4s ease;font-family:var(--p-font)}
 .wl-qopts{display:grid;gap:6px}
-.wl-qopt{padding:10px 12px;border:1px solid rgba(255,255,255,.1);border-radius:8px;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:space-between}
-.wl-qopt.active{border-color:var(--gold);background:rgba(180,127,57,.1);color:var(--white)}
-.wl-qopt-check{width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:grid;place-items:center}
-.wl-qopt.active .wl-qopt-check{background:var(--gold);border-color:var(--gold)}
+.wl-qopt{padding:10px 12px;border:1px solid var(--p-border);border-radius:var(--p-radius);font-size:12.5px;font-weight:500;color:var(--p-text-dim);background:transparent;display:flex;align-items:center;justify-content:space-between;transition:border-color .3s ease,background .3s ease,color .3s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font)}
+.wl-qopt.active{border-color:var(--p-accent);background:var(--p-accent-soft);color:var(--p-text)}
+.wl-qopt-check{width:16px;height:16px;border-radius:50%;border:1px solid var(--p-border);display:grid;place-items:center;transition:background .3s ease,border-color .3s ease}
+.wl-qopt.active .wl-qopt-check{background:var(--p-accent);border-color:var(--p-accent)}
 .wl-cta-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.wl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--gold);color:var(--white);border-radius:7px;font-size:12.5px;font-weight:600;}
-.wl-tagline{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.02em}
-.wl-attrs{display:flex;flex-wrap:wrap;gap:6px}
-.wl-attr{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:3px 9px;border-radius:999px}
-@media (max-width:860px){.wl-grid{grid-template-columns:1fr}.wl-preview{min-height:auto}}
+.wl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--p-accent);color:#ffffff;border-radius:calc(var(--p-radius) - 2px);font-size:12.5px;font-weight:600;transition:background .4s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font)}
+.wl-tagline{font-size:11px;color:var(--p-text-dim);letter-spacing:.02em;transition:color .4s ease;font-family:var(--p-font)}
 
-/* Pricing */
+/* Control pills — the interactive buttons */
+.wl-controls{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.wl-ctrl{
+  font-size:11.5px;font-weight:500;
+  color:var(--p-text-dim);
+  background:var(--p-surface);
+  border:1px solid var(--p-border);
+  padding:5px 12px;border-radius:999px;
+  cursor:pointer;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease;
+  user-select:none;
+  font-family:var(--p-font);
+}
+.wl-ctrl:hover{background:var(--p-accent-soft);border-color:var(--p-accent);color:var(--p-text);transform:translateY(-1px)}
+.wl-ctrl.active{background:var(--p-accent);border-color:var(--p-accent);color:#ffffff}
+.wl-ctrl-label{display:flex;align-items:center;gap:6px}
+.wl-ctrl-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;transition:background .3s ease}
+
+/* --- Pricing --- */
 .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
 .tier{padding:36px 32px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:18px;position:relative;background:var(--white);border:1px solid var(--line);border-radius:16px}
 .tier.featured{background:#FBF7EE;border-color:var(--line-strong)}
@@ -334,7 +375,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-list li{display:flex;gap:10px;align-items:center;font-size:13.5px;line-height:1.5;color:var(--ink-80)}
 .tier-list li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23B47F39' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;margin-top:3px;flex-shrink:0}
 .tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
-.tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease, border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
+.tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
 .tier-cta.dark{background:var(--ink);color:var(--white)}
 .tier-cta.dark:hover{background:#1f1f1f}
 .tier-cta.gold{background:var(--gold);color:var(--white)}
@@ -347,9 +388,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pricing-foot summary::-webkit-details-marker{display:none}
 .pricing-foot details[open] summary{border-bottom-color:var(--ink)}
 .pricing-foot details p{margin-top:14px;color:var(--ink-80);max-width:560px;margin-left:auto;margin-right:auto;text-align:left;background:var(--white);padding:16px;border:1px solid var(--line);border-radius:10px;font-size:13px}
-@media (max-width:860px){.pricing{grid-template-columns:1fr}}
+@media(max-width:860px){.pricing{grid-template-columns:1fr}}
 
-/* Vertical grid */
+/* --- Vertical grid --- */
 .vertical-grid{display:grid;grid-template-columns:repeat(4,1fr) 1.1fr;gap:12px}
 .vtile{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px 20px;text-align:center;transition:border-color .18s ease;position:relative;display:flex;flex-direction:column;align-items:center;min-height:200px}
 .vtile:hover{border-color:var(--line-strong)}
@@ -365,10 +406,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vbadge-soon{background:var(--subtle);color:var(--muted)}
 .vtile.talk .vicon{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12)}
 .vtile.talk .vbadge{background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);margin-top:12px;display:inline-flex;align-items:center;gap:6px}
-@media (max-width:960px){.vertical-grid{grid-template-columns:repeat(3,1fr)}.vtile.talk{grid-column:1/-1}}
-@media (max-width:520px){.vertical-grid{grid-template-columns:1fr 1fr}.vtile.talk{grid-column:1/-1}}
+@media(max-width:960px){.vertical-grid{grid-template-columns:repeat(3,1fr)}.vtile.talk{grid-column:1/-1}}
+@media(max-width:520px){.vertical-grid{grid-template-columns:1fr 1fr}.vtile.talk{grid-column:1/-1}}
 
-/* Closer */
+/* --- Closer --- */
 .closer{padding:128px 0;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
 .closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(34px,4.6vw,56px)}
 .closer .lead{margin:0 auto 32px;max-width:520px}
@@ -376,7 +417,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot{margin-top:28px;font-size:13px;color:var(--muted)}
 .closer-foot a{color:var(--ink);border-bottom:1px solid var(--ink)}
 
-/* Footer */
+/* --- Footer --- */
 .footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -394,7 +435,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .footer-col a{font-size:13.5px;color:rgba(255,255,255,.78);transition:color .15s ease}
 .footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(255,255,255,.45)}
-@media (max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
 </style>
 </head>
 <body>
@@ -421,6 +462,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
 <main id="main">
 
+<!-- HERO -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-grid">
@@ -469,6 +511,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
+<!-- HOW IT WORKS -->
 <section class="section section-cream" id="how">
   <div class="wrap">
     <div class="section-head">
@@ -485,6 +528,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
+<!-- SPLIT -->
 <section class="section section-subtle">
   <div class="wrap">
     <div class="section-head">
@@ -506,56 +550,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div class="report-card" aria-hidden="true">
           <div class="report-card-head">
             <span class="report-card-title">Your wellness plan</span>
-            <span class="report-card-pill">3 picks</span>
+            <span class="report-card-pill">2 picks</span>
           </div>
           <div class="report-products">
             <div class="rp-row">
-              <div class="rp-swatch">Mg</div>
-              <div class="rp-info">
-                <div class="rp-name">Magnesium Bisglycinate</div>
-                <div class="rp-reason">Supports sleep quality &amp; relaxation</div>
-              </div>
-              <span class="rp-badge">400mg</span>
-            </div>
-            <div class="rp-row">
               <div class="rp-swatch">D3</div>
-              <div class="rp-info">
-                <div class="rp-name">Vitamin D3 + K2</div>
-                <div class="rp-reason">Immunity, bone density, mood</div>
-              </div>
+              <div class="rp-info"><div class="rp-name">Vitamin D3 + K2</div><div class="rp-reason">Immunity, bone density, mood</div></div>
               <span class="rp-badge">2000IU</span>
             </div>
             <div class="rp-row">
-              <div class="rp-swatch" style="background:#2A5A2A">Ω3</div>
-              <div class="rp-info">
-                <div class="rp-name">Omega-3 Fish Oil</div>
-                <div class="rp-reason">Heart health &amp; cognitive function</div>
-              </div>
+              <div class="rp-swatch" style="background:#2A5A2A">&#937;3</div>
+              <div class="rp-info"><div class="rp-name">Omega-3 Fish Oil</div><div class="rp-reason">Heart health &amp; cognitive function</div></div>
               <span class="rp-badge">1g</span>
             </div>
           </div>
           <div class="report-nutrients">
             <div class="report-nut-title">Key nutrient gaps</div>
-            <div class="report-nut-row">
-              <span class="report-nut-lab">Vitamin D</span>
-              <div class="report-nut-track"><div class="report-nut-fill" style="width:32%;background:#D8614A"></div></div>
-              <span class="report-nut-val" style="color:#D8614A">32%</span>
-            </div>
-            <div class="report-nut-row">
-              <span class="report-nut-lab">Magnesium</span>
-              <div class="report-nut-track"><div class="report-nut-fill" style="width:58%;background:var(--gold)"></div></div>
-              <span class="report-nut-val">58%</span>
-            </div>
-            <div class="report-nut-row">
-              <span class="report-nut-lab">Omega-3</span>
-              <div class="report-nut-track"><div class="report-nut-fill" style="width:44%;background:var(--gold)"></div></div>
-              <span class="report-nut-val">44%</span>
-            </div>
-            <div class="report-nut-row">
-              <span class="report-nut-lab">Zinc</span>
-              <div class="report-nut-track"><div class="report-nut-fill" style="width:75%;background:var(--green-soft)"></div></div>
-              <span class="report-nut-val" style="color:var(--green-soft)">75%</span>
-            </div>
+            <div class="report-nut-row"><span class="report-nut-lab">Vitamin D</span><div class="report-nut-track"><div class="report-nut-fill" style="width:32%;background:#D8614A"></div></div><span class="report-nut-val" style="color:#D8614A">32%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Omega-3</span><div class="report-nut-track"><div class="report-nut-fill" style="width:44%;background:var(--gold)"></div></div><span class="report-nut-val">44%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Zinc</span><div class="report-nut-track"><div class="report-nut-fill" style="width:75%;background:var(--green-soft)"></div></div><span class="report-nut-val" style="color:var(--green-soft)">75%</span></div>
           </div>
         </div>
       </div>
@@ -573,11 +586,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           <div class="dash-head"><span class="dash-title">User insights</span><span class="dash-pill">Last 30 days</span></div>
           <div class="dash-grid">
             <div class="dash-tile">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/><circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/><line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/><line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/><line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/><line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/><polygon points="40,16 60,32 54,56 28,56 20,38" fill="rgba(180,127,57,.35)" stroke="#B47F39" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/><circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/><line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/><line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/><line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/><line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/><polygon points="40,16 60,32 54,56 28,56 20,38" fill="rgba(180,127,57,.35)" stroke="#B47F39" stroke-width="1.5" stroke-linejoin="round"/></svg>
               <span class="dash-tile-lab">Age distribution</span>
             </div>
             <div class="dash-tile">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/><circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/><line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/><line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/><line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/><line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/><polygon points="40,14 58,28 64,48 44,62 22,48 24,28" fill="rgba(231,207,163,.3)" stroke="#E7CFA3" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="30" stroke="rgba(255,255,255,.1)" stroke-width="1"/><circle cx="40" cy="40" r="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/><circle cx="40" cy="40" r="10" stroke="rgba(255,255,255,.06)" stroke-width="1"/><line x1="40" y1="10" x2="40" y2="70" stroke="rgba(255,255,255,.06)"/><line x1="10" y1="40" x2="70" y2="40" stroke="rgba(255,255,255,.06)"/><line x1="19" y1="19" x2="61" y2="61" stroke="rgba(255,255,255,.06)"/><line x1="61" y1="19" x2="19" y2="61" stroke="rgba(255,255,255,.06)"/><polygon points="40,14 58,28 64,48 44,62 22,48 24,28" fill="rgba(231,207,163,.3)" stroke="#E7CFA3" stroke-width="1.5" stroke-linejoin="round"/></svg>
               <span class="dash-tile-lab">Diet distribution</span>
             </div>
           </div>
@@ -594,6 +607,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
+<!-- PERSONAS -->
 <section class="section section-cream">
   <div class="wrap">
     <div class="section-head">
@@ -648,6 +662,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
+<!-- SCIENCE -->
 <section class="science" id="science">
   <div class="wrap">
     <div class="science-head">
@@ -656,26 +671,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <p class="lead">Transparent attribute-level scoring built into your catalog &#8212; no black boxes, no guesswork.</p>
     </div>
     <div class="science-stats">
-      <div class="sci-stat">
-        <div class="sci-n">200+</div>
-        <div class="sci-label">Products audited</div>
-        <div class="sci-sub">Standardized so every score is comparable across the catalog.</div>
-      </div>
-      <div class="sci-stat">
-        <div class="sci-n">80+</div>
-        <div class="sci-label">Attributes per product</div>
-        <div class="sci-sub">Ingredients, dosing, interactions, evidence level &#8212; all scored.</div>
-      </div>
-      <div class="sci-stat">
-        <div class="sci-n">100%</div>
-        <div class="sci-label">Transparent scoring</div>
-        <div class="sci-sub">Every recommendation comes with the reasons behind it.</div>
-      </div>
-      <div class="sci-stat">
-        <div class="sci-n">1:1</div>
-        <div class="sci-label">Tuned to your brand</div>
-        <div class="sci-sub">Your catalog, your customers, your questions &#8212; your algorithm.</div>
-      </div>
+      <div class="sci-stat"><div class="sci-n">200+</div><div class="sci-label">Products audited</div><div class="sci-sub">Standardized so every score is comparable across the catalog.</div></div>
+      <div class="sci-stat"><div class="sci-n">80+</div><div class="sci-label">Attributes per product</div><div class="sci-sub">Ingredients, dosing, interactions, evidence level &#8212; all scored.</div></div>
+      <div class="sci-stat"><div class="sci-n">100%</div><div class="sci-label">Transparent scoring</div><div class="sci-sub">Every recommendation comes with the reasons behind it.</div></div>
+      <div class="sci-stat"><div class="sci-n">1:1</div><div class="sci-label">Tuned to your brand</div><div class="sci-sub">Your catalog, your customers, your questions &#8212; your algorithm.</div></div>
       <a href="mailto:contact@blend-technologies.com" class="sci-method" aria-label="Request methodology documentation">
         <div class="sci-method-left">
           <div class="sci-method-icon">
@@ -686,15 +685,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
             <div class="sci-method-sub">How scoring works, step by step. Request the full documentation.</div>
           </div>
         </div>
-        <div class="sci-method-arrow">
-          Request access
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
+        <div class="sci-method-arrow">Request access <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </a>
     </div>
   </div>
 </section>
 
+<!-- INTEGRATIONS -->
 <section class="section section-cream">
   <div class="wrap">
     <div class="section-head">
@@ -704,13 +701,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     <div class="int-grid">
       <div class="int native">
         <div class="int-mark"><svg width="30" height="30" viewBox="0 0 26 26" fill="none"><path d="M18.5 6.2c-.1-.5-.5-.8-.9-.8-.1 0-1.4.1-1.4.1s-.9-.9-1-1c-.1-.1-.3-.1-.4-.1-.1 0-1.9.6-1.9.6s-1.5-1.4-1.6-1.5c-.1-.1-.3-.1-.3-.1-.2 0-4.4 1.4-4.4 1.4S5.1 7 5 7.2C4.9 7.4 3 20.4 3 20.4l13.3 2.3 5.6-1.2-3.4-15.3z" fill="#95BF47"/><path d="M17.6 5.4c-.1 0-.9.3-2.1.7 0-.6-.1-1.4-.4-2.1.8.1 1.7.7 2.5 1.4zm-3 1c-.8.2-1.7.5-2.6.8.3-1 .8-2 1.5-2.7.3-.3.6-.5 1-.7.3.7.3 1.6.1 2.6zm-1.2-4c.2 0 .4.1.6.2-.4.2-.7.4-1 .7-.9 1-1.5 2.4-1.7 3.7-.8.2-1.5.5-2.2.7.5-1.8 1.9-5.2 4.3-5.3z" fill="#5E8E3E"/></svg></div>
-        <div class="int-name">Shopify</div>
-        <div class="int-status">Native sync</div>
+        <div class="int-name">Shopify</div><div class="int-status">Native sync</div>
       </div>
       <div class="int">
         <div class="int-mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
-        <div class="int-name">CSV</div>
-        <div class="int-status">Import + export</div>
+        <div class="int-name">CSV</div><div class="int-status">Import + export</div>
       </div>
     </div>
     <p class="int-more">Other e-commerce platforms coming soon &#8212; WooCommerce, BigCommerce, Magento, and more. <a href="mailto:contact@blend-technologies.com">Tell us what you run on</a> and we&#39;ll put it at the top of the list.</p>
@@ -718,106 +713,141 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 </section>
 
 <!-- WHITE-LABEL SECTION -->
-<section class="section section-subtle" id="customize">
+<section class="wl-section" id="customize">
   <div class="wrap">
-    <div class="wl-grid">
-      <div class="wl-copy">
-        <span class="eyebrow">Fully white-label</span>
-        <h2 class="h2" style="margin-top:16px;margin-bottom:18px">Your quiz. Your brand. Completely.</h2>
-        <p class="lead" style="margin-bottom:32px">Every touchpoint is configurable &#8212; so it feels native to your brand, not like a third-party tool bolted on.</p>
-        <div class="wl-traits">
-          <div class="wl-trait">
-            <div class="wl-trait-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
-            </div>
-            <div class="wl-trait-copy">
-              <div class="wl-trait-label">Colors &amp; visual design</div>
-              <div class="wl-trait-sub">Match your brand palette exactly &#8212; fonts, colors, button styles, corner radius.</div>
-            </div>
+    <div class="wl-head">
+      <span class="eyebrow">Fully white-label</span>
+      <h2 class="h2" style="margin-top:14px">Your quiz. Your brand. Completely.</h2>
+      <p class="lead" style="margin-top:14px">Every touchpoint is configurable &#8212; so customers never know it&#39;s Blend.</p>
+    </div>
+    <div class="wl-body">
+      <!-- Left: trait list using same rhythm as steps -->
+      <div class="wl-traits">
+        <div class="wl-trait">
+          <div class="wl-trait-n">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
           </div>
-          <div class="wl-trait">
-            <div class="wl-trait-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            </div>
-            <div class="wl-trait-copy">
-              <div class="wl-trait-label">Questions &amp; logic</div>
-              <div class="wl-trait-sub">Define your own question set, branching logic, and answer options.</div>
-            </div>
+          <div class="wl-trait-copy">
+            <div class="wl-trait-label">Colors &amp; visual design</div>
+            <div class="wl-trait-sub">Match your brand exactly &#8212; palette, typography, buttons, accents. Pixel-perfect.</div>
           </div>
-          <div class="wl-trait">
-            <div class="wl-trait-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17h7M17 14v7"/></svg>
-            </div>
-            <div class="wl-trait-copy">
-              <div class="wl-trait-label">Format &amp; length</div>
-              <div class="wl-trait-sub">Single-choice, multi-select, sliders, short or long &#8212; any flow you need.</div>
-            </div>
+        </div>
+        <div class="wl-trait">
+          <div class="wl-trait-n">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           </div>
-          <div class="wl-trait">
-            <div class="wl-trait-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <div class="wl-trait-copy">
-              <div class="wl-trait-label">Tone &amp; copy</div>
-              <div class="wl-trait-sub">Write it in your voice &#8212; clinical, friendly, premium, conversational.</div>
-            </div>
+          <div class="wl-trait-copy">
+            <div class="wl-trait-label">Questions &amp; logic</div>
+            <div class="wl-trait-sub">Define your own questions, branching paths, and answer options. Fully yours.</div>
           </div>
-          <div class="wl-trait">
-            <div class="wl-trait-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </div>
-            <div class="wl-trait-copy">
-              <div class="wl-trait-label">Embed anywhere</div>
-              <div class="wl-trait-sub">Inline on your site, standalone page, or a Blend-hosted subdomain.</div>
-            </div>
+        </div>
+        <div class="wl-trait">
+          <div class="wl-trait-n">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17h7M17 14v7"/></svg>
+          </div>
+          <div class="wl-trait-copy">
+            <div class="wl-trait-label">Format &amp; length</div>
+            <div class="wl-trait-sub">Single-choice, multi-step, short or in-depth &#8212; any flow you need.</div>
+          </div>
+        </div>
+        <div class="wl-trait">
+          <div class="wl-trait-n">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="wl-trait-copy">
+            <div class="wl-trait-label">Tone &amp; copy</div>
+            <div class="wl-trait-sub">Write in your voice &#8212; clinical, friendly, premium, conversational. Your words.</div>
+          </div>
+        </div>
+        <div class="wl-trait">
+          <div class="wl-trait-n">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#96682B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <div class="wl-trait-copy">
+            <div class="wl-trait-label">Embed anywhere</div>
+            <div class="wl-trait-sub">Inline on your site, a standalone page, or a Blend-hosted subdomain on your domain.</div>
           </div>
         </div>
       </div>
-      <div class="wl-preview" aria-hidden="true">
-        <div class="wl-preview-head">
-          <div class="wl-preview-brand">
-            <div class="wl-preview-dot">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+
+      <!-- Right: interactive preview -->
+      <div class="wl-preview-wrap">
+        <div class="wl-preview" id="wl-preview">
+          <!-- Brand header -->
+          <div class="wl-preview-head">
+            <div class="wl-preview-brand">
+              <div class="wl-brand-logo" id="wl-brand-logo">
+                <!-- Default: abstract dot logo -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+              </div>
+              <span class="wl-preview-name" id="wl-brand-name">YourBrand</span>
             </div>
-            <span class="wl-preview-name">YourBrand</span>
+            <span class="wl-preview-badge">Powered by Blend</span>
           </div>
-          <span class="wl-preview-badge">Powered by Blend</span>
-        </div>
-        <div class="wl-quiz-preview">
-          <div class="wl-qprog">
-            <span class="wl-qprog-label">Question 3 of 6</span>
-            <div class="wl-qprog-bar"><div class="wl-qprog-fill"></div></div>
-          </div>
-          <div class="wl-qtitle">What are your main health goals?</div>
-          <div class="wl-qopts">
-            <div class="wl-qopt active">
-              <span>Build lean muscle</span>
-              <div class="wl-qopt-check"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <!-- Quiz -->
+          <div class="wl-quiz-preview">
+            <div class="wl-qprog">
+              <span class="wl-qprog-label">Question 3 of 6</span>
+              <div class="wl-qprog-bar"><div class="wl-qprog-fill"></div></div>
             </div>
-            <div class="wl-qopt active">
-              <span>Boost energy</span>
-              <div class="wl-qopt-check"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="wl-qtitle" id="wl-quiz-title">What are your main health goals?</div>
+            <div class="wl-qopts">
+              <div class="wl-qopt active"><span>Build lean muscle</span><div class="wl-qopt-check"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+              <div class="wl-qopt active"><span>Boost energy</span><div class="wl-qopt-check"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+              <div class="wl-qopt"><span>Improve sleep</span><div class="wl-qopt-check"></div></div>
+              <div class="wl-qopt"><span>Support immunity</span><div class="wl-qopt-check"></div></div>
             </div>
-            <div class="wl-qopt"><span>Improve sleep</span><div class="wl-qopt-check"></div></div>
-            <div class="wl-qopt"><span>Support immunity</span><div class="wl-qopt-check"></div></div>
           </div>
-        </div>
-        <div class="wl-cta-row">
-          <button class="wl-btn">Continue &#8594;</button>
-          <span class="wl-tagline">yourbrand.com/quiz</span>
-        </div>
-        <div class="wl-attrs">
-          <span class="wl-attr">Your colors</span>
-          <span class="wl-attr">Your font</span>
-          <span class="wl-attr">Your copy</span>
-          <span class="wl-attr">Your domain</span>
-          <span class="wl-attr">Your logo</span>
+          <div class="wl-cta-row">
+            <button class="wl-btn">Continue &#8594;</button>
+            <span class="wl-tagline" id="wl-tagline">yourbrand.com/quiz</span>
+          </div>
+          <!-- Controls -->
+          <div class="wl-controls" id="wl-controls">
+            <!-- Color controls -->
+            <button class="wl-ctrl active" data-type="color" data-value="dark" aria-label="Dark theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#1a1a1a"></span>Dark</span>
+            </button>
+            <button class="wl-ctrl" data-type="color" data-value="light" aria-label="Light theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#ffffff;border:1px solid #ccc"></span>Light</span>
+            </button>
+            <button class="wl-ctrl" data-type="color" data-value="forest" aria-label="Forest theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#1B3A2D"></span>Forest</span>
+            </button>
+            <button class="wl-ctrl" data-type="color" data-value="navy" aria-label="Navy theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#0F1E38"></span>Navy</span>
+            </button>
+            <button class="wl-ctrl" data-type="color" data-value="rose" aria-label="Rose theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#2A0A12"></span>Rose</span>
+            </button>
+            <!-- Font controls -->
+            <button class="wl-ctrl active" data-type="font" data-value="sans" aria-label="Sans font">
+              <span class="wl-ctrl-label">Sans</span>
+            </button>
+            <button class="wl-ctrl" data-type="font" data-value="serif" aria-label="Serif font">
+              <span class="wl-ctrl-label">Serif</span>
+            </button>
+            <button class="wl-ctrl" data-type="font" data-value="mono" aria-label="Mono font">
+              <span class="wl-ctrl-label">Mono</span>
+            </button>
+            <!-- Logo controls -->
+            <button class="wl-ctrl active" data-type="logo" data-value="circle" aria-label="Circle logo">
+              <span class="wl-ctrl-label">&#9679; Logo A</span>
+            </button>
+            <button class="wl-ctrl" data-type="logo" data-value="leaf" aria-label="Leaf logo">
+              <span class="wl-ctrl-label">&#9650; Logo B</span>
+            </button>
+            <button class="wl-ctrl" data-type="logo" data-value="diamond" aria-label="Diamond logo">
+              <span class="wl-ctrl-label">&#9670; Logo C</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PRICING -->
 <section class="section section-cream" id="pricing">
   <div class="wrap">
     <div class="section-head">
@@ -878,6 +908,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
+<!-- ROADMAP -->
 <section class="section section-subtle">
   <div class="wrap">
     <div class="section-head">
@@ -910,7 +941,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div class="vnote">Apparel, footwear, accessories</div>
         <span class="vbadge vbadge-soon">Exploration</span>
       </article>
-      <a href="mailto:contact@blend-technologies.com" class="vtile talk" aria-label="Talk to us about your catalog">
+      <a href="mailto:contact@blend-technologies.com" class="vtile talk">
         <div class="vicon" style="background:rgba(180,127,57,.2)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B47F39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></div>
         <div class="vname">Your vertical?</div>
         <div class="vnote">Talk to us about your catalog.</div>
@@ -920,6 +951,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </section>
 
+<!-- CLOSER -->
 <section class="closer" id="contact">
   <div class="wrap">
     <span class="eyebrow">Ready when you are</span>
@@ -932,9 +964,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     <div class="closer-foot">Or email us at <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></div>
   </div>
 </section>
-
 </main>
 
+<!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -974,6 +1006,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 </footer>
 
 <script>
+/* ── Nav ── */
 document.getElementById('year').textContent = new Date().getFullYear();
 const nav = document.getElementById('nav');
 const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
@@ -985,35 +1018,165 @@ toggle.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(open));
 });
-links.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    nav.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-  });
-});
-const quiz = document.getElementById('quiz');
-if (quiz) {
-  const opts = quiz.querySelectorAll('.qopt');
-  opts.forEach(btn => {
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open');
+  toggle.setAttribute('aria-expanded','false');
+}));
+
+/* ── Hero quiz ── */
+const heroQuiz = document.getElementById('quiz');
+if (heroQuiz) {
+  heroQuiz.querySelectorAll('.qopt').forEach(btn => {
     btn.addEventListener('click', () => {
-      opts.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-checked', 'false'); });
+      heroQuiz.querySelectorAll('.qopt').forEach(o => {
+        o.classList.remove('active');
+        o.setAttribute('aria-checked','false');
+      });
       btn.classList.add('active');
-      btn.setAttribute('aria-checked', 'true');
+      btn.setAttribute('aria-checked','true');
     });
   });
 }
+
+/* ── Newsletter ── */
 const newsForm = document.getElementById('news-form');
 if (newsForm) {
-  newsForm.addEventListener('submit', (e) => {
+  newsForm.addEventListener('submit', e => {
     e.preventDefault();
     const btn = document.getElementById('news-submit');
-    const input = document.getElementById('news-email');
+    const inp = document.getElementById('news-email');
     btn.textContent = 'Thanks ✓';
     btn.disabled = true;
-    input.value = '';
+    inp.value = '';
     setTimeout(() => { btn.textContent = 'Subscribe'; btn.disabled = false; }, 3000);
   });
 }
+
+/* ── White-label interactive preview ── */
+(function() {
+  const preview = document.getElementById('wl-preview');
+  if (!preview) return;
+
+  /* ---- Theme presets ---- */
+  const THEMES = {
+    dark: {
+      bg:'#0A0A0A', accent:'#B47F39', accentSoft:'rgba(180,127,57,.15)',
+      accentBorder:'rgba(180,127,57,.5)', text:'#ffffff',
+      textDim:'rgba(255,255,255,.55)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#B47F39',
+      brandName:'YourBrand', tagline:'yourbrand.com/quiz',
+      quizTitle:'What are your main health goals?'
+    },
+    light: {
+      bg:'#FAF8F2', accent:'#B47F39', accentSoft:'rgba(180,127,57,.1)',
+      accentBorder:'rgba(180,127,57,.5)', text:'#0A0A0A',
+      textDim:'rgba(10,10,10,.5)', surface:'rgba(0,0,0,.03)',
+      border:'rgba(0,0,0,.1)', logoBg:'#B47F39',
+      brandName:'YourBrand', tagline:'yourbrand.com/quiz',
+      quizTitle:'What are your main health goals?'
+    },
+    forest: {
+      bg:'#1B3A2D', accent:'#5EC26A', accentSoft:'rgba(94,194,106,.15)',
+      accentBorder:'rgba(94,194,106,.5)', text:'#E8F5EA',
+      textDim:'rgba(232,245,234,.5)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#5EC26A',
+      brandName:'Verdant', tagline:'verdant.co/discover',
+      quizTitle:'What does a good day of energy look like for you?'
+    },
+    navy: {
+      bg:'#0F1E38', accent:'#4A8FD4', accentSoft:'rgba(74,143,212,.15)',
+      accentBorder:'rgba(74,143,212,.5)', text:'#EBF3FF',
+      textDim:'rgba(235,243,255,.5)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#4A8FD4',
+      brandName:'Clarity', tagline:'clarity.health/quiz',
+      quizTitle:'Which goal matters most to you right now?'
+    },
+    rose: {
+      bg:'#2A0A12', accent:'#E06B8B', accentSoft:'rgba(224,107,139,.15)',
+      accentBorder:'rgba(224,107,139,.5)', text:'#FFE8EE',
+      textDim:'rgba(255,232,238,.5)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#E06B8B',
+      brandName:'Lumière', tagline:'lumiere.co/skin',
+      quizTitle:'How does your skin feel after cleansing?'
+    }
+  };
+
+  /* ---- Font presets ---- */
+  const FONTS = {
+    sans: { family:'"Inter","Inter var",ui-sans-serif,system-ui,sans-serif', radius:'10px' },
+    serif: { family:'"Georgia","Times New Roman",serif', radius:'4px' },
+    mono: { family:'"JetBrains Mono","Fira Code","Courier New",monospace', radius:'6px' }
+  };
+
+  /* ---- Logo SVGs ---- */
+  const LOGOS = {
+    circle: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>`,
+    leaf: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.36A1 1 0 0 0 4.82 21C7 21 15 20 17 8z"/><path d="M3 21c3-3 7-7 11-10"/></svg>`,
+    diamond: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 12 12 22 2 12"/></svg>`
+  };
+
+  let currentColor = 'dark';
+  let currentFont = 'sans';
+  let currentLogo = 'circle';
+
+  function applyTheme(t, f) {
+    const theme = THEMES[t];
+    const font = FONTS[f];
+    const p = preview;
+    p.style.setProperty('--p-bg', theme.bg);
+    p.style.setProperty('--p-accent', theme.accent);
+    p.style.setProperty('--p-accent-soft', theme.accentSoft);
+    p.style.setProperty('--p-accent-border', theme.accentBorder);
+    p.style.setProperty('--p-text', theme.text);
+    p.style.setProperty('--p-text-dim', theme.textDim);
+    p.style.setProperty('--p-surface', theme.surface);
+    p.style.setProperty('--p-border', theme.border);
+    p.style.setProperty('--p-font', font.family);
+    p.style.setProperty('--p-radius', font.radius);
+    // Update logo bg
+    const logoBg = document.getElementById('wl-brand-logo');
+    if (logoBg) logoBg.style.background = theme.logoBg;
+    // Update text content
+    const nameEl = document.getElementById('wl-brand-name');
+    if (nameEl) nameEl.textContent = theme.brandName;
+    const tagEl = document.getElementById('wl-tagline');
+    if (tagEl) tagEl.textContent = theme.tagline;
+    const titleEl = document.getElementById('wl-quiz-title');
+    if (titleEl) titleEl.textContent = theme.quizTitle;
+  }
+
+  function applyLogo(key) {
+    const logoBg = document.getElementById('wl-brand-logo');
+    if (logoBg) logoBg.innerHTML = LOGOS[key];
+  }
+
+  /* Initial state */
+  applyTheme(currentColor, currentFont);
+  applyLogo(currentLogo);
+
+  /* Button interactions */
+  document.getElementById('wl-controls').addEventListener('click', e => {
+    const btn = e.target.closest('.wl-ctrl');
+    if (!btn) return;
+    const type = btn.dataset.type;
+    const value = btn.dataset.value;
+
+    /* Deactivate siblings of same type */
+    document.querySelectorAll(`.wl-ctrl[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (type === 'color') {
+      currentColor = value;
+      applyTheme(currentColor, currentFont);
+    } else if (type === 'font') {
+      currentFont = value;
+      applyTheme(currentColor, currentFont);
+    } else if (type === 'logo') {
+      currentLogo = value;
+      applyLogo(currentLogo);
+    }
+  });
+})();
 </script>
 </body>
 </html>
