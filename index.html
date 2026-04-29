@@ -183,6 +183,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
 /* Customer report card */
 .report-card{margin-top:auto;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.report-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:12px}
 .report-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:12px}
 .report-card-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
 .report-card-pill{font-size:10px;color:var(--gold-pressed);letter-spacing:.06em;text-transform:uppercase;font-weight:600;background:var(--gold-soft);padding:3px 8px;border-radius:999px}
@@ -194,6 +195,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .rp-reason{font-size:11px;color:var(--muted);margin-top:1px}
 .rp-badge{flex-shrink:0;font-size:10px;font-weight:600;color:var(--gold-pressed);background:var(--gold-soft);padding:2px 7px;border-radius:999px}
 .report-nutrients{background:var(--white);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+.report-nut-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .report-nut-title{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
 .report-nut-row{display:grid;grid-template-columns:72px 1fr 32px;align-items:center;gap:6px;margin-bottom:5px}
 .report-nut-row:last-child{margin-bottom:0}
@@ -329,6 +331,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .wl-brand-logo svg, .wl-brand-logo img{width:18px;height:18px;display:block}
 .wl-preview-name{font-size:14px;font-weight:700;color:var(--p-text);letter-spacing:-.01em;transition:font-family .4s ease,color .4s ease;font-family:var(--p-font)}
 .wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--p-text-dim);background:var(--p-surface);padding:3px 8px;border-radius:999px;transition:color .4s ease,background .4s ease}
+.wl-quiz-preview{background:var(--p-surface);border:1px solid var(--p-border);border-radius:var(--p-radius);padding:20px;transition:background .4s ease,border-color .4s ease,border-radius .4s ease}
 .wl-quiz-content{display: flex; flex-direction: column; gap: 14px;}
 .wl-qprog{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .wl-qprog-label{font-size:10.5px;color:var(--p-text-dim);font-weight:500;white-space:nowrap;transition:color .4s ease;font-family:var(--p-font)}
@@ -437,6 +440,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(255,255,255,.45)}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
 </style>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 <a href="#main" class="skip">Skip to content</a>
@@ -472,6 +477,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <p class="lead hero-sub">Upload your catalog, configure your quiz, and turn every visitor into a data-backed match.</p>
         <div class="hero-ctas">
           <a href="try.html" class="btn btn-primary btn-lg">Try it yourself</a>
+          <a href="" class="btn btn-ghost btn-lg" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a'});return false;">Book a demo</a>
           <a href="https://calendly.com/julien-blend-technologies/demo" class="btn btn-ghost btn-lg">Book a demo</a>
         </div>
         <div class="hero-foot">
@@ -783,8 +789,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
               </div>
               <span class="wl-preview-name" id="wl-brand-name">YourBrand</span>
             </div>
+            <span class="wl-preview-badge">Powered by Blend</span>
           </div>
           <!-- Quiz -->
+          <div class="wl-quiz-preview">
           <div class="wl-quiz-content">
             <div class="wl-qprog">
               <span class="wl-qprog-label">Question 3 of 6</span>
@@ -800,16 +808,47 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           </div>
           <div class="wl-cta-row">
             <button class="wl-btn">Continue &#8594;</button>
+            <span class="wl-tagline" id="wl-tagline">yourbrand.com/quiz</span>
+          </div>
           <!-- Controls -->
           <div class="wl-controls" id="wl-controls">
             <!-- Color controls -->
             <button class="wl-ctrl active" data-type="color" data-value="dark" aria-label="Dark theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#1a1a1a"></span>Dark</span>
               <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#1a1a1a"></span>Example 1</span>
             </button>
             <button class="wl-ctrl" data-type="color" data-value="light" aria-label="Light theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#ffffff;border:1px solid #ccc"></span>Light</span>
               <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#ffffff;border:1px solid #ccc"></span>Example 2</span>
             </button>
             <button class="wl-ctrl" data-type="color" data-value="forest" aria-label="Forest theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#1B3A2D"></span>Forest</span>
+            </button>
+            <button class="wl-ctrl" data-type="color" data-value="navy" aria-label="Navy theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#0F1E38"></span>Navy</span>
+            </button>
+            <button class="wl-ctrl" data-type="color" data-value="rose" aria-label="Rose theme">
+              <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#2A0A12"></span>Rose</span>
+            </button>
+            <!-- Font controls -->
+            <button class="wl-ctrl active" data-type="font" data-value="sans" aria-label="Sans font">
+              <span class="wl-ctrl-label">Sans</span>
+            </button>
+            <button class="wl-ctrl" data-type="font" data-value="serif" aria-label="Serif font">
+              <span class="wl-ctrl-label">Serif</span>
+            </button>
+            <button class="wl-ctrl" data-type="font" data-value="mono" aria-label="Mono font">
+              <span class="wl-ctrl-label">Mono</span>
+            </button>
+            <!-- Logo controls -->
+            <button class="wl-ctrl active" data-type="logo" data-value="circle" aria-label="Circle logo">
+              <span class="wl-ctrl-label">&#9679; Logo A</span>
+            </button>
+            <button class="wl-ctrl" data-type="logo" data-value="leaf" aria-label="Leaf logo">
+              <span class="wl-ctrl-label">&#9650; Logo B</span>
+            </button>
+            <button class="wl-ctrl" data-type="logo" data-value="diamond" aria-label="Diamond logo">
+              <span class="wl-ctrl-label">&#9670; Logo C</span>
               <span class="wl-ctrl-label"><span class="wl-ctrl-dot" style="background:#1B3A2D"></span>Example 3</span>
             </button>
           </div>
@@ -928,9 +967,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   <div class="wrap">
     <span class="eyebrow">Ready when you are</span>
     <h2 class="h1" style="margin-top:18px">Ship your first quiz this week.</h2>
+    <p class="lead">Try the live demo, or book 15 minutes with us.</p>
     <p class="lead">Try the live demo, or book 20 minutes with us.</p>
     <div class="closer-ctas">
       <a href="try.html" class="btn btn-primary btn-lg">Try it yourself</a>
+      <a href="" class="btn btn-ghost btn-lg" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a'});return false;">Book 15 minutes</a>
       <a href="https://calendly.com/julien-blend-technologies/demo" class="btn btn-ghost btn-lg">Book 20 minutes</a>
     </div>
     <div class="closer-foot">Or email us at <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></div>
@@ -963,6 +1004,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <div class="footer-col">
         <h5>Company</h5>
         <ul>
+          <li><a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></li>
+          <li><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a'});return false;">Book a demo</a></li>
           <li><a href="mailto:contact@blend-technologies.com">Contact</a></li>
           <li><a href="https://calendly.com/blend-technologies/20min">Book a demo</a></li>
           <li><a href="#">Terms</a></li>
@@ -972,6 +1015,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     </div>
     <div class="footer-bottom">
       <span>&#169; <span id="year">2026</span> Blend Technologies. All rights reserved.</span>
+      <span>Monthly product newsletter. One email. No fluff.</span>
       <span>contact@blend-technologies.com</span>
     </div>
   </div>
@@ -1029,15 +1073,26 @@ if (newsForm) {
   const preview = document.getElementById('wl-preview');
   if (!preview) return;
 
+  /* ---- Theme presets ---- */
   const THEMES = {
     dark: {
       bg:'#0A0A0A', accent:'#B47F39', accentSoft:'rgba(180,127,57,.15)',
+      accentBorder:'rgba(180,127,57,.5)', text:'#ffffff',
+      textDim:'rgba(255,255,255,.55)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#B47F39',
+      brandName:'YourBrand', tagline:'yourbrand.com/quiz',
       text:'#ffffff', textDim:'rgba(255,255,255,.55)',
       surface:'rgba(255,255,255,.05)', border:'rgba(255,255,255,.1)',
       logoBg:'#B47F39', brandName:'YourBrand', tagline:'yourbrand.com/quiz',
       quizTitle:'What are your main health goals?'
     },
     light: {
+      bg:'#FAF8F2', accent:'#B47F39', accentSoft:'rgba(180,127,57,.1)',
+      accentBorder:'rgba(180,127,57,.5)', text:'#0A0A0A',
+      textDim:'rgba(10,10,10,.5)', surface:'rgba(0,0,0,.03)',
+      border:'rgba(0,0,0,.1)', logoBg:'#B47F39',
+      brandName:'YourBrand', tagline:'yourbrand.com/quiz',
+      quizTitle:'What are your main health goals?'
       bg:'#F3EFE6', accent:'#B47F39', accentSoft:'rgba(180,127,57,.1)',
       text:'#0A0A0A', textDim:'rgba(10,10,10,.5)',
       surface:'rgba(0,0,0,.03)', border:'rgba(0,0,0,.1)',
@@ -1046,6 +1101,27 @@ if (newsForm) {
     },
     forest: {
       bg:'#1B3A2D', accent:'#5EC26A', accentSoft:'rgba(94,194,106,.15)',
+      accentBorder:'rgba(94,194,106,.5)', text:'#E8F5EA',
+      textDim:'rgba(232,245,234,.5)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#5EC26A',
+      brandName:'Verdant', tagline:'verdant.co/discover',
+      quizTitle:'What does a good day of energy look like for you?'
+    },
+    navy: {
+      bg:'#0F1E38', accent:'#4A8FD4', accentSoft:'rgba(74,143,212,.15)',
+      accentBorder:'rgba(74,143,212,.5)', text:'#EBF3FF',
+      textDim:'rgba(235,243,255,.5)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#4A8FD4',
+      brandName:'Clarity', tagline:'clarity.health/quiz',
+      quizTitle:'Which goal matters most to you right now?'
+    },
+    rose: {
+      bg:'#2A0A12', accent:'#E06B8B', accentSoft:'rgba(224,107,139,.15)',
+      accentBorder:'rgba(224,107,139,.5)', text:'#FFE8EE',
+      textDim:'rgba(255,232,238,.5)', surface:'rgba(255,255,255,.05)',
+      border:'rgba(255,255,255,.1)', logoBg:'#E06B8B',
+      brandName:'Lumière', tagline:'lumiere.co/skin',
+      quizTitle:'How does your skin feel after cleansing?'
       text:'#E8F5EA', textDim:'rgba(232,245,234,.5)',
       surface:'rgba(255,255,255,.05)', border:'rgba(255,255,255,.1)',
       logoBg:'#5EC26A', brandName:'VerdantHealth', tagline:'verdant.co/discover',
@@ -1053,10 +1129,22 @@ if (newsForm) {
     }
   };
 
+  /* ---- Font presets ---- */
+  const FONTS = {
+    sans: { family:'"Inter","Inter var",ui-sans-serif,system-ui,sans-serif', radius:'10px' },
+    serif: { family:'"Georgia","Times New Roman",serif', radius:'4px' },
+    mono: { family:'"JetBrains Mono","Fira Code","Courier New",monospace', radius:'6px' }
+  };
   function applyTheme(key) {
     const theme = THEMES[key];
     if (!theme) return;
 
+  /* ---- Logo SVGs ---- */
+  const LOGOS = {
+    circle: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>`,
+    leaf: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.36A1 1 0 0 0 4.82 21C7 21 15 20 17 8z"/><path d="M3 21c3-3 7-7 11-10"/></svg>`,
+    diamond: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 12 12 22 2 12"/></svg>`
+  };
     preview.style.setProperty('--p-bg', theme.bg);
     preview.style.setProperty('--p-accent', theme.accent);
     preview.style.setProperty('--p-accent-soft', theme.accentSoft);
@@ -1065,32 +1153,84 @@ if (newsForm) {
     preview.style.setProperty('--p-surface', theme.surface);
     preview.style.setProperty('--p-border', theme.border);
 
+  let currentColor = 'dark';
+  let currentFont = 'sans';
+  let currentLogo = 'circle';
     const logo = document.getElementById('wl-brand-logo');
     if (logo) logo.style.background = theme.logoBg;
 
+  function applyTheme(t, f) {
+    const theme = THEMES[t];
+    const font = FONTS[f];
+    const p = preview;
+    p.style.setProperty('--p-bg', theme.bg);
+    p.style.setProperty('--p-accent', theme.accent);
+    p.style.setProperty('--p-accent-soft', theme.accentSoft);
+    p.style.setProperty('--p-accent-border', theme.accentBorder);
+    p.style.setProperty('--p-text', theme.text);
+    p.style.setProperty('--p-text-dim', theme.textDim);
+    p.style.setProperty('--p-surface', theme.surface);
+    p.style.setProperty('--p-border', theme.border);
+    p.style.setProperty('--p-font', font.family);
+    p.style.setProperty('--p-radius', font.radius);
+    // Update logo bg
+    const logoBg = document.getElementById('wl-brand-logo');
+    if (logoBg) logoBg.style.background = theme.logoBg;
+    // Update text content
+    const nameEl = document.getElementById('wl-brand-name');
+    if (nameEl) nameEl.textContent = theme.brandName;
+    const tagEl = document.getElementById('wl-tagline');
+    if (tagEl) tagEl.textContent = theme.tagline;
+    const titleEl = document.getElementById('wl-quiz-title');
+    if (titleEl) titleEl.textContent = theme.quizTitle;
+  }
     const name = document.getElementById('wl-brand-name');
     if (name) name.textContent = theme.brandName;
 
     const tagline = document.getElementById('wl-tagline');
     if (tagline) tagline.textContent = theme.tagline;
 
+  function applyLogo(key) {
+    const logoBg = document.getElementById('wl-brand-logo');
+    if (logoBg) logoBg.innerHTML = LOGOS[key];
     const title = document.getElementById('wl-quiz-title');
     if (title) title.textContent = theme.quizTitle;
   }
 
+  /* Initial state */
+  applyTheme(currentColor, currentFont);
+  applyLogo(currentLogo);
   applyTheme('dark');
 
+  /* Button interactions */
+  document.getElementById('wl-controls').addEventListener('click', e => {
+    const btn = e.target.closest('.wl-ctrl');
   const controls = document.getElementById('wl-controls');
   if (!controls) return;
 
   controls.addEventListener('click', e => {
     const btn = e.target.closest('.wl-ctrl[data-type="color"]');
     if (!btn) return;
+    const type = btn.dataset.type;
+    const value = btn.dataset.value;
 
+    /* Deactivate siblings of same type */
+    document.querySelectorAll(`.wl-ctrl[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
     document.querySelectorAll('.wl-ctrl[data-type="color"]').forEach(b => {
       b.classList.remove('active');
     });
 
+    if (type === 'color') {
+      currentColor = value;
+      applyTheme(currentColor, currentFont);
+    } else if (type === 'font') {
+      currentFont = value;
+      applyTheme(currentColor, currentFont);
+    } else if (type === 'logo') {
+      currentLogo = value;
+      applyLogo(currentLogo);
+    }
     btn.classList.add('active');
     applyTheme(btn.dataset.value);
   });
