@@ -130,7 +130,11 @@ img,svg{display:block;max-width:100%}
     </nav>
     <div class="nav-actions">
       <a href="https://app.blend-technologies.com" class="nav-login">Log in</a>
-      <a href="https://calendly.com/julien-blend-technologies/demo" class="btn btn-primary btn-sm">Book a demo</a>
+<!-- Calendly link widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=b47f39'});return false;">Book a demo</a>
+<!-- Calendly link widget end -->
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
         <span aria-hidden="true"><i></i></span>
       </button>
