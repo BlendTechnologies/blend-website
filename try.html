@@ -90,6 +90,10 @@ img,svg{display:block;max-width:100%}
 .try-embed-frame:-webkit-full-screen{border:0;border-radius:0;box-shadow:none;height:100vh;max-width:none;width:100vw;background:var(--white)}
 .try-embed-frame:fullscreen iframe,
 .try-embed-frame:-webkit-full-screen iframe{height:100vh}
+/* Pseudo-fullscreen fallback for iOS Safari (where the Fullscreen API only works on <video>) and anywhere requestFullscreen is unavailable */
+.try-embed-frame.is-pseudo-fs{position:fixed;inset:0;margin:0;width:100vw;height:100vh;height:100dvh;max-width:none;border:0;border-radius:0;box-shadow:none;z-index:9999;background:var(--white)}
+.try-embed-frame.is-pseudo-fs iframe{height:100%}
+body.is-fs-locked{overflow:hidden;touch-action:none}
 /* Fullscreen toggle button */
 .fs-btn{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:6px;background:rgba(10,10,10,.78);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:600;letter-spacing:-.005em;cursor:pointer;backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);transition:background .15s ease,opacity .15s ease;opacity:.92;z-index:5;line-height:1}
 .fs-btn:hover{background:#0A0A0A;opacity:1}
@@ -222,6 +226,8 @@ links.querySelectorAll('a').forEach(a => {
 });
  
 // Fullscreen toggle for the quiz embed
+// True browser-fullscreen via the Fullscreen API where supported (desktop + Android),
+// CSS-based viewport-fullscreen fallback elsewhere (iOS Safari, in-app browsers).
 (function(){
   const wrap = document.getElementById('quizEmbed');
   const btn = document.getElementById('fsBtn');
@@ -229,17 +235,39 @@ links.querySelectorAll('a').forEach(a => {
   const iconExpand = document.getElementById('fsIconExpand');
   const iconExit = document.getElementById('fsIconExit');
   if (!wrap || !btn) return;
-  const isFs = () => document.fullscreenElement || document.webkitFullscreenElement;
-  btn.addEventListener('click', () => {
-    if (isFs()) {
-      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    } else {
-      const req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
-      if (req) req.call(wrap);
+ 
+  let pseudoFs = false;
+  const isApiFs = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+  const isOn = () => isApiFs() || pseudoFs;
+ 
+  const enterPseudo = () => {
+    pseudoFs = true;
+    wrap.classList.add('is-pseudo-fs');
+    document.body.classList.add('is-fs-locked');
+    sync();
+  };
+  const exitPseudo = () => {
+    pseudoFs = false;
+    wrap.classList.remove('is-pseudo-fs');
+    document.body.classList.remove('is-fs-locked');
+    sync();
+  };
+ 
+  btn.addEventListener('click', async () => {
+    if (isOn()) {
+      if (pseudoFs) { exitPseudo(); return; }
+      try { await (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (_) {}
+      return;
     }
+    const req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
+    if (req) {
+      try { await req.call(wrap); return; } catch (_) { /* fall through */ }
+    }
+    enterPseudo();
   });
+ 
   const sync = () => {
-    const on = !!isFs();
+    const on = isOn();
     lbl.textContent = on ? 'Exit fullscreen' : 'Fullscreen';
     btn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'View fullscreen');
     iconExpand.style.display = on ? 'none' : 'block';
@@ -247,6 +275,8 @@ links.querySelectorAll('a').forEach(a => {
   };
   document.addEventListener('fullscreenchange', sync);
   document.addEventListener('webkitfullscreenchange', sync);
+  // Hardware Esc on Android exits pseudo-fullscreen too
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && pseudoFs) exitPseudo(); });
 })();
 </script>
 </body>
