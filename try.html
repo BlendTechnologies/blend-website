@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try Blend &#8212; live quiz demo</title>
-<meta name="description" content="Take the Blend quiz yourself &#8212; the same embed you&#39;d drop on your site.">
+<title>Try Blend &mdash; live quiz demo</title>
+<meta name="description" content="Take the Blend quiz yourself &mdash; the same embed you'd drop on your site.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Try Blend &#8212; live quiz demo">
-<meta property="og:description" content="Take the Blend quiz yourself &#8212; the same embed you&#39;d drop on your site.">
+<meta property="og:title" content="Try Blend &mdash; live quiz demo">
+<meta property="og:description" content="Take the Blend quiz yourself &mdash; the same embed you'd drop on your site.">
 <meta property="og:url" content="https://blend-technologies.com/try">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-393.1400000000001%200%202733.8%202733.8%22%20width%3D%22133.49%22%20height%3D%22133.49%22%3E%3Cg%20transform%3D%22translate%280%202104.4%29%20scale%281%20-1%29%22%20fill%3D%22%23000000%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Cpath%20d%3D%22M165%200V1490H714Q873%201490%20977.0%201438.0Q1081%201386%201132.0%201297.5Q1183%201209%201183%201099Q1183%201006%201149.0%20942.5Q1115%20879%201057.5%20840.5Q1000%20802%20931%20784V769Q1006%20766%201077.0%20721.5Q1148%20677%201194.5%20596.5Q1241%20516%201241%20401Q1241%20288%201187.5%20197.0Q1134%20106%201023.0%2053.0Q912%200%20738%200ZM393%20196H715Q875%20196%20945.0%20258.0Q1015%20320%201015%20412Q1015%20484%20979.5%20542.0Q944%20600%20879.0%20634.5Q814%20669%20724%20669H393ZM393%20845H692Q767%20845%20828.0%20874.0Q889%20903%20924.0%20956.0Q959%201009%20959%201080Q959%201172%20895.0%201233.5Q831%201295%20698%201295H393Z%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%281324.52%200%29%22%3E%3Cpath%20d%3D%22M311%20-15Q249%20-15%20206.0%2028.0Q163%2071%20163%20132Q163%20194%20206.0%20236.5Q249%20279%20311%20279Q372%20279%20415.0%20236.5Q458%20194%20458%20132Q458%2071%20415.0%2028.0Q372%20-15%20311%20-15Z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
@@ -37,7 +37,6 @@ img,svg{display:block;max-width:100%}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .h1{font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-.025em;font-weight:600;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
-
 /* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold);color:var(--white)}
@@ -48,7 +47,6 @@ img,svg{display:block;max-width:100%}
 .btn-ghost:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .btn-sm{padding:9px 14px;font-size:13.5px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:15.5px;min-height:50px}
-
 /* Nav */
 .nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.85);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease}
 .nav.scrolled{border-bottom-color:var(--line)}
@@ -81,22 +79,29 @@ img,svg{display:block;max-width:100%}
   .nav-toggle{display:inline-flex}
   .nav-actions .btn{padding:10px 16px;font-size:14px}
 }
-
 /* Footer logo — white tint */
 .footer .logo svg{filter:brightness(0) invert(1)}
-
 /* Embed */
 .try-embed-section{padding:24px 0 112px;background:var(--cream)}
-.try-embed-frame{max-width:100%;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);height:80vh}
-.try-embed-frame iframe{width:100%;height:80vh;border:0;display:block}
+.try-embed-frame{position:relative;max-width:100%;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);height:80vh}
+.try-embed-frame iframe{width:100%;height:100%;border:0;display:block}
+/* Fullscreen state — strip frame chrome and fill viewport */
+.try-embed-frame:fullscreen,
+.try-embed-frame:-webkit-full-screen{border:0;border-radius:0;box-shadow:none;height:100vh;max-width:none;width:100vw;background:var(--white)}
+.try-embed-frame:fullscreen iframe,
+.try-embed-frame:-webkit-full-screen iframe{height:100vh}
+/* Fullscreen toggle button */
+.fs-btn{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:6px;background:rgba(10,10,10,.78);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:600;letter-spacing:-.005em;cursor:pointer;backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);transition:background .15s ease,opacity .15s ease;opacity:.92;z-index:5;line-height:1}
+.fs-btn:hover{background:#0A0A0A;opacity:1}
+.fs-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fs-btn svg{width:13px;height:13px;display:block}
+@media(max-width:560px){.fs-btn span.fs-label{display:none}.fs-btn{padding:9px}}
 .try-embed-foot{margin:18px auto 0;padding-bottom:15px;max-width:980px;text-align:center;font-size:13px;color:var(--muted);letter-spacing:-.005em}
-
 /* After CTA */
 .after{padding:96px 0 120px;background:var(--cream-2);text-align:center;border-top:1px solid var(--line)}
 .after h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.022em;font-weight:600;margin:0 auto 14px;max-width:640px}
 .after p{margin:0 auto 28px;max-width:520px;color:var(--ink-80);font-size:16px;line-height:1.55}
 .after-ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-
 /* Footer */
 .footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
 .footer a:hover{color:var(--white)}
@@ -110,17 +115,16 @@ img,svg{display:block;max-width:100%}
 @media(max-width:860px){
   .footer-grid{grid-template-columns:1fr 1fr;gap:10px}
   .footer-brand{grid-column:1/-1}
-  .try-embed-frame{height:85%;max-width:100%;border-radius:0;box-shadow:var(--shadow-lg)}
+  .try-embed-frame{height:85vh;max-width:100%;border-radius:0;box-shadow:var(--shadow-lg)}
   .try-embed-section{padding:0}
+  .fs-btn{top:10px;right:10px}
 }
 </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
-
 <a href="#main" class="skip">Skip to content</a>
-
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="/index.html" class="logo logo-dark" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#000000"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
@@ -139,20 +143,22 @@ img,svg{display:block;max-width:100%}
     </div>
   </div>
 </header>
-
 <main id="main">
-
 <section class="try-embed-section">
   <div class="wrap">
-    <div class="try-embed-frame">
-      <iframe src="https://app.blend-technologies.com/quiz_embed?embed_id=2X9AOO9MH8T5" title="Blend live quiz" loading="lazy" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>
+    <div class="try-embed-frame" id="quizEmbed">
+      <button type="button" class="fs-btn" id="fsBtn" aria-label="View fullscreen">
+        <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <svg id="fsIconExit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+        <span class="fs-label" id="fsLabel">Fullscreen</span>
+      </button>
+      <iframe src="https://app.blend-technologies.com/quiz_embed?embed_id=2X9AOO9MH8T5" title="Blend live quiz" loading="lazy" allowfullscreen allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>
     </div>
     <div class="try-embed-foot">
-      This is the same embed you&#39;d drop on your site &#8212; one line of code.
+      This is the same embed you'd drop on your site &mdash; one line of code.
     </div>
   </div>
 </section>
-
 <section class="after">
   <div class="wrap">
     <h2>Ready to launch this on your store?</h2>
@@ -163,9 +169,7 @@ img,svg{display:block;max-width:100%}
     </div>
   </div>
 </section>
-
 </main>
-
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -193,12 +197,11 @@ img,svg{display:block;max-width:100%}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&#169; <span id="year">2026</span> Blend Technologies. All rights reserved.</span>
+      <span>&copy; <span id="year">2026</span> Blend Technologies. All rights reserved.</span>
       <span><a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></span>
     </div>
   </div>
 </footer>
-
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 const nav = document.getElementById('nav');
@@ -217,6 +220,34 @@ links.querySelectorAll('a').forEach(a => {
     toggle.setAttribute('aria-expanded','false');
   });
 });
+ 
+// Fullscreen toggle for the quiz embed
+(function(){
+  const wrap = document.getElementById('quizEmbed');
+  const btn = document.getElementById('fsBtn');
+  const lbl = document.getElementById('fsLabel');
+  const iconExpand = document.getElementById('fsIconExpand');
+  const iconExit = document.getElementById('fsIconExit');
+  if (!wrap || !btn) return;
+  const isFs = () => document.fullscreenElement || document.webkitFullscreenElement;
+  btn.addEventListener('click', () => {
+    if (isFs()) {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else {
+      const req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
+      if (req) req.call(wrap);
+    }
+  });
+  const sync = () => {
+    const on = !!isFs();
+    lbl.textContent = on ? 'Exit fullscreen' : 'Fullscreen';
+    btn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'View fullscreen');
+    iconExpand.style.display = on ? 'none' : 'block';
+    iconExit.style.display = on ? 'block' : 'none';
+  };
+  document.addEventListener('fullscreenchange', sync);
+  document.addEventListener('webkitfullscreenchange', sync);
+})();
 </script>
 </body>
 </html>
