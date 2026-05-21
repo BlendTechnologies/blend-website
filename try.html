@@ -156,7 +156,7 @@ body.is-fs-locked{overflow:hidden;touch-action:none}
         <svg id="fsIconExit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
         <span class="fs-label" id="fsLabel">Fullscreen</span>
       </button>
-      <iframe src="https://app.blend-technologies.com/quiz_embed?embed_id=2X9AOO9MH8T5" title="Blend live quiz" loading="lazy" allowfullscreen allow="fullscreen"></iframe>
+      <iframe src="https://app.blend-technologies.com/quiz_embed?embed_id=2X9AOO9MH8T5" title="Blend live quiz" loading="lazy" allowfullscreen allow="fullscreen; storage-access"></iframe>
     </div>
     <div class="try-embed-foot">
       This is the same embed you'd drop on your site &mdash; one line of code.
@@ -277,6 +277,28 @@ links.querySelectorAll('a').forEach(a => {
   document.addEventListener('webkitfullscreenchange', sync);
   // Hardware Esc on Android exits pseudo-fullscreen too
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && pseudoFs) exitPseudo(); });
+})();
+
+// Safari ITP partitions cross-origin iframe storage, which silently breaks the
+// embedded quiz's hover/active state visuals. As the first-party page, we
+// proactively grant the embed origin storage access on the first user gesture.
+// (Chrome 119+ and Safari support requestStorageAccessFor; elsewhere this is a no-op.)
+(function(){
+  const EMBED = 'https://app.blend-technologies.com';
+  const req = document.requestStorageAccessFor || document.requestStorageAccessForOrigin;
+  if (typeof req !== 'function') return;            // API unavailable — nothing to do
+  const events = ['pointerdown','keydown','touchend'];
+  let done = false;
+  const grant = () => {
+    if (done) return;
+    done = true;
+    events.forEach(evt => document.removeEventListener(evt, grant, true));
+    try {
+      const p = req.call(document, EMBED);          // must run inside a user gesture
+      if (p && p.catch) p.catch(() => {});          // denied / cold visitor — silent
+    } catch (_) { /* ignore */ }
+  };
+  events.forEach(evt => document.addEventListener(evt, grant, true));
 })();
 </script>
 </body>
