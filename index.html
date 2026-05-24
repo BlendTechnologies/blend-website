@@ -8,16 +8,21 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blend &mdash; The personalization engine for product brands">
 <meta property="og:description" content="Upload your catalog, build a quiz in an afternoon, and recommend the right product to every customer &mdash; with the data to back it up.">
-<meta property="og:url" content="https://blend-technologies.com">
-<meta property="og:image" content="https://blend-technologies.com/og.png">
+<meta property="og:url" content="https://www.blend-technologies.com/">
+<meta property="og:image" content="https://www.blend-technologies.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-393.1400000000001%200%202733.8%202733.8%22%20width%3D%22133.49%22%20height%3D%22133.49%22%3E%3Cg%20transform%3D%22translate%280%202104.4%29%20scale%281%20-1%29%22%20fill%3D%22%23000000%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Cpath%20d%3D%22M165%200V1490H714Q873%201490%20977.0%201438.0Q1081%201386%201132.0%201297.5Q1183%201209%201183%201099Q1183%201006%201149.0%20942.5Q1115%20879%201057.5%20840.5Q1000%20802%20931%20784V769Q1006%20766%201077.0%20721.5Q1148%20677%201194.5%20596.5Q1241%20516%201241%20401Q1241%20288%201187.5%20197.0Q1134%20106%201023.0%2053.0Q912%200%20738%200ZM393%20196H715Q875%20196%20945.0%20258.0Q1015%20320%201015%20412Q1015%20484%20979.5%20542.0Q944%20600%20879.0%20634.5Q814%20669%20724%20669H393ZM393%20845H692Q767%20845%20828.0%20874.0Q889%20903%20924.0%20956.0Q959%201009%20959%201080Q959%201172%20895.0%201233.5Q831%201295%20698%201295H393Z%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%281324.52%200%29%22%3E%3Cpath%20d%3D%22M311%20-15Q249%20-15%20206.0%2028.0Q163%2071%20163%20132Q163%20194%20206.0%20236.5Q249%20279%20311%20279Q372%20279%20415.0%20236.5Q458%20194%20458%20132Q458%2071%20415.0%2028.0Q372%20-15%20311%20-15Z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF8F2">
+<link rel="canonical" href="https://www.blend-technologies.com/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Blend","legalName":"Blend Technologies Ltd","url":"https://www.blend-technologies.com","logo":"https://www.blend-technologies.com/apple-touch-icon.png","description":"The personalization engine for product brands. Upload your catalog, build a quiz in an afternoon, and recommend the right product to every customer.","email":"contact@blend-technologies.com"}
+</script>
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-<!-- Calendly link widget begin -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<!-- Calendly link widget end --><style>
+<link rel="stylesheet" href="cookie-consent.css">
+<style>
 /* ============================================================
    BLEND MARKETING SITE
    ============================================================ */
@@ -474,7 +479,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <p class="lead hero-sub">Upload your catalog, configure your quiz, and turn every visitor into a data-backed match.</p>
         <div class="hero-ctas">
           <a href="try.html" class="btn btn-primary btn-lg">Try it yourself</a>
-          <a href="" class="btn btn-ghost btn-lg" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a'});return false;">Book a demo</a>
+          <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a');">Book a demo</a>
         </div>
         <div class="hero-foot">
           <span>15-day free trial</span><span class="dot" aria-hidden="true"></span>
@@ -714,7 +719,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     <p class="lead">Try the live demo, or book 15 minutes with us.</p>
     <div class="closer-ctas">
       <a href="try.html" class="btn btn-primary btn-lg">Try it yourself</a>
-      <a href="" class="btn btn-ghost btn-lg" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a'});return false;">Book a demo</a>
+      <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a');">Book a demo</a>
     </div>
     <div class="closer-foot">Or email us at <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></div>
   </div>
@@ -735,12 +740,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <div class="footer-col"><h5>Product</h5><ul><li><a href="#how">How it works</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#science">Science</a></li><li><a href="try.html">Try it yourself</a></li></ul></div>
       <div class="footer-col"><h5>Company</h5><ul>
         <li><a href="mailto:contact@blend-technologies.com">Contact</a></li>
-        <li><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a'});return false;">Book a demo</a></li>
+        <li><a href="" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a');">Book a demo</a></li>
         <li><a href="terms.html">Terms</a></li>
         <li><a href="privacy.html">Privacy</a></li>
       </ul></div>
     </div>
-    <div class="footer-bottom"><span>&#169; <span id="year">2026</span> Blend Technologies. All rights reserved.</span><span>contact@blend-technologies.com</span></div>
+    <div class="footer-bottom"><span>&#169; <span id="year">2026</span> Blend Technologies LTD. All rights reserved.</span><span>Registered in England &amp; Wales, company no. [Companies House number] &middot; ICO registration [ICO number]</span><span><a href="" onclick="return blendOpenCookieSettings();" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Cookie settings</a> &middot; contact@blend-technologies.com</span></div>
   </div>
 </footer>
 <script>
@@ -779,5 +784,21 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   controls.addEventListener('click', e => { const btn = e.target.closest('.wl-ctrl[data-type="color"]'); if (!btn) return; document.querySelectorAll('.wl-ctrl[data-type="color"]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); applyTheme(btn.dataset.value); });
 })();
 </script>
+
+<!-- Cookie consent banner -->
+<div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
+  <div class="blend-cookie-banner-inner">
+    <div class="blend-cookie-banner-content">
+      <h2 id="cookie-banner-title" class="blend-cookie-banner-title">Cookie notice</h2>
+      <p id="cookie-banner-text" class="blend-cookie-banner-text">We use essential cookies to run this site and remember your choice. To let you book a demo we also load Calendly, which sets its own cookies. The site works either way. <a href="privacy.html">Privacy policy</a></p>
+    </div>
+    <div class="blend-cookie-banner-actions">
+      <button id="blend-cookie-reject" class="blend-cookie-banner-btn blend-cookie-banner-btn-reject" type="button">Reject all</button>
+      <button id="blend-cookie-accept" class="blend-cookie-banner-btn blend-cookie-banner-btn-accept" type="button">Accept all</button>
+    </div>
+  </div>
+</div>
+<script src="cookie-consent.js"></script>
+
 </body>
 </html>

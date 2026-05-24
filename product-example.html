@@ -7,16 +7,16 @@
 <meta name="description" content="An example of what your customer sees after taking a Blend quiz.">
 <meta name="robots" content="noindex,follow">
  
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-393.1400000000001%200%202733.8%202733.8%22%20width%3D%22133.49%22%20height%3D%22133.49%22%3E%3Cg%20transform%3D%22translate%280%202104.4%29%20scale%281%20-1%29%22%20fill%3D%22%23000000%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Cpath%20d%3D%22M165%200V1490H714Q873%201490%20977.0%201438.0Q1081%201386%201132.0%201297.5Q1183%201209%201183%201099Q1183%201006%201149.0%20942.5Q1115%20879%201057.5%20840.5Q1000%20802%20931%20784V769Q1006%20766%201077.0%20721.5Q1148%20677%201194.5%20596.5Q1241%20516%201241%20401Q1241%20288%201187.5%20197.0Q1134%20106%201023.0%2053.0Q912%200%20738%200ZM393%20196H715Q875%20196%20945.0%20258.0Q1015%20320%201015%20412Q1015%20484%20979.5%20542.0Q944%20600%20879.0%20634.5Q814%20669%20724%20669H393ZM393%20845H692Q767%20845%20828.0%20874.0Q889%20903%20924.0%20956.0Q959%201009%20959%201080Q959%201172%20895.0%201233.5Q831%201295%20698%201295H393Z%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%281324.52%200%29%22%3E%3Cpath%20d%3D%22M311%20-15Q249%20-15%20206.0%2028.0Q163%2071%20163%20132Q163%20194%20206.0%20236.5Q249%20279%20311%20279Q372%20279%20415.0%20236.5Q458%20194%20458%20132Q458%2071%20415.0%2028.0Q372%20-15%20311%20-15Z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF8F2">
+<link rel="canonical" href="https://www.blend-technologies.com/product-example">
  
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
- 
-<!-- Calendly link widget begin -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<!-- Calendly link widget end -->
- 
+<link rel="stylesheet" href="cookie-consent.css">
+
 <style>
 :root{
   --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);--ink-40:rgba(10,10,10,.40);
@@ -292,15 +292,16 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <h5>Company</h5>
         <ul>
           <li><a href="mailto:contact@blend-technologies.com">Contact</a></li>
-          <li><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a'});return false;">Book a demo</a></li>
+          <li><a href="" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a');">Book a demo</a></li>
           <li><a href="terms.html">Terms</a></li>
           <li><a href="privacy.html">Privacy</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span id="year">2026</span> Blend Technologies. All rights reserved.</span>
-      <span><a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></span>
+      <span>&copy; <span id="year">2026</span> Blend Technologies LTD. All rights reserved.</span>
+      <span>Registered in England &amp; Wales, company no. [Companies House number] &middot; ICO registration [ICO number]</span>
+      <span><a href="" onclick="return blendOpenCookieSettings();" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Cookie settings</a> &middot; <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></span>
     </div>
   </div>
 </footer>
@@ -347,5 +348,21 @@ const qtyVal = document.getElementById('qtyVal');
 document.getElementById('qtyMinus').addEventListener('click', () => { qty = Math.max(1, qty - 1); qtyVal.textContent = qty; });
 document.getElementById('qtyPlus').addEventListener('click', () => { qty = Math.min(9, qty + 1); qtyVal.textContent = qty; });
 </script>
+
+<!-- Cookie consent banner -->
+<div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
+  <div class="blend-cookie-banner-inner">
+    <div class="blend-cookie-banner-content">
+      <h2 id="cookie-banner-title" class="blend-cookie-banner-title">Cookie notice</h2>
+      <p id="cookie-banner-text" class="blend-cookie-banner-text">We use essential cookies to run this site and remember your choice. To let you book a demo we also load Calendly, which sets its own cookies. The site works either way. <a href="privacy.html">Privacy policy</a></p>
+    </div>
+    <div class="blend-cookie-banner-actions">
+      <button id="blend-cookie-reject" class="blend-cookie-banner-btn blend-cookie-banner-btn-reject" type="button">Reject all</button>
+      <button id="blend-cookie-accept" class="blend-cookie-banner-btn blend-cookie-banner-btn-accept" type="button">Accept all</button>
+    </div>
+  </div>
+</div>
+<script src="cookie-consent.js"></script>
+
 </body>
 </html>
