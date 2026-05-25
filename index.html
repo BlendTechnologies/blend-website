@@ -326,6 +326,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-cta.gold:hover{background:var(--gold-pressed)}
 .tier-cta.outline{border:1px solid var(--line-strong);color:var(--ink);background:var(--white)}
 .tier-cta.outline:hover{border-color:var(--ink)}
+.pricing-controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
+.currency-select{position:relative}
+.currency-select select{appearance:none;padding:8px 32px 8px 12px;background:var(--white);border:1px solid var(--line);border-radius:8px;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;font-family:inherit;transition:border-color .2s ease}
+.currency-select select:hover{border-color:var(--line-strong)}
+.currency-select select:focus{outline:none;border-color:var(--gold)}
+.currency-select::after{content:"▼";position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;font-size:10px;color:var(--muted)}
+.billing-toggle{display:inline-flex;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;position:relative}
+.billing-toggle button{padding:7px 16px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--muted);background:transparent;transition:all .2s ease;cursor:pointer;position:relative;z-index:1}
+.billing-toggle button.active{color:var(--ink);background:var(--cream);border:1px solid var(--line-strong)}
+.billing-toggle button:not(.active):hover{color:var(--ink-80)}
+.billing-savings{display:inline-block;margin-left:12px;padding:4px 10px;background:rgba(180,127,57,.12);color:var(--gold-pressed);border-radius:6px;font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.tier-annual{font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
 .pricing-foot{text-align:center;margin-top:32px;font-size:13.5px;color:var(--muted)}
 .pricing-foot details{display:inline-block;margin-left:8px}
 .pricing-foot summary{cursor:pointer;color:var(--ink);font-weight:500;border-bottom:1px solid var(--line);padding-bottom:1px;display:inline;list-style:none}
@@ -674,24 +686,50 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 <section class="section section-cream" id="pricing">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Pricing</span><h2 class="h2">Simple plans. Cancel anytime.</h2><p class="lead">15-day free trial on every plan.</p></div>
+    <div class="pricing-controls">
+      <div class="currency-select">
+        <select id="currency-picker" aria-label="Select currency">
+          <option value="usd">USD ($)</option>
+          <option value="eur">EUR (€)</option>
+          <option value="gbp">GBP (£)</option>
+        </select>
+      </div>
+      <div class="billing-toggle">
+        <button id="billing-monthly" class="active" type="button">Monthly</button>
+        <button id="billing-yearly" type="button">Yearly</button>
+      </div>
+      <span id="billing-savings" class="billing-savings" style="display:none;">Save up to 20%</span>
+    </div>
     <div class="pricing">
-      <div class="tier tier-starter">
+      <div class="tier tier-starter" data-tier="starter">
         <div class="tier-name">Starter</div>
-        <div><span class="tier-price">$49</span><span class="tier-per">/month</span></div>
+        <div>
+          <span class="tier-price" data-price-monthly-usd="49" data-price-monthly-eur="49" data-price-monthly-gbp="39" data-price-yearly-usd="39" data-price-yearly-eur="39" data-price-yearly-gbp="33">$49</span>
+          <span class="tier-per">/month</span>
+        </div>
+        <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">Entry level for small brands getting started with personalization.</p>
         <ul class="tier-list"><li>200 quiz responses <span class="hint">/ month</span></li><li>Up to 20 products</li><li>Basic analytics</li><li>Shopify + CSV sync</li><li>Personalized quiz</li><li>Webapp access</li><li>Email support</li></ul>
-        <a href="https://buy.stripe.com/test_8x2dR8h0V87lbD89sc0RG03" class="tier-cta outline">Start free trial</a>
+        <a href="https://buy.stripe.com/test_8x2dR8h0V87lbD89sc0RG03" class="tier-cta outline" data-url-monthly-usd="TODO_STARTER_USD_MONTHLY_URL" data-url-monthly-eur="TODO_STARTER_EUR_MONTHLY_URL" data-url-monthly-gbp="TODO_STARTER_GBP_MONTHLY_URL" data-url-yearly-usd="TODO_STARTER_USD_YEARLY_URL" data-url-yearly-eur="TODO_STARTER_EUR_YEARLY_URL" data-url-yearly-gbp="TODO_STARTER_GBP_YEARLY_URL">Start free trial</a>
       </div>
-      <div class="tier featured">
+      <div class="tier featured" data-tier="pro">
         <div class="tier-name">Pro</div>
-        <div><span class="tier-price">$299</span><span class="tier-per">/month</span></div>
+        <div>
+          <span class="tier-price" data-price-monthly-usd="299" data-price-monthly-eur="299" data-price-monthly-gbp="249" data-price-yearly-usd="239" data-price-yearly-eur="239" data-price-yearly-gbp="199">$299</span>
+          <span class="tier-per">/month</span>
+        </div>
+        <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">The core commercial plan for brands where personalization is a revenue channel.</p>
         <ul class="tier-list"><li>Everything in Starter</li><li>2,000 quiz responses <span class="hint">/ month</span></li><li>Up to 200 products</li><li>Full analytics</li></ul>
-        <a href="https://buy.stripe.com/test_14AaEW3a5fzN7mS7k40RG02" class="tier-cta gold">Start free trial</a>
+        <a href="https://buy.stripe.com/test_14AaEW3a5fzN7mS7k40RG02" class="tier-cta gold" data-url-monthly-usd="TODO_PRO_USD_MONTHLY_URL" data-url-monthly-eur="TODO_PRO_EUR_MONTHLY_URL" data-url-monthly-gbp="TODO_PRO_GBP_MONTHLY_URL" data-url-yearly-usd="TODO_PRO_USD_YEARLY_URL" data-url-yearly-eur="TODO_PRO_EUR_YEARLY_URL" data-url-yearly-gbp="TODO_PRO_GBP_YEARLY_URL">Start free trial</a>
       </div>
-      <div class="tier tier-enterprise">
+      <div class="tier tier-enterprise" data-tier="enterprise">
         <div class="tier-name">Enterprise</div>
-        <div><span class="tier-price">$599</span><span class="tier-per">/month</span></div>
+        <div>
+          <span class="tier-price" data-price-monthly-usd="599" data-price-monthly-eur="599" data-price-monthly-gbp="499" data-price-yearly-usd="479" data-price-yearly-eur="479" data-price-yearly-gbp="399">$599</span>
+          <span class="tier-per">/month</span>
+        </div>
+        <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">For brands at scale that need hands-on setup and unlimited throughput.</p>
         <ul class="tier-list"><li>Everything in Pro</li><li>Unlimited quiz responses</li><li>Unlimited products</li><li>Dedicated onboarding</li><li>Priority support</li><li>Dedicated personalization</li></ul>
         <a href="mailto:contact@blend-technologies.com" class="tier-cta dark">Talk to us</a>
@@ -782,6 +820,117 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   applyTheme('dark');
   const controls = document.getElementById('wl-controls'); if (!controls) return;
   controls.addEventListener('click', e => { const btn = e.target.closest('.wl-ctrl[data-type="color"]'); if (!btn) return; document.querySelectorAll('.wl-ctrl[data-type="color"]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); applyTheme(btn.dataset.value); });
+})();
+
+// Pricing: currency & billing cycle
+(function() {
+  const currencyPicker = document.getElementById('currency-picker');
+  const billingMonthly = document.getElementById('billing-monthly');
+  const billingYearly = document.getElementById('billing-yearly');
+  const billingSavings = document.getElementById('billing-savings');
+
+  if (!currencyPicker || !billingMonthly || !billingYearly) return;
+
+  const CURRENCY_SYMBOLS = { usd: '$', eur: '€', gbp: '£' };
+  const ANNUAL_TOTALS = {
+    starter: { usd: 468, eur: 468, gbp: 396 },
+    pro: { usd: 2868, eur: 2868, gbp: 2388 },
+    enterprise: { usd: 5748, eur: 5748, gbp: 4788 }
+  };
+
+  let currentCurrency = localStorage.getItem('blend_currency') || 'usd';
+  let currentCycle = localStorage.getItem('blend_cycle') || 'monthly';
+
+  // Auto-detect currency from geo on first visit
+  if (!localStorage.getItem('blend_currency')) {
+    fetch('/api/geo')
+      .then(r => r.json())
+      .then(data => {
+        if (data.currency) {
+          currentCurrency = data.currency.toLowerCase();
+          currencyPicker.value = currentCurrency;
+          updatePricing();
+        }
+      })
+      .catch(() => {}); // silent fail, default to USD
+  }
+
+  // Initialize UI
+  currencyPicker.value = currentCurrency;
+  if (currentCycle === 'yearly') {
+    billingMonthly.classList.remove('active');
+    billingYearly.classList.add('active');
+    billingSavings.style.display = 'inline-block';
+  }
+  updatePricing();
+
+  // Currency change
+  currencyPicker.addEventListener('change', () => {
+    currentCurrency = currencyPicker.value;
+    localStorage.setItem('blend_currency', currentCurrency);
+    updatePricing();
+  });
+
+  // Billing cycle toggle
+  billingMonthly.addEventListener('click', () => {
+    if (currentCycle === 'monthly') return;
+    currentCycle = 'monthly';
+    localStorage.setItem('blend_cycle', 'monthly');
+    billingMonthly.classList.add('active');
+    billingYearly.classList.remove('active');
+    billingSavings.style.display = 'none';
+    updatePricing();
+  });
+
+  billingYearly.addEventListener('click', () => {
+    if (currentCycle === 'yearly') return;
+    currentCycle = 'yearly';
+    localStorage.setItem('blend_cycle', 'yearly');
+    billingYearly.classList.add('active');
+    billingMonthly.classList.remove('active');
+    billingSavings.style.display = 'inline-block';
+    updatePricing();
+  });
+
+  function updatePricing() {
+    const symbol = CURRENCY_SYMBOLS[currentCurrency];
+    const tiers = document.querySelectorAll('.tier[data-tier]');
+
+    tiers.forEach(tier => {
+      const tierName = tier.dataset.tier;
+      const priceEl = tier.querySelector('.tier-price');
+      const annualEl = tier.querySelector('.tier-annual');
+      const ctaEl = tier.querySelector('.tier-cta');
+
+      if (!priceEl) return;
+
+      const attrKey = `price-${currentCycle}-${currentCurrency}`;
+      const price = priceEl.dataset[attrKey.replace(/-([a-z])/g, (g) => g[1].toUpperCase())];
+
+      if (price) {
+        const formattedPrice = symbol + new Intl.NumberFormat('en-US').format(price);
+        priceEl.textContent = formattedPrice;
+
+        if (currentCycle === 'yearly' && annualEl) {
+          const annualTotal = ANNUAL_TOTALS[tierName][currentCurrency];
+          const formattedAnnual = symbol + new Intl.NumberFormat('en-US').format(annualTotal);
+          annualEl.textContent = `${formattedAnnual} billed annually`;
+          annualEl.style.display = 'block';
+        } else if (annualEl) {
+          annualEl.style.display = 'none';
+        }
+      }
+
+      // Update CTA URL (skip Enterprise "Talk to us")
+      if (ctaEl && tierName !== 'enterprise') {
+        const urlAttrKey = `url-${currentCycle}-${currentCurrency}`;
+        const url = ctaEl.dataset[urlAttrKey.replace(/-([a-z])/g, (g) => g[1].toUpperCase())];
+        if (url) {
+          ctaEl.href = url;
+        }
+      }
+    });
+  }
 })();
 </script>
 
