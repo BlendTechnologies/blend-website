@@ -333,7 +333,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .billing-toggle button{padding:7px 16px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--muted);background:transparent;transition:all .2s ease;cursor:pointer;position:relative;z-index:1}
 .billing-toggle button.active{color:var(--ink);background:var(--cream);border:1px solid var(--line-strong)}
 .billing-toggle button:not(.active):hover{color:var(--ink-80)}
-.billing-savings{display:inline-block;margin-left:12px;padding:4px 10px;background:rgba(180,127,57,.12);color:var(--gold-pressed);border-radius:6px;font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.billing-savings{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);padding:4px 10px;background:rgba(180,127,57,.12);color:var(--gold-pressed);border-radius:6px;font-size:11.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;pointer-events:none}
+@media(max-width:560px){.billing-savings{position:static;transform:none;margin-top:8px;margin-left:0}}
 .tier-annual{display:block;font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
 .pricing-foot{text-align:center;margin-top:32px;font-size:13.5px;color:var(--muted)}
 .pricing-foot details{display:inline-block;margin-left:8px}
@@ -687,8 +688,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <div class="billing-toggle">
         <button id="billing-monthly" class="active" type="button">Monthly</button>
         <button id="billing-yearly" type="button">Yearly</button>
+        <span id="billing-savings" class="billing-savings" style="display:none;">Save up to 20%</span>
       </div>
-      <span id="billing-savings" class="billing-savings" style="display:none;">Save up to 20%</span>
     </div>
     <div class="pricing">
       <div class="tier tier-starter" data-tier="starter">
@@ -710,7 +711,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           <span class="tier-annual" style="display:none;"></span>
         </div>
         <p class="tier-blurb">The core commercial plan for brands where personalization is a revenue channel.</p>
-        <ul class="tier-list"><li>Everything in Starter</li><li>2,000 quiz responses <span class="hint">/ month</span></li><li>Up to 200 products</li><li>Full analytics</li></ul>
+        <ul class="tier-list"><li>Everything in Starter</li><li>2,000 quiz responses <span class="hint">/ month</span></li><li>Up to 200 products</li><li>User Analytics</li><li>Quiz Analytics</li><li>Product Analytics</li><li>Market Analytics</li></ul>
         <a href="mailto:contact@blend-technologies.com?subject=Start%20free%20trial%20%E2%80%94%20Pro" class="tier-cta gold" data-checkout>Start free trial</a>
       </div>
       <div class="tier tier-enterprise" data-tier="enterprise">
