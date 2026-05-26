@@ -313,6 +313,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier.featured::before{content:"Most popular";position:absolute;top:20px;right:20px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--gold-pressed);text-transform:uppercase}
 .tier-name{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
 .tier-price{font-size:38px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
+.tier-from{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px;vertical-align:baseline}
 .tier-per{font-size:13.5px;color:var(--muted);font-weight:400;margin-left:4px}
 .tier-blurb{font-size:13.5px;color:var(--ink-80);margin:0;min-height:44px;line-height:1.5}
 .tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0}
@@ -328,17 +329,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-cta.outline:hover{border-color:var(--ink)}
 .tier-cta.is-loading{opacity:.7;cursor:wait;pointer-events:none}
 .pricing-controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
-.currency-select{position:relative}
-.currency-select select{appearance:none;padding:8px 32px 8px 12px;background:var(--white);border:1px solid var(--line);border-radius:8px;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;font-family:inherit;transition:border-color .2s ease}
-.currency-select select:hover{border-color:var(--line-strong)}
-.currency-select select:focus{outline:none;border-color:var(--gold)}
-.currency-select::after{content:"▼";position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;font-size:10px;color:var(--muted)}
 .billing-toggle{display:inline-flex;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;position:relative}
 .billing-toggle button{padding:7px 16px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--muted);background:transparent;transition:all .2s ease;cursor:pointer;position:relative;z-index:1}
 .billing-toggle button.active{color:var(--ink);background:var(--cream);border:1px solid var(--line-strong)}
 .billing-toggle button:not(.active):hover{color:var(--ink-80)}
 .billing-savings{display:inline-block;margin-left:12px;padding:4px 10px;background:rgba(180,127,57,.12);color:var(--gold-pressed);border-radius:6px;font-size:11.5px;font-weight:600;letter-spacing:.02em}
-.tier-annual{font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
+.tier-annual{display:block;font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
 .pricing-foot{text-align:center;margin-top:32px;font-size:13.5px;color:var(--muted)}
 .pricing-foot details{display:inline-block;margin-left:8px}
 .pricing-foot summary{cursor:pointer;color:var(--ink);font-weight:500;border-bottom:1px solid var(--line);padding-bottom:1px;display:inline;list-style:none}
@@ -688,13 +684,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Pricing</span><h2 class="h2">Simple plans. Cancel anytime.</h2><p class="lead">15-day free trial on every plan.</p></div>
     <div class="pricing-controls">
-      <div class="currency-select">
-        <select id="currency-picker" aria-label="Select currency">
-          <option value="usd">USD ($)</option>
-          <option value="eur">EUR (€)</option>
-          <option value="gbp">GBP (£)</option>
-        </select>
-      </div>
       <div class="billing-toggle">
         <button id="billing-monthly" class="active" type="button">Monthly</button>
         <button id="billing-yearly" type="button">Yearly</button>
@@ -707,8 +696,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div>
           <span class="tier-price" data-price-monthly-usd="49" data-price-monthly-eur="49" data-price-monthly-gbp="39" data-price-yearly-usd="39" data-price-yearly-eur="39" data-price-yearly-gbp="33">$49</span>
           <span class="tier-per">/month</span>
+          <span class="tier-annual" style="display:none;"></span>
         </div>
-        <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">Entry level for small brands getting started with personalization.</p>
         <ul class="tier-list"><li>200 quiz responses <span class="hint">/ month</span></li><li>Up to 20 products</li><li>Basic analytics</li><li>Shopify + CSV sync</li><li>Personalized quiz</li><li>Webapp access</li><li>Email support</li></ul>
         <a href="mailto:contact@blend-technologies.com?subject=Start%20free%20trial%20%E2%80%94%20Starter" class="tier-cta outline" data-checkout>Start free trial</a>
@@ -718,8 +707,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div>
           <span class="tier-price" data-price-monthly-usd="299" data-price-monthly-eur="299" data-price-monthly-gbp="249" data-price-yearly-usd="239" data-price-yearly-eur="239" data-price-yearly-gbp="199">$299</span>
           <span class="tier-per">/month</span>
+          <span class="tier-annual" style="display:none;"></span>
         </div>
-        <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">The core commercial plan for brands where personalization is a revenue channel.</p>
         <ul class="tier-list"><li>Everything in Starter</li><li>2,000 quiz responses <span class="hint">/ month</span></li><li>Up to 200 products</li><li>Full analytics</li></ul>
         <a href="mailto:contact@blend-technologies.com?subject=Start%20free%20trial%20%E2%80%94%20Pro" class="tier-cta gold" data-checkout>Start free trial</a>
@@ -727,10 +716,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <div class="tier tier-enterprise" data-tier="enterprise">
         <div class="tier-name">Enterprise</div>
         <div>
+          <span class="tier-from">from</span>
           <span class="tier-price" data-price-monthly-usd="599" data-price-monthly-eur="599" data-price-monthly-gbp="499" data-price-yearly-usd="479" data-price-yearly-eur="479" data-price-yearly-gbp="399">$599</span>
           <span class="tier-per">/month</span>
+          <span class="tier-annual" style="display:none;"></span>
         </div>
-        <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">For brands at scale that need hands-on setup and unlimited throughput.</p>
         <ul class="tier-list"><li>Everything in Pro</li><li>Unlimited quiz responses</li><li>Unlimited products</li><li>Dedicated onboarding</li><li>Priority support</li><li>Dedicated personalization</li></ul>
         <a href="mailto:contact@blend-technologies.com" class="tier-cta dark">Talk to us</a>
@@ -827,12 +817,11 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
 (function() {
   const CHECKOUT_ENDPOINT = 'https://blend-checkout.onrender.com/api/checkout/session';
 
-  const currencyPicker = document.getElementById('currency-picker');
   const billingMonthly = document.getElementById('billing-monthly');
   const billingYearly = document.getElementById('billing-yearly');
   const billingSavings = document.getElementById('billing-savings');
 
-  if (!currencyPicker || !billingMonthly || !billingYearly) return;
+  if (!billingMonthly || !billingYearly) return;
 
   const CURRENCY_SYMBOLS = { usd: '$', eur: '€', gbp: '£' };
   const ANNUAL_TOTALS = {
@@ -841,7 +830,9 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
     enterprise: { usd: 5748, eur: 5748, gbp: 4788 }
   };
 
-  let currentCurrency = localStorage.getItem('blend_currency') || 'usd';
+  // Currency is geo-only — no user picker. Server derives from IP
+  // (EU -> EUR, GB -> GBP, anything else / unknown -> USD).
+  let currentCurrency = 'usd';
   let currentCycle = localStorage.getItem('blend_cycle') || 'monthly';
   let detectedCountry = null;
 
@@ -862,34 +853,25 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
     }
   } catch (_) {}
 
-  // Always resolve geo (cached server-side for 1h). Country is sent on the
-  // checkout call as a hint; if the user already picked a currency we keep it.
+  // Resolve currency + country from IP (server caches for 1h).
   fetch('/api/geo')
     .then(r => r.json())
     .then(data => {
       if (data && data.country) detectedCountry = data.country;
-      if (!localStorage.getItem('blend_currency') && data && data.currency) {
+      if (data && data.currency) {
         currentCurrency = data.currency.toLowerCase();
-        currencyPicker.value = currentCurrency;
         updatePricing();
       }
     })
-    .catch(() => {}); // silent — backend defaults to USD without country
+    .catch(() => {}); // silent — page already renders USD as a sane default
 
-  // Initialize UI from stored prefs
-  currencyPicker.value = currentCurrency;
+  // Initialize UI from stored cycle preference
   if (currentCycle === 'yearly') {
     billingMonthly.classList.remove('active');
     billingYearly.classList.add('active');
     billingSavings.style.display = 'inline-block';
   }
   updatePricing();
-
-  currencyPicker.addEventListener('change', () => {
-    currentCurrency = currencyPicker.value;
-    localStorage.setItem('blend_currency', currentCurrency);
-    updatePricing();
-  });
 
   billingMonthly.addEventListener('click', () => {
     if (currentCycle === 'monthly') return;
