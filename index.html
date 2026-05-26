@@ -326,6 +326,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-cta.gold:hover{background:var(--gold-pressed)}
 .tier-cta.outline{border:1px solid var(--line-strong);color:var(--ink);background:var(--white)}
 .tier-cta.outline:hover{border-color:var(--ink)}
+.tier-cta.is-loading{opacity:.7;cursor:wait;pointer-events:none}
 .pricing-controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
 .currency-select{position:relative}
 .currency-select select{appearance:none;padding:8px 32px 8px 12px;background:var(--white);border:1px solid var(--line);border-radius:8px;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;font-family:inherit;transition:border-color .2s ease}
@@ -710,7 +711,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">Entry level for small brands getting started with personalization.</p>
         <ul class="tier-list"><li>200 quiz responses <span class="hint">/ month</span></li><li>Up to 20 products</li><li>Basic analytics</li><li>Shopify + CSV sync</li><li>Personalized quiz</li><li>Webapp access</li><li>Email support</li></ul>
-        <a href="https://buy.stripe.com/test_8x2dR8h0V87lbD89sc0RG03" class="tier-cta outline" data-url-monthly-usd="TODO_STARTER_USD_MONTHLY_URL" data-url-monthly-eur="TODO_STARTER_EUR_MONTHLY_URL" data-url-monthly-gbp="TODO_STARTER_GBP_MONTHLY_URL" data-url-yearly-usd="TODO_STARTER_USD_YEARLY_URL" data-url-yearly-eur="TODO_STARTER_EUR_YEARLY_URL" data-url-yearly-gbp="TODO_STARTER_GBP_YEARLY_URL">Start free trial</a>
+        <a href="mailto:contact@blend-technologies.com?subject=Start%20free%20trial%20%E2%80%94%20Starter" class="tier-cta outline" data-checkout>Start free trial</a>
       </div>
       <div class="tier featured" data-tier="pro">
         <div class="tier-name">Pro</div>
@@ -721,7 +722,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div class="tier-annual" style="display:none;"></div>
         <p class="tier-blurb">The core commercial plan for brands where personalization is a revenue channel.</p>
         <ul class="tier-list"><li>Everything in Starter</li><li>2,000 quiz responses <span class="hint">/ month</span></li><li>Up to 200 products</li><li>Full analytics</li></ul>
-        <a href="https://buy.stripe.com/test_14AaEW3a5fzN7mS7k40RG02" class="tier-cta gold" data-url-monthly-usd="TODO_PRO_USD_MONTHLY_URL" data-url-monthly-eur="TODO_PRO_EUR_MONTHLY_URL" data-url-monthly-gbp="TODO_PRO_GBP_MONTHLY_URL" data-url-yearly-usd="TODO_PRO_USD_YEARLY_URL" data-url-yearly-eur="TODO_PRO_EUR_YEARLY_URL" data-url-yearly-gbp="TODO_PRO_GBP_YEARLY_URL">Start free trial</a>
+        <a href="mailto:contact@blend-technologies.com?subject=Start%20free%20trial%20%E2%80%94%20Pro" class="tier-cta gold" data-checkout>Start free trial</a>
       </div>
       <div class="tier tier-enterprise" data-tier="enterprise">
         <div class="tier-name">Enterprise</div>
@@ -822,8 +823,10 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   controls.addEventListener('click', e => { const btn = e.target.closest('.wl-ctrl[data-type="color"]'); if (!btn) return; document.querySelectorAll('.wl-ctrl[data-type="color"]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); applyTheme(btn.dataset.value); });
 })();
 
-// Pricing: currency & billing cycle
+// Pricing: currency, billing cycle, and Stripe Checkout wiring
 (function() {
+  const CHECKOUT_ENDPOINT = 'https://blend-checkout.onrender.com/api/checkout/session';
+
   const currencyPicker = document.getElementById('currency-picker');
   const billingMonthly = document.getElementById('billing-monthly');
   const billingYearly = document.getElementById('billing-yearly');
@@ -840,22 +843,40 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
 
   let currentCurrency = localStorage.getItem('blend_currency') || 'usd';
   let currentCycle = localStorage.getItem('blend_cycle') || 'monthly';
+  let detectedCountry = null;
 
-  // Auto-detect currency from geo on first visit
-  if (!localStorage.getItem('blend_currency')) {
-    fetch('/api/geo')
-      .then(r => r.json())
-      .then(data => {
-        if (data.currency) {
-          currentCurrency = data.currency.toLowerCase();
-          currencyPicker.value = currentCurrency;
-          updatePricing();
-        }
-      })
-      .catch(() => {}); // silent fail, default to USD
-  }
+  // Capture UTM / referral attribution from the URL once per tab session.
+  // Backend stores these on both the Checkout Session and the Subscription.
+  // First-touch wins (we don't overwrite an existing value).
+  try {
+    const params = new URLSearchParams(window.location.search);
+    ['utm_source','utm_medium','utm_campaign'].forEach(k => {
+      const v = params.get(k);
+      if (v && !sessionStorage.getItem('blend_' + k)) {
+        sessionStorage.setItem('blend_' + k, v);
+      }
+    });
+    const ref = params.get('ref');
+    if (ref && !sessionStorage.getItem('blend_ref')) {
+      sessionStorage.setItem('blend_ref', ref);
+    }
+  } catch (_) {}
 
-  // Initialize UI
+  // Always resolve geo (cached server-side for 1h). Country is sent on the
+  // checkout call as a hint; if the user already picked a currency we keep it.
+  fetch('/api/geo')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.country) detectedCountry = data.country;
+      if (!localStorage.getItem('blend_currency') && data && data.currency) {
+        currentCurrency = data.currency.toLowerCase();
+        currencyPicker.value = currentCurrency;
+        updatePricing();
+      }
+    })
+    .catch(() => {}); // silent — backend defaults to USD without country
+
+  // Initialize UI from stored prefs
   currencyPicker.value = currentCurrency;
   if (currentCycle === 'yearly') {
     billingMonthly.classList.remove('active');
@@ -864,14 +885,12 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   }
   updatePricing();
 
-  // Currency change
   currencyPicker.addEventListener('change', () => {
     currentCurrency = currencyPicker.value;
     localStorage.setItem('blend_currency', currentCurrency);
     updatePricing();
   });
 
-  // Billing cycle toggle
   billingMonthly.addEventListener('click', () => {
     if (currentCycle === 'monthly') return;
     currentCycle = 'monthly';
@@ -900,7 +919,6 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
       const tierName = tier.dataset.tier;
       const priceEl = tier.querySelector('.tier-price');
       const annualEl = tier.querySelector('.tier-annual');
-      const ctaEl = tier.querySelector('.tier-cta');
 
       if (!priceEl) return;
 
@@ -920,17 +938,79 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
           annualEl.style.display = 'none';
         }
       }
-
-      // Update CTA URL (skip Enterprise "Talk to us")
-      if (ctaEl && tierName !== 'enterprise') {
-        const urlAttrKey = `url-${currentCycle}-${currentCurrency}`;
-        const url = ctaEl.dataset[urlAttrKey.replace(/-([a-z])/g, (g) => g[1].toUpperCase())];
-        if (url) {
-          ctaEl.href = url;
-        }
-      }
     });
   }
+
+  // Checkout: POST to backend, redirect to Stripe Checkout.
+  // Backend resolves the Stripe Price by lookup_key from tier + cycle + currency.
+  // Enterprise tier uses a mailto link and has no [data-checkout] attribute.
+  document.querySelectorAll('.tier-cta[data-checkout]').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (btn.dataset.loading === '1') return;
+
+      const tier = btn.closest('.tier') && btn.closest('.tier').dataset.tier;
+      if (!tier) return;
+
+      const originalLabel = btn.textContent;
+      btn.dataset.loading = '1';
+      btn.classList.add('is-loading');
+      btn.textContent = 'Loading…';
+
+      const restore = () => {
+        btn.textContent = originalLabel;
+        btn.classList.remove('is-loading');
+        delete btn.dataset.loading;
+      };
+      const fail = (kind, detail) => {
+        if (detail) console.error('[Blend] checkout error:', detail);
+        alert(kind === 'network'
+          ? "We couldn't reach the payments provider. Please try again in a minute."
+          : "Something went wrong — please try again.");
+        restore();
+      };
+
+      const body = {
+        tier,
+        cycle: currentCycle,             // backend aliases 'yearly' -> 'annual'
+        currency: currentCurrency,       // explicit wins over country on backend
+      };
+      if (detectedCountry) body.country = detectedCountry;
+
+      const utmSource   = sessionStorage.getItem('blend_utm_source');
+      const utmMedium   = sessionStorage.getItem('blend_utm_medium');
+      const utmCampaign = sessionStorage.getItem('blend_utm_campaign');
+      const ref         = sessionStorage.getItem('blend_ref');
+      if (utmSource)   body.utm_source    = utmSource;
+      if (utmMedium)   body.utm_medium    = utmMedium;
+      if (utmCampaign) body.utm_campaign  = utmCampaign;
+      if (ref)         body.referral_code = ref;
+
+      let res;
+      try {
+        res = await fetch(CHECKOUT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+      } catch (netErr) {
+        return fail('network', netErr);
+      }
+
+      if (!res.ok) {
+        return fail(res.status >= 500 ? 'network' : 'client', 'HTTP ' + res.status);
+      }
+
+      let data;
+      try { data = await res.json(); } catch (parseErr) {
+        return fail('client', parseErr);
+      }
+      if (!data || !data.checkout_url) {
+        return fail('client', 'missing checkout_url');
+      }
+      window.location.href = data.checkout_url;
+    });
+  });
 })();
 </script>
 
