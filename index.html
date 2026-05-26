@@ -779,6 +779,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   </div>
 </footer>
 <script>
+// /pricing is rewritten by Vercel to serve this page. Scroll to the
+// pricing section and normalize the URL to /#pricing so it matches what
+// in-page anchor links produce. Handles Stripe Checkout's cancel_url
+// (https://blend-technologies.com/pricing) cleanly.
+if (location.pathname === '/pricing') {
+  history.replaceState(null, '', '/#pricing');
+  const target = document.getElementById('pricing');
+  if (target) target.scrollIntoView();
+}
 document.getElementById('year').textContent = new Date().getFullYear();
 const nav = document.getElementById('nav');
 const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
