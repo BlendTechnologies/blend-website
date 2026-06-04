@@ -27,51 +27,42 @@ body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,s
 .cs-head h2 .em{color:var(--gold)}
 .cs-head .sub{margin-top:16px;font-size:clamp(16px,1.2vw,18px);color:var(--ink-80);font-weight:400}
 
-/* Constellation canvas */
-.constellation{position:relative;max-width:980px;margin:64px auto 0;min-height:420px;padding:24px 0;z-index:2}
-.connections{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
-.connections line{stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;opacity:0;transition:opacity .35s ease}
-.connections line.is-drawing{opacity:.55}
-.connections line.is-fading{opacity:0;transition:opacity .5s ease}
-
-.cloud{position:relative;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 12px;z-index:2}
+/* Constellation */
+.constellation{position:relative;max-width:1000px;margin:64px auto 0;padding:24px 0;z-index:2}
+.cloud{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 12px}
 
 /* Pills */
-.pill{display:inline-flex;align-items:center;padding:9px 16px;border-radius:999px;white-space:nowrap;flex-shrink:0;font-feature-settings:"cv11","ss01";transition:transform .45s cubic-bezier(.2,.8,.2,1),background .45s ease,border-color .45s ease,color .45s ease,box-shadow .45s ease;cursor:default;position:relative;backface-visibility:hidden}
+.pill{display:inline-flex;align-items:center;padding:9px 16px;border-radius:999px;white-space:nowrap;flex-shrink:0;font-feature-settings:"cv11","ss01";transition:transform .35s cubic-bezier(.2,.8,.2,1),background .35s ease,border-color .35s ease,color .35s ease,box-shadow .35s ease,opacity .35s ease;cursor:default;position:relative;backface-visibility:hidden}
 .pill-goal{font-size:14.5px;font-weight:600;letter-spacing:-.005em;background:var(--white);border:1px solid var(--line-strong);color:var(--ink);cursor:pointer}
 .pill-goal:hover{border-color:var(--gold)}
 .pill-sub{font-size:13px;font-weight:500;letter-spacing:-.005em;background:transparent;border:1px solid var(--line);color:var(--ink-80)}
 .pill-def{font-size:12.5px;font-weight:500;letter-spacing:.005em;background:var(--subtle);border:1px solid var(--line);color:var(--muted)}
 .pill-stage{font-size:13px;font-weight:600;letter-spacing:-.005em;background:var(--gold-soft);border:1px solid var(--gold-soft);color:var(--gold-pressed)}
 
-/* Active states (anchor + related) */
-.pill.is-anchor{background:var(--gold);border-color:var(--gold);color:var(--white);transform:scale(1.08);box-shadow:0 6px 22px rgba(180,127,57,.28),0 0 0 4px rgba(180,127,57,.12);z-index:5}
-.pill.is-related{background:var(--gold-soft);border-color:var(--gold);color:var(--gold-pressed);transform:scale(1.04);z-index:4}
+/* Active states */
+.pill.is-anchor{background:var(--gold);border-color:var(--gold);color:var(--white);transform:scale(1.07);box-shadow:0 6px 22px rgba(180,127,57,.28),0 0 0 4px rgba(180,127,57,.10);z-index:5}
+.pill.is-related{background:var(--gold-soft);border-color:var(--gold);color:var(--gold-pressed);transform:scale(1.03);z-index:4}
 
-/* Idle hint — slight per-pill personality via rotation set inline */
-.pill[data-tilt]{transform:rotate(var(--tilt))}
-.pill[data-tilt].is-anchor{transform:rotate(var(--tilt)) scale(1.08)}
-.pill[data-tilt].is-related{transform:rotate(var(--tilt)) scale(1.04)}
+/* When a highlight is active, dim everything else so the cluster pops */
+.constellation.is-active .pill:not(.is-anchor):not(.is-related){opacity:.35}
 
-/* Caption under canvas */
-.cs-caption{max-width:560px;margin:36px auto 0;text-align:center;font-size:13px;color:var(--muted);position:relative;z-index:2}
+/* Caption */
+.cs-caption{max-width:600px;margin:40px auto 0;text-align:center;font-size:13px;color:var(--muted);position:relative;z-index:2;line-height:1.6}
 .cs-caption strong{color:var(--ink);font-weight:600}
 
 /* Accessibility */
 @media(prefers-reduced-motion:reduce){
-  .pill,.connections line{transition:none !important}
+  .pill{transition:none !important}
   .pill.is-anchor,.pill.is-related{transform:none !important}
+  .constellation.is-active .pill:not(.is-anchor):not(.is-related){opacity:1}
 }
 
 @media(max-width:640px){
   .cs-section{padding:80px 0}
   .pill-goal{font-size:13.5px;padding:8px 14px}
   .pill-sub,.pill-def{font-size:12px;padding:7px 12px}
+  .cloud{gap:8px 10px}
 }
-
-/* Preview-only helpers */
-.preview-note{max-width:760px;margin:24px auto 0;text-align:center;font-size:13px;color:var(--muted)}
-.preview-note kbd{font-family:inherit;background:var(--white);border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:12px}
 </style>
 </head>
 <body>
@@ -81,152 +72,179 @@ body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,s
     <div class="cs-head">
       <span class="eyebrow">Made for every catalog</span>
       <h2>Generalized or specific &mdash; <span class="em">we cover it all.</span></h2>
-      <p class="sub">You're in control. Hover a pill to see what the engine connects it to.</p>
+      <p class="sub">You're in control. Hover a goal to see what the engine actually connects to it.</p>
     </div>
 
     <div class="constellation" id="constellation" aria-label="A constellation of goals, sub-goals, and deficiencies the Blend engine covers, with live connections between related ones">
-      <svg class="connections" id="connections" aria-hidden="true"></svg>
       <div class="cloud" id="cloud">
-        <!-- Goals (bold, gold border on hover) -->
-        <span class="pill pill-goal" data-clusters="sleep" data-tilt style="--tilt:-1.4deg">Sleep</span>
-        <span class="pill pill-sub"   data-clusters="sleep" data-tilt style="--tilt:1.2deg">Falling asleep</span>
-        <span class="pill pill-sub"   data-clusters="sleep,energy" data-tilt style="--tilt:-.8deg">Waking at night</span>
-        <span class="pill pill-goal" data-clusters="muscle" data-tilt style="--tilt:1.6deg">Build muscle</span>
-        <span class="pill pill-def"  data-clusters="muscle,energy" data-tilt style="--tilt:-2deg">Low iron</span>
-        <span class="pill pill-sub"  data-clusters="sleep,energy,cognitive" data-tilt style="--tilt:1deg">Persistent fatigue</span>
-        <span class="pill pill-goal" data-clusters="heart" data-tilt style="--tilt:-1.6deg">Heart</span>
-        <span class="pill pill-sub"  data-clusters="heart" data-tilt style="--tilt:0.4deg">High cholesterol</span>
-        <span class="pill pill-def"  data-clusters="heart" data-tilt style="--tilt:-.6deg">Low omega-3</span>
-        <span class="pill pill-goal" data-clusters="cognitive" data-tilt style="--tilt:1.8deg">Cognitive health</span>
-        <span class="pill pill-sub"  data-clusters="cognitive" data-tilt style="--tilt:-1.2deg">Memory lapses</span>
-        <span class="pill pill-sub"  data-clusters="cognitive,hormonal" data-tilt style="--tilt:.8deg">Anxiety</span>
-        <span class="pill pill-def"  data-clusters="cognitive,energy" data-tilt style="--tilt:-.4deg">Low B12</span>
-        <span class="pill pill-goal" data-clusters="skin" data-tilt style="--tilt:1.4deg">Hair, skin &amp; nails</span>
-        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:-2deg">Hair thinning</span>
-        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:1deg">Acne</span>
-        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:-1.4deg">Wrinkles</span>
-        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:.6deg">Dry skin</span>
-        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:-.4deg">Brittle nails</span>
-        <span class="pill pill-goal" data-clusters="hormonal" data-tilt style="--tilt:2deg">Hormonal balance</span>
-        <span class="pill pill-stage" data-clusters="hormonal" data-tilt style="--tilt:-1deg">Menopause</span>
-        <span class="pill pill-stage" data-clusters="hormonal" data-tilt style="--tilt:1.2deg">Pregnancy</span>
-        <span class="pill pill-sub"  data-clusters="hormonal,cognitive" data-tilt style="--tilt:-1.6deg">Mood</span>
-        <span class="pill pill-goal" data-clusters="gut" data-tilt style="--tilt:.4deg">Gut health</span>
-        <span class="pill pill-sub"  data-clusters="gut" data-tilt style="--tilt:-.8deg">Bloating</span>
-        <span class="pill pill-sub"  data-clusters="gut" data-tilt style="--tilt:1.4deg">Constipation</span>
-        <span class="pill pill-sub"  data-clusters="gut" data-tilt style="--tilt:-1.2deg">Heartburn</span>
-        <span class="pill pill-def"  data-clusters="gut,energy" data-tilt style="--tilt:.8deg">Low fiber</span>
-        <span class="pill pill-goal" data-clusters="bones" data-tilt style="--tilt:-1.8deg">Bones &amp; joints</span>
-        <span class="pill pill-sub"  data-clusters="bones" data-tilt style="--tilt:1.6deg">Joint stiffness</span>
-        <span class="pill pill-def"  data-clusters="bones" data-tilt style="--tilt:-.4deg">Low calcium</span>
-        <span class="pill pill-def"  data-clusters="bones,sleep" data-tilt style="--tilt:1deg">Low Vitamin D</span>
-        <span class="pill pill-def"  data-clusters="muscle,bones" data-tilt style="--tilt:-1.4deg">Low magnesium</span>
-        <span class="pill pill-goal" data-clusters="energy" data-tilt style="--tilt:1.2deg">Boost energy</span>
-        <span class="pill pill-goal" data-clusters="muscle" data-tilt style="--tilt:-.8deg">Endurance</span>
-        <span class="pill pill-def"  data-clusters="muscle" data-tilt style="--tilt:1.8deg">Low protein</span>
-        <span class="pill pill-goal" data-clusters="hormonal" data-tilt style="--tilt:-1.6deg">Testosterone</span>
-        <span class="pill pill-goal" data-clusters="hormonal" data-tilt style="--tilt:.6deg">Libido</span>
-        <span class="pill pill-goal" data-clusters="bones" data-tilt style="--tilt:-1deg">Healthy aging</span>
-        <span class="pill pill-goal" data-clusters="cognitive" data-tilt style="--tilt:1.4deg">Stress</span>
-        <span class="pill pill-goal" data-clusters="energy" data-tilt style="--tilt:-1.8deg">Lose weight</span>
-        <span class="pill pill-goal" data-clusters="heart" data-tilt style="--tilt:.8deg">Immunity</span>
+        <!-- Goals -->
+        <span class="pill pill-goal" data-key="Bones & joints">Bones &amp; joints</span>
+        <span class="pill pill-goal" data-key="Boost energy">Boost energy</span>
+        <span class="pill pill-goal" data-key="Build muscle">Build muscle</span>
+        <span class="pill pill-goal" data-key="Cognitive health">Cognitive health</span>
+        <span class="pill pill-goal" data-key="Detox & antioxidants">Detox &amp; antioxidants</span>
+        <span class="pill pill-goal" data-key="Endurance">Endurance</span>
+        <span class="pill pill-goal" data-key="Eyesight">Eyesight</span>
+        <span class="pill pill-goal" data-key="Gain weight">Gain weight</span>
+        <span class="pill pill-goal" data-key="General health">General health</span>
+        <span class="pill pill-goal" data-key="Gut health">Gut health</span>
+        <span class="pill pill-goal" data-key="Hair, skin & nails">Hair, skin &amp; nails</span>
+        <span class="pill pill-goal" data-key="Healthy aging">Healthy aging</span>
+        <span class="pill pill-goal" data-key="Heart">Heart</span>
+        <span class="pill pill-goal" data-key="Hormonal balance">Hormonal balance</span>
+        <span class="pill pill-goal" data-key="Immunity">Immunity</span>
+        <span class="pill pill-goal" data-key="Libido">Libido</span>
+        <span class="pill pill-goal" data-key="Liver detox">Liver detox</span>
+        <span class="pill pill-goal" data-key="Lose weight">Lose weight</span>
+        <span class="pill pill-goal" data-key="Lung health">Lung health</span>
+        <span class="pill pill-goal" data-key="Menopause">Menopause</span>
+        <span class="pill pill-goal" data-key="Mood">Mood</span>
+        <span class="pill pill-goal" data-key="Prostate health">Prostate health</span>
+        <span class="pill pill-goal" data-key="Sleep">Sleep</span>
+        <span class="pill pill-goal" data-key="Stress">Stress</span>
+        <span class="pill pill-goal" data-key="Testosterone">Testosterone</span>
+        <span class="pill pill-goal" data-key="Urinary health">Urinary health</span>
+
+        <!-- Sub-goals (marketing short labels) -->
+        <span class="pill pill-sub" data-key="Trouble falling asleep">Trouble falling asleep</span>
+        <span class="pill pill-sub" data-key="Night waking">Night waking</span>
+        <span class="pill pill-sub" data-key="Short sleep">Short sleep</span>
+        <span class="pill pill-sub" data-key="Tired on waking">Tired on waking</span>
+        <span class="pill pill-sub" data-key="Low energy">Low energy</span>
+        <span class="pill pill-sub" data-key="Anxiety">Anxiety</span>
+        <span class="pill pill-sub" data-key="Restlessness">Restlessness</span>
+        <span class="pill pill-sub" data-key="Poor focus">Poor focus</span>
+        <span class="pill pill-sub" data-key="Brain fog">Brain fog</span>
+        <span class="pill pill-sub" data-key="Memory lapses">Memory lapses</span>
+        <span class="pill pill-sub" data-key="High blood pressure">High blood pressure</span>
+        <span class="pill pill-sub" data-key="High cholesterol">High cholesterol</span>
+        <span class="pill pill-sub" data-key="Cold extremities">Cold extremities</span>
+        <span class="pill pill-sub" data-key="Joint stiffness">Joint stiffness</span>
+        <span class="pill pill-sub" data-key="Cartilage wear">Cartilage wear</span>
+        <span class="pill pill-sub" data-key="Low bone density">Low bone density</span>
+        <span class="pill pill-sub" data-key="Osteoporosis">Osteoporosis</span>
+        <span class="pill pill-sub" data-key="Frequent colds">Frequent colds</span>
+        <span class="pill pill-sub" data-key="Breathing issues">Breathing issues</span>
+        <span class="pill pill-sub" data-key="Bloating">Bloating</span>
+        <span class="pill pill-sub" data-key="Gas">Gas</span>
+        <span class="pill pill-sub" data-key="Constipation">Constipation</span>
+        <span class="pill pill-sub" data-key="Diarrhea">Diarrhea</span>
+        <span class="pill pill-sub" data-key="Indigestion">Indigestion</span>
+        <span class="pill pill-sub" data-key="Hair loss">Hair loss</span>
+        <span class="pill pill-sub" data-key="Brittle hair">Brittle hair</span>
+        <span class="pill pill-sub" data-key="Brittle nails">Brittle nails</span>
+        <span class="pill pill-sub" data-key="Dry skin">Dry skin</span>
+        <span class="pill pill-sub" data-key="Skin laxity">Skin laxity</span>
+        <span class="pill pill-sub" data-key="Wrinkles">Wrinkles</span>
+        <span class="pill pill-sub" data-key="Aging signs">Aging signs</span>
+
+        <!-- Life stages -->
+        <span class="pill pill-stage" data-key="Pregnancy">Pregnancy</span>
+
+        <!-- Deficiencies -->
+        <span class="pill pill-def" data-key="Low iron">Low iron</span>
+        <span class="pill pill-def" data-key="Low magnesium">Low magnesium</span>
+        <span class="pill pill-def" data-key="Low calcium">Low calcium</span>
+        <span class="pill pill-def" data-key="Low zinc">Low zinc</span>
+        <span class="pill pill-def" data-key="Low iodine">Low iodine</span>
+        <span class="pill pill-def" data-key="Low selenium">Low selenium</span>
+        <span class="pill pill-def" data-key="Low Vitamin A">Low Vitamin A</span>
+        <span class="pill pill-def" data-key="Low Vitamin C">Low Vitamin C</span>
+        <span class="pill pill-def" data-key="Low Vitamin D">Low Vitamin D</span>
+        <span class="pill pill-def" data-key="Low Vitamin E">Low Vitamin E</span>
+        <span class="pill pill-def" data-key="Low Vitamin K2">Low Vitamin K2</span>
+        <span class="pill pill-def" data-key="Low B1">Low B1</span>
+        <span class="pill pill-def" data-key="Low B6">Low B6</span>
+        <span class="pill pill-def" data-key="Low B12">Low B12</span>
+        <span class="pill pill-def" data-key="Low folate">Low folate</span>
+        <span class="pill pill-def" data-key="Low biotin">Low biotin</span>
+        <span class="pill pill-def" data-key="Low omega-3">Low omega-3</span>
       </div>
     </div>
 
-    <p class="cs-caption">Each line is a real connection in the engine: a sub-goal or deficiency that <strong>amplifies the recommendation</strong> for a related goal.</p>
+    <p class="cs-caption">Goals, sub-goals and deficiencies the engine actually scores. <strong>Hover a goal</strong> to see what amplifies its recommendation.</p>
   </div>
 </section>
 
 <script>
 (function(){
+  // Real goal → related sub-goal + deficiency mapping, derived from the
+  // algorithm (supplements_db.json sub_benefits co-occurrence >=20% +
+  // Essential nutrient tags).
+  const RELATIONS = {
+    'Bones & joints':        ['Cartilage wear','Joint stiffness','Low bone density','Osteoporosis','High blood pressure','High cholesterol','Low calcium','Low magnesium','Low Vitamin D','Low Vitamin K2','Low omega-3'],
+    'Boost energy':          ['Low energy','Tired on waking','Brain fog','Poor focus','Memory lapses','Low iron','Low B12','Low B1'],
+    'Build muscle':          ['Low energy','Tired on waking'],
+    'Cognitive health':      ['Memory lapses','Brain fog','Poor focus','Tired on waking','High blood pressure','High cholesterol','Low energy','Low omega-3','Low B12'],
+    'Detox & antioxidants':  ['Aging signs','Wrinkles','Dry skin','Frequent colds','Cold extremities','High cholesterol','High blood pressure','Low Vitamin C','Low Vitamin E','Low selenium'],
+    'Endurance':             ['Low energy','Tired on waking','Cold extremities','Brain fog','Poor focus','High blood pressure','High cholesterol'],
+    'Eyesight':              ['Dry skin','Aging signs','Wrinkles','Skin laxity','Memory lapses','Poor focus','Brain fog','Low Vitamin A'],
+    'Gain weight':           [],
+    'General health':        ['Low energy','Low iron','Low calcium','Low magnesium','Low iodine','Low B12','Low B6'],
+    'Gut health':            ['Bloating','Gas','Constipation','Diarrhea','Indigestion','High blood pressure','High cholesterol','Cold extremities'],
+    'Hair, skin & nails':    ['Hair loss','Brittle hair','Brittle nails','Dry skin','Skin laxity','Wrinkles','Aging signs','Cartilage wear','Joint stiffness','Low bone density','Osteoporosis','Low zinc','Low biotin'],
+    'Healthy aging':         ['Aging signs','Wrinkles','Memory lapses','Poor focus','Brain fog','Joint stiffness','Cartilage wear','Low bone density','High blood pressure','High cholesterol','Low omega-3','Low Vitamin D','Low Vitamin A'],
+    'Heart':                 ['High blood pressure','High cholesterol','Cold extremities','Low omega-3','Low magnesium','Low B1','Low folate','Low Vitamin C','Low Vitamin K2'],
+    'Hormonal balance':      ['Anxiety','Restlessness','Low iodine','Low selenium','Low zinc','Low B6'],
+    'Immunity':              ['Frequent colds','High blood pressure','High cholesterol','Aging signs','Low Vitamin C','Low Vitamin D','Low Vitamin A','Low zinc','Low selenium'],
+    'Libido':                ['Low energy','Cold extremities','Poor focus','Memory lapses','High blood pressure','High cholesterol'],
+    'Liver detox':           ['Bloating','Gas','Aging signs','Wrinkles','Dry skin','Anxiety'],
+    'Lose weight':           ['Bloating','Gas','High blood pressure','High cholesterol','Low energy','Cold extremities'],
+    'Lung health':           ['Breathing issues'],
+    'Menopause':             ['Trouble falling asleep','Anxiety','Restlessness','Low bone density','Osteoporosis'],
+    'Mood':                  ['Anxiety','Trouble falling asleep','Short sleep','Night waking','Tired on waking','Restlessness','Poor focus','Memory lapses','Low omega-3','Low Vitamin D','Low B6'],
+    'Prostate health':       ['High blood pressure','High cholesterol','Cold extremities','Joint stiffness'],
+    'Sleep':                 ['Trouble falling asleep','Short sleep','Night waking','Tired on waking','Anxiety','Restlessness','Low magnesium'],
+    'Stress':                ['Anxiety','Restlessness','Trouble falling asleep','Short sleep','Night waking','Low energy','Brain fog','Memory lapses','Poor focus','Tired on waking','Low magnesium'],
+    'Testosterone':          ['Trouble falling asleep','Night waking'],
+    'Urinary health':        ['Joint stiffness']
+  };
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const constellation = document.getElementById('constellation');
   const cloud = document.getElementById('cloud');
-  const svg = document.getElementById('connections');
-  const container = document.getElementById('constellation');
-  if (!cloud || !svg || !container) return;
+  if (!constellation || !cloud) return;
 
-  const pills = Array.from(cloud.querySelectorAll('.pill'));
-  const goalPills = pills.filter(p => p.classList.contains('pill-goal'));
-
-  // Build cluster index: clusterName -> Set of pills
-  const clusterIndex = {};
-  pills.forEach(p => {
-    (p.dataset.clusters || '').split(',').filter(Boolean).forEach(c => {
-      (clusterIndex[c] = clusterIndex[c] || new Set()).add(p);
-    });
-  });
+  const allPills = Array.from(cloud.querySelectorAll('.pill'));
+  const goalPills = allPills.filter(p => p.classList.contains('pill-goal'));
+  const pillsByKey = {};
+  allPills.forEach(p => { pillsByKey[p.dataset.key] = p; });
 
   function clearActive(){
-    pills.forEach(p => { p.classList.remove('is-anchor','is-related'); });
-    Array.from(svg.querySelectorAll('line')).forEach(l => l.remove());
+    constellation.classList.remove('is-active');
+    allPills.forEach(p => { p.classList.remove('is-anchor','is-related'); });
   }
 
   function highlight(anchor){
     clearActive();
-    const clusters = (anchor.dataset.clusters || '').split(',').filter(Boolean);
-    const related = new Set();
-    clusters.forEach(c => {
-      (clusterIndex[c] || new Set()).forEach(p => { if (p !== anchor) related.add(p); });
-    });
-
     anchor.classList.add('is-anchor');
-
-    // Compute container-relative positions
-    const cRect = container.getBoundingClientRect();
-    const ax = anchor.offsetLeft + anchor.offsetWidth / 2;
-    const ay = anchor.offsetTop  + anchor.offsetHeight / 2;
-
-    // Limit lines to ~6 max for cleanliness
-    const relatedArr = Array.from(related).slice(0, 6);
-
-    relatedArr.forEach((p, i) => {
-      const mx = p.offsetLeft + p.offsetWidth  / 2;
-      const my = p.offsetTop  + p.offsetHeight / 2;
-      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-      line.setAttribute('x1', ax);
-      line.setAttribute('y1', ay);
-      line.setAttribute('x2', ax);  // start at anchor, animate to target
-      line.setAttribute('y2', ay);
-      svg.appendChild(line);
-      // animate the line endpoint to the target
-      requestAnimationFrame(() => {
-        line.classList.add('is-drawing');
-        // animate x2/y2 to target over 500ms via attribute animation (SMIL fallback: requestAnimationFrame)
-        const start = performance.now();
-        const dur = 480 + i * 60;
-        function step(now){
-          const t = Math.min(1, (now - start) / dur);
-          const e = 1 - Math.pow(1 - t, 3); // easeOutCubic
-          line.setAttribute('x2', ax + (mx - ax) * e);
-          line.setAttribute('y2', ay + (my - ay) * e);
-          if (t < 1) requestAnimationFrame(step);
-          else p.classList.add('is-related');
-        }
-        requestAnimationFrame(step);
-      });
+    const related = RELATIONS[anchor.dataset.key] || [];
+    related.forEach(key => {
+      const p = pillsByKey[key];
+      if (p) p.classList.add('is-related');
     });
+    if (related.length > 0) constellation.classList.add('is-active');
+    else constellation.classList.add('is-active'); // still dim others to focus on the anchor
   }
 
-  function fadeAndClear(){
-    const lines = Array.from(svg.querySelectorAll('line'));
-    lines.forEach(l => l.classList.add('is-fading'));
-    pills.forEach(p => p.classList.remove('is-anchor','is-related'));
-    setTimeout(() => lines.forEach(l => l.remove()), 500);
-  }
-
-  // Auto-demo loop
+  // Auto-cycle: only pick from goals with rich (>=4) related clusters,
+  // so the visual story always feels meaningful.
+  const richGoals = goalPills.filter(g => (RELATIONS[g.dataset.key] || []).length >= 4);
   let autoTimer = null;
   let paused = false;
+
   function autoTick(){
     if (paused || reduceMotion) return;
-    const next = goalPills[Math.floor(Math.random() * goalPills.length)];
+    const next = richGoals[Math.floor(Math.random() * richGoals.length)];
     highlight(next);
-    setTimeout(() => { if (!paused) fadeAndClear(); }, 2300);
-    autoTimer = setTimeout(autoTick, 3600 + Math.random() * 800);
+    autoTimer = setTimeout(() => {
+      if (!paused) clearActive();
+      autoTimer = setTimeout(autoTick, 900 + Math.random() * 500);
+    }, 2400);
   }
-  if (!reduceMotion) setTimeout(autoTick, 600);
+  if (!reduceMotion) setTimeout(autoTick, 700);
 
-  // Hover-to-highlight on goal pills
+  // Hover-to-highlight on goal pills (instant manual control)
   goalPills.forEach(p => {
     p.addEventListener('mouseenter', () => {
       paused = true;
@@ -234,19 +252,10 @@ body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,s
       highlight(p);
     });
     p.addEventListener('mouseleave', () => {
-      fadeAndClear();
-      paused = false;
-      autoTimer = setTimeout(autoTick, 1400);
-    });
-  });
-
-  // Recompute positions on resize (lines clear)
-  let resizeT = null;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeT);
-    resizeT = setTimeout(() => {
       clearActive();
-    }, 200);
+      paused = false;
+      autoTimer = setTimeout(autoTick, 1200);
+    });
   });
 })();
 </script>
