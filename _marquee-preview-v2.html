@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marquee preview v2 — Blend</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<style>
+:root{
+  --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
+  --cream:#FAF8F2;--cream-2:#F1EDE0;--subtle:#F7F7F7;
+  --gold:#B47F39;--gold-pressed:#96682B;--gold-soft:#F0E2CC;
+  --muted:#6B6B6B;--line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* Section */
+.cs-section{padding:104px 0 120px;background:var(--cream);position:relative;overflow:hidden}
+.cs-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(180,127,57,.04) 0%,transparent 60%);pointer-events:none}
+.cs-head{max-width:760px;margin:0 auto 56px;text-align:center;position:relative;z-index:2}
+.cs-head .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;display:inline-block;margin-bottom:18px}
+.cs-head h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.022em;font-weight:600;margin:0}
+.cs-head h2 .em{color:var(--gold)}
+.cs-head .sub{margin-top:16px;font-size:clamp(16px,1.2vw,18px);color:var(--ink-80);font-weight:400}
+
+/* Constellation canvas */
+.constellation{position:relative;max-width:980px;margin:64px auto 0;min-height:420px;padding:24px 0;z-index:2}
+.connections{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
+.connections line{stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;opacity:0;transition:opacity .35s ease}
+.connections line.is-drawing{opacity:.55}
+.connections line.is-fading{opacity:0;transition:opacity .5s ease}
+
+.cloud{position:relative;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 12px;z-index:2}
+
+/* Pills */
+.pill{display:inline-flex;align-items:center;padding:9px 16px;border-radius:999px;white-space:nowrap;flex-shrink:0;font-feature-settings:"cv11","ss01";transition:transform .45s cubic-bezier(.2,.8,.2,1),background .45s ease,border-color .45s ease,color .45s ease,box-shadow .45s ease;cursor:default;position:relative;backface-visibility:hidden}
+.pill-goal{font-size:14.5px;font-weight:600;letter-spacing:-.005em;background:var(--white);border:1px solid var(--line-strong);color:var(--ink);cursor:pointer}
+.pill-goal:hover{border-color:var(--gold)}
+.pill-sub{font-size:13px;font-weight:500;letter-spacing:-.005em;background:transparent;border:1px solid var(--line);color:var(--ink-80)}
+.pill-def{font-size:12.5px;font-weight:500;letter-spacing:.005em;background:var(--subtle);border:1px solid var(--line);color:var(--muted)}
+.pill-stage{font-size:13px;font-weight:600;letter-spacing:-.005em;background:var(--gold-soft);border:1px solid var(--gold-soft);color:var(--gold-pressed)}
+
+/* Active states (anchor + related) */
+.pill.is-anchor{background:var(--gold);border-color:var(--gold);color:var(--white);transform:scale(1.08);box-shadow:0 6px 22px rgba(180,127,57,.28),0 0 0 4px rgba(180,127,57,.12);z-index:5}
+.pill.is-related{background:var(--gold-soft);border-color:var(--gold);color:var(--gold-pressed);transform:scale(1.04);z-index:4}
+
+/* Idle hint — slight per-pill personality via rotation set inline */
+.pill[data-tilt]{transform:rotate(var(--tilt))}
+.pill[data-tilt].is-anchor{transform:rotate(var(--tilt)) scale(1.08)}
+.pill[data-tilt].is-related{transform:rotate(var(--tilt)) scale(1.04)}
+
+/* Caption under canvas */
+.cs-caption{max-width:560px;margin:36px auto 0;text-align:center;font-size:13px;color:var(--muted);position:relative;z-index:2}
+.cs-caption strong{color:var(--ink);font-weight:600}
+
+/* Accessibility */
+@media(prefers-reduced-motion:reduce){
+  .pill,.connections line{transition:none !important}
+  .pill.is-anchor,.pill.is-related{transform:none !important}
+}
+
+@media(max-width:640px){
+  .cs-section{padding:80px 0}
+  .pill-goal{font-size:13.5px;padding:8px 14px}
+  .pill-sub,.pill-def{font-size:12px;padding:7px 12px}
+}
+
+/* Preview-only helpers */
+.preview-note{max-width:760px;margin:24px auto 0;text-align:center;font-size:13px;color:var(--muted)}
+.preview-note kbd{font-family:inherit;background:var(--white);border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:12px}
+</style>
+</head>
+<body>
+
+<section class="cs-section">
+  <div class="wrap">
+    <div class="cs-head">
+      <span class="eyebrow">Made for every catalog</span>
+      <h2>Generalized or specific &mdash; <span class="em">we cover it all.</span></h2>
+      <p class="sub">You're in control. Hover a pill to see what the engine connects it to.</p>
+    </div>
+
+    <div class="constellation" id="constellation" aria-label="A constellation of goals, sub-goals, and deficiencies the Blend engine covers, with live connections between related ones">
+      <svg class="connections" id="connections" aria-hidden="true"></svg>
+      <div class="cloud" id="cloud">
+        <!-- Goals (bold, gold border on hover) -->
+        <span class="pill pill-goal" data-clusters="sleep" data-tilt style="--tilt:-1.4deg">Sleep</span>
+        <span class="pill pill-sub"   data-clusters="sleep" data-tilt style="--tilt:1.2deg">Falling asleep</span>
+        <span class="pill pill-sub"   data-clusters="sleep,energy" data-tilt style="--tilt:-.8deg">Waking at night</span>
+        <span class="pill pill-goal" data-clusters="muscle" data-tilt style="--tilt:1.6deg">Build muscle</span>
+        <span class="pill pill-def"  data-clusters="muscle,energy" data-tilt style="--tilt:-2deg">Low iron</span>
+        <span class="pill pill-sub"  data-clusters="sleep,energy,cognitive" data-tilt style="--tilt:1deg">Persistent fatigue</span>
+        <span class="pill pill-goal" data-clusters="heart" data-tilt style="--tilt:-1.6deg">Heart</span>
+        <span class="pill pill-sub"  data-clusters="heart" data-tilt style="--tilt:0.4deg">High cholesterol</span>
+        <span class="pill pill-def"  data-clusters="heart" data-tilt style="--tilt:-.6deg">Low omega-3</span>
+        <span class="pill pill-goal" data-clusters="cognitive" data-tilt style="--tilt:1.8deg">Cognitive health</span>
+        <span class="pill pill-sub"  data-clusters="cognitive" data-tilt style="--tilt:-1.2deg">Memory lapses</span>
+        <span class="pill pill-sub"  data-clusters="cognitive,hormonal" data-tilt style="--tilt:.8deg">Anxiety</span>
+        <span class="pill pill-def"  data-clusters="cognitive,energy" data-tilt style="--tilt:-.4deg">Low B12</span>
+        <span class="pill pill-goal" data-clusters="skin" data-tilt style="--tilt:1.4deg">Hair, skin &amp; nails</span>
+        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:-2deg">Hair thinning</span>
+        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:1deg">Acne</span>
+        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:-1.4deg">Wrinkles</span>
+        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:.6deg">Dry skin</span>
+        <span class="pill pill-sub"  data-clusters="skin" data-tilt style="--tilt:-.4deg">Brittle nails</span>
+        <span class="pill pill-goal" data-clusters="hormonal" data-tilt style="--tilt:2deg">Hormonal balance</span>
+        <span class="pill pill-stage" data-clusters="hormonal" data-tilt style="--tilt:-1deg">Menopause</span>
+        <span class="pill pill-stage" data-clusters="hormonal" data-tilt style="--tilt:1.2deg">Pregnancy</span>
+        <span class="pill pill-sub"  data-clusters="hormonal,cognitive" data-tilt style="--tilt:-1.6deg">Mood</span>
+        <span class="pill pill-goal" data-clusters="gut" data-tilt style="--tilt:.4deg">Gut health</span>
+        <span class="pill pill-sub"  data-clusters="gut" data-tilt style="--tilt:-.8deg">Bloating</span>
+        <span class="pill pill-sub"  data-clusters="gut" data-tilt style="--tilt:1.4deg">Constipation</span>
+        <span class="pill pill-sub"  data-clusters="gut" data-tilt style="--tilt:-1.2deg">Heartburn</span>
+        <span class="pill pill-def"  data-clusters="gut,energy" data-tilt style="--tilt:.8deg">Low fiber</span>
+        <span class="pill pill-goal" data-clusters="bones" data-tilt style="--tilt:-1.8deg">Bones &amp; joints</span>
+        <span class="pill pill-sub"  data-clusters="bones" data-tilt style="--tilt:1.6deg">Joint stiffness</span>
+        <span class="pill pill-def"  data-clusters="bones" data-tilt style="--tilt:-.4deg">Low calcium</span>
+        <span class="pill pill-def"  data-clusters="bones,sleep" data-tilt style="--tilt:1deg">Low Vitamin D</span>
+        <span class="pill pill-def"  data-clusters="muscle,bones" data-tilt style="--tilt:-1.4deg">Low magnesium</span>
+        <span class="pill pill-goal" data-clusters="energy" data-tilt style="--tilt:1.2deg">Boost energy</span>
+        <span class="pill pill-goal" data-clusters="muscle" data-tilt style="--tilt:-.8deg">Endurance</span>
+        <span class="pill pill-def"  data-clusters="muscle" data-tilt style="--tilt:1.8deg">Low protein</span>
+        <span class="pill pill-goal" data-clusters="hormonal" data-tilt style="--tilt:-1.6deg">Testosterone</span>
+        <span class="pill pill-goal" data-clusters="hormonal" data-tilt style="--tilt:.6deg">Libido</span>
+        <span class="pill pill-goal" data-clusters="bones" data-tilt style="--tilt:-1deg">Healthy aging</span>
+        <span class="pill pill-goal" data-clusters="cognitive" data-tilt style="--tilt:1.4deg">Stress</span>
+        <span class="pill pill-goal" data-clusters="energy" data-tilt style="--tilt:-1.8deg">Lose weight</span>
+        <span class="pill pill-goal" data-clusters="heart" data-tilt style="--tilt:.8deg">Immunity</span>
+      </div>
+    </div>
+
+    <p class="cs-caption">Each line is a real connection in the engine: a sub-goal or deficiency that <strong>amplifies the recommendation</strong> for a related goal.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cloud = document.getElementById('cloud');
+  const svg = document.getElementById('connections');
+  const container = document.getElementById('constellation');
+  if (!cloud || !svg || !container) return;
+
+  const pills = Array.from(cloud.querySelectorAll('.pill'));
+  const goalPills = pills.filter(p => p.classList.contains('pill-goal'));
+
+  // Build cluster index: clusterName -> Set of pills
+  const clusterIndex = {};
+  pills.forEach(p => {
+    (p.dataset.clusters || '').split(',').filter(Boolean).forEach(c => {
+      (clusterIndex[c] = clusterIndex[c] || new Set()).add(p);
+    });
+  });
+
+  function clearActive(){
+    pills.forEach(p => { p.classList.remove('is-anchor','is-related'); });
+    Array.from(svg.querySelectorAll('line')).forEach(l => l.remove());
+  }
+
+  function highlight(anchor){
+    clearActive();
+    const clusters = (anchor.dataset.clusters || '').split(',').filter(Boolean);
+    const related = new Set();
+    clusters.forEach(c => {
+      (clusterIndex[c] || new Set()).forEach(p => { if (p !== anchor) related.add(p); });
+    });
+
+    anchor.classList.add('is-anchor');
+
+    // Compute container-relative positions
+    const cRect = container.getBoundingClientRect();
+    const ax = anchor.offsetLeft + anchor.offsetWidth / 2;
+    const ay = anchor.offsetTop  + anchor.offsetHeight / 2;
+
+    // Limit lines to ~6 max for cleanliness
+    const relatedArr = Array.from(related).slice(0, 6);
+
+    relatedArr.forEach((p, i) => {
+      const mx = p.offsetLeft + p.offsetWidth  / 2;
+      const my = p.offsetTop  + p.offsetHeight / 2;
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', ax);
+      line.setAttribute('y1', ay);
+      line.setAttribute('x2', ax);  // start at anchor, animate to target
+      line.setAttribute('y2', ay);
+      svg.appendChild(line);
+      // animate the line endpoint to the target
+      requestAnimationFrame(() => {
+        line.classList.add('is-drawing');
+        // animate x2/y2 to target over 500ms via attribute animation (SMIL fallback: requestAnimationFrame)
+        const start = performance.now();
+        const dur = 480 + i * 60;
+        function step(now){
+          const t = Math.min(1, (now - start) / dur);
+          const e = 1 - Math.pow(1 - t, 3); // easeOutCubic
+          line.setAttribute('x2', ax + (mx - ax) * e);
+          line.setAttribute('y2', ay + (my - ay) * e);
+          if (t < 1) requestAnimationFrame(step);
+          else p.classList.add('is-related');
+        }
+        requestAnimationFrame(step);
+      });
+    });
+  }
+
+  function fadeAndClear(){
+    const lines = Array.from(svg.querySelectorAll('line'));
+    lines.forEach(l => l.classList.add('is-fading'));
+    pills.forEach(p => p.classList.remove('is-anchor','is-related'));
+    setTimeout(() => lines.forEach(l => l.remove()), 500);
+  }
+
+  // Auto-demo loop
+  let autoTimer = null;
+  let paused = false;
+  function autoTick(){
+    if (paused || reduceMotion) return;
+    const next = goalPills[Math.floor(Math.random() * goalPills.length)];
+    highlight(next);
+    setTimeout(() => { if (!paused) fadeAndClear(); }, 2300);
+    autoTimer = setTimeout(autoTick, 3600 + Math.random() * 800);
+  }
+  if (!reduceMotion) setTimeout(autoTick, 600);
+
+  // Hover-to-highlight on goal pills
+  goalPills.forEach(p => {
+    p.addEventListener('mouseenter', () => {
+      paused = true;
+      clearTimeout(autoTimer);
+      highlight(p);
+    });
+    p.addEventListener('mouseleave', () => {
+      fadeAndClear();
+      paused = false;
+      autoTimer = setTimeout(autoTick, 1400);
+    });
+  });
+
+  // Recompute positions on resize (lines clear)
+  let resizeT = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => {
+      clearActive();
+    }, 200);
+  });
+})();
+</script>
+</body>
+</html>
