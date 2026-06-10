@@ -357,14 +357,22 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pricing-foot details[open] summary{border-bottom-color:var(--ink)}
 .pricing-foot details p{margin-top:14px;color:var(--ink-80);max-width:560px;margin-left:auto;margin-right:auto;text-align:left;background:var(--white);padding:16px;border:1px solid var(--line);border-radius:10px;font-size:13px}
 @media(max-width:860px){.pricing{grid-template-columns:1fr}}
-.faq-list{max-width:760px;margin:0 auto;display:grid;gap:12px}
-.faq-item{background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .2s ease}
-.faq-item[open]{border-color:var(--line-strong)}
-.faq-item > summary{padding:20px 26px;font-size:15.5px;font-weight:600;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;letter-spacing:-.005em}
+.faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item > summary{padding:22px 4px;font-size:15px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
+.faq-item > summary:hover{color:var(--gold-pressed)}
 .faq-item > summary::-webkit-details-marker{display:none}
-.faq-item > summary::after{content:"+";font-size:22px;color:var(--muted);font-weight:400;line-height:1;transition:transform .25s ease;flex-shrink:0}
-.faq-item[open] > summary::after{transform:rotate(45deg)}
-.faq-item .faq-answer{padding:0 26px 22px;font-size:14.5px;color:var(--ink-80);line-height:1.65}
+.faq-item > summary::after{content:"";width:9px;height:9px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);transition:transform .25s ease,border-color .18s ease;flex-shrink:0;margin-top:9px;margin-right:4px}
+.faq-item > summary:hover::after{border-color:var(--gold-pressed)}
+.faq-item[open] > summary::after{transform:rotate(-135deg);margin-top:13px}
+.faq-item[open] > summary{color:var(--ink)}
+.faq-item .faq-answer{padding:0 4px 24px;font-size:14.5px;color:var(--ink-80);line-height:1.7;max-width:680px}
+.faq-item .faq-answer p{margin:0 0 10px}
+.faq-item .faq-answer p:first-child{margin-top:-2px}
+.faq-item .faq-answer p:last-child{margin-bottom:0}
+.faq-item .faq-answer ul{padding-left:18px;margin:10px 0}
+.faq-item .faq-answer li{margin-bottom:6px;color:var(--ink-80)}
+.faq-item .faq-answer strong{color:var(--ink);font-weight:600}
 .faq-item .faq-answer a{color:var(--ink);border-bottom:1px solid var(--line-strong)}
 .faq-item .faq-answer a:hover{border-color:var(--ink)}
 .vertical-grid{display:grid;grid-template-columns:repeat(4,1fr) 1.1fr;gap:12px}
@@ -495,8 +503,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     <a href="#" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#000000"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
     <nav class="nav-links" aria-label="Primary" id="nav-links">
       <a href="#how">How it works</a>
-      <a href="#pricing">Pricing</a>
       <a href="#science">Science</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
       <a href="mailto:contact@blend-technologies.com">Contact</a>
     </nav>
     <div class="nav-actions">
