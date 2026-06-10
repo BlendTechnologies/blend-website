@@ -52,14 +52,45 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .logo svg{display:block;height:26px;width:auto}
 .nav-actions{display:flex;align-items:center;gap:10px}
 .nav-login{font-size:13.5px;color:var(--ink-60);padding:10px 8px;font-weight:500}.nav-login:hover{color:var(--ink)}
-.hero{padding:72px 0 88px;background:var(--cream);border-bottom:1px solid var(--line)}
-.hero-grid{display:grid;grid-template-columns:1fr;gap:40px;max-width:780px;margin:0 auto;text-align:center}
+.hero{padding:72px 0 88px;background:var(--cream);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 75% 30%,rgba(180,127,57,.05) 0%,transparent 55%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto;text-align:left;position:relative;z-index:1}
+.hero-text{min-width:0}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .hero-title{margin-top:14px}
-.hero-sub{margin-top:22px;max-width:620px;margin-left:auto;margin-right:auto}
-.hero-ctas{margin-top:32px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.hero-foot{margin-top:24px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.hero-sub{margin-top:22px;max-width:520px}
+.hero-ctas{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+.hero-foot{margin-top:24px;display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px}
 .hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--line-strong);align-self:center}
+/* Dashboard mockup */
+.dash-mock{background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);overflow:hidden;max-width:520px;margin-left:auto}
+.dash-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#F5F4F0;border-bottom:1px solid var(--line)}
+.dash-bar .dot{width:9px;height:9px;border-radius:50%;background:#E0DCC8}
+.dash-bar-title{margin-left:14px;font-size:11px;color:var(--muted);font-weight:500}
+.dash-tabs{display:flex;gap:0;padding:0 18px;border-bottom:1px solid var(--line);background:var(--white)}
+.dash-tab{padding:14px 0;font-size:12.5px;font-weight:500;color:var(--muted);position:relative;cursor:default;margin-right:24px}
+.dash-tab.active{color:var(--ink);font-weight:600}
+.dash-tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--ink)}
+.dash-body{padding:22px;background:linear-gradient(180deg,var(--white) 0%,var(--cream) 100%)}
+.dash-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.dash-stat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.dash-stat-l{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:6px}
+.dash-stat-v{font-size:22px;font-weight:600;color:var(--ink);letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
+.dash-stat-d{font-size:10.5px;color:var(--gold-pressed);font-weight:600;margin-top:4px}
+.dash-stat-d.flat{color:var(--muted)}
+.dash-spark{display:flex;align-items:flex-end;gap:3px;height:30px;margin-top:8px}
+.dash-spark-bar{flex:1;background:var(--gold-soft);border-radius:2px 2px 0 0;min-height:4px}
+.dash-spark-bar.h{background:var(--gold)}
+.dash-list{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:14px 0}
+.dash-list-l{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;padding:0 16px 8px;border-bottom:1px solid var(--subtle)}
+.dash-list-row{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:9px 16px;font-size:12.5px;color:var(--ink-80)}
+.dash-list-row+.dash-list-row{border-top:1px solid var(--subtle)}
+.dash-list-rank{font-size:10.5px;color:var(--muted);font-weight:600;font-feature-settings:"tnum";text-align:center}
+.dash-list-bar{display:flex;align-items:center;gap:8px}
+.dash-list-bar-fill{width:48px;height:4px;background:var(--cream);border-radius:99px;overflow:hidden}
+.dash-list-bar-fill span{display:block;height:100%;background:var(--gold);border-radius:99px}
+.dash-list-val{font-size:11px;color:var(--muted);font-weight:600;font-feature-settings:"tnum";min-width:30px;text-align:right}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr;text-align:center;gap:36px}.hero-sub{margin:22px auto 0}.hero-ctas,.hero-foot{justify-content:center}.dash-mock{margin:0 auto}}
 .section{padding:96px 0}
 .section-cream{background:var(--cream)}.section-subtle{background:var(--subtle)}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
@@ -137,7 +168,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 <section class="hero">
   <div class="wrap">
     <div class="hero-grid">
-      <div>
+      <div class="hero-text">
         <span class="hero-eyebrow">Software comparison for supplement brands</span>
         <h1 class="h1 hero-title">Quiz software built for supplement brands.</h1>
         <p class="lead hero-sub">Most quiz tools are persona-based decision trees that any e-commerce category could use. Blend is real personalization software, built specifically for supplement and OTC health brands: a scoring engine, a safety layer, and an analytics surface that understand your category.</p>
@@ -149,6 +180,39 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
           <span>15-day free trial</span><span class="dot"></span>
           <span>Live in 24 hours</span><span class="dot"></span>
           <span>White-label</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="dash-mock">
+          <div class="dash-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <div class="dash-bar-title">Blend &middot; Analytics</div>
+          </div>
+          <div class="dash-tabs">
+            <div class="dash-tab active">Users</div>
+            <div class="dash-tab">Quiz</div>
+            <div class="dash-tab">Products</div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-stats">
+              <div class="dash-stat">
+                <div class="dash-stat-l">Completion rate</div>
+                <div class="dash-stat-v">47%</div>
+                <div class="dash-stat-d">+6 pts vs prev</div>
+              </div>
+              <div class="dash-stat">
+                <div class="dash-stat-l">Avg basket</div>
+                <div class="dash-stat-v">3.2 <span style="font-size:13px;color:var(--muted);font-weight:500">items</span></div>
+                <div class="dash-spark"><span class="dash-spark-bar" style="height:30%"></span><span class="dash-spark-bar" style="height:45%"></span><span class="dash-spark-bar" style="height:38%"></span><span class="dash-spark-bar" style="height:60%"></span><span class="dash-spark-bar" style="height:52%"></span><span class="dash-spark-bar h" style="height:78%"></span><span class="dash-spark-bar h" style="height:88%"></span></div>
+              </div>
+            </div>
+            <div class="dash-list">
+              <div class="dash-list-l">Top-recommended products</div>
+              <div class="dash-list-row"><div class="dash-list-rank">01</div><div>Vitamin D3 + K2</div><div class="dash-list-bar"><div class="dash-list-bar-fill"><span style="width:92%"></span></div><div class="dash-list-val">92%</div></div></div>
+              <div class="dash-list-row"><div class="dash-list-rank">02</div><div>Magnesium Glycinate</div><div class="dash-list-bar"><div class="dash-list-bar-fill"><span style="width:78%"></span></div><div class="dash-list-val">78%</div></div></div>
+              <div class="dash-list-row"><div class="dash-list-rank">03</div><div>Omega-3</div><div class="dash-list-bar"><div class="dash-list-bar-fill"><span style="width:64%"></span></div><div class="dash-list-val">64%</div></div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
