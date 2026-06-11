@@ -88,13 +88,30 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .section{padding:96px 0}.section-cream{background:var(--cream)}.section-subtle{background:var(--subtle)}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:16px;display:inline-block}.section-head .h2{margin-bottom:14px}
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.why-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:32px 28px}
-.why-card-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.why-card-icon svg{width:20px;height:20px;color:var(--gold-pressed)}
-.why-card h3{font-size:17px;line-height:1.3;letter-spacing:-.015em;font-weight:600;margin:0 0 10px}
-.why-card p{font-size:14px;line-height:1.6;color:var(--ink-80);margin:0}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:980px;margin:0 auto}
+.why-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px}
+.why-card-icon{width:36px;height:36px;border-radius:9px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.why-card-icon svg{width:18px;height:18px;color:var(--gold-pressed)}
+.why-card h3{font-size:16px;line-height:1.3;letter-spacing:-.015em;font-weight:600;margin:0 0 8px}
+.why-card p{font-size:13.5px;line-height:1.6;color:var(--ink-80);margin:0}
 @media(max-width:860px){.why-grid{grid-template-columns:1fr}}
+/* Auditability trace visual */
+.trace-section{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+.trace-text h3{font-size:24px;line-height:1.2;letter-spacing:-.015em;font-weight:600;margin:0 0 14px;color:var(--ink)}
+.trace-text p{font-size:15.5px;line-height:1.65;color:var(--ink-80);margin:0 0 14px}
+.trace-text p:last-child{margin-bottom:0}
+.trace-text em{color:var(--ink);font-style:italic}
+.trace-card{background:var(--ink);color:var(--white);border-radius:14px;padding:0;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);font-family:"Inter","Inter var",-apple-system,monospace;font-feature-settings:"tnum","cv11"}
+.trace-card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
+.trace-card-tag{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:8px}
+.trace-card-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.trace-card-id{font-size:10.5px;color:rgba(255,255,255,.45);letter-spacing:.01em}
+.trace-card-body{padding:14px 20px 18px}
+.trace-row{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:start;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12.5px;line-height:1.5}
+.trace-row:last-child{border-bottom:0}
+.trace-k{color:rgba(255,255,255,.45);font-weight:500;letter-spacing:.01em}
+.trace-v{color:rgba(255,255,255,.92);font-weight:500;word-break:break-word}
+@media(max-width:860px){.trace-section{grid-template-columns:1fr;gap:32px}}
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
 .faq-item>summary{padding:22px 4px;font-size:15px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
@@ -205,31 +222,64 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 <section class="section section-cream">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Inside the scoring engine</span>
+      <span class="eyebrow">Pre-built scoring logic</span>
       <h2 class="h2">A real personalization algorithm, not a decision tree.</h2>
-      <p class="lead">Every quiz response becomes input to a deterministic algorithm that scores every supplement in your catalog.</p>
+      <p class="lead">Years of supplement-domain logic baked in &mdash; RDIs, ingredient interactions, dosing rules, the sub-goal taxonomy. Customize anything; default to what ships.</p>
     </div>
     <div class="why-grid">
       <article class="why-card">
         <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
-        <h3>More than 30 product attributes</h3>
-        <p>Ingredients, dosing, evidence level, contraindications, interactions, synergies. Each is a scoring dimension, not just a tag.</p>
+        <h3>30+ product attributes scored</h3>
+        <p>Ingredients, dosing, evidence level, contraindications, interactions, synergies, timing, form factor &mdash; each a scoring dimension, not just a tag.</p>
       </article>
       <article class="why-card">
         <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></div>
-        <h3>More than 20 user signals</h3>
-        <p>Goals, sub-goals, conditions, lifestyle, and nutrient gaps inferred from a food-frequency questionnaire &mdash; not just multiple-choice answers.</p>
+        <h3>20+ user signals extracted</h3>
+        <p>Goals, sub-goals, conditions, lifestyle, and nutrient gaps inferred from a food-frequency questionnaire (FFQ). Not just multiple-choice answers.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v6m0 10v6m11-11h-6m-10 0H1m17.07-7.07l-4.24 4.24m-7.07 7.07l-4.24 4.24m12.73 0l-4.24-4.24M7.76 7.76L3.52 3.52"/></svg></div>
+        <h3>Personalized RDIs, not generic dosing</h3>
+        <p>Reference intakes adjusted for ethnicity, sun exposure, activity level, and lifestyle &mdash; per customer, per nutrient. Dosing recommendations follow the adjusted RDI, not a one-size-fits-all chart.</p>
       </article>
       <article class="why-card">
         <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"/></svg></div>
         <h3>Safety layer on every pick</h3>
-        <p>Interaction checks, medication conflicts, upper-limit gating, synergy pairing. Every flagged limit is traceable to a source rule.</p>
+        <p>Interaction checks, medication conflicts, upper-limit gating against tolerable intakes, synergy pairing. Every flagged limit traceable to a source rule.</p>
       </article>
     </div>
   </div>
 </section>
 
 <section class="section section-subtle">
+  <div class="wrap">
+    <div class="trace-section">
+      <div class="trace-text">
+        <span class="eyebrow" style="display:inline-block;margin-bottom:18px">Auditable, end to end</span>
+        <h3>Every recommendation, traceable to the rules that produced it.</h3>
+        <p>The scoring engine is fully deterministic. Same answers always produce the same picks, every pick carries the signals that produced it. When a customer or a regulator asks <em>why</em>, you can show the math.</p>
+        <p>That makes Blend defensible for the categories where it matters most: supplements with structure-function claims, OTC products, regulated markets.</p>
+      </div>
+      <div aria-hidden="true" class="trace-card">
+        <div class="trace-card-head">
+          <span class="trace-card-tag">Recommendation trace</span>
+          <span class="trace-card-id">picks.json &middot; 1 of 3</span>
+        </div>
+        <div class="trace-card-body">
+          <div class="trace-row"><span class="trace-k">product</span><span class="trace-v">Magnesium Bisglycinate &middot; 400mg</span></div>
+          <div class="trace-row"><span class="trace-k">score</span><span class="trace-v">0.87</span></div>
+          <div class="trace-row"><span class="trace-k">signals</span><span class="trace-v">[ nutrient_gap, goal_match, safety_pass, no_interactions ]</span></div>
+          <div class="trace-row"><span class="trace-k">nutrient_gap</span><span class="trace-v">Mg: 78% RDI &middot; adj. for activity</span></div>
+          <div class="trace-row"><span class="trace-k">goal_match</span><span class="trace-v">sleep_onset, stress</span></div>
+          <div class="trace-row"><span class="trace-k">upper_limit</span><span class="trace-v">350mg/day &middot; under cap</span></div>
+          <div class="trace-row"><span class="trace-k">conflicts</span><span class="trace-v">none</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Frequently asked questions</span>

@@ -92,6 +92,14 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .section{padding:96px 0}.section-cream{background:var(--cream)}.section-subtle{background:var(--subtle)}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:16px;display:inline-block}.section-head .h2{margin-bottom:14px}
+/* Switch cards */
+.switch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.switch-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column}
+.switch-card-num{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--gold-pressed);margin-bottom:14px}
+.switch-card h3{font-size:18px;line-height:1.25;letter-spacing:-.015em;font-weight:600;margin:0 0 12px}
+.switch-card p{font-size:14px;line-height:1.65;color:var(--ink-80);margin:0}
+.switch-card strong{color:var(--ink);font-weight:600}
+@media(max-width:860px){.switch-grid{grid-template-columns:1fr}}
 /* Comparison table */
 .compare-table{max-width:900px;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .compare-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line);font-size:14px}
@@ -226,6 +234,33 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 </section>
 
 <section class="section section-subtle">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Why brands switch</span>
+      <h2 class="h2">Beyond the feature checklist.</h2>
+      <p class="lead">What the table doesn't show: the outcomes that move brands from a tag-based quiz to Blend.</p>
+    </div>
+    <div class="switch-grid">
+      <article class="switch-card">
+        <div class="switch-card-num">01</div>
+        <h3>Fully customizable scoring</h3>
+        <p>Most quiz tools lock you into persona templates and decision-tree branches that <strong>look</strong> tunable but constrain real personalization. Blend lets you adjust scoring weights per attribute, exclude product fields you don't want considered, prioritize goal-to-product mappings, and configure brand-specific overrides &mdash; on top of a deterministic core that stays predictable.</p>
+      </article>
+      <article class="switch-card">
+        <div class="switch-card-num">02</div>
+        <h3>Trust converts</h3>
+        <p>Customers who understand <strong>why</strong> a product was picked convert at higher rates than customers shown a black-box "you got this." Blend ships every recommendation with the specific reasons that produced it &mdash; nutrient gaps closed, goals matched, safety checks passed. Visible reasoning builds the trust that closes the sale.</p>
+      </article>
+      <article class="switch-card">
+        <div class="switch-card-num">03</div>
+        <h3>Defensible for regulated categories</h3>
+        <p>Supplements with structure-function claims, OTC products, and regulated markets all share the same requirement: when a customer, a lawyer, or a regulator asks <strong>how</strong> a recommendation was made, you can show the math. Deterministic scoring + traceable signals + source-rule references = a defensible recommendation, not a marketing pitch.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Frequently asked questions</span><h2 class="h2">Buyer questions.</h2></div>
     <div class="faq-list">

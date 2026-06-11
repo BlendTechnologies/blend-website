@@ -75,7 +75,6 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .hero-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;align-items:center;position:relative;z-index:1}
 .hero-text{min-width:0}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.hero-eyebrow .shopify-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#95BF47;margin-right:8px;vertical-align:middle;margin-bottom:2px}
 .hero-title{margin-top:14px}
 .hero-sub{margin-top:22px;max-width:520px}
 .hero-ctas{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
@@ -108,13 +107,39 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .section{padding:96px 0}.section-cream{background:var(--cream)}.section-subtle{background:var(--subtle)}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:16px;display:inline-block}.section-head .h2{margin-bottom:14px}
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.why-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:32px 28px}
-.why-card-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.why-card-icon svg{width:20px;height:20px;color:var(--gold-pressed)}
-.why-card h3{font-size:17px;line-height:1.3;letter-spacing:-.015em;font-weight:600;margin:0 0 10px}
-.why-card p{font-size:14px;line-height:1.6;color:var(--ink-80);margin:0}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:980px;margin:0 auto}
+.why-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px}
+.why-card-icon{width:36px;height:36px;border-radius:9px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.why-card-icon svg{width:18px;height:18px;color:var(--gold-pressed)}
+.why-card h3{font-size:16px;line-height:1.3;letter-spacing:-.015em;font-weight:600;margin:0 0 8px}
+.why-card p{font-size:13.5px;line-height:1.6;color:var(--ink-80);margin:0}
 @media(max-width:860px){.why-grid{grid-template-columns:1fr}}
+/* Wellness report visual */
+.report-section{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+.report-text h3{font-size:24px;line-height:1.2;letter-spacing:-.015em;font-weight:600;margin:0 0 14px;color:var(--ink)}
+.report-text p{font-size:15.5px;line-height:1.65;color:var(--ink-80);margin:0 0 18px}
+.report-text ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.report-text li{display:grid;grid-template-columns:18px 1fr;gap:12px;align-items:start;font-size:14.5px;color:var(--ink-80);line-height:1.5}
+.report-text li::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--gold-soft);position:relative;margin-top:5px}
+.report-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px 24px 22px;box-shadow:0 8px 24px rgba(0,0,0,.04),0 2px 6px rgba(0,0,0,.03)}
+.report-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.report-card-title{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
+.report-card-pill{font-size:10px;color:var(--gold-pressed);background:var(--gold-soft);padding:3px 8px;border-radius:99px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.report-products{display:grid;gap:8px;margin-bottom:20px}
+.rp-row{display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;padding:9px 12px;background:var(--subtle);border-radius:8px}
+.rp-swatch{width:32px;height:32px;border-radius:7px;background:#2A2A2A;color:var(--white);font-size:10.5px;font-weight:700;display:grid;place-items:center;letter-spacing:.01em}
+.rp-name{font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:-.005em;line-height:1.2;margin:0}
+.rp-reason{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.3}
+.rp-badge{font-size:10.5px;color:var(--muted);font-weight:600;background:var(--white);border:1px solid var(--line);padding:3px 8px;border-radius:99px}
+.report-nutrients{padding-top:14px;border-top:1px solid var(--line)}
+.report-nut-title{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px}
+.report-nut-row{display:grid;grid-template-columns:64px 1fr 38px;align-items:center;gap:10px;margin-bottom:6px}
+.report-nut-row:last-child{margin-bottom:0}
+.report-nut-lab{font-size:11.5px;color:var(--ink-80);font-weight:500}
+.report-nut-track{height:5px;background:var(--cream);border-radius:99px;overflow:hidden}
+.report-nut-fill{height:100%;border-radius:99px}
+.report-nut-val{font-size:10.5px;font-weight:700;font-feature-settings:"tnum";text-align:right;letter-spacing:.01em}
+@media(max-width:860px){.report-section{grid-template-columns:1fr;gap:32px}}
 /* FAQ */
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
@@ -174,7 +199,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-text">
-        <span class="hero-eyebrow"><span class="shopify-dot"></span>Use case &mdash; Shopify supplement brands</span>
+        <span class="hero-eyebrow">Use case &mdash; Shopify supplement brands</span>
         <h1 class="h1 hero-title">A personalized supplement quiz, built for Shopify.</h1>
         <p class="lead hero-sub">Embed a deterministic scoring quiz on your Shopify store. Native catalog sync. White-label. Every recommendation comes back with the specific reasons that produced it &mdash; not persona tags, not decision trees.</p>
         <div class="hero-ctas">
@@ -217,30 +242,69 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Why Shopify supplement brands choose Blend</span>
-      <h2 class="h2">A quiz tool that actually scores your catalog.</h2>
-      <p class="lead">Most Shopify quiz apps are decision trees with product tags glued on. Blend is a real personalization engine.</p>
+      <h2 class="h2">A real personalization engine, built for your Shopify store.</h2>
+      <p class="lead">Pre-built supplement scoring logic, native catalog sync, white-label embed. Live in under 24 hours, not weeks.</p>
     </div>
     <div class="why-grid">
       <article class="why-card">
         <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/></svg></div>
         <h3>Native Shopify catalog sync</h3>
-        <p>Connect your store once. Products and variants sync automatically. No CSV reuploads.</p>
+        <p>Connect once. Products, variants, and inventory sync automatically. New SKUs flow into the quiz without re-mapping.</p>
       </article>
       <article class="why-card">
-        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>
-        <h3>The algorithm, not persona tags</h3>
-        <p>Every product in your catalog gets a numeric score per customer, computed across more than 30 attributes and more than 20 user signals. Same answers, same recommendations &mdash; auditable.</p>
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg></div>
+        <h3>Pre-built supplement logic</h3>
+        <p>RDIs, ingredient interactions, dosing rules, sub-goal taxonomy &mdash; all baked in. You don't build the science layer from scratch. Customize anything you want; default to what ships.</p>
       </article>
       <article class="why-card">
-        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"/></svg></div>
-        <h3>Safety layer on every pick</h3>
-        <p>Interaction checks, medication conflicts, upper-limit gating, synergy pairing. Every flagged limit is traceable to a source rule.</p>
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Live in under 24 hours</h3>
+        <p>Authorize catalog sync, customize the quiz from a template, embed with one line of HTML. Faster than most Shopify quiz apps that need weeks of decision-tree setup.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>Auditable recommendations</h3>
+        <p>Same answers always produce the same picks. Every recommendation carries the specific signals that produced it &mdash; defensible to customers, lawyers, and regulators.</p>
       </article>
     </div>
   </div>
 </section>
 
 <section class="section section-subtle">
+  <div class="wrap">
+    <div class="report-section">
+      <div class="report-text">
+        <span class="eyebrow" style="display:inline-block;margin-bottom:18px">What your customer sees</span>
+        <h3>A wellness report, not just a basket.</h3>
+        <p>Every quiz finishes with a personalized report: the picks, the reasons, the dosing and timing, and the nutrient gaps the engine inferred from the customer's diet. They walk away understanding why &mdash; not just what to buy.</p>
+        <ul>
+          <li>Scored picks with dosing &amp; timing per supplement</li>
+          <li>Nutrient gap chart (vs. their personalized RDIs)</li>
+          <li>Goal-by-goal explanations behind every recommendation</li>
+          <li>Flexible basket they can edit before checkout</li>
+        </ul>
+      </div>
+      <div aria-hidden="true">
+        <div class="report-card">
+          <div class="report-card-head"><span class="report-card-title">Your wellness plan</span><span class="report-card-pill">2 picks</span></div>
+          <div class="report-products">
+            <div class="rp-row"><div class="rp-swatch">D3</div><div><div class="rp-name">Vitamin D3 + K2</div><div class="rp-reason">Immunity, bone density, mood</div></div><span class="rp-badge">2000IU</span></div>
+            <div class="rp-row"><div class="rp-swatch" style="background:#2A5A2A">&#937;3</div><div><div class="rp-name">Omega-3 Fish Oil</div><div class="rp-reason">Heart health &amp; cognitive function</div></div><span class="rp-badge">1g</span></div>
+          </div>
+          <div class="report-nutrients">
+            <div class="report-nut-title">Key nutrient gaps</div>
+            <div class="report-nut-row"><span class="report-nut-lab">Calories</span><div class="report-nut-track"><div class="report-nut-fill" style="width:87%;background:#6AA84F"></div></div><span class="report-nut-val" style="color:#6AA84F">87%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Vitamin D</span><div class="report-nut-track"><div class="report-nut-fill" style="width:32%;background:#D8614A"></div></div><span class="report-nut-val" style="color:#D8614A">32%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Omega-3</span><div class="report-nut-track"><div class="report-nut-fill" style="width:44%;background:var(--gold)"></div></div><span class="report-nut-val" style="color:var(--gold)">44%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Zinc</span><div class="report-nut-track"><div class="report-nut-fill" style="width:75%;background:#6AA84F"></div></div><span class="report-nut-val" style="color:#6AA84F">75%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Frequently asked questions</span>
