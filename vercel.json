@@ -3,5 +3,11 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/pricing", "destination": "/" }
+  ],
+  "redirects": [
+    { "source": "/shopify-supplement-quiz", "destination": "/use-cases/shopify", "permanent": true },
+    { "source": "/personalized-supplement-quiz", "destination": "/use-cases/supplement-brands", "permanent": true },
+    { "source": "/quiz-software-for-supplement-brands", "destination": "/use-cases/compare", "permanent": true },
+    { "source": "/personalized-product-quiz", "destination": "/use-cases", "permanent": true }
   ]
 }
