@@ -208,9 +208,40 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       </ul>
       <p>Users are not required to provide personal or sensitive data to use the quiz. All data is submitted at the sole discretion of the user.</p>
 
-      <h2 id="special-category">3. Special Category (Sensitive) Data</h2>
-      <p>Some quizzes may involve health-related information, which constitutes <strong>special category data</strong> under UK/EU GDPR (Article 9) and <strong>sensitive personal information</strong> under certain US state laws.</p>
-      <p>We process this data only when the user has given explicit consent for that specific purpose, and solely to generate personalized recommendations. Clients are responsible for ensuring their quizzes collect this data lawfully and transparently.</p>
+      <h2 id="special-category">3. Special Category (Health) Data</h2>
+      <p>Some quizzes involve health-related information &mdash; age, sex, height, weight, diet preferences, lifestyle factors, diagnosed medical conditions, current medications, and pregnancy or breastfeeding status. This is <strong>special category data</strong> under UK/EU GDPR Article 9 and <strong>sensitive personal information</strong> under certain US state laws. We process it for two distinct purposes, each with its own lawful basis.</p>
+
+      <h3>Primary purpose &mdash; your personalised recommendations</h3>
+      <ul>
+        <li><strong>Lawful basis:</strong> GDPR Article 9(2)(a) &mdash; your explicit consent, captured by the brand partner whose quiz you completed.</li>
+        <li><strong>What we do:</strong> generate your personalised supplement recommendations and nutrient analysis.</li>
+        <li><strong>Retention:</strong> processed in real time. Blend Technologies does not persist identifiable submissions for this purpose; the brand partner (data controller) may retain your results in their own system subject to their privacy notice.</li>
+      </ul>
+
+      <h3>Secondary purpose &mdash; service quality and algorithm improvement</h3>
+      <ul>
+        <li><strong>Lawful basis:</strong> GDPR Article 6(1)(f) legitimate interests (service accuracy and safety) <strong>+</strong> Article 9(2)(j) statistical purposes with Article 89(1) safeguards.</li>
+        <li><strong>What we do:</strong> (i) debugging &mdash; investigate user-reported errors, reproduce failures, and validate contraindication alerts; (ii) aggregated statistical analysis &mdash; compute non-identifying metrics (error rates, correlation studies) to improve recommendation accuracy.</li>
+        <li><strong>Retention:</strong> individual <strong>pseudonymised</strong> records are kept for up to <strong>90 days</strong>, then automatically deleted. Aggregated statistics with no individual records may be retained for up to <strong>2 years</strong> for ongoing validation.</li>
+      </ul>
+
+      <h3>Article 89(1) safeguards (for the secondary purpose)</h3>
+      <ul>
+        <li><strong>De-identification:</strong> name, email and IP address are removed; the submission reference is replaced by a one-way cryptographic hash. The data remains personal data in pseudonymised form.</li>
+        <li><strong>Minimisation:</strong> only attributes necessary for debugging and statistical analysis are retained.</li>
+        <li><strong>Access restriction:</strong> pseudonymised logs are accessible only to Blend Technologies engineering and QA personnel under role-based access; no marketing, sales, or third-party access.</li>
+        <li><strong>No cross-brand sharing:</strong> one brand partner's data is never used to generate recommendations for, or accessible to, another brand partner.</li>
+        <li><strong>Security:</strong> encryption at rest and in transit; access logs.</li>
+        <li><strong>No automated decisions about you (Article 22):</strong> pseudonymised records are used only for aggregate analysis and manual debugging, never to make automated decisions about individuals.</li>
+      </ul>
+
+      <h3>Your rights in respect of health data</h3>
+      <ul>
+        <li><strong>Right to object (Article 21):</strong> you may object to the secondary processing at any time by contacting us at <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a>. We will functionally delete your pseudonymised record within 5 business days. Objection does not affect your access to your recommendations.</li>
+        <li><strong>Right to withdraw consent (Article 7):</strong> you may withdraw consent to the primary processing at any time. Withdrawal does not affect processing already carried out lawfully.</li>
+        <li><strong>Right to erasure (Article 17):</strong> request deletion of your pseudonymised records at any time; we will functionally delete them within 5 business days.</li>
+        <li><strong>Other rights:</strong> access (Art. 15), rectification (Art. 16), restriction (Art. 18), portability (Art. 20). Contact us to exercise any of these.</li>
+      </ul>
 
       <h2 id="how-we-use">4. How We Use Data</h2>
       <p>We use collected data to:</p>
@@ -218,7 +249,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <li>operate and maintain the platform;</li>
         <li>generate personalized recommendations on behalf of clients;</li>
         <li>provide analytics and insights to clients (in anonymized or aggregated form only);</li>
-        <li>improve our algorithms and services (using only anonymized and aggregated data);</li>
+        <li>improve our algorithms and services &mdash; using pseudonymised quiz records (90-day retention) and aggregated statistics, as described in section 3 above;</li>
         <li>comply with legal obligations;</li>
         <li>enforce our Terms of Service.</li>
       </ul>
@@ -279,6 +310,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <ul>
         <li><strong>Client account data:</strong> retained for the duration of the contract and deleted within 90 days of account termination, unless retention is required for legal or regulatory purposes;</li>
         <li><strong>End-user quiz data:</strong> retained in accordance with the client's instructions and deleted within 90 days of client account termination;</li>
+        <li><strong>Pseudonymised quiz logs</strong> (used for debugging and statistical improvement under section 3 above): retained for up to 90 days from submission, then auto-deleted; aggregated statistics (no individual records) may be retained for up to 2 years;</li>
         <li><strong>Billing records:</strong> retained for 7 years in accordance with UK financial record-keeping requirements;</li>
         <li><strong>Marketing and CRM data</strong> (business contacts and prospects): retained while there is an active or prospective business relationship, and deleted or anonymised within 24 months of the last meaningful contact, or sooner on request;</li>
         <li><strong>Server and application logs</strong> (which may contain pseudonymous identifiers): retained in line with our hosting provider's standard log retention period and not exported to third parties;</li>
