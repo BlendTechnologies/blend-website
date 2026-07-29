@@ -483,11 +483,14 @@ function renderPersona(id) {
   `).join('');
 
   // Breakdown — real webapp only lists genuine gaps ("Showing only nutrients with a gap").
-  // Hide anything already 'on track' (status === 'good') to match production behaviour.
+  // Hide anything already 'on track' (status === 'good').
+  // Also exclude fat sub-types (Trans/Poly/Mono) — those roll into the Fat macro card and shouldn't
+  // appear here per the reference webapp layout.
+  const BREAKDOWN_EXCLUDE = new Set(['Trans Fat','Polyunsaturated Fat','Monounsaturated Fat']);
   const bd = p.breakdown || {};
   const bdFiltered = Object.fromEntries(
     Object.entries(bd)
-      .map(([section, rows]) => [section, rows.filter(r => r.status !== 'good')])
+      .map(([section, rows]) => [section, rows.filter(r => r.status !== 'good' && !BREAKDOWN_EXCLUDE.has(r.name))])
       .filter(([, rows]) => rows.length > 0)
   );
   document.getElementById('bpanel').innerHTML = Object.entries(bdFiltered).map(([section, rows]) => `
