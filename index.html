@@ -231,14 +231,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .report-nut-val{font-size:11.5px;color:var(--muted);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
 .report-nutrients-full{padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .report-nutrients-full .report-nut-row{margin-bottom:0;padding:4px 0}
-.report-macros-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1}
-.report-mtile{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 13px;display:flex;flex-direction:column;justify-content:space-between}
-.report-mtile-name{font-weight:700;font-size:11.5px;color:var(--ink);letter-spacing:-.005em}
-.report-mtile-val{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.01em;margin:6px 0 3px;color:var(--ink);font-variant-numeric:tabular-nums}
-.report-mtile-val span{font-size:11px;font-weight:600;margin-left:2px;color:var(--muted)}
-.report-mtile-sub{font-size:10.5px;color:var(--muted);margin-bottom:8px;letter-spacing:-.005em}
-.report-mtile-track{height:4px;background:var(--line);border-radius:999px;overflow:hidden}
-.report-mtile-fill{height:100%;border-radius:999px}
+.routine{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:space-evenly}
+.routine-slot{display:grid;grid-template-columns:82px 1fr;gap:12px;align-items:start}
+.routine-when{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:9px}
+.routine-items{display:grid;gap:6px}
+.routine-item{display:flex;align-items:center;gap:9px;background:var(--white);border:1px solid var(--line);border-radius:9px;padding:8px 11px}
+.routine-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.routine-name{font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:-.005em;flex:1}
+.routine-qty{font-size:10.5px;color:var(--muted);font-weight:500;flex-shrink:0}
+.routine-tag{font-size:8px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-pressed);flex-shrink:0}
 .dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px;color:var(--white);flex:1;min-height:280px}
 .dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
@@ -638,39 +639,26 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           <li>A flexible basket they can edit before checkout</li>
         </ul>
         <div class="report-card" aria-hidden="true">
-          <div class="report-card-head"><span class="report-card-title">Macros</span><span class="report-card-pill">Daily intake</span></div>
-          <div class="report-macros-grid">
-            <div class="report-mtile">
-              <div>
-                <div class="report-mtile-name">Protein</div>
-                <div class="report-mtile-val">58<span>g</span></div>
-                <div class="report-mtile-sub">Target 123 g</div>
+          <div class="report-card-head"><span class="report-card-title">Your daily routine</span><span class="report-card-pill">11 picks</span></div>
+          <div class="routine">
+            <div class="routine-slot">
+              <span class="routine-when">Morning</span>
+              <div class="routine-items">
+                <div class="routine-item"><span class="routine-dot"></span><span class="routine-name">Cordyceps</span><span class="routine-qty">1 serving</span></div>
               </div>
-              <div class="report-mtile-track"><div class="report-mtile-fill" style="width:47%;background:#D8614A"></div></div>
             </div>
-            <div class="report-mtile">
-              <div>
-                <div class="report-mtile-name">Omega-3</div>
-                <div class="report-mtile-val">1.76<span>g</span></div>
-                <div class="report-mtile-sub">Target 2.5 g</div>
+            <div class="routine-slot">
+              <span class="routine-when">With meal</span>
+              <div class="routine-items">
+                <div class="routine-item"><span class="routine-dot"></span><span class="routine-name">Omega-3 (Algae Oil)</span><span class="routine-tag">Essential</span></div>
+                <div class="routine-item"><span class="routine-dot"></span><span class="routine-name">Prebiotic (FOS/GOS)</span><span class="routine-qty">1 serving</span></div>
               </div>
-              <div class="report-mtile-track"><div class="report-mtile-fill" style="width:70%;background:var(--gold)"></div></div>
             </div>
-            <div class="report-mtile">
-              <div>
-                <div class="report-mtile-name">Fiber</div>
-                <div class="report-mtile-val">35<span>g</span></div>
-                <div class="report-mtile-sub">Target 28 g</div>
+            <div class="routine-slot">
+              <span class="routine-when">Before bed</span>
+              <div class="routine-items">
+                <div class="routine-item"><span class="routine-dot"></span><span class="routine-name">L-Theanine</span><span class="routine-qty">1 serving</span></div>
               </div>
-              <div class="report-mtile-track"><div class="report-mtile-fill" style="width:100%;background:var(--green-soft)"></div></div>
-            </div>
-            <div class="report-mtile">
-              <div>
-                <div class="report-mtile-name">Water</div>
-                <div class="report-mtile-val">348<span>ml</span></div>
-                <div class="report-mtile-sub">Drink 3.2 L per day</div>
-              </div>
-              <div class="report-mtile-track"><div class="report-mtile-fill" style="width:11%;background:#4A72AC"></div></div>
             </div>
           </div>
         </div>
