@@ -144,15 +144,21 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
-.results{position:absolute;top:110px;right:0;width:60%;padding:24px;z-index:3;min-width:0;}
-.results .rlabel{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.results .rtitle{margin-top:10px;font-size:19px;font-weight:700;line-height:1.25}
-.results .rhint{margin-top:6px;font-size:12px;color:rgba(255,255,255,.6)}
-.results .rows{margin-top:16px;display:grid;gap:8px}
+.results{position:absolute;top:110px;right:0;width:60%;padding:22px;z-index:3;min-width:0;}
+.results .rheader{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.results .rring{flex-shrink:0}
+.results .rring svg{display:block}
+.results .rheader-copy{min-width:0}
+.results .rlabel{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.results .rtitle{margin-top:6px;font-size:15px;font-weight:700;line-height:1.2}
+.results .rhint{margin-top:3px;font-size:11.5px;color:rgba(255,255,255,.6);line-height:1.3}
+.results .rows{display:grid;gap:7px}
 .rrow{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;padding:10px;background:rgba(255,255,255,.06);border-radius:12px}
 .rswatch{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--white);font-weight:700;font-size:11px;letter-spacing:.02em}
 .rname{font-size:13px;font-weight:600;line-height:1.25}
 .rreason{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;line-height:1.3}
+.results .rcallout{margin-top:12px;padding:9px 12px;background:rgba(212,164,90,.10);border:1px solid rgba(212,164,90,.28);border-radius:10px;font-size:11.5px;color:rgba(255,255,255,.82);line-height:1.35;display:flex;align-items:flex-start;gap:8px}
+.results .rcallout::before{content:"i";width:14px;height:14px;border-radius:50%;background:var(--gold);color:#0A0A0A;display:inline-grid;place-items:center;font-size:9px;font-weight:700;font-style:italic;flex-shrink:0;margin-top:1px}
 @media(max-width:960px){
   .hero{padding:32px 0 56px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -554,14 +560,26 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
             <button class="quiz-next" type="button">Continue &#8594;</button>
           </div>
           <div class="card card-dark results">
-            <div class="rlabel">Your wellness plan</div>
-            <div class="rtitle">Personalized picks, scored and explained</div>
-            <div class="rhint">Wellness report, nutritional gaps, serving amounts, etc.</div>
-            <div class="rows">
-              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Mg</div><div><div class="rname">Magnesium Bisglycinate &#xB7; 400mg</div><div class="rreason">Supports sleep. Before bed.</div></div></div>
-              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">L-T</div><div><div class="rname">L-Theanine &#xB7; 200mg</div><div class="rreason">Calm focus. Morning.</div></div></div>
-              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Mel</div><div><div class="rname">Melatonin &#xB7; 0.5mg</div><div class="rreason">Supports sleep. Before bed.</div></div></div>
+            <div class="rheader">
+              <div class="rring">
+                <svg viewBox="0 0 64 64" width="64" height="64" aria-label="Health score 82 of 100">
+                  <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
+                  <circle cx="32" cy="32" r="24" fill="none" stroke="#6AA84F" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="27.1" transform="rotate(-90 32 32)"/>
+                  <text x="32" y="38" text-anchor="middle" font-size="16" font-weight="650" fill="#6AA84F">82</text>
+                </svg>
+              </div>
+              <div class="rheader-copy">
+                <div class="rlabel">Your wellness plan</div>
+                <div class="rtitle">Emma, 34 &#xB7; Vegetarian</div>
+                <div class="rhint">Health Score: Good &#xB7; 11 personalised picks</div>
+              </div>
             </div>
+            <div class="rows">
+              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Ash</div><div><div class="rname">Ashwagandha &#xB7; 600mg</div><div class="rreason">Stress + cortisol. With meal.</div></div></div>
+              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Cor</div><div><div class="rname">Cordyceps &#xB7; 500mg</div><div class="rreason">Endurance + energy. Morning.</div></div></div>
+              <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Crt</div><div><div class="rname">Creatine &#xB7; 5g</div><div class="rreason">Cognitive + strength. With meal.</div></div></div>
+            </div>
+            <div class="rcallout">Your iron intake is on the low side, a common gap for women. Consider an iron-rich meal.</div>
           </div>
         </div>
       </div>
