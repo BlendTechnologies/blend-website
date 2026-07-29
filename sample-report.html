@@ -152,7 +152,10 @@
 
   .top{display:grid;grid-template-columns:1fr 310px;gap:36px;align-items:start;margin-top:8px}
   @media(max-width:800px){.top{grid-template-columns:1fr}}
-  h1{font-size:30px;letter-spacing:-.02em}
+  .wp-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+  .brand-mark{width:48px;height:48px;background:#0A0A0A;color:#FFFFFF;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;letter-spacing:-.02em;flex-shrink:0;line-height:1}
+  h1{font-size:30px;letter-spacing:-.02em;line-height:1.1}
+  .wp-header .subtitle{margin-top:4px}
   .subtitle{font-size:15px;color:var(--muted);margin:2px 0 14px}
   .intro{font-size:14px;margin-bottom:16px;max-width:640px}
   .pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:7px}
@@ -303,8 +306,13 @@
   <section class="step" id="step3">
   <div class="top">
     <div>
-      <h1>Your wellness plan</h1>
-      <div class="subtitle">Uniquely designed for <span data-bind="display_name">Emma</span></div>
+      <div class="wp-header">
+        <div class="brand-mark" aria-hidden="true">B.</div>
+        <div>
+          <h1>Your wellness plan</h1>
+          <div class="subtitle">Uniquely designed for <span data-bind="display_name">Emma</span></div>
+        </div>
+      </div>
       <div class="intro" data-bind="intro_line">Based on your profile, your body needs extra support in 9 key areas. Your full plan is below, with a breakdown of your nutritional gaps at the end.</div>
       <div class="pills" id="profile-pills"></div>
       <div class="pills" id="goal-pills"></div>
@@ -474,9 +482,15 @@ function renderPersona(id) {
     </div>
   `).join('');
 
-  // Breakdown
+  // Breakdown — real webapp only lists genuine gaps ("Showing only nutrients with a gap").
+  // Hide anything already 'on track' (status === 'good') to match production behaviour.
   const bd = p.breakdown || {};
-  document.getElementById('bpanel').innerHTML = Object.entries(bd).map(([section, rows]) => `
+  const bdFiltered = Object.fromEntries(
+    Object.entries(bd)
+      .map(([section, rows]) => [section, rows.filter(r => r.status !== 'good')])
+      .filter(([, rows]) => rows.length > 0)
+  );
+  document.getElementById('bpanel').innerHTML = Object.entries(bdFiltered).map(([section, rows]) => `
     <h3 class="bsec">${esc(section)}</h3>
     ${rows.map(r => `
       <div class="brow">
@@ -491,7 +505,7 @@ function renderPersona(id) {
   document.getElementById('pgrid').innerHTML = p.products.map((prod, i) => `
     <div class="pcard slide">
       <div class="pphoto"><span class="pbadge">${esc(prod.badge)}</span>
-        <img src="${PRODUCT_IMGS[i % 3]}" alt="${esc(prod.name)}" loading="lazy"></div>
+        <img src="${PRODUCT_IMGS[0]}" alt="${esc(prod.name)}" loading="lazy"></div>
       <h3>${esc(prod.name)}</h3>
       <p class="pdesc">${esc(prod.description)}</p>
       <div class="pserv">- ${esc(prod.serving)}</div>
