@@ -159,6 +159,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .rreason{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;line-height:1.3}
 .results .rcallout{margin-top:12px;padding:9px 12px;background:rgba(212,164,90,.10);border:1px solid rgba(212,164,90,.28);border-radius:10px;font-size:11.5px;color:rgba(255,255,255,.82);line-height:1.35;display:flex;align-items:flex-start;gap:8px}
 .results .rcallout::before{content:"i";width:14px;height:14px;border-radius:50%;background:var(--gold);color:#0A0A0A;display:inline-grid;place-items:center;font-size:9px;font-weight:700;font-style:italic;flex-shrink:0;margin-top:1px}
+.results .rgoals{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 14px 0}
+.results .rgoal{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:rgba(212,164,90,.16);color:var(--gold);letter-spacing:-.005em}
+.results .rmacros{margin-top:11px;display:grid;gap:8px;padding:10px 12px;background:rgba(255,255,255,.03);border-radius:10px}
+.results .rmacro-label{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:rgba(255,255,255,.82);margin-bottom:4px;letter-spacing:-.005em}
+.results .rmacro-label span{color:#D8614A;font-variant-numeric:tabular-nums}
+.results .rmacro-track{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.results .rmacro-fill{height:100%;border-radius:2px;transform-origin:left center}
+@keyframes bring-ring{from{stroke-dashoffset:150.8}to{stroke-dashoffset:27.1}}
+@keyframes bring-bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.results .rring .r-fill{animation:bring-ring 1.15s cubic-bezier(.2,.7,.25,1) .35s both}
+.results .rmacro-fill{animation:bring-bar 1.05s cubic-bezier(.2,.7,.25,1) .7s both}
+@media(prefers-reduced-motion:reduce){.results .rring .r-fill,.results .rmacro-fill{animation:none}}
 @media(max-width:960px){
   .hero{padding:32px 0 56px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -550,12 +562,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div class="hero-stage">
           <div class="quiz" id="quiz">
             <div class="qprog"><span class="qprog-label">Question 2 of 5</span><div class="qprog-bar"><div class="qprog-fill"></div></div></div>
-            <div class="qtitle">What&#39;s your biggest sleep challenge?</div>
+            <div class="qtitle">What are your top wellness goals?</div>
             <div class="qopts" role="radiogroup" aria-label="Sample quiz options">
-              <button class="qopt" data-i="0" role="radio" aria-checked="false"><span class="qopt-label">Falling asleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-              <button class="qopt" data-i="1" role="radio" aria-checked="false"><span class="qopt-label">Staying asleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-              <button class="qopt active" data-i="2" role="radio" aria-checked="true"><span class="qopt-label">Waking too early</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-              <button class="qopt" data-i="3" role="radio" aria-checked="false"><span class="qopt-label">Feeling rested</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt active" data-i="0" role="radio" aria-checked="true"><span class="qopt-label">Boost energy</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt active" data-i="1" role="radio" aria-checked="true"><span class="qopt-label">Gut health</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt active" data-i="2" role="radio" aria-checked="true"><span class="qopt-label">Better sleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt" data-i="3" role="radio" aria-checked="false"><span class="qopt-label">Muscle growth</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
             </div>
             <button class="quiz-next" type="button">Continue &#8594;</button>
           </div>
@@ -564,7 +576,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
               <div class="rring">
                 <svg viewBox="0 0 64 64" width="64" height="64" aria-label="Health score 82 of 100">
                   <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
-                  <circle cx="32" cy="32" r="24" fill="none" stroke="#6AA84F" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="27.1" transform="rotate(-90 32 32)"/>
+                  <circle class="r-fill" cx="32" cy="32" r="24" fill="none" stroke="#6AA84F" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="27.1" transform="rotate(-90 32 32)"/>
                   <text x="32" y="38" text-anchor="middle" font-size="16" font-weight="650" fill="#6AA84F">82</text>
                 </svg>
               </div>
@@ -574,10 +586,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
                 <div class="rhint">Health Score: Good &#xB7; 11 personalised picks</div>
               </div>
             </div>
+            <div class="rgoals" aria-label="Goals">
+              <span class="rgoal">Boost Energy</span>
+              <span class="rgoal">Gut Health</span>
+              <span class="rgoal">Sleep</span>
+            </div>
             <div class="rows">
               <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Ash</div><div><div class="rname">Ashwagandha &#xB7; 600mg</div><div class="rreason">Stress + cortisol. With meal.</div></div></div>
               <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Cor</div><div><div class="rname">Cordyceps &#xB7; 500mg</div><div class="rreason">Endurance + energy. Morning.</div></div></div>
               <div class="rrow"><div class="rswatch" style="background:#2A2A2A">Crt</div><div><div class="rname">Creatine &#xB7; 5g</div><div class="rreason">Cognitive + strength. With meal.</div></div></div>
+            </div>
+            <div class="rmacros" aria-label="Nutritional gaps">
+              <div class="rmacro">
+                <div class="rmacro-label">Protein <span>47%</span></div>
+                <div class="rmacro-track"><div class="rmacro-fill" style="width:47%;background:#D8614A"></div></div>
+              </div>
+              <div class="rmacro">
+                <div class="rmacro-label">Iron <span>45%</span></div>
+                <div class="rmacro-track"><div class="rmacro-fill" style="width:45%;background:#D8614A"></div></div>
+              </div>
             </div>
             <div class="rcallout">Your iron intake is on the low side, a common gap for women. Consider an iron-rich meal.</div>
           </div>
