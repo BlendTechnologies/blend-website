@@ -131,12 +131,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .qprog-fill{height:100%;width:40%;background:var(--ink);border-radius:999px}
 .quiz .qtitle{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;margin:0}
 .quiz .qopts{margin-top:16px;display:grid;gap:7px}
-.qopt{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:500;cursor:pointer;transition:border-color .18s ease,background .18s ease;background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
+.qopt{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:500;cursor:default;transition:border-color .38s cubic-bezier(.2,.7,.25,1),background .38s cubic-bezier(.2,.7,.25,1);background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
 .qopt:hover{border-color:var(--line-strong)}
 .qopt.active{border-color:var(--ink);background:var(--cream)}
 .qopt-label{flex:1;min-width:0}
-.qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .18s ease,border-color .18s ease}
-.qopt-check svg{width:9px;height:9px;opacity:0;transition:opacity .18s ease}
+.qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .38s cubic-bezier(.2,.7,.25,1),border-color .38s cubic-bezier(.2,.7,.25,1)}
+.qopt-check svg{width:9px;height:9px;opacity:0;transform:scale(.4);transition:opacity .3s cubic-bezier(.2,.7,.25,1),transform .3s cubic-bezier(.2,.7,.25,1)}
+.qopt.active .qopt-check svg{transform:scale(1)}
 .qopt.active .qopt-check{background:var(--ink);border-color:var(--ink)}
 .qopt.active .qopt-check svg{opacity:1}
 .qopt.active .qopt-check svg path{stroke:var(--white)!important}
@@ -169,9 +170,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .results .rmacro-fill{height:100%;border-radius:2px;transform-origin:left center}
 @keyframes bring-ring{from{stroke-dashoffset:150.8}to{stroke-dashoffset:27.1}}
 @keyframes bring-bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rrow-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .results .rring .r-fill{animation:bring-ring 1.15s cubic-bezier(.2,.7,.25,1) .35s both}
-.results .rmacro-fill{animation:bring-bar 1.05s cubic-bezier(.2,.7,.25,1) .7s both}
-@media(prefers-reduced-motion:reduce){.results .rring .r-fill,.results .rmacro-fill{animation:none}}
+.results .rows .rrow{opacity:0;animation:rrow-in .45s cubic-bezier(.2,.7,.25,1) both}
+.results .rows .rrow:nth-child(1){animation-delay:.75s}
+.results .rows .rrow:nth-child(2){animation-delay:1.35s}
+.results .rows .rrow:nth-child(3){animation-delay:1.95s}
+.results .rmacro-fill{animation:bring-bar 1s cubic-bezier(.2,.7,.25,1) 2.3s both}
+@media(prefers-reduced-motion:reduce){.results .rring .r-fill,.results .rmacro-fill,.results .rows .rrow{animation:none;opacity:1}}
 @media(max-width:960px){
   .hero{padding:32px 0 56px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -562,12 +568,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <div class="hero-visual" aria-hidden="true">
         <div class="hero-stage">
           <div class="quiz" id="quiz">
-            <div class="qprog"><span class="qprog-label">Question 2 of 5</span><div class="qprog-bar"><div class="qprog-fill"></div></div></div>
+            <div class="qprog"><div class="qprog-bar"><div class="qprog-fill"></div></div></div>
             <div class="qtitle">What are your top wellness goals?</div>
             <div class="qopts" role="radiogroup" aria-label="Sample quiz options">
-              <button class="qopt active" data-i="0" role="radio" aria-checked="true"><span class="qopt-label">Boost energy</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-              <button class="qopt active" data-i="1" role="radio" aria-checked="true"><span class="qopt-label">Gut health</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-              <button class="qopt active" data-i="2" role="radio" aria-checked="true"><span class="qopt-label">Better sleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt" data-i="0" role="radio" aria-checked="false"><span class="qopt-label">Boost energy</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt" data-i="1" role="radio" aria-checked="false"><span class="qopt-label">Gut health</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt" data-i="2" role="radio" aria-checked="false"><span class="qopt-label">Better sleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
               <button class="qopt" data-i="3" role="radio" aria-checked="false"><span class="qopt-label">Muscle growth</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
             </div>
             <button class="quiz-next" type="button">Continue &#8594;</button>
@@ -948,7 +954,20 @@ const toggle = document.getElementById('nav-toggle');
 const links = document.getElementById('nav-links');
 toggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
 links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
-/* Hero quiz is static visual, no interactivity */
+/* Hero quiz — sequenced auto-selection choreography, aligned with the wellness card's product fade-in */
+(function() {
+  const opts = document.querySelectorAll('#quiz .qopt');
+  if (!opts.length) return;
+  const reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const delays = reduce ? [0, 0, 0] : [400, 1000, 1600];
+  opts.forEach((btn, i) => {
+    if (i >= delays.length) return;
+    setTimeout(() => {
+      btn.classList.add('active');
+      btn.setAttribute('aria-checked', 'true');
+    }, delays[i]);
+  });
+})();
 const newsForm = document.getElementById('news-form');
 if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); const btn = document.getElementById('news-submit'); const inp = document.getElementById('news-email'); btn.textContent = 'Thanks ✓'; btn.disabled = true; inp.value = ''; setTimeout(() => { btn.textContent = 'Subscribe'; btn.disabled = false; }, 3000); }); }
 (function() {
