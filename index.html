@@ -129,7 +129,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .qprog-label{font-size:11.5px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
 .qprog-fill{height:100%;width:40%;background:var(--ink);border-radius:999px}
-.quiz .brand-mark{width:44px;height:44px;background:#0A0A0A;color:#FFFFFF;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:14px;line-height:1}
 .quiz .qtitle{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;margin:0}
 .quiz .qopts{margin-top:16px;display:grid;gap:7px}
 .qopt{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:500;cursor:default;transition:border-color .38s cubic-bezier(.2,.7,.25,1),background .38s cubic-bezier(.2,.7,.25,1);background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
@@ -257,6 +256,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .persona-head-copy{flex:1;min-width:0}
 .persona-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
 .persona-desc{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.4}
+.prow{position:relative}
+.pbadge{position:absolute;top:8px;right:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-pressed);line-height:1.35}
+.personas-cta{margin-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .persona-body{padding:4px 22px 22px;display:flex;flex-direction:column;flex:1}
 .persona-insights{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
 .persona-list{display:grid;gap:8px}
@@ -562,7 +564,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         <div class="hero-stage">
           <div class="quiz" id="quiz">
             <div class="qprog"><div class="qprog-bar"><div class="qprog-fill"></div></div></div>
-            <div class="brand-mark" aria-hidden="true">B.</div>
             <div class="qtitle">What are your top wellness goals?</div>
             <div class="qopts" role="radiogroup" aria-label="Sample quiz options">
               <button class="qopt" data-i="0" role="radio" aria-checked="false"><span class="qopt-label">Boost energy</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
@@ -674,17 +675,21 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     <div class="section-head"><span class="eyebrow">One catalog, three customers</span><h2 class="h2">Same catalog. Three different plans.</h2><p class="lead">The same product catalog produces three completely different recommendation baskets, because the algorithm computes for one person, not a segment. No two plans are identical, and each pick carries the reasons that produced it.</p></div>
     <div class="personas">
       <article class="persona">
-        <div class="persona-head"><div class="persona-score" style="--pct:82%"><span>82</span></div><div class="persona-head-copy"><div class="persona-name">Alex, 25</div><div class="persona-desc">Super active, runner, fit. Healthy lifestyle.</div></div></div>
-        <div class="persona-body"><div class="persona-insights"><span class="insight-pill">Build muscle</span><span class="insight-pill">Endurance</span><span class="insight-pill warn">High cholesterol</span></div><div class="persona-list"><div class="prow"><div class="pswatch" style="background:#2A2A2A">Cas</div><div><div class="pname">Casein Protein</div><div class="preason">Overnight muscle recovery.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">Crt</div><div><div class="pname">Creatine Monohydrate</div><div class="preason">Strength &amp; endurance.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">&#937;-3</div><div><div class="pname">Omega-3 Fish Oil</div><div class="preason">Heart &amp; recovery.</div></div></div></div></div>
+        <div class="persona-head"><div class="persona-score" style="--pct:82%"><span>82</span></div><div class="persona-head-copy"><div class="persona-name">Emma, 34</div><div class="persona-desc">Vegetarian. Lightly active. Wants energy, gut health, and better sleep.</div></div></div>
+        <div class="persona-body"><div class="persona-insights"><span class="insight-pill">Boost Energy</span><span class="insight-pill">Gut Health</span><span class="insight-pill">Sleep</span></div><div class="persona-list"><div class="prow"><span class="pbadge">Essential</span><div class="pswatch" style="background:#2A2A2A">&#937;-3</div><div><div class="pname">Omega-3 (Algae Oil)</div><div class="preason">Vegan DHA + EPA.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">Enz</div><div><div class="pname">Digestive Enzyme Complex</div><div class="preason">Gut absorption + comfort.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">L-T</div><div><div class="pname">L-Theanine</div><div class="preason">Calm focus, sleep support.</div></div></div></div></div>
       </article>
       <article class="persona">
-        <div class="persona-head"><div class="persona-score" style="--pct:38%;--ring:#D8614A;--ring-rest:#F6D8D3"><span>38</span></div><div class="persona-head-copy"><div class="persona-name">Emma, 40</div><div class="persona-desc">Sedentary. Overweight. No medical conditions.</div></div></div>
-        <div class="persona-body"><div class="persona-insights"><span class="insight-pill">Healthy aging</span><span class="insight-pill">Lose weight</span><span class="insight-pill warn">Low calcium</span></div><div class="persona-list"><div class="prow"><div class="pswatch" style="background:#2A2A2A">Ca</div><div><div class="pname">Calcium</div><div class="preason">Bones, muscle, heart.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">GT</div><div><div class="pname">Green Tea Extract</div><div class="preason">Weight loss &amp; antioxidants.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">Col</div><div><div class="pname">Marine Collagen</div><div class="preason">Skin, joints, aging.</div></div></div></div></div>
+        <div class="persona-head"><div class="persona-score" style="--pct:90%"><span>90</span></div><div class="persona-head-copy"><div class="persona-name">Marcus, 42</div><div class="persona-desc">Very active, tennis + gym. Wants muscle, endurance, and focus.</div></div></div>
+        <div class="persona-body"><div class="persona-insights"><span class="insight-pill">Build Muscle</span><span class="insight-pill">Endurance</span><span class="insight-pill">Cognitive Health</span></div><div class="persona-list"><div class="prow"><span class="pbadge">Essential</span><div class="pswatch" style="background:#2A2A2A">D3</div><div><div class="pname">Vitamin D3</div><div class="preason">Bones, immunity, mood.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">Cas</div><div><div class="pname">Casein Protein</div><div class="preason">Overnight muscle recovery.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">Crt</div><div><div class="pname">Creatine Monohydrate</div><div class="preason">Strength + endurance.</div></div></div></div></div>
       </article>
       <article class="persona">
-        <div class="persona-head"><div class="persona-score" style="--pct:75%"><span>75</span></div><div class="persona-head-copy"><div class="persona-name">Sophie, 30</div><div class="persona-desc">Lightly active. Diabetes. Low-carb lifestyle.</div></div></div>
-        <div class="persona-body"><div class="persona-insights"><span class="insight-pill">General health</span><span class="insight-pill warn">Low Vitamin D3</span><span class="insight-pill warn">Low iron</span></div><div class="persona-list"><div class="prow"><div class="pswatch" style="background:#2A2A2A">D3</div><div><div class="pname">Vitamin D3</div><div class="preason">Immunity &amp; mood.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">&#937;-3</div><div><div class="pname">Omega-3 Fish Oil</div><div class="preason">Heart &amp; cognitive.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">Fe</div><div><div class="pname">Iron</div><div class="preason">Energy &amp; hemoglobin.</div></div></div></div></div>
+        <div class="persona-head"><div class="persona-score" style="--pct:83%"><span>83</span></div><div class="persona-head-copy"><div class="persona-name">Sarah, 28</div><div class="persona-desc">High-stress professional. Wants hormonal balance, heart, and general health.</div></div></div>
+        <div class="persona-body"><div class="persona-insights"><span class="insight-pill">Hormonal Balance</span><span class="insight-pill">Heart</span><span class="insight-pill">General Health</span></div><div class="persona-list"><div class="prow"><div class="pswatch" style="background:#2A2A2A">CoQ</div><div><div class="pname">Coenzyme Q10</div><div class="preason">Heart + mitochondria.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">Enz</div><div><div class="pname">Digestive Enzyme Complex</div><div class="preason">Gut absorption + comfort.</div></div></div><div class="prow"><div class="pswatch" style="background:#2A2A2A">MV</div><div><div class="pname">Multivitamin (Standard)</div><div class="preason">Broad micronutrient support.</div></div></div></div></div>
       </article>
+    </div>
+    <div class="personas-cta">
+      <a href="sample-report.html" class="btn btn-primary btn-lg">See all three sample reports &rarr;</a>
+      <div class="cta-alt" style="text-align:center;margin-top:12px">Live example of the algorithm's output. Same catalog, one report per customer.</div>
     </div>
   </div>
 </section>
