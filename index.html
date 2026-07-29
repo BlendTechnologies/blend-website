@@ -223,12 +223,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .rp-badge{flex-shrink:0;font-size:10px;font-weight:600;color:var(--gold-pressed);background:var(--gold-soft);padding:2px 7px;border-radius:999px}
 .report-nutrients{background:var(--white);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
 .report-nut-title{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
-.report-nut-row{display:grid;grid-template-columns:72px 1fr 32px;align-items:center;gap:6px;margin-bottom:5px}
+.report-nut-row{display:grid;grid-template-columns:88px 1fr 40px;align-items:center;gap:10px;margin-bottom:5px}
 .report-nut-row:last-child{margin-bottom:0}
-.report-nut-lab{font-size:10px;color:var(--ink-80);font-weight:500}
+.report-nut-lab{font-size:12px;color:var(--ink);font-weight:500;letter-spacing:-.005em}
 .report-nut-track{height:5px;background:var(--line);border-radius:999px;overflow:hidden}
 .report-nut-fill{height:100%;border-radius:999px}
-.report-nut-val{font-size:10px;color:var(--muted);font-weight:600;text-align:right}
+.report-nut-val{font-size:11.5px;color:var(--muted);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.report-nutrients-full{padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-around}
+.report-nutrients-full .report-nut-row{margin-bottom:0;padding:4px 0}
 .dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;color:var(--white)}
 .dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
@@ -628,17 +630,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
           <li>A flexible basket they can edit before checkout</li>
         </ul>
         <div class="report-card" aria-hidden="true">
-          <div class="report-card-head"><span class="report-card-title">Your wellness plan</span><span class="report-card-pill">11 picks</span></div>
-          <div class="report-products">
-            <div class="rp-row"><div class="rp-swatch">Fe</div><div class="rp-info"><div class="rp-name">Iron (bisglycinate)</div><div class="rp-reason">Vegetarian iron gap</div></div><span class="rp-badge">Essential</span></div>
-            <div class="rp-row"><div class="rp-swatch" style="background:#2A5A2A">&#937;3</div><div class="rp-info"><div class="rp-name">Omega-3 (Algae Oil)</div><div class="rp-reason">Vegan DHA and EPA</div></div><span class="rp-badge">Essential</span></div>
-            <div class="rp-row"><div class="rp-swatch">L-T</div><div class="rp-info"><div class="rp-name">L-Theanine</div><div class="rp-reason">Calm focus, sleep support</div></div></div>
-          </div>
-          <div class="report-nutrients">
-            <div class="report-nut-title">Where you have gaps</div>
+          <div class="report-card-head"><span class="report-card-title">Full breakdown</span><span class="report-card-pill">Only showing gaps</span></div>
+          <div class="report-nutrients report-nutrients-full">
             <div class="report-nut-row"><span class="report-nut-lab">Vitamin D3</span><div class="report-nut-track"><div class="report-nut-fill" style="width:32%;background:#D8614A"></div></div><span class="report-nut-val" style="color:#D8614A">32%</span></div>
             <div class="report-nut-row"><span class="report-nut-lab">Iron</span><div class="report-nut-track"><div class="report-nut-fill" style="width:45%;background:#D8614A"></div></div><span class="report-nut-val" style="color:#D8614A">45%</span></div>
-            <div class="report-nut-row"><span class="report-nut-lab">Omega-3</span><div class="report-nut-track"><div class="report-nut-fill" style="width:44%;background:var(--gold)"></div></div><span class="report-nut-val">44%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Protein</span><div class="report-nut-track"><div class="report-nut-fill" style="width:47%;background:#D8614A"></div></div><span class="report-nut-val" style="color:#D8614A">47%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Omega-3</span><div class="report-nut-track"><div class="report-nut-fill" style="width:44%;background:var(--gold)"></div></div><span class="report-nut-val" style="color:var(--gold-pressed)">44%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Vitamin B12</span><div class="report-nut-track"><div class="report-nut-fill" style="width:37%;background:#D8614A"></div></div><span class="report-nut-val" style="color:#D8614A">37%</span></div>
+            <div class="report-nut-row"><span class="report-nut-lab">Calcium</span><div class="report-nut-track"><div class="report-nut-fill" style="width:63%;background:var(--gold)"></div></div><span class="report-nut-val" style="color:var(--gold-pressed)">63%</span></div>
           </div>
         </div>
       </div>
