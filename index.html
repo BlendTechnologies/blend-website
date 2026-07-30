@@ -231,17 +231,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .report-nut-val{font-size:11.5px;color:var(--muted);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
 .report-nutrients-full{padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .report-nutrients-full .report-nut-row{margin-bottom:0;padding:4px 0}
-.routine{display:flex;flex-direction:column;flex:1}
-.routine-slot{position:relative;padding:0 0 22px 26px}
-.routine-slot:last-child{padding-bottom:0}
-.routine-slot::before{content:"";position:absolute;left:4px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--gold);z-index:1}
-.routine-slot::after{content:"";position:absolute;left:7px;top:13px;bottom:0;width:1px;background:var(--line-strong)}
-.routine-slot:last-child::after{display:none}
-.routine-when{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;line-height:1}
-.routine-items{display:grid;gap:9px}
+.routine{display:flex;flex-direction:column;gap:10px;flex:1}
+.routine-slot{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
+.routine-when{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;line-height:1;padding-left:14px}
+.routine-when::before{content:"";position:absolute;left:14px;top:13px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.routine-items{display:grid;gap:7px}
 .routine-item{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.routine-name{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.routine-qty{font-size:12px;color:var(--muted);font-weight:400}
+.routine-name{font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.routine-qty{font-size:11.5px;color:var(--muted);font-weight:400}
 .routine-tag{font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--gold-soft);color:var(--gold-pressed);position:relative;top:-1px}
 .dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px;color:var(--white);flex:1}
 .dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
