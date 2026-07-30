@@ -18,11 +18,11 @@ A note on the brief: **"80+ nutrients modeled per person" is not live.** Zero oc
 
 | Page | Issue | Sev | Recommendation |
 |---|---|---|---|
-| `use-cases/shopify.html` | A `1g` dose badge on Omega-3 Fish Oil survived the site-wide dose removal. Every other dose figure was stripped for regulatory reasons; this one used a bare `g` and escaped the `mg\|mcg\|IU` sweep. | 🔴 | Replace with `Essential`, matching the identical card on `index.html`. |
+| ~~`use-cases/shopify.html`~~ **FIXED** | A `1g` dose badge on Omega-3 Fish Oil survived the site-wide dose removal. Every other dose figure was stripped for regulatory reasons; this one used a bare `g` and escaped the `mg\|mcg\|IU` sweep. | 🔴 | Replace with `Essential`, matching the identical card on `index.html`. |
 | Sitewide | Four competing primary CTAs, no hierarchy. `Start free trial` and `Try the live demo` and `Try it yourself` are three labels for what a visitor reads as one intent. | 🔴 | Pick one primary verb sitewide. Recommend **Try it yourself** → `/try`, with **Book a demo** as the single secondary. Retire `Start free trial` as a button label; keep it as pricing-section copy. |
-| `index.html` (Science) | **"20+ user signals"** does not appear in `PRODUCT_FACTS.md`. The file lists `20+ safety checks` as a safe phrasing, which maps to the verified 21 safety gates, but there is no verified user-signals count. | 🔴 | Either get Health Algorithm to add a verified row, or swap the tile to **"20+ safety checks"**, which is verified and arguably a stronger claim. |
+| ~~`index.html` (Science)~~ **FIXED** | **"20+ user signals"** does not appear in `PRODUCT_FACTS.md`. The file lists `20+ safety checks` as a safe phrasing, which maps to the verified 21 safety gates, but there is no verified user-signals count. | 🔴 | Either get Health Algorithm to add a verified row, or swap the tile to **"20+ safety checks"**, which is verified and arguably a stronger claim. |
 | `_marquee-preview.html`, `_marquee-preview-v2.html` | Both return **HTTP 200** on the production domain. They are `noindex,nofollow` and absent from the sitemap, so SEO risk is low, but they are leftover working files publicly reachable on the live site. | 🟡 | Delete from the repo. Confirmed unlinked from any page. |
-| `index.html` | The word **"persona" appears 15 times in visible copy** while the core positioning is "no persona buckets". The word we attack is the word we use most. | 🟡 | Rename the customer-example section language to "profiles" or "customers". Keep "persona" only where it names the thing being rejected. |
+| `index.html` | ~~The word "persona" appears 15 times in visible copy.~~ **RETRACTED.** The grep matched "perso**na**lized" and "perso**na**lization" as substrings. Only two standalone uses exist, both correct: "not persona-based" (rejecting them) and "your old persona/tag rules" (describing competitors). | 🟢 | No action. Finding was wrong. |
 | `index.html` | **14 FAQ questions** on the homepage. Long FAQ walls read as pre-empting objections rather than answering them. | 🟡 | Keep the 6 that a first-time visitor asks. Move the rest to a `/faq` page. |
 | `use-cases/index.html` | Thin hub. 18K, one H2, three cards and a CTA. It exists to route to three pages rather than to say anything. | 🟡 | Either give it a real argument, or drop it and link the three pages directly from the nav. |
 | `use-cases/` (3 deep pages) | `compare`, `shopify` and `supplement-brands` are 30–33K each and overlap heavily. "Deterministic" appears 9× on supplement-brands, 4× on compare, 4× on shopify. Two of the three lead on "not a decision tree". | 🟡 | They serve different search intents so keep all three, but each needs one argument the others do not make. See §3. |
@@ -108,7 +108,6 @@ Ranked. All under 30 minutes.
 2. **Resolve "20+ user signals".** Swap to the verified "20+ safety checks" or get the row added. Currently the only number on the site that fails the `PRODUCT_FACTS` rule. 5 min for the swap.
 3. **Delete the two `_marquee-preview` files.** Unlinked, noindexed, but live on the production domain. 2 min.
 4. **Unify the CTA label.** One primary verb sitewide. Mechanical find-and-replace once the verb is chosen. 20 min.
-5. **De-"persona" the homepage copy.** 15 uses of the word the positioning rejects. 15 min.
 
 ---
 
