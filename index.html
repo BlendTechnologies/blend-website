@@ -271,8 +271,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pbadge{position:absolute;top:8px;right:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-pressed);line-height:1.35}
 /* Goal marquee */
 .gm{padding:96px 0;background:var(--subtle);overflow:hidden}
-.gm .section-head{margin-bottom:34px}
-.gm-rails{display:grid;gap:12px;margin-bottom:30px}
+.gm .section-head{margin-bottom:36px}
+.gm-rails{display:grid;gap:12px;margin-bottom:34px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
 .gm-rail{display:flex;gap:10px;width:max-content;will-change:transform}
 .gm-rail.a{animation:gm-l 68s linear infinite}
 .gm-rail.b{animation:gm-r 74s linear infinite}
@@ -282,14 +284,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .gm-chip{flex:0 0 auto;padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:13.5px;font-weight:500;color:var(--ink-80);letter-spacing:-.005em;white-space:nowrap;cursor:pointer;font-family:inherit;transition:border-color .16s ease,color .16s ease,background .16s ease}
 .gm-chip:hover,.gm-chip.on{border-color:var(--gold);color:var(--gold-pressed);background:var(--gold-soft)}
 .gm-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.gm-panel{max-width:var(--content);margin:0 auto;padding:0 32px}
-.gm-panel-in{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px 24px;min-height:118px;display:flex;flex-direction:column;justify-content:center}
-.gm-panel-lab{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.gm-panel-goal{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:13px;color:var(--ink)}
-.gm-subs{display:flex;flex-wrap:wrap;gap:7px}
-.gm-sub{font-size:12.5px;padding:5px 12px;border-radius:999px;background:var(--subtle);border:1px solid var(--line);color:var(--ink-80)}
-.gm-hint{font-size:13px;color:var(--muted)}
-@media(max-width:860px){.gm{padding:64px 0}.gm-panel{padding:0 20px}}
+.gm-panel{max-width:760px;margin:0 auto;padding:0 32px;text-align:center;min-height:104px}
+.gm-panel-lab{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.gm-panel-goal{font-size:19px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
+.gm-subs{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+.gm-sub{font-size:12.5px;padding:5px 12px;border-radius:999px;background:var(--white);border:1px solid var(--line);color:var(--ink-80)}
+@media(max-width:860px){.gm{padding:64px 0}.gm-panel{padding:0 20px}
+  .gm-rails{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}}
 @media(prefers-reduced-motion:reduce){.gm-rail{animation:none}}
 .personas-cta{margin-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .persona-body{padding:4px 22px 22px;display:flex;flex-direction:column;flex:1}
@@ -744,17 +745,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 </section>
 <section class="gm">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Made for every catalog</span><h2 class="h2">Generalized or specific. We cover it all.</h2><p class="lead">Every goal a customer can pick, and the signals the engine connects to each one. Tap a goal to see what sits underneath it.</p></div>
+    <div class="section-head"><span class="eyebrow">Made for every catalog</span><h2 class="h2">Generalized or specific. We cover it all.</h2><p class="lead">Every goal a customer can pick, and the signals the engine reads underneath each one.</p></div>
   </div>
   <div class="gm-rails" aria-hidden="true">
     <div class="gm-rail a"><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Aging &amp; Longevity">Healthy Aging &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Aging &amp; Longevity">Healthy Aging &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button></div>
     <div class="gm-rail b"><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#x27;s Fertility">Men&#x27;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#x27;s Fertility">Men&#x27;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button></div>
   </div>
-  <div class="gm-panel">
-    <div class="gm-panel-in" id="gm-panel">
-      <div class="gm-hint">Tap any goal above to see the signals behind it.</div>
-    </div>
-  </div>
+  <div class="gm-panel" id="gm-panel"></div>
 </section>
 <section class="science" id="science">
   <div class="wrap">
@@ -1252,7 +1249,7 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   const panel=document.getElementById('gm-panel');
   if(!panel) return;
   const chips=[...document.querySelectorAll('.gm-chip')];
-  function show(goal, el){
+  function show(goal){
     const subs=GOAL_SUBS[goal]||[];
     chips.forEach(c=>c.classList.toggle('on', c.dataset.goal===goal));
     panel.innerHTML='<div class="gm-panel-lab">Signals behind this goal</div>'
@@ -1260,10 +1257,13 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
       +'<div class="gm-subs">'+subs.map(s=>'<span class="gm-sub">'+s+'</span>').join('')+'</div>';
   }
   chips.forEach(c=>{
-    c.addEventListener('mouseenter',()=>show(c.dataset.goal,c));
-    c.addEventListener('click',()=>show(c.dataset.goal,c));
-    c.addEventListener('focus',()=>show(c.dataset.goal,c));
+    c.addEventListener('mouseenter',()=>show(c.dataset.goal));
+    c.addEventListener('click',()=>show(c.dataset.goal));
+    c.addEventListener('focus',()=>show(c.dataset.goal));
   });
+  // never render an empty state: seed with a goal that shows the depth well
+  const seed=['Gut Health','Sleep','Hormonal Balance'].find(g=>GOAL_SUBS[g]) || Object.keys(GOAL_SUBS)[0];
+  if(seed) show(seed);
 })();
 </script>
 
