@@ -200,7 +200,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .split-card{padding:40px;border-radius:20px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .split-card.customers{background:var(--white);border:1px solid var(--line)}
-.split-card.brand{background:var(--ink);color:var(--white)}
+.split-card.brand{background:var(--ink);color:var(--white);border:1px solid transparent}
 .split-pill{display:inline-flex;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
 .split-card.brand .split-pill{color:rgba(255,255,255,.55)}
 .split-card h3{font-size:24px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:600}
@@ -244,9 +244,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
 .dash-pill{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;font-weight:600;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:999px}
-.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.dash-tile{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px 10px 8px;display:flex;flex-direction:column;align-items:center;gap:6px}
-.dash-tile svg{width:70px;height:70px}
+.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;flex:1}
+.dash-tile{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.dash-tile svg{width:100%;max-width:168px;height:auto}
 .dash-tile-lab{font-size:10px;color:rgba(255,255,255,.65);font-weight:600;letter-spacing:.02em;text-align:center}
 .dash-bars{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px}
 .dash-bars-title{font-size:11px;font-weight:700;color:var(--white);letter-spacing:.02em;margin-bottom:10px;display:block}
