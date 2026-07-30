@@ -972,7 +972,7 @@ const toggle = document.getElementById('nav-toggle');
 const links = document.getElementById('nav-links');
 toggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
 links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
-/* Hero quiz — sequenced auto-selection choreography, aligned with the wellness card's product fade-in */
+/* Hero quiz: sequenced auto-selection choreography, aligned with the wellness card's product fade-in */
 (function() {
   const opts = document.querySelectorAll('#quiz .qopt');
   if (!opts.length) return;
