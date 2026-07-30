@@ -553,8 +553,54 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .footer-bottom{margin-top:40px}
 }
 
+/* ---- Phone: stack, do not carousel -------------------------------------
+   The <=760px rule above turns .hero-stage/.steps/.split/.personas/.pricing
+   into horizontal scroll-snap carousels, cards at 86% width with a -32px
+   full-bleed. Two things broke it: the bleed is hardcoded to the old 32px
+   .wrap gutter (now 20px, 16px under 380) so the rails hang past the viewport
+   on both sides, and there is no swipe affordance, so a card clipped at the
+   right edge reads as broken layout rather than as "swipe me".
+   Stacking instead: every card full width, nothing clipped, one scroll axis.
+   Must stay after the block above; same specificity, source order decides. */
+html,body{max-width:100%;overflow-x:clip}
+@media (max-width:760px){
+  .hero-stage,.steps,.split,.personas,.pricing{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    height:auto;
+    overflow-x:visible;
+    overflow-y:visible;
+    scroll-snap-type:none;
+    gap:16px;
+    margin-left:0;
+    margin-right:0;
+    padding:0;
+  }
+  .quiz,.results,.step,.split-card,.persona,.tier{
+    flex:none;
+    width:auto;
+    max-width:100%;
+    min-width:0;
+    scroll-snap-align:none;
+  }
+  .hero-stage>.quiz,.hero-stage>.results{position:static}
+  .hero-grid,.hero-copy,.hero-visual{min-width:0}
+}
+
+
 @media(max-width:560px){.wrap{padding:0 20px}}
 @media(max-width:380px){.wrap{padding:0 16px}}
+
+/* ---- Tablet portrait (761-860): don't stretch ---------------------------
+   Below 861 the desktop grid collapses everything to a single column, which on
+   a 768-834 iPad meant ~685px-wide cards with the ESSENTIAL badge stranded at
+   the far right. .split is two cards so it goes 2-up cleanly. .personas and
+   .pricing are three cards each, where 3-up would be ~240px and too tight, so
+   they stay 1-up but the rail is capped and centred instead of stretched. */
+@media (min-width:761px) and (max-width:860px){
+  .split{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .personas,.pricing{max-width:620px;margin-left:auto;margin-right:auto}
+}
 </style>
 </head>
 <body>
