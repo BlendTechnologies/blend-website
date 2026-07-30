@@ -270,27 +270,27 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .prow{position:relative}
 .pbadge{position:absolute;top:8px;right:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-pressed);line-height:1.35}
 /* Goal marquee */
-.gm{padding:96px 0;background:var(--subtle);overflow:hidden}
-.gm .section-head{margin-bottom:36px}
-.gm-rails{display:grid;gap:12px;margin-bottom:34px;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
-.gm-rail{display:flex;gap:10px;width:max-content;will-change:transform}
+.gm{padding:72px 0;background:var(--subtle);overflow:hidden}
+.gm .section-head{margin-bottom:30px}
+.gm-rails{display:grid;gap:9px;margin-bottom:28px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
+.gm-rail{display:flex;gap:8px;width:max-content;will-change:transform}
 .gm-rail.a{animation:gm-l 68s linear infinite}
 .gm-rail.b{animation:gm-r 74s linear infinite}
 .gm:hover .gm-rail{animation-play-state:paused}
 @keyframes gm-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes gm-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.gm-chip{flex:0 0 auto;padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:13.5px;font-weight:500;color:var(--ink-80);letter-spacing:-.005em;white-space:nowrap;cursor:pointer;font-family:inherit;transition:border-color .16s ease,color .16s ease,background .16s ease}
+.gm-chip{flex:0 0 auto;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:12.5px;font-weight:500;color:var(--ink-80);letter-spacing:-.005em;white-space:nowrap;cursor:pointer;font-family:inherit;transition:border-color .16s ease,color .16s ease,background .16s ease}
 .gm-chip:hover,.gm-chip.on{border-color:var(--gold);color:var(--gold-pressed);background:var(--gold-soft)}
 .gm-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.gm-panel{max-width:760px;margin:0 auto;padding:0 32px;text-align:center;min-height:104px}
+.gm-panel{max-width:680px;margin:0 auto;padding:0 32px;text-align:center;min-height:88px}
 .gm-panel-lab{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.gm-panel-goal{font-size:19px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
+.gm-panel-goal{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
 .gm-subs{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
-.gm-sub{font-size:12.5px;padding:5px 12px;border-radius:999px;background:var(--white);border:1px solid var(--line);color:var(--ink-80)}
+.gm-sub{font-size:12px;padding:4px 11px;border-radius:999px;background:var(--white);border:1px solid var(--line);color:var(--ink-80)}
 @media(max-width:860px){.gm{padding:64px 0}.gm-panel{padding:0 20px}
-  .gm-rails{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}}
+  .gm-rails{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}}
 @media(prefers-reduced-motion:reduce){.gm-rail{animation:none}}
 .personas-cta{margin-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .persona-body{padding:4px 22px 22px;display:flex;flex-direction:column;flex:1}
@@ -747,7 +747,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Made for every catalog</span><h2 class="h2">Generalized or specific. We cover it all.</h2><p class="lead">Every goal a customer can pick, and the signals the engine reads underneath each one.</p></div>
   </div>
-  <div class="gm-rails" aria-hidden="true">
+  <div class="gm-rails" role="group" aria-label="Goals the quiz covers">
     <div class="gm-rail a"><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Aging &amp; Longevity">Healthy Aging &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Aging &amp; Longevity">Healthy Aging &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button></div>
     <div class="gm-rail b"><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#x27;s Fertility">Men&#x27;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#x27;s Fertility">Men&#x27;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button></div>
   </div>
@@ -1228,22 +1228,7 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
     });
   });
 })();
-</script>
 
-<!-- Cookie consent banner -->
-<div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
-  <div class="blend-cookie-banner-inner">
-    <div class="blend-cookie-banner-content">
-      <h2 id="cookie-banner-title" class="blend-cookie-banner-title">Cookie notice</h2>
-      <p id="cookie-banner-text" class="blend-cookie-banner-text">We use essential cookies to run this site and remember your choice. To let you book a demo we also load Calendly, which sets its own cookies. The site works either way. <a href="privacy.html">Privacy policy</a></p>
-    </div>
-    <div class="blend-cookie-banner-actions">
-      <button id="blend-cookie-reject" class="blend-cookie-banner-btn blend-cookie-banner-btn-reject" type="button">Reject all</button>
-      <button id="blend-cookie-accept" class="blend-cookie-banner-btn blend-cookie-banner-btn-accept" type="button">Accept all</button>
-    </div>
-  </div>
-</div>
-<script src="cookie-consent.js">
 const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone strength","Bone density with age","Cartilage and joint support","Reduced flexibility","Aches after activity"],"Boost Energy":["Ongoing tiredness","Afternoon dips","Low daily stamina","Slow to bounce back after illness","Run-down","Caffeine reliance"],"Build Muscle":["Difficulty building muscle","Slow recovery","Low workout stamina","Plateau","Low pre-workout energy"],"Cognitive Health":["Difficulty concentrating","Forgetfulness or memory lapses","Reduced mental clarity","Brain fog","Afternoon mental fatigue","Slow recall under pressure"],"Eye Health":["Screen eye strain","Dry or tired eyes","Night-vision support","Maintaining vision with age","Light sensitivity"],"Healthy Weight Gain":["Struggle to gain weight","Low appetite","Feel like a fast metabolism","Gain fat not muscle","Low energy to train"],"Gut Health":["Occasional gas","Bloating","Indigestion","Heartburn or reflux","Constipation","Loose stools"],"Healthy Aging & Longevity":["Visible signs of ageing","Lower energy with age","Slower recovery","Everyday antioxidant support","Maintaining muscle","Skin or joint changes with age"],"Heart Health":["Support healthy cholesterol","Support healthy blood pressure","Cold hands and feet","Support healthy circulation","Occasional leg or ankle puffiness","Family history of heart concerns"],"Hormonal Balance":["Premenstrual mood changes","Cycle-related bloating","Skin changes with cycle","Low energy with cycle","Irregular patterns"],"Immunity":["Frequent colds or sniffles","Seasonal sensitivities","Slow to bounce back","Run-down when busy or travelling","Frequent sore throats"],"Increase Endurance":["Low workout stamina","Cramps","Slow recovery","Electrolyte loss from sweating"],"Sexual Health":["Desire or libido","Stamina and staying power","Blood flow and vitality","Performance confidence","Arousal and sensitivity","Comfort and dryness"],"Liver Health":["Heavy or sluggish after rich meals","Frequent social drinking","High pollution or chemical exposure","Poor tolerance of fatty foods","Looking for a reset","Lifestyle-related dull skin"],"Lose Weight":["Sugar or carb cravings","Energy dips after meals","Hard to lose despite effort","Constant hunger or low fullness","Stubborn midsection","Late-night snacking"],"Lung Health":["Support healthy breathing","Seasonal or airborne sensitivity","Stamina and breathing during activity","Active-outdoor-lifestyle support"],"Menopause":["Hot flushes","Night sweats","Mood changes","Sleep disruption","Low energy","Changes in skin or hair"],"Mood & Emotions":["Low or flat mood","Irritability","Feeling overwhelmed","Nervousness or on edge","Emotional eating"],"Prostate Health":["Frequent urination","Night-time urination","Weaker flow","General prostate support"],"Sleep":["Trouble falling asleep","Waking during the night","Waking unrested","Short sleep","Racing mind at bedtime","Shift work"],"Stress":["Feeling overwhelmed","Trouble winding down","Everyday tension","Stress-related eating","Restlessness"],"Testosterone Health":["Low energy or drive","Reduced muscle tone","Low desire","Low stamina","Mood or motivation dips"],"Urinary Health":["Bladder comfort","Urinary tract comfort","Bladder control comfort","Kidney and fluid support"],"Blood Sugar Support":["Strong sugar or carb cravings","Energy crashes after meals","Afternoon slumps","Late-night snacking","Steady-energy goal"],"Thyroid & Metabolism Support":["Slow-metabolism feeling","Often feeling cold","Unexplained tiredness with weight changes","Low daily energy","Sluggish after meals"],"Cycle Support":["Irregular or missed periods","Heavy or uncomfortable periods","Premenstrual mood changes","Cycle bloating","Low energy around your period"],"Conception Support":["Trying to conceive","Preparing to try","Supporting reproductive health"],"Prenatal Support":["First trimester","Second trimester","Third trimester","Planning pregnancy nutrition"],"Postnatal Support":["Postnatal tiredness","Hair changes after birth","Breastfeeding nutrition","Rebuilding energy"],"Men's Fertility":["Trying to conceive","Preparing to try","Supporting reproductive health"],"Skin Health":["Blemish-prone skin","Dry skin","Dry, sensitive or irritated skin","Fine lines and wrinkles","Loss of firmness","Dull or uneven tone"],"Hair Health":["Hair thinning or shedding","Slow hair growth","Brittle hair","Split ends","Dull or lifeless hair","Scalp concerns"],"Nail Health":["Brittle or weak nails","Peeling or splitting nails","Slow nail growth","Ridges or discolouration"],"Mass Gain":["Difficulty gaining size","Low appetite for a surplus","Slow recovery","Strength plateau"],"Tone & Definition":["Struggle to lean out","Holding stubborn fat","Muscle definition","Recovery between sessions"],"Strength & Power":["Strength plateau","Low power output","Slow recovery","Pre-workout energy"],"Recovery & Repair":["Soreness after training","Slow recovery between sessions","Poor sleep after hard sessions","Muscle cramps"],"Hydration & Electrolytes":["Muscle cramps","After heavy sweating or exercise","Hot-climate or outdoor work","Post-workout","Dehydration headaches","Frequent travel or flying"],"Plant-Based Nutrition":["Following a vegan or vegetarian diet","Low energy on plant-based","Want complete daily nutrition","Concerned about common gaps","New to plant-based"],"Everyday Comfort":["Soreness after exercise","Everyday aches or stiffness","Bouncing back after intense activity","General muscle and joint comfort"]};
 (function(){
   const panel=document.getElementById('gm-panel');
@@ -1265,6 +1250,22 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   const seed=['Gut Health','Sleep','Hormonal Balance'].find(g=>GOAL_SUBS[g]) || Object.keys(GOAL_SUBS)[0];
   if(seed) show(seed);
 })();
+</script>
+
+<!-- Cookie consent banner -->
+<div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
+  <div class="blend-cookie-banner-inner">
+    <div class="blend-cookie-banner-content">
+      <h2 id="cookie-banner-title" class="blend-cookie-banner-title">Cookie notice</h2>
+      <p id="cookie-banner-text" class="blend-cookie-banner-text">We use essential cookies to run this site and remember your choice. To let you book a demo we also load Calendly, which sets its own cookies. The site works either way. <a href="privacy.html">Privacy policy</a></p>
+    </div>
+    <div class="blend-cookie-banner-actions">
+      <button id="blend-cookie-reject" class="blend-cookie-banner-btn blend-cookie-banner-btn-reject" type="button">Reject all</button>
+      <button id="blend-cookie-accept" class="blend-cookie-banner-btn blend-cookie-banner-btn-accept" type="button">Accept all</button>
+    </div>
+  </div>
+</div>
+<script src="cookie-consent.js">
 </script>
 
 </body>
