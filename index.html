@@ -285,7 +285,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .gm-chip:hover,.gm-chip.on{border-color:var(--gold);color:var(--gold-pressed);background:var(--gold-soft)}
 .gm-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .gm-panel{max-width:680px;margin:0 auto;padding:0 32px;text-align:center;min-height:88px}
-.gm-panel-lab{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .gm-panel-goal{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
 .gm-subs{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
 .gm-sub{font-size:12px;padding:4px 11px;border-radius:999px;background:var(--white);border:1px solid var(--line);color:var(--ink-80)}
@@ -1237,8 +1236,7 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   function show(goal){
     const subs=GOAL_SUBS[goal]||[];
     chips.forEach(c=>c.classList.toggle('on', c.dataset.goal===goal));
-    panel.innerHTML='<div class="gm-panel-lab">Signals behind this goal</div>'
-      +'<div class="gm-panel-goal">'+goal+'</div>'
+    panel.innerHTML='<div class="gm-panel-goal">'+goal+'</div>'
       +'<div class="gm-subs">'+subs.map(s=>'<span class="gm-sub">'+s+'</span>').join('')+'</div>';
   }
   chips.forEach(c=>{
