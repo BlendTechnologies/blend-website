@@ -642,6 +642,95 @@ html,body{max-width:100%;overflow-x:clip}
   .step{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:14px;align-items:start}
   .step .step-body{margin-top:0}
 }
+
+/* ---- Phone: one idea per screen ----------------------------------------
+   The page ran 18.7 screens on a 390x844 phone with sections between 0.6 and
+   2.4 screens tall, so they interleaved and you were always looking at the
+   tail of one band and the head of the next. The hero was the worst case: the
+   quiz card peeked above the fold underneath seven stacked elements.
+
+   Every band now starts at the top of a screen and is at least one screen
+   tall, with its content optically centred. Bands shorter than a screen get
+   the whole screen to themselves; taller ones simply start clean. Snapping is
+   proximity, not mandatory, so long bands stay freely scrollable and never
+   trap the scroll.
+
+   The hero is split into three screens: copy, then the quiz card, then the
+   result card. That is the sequence the animation was always telling, and on
+   a phone it now reads one beat at a time instead of all at once.
+
+   Eyebrow is hidden here only. The headline already says what it said, and it
+   cost two lines before the reader reached anything. Desktop keeps it. */
+@media (max-width:760px){
+  html{
+    scroll-snap-type:y proximity;
+    scroll-padding-top:70px;
+  }
+  main>section{
+    min-height:100vh;
+    min-height:100svh;
+    display:grid;
+    /* Explicit single column capped at the container width. Without this the
+       implicit column is sized by max-content, and the marquee section's rails
+       are far wider than the screen, which threw its .wrap out to left:2558px
+       on a 375px viewport. */
+    grid-template-columns:minmax(0,1fr);
+    align-content:center;
+    scroll-snap-align:start;
+  }
+  /* .hero inherits start-snap from main>section, which would sit 32px from
+     .hero-copy's own snap point and make the scroll feel sticky. Children own
+     the snapping here. */
+  .hero{min-height:0;display:block;scroll-snap-align:none}
+  .hero-eyebrow{display:none}
+  .hero .hero-copy{
+    min-height:100vh;
+    min-height:100svh;
+    display:grid;
+    align-content:center;
+    scroll-snap-align:start;
+    position:relative;
+  }
+  /* Each card gets its own full-screen row and is centred inside it. The card
+     keeps its natural height; stretching the card itself to 100svh left a
+     screenful of blank white above its content. */
+  .hero .hero-stage{
+    display:grid;
+    grid-auto-rows:100vh;
+    grid-auto-rows:100svh;
+    align-items:center;
+    gap:0;
+  }
+  .hero .hero-stage>.quiz,
+  .hero .hero-stage>.results{
+    align-self:center;
+    min-height:0;
+    height:auto;
+    scroll-snap-align:center;
+  }
+  /* A full-screen hero with no image can read as the whole page. Small cue
+     that there is more below, hidden once the reader has moved. */
+  .hero .hero-copy::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:26px;
+    width:11px;height:11px;
+    margin-left:-6px;
+    border-right:1.5px solid var(--muted);
+    border-bottom:1.5px solid var(--muted);
+    transform:rotate(45deg);
+    opacity:.5;
+    animation:hero-cue 2.2s ease-in-out infinite;
+  }
+  @keyframes hero-cue{
+    0%,100%{transform:rotate(45deg) translate(0,0);opacity:.35}
+    50%{transform:rotate(45deg) translate(3px,3px);opacity:.7}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hero .hero-copy::after{animation:none}
+  }
+}
 </style>
 </head>
 <body>
