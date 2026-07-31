@@ -601,6 +601,47 @@ html,body{max-width:100%;overflow-x:clip}
   .split{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
   .personas,.pricing{max-width:620px;margin-left:auto;margin-right:auto}
 }
+
+/* ---- Phone polish: hero density + card consistency ----------------------
+   Follow-up to the stacking fix. Once the sections stacked correctly the
+   remaining complaints were "hero looks jammed" and "cards a bit weird".
+   Both were measurable, not taste:
+
+   1. H1 ran at line-height 1.04. Fine for a 2-line desktop headline, cramped
+      for the 3 lines it wraps to at 390px. Now 1.12 with a slightly smaller
+      face, so total block height barely moves but the lines breathe.
+   2. The eyebrow wrapped to 2 lines and orphaned the single word "BRANDS".
+      text-wrap:balance splits it evenly instead.
+   3. .hero-foot is a wrapping flex row whose separators are real elements, so
+      wrapping left a bullet stranded at the end of line 1 with nothing after
+      it. Separators are hidden below 560 and the items wrap on their own.
+   4. .btn-primary had no border and .btn-ghost had 1px, so side by side they
+      measured 56px and 58px. Transparent border on the primary evens them.
+   5. The two hero cards stack on phones but carried different radii, 18px and
+      28px. Adjacent and mismatched reads as a mistake; unified to 20px.
+   6. .routine-item wraps, and name+qty+tag overflow the 224px column, so the
+      ESSENTIAL badge dropped to its own line directly above the NEXT product
+      and looked like that product's tag. Reordering makes the quantity wrap
+      instead, which is unambiguous. That item stays two lines tall; forcing
+      all three onto one line needs 12px we do not have, and any longer product
+      name would break it again, so the wrap is the intended fallback.
+   7. .step stacked its number above its text with the desktop rhythm intact,
+      leaving the circle floating far from the copy it belongs to. Side by
+      side on phones, which is the conventional pattern and tightens each
+      step by ~44px. */
+@media (max-width:560px){
+  .hero-title{font-size:35px;line-height:1.12;letter-spacing:-.02em}
+  .hero-eyebrow{text-wrap:balance;font-size:11.5px}
+  .hero-foot{gap:6px 14px}
+  .hero-foot .dot{display:none}
+  .hero-ctas .btn-primary{border:1px solid transparent}
+  .quiz,.results{border-radius:20px}
+  .routine-item{column-gap:8px}
+  .routine-item .routine-tag{order:2}
+  .routine-item .routine-qty{order:3}
+  .step{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:14px;align-items:start}
+  .step .step-body{margin-top:0}
+}
 </style>
 </head>
 <body>
