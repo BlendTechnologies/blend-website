@@ -717,6 +717,71 @@ html,body{max-width:100%;overflow-x:clip}
     scroll-padding-left:16px;
   }
 }
+
+/* ---- Phone density pass --------------------------------------------------
+   1. The two outcome cards ran 946px against an 844px viewport. The customers
+      card is the taller of the two intrinsically (946 vs 810), and its "With
+      meal" routine slot is the single biggest block in it at 146px plus a 10px
+      gap. Dropping that slot on phones takes the customers card to 790, which
+      makes the brand card the tallest at 810 and both stretch to it. Deck goes
+      946 -> 810 and the two cards stay exactly equal, which is the rule.
+      The pill count switches 5 -> 3 to match what is actually shown; leaving
+      "5 picks" above three visible rows would just be wrong.
+
+   2. The scoring-model attribute cards were 173px each, so five of them plus
+      gaps came to 1091px and you could never see them together. Trimmed to
+      roughly 139px: padding 24->14, the display number 44px->32px, and a
+      tighter gap. Five cards plus gaps land near 743px, which clears the 775px
+      of usable height under the sticky nav. The sixth child of that container
+      is the "See the methodology" block, not an attribute card, so it is not
+      counted toward reading all five at once.
+
+   3. Swiped fully right, the last card in every deck sat flush against the
+      screen edge with zero breathing room. Padding-right on a scroll container
+      is not reliably counted in scrollWidth, so it was being ignored at the
+      scroll end. Fixed deterministically instead: padding-right goes to 0, the
+      last card carries a real margin-right so the scroll range actually
+      extends, and scroll-padding-right insets the snapport so end-snapping
+      stops short of the edge rather than on it. */
+@media (max-width:560px){
+  .routine-slot--meal{display:none}
+  .report-card-pill .pill-wide{display:none}
+  .report-card-pill .pill-narrow{display:inline}
+
+  .sci-stat{padding:14px 18px}
+  .sci-stat .sci-n{font-size:32px;line-height:1.05}
+  .sci-stat .sci-label{font-size:13.5px}
+  .sci-stat .sci-sub{font-size:12px;line-height:1.45}
+  .science-stats{gap:12px}
+}
+@media (min-width:561px){
+  .report-card-pill .pill-narrow{display:none}
+}
+
+/* Trailing breathing room for the last card in each deck. Must pair a real
+   margin (extends the scroll range) with scroll-padding-right (insets where
+   end-snapping lands); either alone leaves the card flush. */
+@media (max-width:760px){
+  .hero-stage,.split,.personas,.pricing{padding-right:0;scroll-padding-right:32px}
+  .hero-stage>:last-child,
+  .split>:last-child,
+  .personas>:last-child,
+  .pricing>:last-child{margin-right:32px}
+}
+@media (max-width:560px){
+  .hero-stage,.split,.personas,.pricing{padding-right:0;scroll-padding-right:20px}
+  .hero-stage>:last-child,
+  .split>:last-child,
+  .personas>:last-child,
+  .pricing>:last-child{margin-right:20px}
+}
+@media (max-width:380px){
+  .hero-stage,.split,.personas,.pricing{padding-right:0;scroll-padding-right:16px}
+  .hero-stage>:last-child,
+  .split>:last-child,
+  .personas>:last-child,
+  .pricing>:last-child{margin-right:16px}
+}
 </style>
 </head>
 <body>
@@ -826,7 +891,7 @@ html,body{max-width:100%;overflow-x:clip}
           <li>A flexible basket they can edit before checkout</li>
         </ul>
         <div class="report-card" aria-hidden="true">
-          <div class="report-card-head"><span class="report-card-title">Your daily routine</span><span class="report-card-pill">5 picks</span></div>
+          <div class="report-card-head"><span class="report-card-title">Your daily routine</span><span class="report-card-pill"><span class="pill-wide">5 picks</span><span class="pill-narrow">3 picks</span></span></div>
           <div class="routine">
             <div class="routine-slot">
               <span class="routine-when">Morning</span>
@@ -834,7 +899,7 @@ html,body{max-width:100%;overflow-x:clip}
                 <div class="routine-item"><span class="routine-name">Cordyceps</span><span class="routine-qty">1 serving</span></div>
               </div>
             </div>
-            <div class="routine-slot">
+            <div class="routine-slot routine-slot--meal">
               <span class="routine-when">With meal</span>
               <div class="routine-items">
                 <div class="routine-item"><span class="routine-name">Vitamin D3 + K2</span><span class="routine-qty">1 serving</span><span class="routine-tag">Essential</span></div>
