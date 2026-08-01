@@ -553,39 +553,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .footer-bottom{margin-top:40px}
 }
 
-/* ---- Phone: stack, do not carousel -------------------------------------
-   The <=760px rule above turns .hero-stage/.steps/.split/.personas/.pricing
-   into horizontal scroll-snap carousels, cards at 86% width with a -32px
-   full-bleed. Two things broke it: the bleed is hardcoded to the old 32px
-   .wrap gutter (now 20px, 16px under 380) so the rails hang past the viewport
-   on both sides, and there is no swipe affordance, so a card clipped at the
-   right edge reads as broken layout rather than as "swipe me".
-   Stacking instead: every card full width, nothing clipped, one scroll axis.
-   Must stay after the block above; same specificity, source order decides. */
 html,body{max-width:100%;overflow-x:clip}
-@media (max-width:760px){
-  .hero-stage,.steps,.split,.personas,.pricing{
-    display:grid;
-    grid-template-columns:minmax(0,1fr);
-    height:auto;
-    overflow-x:visible;
-    overflow-y:visible;
-    scroll-snap-type:none;
-    gap:16px;
-    margin-left:0;
-    margin-right:0;
-    padding:0;
-  }
-  .quiz,.results,.step,.split-card,.persona,.tier{
-    flex:none;
-    width:auto;
-    max-width:100%;
-    min-width:0;
-    scroll-snap-align:none;
-  }
-  .hero-stage>.quiz,.hero-stage>.results{position:static}
-  .hero-grid,.hero-copy,.hero-visual{min-width:0}
-}
+
 
 
 @media(max-width:560px){.wrap{padding:0 20px}}
@@ -643,92 +612,109 @@ html,body{max-width:100%;overflow-x:clip}
   .step .step-body{margin-top:0}
 }
 
-/* ---- Phone: one idea per screen ----------------------------------------
-   The page ran 18.7 screens on a 390x844 phone with sections between 0.6 and
-   2.4 screens tall, so they interleaved and you were always looking at the
-   tail of one band and the head of the next. The hero was the worst case: the
-   quiz card peeked above the fold underneath seven stacked elements.
 
-   Every band now starts at the top of a screen and is at least one screen
-   tall, with its content optically centred. Bands shorter than a screen get
-   the whole screen to themselves; taller ones simply start clean. Snapping is
-   proximity, not mandatory, so long bands stay freely scrollable and never
-   trap the scroll.
 
-   The hero is split into three screens: copy, then the quiz card, then the
-   result card. That is the sequence the animation was always telling, and on
-   a phone it now reads one beat at a time instead of all at once.
+/* ---- Phone: horizontal card decks ---------------------------------------
+   Restores the swipe decks that shipped in 4e9ee16 and that I wrongly removed
+   in #45, and fixes the two things that made them read as broken rather than
+   swipeable.
 
-   Eyebrow is hidden here only. The headline already says what it said, and it
-   cost two lines before the reader reached anything. Desktop keeps it. */
+   1. The -32px full-bleed was hardcoded to a 32px .wrap gutter. That gutter
+      now steps 32 -> 20 -> 16, so the rails hung past the viewport. Bleed now
+      tracks the gutter at every breakpoint.
+   2. There was no affordance. No dots, no arrows. A card clipped at the right
+      edge with no cue is indistinguishable from a layout bug, which is exactly
+      how it read. Dots are injected per deck and track the scroll position.
+
+   Decks are also what actually delivers one-idea-per-screen. Stacked, the hero
+   cards and the comparison cards were 2.00 screens each. As decks they are one.
+   The previous attempt forced min-height:100svh on every band instead, which
+   ballooned short bands to 40-61% empty and produced a padding rhythm of
+   24/64/72/80/123/168/256 down the page. That is what "spaces are weird" was.
+
+   .steps is deliberately NOT a deck. At 561px it already fits one screen, and
+   five numbered steps read as a sequence; hiding steps 2-5 behind a swipe
+   costs more than it saves. It stays a vertical list. */
 @media (max-width:760px){
-  html{
-    scroll-snap-type:y proximity;
-    scroll-padding-top:70px;
-  }
-  main>section{
-    min-height:100vh;
-    min-height:100svh;
-    display:grid;
-    /* Explicit single column capped at the container width. Without this the
-       implicit column is sized by max-content, and the marquee section's rails
-       are far wider than the screen, which threw its .wrap out to left:2558px
-       on a 375px viewport. */
-    grid-template-columns:minmax(0,1fr);
-    align-content:center;
-    scroll-snap-align:start;
-  }
-  /* .hero inherits start-snap from main>section, which would sit 32px from
-     .hero-copy's own snap point and make the scroll feel sticky. Children own
-     the snapping here. */
-  .hero{min-height:0;display:block;scroll-snap-align:none}
+  /* Grid items default to min-width:auto, so the hero deck's content stretched
+     .hero-visual to 381px inside a 350px wrap and pushed the deck 31px past
+     the gutter. */
+  .hero-grid,.hero-copy,.hero-visual{min-width:0}
+  /* Phones only. Costs two lines before the reader reaches the headline, and
+     the headline already carries the claim. Desktop keeps it. */
   .hero-eyebrow{display:none}
-  .hero .hero-copy{
-    min-height:100vh;
-    min-height:100svh;
+  /* .hero-stage carries width:100% from its base rule, which pins it to the
+     wrap width so the negative bleed margins only shifted it left instead of
+     widening it. It bled on the left and stopped 40px short on the right. */
+  .hero-stage{width:auto}
+
+  /* how-it-works opts out of the deck rule above and stays a vertical list */
+  .steps{
     display:grid;
-    align-content:center;
-    scroll-snap-align:start;
-    position:relative;
+    grid-template-columns:minmax(0,1fr);
+    gap:16px;
+    overflow:visible;
+    scroll-snap-type:none;
+    margin-left:0;
+    margin-right:0;
+    padding:0;
   }
-  /* Each card gets its own full-screen row and is centred inside it. The card
-     keeps its natural height; stretching the card itself to 100svh left a
-     screenful of blank white above its content. */
-  .hero .hero-stage{
-    display:grid;
-    grid-auto-rows:100vh;
-    grid-auto-rows:100svh;
-    align-items:center;
-    gap:0;
+  .steps>.step{
+    flex:none;
+    width:auto;
+    max-width:100%;
+    scroll-snap-align:none;
   }
-  .hero .hero-stage>.quiz,
-  .hero .hero-stage>.results{
-    align-self:center;
-    min-height:0;
-    height:auto;
-    scroll-snap-align:center;
+
+  /* The last card's start position sits past the deck's maximum scroll, so
+     with scroll-snap-align:start it is unreachable and mandatory snapping
+     falls back to the second-to-last card. Tapping the final dot landed one
+     card short. The last card snaps flush right instead. */
+  .hero-stage>:last-child,
+  .split>:last-child,
+  .personas>:last-child,
+  .pricing>:last-child{scroll-snap-align:end}
+
+  /* deck affordance */
+  .deck-dots{
+    display:flex;
+    justify-content:center;
+    gap:7px;
+    margin-top:2px;
+    padding:0;
   }
-  /* A full-screen hero with no image can read as the whole page. Small cue
-     that there is more below, hidden once the reader has moved. */
-  .hero .hero-copy::after{
-    content:"";
-    position:absolute;
-    left:50%;
-    bottom:26px;
-    width:11px;height:11px;
-    margin-left:-6px;
-    border-right:1.5px solid var(--muted);
-    border-bottom:1.5px solid var(--muted);
-    transform:rotate(45deg);
-    opacity:.5;
-    animation:hero-cue 2.2s ease-in-out infinite;
+  .deck-dots button{
+    width:7px;height:7px;
+    padding:0;border:0;border-radius:999px;
+    background:var(--ink);
+    opacity:.18;
+    transition:opacity .2s ease,transform .2s ease;
+    cursor:pointer;
   }
-  @keyframes hero-cue{
-    0%,100%{transform:rotate(45deg) translate(0,0);opacity:.35}
-    50%{transform:rotate(45deg) translate(3px,3px);opacity:.7}
+  .deck-dots button[aria-current="true"]{opacity:.75;transform:scale(1.25)}
+  /* the dot row is the visible target; the tap area around it stays 44px */
+  .deck-dots button::before{
+    content:"";position:absolute;
+    width:32px;height:32px;
+    margin:-13px 0 0 -13px;
   }
-  @media (prefers-reduced-motion:reduce){
-    .hero .hero-copy::after{animation:none}
+  .deck-dots button{position:relative}
+}
+
+/* Bleed has to equal the .wrap gutter at each step or the deck hangs off the
+   edge. 561-760 keeps 32px; below that the gutter narrows and so does this. */
+@media (max-width:560px){
+  .hero-stage,.split,.personas,.pricing{
+    margin-left:-20px;margin-right:-20px;
+    padding-left:20px;padding-right:20px;
+    scroll-padding-left:20px;
+  }
+}
+@media (max-width:380px){
+  .hero-stage,.split,.personas,.pricing{
+    margin-left:-16px;margin-right:-16px;
+    padding-left:16px;padding-right:16px;
+    scroll-padding-left:16px;
   }
 }
 </style>
@@ -1426,6 +1412,147 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   // never render an empty state: seed with a goal that shows the depth well
   const seed=['Gut Health','Sleep','Hormonal Balance'].find(g=>GOAL_SUBS[g]) || Object.keys(GOAL_SUBS)[0];
   if(seed) show(seed);
+})();
+
+
+/* ---- Phone card decks: dots + nav CTA visibility ------------------------
+   Decks only read as swipeable if something says so. One dot per card, current
+   dot tracked from scrollLeft, tapping a dot scrolls to that card.
+   Built only when the deck rule is actually active (<=760) and only when the
+   deck really overflows, so a deck that happens to fit gets no dots. */
+(function(){
+  var MQ = window.matchMedia('(max-width:760px)');
+  var DECKS = ['.hero-stage','.split','.personas','.pricing'];
+  var built = [];
+
+  function clear(){
+    built.forEach(function(d){ if(d.dots && d.dots.parentNode) d.dots.parentNode.removeChild(d.dots); });
+    built = [];
+  }
+
+  function build(){
+    clear();
+    if(!MQ.matches) return;
+    DECKS.forEach(function(sel){
+      var deck = document.querySelector(sel);
+      if(!deck) return;
+      var cards = Array.prototype.filter.call(deck.children, function(c){
+        return c.nodeType === 1 && c.offsetWidth > 0;
+      });
+      if(cards.length < 2) return;
+      if(deck.scrollWidth <= deck.clientWidth + 4) return;  // does not actually overflow
+
+      var dots = document.createElement('div');
+      dots.className = 'deck-dots';
+      dots.setAttribute('role','tablist');
+      dots.setAttribute('aria-label','Choose a card');
+
+      cards.forEach(function(card, i){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('role','tab');
+        b.setAttribute('aria-label','Card ' + (i+1) + ' of ' + cards.length);
+        b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+        b.addEventListener('click', function(){
+          deck.scrollTo({ left: card.offsetLeft - deck.offsetLeft, behavior: 'smooth' });
+        });
+        dots.appendChild(b);
+      });
+
+      deck.parentNode.insertBefore(dots, deck.nextSibling);
+
+      /* Synchronous on purpose. The rAF-throttled version never ran while the
+         tab was backgrounded, so the active dot stayed stuck on card 1. The
+         work is a few length comparisons, cheap enough to do inline. */
+      function sync(){
+        var mid = deck.scrollLeft + deck.clientWidth / 2;
+        var best = 0, bestD = Infinity;
+        cards.forEach(function(c, i){
+          var c0 = c.offsetLeft - deck.offsetLeft;
+          var d = Math.abs(c0 + c.offsetWidth / 2 - mid);
+          if(d < bestD){ bestD = d; best = i; }
+        });
+        Array.prototype.forEach.call(dots.children, function(b, i){
+          b.setAttribute('aria-current', i === best ? 'true' : 'false');
+        });
+      }
+      deck.addEventListener('scroll', sync, { passive: true });
+      built.push({ deck: deck, dots: dots, sync: sync });
+    });
+  }
+
+  /* The nav "Try it yourself" is the same label AND the same href as the hero
+     button. While the hero is on screen it is pure duplication, so it only
+     appears once the hero CTA has scrolled away. */
+  function navCta(){
+    var nav = document.querySelector('header.nav');
+    if(!nav) return;
+    var cta = Array.prototype.slice.call(nav.querySelectorAll('a,button')).filter(function(a){
+      return /try it yourself/i.test(a.textContent || '');
+    })[0];
+    var heroCta = document.querySelector('.hero-ctas .btn-primary');
+    if(!cta || !heroCta || !('IntersectionObserver' in window)) return;
+
+    cta.style.transition = 'opacity .22s ease, transform .22s ease';
+    function apply(hidden){
+      if(hidden && MQ.matches){
+        cta.style.opacity = '0';
+        cta.style.transform = 'translateY(-4px)';
+        cta.style.pointerEvents = 'none';
+        cta.setAttribute('aria-hidden','true');
+        cta.tabIndex = -1;
+      } else {
+        cta.style.opacity = '';
+        cta.style.transform = '';
+        cta.style.pointerEvents = '';
+        cta.removeAttribute('aria-hidden');
+        cta.removeAttribute('tabindex');
+      }
+    }
+    var io = new IntersectionObserver(function(entries){
+      apply(entries[0].isIntersecting);
+    }, { rootMargin: '-70px 0px 0px 0px' });
+    io.observe(heroCta);
+    MQ.addEventListener ? MQ.addEventListener('change', function(){ apply(false); })
+                        : MQ.addListener(function(){ apply(false); });
+  }
+
+  /* build() reads deck.scrollWidth to decide whether a deck actually overflows.
+     At the instant a media-query change fires layout has not reflowed yet, so
+     scrollWidth still reports the old value and every deck looks like it fits,
+     which silently skipped the dots. So: build now, then build again once
+     layout has settled.
+
+     Deliberately setTimeout and not requestAnimationFrame. rAF does not fire
+     while the tab is hidden, which stalled the build completely and shipped
+     zero dots. Timers still fire when backgrounded. */
+  var bt = null;
+  function scheduleBuild(){
+    build();
+    clearTimeout(bt);
+    bt = setTimeout(build, 120);
+  }
+
+  function init(){ scheduleBuild(); navCta(); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  /* Rebuild on the media-query change itself, not only on resize. Relying on
+     resize alone left 4 stale dot rows visible at 768px after crossing the
+     breakpoint, because the deck rule had stopped applying but nothing had
+     torn the dots down. */
+  if(MQ.addEventListener) MQ.addEventListener('change', scheduleBuild);
+  else if(MQ.addListener) MQ.addListener(scheduleBuild);
+
+  /* Web fonts change card widths after first paint, which changes whether a
+     deck overflows. */
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleBuild);
+  window.addEventListener('load', scheduleBuild);
+
+  var t = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(t); t = setTimeout(scheduleBuild, 160);
+  }, { passive: true });
 })();
 </script>
 
