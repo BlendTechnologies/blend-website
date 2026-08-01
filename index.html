@@ -1484,6 +1484,15 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   /* The nav "Try it yourself" is the same label AND the same href as the hero
      button. While the hero is on screen it is pure duplication, so it only
      appears once the hero CTA has scrolled away. */
+  /* The nav "Try it yourself" duplicates the hero button exactly: same label,
+     same href. While the hero button is on screen the nav copy is noise, so it
+     only fades in once the hero button has scrolled past the sticky header.
+
+     Driven by scroll geometry rather than IntersectionObserver on purpose. IO
+     callbacks are delivered on the rendering pipeline, so they never fire in a
+     non-rendering tab, which meant this could not be verified and silently did
+     nothing. A scroll listener plus getBoundingClientRect is testable and
+     behaves identically on device. */
   function navCta(){
     var nav = document.querySelector('header.nav');
     if(!nav) return;
@@ -1491,11 +1500,18 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
       return /try it yourself/i.test(a.textContent || '');
     })[0];
     var heroCta = document.querySelector('.hero-ctas .btn-primary');
-    if(!cta || !heroCta || !('IntersectionObserver' in window)) return;
+    if(!cta || !heroCta) return;
 
+    var navH = nav.offsetHeight || 70;
+    var hidden = null;
     cta.style.transition = 'opacity .22s ease, transform .22s ease';
-    function apply(hidden){
-      if(hidden && MQ.matches){
+
+    function update(){
+      var past = heroCta.getBoundingClientRect().bottom <= navH;
+      var wantHidden = MQ.matches && !past;
+      if(wantHidden === hidden) return;
+      hidden = wantHidden;
+      if(wantHidden){
         cta.style.opacity = '0';
         cta.style.transform = 'translateY(-4px)';
         cta.style.pointerEvents = 'none';
@@ -1509,23 +1525,24 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
         cta.removeAttribute('tabindex');
       }
     }
-    var io = new IntersectionObserver(function(entries){
-      apply(entries[0].isIntersecting);
-    }, { rootMargin: '-70px 0px 0px 0px' });
-    io.observe(heroCta);
-    MQ.addEventListener ? MQ.addEventListener('change', function(){ apply(false); })
-                        : MQ.addListener(function(){ apply(false); });
+
+    window.addEventListener('scroll', update, { passive: true });
+    if(MQ.addEventListener) MQ.addEventListener('change', update);
+    else if(MQ.addListener) MQ.addListener(update);
+    window.addEventListener('resize', update, { passive: true });
+    update();
+    setTimeout(update, 120);
   }
 
-  /* build() reads deck.scrollWidth to decide whether a deck actually overflows.
+  /* build() reads deck.scrollWidth to decide whether a deck really overflows.
      At the instant a media-query change fires layout has not reflowed yet, so
      scrollWidth still reports the old value and every deck looks like it fits,
      which silently skipped the dots. So: build now, then build again once
      layout has settled.
 
-     Deliberately setTimeout and not requestAnimationFrame. rAF does not fire
-     while the tab is hidden, which stalled the build completely and shipped
-     zero dots. Timers still fire when backgrounded. */
+     setTimeout and not requestAnimationFrame on purpose. rAF does not fire
+     while the tab is not rendering, which stalled the build completely and
+     produced zero dots. Timers still fire. */
   var bt = null;
   function scheduleBuild(){
     build();
