@@ -836,13 +836,15 @@ html,body{max-width:100%;overflow-x:clip}
      height rather than being tuned to one. */
 
   /* message group, sits near the top of the screen */
-  /* 20% of the screen is left EMPTY above the headline. .hero-copy starts at
-     the nav's bottom edge, so this is a plain 20svh of blank space.
-
-     The previous version subtracted the nav height, which made the headline
-     *start* at 20% of the screen but left only 11.9% actually empty, because
-     the nav was being counted inside the 20%. A nav is not empty space. */
-  .hero .hero-title{margin-top:20svh}
+  /* Three equal gaps, and nothing else positions anything:
+       nav bottom      -> headline
+       sub-headline    -> CTA group
+       CTA group       -> the three small texts
+     Three auto margins split the free space equally three ways, so all three
+     gaps are the same number by construction at any screen height. Nothing
+     here is a tuned constant, which is what every previous version relied on
+     and what kept breaking when the screen height changed. */
+  .hero .hero-title{margin-top:auto}
   .hero .hero-sub{margin-top:16px;max-width:32ch;margin-left:auto;margin-right:auto}
 
   /* action group, lands in the lower part of the screen */
@@ -892,7 +894,11 @@ html,body{max-width:100%;overflow-x:clip}
    screen. The scroll cue is dropped here; there is no slack left to put it in.
    Bounded at 660px so a 667px iPhone SE keeps the roomier spacing. */
 @media (max-width:560px) and (max-height:660px){
-  .hero .hero-copy{padding-top:16px;padding-bottom:12px}
+  /* padding-top must stay 0 or it adds to the first auto margin and breaks the
+     equality: it made the menu-to-title gap 37px against 21px for the other
+     two. padding-bottom sits below the trust row, not between elements, so it
+     does not affect the three gaps. */
+  .hero .hero-copy{padding-top:0;padding-bottom:12px}
   .hero .hero-title{font-size:30px}
   .hero .hero-sub{margin-top:12px}
   .hero .cta-alt{margin-top:12px}
@@ -902,13 +908,10 @@ html,body{max-width:100%;overflow-x:clip}
      here too. Autos collapse on their own when space is tight; the fixed
      values that were here previously broke the centring by 4-8px. */
 
-  /* 320x568 cannot take the 20% empty gap. A true 20svh here pushes the trust
-     row 40px past the fold, and that row has to stay on the first screen. The
-     content only just fits as it is: with a 30px gap the trust row's bottom
-     edge lands at 567 against a 568px screen, about 1px of headroom, so this
-     cannot be opened up further without cutting content. Empty gap here is
-     5.3%. Every other phone size gets exactly 20%. */
-  .hero .hero-title{margin-top:14px}
+  /* Headline keeps the auto margin from the main tier so the three gaps stay
+     equal here too. Autos shrink on their own when space is tight, which is
+     exactly what this viewport needs; the fixed value that used to be here
+     broke the equality. */
   .hero .hero-copy::after{display:none}
 }
 
