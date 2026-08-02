@@ -840,8 +840,12 @@ html,body{max-width:100%;overflow-x:clip}
   .hero .hero-ctas{margin-top:auto;justify-content:center}
   .hero .cta-alt{margin-top:16px}
 
-  /* trust group, anchored to the bottom edge */
-  .hero .hero-foot{margin-top:auto;padding-top:0;justify-content:center}
+  /* Trust row takes a fixed gap rather than a third auto margin. With three
+     equal autos, a full third of the free space sat *below* the buttons, which
+     is what kept holding them up at 67%. Two autos above and a fixed gap below
+     pushes the action group into the lower part of the screen and still pins
+     the trust row to the bottom edge. */
+  .hero .hero-foot{margin-top:56px;padding-top:0;justify-content:center}
 
   /* The hero now fills the screen and the cards sit entirely below the fold,
      so nothing on this screen says there is more. The slack between the action
@@ -852,7 +856,7 @@ html,body{max-width:100%;overflow-x:clip}
     content:"";
     position:absolute;
     left:50%;
-    bottom:128px;
+    bottom:74px;
     width:12px;height:12px;
     margin-left:-6px;
     border-right:1.5px solid var(--muted);
@@ -885,7 +889,48 @@ html,body{max-width:100%;overflow-x:clip}
   .hero .hero-ctas{margin-top:20px}
   .hero .cta-alt{margin-top:12px}
   .hero .hero-foot{padding-top:16px}
+  /* The trust row's gap is a fixed 56px at larger sizes, which pushed its
+     bottom edge to 578 against a 568px screen here. It was an auto margin
+     before and collapsed on its own; now that it is fixed it needs shrinking
+     explicitly on short screens. */
+  .hero .hero-foot{margin-top:24px}
   .hero .hero-copy::after{display:none}
+}
+
+/* ---- Phone hero: subtle wash into the background ------------------------
+   A warm tint at the top of the hero that resolves to flat --cream before the
+   first screen ends, so the hero settles into the page background rather than
+   meeting it at an edge. Built on --sand-soft, the palette's existing warm
+   tone, at low alpha; peak opacity is .20, which is a few percent of tint.
+
+   Stops are in svh rather than percentages so the wash is tied to the screen
+   rather than to the hero's full height, which on a phone is roughly three
+   screens tall and would have stretched the gradient into invisibility.
+
+   The hard border-bottom is dropped here too. With the hero and the section
+   below it both landing on --cream, a 1px line is the one thing that would
+   still read as a seam. Desktop keeps the border. */
+@media (max-width:560px){
+  /* Painted on the root, not on .hero. The nav is translucent
+     (rgba(250,248,242,.82) with a backdrop blur) and sits in flow *above* the
+     hero, so a gradient starting at the hero's top edge began exactly at the
+     nav's bottom edge and drew a visible seam across the screen. On the root
+     the wash starts at the top of the page and shows through the nav instead.
+
+     Sized to 100svh and not repeated, so it covers the first screen and the
+     flat --cream takes over below. The hero itself goes transparent to let it
+     through; sections further down keep their own opaque backgrounds and are
+     unaffected. */
+  html{
+    background-color:var(--cream);
+    background-image:linear-gradient(180deg,
+      rgba(231,207,163,.20) 0,
+      rgba(231,207,163,.075) 45%,
+      rgba(231,207,163,0) 100%);
+    background-repeat:no-repeat;
+    background-size:100% 100svh;
+  }
+  .hero{background:transparent;border-bottom:0}
 }
 </style>
 </head>
