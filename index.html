@@ -812,26 +812,36 @@ html,body{max-width:100%;overflow-x:clip}
     justify-content:center;
     align-items:center;
     text-align:center;
-    /* margin-top:auto on the trust row absorbs every spare pixel, which pinned
-       the headline directly under the nav at 9% of the screen and left a 357px
-       void above the trust row. This reserves a share of that space at the top
-       so the headline lands near a quarter down, and the remaining slack sits
-       between the action group and the trust row, where it reads as separation
-       rather than as a gap. */
-    padding-top:13svh;
+    /* Three equal auto margins below do the vertical distribution, so this
+       block must not add a fixed top offset of its own. */
+    padding-top:0;
     padding-bottom:26px;
   }
 
+  /* Vertical distribution is done with three auto margins, one before each
+     group, so the free space is split equally three ways: above the message,
+     between the message and the action, and between the action and the trust
+     row. Everything inside a group keeps a small fixed gap so the group still
+     reads as one unit.
+
+     A fixed top padding used to do this job and it is why the hero read as
+     crowded: it placed the message near the top and then a single auto margin
+     on the trust row swallowed all the remaining space in one 248px lump, so
+     the title, sub, buttons and link all sat in the upper half with a void
+     underneath. Splitting the slack three ways puts the message upper-middle
+     and the buttons in the lower part, and it self-balances at any screen
+     height rather than being tuned to one. */
+
   /* message group */
-  .hero .hero-title{margin-top:0}
+  .hero .hero-title{margin-top:auto}
   .hero .hero-sub{margin-top:16px;max-width:32ch;margin-left:auto;margin-right:auto}
 
-  /* action group */
-  .hero .hero-ctas{margin-top:34px;justify-content:center}
+  /* action group, lands in the lower part of the screen */
+  .hero .hero-ctas{margin-top:auto;justify-content:center}
   .hero .cta-alt{margin-top:16px}
 
-  /* trust group, anchored to the bottom of the screen */
-  .hero .hero-foot{margin-top:auto;padding-top:34px;justify-content:center}
+  /* trust group, anchored to the bottom edge */
+  .hero .hero-foot{margin-top:auto;padding-top:0;justify-content:center}
 
   /* The hero now fills the screen and the cards sit entirely below the fold,
      so nothing on this screen says there is more. The slack between the action
