@@ -803,7 +803,10 @@ html,body{max-width:100%;overflow-x:clip}
    anchors the bottom edge. That reads as a deliberate composition instead of a
    block floating in a void, which is what pure vertical centring gave. */
 @media (max-width:560px){
+  /* .hero-grid carries padding:8px 0 from the base rule, which offset the
+     headline by 8px and made the 20% top gap measure 21.1%. */
   .hero{padding-top:0}
+  .hero .hero-grid{padding-top:0}
   .hero .hero-copy{
     min-height:calc(100vh - 69px);
     min-height:calc(100svh - 69px);
@@ -833,13 +836,10 @@ html,body{max-width:100%;overflow-x:clip}
      height rather than being tuned to one. */
 
   /* message group, sits near the top of the screen */
-  /* Fixed offset at the top, then the remaining slack splits two ways. The
-     hero has ~376px of content in an 844px screen, so ~400px of slack has to
-     go somewhere; the only question is how it is divided. Putting it all in
-     one place is what produced every previous complaint, whether that place
-     was above the title, in the middle, or below the buttons. Split across a
-     small fixed top offset and two equal gaps, no single gap exceeds ~160px. */
-  .hero .hero-title{margin-top:9svh}
+  /* Exactly 20% of the screen is left empty above the headline. The offset is
+     measured from the top of the viewport, not from the top of .hero-copy,
+     which starts below the sticky nav, hence subtracting the nav height. */
+  .hero .hero-title{margin-top:calc(20svh - var(--nav-h))}
   .hero .hero-sub{margin-top:16px;max-width:32ch;margin-left:auto;margin-right:auto}
 
   /* action group, lands in the lower part of the screen */
@@ -892,17 +892,18 @@ html,body{max-width:100%;overflow-x:clip}
   .hero .hero-copy{padding-top:16px;padding-bottom:12px}
   .hero .hero-title{font-size:30px}
   .hero .hero-sub{margin-top:12px}
-  .hero .hero-ctas{margin-top:20px}
   .hero .cta-alt{margin-top:12px}
   .hero .hero-foot{padding-top:16px}
-  /* The trust row's gap is a fixed 56px at larger sizes, which pushed its
-     bottom edge to 578 against a 568px screen here. It was an auto margin
-     before and collapsed on its own; now that it is fixed it needs shrinking
-     explicitly on short screens. */
-  .hero .hero-foot{margin-top:24px}
-  /* 9svh is 51px here, which is enough to push the trust row off a 568px
-     screen. Every fixed offset in the main tier has to be re-checked against
-     the shortest viewport, not just the narrowest. */
+  /* .hero-ctas and .hero-foot keep their auto margins from the main tier so
+     the CTA group stays centred between the sub-headline and the trust row
+     here too. Autos collapse on their own when space is tight; the fixed
+     values that were here previously broke the centring by 4-8px. */
+
+  /* A true 20% top gap does not fit on a 568px screen: it pushes the trust row
+     16px past the fold, and the brief needs that row on the first screen. 14px
+     is the largest offset that keeps it in, which lands the headline at 17.4%.
+     This is the one size where the 20% rule is not met, and it is met exactly
+     everywhere else. */
   .hero .hero-title{margin-top:14px}
   .hero .hero-copy::after{display:none}
 }
