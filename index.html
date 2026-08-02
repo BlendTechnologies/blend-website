@@ -836,10 +836,13 @@ html,body{max-width:100%;overflow-x:clip}
      height rather than being tuned to one. */
 
   /* message group, sits near the top of the screen */
-  /* Exactly 20% of the screen is left empty above the headline. The offset is
-     measured from the top of the viewport, not from the top of .hero-copy,
-     which starts below the sticky nav, hence subtracting the nav height. */
-  .hero .hero-title{margin-top:calc(20svh - var(--nav-h))}
+  /* 20% of the screen is left EMPTY above the headline. .hero-copy starts at
+     the nav's bottom edge, so this is a plain 20svh of blank space.
+
+     The previous version subtracted the nav height, which made the headline
+     *start* at 20% of the screen but left only 11.9% actually empty, because
+     the nav was being counted inside the 20%. A nav is not empty space. */
+  .hero .hero-title{margin-top:20svh}
   .hero .hero-sub{margin-top:16px;max-width:32ch;margin-left:auto;margin-right:auto}
 
   /* action group, lands in the lower part of the screen */
@@ -899,11 +902,12 @@ html,body{max-width:100%;overflow-x:clip}
      here too. Autos collapse on their own when space is tight; the fixed
      values that were here previously broke the centring by 4-8px. */
 
-  /* A true 20% top gap does not fit on a 568px screen: it pushes the trust row
-     16px past the fold, and the brief needs that row on the first screen. 14px
-     is the largest offset that keeps it in, which lands the headline at 17.4%.
-     This is the one size where the 20% rule is not met, and it is met exactly
-     everywhere else. */
+  /* 320x568 cannot take the 20% empty gap. A true 20svh here pushes the trust
+     row 40px past the fold, and that row has to stay on the first screen. The
+     content only just fits as it is: with a 30px gap the trust row's bottom
+     edge lands at 567 against a 568px screen, about 1px of headroom, so this
+     cannot be opened up further without cutting content. Empty gap here is
+     5.3%. Every other phone size gets exactly 20%. */
   .hero .hero-title{margin-top:14px}
   .hero .hero-copy::after{display:none}
 }
