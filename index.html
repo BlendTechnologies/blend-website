@@ -782,6 +782,101 @@ html,body{max-width:100%;overflow-x:clip}
   .personas>:last-child,
   .pricing>:last-child{margin-right:16px}
 }
+
+/* ---- Phone hero: one full screen, centred ------------------------------
+   The hero copy now owns the entire first screen and the card deck starts
+   below the fold, so nothing peeks. Previously 346px of the deck was visible
+   under the trust row.
+
+   Height is calc(100svh - nav) with the hero's own top padding zeroed, so the
+   copy block ends exactly at the fold. svh rather than vh is deliberate: it is
+   the height with iOS browser chrome expanded, which is the worst case, so the
+   deck stays hidden even before the URL bar collapses.
+
+   Centred rather than left aligned, per the Neko reference.
+
+   Separated into three logical groups rather than one evenly-spaced column:
+     message  - headline and sub-headline, tight together, they are one thought
+     action   - the two buttons and the sample-report link
+     trust    - pinned to the bottom with margin-top:auto
+   The message and action groups sit centred in the space above; the trust row
+   anchors the bottom edge. That reads as a deliberate composition instead of a
+   block floating in a void, which is what pure vertical centring gave. */
+@media (max-width:560px){
+  .hero{padding-top:0}
+  .hero .hero-copy{
+    min-height:calc(100vh - 69px);
+    min-height:calc(100svh - 69px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    /* margin-top:auto on the trust row absorbs every spare pixel, which pinned
+       the headline directly under the nav at 9% of the screen and left a 357px
+       void above the trust row. This reserves a share of that space at the top
+       so the headline lands near a quarter down, and the remaining slack sits
+       between the action group and the trust row, where it reads as separation
+       rather than as a gap. */
+    padding-top:13svh;
+    padding-bottom:26px;
+  }
+
+  /* message group */
+  .hero .hero-title{margin-top:0}
+  .hero .hero-sub{margin-top:16px;max-width:32ch;margin-left:auto;margin-right:auto}
+
+  /* action group */
+  .hero .hero-ctas{margin-top:34px;justify-content:center}
+  .hero .cta-alt{margin-top:16px}
+
+  /* trust group, anchored to the bottom of the screen */
+  .hero .hero-foot{margin-top:auto;padding-top:34px;justify-content:center}
+
+  /* The hero now fills the screen and the cards sit entirely below the fold,
+     so nothing on this screen says there is more. The slack between the action
+     group and the trust row is where that cue belongs: it separates the two
+     groups and earns its space at the same time. */
+  .hero .hero-copy{position:relative}
+  .hero .hero-copy::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:128px;
+    width:12px;height:12px;
+    margin-left:-6px;
+    border-right:1.5px solid var(--muted);
+    border-bottom:1.5px solid var(--muted);
+    transform:rotate(45deg);
+    opacity:.38;
+    animation:hero-cue 2.4s ease-in-out infinite;
+  }
+}
+@keyframes hero-cue{
+  0%,100%{transform:rotate(45deg) translate(0,0);opacity:.3}
+  50%{transform:rotate(45deg) translate(3px,3px);opacity:.62}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero .hero-copy::after{animation:none}
+}
+
+/* Short phones. At 320x568 the hero copy needed 620px against 499px of usable
+   height, so "Built for trust" fell below the fold and the brief was not met.
+   The overflow is not the copy itself but what a narrow screen does to it: the
+   two buttons wrap to a second row (126px instead of 58) and the trust row
+   wraps too (80px instead of 20). Reclaimed 132px from padding, inter-group
+   gaps and the headline size, which brings it to 488px and back inside the
+   screen. The scroll cue is dropped here; there is no slack left to put it in.
+   Bounded at 660px so a 667px iPhone SE keeps the roomier spacing. */
+@media (max-width:560px) and (max-height:660px){
+  .hero .hero-copy{padding-top:16px;padding-bottom:12px}
+  .hero .hero-title{font-size:30px}
+  .hero .hero-sub{margin-top:12px}
+  .hero .hero-ctas{margin-top:20px}
+  .hero .cta-alt{margin-top:12px}
+  .hero .hero-foot{padding-top:16px}
+  .hero .hero-copy::after{display:none}
+}
 </style>
 </head>
 <body>
