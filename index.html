@@ -832,8 +832,14 @@ html,body{max-width:100%;overflow-x:clip}
      and the buttons in the lower part, and it self-balances at any screen
      height rather than being tuned to one. */
 
-  /* message group */
-  .hero .hero-title{margin-top:auto}
+  /* message group, sits near the top of the screen */
+  /* Fixed offset at the top, then the remaining slack splits two ways. The
+     hero has ~376px of content in an 844px screen, so ~400px of slack has to
+     go somewhere; the only question is how it is divided. Putting it all in
+     one place is what produced every previous complaint, whether that place
+     was above the title, in the middle, or below the buttons. Split across a
+     small fixed top offset and two equal gaps, no single gap exceeds ~160px. */
+  .hero .hero-title{margin-top:9svh}
   .hero .hero-sub{margin-top:16px;max-width:32ch;margin-left:auto;margin-right:auto}
 
   /* action group, lands in the lower part of the screen */
@@ -845,7 +851,7 @@ html,body{max-width:100%;overflow-x:clip}
      is what kept holding them up at 67%. Two autos above and a fixed gap below
      pushes the action group into the lower part of the screen and still pins
      the trust row to the bottom edge. */
-  .hero .hero-foot{margin-top:56px;padding-top:0;justify-content:center}
+  .hero .hero-foot{margin-top:auto;padding-top:0;justify-content:center}
 
   /* The hero now fills the screen and the cards sit entirely below the fold,
      so nothing on this screen says there is more. The slack between the action
@@ -894,6 +900,10 @@ html,body{max-width:100%;overflow-x:clip}
      before and collapsed on its own; now that it is fixed it needs shrinking
      explicitly on short screens. */
   .hero .hero-foot{margin-top:24px}
+  /* 9svh is 51px here, which is enough to push the trust row off a 568px
+     screen. Every fixed offset in the main tier has to be re-checked against
+     the shortest viewport, not just the narrowest. */
+  .hero .hero-title{margin-top:14px}
   .hero .hero-copy::after{display:none}
 }
 
@@ -911,26 +921,53 @@ html,body{max-width:100%;overflow-x:clip}
    below it both landing on --cream, a 1px line is the one thing that would
    still read as a seam. Desktop keeps the border. */
 @media (max-width:560px){
-  /* Painted on the root, not on .hero. The nav is translucent
-     (rgba(250,248,242,.82) with a backdrop blur) and sits in flow *above* the
-     hero, so a gradient starting at the hero's top edge began exactly at the
-     nav's bottom edge and drew a visible seam across the screen. On the root
-     the wash starts at the top of the page and shows through the nav instead.
+  /* A slowly drifting warm wash behind the first screen. Two soft radial
+     gradients on --sand-soft and --gold-soft, offset from each other, moving
+     on a 22s loop so the motion is ambient rather than noticeable. Peak alpha
+     is .42 on tones already close to the cream background, so the whole effect
+     stays a few percent of tint.
 
-     Sized to 100svh and not repeated, so it covers the first screen and the
-     flat --cream takes over below. The hero itself goes transparent to let it
-     through; sections further down keep their own opaque backgrounds and are
-     unaffected. */
-  html{
-    background-color:var(--cream);
-    background-image:linear-gradient(180deg,
-      rgba(231,207,163,.20) 0,
-      rgba(231,207,163,.075) 45%,
-      rgba(231,207,163,0) 100%);
-    background-repeat:no-repeat;
-    background-size:100% 100svh;
+     Two of the three are deliberately placed around 46-62% of the screen. The
+     hero content is roughly 376px in an 844px screen, and the brief needs the
+     headline high and the buttons low, which necessarily leaves a ~318px gap
+     between them. That gap cannot be designed away, so the wash has to occupy
+     it; a gradient clustered at the top left it reading as empty.
+
+     It lives on body::before at z-index:-1 rather than on .hero, for two
+     reasons. The nav is translucent, rgba(250,248,242,.82) with a backdrop
+     blur, and sits in flow *above* the hero, so anything starting at the
+     hero's top edge begins at the nav's bottom edge and draws a visible seam
+     across the screen; starting at the top of the body clears that and the
+     wash reads through the nav's blur. And transform animates on the
+     compositor, where animating background-position would not.
+
+     z-index:-1 puts it behind all content without needing to raise the nav or
+     main, which would risk breaking the sticky positioning. */
+  html{background:var(--cream)}
+  body{position:relative}
+  body::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:115svh;
+    z-index:-1;
+    pointer-events:none;
+    background:
+      radial-gradient(95% 48% at 16% 10%, rgba(231,207,163,.40), rgba(231,207,163,0) 64%),
+      radial-gradient(88% 46% at 88% 46%, rgba(240,226,204,.42), rgba(240,226,204,0) 66%),
+      radial-gradient(76% 40% at 34% 62%, rgba(231,207,163,.34), rgba(231,207,163,0) 68%);
+    animation:hero-wash 22s ease-in-out infinite alternate;
+    will-change:transform;
   }
   .hero{background:transparent;border-bottom:0}
+}
+
+@keyframes hero-wash{
+  from{transform:translate3d(-4%,0,0) scale(1.06)}
+  to{transform:translate3d(4%,-2%,0) scale(1.15)}
+}
+@media (prefers-reduced-motion:reduce){
+  body::before{animation:none}
 }
 </style>
 </head>
