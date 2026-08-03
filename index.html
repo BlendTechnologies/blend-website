@@ -836,19 +836,26 @@ html,body{max-width:100%;overflow-x:clip}
      height rather than being tuned to one. */
 
   /* message group, sits near the top of the screen */
-  /* Three equal gaps, and nothing else positions anything:
+  /* Three equal gaps, one number, identical on every phone:
        nav bottom      -> headline
        sub-headline    -> CTA group
        CTA group       -> the three small texts
-     Three auto margins split the free space equally three ways, so all three
-     gaps are the same number by construction at any screen height. Nothing
-     here is a tuned constant, which is what every previous version relied on
-     and what kept breaking when the screen height changed. */
-  .hero .hero-title{margin-top:auto}
+
+     Auto margins were equal per screen but not across screens: they split
+     whatever slack was left, so the gap came out 26px on a 568px phone and
+     171px on a 932px one. A fixed value keeps the composition identical
+     everywhere, which is the point.
+
+     The consequence is that the copy block no longer stretches to the bottom,
+     so on tall phones the three small texts sit higher and the leftover space
+     falls below them. That space is where the wash and the scroll cue live. */
+  .hero{--hero-gap:48px}
+  .hero .hero-copy{justify-content:flex-start}
+  .hero .hero-title{margin-top:var(--hero-gap)}
   .hero .hero-sub{margin-top:16px;max-width:32ch;margin-left:auto;margin-right:auto}
 
   /* action group, lands in the lower part of the screen */
-  .hero .hero-ctas{margin-top:auto;justify-content:center}
+  .hero .hero-ctas{margin-top:var(--hero-gap);justify-content:center}
   .hero .cta-alt{margin-top:16px}
 
   /* Trust row takes a fixed gap rather than a third auto margin. With three
@@ -856,7 +863,7 @@ html,body{max-width:100%;overflow-x:clip}
      is what kept holding them up at 67%. Two autos above and a fixed gap below
      pushes the action group into the lower part of the screen and still pins
      the trust row to the bottom edge. */
-  .hero .hero-foot{margin-top:auto;padding-top:0;justify-content:center}
+  .hero .hero-foot{margin-top:var(--hero-gap);padding-top:0;justify-content:center}
 
   /* The hero now fills the screen and the cards sit entirely below the fold,
      so nothing on this screen says there is more. The slack between the action
@@ -908,10 +915,11 @@ html,body{max-width:100%;overflow-x:clip}
      here too. Autos collapse on their own when space is tight; the fixed
      values that were here previously broke the centring by 4-8px. */
 
-  /* Headline keeps the auto margin from the main tier so the three gaps stay
-     equal here too. Autos shrink on their own when space is tight, which is
-     exactly what this viewport needs; the fixed value that used to be here
-     broke the equality. */
+  /* 48px x 3 does not fit a 568px screen, so the gap shrinks here and only
+     here. The three gaps stay equal to each other; they are just smaller than
+     on a normal phone. This is the "if the phone is too small" case: the rule
+     bends rather than letting anything be clipped. */
+  .hero{--hero-gap:24px}
   .hero .hero-copy::after{display:none}
 }
 
@@ -931,9 +939,13 @@ html,body{max-width:100%;overflow-x:clip}
 @media (max-width:560px){
   /* A slowly drifting warm wash behind the first screen. Two soft radial
      gradients on --sand-soft and --gold-soft, offset from each other, moving
-     on a 22s loop so the motion is ambient rather than noticeable. Peak alpha
-     is .42 on tones already close to the cream background, so the whole effect
-     stays a few percent of tint.
+     on a 19s loop. Peak alpha was .42, which on tones this close to --cream
+     produced a colour shift of only about 17 points in the blue channel and
+     roughly 2 in red: measurable but invisible on a phone in daylight, which
+     is why the movement could not be seen. Now .78/.66/.62 on --sand-soft and
+     --sand, which lands around rgb(237,222,193) against a rgb(250,248,242)
+     background, a shift of ~13/26/49. Still a wash rather than a colour, but
+     the drift now actually reads.
 
      Two of the three are deliberately placed around 46-62% of the screen. The
      hero content is roughly 376px in an 844px screen, and the brief needs the
@@ -952,7 +964,12 @@ html,body{max-width:100%;overflow-x:clip}
      z-index:-1 puts it behind all content without needing to raise the nav or
      main, which would risk breaking the sticky positioning. */
   html{background:var(--cream)}
-  body{position:relative}
+  /* body carries an opaque --cream background from the base rule. The wash is
+     a body::before at z-index:-1, which paints behind its own parent's
+     background, so it was completely hidden: the animation ran, the gradient
+     was correct, and none of it was ever on screen. html keeps the cream so
+     the page still has a background. */
+  body{position:relative;background-color:transparent}
   body::before{
     content:"";
     position:absolute;
@@ -961,18 +978,18 @@ html,body{max-width:100%;overflow-x:clip}
     z-index:-1;
     pointer-events:none;
     background:
-      radial-gradient(95% 48% at 16% 10%, rgba(231,207,163,.40), rgba(231,207,163,0) 64%),
-      radial-gradient(88% 46% at 88% 46%, rgba(240,226,204,.42), rgba(240,226,204,0) 66%),
-      radial-gradient(76% 40% at 34% 62%, rgba(231,207,163,.34), rgba(231,207,163,0) 68%);
-    animation:hero-wash 22s ease-in-out infinite alternate;
+      radial-gradient(95% 48% at 16% 10%, rgba(231,207,163,.78), rgba(231,207,163,0) 64%),
+      radial-gradient(88% 46% at 88% 46%, rgba(226,196,146,.62), rgba(226,196,146,0) 66%),
+      radial-gradient(76% 40% at 34% 64%, rgba(231,207,163,.66), rgba(231,207,163,0) 68%);
+    animation:hero-wash 19s ease-in-out infinite alternate;
     will-change:transform;
   }
   .hero{background:transparent;border-bottom:0}
 }
 
 @keyframes hero-wash{
-  from{transform:translate3d(-4%,0,0) scale(1.06)}
-  to{transform:translate3d(4%,-2%,0) scale(1.15)}
+  from{transform:translate3d(-7%,1%,0) scale(1.08)}
+  to{transform:translate3d(7%,-4%,0) scale(1.20)}
 }
 @media (prefers-reduced-motion:reduce){
   body::before{animation:none}
