@@ -744,7 +744,10 @@ html,body{max-width:100%;overflow-x:clip}
       extends, and scroll-padding-right insets the snapport so end-snapping
       stops short of the edge rather than on it. */
 @media (max-width:560px){
-  .routine-slot--meal{display:none}
+  /* The "with meal" slot is back so Vitamin D3 + K2 shows on phones. Only the
+     second item in it drops, which keeps the slot to one line and the routine
+     to four picks rather than five. */
+  .routine-item--wide{display:none}
   .report-card-pill .pill-wide{display:none}
   .report-card-pill .pill-narrow{display:inline}
 
@@ -1008,6 +1011,47 @@ html,body{max-width:100%;overflow-x:clip}
 @media (prefers-reduced-motion:reduce){
   body::before{animation:none}
 }
+
+/* ---- Phone: scoring model and FAQ compaction ----------------------------
+   Scoring model. The section ran 1.54 screens: a 171px head, five 137px cards,
+   a 153px methodology block and 112px of section padding. Target was one view,
+   the way "how it works" reads. Nothing is removed; everything is compacted.
+   The methodology block in particular was a full card with an icon, two lines
+   of copy and an arrow, which is a lot of furniture for what is a link, so on
+   phones it collapses to a single row.
+
+   FAQ. 14 collapsed rows at 22px of vertical padding each, plus 15px type,
+   came to 1.43 screens before a single answer is opened. Tighter rows and
+   slightly smaller type cut that without touching the content. */
+@media (max-width:560px){
+  .science{padding:44px 0}
+  .science-head{margin-bottom:22px}
+  .science-head .h2{font-size:26px;line-height:1.15}
+  .science-head .lead{font-size:14px;line-height:1.5;margin-top:8px}
+  .science-stats{gap:9px}
+
+  .sci-stat{padding:12px 14px;border-radius:12px}
+  .sci-stat .sci-n{font-size:27px;line-height:1}
+  .sci-stat .sci-label{margin-top:7px;font-size:13px}
+  /* The per-card description is the only thing left that can go. Five of them
+     at ~32px is 160px, which is what stands between 1.20 screens and one view.
+     The number and its label carry the claim; the description restates it. */
+  .sci-stat .sci-sub{display:none}
+
+  /* methodology becomes one compact row rather than a card */
+  .sci-method{padding:12px 14px;gap:10px;margin-top:2px;border-radius:12px}
+  .sci-method-icon{display:none}
+  .sci-method-left{gap:0}
+  .sci-method-copy .sci-method-label{font-size:13.5px}
+  .sci-method-copy .sci-method-sub{display:none}
+  .sci-method-arrow{font-size:12.5px}
+
+  /* FAQ */
+  .faq-item > summary{padding:11px 4px;font-size:13.5px;gap:12px}
+  .faq-item > summary::after{width:8px;height:8px;margin-top:6px}
+  .faq-item[open] > summary::after{margin-top:10px}
+  .faq-item .faq-answer{padding:0 4px 16px;font-size:13.5px;line-height:1.6}
+}
 </style>
 </head>
 <body>
@@ -1117,7 +1161,7 @@ html,body{max-width:100%;overflow-x:clip}
           <li>A flexible basket they can edit before checkout</li>
         </ul>
         <div class="report-card" aria-hidden="true">
-          <div class="report-card-head"><span class="report-card-title">Your daily routine</span><span class="report-card-pill"><span class="pill-wide">5 picks</span><span class="pill-narrow">3 picks</span></span></div>
+          <div class="report-card-head"><span class="report-card-title">Your daily routine</span><span class="report-card-pill"><span class="pill-wide">5 picks</span><span class="pill-narrow">4 picks</span></span></div>
           <div class="routine">
             <div class="routine-slot">
               <span class="routine-when">Morning</span>
@@ -1129,7 +1173,7 @@ html,body{max-width:100%;overflow-x:clip}
               <span class="routine-when">With meal</span>
               <div class="routine-items">
                 <div class="routine-item"><span class="routine-name">Vitamin D3 + K2</span><span class="routine-qty">1 serving</span><span class="routine-tag">Essential</span></div>
-                <div class="routine-item"><span class="routine-name">Prebiotic (FOS/GOS)</span><span class="routine-qty">1 serving</span></div>
+                <div class="routine-item routine-item--wide"><span class="routine-name">Prebiotic (FOS/GOS)</span><span class="routine-qty">1 serving</span></div>
               </div>
             </div>
             <div class="routine-slot">
