@@ -125,6 +125,33 @@
     .hero .statgrid{grid-template-columns:1fr}}
 
   /* Persona switcher, 3 equal-width name-only tabs */
+  
+  /* ---- Motion, steps 1 and 2 only -------------------------------------
+     Step 3 is the report itself and stays still; the point of these two is
+     the machinery, so they animate. Stat cards rise in on a stagger and the
+     numbers count up, which is the claim the section is making. Emma's answer
+     rows come in one after another, so it reads like the engine ingesting the
+     quiz rather than a table appearing.
+     All of it is opt-out under prefers-reduced-motion, and the JS sets the
+     final state directly in that case rather than relying on the animation. */
+  /* Content is hidden only once JS confirms it is running (html.js-motion),
+     so a JS failure leaves everything visible rather than blank. .motion-done
+     is the belt and braces: transitions do not progress in a tab that is not
+     rendering, so without it a background-tab load left the stat figures and
+     every answer row stuck at opacity 0. */
+  .js-motion .stat{opacity:0;transform:translateY(10px)}
+  .js-motion .stat.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.22,.61,.36,1)}
+  .statnum{font-variant-numeric:tabular-nums}
+  .js-motion .arow{opacity:0;transform:translateY(6px)}
+  .js-motion .arow.in{opacity:1;transform:none;transition:opacity .34s ease,transform .34s cubic-bezier(.22,.61,.36,1)}
+  .panel[data-swapping="1"] h2,
+  .panel[data-swapping="1"] .persona-subline,
+  .panel[data-swapping="1"] .atable{opacity:.25;transition:opacity .12s ease}
+  .motion-done .stat,.motion-done .arow{opacity:1!important;transform:none!important;transition:none!important}
+  @media (prefers-reduced-motion:reduce){
+    .js-motion .stat,.js-motion .arow{opacity:1;transform:none;transition:none}
+  }
+  .step{scroll-margin-top:88px}
   .persona-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;max-width:560px;margin-left:auto;margin-right:auto}
   .persona-tab{padding:12px 18px;border:1px solid var(--track);border-radius:12px;background:var(--surface);cursor:pointer;text-align:center;transition:border-color .18s,background .18s,box-shadow .18s;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
   .persona-tab:hover{border-color:var(--ink)}
@@ -411,12 +438,72 @@ const STATS = {
   }));
 })();
 
+
+/* ---- Step 1 and 2 motion ------------------------------------------------
+   Deliberately driven by scroll position and explicit calls rather than
+   IntersectionObserver: IO callbacks are delivered on the rendering pipeline
+   and never fire in a non-rendering tab, which makes them impossible to verify
+   and easy to ship dead. */
+var REDUCE = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.documentElement.classList.add('js-motion');
+function settle(scope, ms){
+  setTimeout(function(){ scope.classList.add('motion-done'); }, ms);
+}
+
+function revealStats(){
+  var stats = document.querySelectorAll('#step1 .stat');
+  if(REDUCE){ stats.forEach(function(s){ s.classList.add('in'); }); countUpAll(true);
+    document.getElementById('step1').classList.add('motion-done'); return; }
+  stats.forEach(function(s,i){ setTimeout(function(){ s.classList.add('in'); }, 70*i); });
+  setTimeout(countUpAll, 220);
+  settle(document.getElementById('step1'), 70*stats.length + 800);
+}
+
+function countUpAll(instant){
+  document.querySelectorAll('#step1 .statnum').forEach(function(el){
+    if(el.dataset.done) return;
+    el.dataset.done = '1';
+    var raw = el.textContent.trim();
+    var m = raw.match(/^([^\d]*)([\d,]+)(.*)$/);
+    if(!m) return;
+    var pre = m[1], target = parseInt(m[2].replace(/,/g,''), 10), post = m[3];
+    if(!isFinite(target) || target === 0 || instant){ el.textContent = raw; return; }
+
+    /* Timer-driven, not requestAnimationFrame. rAF does not fire while the tab
+       is not rendering, which left every figure frozen at "0+" until the tab
+       was focused: someone opening this in a background tab would come back to
+       "0+ Products cataloged". The trailing timeout guarantees the real value
+       is written whatever happens to the tween. */
+    var dur = 900, steps = 40, i = 0;
+    function fmt(n){ return pre + n.toLocaleString('en-GB') + post; }
+    el.textContent = fmt(0);
+    var iv = setInterval(function(){
+      i++;
+      var p = Math.min(1, i / steps);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(target * eased));
+      if(p >= 1) clearInterval(iv);
+    }, dur / steps);
+    setTimeout(function(){ clearInterval(iv); el.textContent = raw; }, dur + 150);
+  });
+}
+
+function revealAnswers(){
+  var rows = document.querySelectorAll('#step2 .arow');
+  if(REDUCE){ rows.forEach(function(r){ r.classList.add('in'); });
+    document.getElementById('step2').classList.add('motion-done'); return; }
+  document.getElementById('step2').classList.remove('motion-done');
+  rows.forEach(function(r,i){ setTimeout(function(){ r.classList.add('in'); }, 38*i); });
+  settle(document.getElementById('step2'), 38*rows.length + 700);
+}
+
 function goStep(n) {
   for (let i = 1; i <= 3; i++) {
     document.getElementById('step' + i).classList.toggle('on', i <= n);
     document.getElementById('sd' + i).classList.toggle('on', i <= n);
   }
   document.getElementById('step' + n).scrollIntoView({behavior: 'smooth', block: 'start'});
+  if (n >= 2) revealAnswers();
 }
 function setTheme(bg, surface, ink, muted, accent, soft, track) {
   const r = document.documentElement.style;
@@ -458,6 +545,7 @@ function renderPersona(id) {
   document.getElementById('atable').innerHTML = Object.entries(p.quiz_answers).map(([k,v]) =>
     `<div class="arow"><div class="ak">${esc(k)}</div><div class="av">${esc(v)}</div></div>`
   ).join('');
+  if (document.getElementById('step2').classList.contains('on')) revealAnswers();
 
   document.getElementById('profile-pills').innerHTML =
     p.profile_pills.map(v => `<span class="pill">${esc(v)}</span>`).join('');
@@ -539,6 +627,10 @@ function initPersonaTabs() {
 
 initPersonaTabs();
 renderPersona('emma');
+/* Step 1 is visible on load, so its reveal runs immediately rather than
+   waiting on a scroll trigger. Step 2's runs from goStep and from a persona
+   swap. */
+revealStats();
 
 </script>
 </body></html>
