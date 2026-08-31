@@ -288,7 +288,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .gm-sub{font-size:12px;padding:4px 11px;border-radius:999px;background:rgba(10,10,10,.045);border:0;color:var(--muted);font-weight:400}
 @media(max-width:860px){.gm{padding:64px 0}.gm-panel{padding:0 20px}.gm-chip{padding:11px 16px;font-size:13px}.gm-sub{padding:7px 13px;font-size:12.5px}
   .gm-rails{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}}
-@media(prefers-reduced-motion:reduce){.gm-rail{animation:none}}
+@media(prefers-reduced-motion:reduce){.gm-rail.a,.gm-rail.b{animation:none}}
 .personas-cta{margin-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .persona-body{padding:4px 22px 22px;display:flex;flex-direction:column;flex:1}
 .persona-insights{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
@@ -480,7 +480,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
  
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
-   Desktop and tablet are untouched. Below this breakpoint, the
+   Desktop is untouched. Tablet (761-860) swipes .personas and .pricing
+   only; see that block below. Below this breakpoint, the
    five card-row sections (hero, steps, split, personas, pricing)
    become horizontally-snapping swipe carousels with edge bleed.
    ============================================================ */
@@ -568,7 +569,46 @@ html,body{max-width:100%;overflow-x:clip}
    they stay 1-up but the rail is capped and centred instead of stretched. */
 @media (min-width:761px) and (max-width:860px){
   .split{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-  .personas,.pricing{max-width:620px;margin-left:auto;margin-right:auto}
+  /* .personas and .pricing were capped at 620px and left 1-up here. That kept
+     the cards a sane width but made them the two tallest things on the page:
+     measured at 834px they ran 1030px and 1416px against 344px and 471px on
+     desktop, which is 1631px of the 2953px that made an iPad scroll further
+     than a phone. They swipe here instead, same pattern as the phone.
+     45% lands each card at 317-346px, near the phone's 335px, so every
+     card-internal fix already made for phones carries over untouched, and two
+     cards plus a peek fit the wider viewport. .split stays 2-up: it is two
+     cards, it goes 2-up cleanly, and it was never the problem. */
+  .personas,
+  .pricing{
+    display:flex;
+    flex-direction:row;
+    grid-template-columns:none;
+    max-width:none;
+    height:auto;
+    overflow-x:auto;
+    overflow-y:visible;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:32px;
+    scroll-padding-right:32px;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    gap:14px;
+    margin-left:-32px;
+    margin-right:-32px;
+    padding:6px 0 26px 32px;
+    scrollbar-width:none;
+  }
+  .personas::-webkit-scrollbar,
+  .pricing::-webkit-scrollbar{display:none}
+  .persona,
+  .tier{
+    flex:0 0 45%;
+    width:45%;
+    scroll-snap-align:start;
+    min-width:0;
+  }
+  .personas>:last-child,
+  .pricing>:last-child{scroll-snap-align:end;margin-right:32px}
 }
 
 /* ---- Phone polish: hero density + card consistency ----------------------
@@ -675,31 +715,37 @@ html,body{max-width:100%;overflow-x:clip}
   .personas>:last-child,
   .pricing>:last-child{scroll-snap-align:end}
 
-  /* deck affordance */
-  .deck-dots{
-    display:flex;
-    justify-content:center;
-    gap:7px;
-    margin-top:2px;
-    padding:0;
-  }
-  .deck-dots button{
-    width:7px;height:7px;
-    padding:0;border:0;border-radius:999px;
-    background:var(--ink);
-    opacity:.18;
-    transition:opacity .2s ease,transform .2s ease;
-    cursor:pointer;
-  }
-  .deck-dots button[aria-current="true"]{opacity:.75;transform:scale(1.25)}
-  /* the dot row is the visible target; the tap area around it stays 44px */
-  .deck-dots button::before{
-    content:"";position:absolute;
-    width:32px;height:32px;
-    margin:-13px 0 0 -13px;
-  }
-  .deck-dots button{position:relative}
 }
+
+/* Deck affordance. Deliberately NOT media-gated: the dots only exist when the
+   deck script builds them, and it builds them at any width where a deck really
+   overflows (<=860). Gating the styling at 760 left the tablet decks with dots
+   in the DOM rendering as unstyled block buttons, so a carousel with no visible
+   affordance at all. Nothing else targets .deck-dots, so lifting it out of the
+   query changes no cascade. */
+.deck-dots{
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  margin-top:2px;
+  padding:0;
+}
+.deck-dots button{
+  width:7px;height:7px;
+  padding:0;border:0;border-radius:999px;
+  background:var(--ink);
+  opacity:.18;
+  transition:opacity .2s ease,transform .2s ease;
+  cursor:pointer;
+}
+.deck-dots button[aria-current="true"]{opacity:.75;transform:scale(1.25)}
+/* the dot row is the visible target; the tap area around it stays 44px */
+.deck-dots button::before{
+  content:"";position:absolute;
+  width:32px;height:32px;
+  margin:-13px 0 0 -13px;
+}
+.deck-dots button{position:relative}
 
 /* Bleed has to equal the .wrap gutter at each step or the deck hangs off the
    edge. 561-760 keeps 32px; below that the gutter narrows and so does this. */
@@ -1754,10 +1800,10 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
 /* ---- Phone card decks: dots + nav CTA visibility ------------------------
    Decks only read as swipeable if something says so. One dot per card, current
    dot tracked from scrollLeft, tapping a dot scrolls to that card.
-   Built only when the deck rule is actually active (<=760) and only when the
+   Built only when the deck rule is actually active (<=860) and only when the
    deck really overflows, so a deck that happens to fit gets no dots. */
 (function(){
-  var MQ = window.matchMedia('(max-width:760px)');
+  var MQ = window.matchMedia('(max-width:860px)');
   var DECKS = ['.hero-stage','.split','.personas','.pricing'];
   var built = [];
 
