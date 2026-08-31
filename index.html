@@ -176,6 +176,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .quiz,.results{position:static;width:100%}
 }
 .section{padding:112px 0}
+/* Nine of twelve sections ran an identical 112px top and bottom while content
+   filled only 54-76% of each. Emphasis needs contrast: with every section
+   spaced the same, none of them reads as more important than the rest.
+   Supporting sections (integrations, FAQ, roadmap) tighten; the sections
+   carrying the argument keep 112. Alignment is untouched. */
+.section--tight{padding:80px 0}
 .section-head{max-width:680px;margin:0 auto 64px;text-align:center}
 .section-head .eyebrow{margin-bottom:16px;display:inline-block}
 .section-head .h2{margin-bottom:18px}
@@ -1314,7 +1320,7 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </section>
-<section class="section section-cream">
+<section class="section section--tight section-cream">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Integrations</span><h2 class="h2">Import your catalog in minutes.</h2></div>
     <div class="int-grid">
@@ -1370,7 +1376,7 @@ html,body{max-width:100%;overflow-x:clip}
 </section>
 <section class="section section-cream" id="pricing">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Pricing</span><h2 class="h2">Simple plans. Cancel anytime.</h2><p class="lead">15-day free trial on every plan.</p></div>
+    <div class="section-head"><h2 class="h2">Simple plans. Cancel anytime.</h2><p class="lead">15-day free trial on every plan.</p></div>
     <div class="pricing-controls">
       <div class="billing-toggle">
         <button id="billing-monthly" class="active" type="button">Monthly</button>
@@ -1417,7 +1423,7 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="pricing-foot">15-day free trial on every plan.<details><summary>What counts as a response?</summary><p>One response = one customer who completes a quiz end-to-end. Abandoned quizzes, partial submissions, and repeat responses from the same user within 24 hours do not count.</p></details></div>
   </div>
 </section>
-<section class="section section-cream" id="faq">
+<section class="section section--tight section-cream" id="faq">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Frequently asked questions</span>
@@ -1484,7 +1490,7 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </section>
-<section class="section section-subtle">
+<section class="section section--tight section-subtle">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Roadmap</span><h2 class="h2">Today health. Next, everything else.</h2><p class="lead">Live for wellness brands now. Same engine, same schema, same analytics, ready for the next vertical.</p></div>
     <div class="vertical-grid">
@@ -1498,7 +1504,6 @@ html,body{max-width:100%;overflow-x:clip}
 </section>
 <section class="closer" id="contact">
   <div class="wrap">
-    <span class="eyebrow">Ready when you are</span>
     <h2 class="h1" style="margin-top:18px">Ship your first quiz this week.</h2>
     <p class="lead">Try the live demo, or book 15 minutes with us.</p>
     <div class="closer-ctas">
