@@ -177,6 +177,21 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 }
 .section{padding:112px 0}
 .section-head{max-width:680px;margin:0 auto 64px;text-align:center}
+/* Eight of eight section heads were centred with an eyebrow and 112px of padding
+   above and below. Uniform rhythm reads as machine-assembled: with every section
+   weighted identically nothing is emphasised, and the eye stops finding anchors
+   after the hero. The two sections that already broke the pattern (the
+   left-aligned hero, the dark left-aligned science block) were the two that read
+   as designed, so these modifiers extend that rather than import a new style.
+   The rule: a head's alignment matches the shape of what it introduces. Centred
+   over symmetric card grids (split, personas, pricing, closer); left over
+   sequential or list content (the 5-step row, the FAQ list, the roadmap). */
+.section-head--left{text-align:left;max-width:760px;margin-left:0;margin-right:0}
+.section--tight{padding:80px 0}
+/* A left head over a centred block is worse than either alone: the FAQ head sat
+   at x=152 while .faq-list sat at x=340, sharing neither a left edge nor a
+   centre. The list moves to the head's edge so the pair reads as one column. */
+#faq .faq-list{margin-left:0;margin-right:0}
 .section-head .eyebrow{margin-bottom:16px;display:inline-block}
 .section-head .h2{margin-bottom:18px}
 .section-cream{background:var(--cream)}
@@ -1182,7 +1197,7 @@ html,body{max-width:100%;overflow-x:clip}
 </section>
 <section class="section section-cream" id="how">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">How it works</span><h2 class="h2">Your catalog. Their personalized plan.</h2></div>
+    <div class="section-head section-head--left"><span class="eyebrow">How it works</span><h2 class="h2">Your catalog. Their personalized plan.</h2></div>
     <div class="steps">
       <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Upload catalog</h3><p>Import a CSV or connect Shopify, we automatically standardize your data.</p></div></div>
       <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Build your quiz</h3><p>Start from a proven template. Customize format, design, and copy, no code needed.</p></div></div>
@@ -1314,7 +1329,7 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </section>
-<section class="section section-cream">
+<section class="section section--tight section-cream">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Integrations</span><h2 class="h2">Import your catalog in minutes.</h2></div>
     <div class="int-grid">
@@ -1370,7 +1385,7 @@ html,body{max-width:100%;overflow-x:clip}
 </section>
 <section class="section section-cream" id="pricing">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Pricing</span><h2 class="h2">Simple plans. Cancel anytime.</h2><p class="lead">15-day free trial on every plan.</p></div>
+    <div class="section-head"><h2 class="h2">Simple plans. Cancel anytime.</h2><p class="lead">15-day free trial on every plan.</p></div>
     <div class="pricing-controls">
       <div class="billing-toggle">
         <button id="billing-monthly" class="active" type="button">Monthly</button>
@@ -1417,9 +1432,9 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="pricing-foot">15-day free trial on every plan.<details><summary>What counts as a response?</summary><p>One response = one customer who completes a quiz end-to-end. Abandoned quizzes, partial submissions, and repeat responses from the same user within 24 hours do not count.</p></details></div>
   </div>
 </section>
-<section class="section section-cream" id="faq">
+<section class="section section--tight section-cream" id="faq">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head section-head--left">
       <span class="eyebrow">Frequently asked questions</span>
       <h2 class="h2">About Blend's personalization engine</h2>
       <p class="lead">Short answers to what product brands ask before getting started.</p>
@@ -1484,9 +1499,9 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </section>
-<section class="section section-subtle">
+<section class="section section--tight section-subtle">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Roadmap</span><h2 class="h2">Today health. Next, everything else.</h2><p class="lead">Live for wellness brands now. Same engine, same schema, same analytics, ready for the next vertical.</p></div>
+    <div class="section-head section-head--left"><span class="eyebrow">Roadmap</span><h2 class="h2">Today health. Next, everything else.</h2><p class="lead">Live for wellness brands now. Same engine, same schema, same analytics, ready for the next vertical.</p></div>
     <div class="vertical-grid">
       <article class="vtile"><div class="vicon" style="background:var(--gold-soft)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12a5 5 0 0 1 10 0c0 3-3 5-5 9-2-4-5-6-5-9z"/><circle cx="12" cy="12" r="2"/></svg></div><div class="vname">Health</div><div class="vnote">Supplements, vitamins, wellness</div><span class="vbadge vbadge-live">LIVE</span></article>
       <article class="vtile"><div class="vicon" style="background:#FDE8EE"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7 6 11a6 6 0 1 1-12 0c0-4 3-7 6-11z"/></svg></div><div class="vname">Beauty</div><div class="vnote">Skincare, haircare, cosmetics</div><span class="vbadge vbadge-soon">Q4 2026</span></article>
@@ -1498,7 +1513,6 @@ html,body{max-width:100%;overflow-x:clip}
 </section>
 <section class="closer" id="contact">
   <div class="wrap">
-    <span class="eyebrow">Ready when you are</span>
     <h2 class="h1" style="margin-top:18px">Ship your first quiz this week.</h2>
     <p class="lead">Try the live demo, or book 15 minutes with us.</p>
     <div class="closer-ctas">
