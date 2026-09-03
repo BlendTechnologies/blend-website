@@ -1420,7 +1420,7 @@ html,body{max-width:100%;overflow-x:clip}
         <a href="mailto:contact@blend-technologies.com" class="tier-cta dark">Talk to us</a>
       </div>
     </div>
-    <div class="pricing-foot">15-day free trial on every plan. Card required up front, nothing charged until it ends, cancel any time before.<details><summary>What counts as a response?</summary><p>One response = one customer who completes a quiz end-to-end. Abandoned quizzes, partial submissions, and repeat responses from the same user within 24 hours do not count.</p></details></div>
+    <div class="pricing-foot">15-day free trial on every plan. Card required up front, nothing charged until it ends, cancel any time before. VAT is added at checkout based on your country; business customers can enter a VAT number for reverse charge.<details><summary>What counts as a response?</summary><p>One response = one customer who completes a quiz end-to-end. Abandoned quizzes, partial submissions, and repeat responses from the same user within 24 hours do not count.</p></details></div>
   </div>
 </section>
 <section class="section section--tight section-cream" id="faq">
@@ -1623,12 +1623,20 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const error = urlParams.get('error');
-    if (error === 'unknown_plan') {
+    // Checkout sends people back here with a code when something goes wrong.
+    // Short, calm copy per code; the query string is stripped below rather than
+    // echoed back into the page.
+    const ERROR_MESSAGES = {
+      unknown_plan:     'That checkout link was not valid. Please choose a plan below.',
+      plan_unavailable: 'That plan is not on sale right now. Please choose another below.',
+      unavailable:      'Checkout is temporarily unavailable. Please try again in a minute.'
+    };
+    if (ERROR_MESSAGES[error]) {
       const pricingSection = document.getElementById('pricing');
       if (pricingSection) {
         const msg = document.createElement('div');
         msg.style.cssText = 'background:#FEF5F1;border:1px solid #D8614A;color:#A8422F;padding:12px 20px;border-radius:8px;margin:0 auto 24px;max-width:600px;font-size:13.5px;text-align:center;';
-        msg.textContent = 'The selected plan is not available. Please choose a plan below.';
+        msg.textContent = ERROR_MESSAGES[error];
         pricingSection.querySelector('.wrap').insertBefore(msg, pricingSection.querySelector('.pricing-controls'));
         window.history.replaceState({}, '', window.location.pathname);
       }
