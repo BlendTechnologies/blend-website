@@ -1,6 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-393.14 0 2733.8 2733.8">
-  <g transform="translate(0 2104.4) scale(1 -1)" fill="#0A0A0A">
-    <path d="M165 0V1490H714Q873 1490 977 1438Q1081 1386 1132 1297.5Q1183 1209 1183 1099Q1183 1006 1149 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197Q1134 106 1023 53Q912 0 738 0ZM393 196H715Q875 196 945 258Q1015 320 1015 412Q1015 484 979.5 542Q944 600 879 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828 874Q889 903 924 956Q959 1009 959 1080Q959 1172 895 1233.5Q831 1295 698 1295H393Z"/>
-    <g transform="translate(1324.52 0)"><path d="M311 -15Q249 -15 206 28Q163 71 163 132Q163 194 206 236.5Q249 279 311 279Q372 279 415 236.5Q458 194 458 132Q458 71 415 28Q372 -15 311 -15Z"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Blend">
+  <!--
+    The browser-tab mark. One of a colour-inverted PAIR:
+
+      apps/blend-website/favicon.svg  white ground, black B.   (the site)
+      apps/webapp/app/icon.svg        black ground, white B.   (the app)
+
+    THE GEOMETRY OF THE TWO FILES MUST STAY IDENTICAL. Only the two fill
+    values differ. They were not identical before 2026-09-04 and it showed:
+    this file had no ground at all (a bare black glyph on transparency,
+    which disappears against a dark tab strip), its viewBox was 2733.8
+    square against the app's 512, and its full stop sat at the letterform's
+    natural advance while the app's had been nudged 126 units closer. Side
+    by side they read as two different logos.
+
+    Canonical values, so a future edit can check itself:
+
+      viewBox        0 0 512 512
+      ground         rect 512x512, rx 112
+      glyph group    translate(61.9 24.4) scale(0.1993)
+      full stop      translate(1324.52 0)   the B's own advance width,
+                                            i.e. where a font would put it
+      resulting ink  322.3 x 300, centred, 94.8 left/right, 106 top/bottom
+
+    Glyph paths are lifted verbatim from the wordmark in index.html. Not
+    redrawn, not approximated with a font.
+
+    favicon.ico, favicon-16/32/48.png and apple-touch-icon.png are all
+    rasterized FROM this file, so they inherit any change made here.
+  -->
+  <rect width="512" height="512" rx="112" fill="#FFFFFF"/>
+  <g transform="translate(61.9 24.4) scale(0.1993)" fill="#0A0A0A">
+    <g transform="translate(0 1899.6) scale(1 -1)">
+      <path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/>
+      <g transform="translate(1324.52 0)">
+        <path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/>
+      </g>
+    </g>
   </g>
 </svg>
