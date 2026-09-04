@@ -392,8 +392,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-from{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px;vertical-align:baseline}
 .tier-per{font-size:13.5px;color:var(--muted);font-weight:400;margin-left:4px}
 .tier-vat{font-size:11.5px;color:var(--muted);font-weight:400;margin-left:6px}
-.tier-custom{min-height:48px;display:flex;align-items:center}
+.tier-custom{min-height:40px;display:flex;align-items:center}  /* 40, not 48: the price row on Starter and Pro is 40px, and the extra 8px
+     here pushed Enterprise's blurb and feature list 9px below its neighbours.
+     Three cards in a row that do not share a baseline read as a bug. */
 .tier-custom-label{font-size:16px;color:var(--ink-60);font-weight:500}
+/* Enterprise has no figure to show, and 16px text in the slot where the other
+   two cards carry a 38px figure made the card look unfinished rather than
+   deliberately different. The mark is sized to match .tier-price so all three
+   cards share a baseline. stroke-width 2.5 keeps it at the same optical weight
+   as a 600-weight numeral; 1.5 looked spindly beside one. */
+.tier-mark{display:flex;align-items:flex-end;gap:11px;height:40px}
+.tier-mark svg{width:38px;height:38px;flex:0 0 auto;color:var(--ink)}
+.tier-mark-note{font-size:13.5px;color:var(--muted);font-weight:400}
 .tier-blurb{font-size:13.5px;color:var(--ink-80);margin:0;min-height:44px;line-height:1.5}
 .tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0}
 .tier-list li{display:flex;gap:10px;align-items:center;font-size:13.5px;line-height:1.5;color:var(--ink-80)}
@@ -416,7 +426,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:560px){.billing-savings{position:static;transform:none;margin-top:8px;margin-left:0}}
 .tier-annual{display:block;font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
 .pricing-foot{text-align:center;margin-top:32px;font-size:13.5px;color:var(--muted)}
-.pricing-foot details{display:inline-block;margin-left:8px}
+.pricing-foot details{display:block;margin-left:0;margin-top:8px}  /* Its own line, not trailing the trial+VAT sentence. That sentence now runs
+     to two lines, and a toggle tacked onto the end of it read as part of the
+     prose rather than as a control. */
 .pricing-foot summary{cursor:pointer;color:var(--ink);font-weight:500;border-bottom:1px solid var(--line);padding-bottom:1px;display:inline;list-style:none}
 .pricing-foot summary::-webkit-details-marker{display:none}
 .pricing-foot details[open] summary{border-bottom-color:var(--ink)}
@@ -1413,7 +1425,10 @@ html,body{max-width:100%;overflow-x:clip}
       <div class="tier tier-enterprise" data-tier="enterprise">
         <div class="tier-name">Enterprise</div>
         <div class="tier-custom">
-          <span class="tier-custom-label">Custom pricing</span>
+          <span class="tier-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 2.6 7.9 12 13l9.4-5.1L12 2.8Z"/><path d="M2.6 12.4 12 17.5l9.4-5.1"/><path d="M2.6 16.6 12 21.7l9.4-5.1"/></svg>
+            <span class="tier-mark-note">Custom pricing</span>
+          </span>
         </div>
         <p class="tier-blurb">For brands at scale that need hands-on setup and unlimited throughput.</p>
         <ul class="tier-list"><li>Everything in Pro</li><li>Unlimited quiz responses</li><li>Unlimited products</li><li>Dedicated onboarding</li><li>Priority support</li><li>Dedicated personalization</li></ul>
