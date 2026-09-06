@@ -185,17 +185,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       </ul>
 
       <h2>4. Types of personal data</h2>
-      <p>Special category data under Article 9:</p>
+      <p>Blend Technologies processes the following categories of end-user personal data. All items listed as &ldquo;Special category&rdquo; below are processed under an Article 9(2)(a) explicit-consent condition captured by the Controller before submission.</p>
+      <p><strong>Special category data (Article 9):</strong></p>
       <ul>
-        <li>Demographics (age, gender, ethnicity)</li>
-        <li>Biometrics (height, weight)</li>
-        <li>Diagnosed medical conditions</li>
-        <li>Current medications</li>
-        <li>Pregnancy / breastfeeding status</li>
-        <li>Symptoms (sleep, GI, mood, cognitive, hair / skin / nails)</li>
-        <li>Lifestyle data (smoking, sun exposure, sport practice, diet)</li>
+        <li><strong>Health data</strong> &mdash; biometrics (height, weight); diagnosed medical conditions; current medications; pregnancy or breastfeeding status; symptoms (sleep, GI, mood, cognitive, hair / skin / nails).</li>
+        <li><strong>Racial or ethnic origin</strong> &mdash; self-reported ethnicity, used as an input to nutrient-requirement modelling (nutrient reference values differ between population groups).</li>
       </ul>
-      <p>Identifiers: user email (optional), quiz submission ID, B2B client (tenant) ID.</p>
+      <p><strong>Other personal data:</strong></p>
+      <ul>
+        <li>Demographics &mdash; age, gender.</li>
+        <li>Lifestyle &mdash; diet, smoking, sun exposure, sport practice.</li>
+      </ul>
+      <p><strong>Identifiers:</strong> user email (optional), quiz submission ID, Controller (tenant) ID.</p>
 
       <h2>5. Categories of data subjects</h2>
       <p>End users of the Controller's white-label quiz.</p>
@@ -233,7 +234,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
       <p><strong>Controller opt-out:</strong> the Controller may, on <strong>30 days' written notice</strong>, opt out of contributing pseudonymised records to the aggregate dataset. Debugging retention may continue for the opted-out Controller's end users where necessary for service delivery; existing pseudonymised records from the opted-out Controller in the aggregate dataset are purged within 30 days.</p>
 
-      <p><strong>Sub-processor (secondary processing):</strong> Render (US region; covered by EU-US Data Privacy Framework certification and/or Standard Contractual Clauses).</p>
+      <p><strong>Sub-processor (secondary processing):</strong> Render &mdash; personalization (EU region, Frankfurt). See &sect;9 for the full sub-processor list and transfer mechanisms.</p>
 
       <p><strong>DPIA:</strong> the Processor has completed a Data Protection Impact Assessment under GDPR Article 35 for this secondary processing. Available to the Controller on written request.</p>
 
@@ -242,7 +243,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <h2>7. Controller obligations</h2>
       <p>The Controller warrants that:</p>
       <ul>
-        <li>An Article 9(2)(a) lawful basis (explicit consent) has been obtained before the data is transmitted to the Processor's API.</li>
+        <li>A valid Article 6 lawful basis and an Article 9 condition (typically Article 9(2)(a) explicit consent) have been obtained before the data is transmitted to the Processor's API.</li>
         <li>A privacy notice covering the disclosures in §3-4 above is presented to the data subject before consent.</li>
         <li>The Controller responds to data subject requests (access, rectification, erasure, portability) and forwards Processor-side actions (e.g. erasure of any persisted submissions) to the Processor within 72 hours of receipt.</li>
         <li>The recommendation result is displayed to the data subject with a "not medical advice" disclaimer and prominent surfacing of any <code>Verification: Caution</code> flags returned by the API.</li>
@@ -251,7 +252,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <h2>8. Processor obligations</h2>
       <ul>
         <li>Process Personal Data only on the documented instructions of the Controller.</li>
-        <li>Implement appropriate technical and organisational measures (TLS, per-tenant API keys with scope, rate limiting, encrypted disk on Render, atomic writes for catalogue files, audit logging via the observability layer).</li>
+        <li>Implement appropriate technical and organisational measures, including: encryption in transit (TLS 1.3) and at rest (AES-256); per-tenant API keys with scope; row-level security policies scoped to the Controller's tenant ID; rate limiting; and audit logging. A full description of measures is available on request under &sect;12 (Audit).</li>
         <li>Notify the Controller of any Personal Data breach without undue delay and in any case within 72 hours after becoming aware.</li>
         <li>Assist the Controller with data subject rights (access, erasure, portability) within the contractual SLA.</li>
         <li>Sub-processors disclosed in §9 below; new sub-processors require prior written notice.</li>
@@ -322,7 +323,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <p>Cross-border transfer mechanism: UK International Data Transfer Agreement (IDTA) or UK Addendum to EU Standard Contractual Clauses for transfers from the UK; EU Standard Contractual Clauses (Commission Implementing Decision 2021/914) for transfers from the EEA; EU-US Data Privacy Framework certification where the receiving sub-processor holds current certification (verified annually at <a href="https://www.dataprivacyframework.gov/s/" target="_blank" rel="noopener">dataprivacyframework.gov</a>). Transfer Impact Assessments for UK→US and EEA→US transfers are maintained internally and available to the Controller on written request.</p>
 
       <h2>10. Data subject rights — automated decision-making</h2>
-      <p>The Processor surfaces the algorithm logic at <code>GET /privacy/notice</code>. Right to explanation is satisfied by the published parity status (<code>PARITY_STATUS.md</code>) and the verbose <code>/recommend/v2</code> endpoint that returns each pipeline stage's intermediate output. Right to human intervention: the Controller may add a manual-review step on top of the recommendation result before display.</p>
+      <p>The Processor&rsquo;s recommendation algorithm is proprietary. To satisfy the transparency and right-to-explanation obligations under GDPR Articles 13, 15, and 22, the Processor provides:</p>
+      <ul>
+        <li><strong>Plain-language logic summary</strong> &mdash; published in the Processor&rsquo;s privacy policy at <a href="privacy.html#automated-decisions">blend-technologies.com/privacy</a> &sect;11 (Automated Decision-Making). Explains the categories of input considered (nutrient targets, health profile, safety checks, the Controller&rsquo;s product catalogue) and the safety gates applied (contraindications, Upper Limits, medication interactions where documented).</li>
+        <li><strong>Per-recommendation breakdown</strong> &mdash; each end user can view a &ldquo;Why this recommendation?&rdquo; panel on their results page, showing the nutrient gaps identified from their specific quiz answers and the safety checks that were applied.</li>
+        <li><strong>Detailed methodology report</strong> &mdash; available to the Controller on written request to <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a>, and (on the Controller&rsquo;s forwarded request) to supervisory authorities or the data subject&rsquo;s authorised representative. The underlying algorithm itself is not published.</li>
+        <li><strong>Right to human intervention (Article 22(3))</strong> &mdash; every end user can request human review of their recommendation via a &ldquo;Request human review&rdquo; button on the results page. Requests are routed to the Controller&rsquo;s designated reviewer (nutritionist, pharmacist, or trained equivalent), who contacts the end user within the SLA stated to them (default 48 hours) to discuss, adjust, or contest the recommendation. This mechanism satisfies the &ldquo;human intervention&rdquo;, &ldquo;express point of view&rdquo;, and &ldquo;contest the decision&rdquo; requirements of Article 22(3).</li>
+        <li><strong>No decision with legal or similarly significant effects</strong> &mdash; the recommendation is advisory. It does not determine eligibility for services, insurance, employment, or any comparable status. The Controller must display the &ldquo;not medical advice&rdquo; disclaimer and the human-review path to the end user alongside the result.</li>
+      </ul>
 
       <h2>11. Erasure</h2>
       <p>The data subject may request erasure via <code>POST /privacy/erasure</code> with any of: <code>user_email</code>, <code>quiz_submission</code>, or <code>quiz_main</code>. The Processor deletes all matching records (identifiable quiz submissions in the primary database and pseudonymised logs in the debugging/statistical tables) within <strong>5 business days</strong> and returns a receipt containing a unique request ID, timestamp, and count of records purged. Deletions are recorded in an audit log accessible to the Controller. Erasure requests override the standard 12-month retention period; records are purged immediately regardless of age. The audit log entry itself (containing only the request ID, timestamp, and purge count — no personal data) is retained for <strong>7 years</strong> in accordance with UK financial record-keeping requirements.</p>
@@ -331,7 +339,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
       <p>The Controller may, at most once per twelve-month period and on 30 days' written notice, audit the Processor's compliance with this DPA under reasonable confidentiality terms. The Processor's standard right-to-audit response is a written summary of practices plus the nightly parity-guard / CI / observability artefacts.</p>
 
       <h2>13. Termination</h2>
-      <p>On termination of the underlying service agreement, the Processor will delete all Controller-owned data (per-tenant product catalogue, tenant config) within 30 days unless the Controller requests return of a machine-readable export first. Logs containing pseudonymous identifiers follow the hosting provider's retention.</p>
+      <p>On termination of the underlying service agreement, the Processor will, at the Controller&rsquo;s written choice:</p>
+      <ul>
+        <li><strong>Delete</strong> all end-user personal data (identifiable quiz submissions in the primary database and pseudonymised records in the debugging and statistical logs) and all Controller-owned configuration data (per-tenant product catalogue, tenant config) within <strong>30 days</strong>; or</li>
+        <li><strong>Return</strong> a machine-readable export of the above to the Controller within <strong>30 days</strong>, and then delete it within a further <strong>7 days</strong>.</li>
+      </ul>
+      <p>If the Controller has not indicated a choice within 30 days of termination, the Processor defaults to deletion. Aggregate statistics that no longer identify any individual (per &sect;6A) may be retained on their existing 2-year clock. All deletions are recorded in the audit log described in &sect;11.</p>
 
       <h2>14. Governing law</h2>
       <p>This DPA is governed by the law of England and Wales and is subject to the exclusive jurisdiction of the courts of England and Wales, unless the underlying service agreement specifies otherwise. Nothing in this clause limits a data subject's or supervisory authority's rights under applicable mandatory data protection law.</p>
