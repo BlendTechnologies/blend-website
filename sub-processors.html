@@ -3,23 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product example: what your customer sees | Blend</title>
-<meta name="description" content="See what your customer lands on after taking a Blend quiz: a product page carrying the reasons that recommendation was made for them.">
-<meta name="robots" content="noindex,follow">
- 
+<title>Sub-Processors | Blend</title>
+<meta name="description" content="Third-party service providers engaged by Blend Technologies to deliver the platform.">
+<meta name="robots" content="index,follow">
+
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#FAF8F2">
-<link rel="canonical" href="https://www.blend-technologies.com/product-example">
- 
+<link rel="canonical" href="https://www.blend-technologies.com/sub-processors">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sub-Processors | Blend">
+<meta property="og:description" content="Third-party service providers engaged by Blend Technologies to deliver the platform.">
+<meta property="og:url" content="https://www.blend-technologies.com/sub-processors">
+<meta property="og:image" content="https://www.blend-technologies.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="cookie-consent.css">
 
 <style>
 :root{
-  --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);--ink-40:rgba(10,10,10,.40);
+  --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
   --cream:#FAF8F2;--subtle:#F7F7F7;
   --gold:#B47F39;--gold-pressed:#96682B;--gold-soft:#F0E2CC;
   --muted:#6B6B6B;
@@ -30,8 +36,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh;display:flex;flex-direction:column}
-#main{flex:1}
+body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
@@ -42,8 +47,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .btn-primary{background:var(--gold);color:var(--white)}
 .btn-primary:hover{background:var(--gold-pressed)}
 .btn-sm{padding:9px 14px;font-size:13.5px;min-height:38px}
-.btn-lg{padding:16px 28px;font-size:15.5px;min-height:54px;width:100%}
- 
+
 /* nav */
 .nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent}
 .nav.scrolled{border-bottom-color:var(--line)}
@@ -76,65 +80,36 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .nav-toggle{display:inline-flex}
   .nav-actions .btn{padding:10px 16px;font-size:14px}
 }
- 
-/* demo banner */
-.demo-banner{background:var(--ink);color:rgba(255,255,255,.85);font-size:12.5px;letter-spacing:.01em}
-.demo-banner .wrap{display:flex;align-items:center;justify-content:center;gap:14px;padding-top:11px;padding-bottom:11px;flex-wrap:wrap}
-.demo-banner .pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:3px 10px;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--gold)}
-.demo-banner span{color:rgba(255,255,255,.78)}
-.demo-banner a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:1px}
-.demo-banner a:hover{border-color:var(--white)}
- 
-/* PDP */
-.pdp{padding:48px 0 96px}
-.pdp-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:64px;align-items:start}
-@media(max-width:960px){.pdp-grid{grid-template-columns:1fr;gap:32px}}
- 
-/* Gallery */
-.gallery-main{aspect-ratio:1/1;background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm)}
-.gallery-main img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .25s ease}
-.gallery-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.gallery-thumbs button{aspect-ratio:1/1;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:0;transition:border-color .15s ease,box-shadow .15s ease}
-.gallery-thumbs button:hover{border-color:var(--line-strong)}
-.gallery-thumbs button[aria-current="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--cream),0 0 0 3px var(--ink)}
-.gallery-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
- 
-/* Product info */
-.info h1{font-size:clamp(32px,4vw,44px);line-height:1.05;letter-spacing:-.025em;font-weight:600;margin:0 0 14px}
-.info-tag{font-size:16px;color:var(--ink-80);margin:0 0 22px;line-height:1.5;max-width:46ch}
-.review-row{display:flex;align-items:center;gap:10px;margin-bottom:24px;font-size:13.5px;color:var(--ink-60);flex-wrap:wrap}
-.stars{display:inline-flex;gap:2px;color:var(--gold)}
-.stars svg{width:15px;height:15px}
-.review-row .pipe{color:var(--ink-40)}
- 
-.price-card{border:1px solid var(--line);border-radius:14px;padding:6px;background:var(--white);margin-bottom:22px}
-.price-opt{display:grid;grid-template-columns:24px 1fr auto;gap:14px;align-items:center;padding:14px 16px;border-radius:10px;cursor:pointer;transition:background .15s ease}
-.price-opt:hover{background:var(--cream)}
-.price-opt input{appearance:none;width:18px;height:18px;border:1.5px solid var(--line-strong);border-radius:999px;display:grid;place-items:center;cursor:pointer;background:var(--white);transition:border-color .15s ease,background .15s ease}
-.price-opt input:checked{border-color:var(--ink);border-width:5px;background:var(--white)}
-.price-opt-meta{display:flex;flex-direction:column;gap:2px}
-.price-opt-title{font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
-.price-opt-sub{font-size:12.5px;color:var(--ink-60)}
-.price-opt-price{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.price-opt-price .strike{font-weight:400;color:var(--ink-40);text-decoration:line-through;margin-right:6px}
-.price-opt-badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);padding:3px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
- 
-.qty-row{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:stretch;margin-bottom:14px}
-.qty{display:inline-flex;align-items:center;border:1px solid var(--line-strong);border-radius:8px;background:var(--white);overflow:hidden;height:54px}
-.qty button{width:42px;height:100%;font-size:18px;color:var(--ink-80);transition:background .15s ease}
-.qty button:hover{background:var(--cream);color:var(--ink)}
-.qty span{min-width:36px;text-align:center;font-size:15px;font-weight:600;color:var(--ink)}
- 
-.cta-stack{display:grid;gap:10px}
-.cta-stack .btn{width:100%}
- 
-.trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
-.trust{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
-.trust svg{width:18px;height:18px;color:var(--gold)}
-.trust strong{font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
-.trust span{font-size:11.5px;color:var(--ink-60);line-height:1.4}
-@media(max-width:520px){.trust-row{grid-template-columns:1fr 1fr}}
- 
+
+/* legal page */
+.legal-hero{padding:72px 0 32px;text-align:center;background:var(--cream);border-bottom:1px solid var(--line)}
+.legal-hero .eyebrow{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:14px}
+.legal-hero h1{font-size:clamp(36px,5vw,56px);line-height:1.04;letter-spacing:-.025em;font-weight:600;margin:0}
+.legal-hero .sub{margin-top:14px;color:var(--muted);font-size:14px}
+
+.legal{padding:64px 0 112px;background:var(--cream)}
+.legal-content{max-width:760px;margin:0 auto;font-size:15.5px;line-height:1.72;color:var(--ink-80)}
+.legal-content h2{font-size:22px;line-height:1.3;letter-spacing:-.015em;font-weight:600;color:var(--ink);margin:56px 0 16px;scroll-margin-top:90px}
+.legal-content h2:first-child{margin-top:0}
+.legal-content h3{font-size:15.5px;line-height:1.4;font-weight:600;color:var(--ink);margin:24px 0 8px}
+.legal-content p{margin:0 0 14px}
+.legal-content ul,.legal-content ol{margin:0 0 18px;padding-left:22px}
+.legal-content li{margin-bottom:8px}
+.legal-content a{color:var(--ink);border-bottom:1px solid var(--line-strong)}
+.legal-content a:hover{border-color:var(--ink)}
+.legal-content strong{color:var(--ink);font-weight:600}
+.legal-content em{color:var(--ink);font-style:italic}
+
+.legal-content table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14.5px;border:1px solid var(--line)}
+.legal-content thead{background:var(--white)}
+.legal-content th{text-align:left;padding:12px 14px;font-weight:600;color:var(--ink);border-bottom:2px solid var(--line-strong);font-size:13.5px;letter-spacing:.01em}
+.legal-content td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.legal-content tr:last-child td{border-bottom:0}
+.legal-content tbody tr:nth-child(even){background:rgba(250,248,242,.5)}
+.legal-content code{background:var(--white);border:1px solid var(--line);padding:2px 6px;border-radius:4px;font-size:13.5px;font-family:"SF Mono",Monaco,Consolas,monospace}
+
+.legal-note{margin:32px 0;padding:14px 18px;background:var(--gold-soft);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:14.5px;line-height:1.6;color:var(--ink-80)}
+
 /* footer */
 .footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
 .footer a:hover{color:var(--white)}
@@ -152,36 +127,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
 .footer-bottom a{color:rgba(255,255,255,.6)}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}}
-
-@media(max-width:560px){.wrap{padding:0 20px}}
-@media(max-width:380px){.wrap{padding:0 16px}}
-
-html,body{max-width:100%;overflow-x:clip}
 </style>
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Blend Technologies">
-<meta property="og:title" content="Product example: what your customer sees | Blend">
-<meta property="og:description" content="See what your customer lands on after taking a Blend quiz: a product page carrying the reasons that recommendation was made for them.">
-<meta property="og:url" content="https://www.blend-technologies.com/product-example">
-<meta property="og:image" content="https://www.blend-technologies.com/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="en_GB">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Product example: what your customer sees | Blend">
-<meta name="twitter:description" content="See what your customer lands on after taking a Blend quiz: a product page carrying the reasons that recommendation was made for them.">
-<meta name="twitter:image" content="https://www.blend-technologies.com/og.png">
 </head>
 <body>
- 
+
 <a href="#main" class="skip">Skip to content</a>
- 
-<div class="demo-banner" role="region" aria-label="Demo notice">
-  <div class="wrap">
-    <span class="pill">Live example</span>
-  </div>
-</div>
- 
+
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="index.html" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26"><g transform="translate(0 1899.6) scale(1 -1)" fill="#000000"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
@@ -198,104 +149,118 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </header>
- 
+
 <main id="main">
- 
-  <section class="pdp">
-    <div class="wrap">
-      <div class="pdp-grid">
- 
-        <!-- Gallery -->
-        <div class="gallery">
-          <div class="gallery-main">
-            <img id="mainImage" src="/images/daily-energy-blend-front.jpg" alt="Daily Energy Blend">
-          </div>
-          <div class="gallery-thumbs" role="tablist" aria-label="Product images">
-            <button type="button" aria-current="true" data-img="/images/daily-energy-blend-front.jpg">
-              <img src="/images/daily-energy-blend-front.jpg" alt="Front view">
-            </button>
-            <button type="button" data-img="/images/daily-energy-blend-detail.jpg">
-              <img src="/images/daily-energy-blend-detail.jpg" alt="Detail view">
-            </button>
-            <button type="button" data-img="/images/daily-energy-blend-in-context.jpg">
-              <img src="/images/daily-energy-blend-in-context.jpg" alt="In context">
-            </button>
-          </div>
-        </div>
- 
-        <!-- Info -->
-        <div class="info">
-          <h1>Daily Energy Blend</h1>
-          <p class="info-tag">A clean morning formula, built for your goals and routine.</p>
- 
-          <div class="review-row">
-            <span class="stars" aria-label="4.8 out of 5 stars">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-            </span>
-            <span><strong style="color:var(--ink);font-weight:600">4.8</strong></span>
-            <span class="pipe">·</span>
-            <span>1,247 reviews</span>
-          </div>
- 
-          <form class="price-card" aria-label="Choose plan">
-            <label class="price-opt">
-              <input type="radio" name="plan" value="subscribe" checked>
-              <span class="price-opt-meta">
-                <span class="price-opt-title">Subscribe &amp; Save<span class="price-opt-badge">Save 15%</span></span>
-                <span class="price-opt-sub">Delivered every 30 days · Cancel anytime</span>
-              </span>
-              <span class="price-opt-price"><span class="strike">$48</span>$40.80</span>
-            </label>
-            <label class="price-opt">
-              <input type="radio" name="plan" value="onetime">
-              <span class="price-opt-meta">
-                <span class="price-opt-title">One-time purchase</span>
-                <span class="price-opt-sub">30-day supply · Free shipping over $50</span>
-              </span>
-              <span class="price-opt-price">$48.00</span>
-            </label>
-          </form>
- 
-          <div class="qty-row">
-            <div class="qty" role="group" aria-label="Quantity">
-              <button type="button" id="qtyMinus" aria-label="Decrease quantity">&minus;</button>
-              <span id="qtyVal" aria-live="polite">1</span>
-              <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
-            </div>
-            <div class="cta-stack">
-              <button type="button" class="btn btn-primary btn-lg">Add to cart, $40.80</button>
-            </div>
-          </div>
- 
-          <div class="trust-row">
-            <div class="trust">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <strong>3rd-party tested</strong>
-              <span>Every batch, every ingredient</span>
-            </div>
-            <div class="trust">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              <strong>Free shipping</strong>
-              <span>On all subscription orders</span>
-            </div>
-            <div class="trust">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
-              <strong>60-day guarantee</strong>
-              <span>Full refund, no questions</span>
-            </div>
-          </div>
-        </div>
- 
+
+<section class="legal-hero">
+  <div class="wrap">
+    <span class="eyebrow">Legal</span>
+    <h1>Sub-Processors</h1>
+    <p class="sub">Last updated: 5 September 2026 &nbsp;&middot;&nbsp; Blend Technologies LTD (United Kingdom)</p>
+  </div>
+</section>
+
+<section class="legal">
+  <div class="wrap">
+
+    <article class="legal-content">
+
+      <p>This page lists the third-party services (sub-processors) that Blend Technologies engages to help deliver the platform. Each is bound by a written data processing agreement. We give clients advance notice of any change to this list.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Processor</th>
+            <th>Purpose</th>
+            <th>Data categories</th>
+            <th>Region</th>
+            <th>Transfer mechanism</th>
+            <th>DPF-certified?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Vercel</strong></td>
+            <td>Webapp hosting (frontend, serverless functions, quiz builder, merchant dashboard, auth)</td>
+            <td>Merchant account data; end-user quiz submissions</td>
+            <td>EU (fra1 Frankfurt)</td>
+            <td>N/A (EU processing region)</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td><strong>Supabase</strong></td>
+            <td>Database + auth; stores end-user quiz data</td>
+            <td>End-user quiz submissions (health data, identifiers, consent); merchant account data</td>
+            <td>EU (eu-west-1 Ireland)</td>
+            <td>N/A (EU processor)</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td><strong>Render</strong> — personalization</td>
+            <td>FastAPI personalization engine hosting</td>
+            <td>End-user quiz submissions; pseudonymised logs (90-day retention)</td>
+            <td>EU (Frankfurt)</td>
+            <td>N/A (EU processor)</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td><strong>Render</strong> — checkout</td>
+            <td>Billing service hosting</td>
+            <td>Merchant billing data only</td>
+            <td>EU (Frankfurt)</td>
+            <td>N/A (EU)</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td><strong>Stripe</strong></td>
+            <td>Payment processing (merchant billing, not end-customer)</td>
+            <td>Merchant billing data</td>
+            <td>US / Ireland</td>
+            <td>EU-US DPF</td>
+            <td>Yes &mdash; EU-US DPF, UK Extension, Swiss-US DPF</td>
+          </tr>
+          <tr>
+            <td><strong>Airtable</strong></td>
+            <td>CRM for business contacts and sales prospects (NOT end-user quiz data)</td>
+            <td>Business contact data</td>
+            <td>US</td>
+            <td>UK IDTA / EU SCCs 2021/914</td>
+            <td>No &mdash; relies on SCCs + UK IDTA</td>
+          </tr>
+          <tr>
+            <td><strong>Resend</strong></td>
+            <td>Transactional email (auth, password resets, quiz results)</td>
+            <td>Email addresses, recipient names, email content</td>
+            <td>US</td>
+            <td>UK IDTA / EU SCCs 2021/914</td>
+            <td>Yes per Resend DPA (verify on gov registry)</td>
+          </tr>
+          <tr>
+            <td><strong>Shopify</strong></td>
+            <td>Source of merchant catalogue and order data (analytics only, no customer PII)</td>
+            <td>Product catalogue, order IDs, timestamps, cart events</td>
+            <td>Multi-region</td>
+            <td>Per Shopify DPA</td>
+            <td>Per Shopify</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:32px;font-size:14px;color:var(--muted);">
+        EU-US Data Privacy Framework certifications must be verified annually at <a href="https://www.dataprivacyframework.gov/s/" target="_blank" rel="noopener">dataprivacyframework.gov</a>. This list is reviewed quarterly.
+      </p>
+
+      <div class="legal-note">
+        Bubble.io was retired as an active sub-processor on 5 September 2026 and processes no Blend data.
       </div>
-    </div>
-  </section>
- 
+
+    </article>
+
+  </div>
+</section>
+
 </main>
- 
+
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -336,18 +301,13 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </footer>
- 
+
 <script>
-// year
 document.getElementById('year').textContent = new Date().getFullYear();
- 
-// nav scroll
 const nav = document.getElementById('nav');
 const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
 setScrolled();
 window.addEventListener('scroll', setScrolled, { passive: true });
- 
-// mobile toggle
 const toggle = document.getElementById('nav-toggle');
 const links = document.getElementById('nav-links');
 toggle.addEventListener('click', () => {
@@ -360,24 +320,6 @@ links.querySelectorAll('a').forEach(a => {
     toggle.setAttribute('aria-expanded', 'false');
   });
 });
- 
-// gallery
-const mainImg = document.getElementById('mainImage');
-document.querySelectorAll('.gallery-thumbs button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const src = btn.dataset.img;
-    if (!src) return;
-    mainImg.src = src;
-    document.querySelectorAll('.gallery-thumbs button').forEach(b => b.removeAttribute('aria-current'));
-    btn.setAttribute('aria-current', 'true');
-  });
-});
- 
-// quantity
-let qty = 1;
-const qtyVal = document.getElementById('qtyVal');
-document.getElementById('qtyMinus').addEventListener('click', () => { qty = Math.max(1, qty - 1); qtyVal.textContent = qty; });
-document.getElementById('qtyPlus').addEventListener('click', () => { qty = Math.min(9, qty + 1); qtyVal.textContent = qty; });
 </script>
 
 <!-- Cookie consent banner -->

@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Standard Data Processing Agreement | Blend</title>
+<meta name="description" content="The standard DPA that governs Blend Technologies' processing of end-user personal data on behalf of merchant clients.">
+<meta name="robots" content="index,follow">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF8F2">
+<link rel="canonical" href="https://www.blend-technologies.com/dpa">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Standard Data Processing Agreement | Blend">
+<meta property="og:description" content="The standard DPA that governs Blend Technologies' processing of end-user personal data on behalf of merchant clients.">
+<meta property="og:url" content="https://www.blend-technologies.com/dpa">
+<meta property="og:image" content="https://www.blend-technologies.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="cookie-consent.css">
+
+<style>
+:root{
+  --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
+  --cream:#FAF8F2;--subtle:#F7F7F7;
+  --gold:#B47F39;--gold-pressed:#96682B;--gold-soft:#F0E2CC;
+  --muted:#6B6B6B;
+  --line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;
+  --nav-h:68px;--content:1200px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.03),0 2px 8px rgba(0,0,0,.03);
+  --shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--gold);padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;z-index:200}
+.skip:focus{left:16px}
+.wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
+.btn-primary{background:var(--gold);color:var(--white)}
+.btn-primary:hover{background:var(--gold-pressed)}
+.btn-sm{padding:9px 14px;font-size:13.5px;min-height:38px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
+.logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
+.logo svg{display:block;height:26px;width:auto}
+.nav-links{display:flex;align-items:center;gap:32px;justify-self:center}
+.nav-links a{font-size:13.5px;color:var(--ink-80);font-weight:500;padding:12px 0;letter-spacing:-.005em}
+.nav-links a:hover{color:var(--ink)}
+.nav-actions{display:flex;align-items:center;gap:10px;justify-self:end}
+.nav-login{font-size:13.5px;color:var(--ink-60);padding:10px 8px;font-weight:500;min-height:40px;display:inline-flex;align-items:center}
+.nav-login:hover{color:var(--ink)}
+.nav-toggle{display:none;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;margin-left:4px}
+.nav-toggle:hover{background:rgba(0,0,0,.06)}
+.nav-toggle span{position:relative;width:20px;height:14px;display:block}
+.nav-toggle span::before,.nav-toggle span::after,.nav-toggle span i{content:"";position:absolute;left:0;right:0;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s ease,opacity .2s ease,top .2s ease}
+.nav-toggle span::before{top:0}
+.nav-toggle span i{top:6px;display:block}
+.nav-toggle span::after{top:12px}
+.nav.open .nav-toggle span::before{top:6px;transform:rotate(45deg)}
+.nav.open .nav-toggle span::after{top:6px;transform:rotate(-45deg)}
+.nav.open .nav-toggle span i{opacity:0}
+@media(max-width:860px){
+  .nav-inner{grid-template-columns:1fr auto}
+  .nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(250,248,242,.98);backdrop-filter:blur(14px);flex-direction:column;gap:0;margin:0;padding:8px 20px 24px;border-bottom:1px solid var(--line);box-shadow:var(--shadow-md);justify-self:stretch}
+  .nav.open .nav-links{display:flex}
+  .nav-links a{width:100%;padding:16px 4px;font-size:17px;border-bottom:1px solid var(--line)}
+  .nav-links a:last-child{border-bottom:0}
+  .nav-login{display:none}
+  .nav-toggle{display:inline-flex}
+  .nav-actions .btn{padding:10px 16px;font-size:14px}
+}
+
+/* legal page */
+.legal-hero{padding:72px 0 32px;text-align:center;background:var(--cream);border-bottom:1px solid var(--line)}
+.legal-hero .eyebrow{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:14px}
+.legal-hero h1{font-size:clamp(36px,5vw,56px);line-height:1.04;letter-spacing:-.025em;font-weight:600;margin:0}
+.legal-hero .sub{margin-top:14px;color:var(--muted);font-size:14px}
+
+.legal{padding:64px 0 112px;background:var(--cream)}
+.legal-content{max-width:760px;margin:0 auto;font-size:15.5px;line-height:1.72;color:var(--ink-80)}
+.legal-content h2{font-size:22px;line-height:1.3;letter-spacing:-.015em;font-weight:600;color:var(--ink);margin:56px 0 16px;scroll-margin-top:90px}
+.legal-content h2:first-child{margin-top:0}
+.legal-content h3{font-size:15.5px;line-height:1.4;font-weight:600;color:var(--ink);margin:24px 0 8px}
+.legal-content p{margin:0 0 14px}
+.legal-content ul,.legal-content ol{margin:0 0 18px;padding-left:22px}
+.legal-content li{margin-bottom:8px}
+.legal-content a{color:var(--ink);border-bottom:1px solid var(--line-strong)}
+.legal-content a:hover{border-color:var(--ink)}
+.legal-content strong{color:var(--ink);font-weight:600}
+.legal-content em{color:var(--ink);font-style:italic}
+
+.legal-content table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14.5px;border:1px solid var(--line)}
+.legal-content thead{background:var(--white)}
+.legal-content th{text-align:left;padding:12px 14px;font-weight:600;color:var(--ink);border-bottom:2px solid var(--line-strong);font-size:13.5px;letter-spacing:.01em}
+.legal-content td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.legal-content tr:last-child td{border-bottom:0}
+.legal-content tbody tr:nth-child(even){background:rgba(250,248,242,.5)}
+.legal-content code{background:var(--white);border:1px solid var(--line);padding:2px 6px;border-radius:4px;font-size:13.5px;font-family:"SF Mono",Monaco,Consolas,monospace}
+
+.legal-note{margin:32px 0;padding:14px 18px;background:var(--gold-soft);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:14.5px;line-height:1.6;color:var(--ink-80)}
+
+/* footer */
+.footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
+.footer a:hover{color:var(--white)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px}
+.footer-brand .logo svg{display:block;height:24px;width:auto}
+.footer-li{display:inline-block;margin-top:12px;font-size:13.5px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
+.footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
+.footer-tag{margin-top:14px;font-size:13.5px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
+.footer-col h5{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 16px;font-weight:500}
+.footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.footer-col a{font-size:13.5px;color:rgba(255,255,255,.78);transition:color .15s ease}
+.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(255,255,255,.45)}
+.footer-trust{margin-top:48px;padding:14px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:center;font-size:12.5px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
+.footer-trust-label{color:var(--gold);font-weight:600}
+.footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
+.footer-bottom a{color:rgba(255,255,255,.6)}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26"><g transform="translate(0 1899.6) scale(1 -1)" fill="#000000"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
+    <nav class="nav-links" aria-label="Primary" id="nav-links">
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#science">Science</a>
+      <a href="mailto:contact@blend-technologies.com">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="https://app.blend-technologies.com" class="nav-login">Log in</a>
+      <a href="try.html" class="btn btn-primary btn-sm">Try it yourself</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span aria-hidden="true"><i></i></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="legal-hero">
+  <div class="wrap">
+    <span class="eyebrow">Legal</span>
+    <h1>Standard Data Processing Agreement</h1>
+    <p class="sub">Version 5 September 2026 &nbsp;&middot;&nbsp; Blend Technologies LTD (United Kingdom)</p>
+  </div>
+</section>
+
+<section class="legal">
+  <div class="wrap">
+
+    <article class="legal-content">
+
+      <div class="legal-note">
+        This is the standard DPA that governs Blend Technologies' processing of end-user personal data on behalf of merchant clients. Merchants accept this DPA at the point of publishing a quiz.
+      </div>
+
+      <h2>1. Parties</h2>
+      <ul>
+        <li><strong>Controller</strong>: the B2B client (e.g. supplement brand, gym chain) hosting the white-label quiz. Determines the purpose and means of processing end-user personal data.</li>
+        <li><strong>Processor</strong>: Blend Technologies LTD, a company registered in England and Wales (company number 17236631), registered office 71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ, contact <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a>. Processes data on the Controller's documented instructions.</li>
+      </ul>
+
+      <h2>2. Subject matter and duration</h2>
+      <p>The Processor processes Personal Data on behalf of the Controller for two purposes: (a) generating personalised supplement recommendations and nutritional analysis via the Blend-OS API (the <strong>primary purpose</strong>); and (b) in a pseudonymised form, debugging and aggregated statistical analysis to maintain and improve recommendation accuracy (the <strong>secondary purpose</strong>, governed by §6A). Processing duration matches the term of the underlying service agreement and the retention periods defined in §§6 and 6A.</p>
+
+      <h2>3. Nature and purpose of processing</h2>
+      <ul>
+        <li><strong>Automated decision-making</strong>: the Processor's algorithm scores supplements against the data subject's quiz answers and the Controller's product catalogue. Logic summary published at <code>GET /privacy/notice</code>. Right to explanation: see §10.</li>
+        <li>The Processor persists quiz submissions in a database (Supabase, EU region eu-west-1) for up to <strong>12 months</strong> from submission, subject to the retention and erasure mechanisms described in §6. Quiz submissions are stored under row-level security policies scoped to the Controller's tenant ID; one Controller's data is never accessible to another Controller.</li>
+      </ul>
+
+      <h2>4. Types of personal data</h2>
+      <p>Special category data under Article 9:</p>
+      <ul>
+        <li>Demographics (age, gender, ethnicity)</li>
+        <li>Biometrics (height, weight)</li>
+        <li>Diagnosed medical conditions</li>
+        <li>Current medications</li>
+        <li>Pregnancy / breastfeeding status</li>
+        <li>Symptoms (sleep, GI, mood, cognitive, hair / skin / nails)</li>
+        <li>Lifestyle data (smoking, sun exposure, sport practice, diet)</li>
+      </ul>
+      <p>Identifiers: user email (optional), quiz submission ID, B2B client (tenant) ID.</p>
+
+      <h2>5. Categories of data subjects</h2>
+      <p>End users of the Controller's white-label quiz.</p>
+
+      <h2>6. Retention</h2>
+      <p>Quiz submissions are retained for <strong>12 months</strong> from the date of submission, then automatically deleted by a scheduled database function (migration 0039). Each deletion event is logged in an audit trail visible to the Controller on request. The data subject may request earlier erasure via <code>POST /privacy/erasure</code> (see §11); erasure requests are processed within <strong>5 business days</strong> and recorded in the audit log. Marketing-use data (if the data subject opted in under migration 0040) follows the same 12-month retention unless the data subject withdraws marketing consent earlier, in which case it is purged within 5 business days.</p>
+
+      <h2>6A. Secondary processing — service quality and algorithm improvement</h2>
+      <p>In addition to the primary processing described in §§2-3, the Processor retains end-user quiz submissions in a <strong>pseudonymised</strong> form for two secondary purposes:</p>
+      <ol style="list-style-type: lower-alpha;">
+        <li><strong>Debugging</strong> — investigate user-reported issues, reproduce failures, validate contraindication alerts, and ensure service quality.</li>
+        <li><strong>Aggregated statistical analysis</strong> — compute non-identifying metrics (error rates, correlation studies) to improve recommendation accuracy across the platform.</li>
+      </ol>
+      <p><strong>Lawful basis (the Controller's):</strong> GDPR Article 6(1)(f) legitimate interests (service accuracy and safety) + Article 9(2)(j) statistical purposes with Article 89(1) safeguards. The Processor relies on UK DPA 2018 Schedule 1 Part 1 paragraph 4 (statistical/research purposes condition) and maintains an Appropriate Policy Document under paragraphs 38-41 of that Schedule.</p>
+
+      <h3>Article 89(1) safeguards (Processor commitments)</h3>
+      <ul>
+        <li><strong>Pseudonymisation:</strong> direct identifiers (<code>user_email</code>, <code>user_name</code>, IP address) are removed; <code>quiz_submission</code> ID is replaced by a one-way cryptographic hash; <code>quiz_main</code> (tenant ID) is retained for per-Controller isolation.</li>
+        <li><strong>Minimisation:</strong> only health attributes and outputs necessary for debugging and statistical analysis are retained.</li>
+        <li><strong>Purpose limitation — no cross-Controller sharing:</strong> one Controller's pseudonymised records are NEVER used to generate recommendations for, or made accessible to, any other Controller.</li>
+        <li><strong>Access restriction:</strong> logs accessible only to the Processor's engineering and QA personnel under role-based access; no marketing, sales, or third-party access.</li>
+        <li><strong>Security:</strong> encryption at rest (AES-256) and in transit (TLS 1.3); access logging.</li>
+        <li><strong>No automated decisions about individuals (Article 22):</strong> pseudonymised records are used only for aggregate analysis and manual debugging.</li>
+      </ul>
+
+      <h3>Retention</h3>
+      <ul>
+        <li>Individual pseudonymised records: <strong>90 calendar days</strong> from submission, then auto-purged (separate from the 12-month identifiable-record retention in §6; pseudonymisation happens at creation and these records are stored in a distinct logging table).</li>
+        <li>Aggregated statistics (no individual records): up to <strong>2 years</strong> for ongoing algorithm validation.</li>
+      </ul>
+
+      <p><strong>Functional erasure on request:</strong> on receipt of an Article 17 erasure or Article 21 objection request, the Processor functionally deletes the corresponding pseudonymised record within <strong>5 business days</strong> by overwriting the hash key.</p>
+
+      <p><strong>Appropriate Policy Document:</strong> available to the Controller on written request within 10 business days.</p>
+
+      <p><strong>Controller opt-out:</strong> the Controller may, on <strong>30 days' written notice</strong>, opt out of contributing pseudonymised records to the aggregate dataset. Debugging retention may continue for the opted-out Controller's end users where necessary for service delivery; existing pseudonymised records from the opted-out Controller in the aggregate dataset are purged within 30 days.</p>
+
+      <p><strong>Sub-processor (secondary processing):</strong> Render (US region; covered by EU-US Data Privacy Framework certification and/or Standard Contractual Clauses).</p>
+
+      <p><strong>DPIA:</strong> the Processor has completed a Data Protection Impact Assessment under GDPR Article 35 for this secondary processing. Available to the Controller on written request.</p>
+
+      <p><strong>Jurisdiction-specific note:</strong> the Article 9(2)(j) condition relies on UK DPA 2018 Sch. 1 ¶4. For Controllers established in jurisdictions with stricter national derogations (e.g. Germany BDSG §27, France LIL Art. 44, Italy Decree 101/2018 Art. 110, Spain LOPDGDD Art. 9), the Processor and Controller will agree per-tenant whether to (i) limit logging to the debugging purpose only, or (ii) require the Controller to obtain explicit end-user consent under Article 9(2)(a) for the statistical purpose.</p>
+
+      <h2>7. Controller obligations</h2>
+      <p>The Controller warrants that:</p>
+      <ul>
+        <li>An Article 9(2)(a) lawful basis (explicit consent) has been obtained before the data is transmitted to the Processor's API.</li>
+        <li>A privacy notice covering the disclosures in §3-4 above is presented to the data subject before consent.</li>
+        <li>The Controller responds to data subject requests (access, rectification, erasure, portability) and forwards Processor-side actions (e.g. erasure of any persisted submissions) to the Processor within 72 hours of receipt.</li>
+        <li>The recommendation result is displayed to the data subject with a "not medical advice" disclaimer and prominent surfacing of any <code>Verification: Caution</code> flags returned by the API.</li>
+      </ul>
+
+      <h2>8. Processor obligations</h2>
+      <ul>
+        <li>Process Personal Data only on the documented instructions of the Controller.</li>
+        <li>Implement appropriate technical and organisational measures (TLS, per-tenant API keys with scope, rate limiting, encrypted disk on Render, atomic writes for catalogue files, audit logging via the observability layer).</li>
+        <li>Notify the Controller of any Personal Data breach without undue delay and in any case within 72 hours after becoming aware.</li>
+        <li>Assist the Controller with data subject rights (access, erasure, portability) within the contractual SLA.</li>
+        <li>Sub-processors disclosed in §9 below; new sub-processors require prior written notice.</li>
+      </ul>
+
+      <h2>9. Sub-processors</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Sub-processor</th>
+            <th>Purpose</th>
+            <th>Region</th>
+            <th>Data categories</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Vercel</strong></td>
+            <td>Webapp hosting (frontend, serverless functions, quiz builder, merchant dashboard, auth)</td>
+            <td>US (iad1 Washington DC) [*]</td>
+            <td>Merchant account data; end-user quiz submissions</td>
+          </tr>
+          <tr>
+            <td><strong>Supabase</strong></td>
+            <td>Database + auth; stores end-user quiz data</td>
+            <td>EU (eu-west-1 Ireland)</td>
+            <td>End-user quiz submissions (health data, identifiers, consent records); merchant account data</td>
+          </tr>
+          <tr>
+            <td><strong>Render</strong> — personalization</td>
+            <td>Personalization engine API hosting</td>
+            <td>US (Oregon) [*]</td>
+            <td>End-user quiz submissions; pseudonymised logs (90-day retention)</td>
+          </tr>
+          <tr>
+            <td><strong>Render</strong> — checkout</td>
+            <td>Billing service hosting</td>
+            <td>EU (Frankfurt)</td>
+            <td>Merchant billing data only (not end-user data)</td>
+          </tr>
+          <tr>
+            <td><strong>Stripe</strong></td>
+            <td>Payment processing (merchant billing)</td>
+            <td>US / Ireland</td>
+            <td>Merchant billing data</td>
+          </tr>
+          <tr>
+            <td><strong>Airtable</strong></td>
+            <td>CRM (business contacts and prospects; NOT end-user quiz data)</td>
+            <td>US</td>
+            <td>Business contact data</td>
+          </tr>
+          <tr>
+            <td><strong>Resend</strong></td>
+            <td>Transactional email (auth, password resets, quiz results on behalf of merchants)</td>
+            <td>US</td>
+            <td>Email addresses, recipient names, email content (may include quiz result summaries)</td>
+          </tr>
+          <tr>
+            <td><strong>Shopify</strong></td>
+            <td>Source of merchant catalogue and order data (app reads products/orders for conversion analytics)</td>
+            <td>Multi-region (Shopify infrastructure)</td>
+            <td>Merchant shop data (product catalogue, order metadata — NO customer PII)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:24px;font-size:14px;color:var(--muted);">[*] Region pending founder confirmation.</p>
+      <p>Cross-border transfer mechanism: UK International Data Transfer Agreement (IDTA) or UK Addendum to EU Standard Contractual Clauses for transfers from the UK; EU Standard Contractual Clauses (Commission Implementing Decision 2021/914) for transfers from the EEA; EU-US Data Privacy Framework certification where the receiving sub-processor holds current certification (verified annually at <a href="https://www.dataprivacyframework.gov/s/" target="_blank" rel="noopener">dataprivacyframework.gov</a>). Transfer Impact Assessments for UK→US and EEA→US transfers are maintained internally and available to the Controller on written request.</p>
+
+      <h2>10. Data subject rights — automated decision-making</h2>
+      <p>The Processor surfaces the algorithm logic at <code>GET /privacy/notice</code>. Right to explanation is satisfied by the published parity status (<code>PARITY_STATUS.md</code>) and the verbose <code>/recommend/v2</code> endpoint that returns each pipeline stage's intermediate output. Right to human intervention: the Controller may add a manual-review step on top of the recommendation result before display.</p>
+
+      <h2>11. Erasure</h2>
+      <p>The data subject may request erasure via <code>POST /privacy/erasure</code> with any of: <code>user_email</code>, <code>quiz_submission</code>, or <code>quiz_main</code>. The Processor deletes all matching records (identifiable quiz submissions in the primary database and pseudonymised logs in the debugging/statistical tables) within <strong>5 business days</strong> and returns a receipt containing a unique request ID, timestamp, and count of records purged. Deletions are recorded in an audit log accessible to the Controller. Erasure requests override the standard 12-month retention period; records are purged immediately regardless of age. The audit log entry itself (containing only the request ID, timestamp, and purge count — no personal data) is retained for <strong>7 years</strong> in accordance with UK financial record-keeping requirements.</p>
+
+      <h2>12. Audit</h2>
+      <p>The Controller may, at most once per twelve-month period and on 30 days' written notice, audit the Processor's compliance with this DPA under reasonable confidentiality terms. The Processor's standard right-to-audit response is a written summary of practices plus the nightly parity-guard / CI / observability artefacts.</p>
+
+      <h2>13. Termination</h2>
+      <p>On termination of the underlying service agreement, the Processor will delete all Controller-owned data (per-tenant product catalogue, tenant config) within 30 days unless the Controller requests return of a machine-readable export first. Logs containing pseudonymous identifiers follow the hosting provider's retention.</p>
+
+      <h2>14. Governing law</h2>
+      <p>This DPA is governed by the law of England and Wales and is subject to the exclusive jurisdiction of the courts of England and Wales, unless the underlying service agreement specifies otherwise. Nothing in this clause limits a data subject's or supervisory authority's rights under applicable mandatory data protection law.</p>
+
+      <h2>15. Signatures</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Controller</th>
+            <th>Processor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>____________________<br>Name:<br>Title:<br>Date:</td>
+            <td>____________________<br>Name:<br>Title:<br>Date:</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-size:14.5px;">Download as PDF or Markdown available on request — <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a>.</p>
+
+    </article>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="24"><g transform="translate(0 1899.6) scale(1 -1)" fill="#FFFFFF"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
+        <p class="footer-tag">The engine behind personalized product recommendations.</p>
+        <a class="footer-li" href="https://www.linkedin.com/company/blendtechnologiesuk/" rel="me noopener" target="_blank">LinkedIn</a>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="index.html#how">How it works</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="index.html#science">Science</a></li>
+          <li><a href="try.html">Try it yourself</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="mailto:contact@blend-technologies.com">Contact</a></li>
+          <li><a href="" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a');">Book a demo</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="dpa.html">DPA</a></li>
+          <li><a href="sub-processors.html">Sub-processors</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-trust">
+      <span class="footer-trust-label">Built for trust.</span>
+      <span>UK GDPR + Data Protection Act 2018 &middot; Health data processed only with explicit consent &middot; International transfers under Standard Contractual Clauses &middot; Not medical advice.</span>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year">2026</span> Blend Technologies LTD. All rights reserved.</span>
+      <span>Registered in England &amp; Wales, company no. 17236631</span>
+      <span><a href="" onclick="return blendOpenCookieSettings();" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Cookie settings</a> &middot; <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const nav = document.getElementById('nav');
+const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+setScrolled();
+window.addEventListener('scroll', setScrolled, { passive: true });
+const toggle = document.getElementById('nav-toggle');
+const links = document.getElementById('nav-links');
+toggle.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', String(open));
+});
+links.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+});
+</script>
+
+<!-- Cookie consent banner -->
+<div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
+  <div class="blend-cookie-banner-inner">
+    <div class="blend-cookie-banner-content">
+      <h2 id="cookie-banner-title" class="blend-cookie-banner-title">Cookie notice</h2>
+      <p id="cookie-banner-text" class="blend-cookie-banner-text">We use essential cookies to run this site and remember your choice. To let you book a demo we also load Calendly, which sets its own cookies. The site works either way. <a href="privacy.html">Privacy policy</a></p>
+    </div>
+    <div class="blend-cookie-banner-actions">
+      <button id="blend-cookie-reject" class="blend-cookie-banner-btn blend-cookie-banner-btn-reject" type="button">Reject all</button>
+      <button id="blend-cookie-accept" class="blend-cookie-banner-btn blend-cookie-banner-btn-accept" type="button">Accept all</button>
+    </div>
+  </div>
+</div>
+<script src="cookie-consent.js"></script>
+
+</body>
+</html>
