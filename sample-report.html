@@ -28,7 +28,7 @@
     --accent:#B47F39;--accent-soft:#F0E2CC;--track:#EDE7D6;--green:#6AA84F;
     /* site-nav aliases so shared markup renders identically to blend-technologies.com */
     --ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
-    --gold:#B47F39;--gold-pressed:#96682B;--white:#FFFFFF;
+    --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--white:#FFFFFF;
     --line:#E3DDCC;--line-strong:#D1C9B2;--nav-h:68px;
     --shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -38,8 +38,8 @@
 
   /* Buttons, same system as blend-technologies.com */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
-  .btn-primary{background:var(--gold);color:var(--white)}
-  .btn-primary:hover{background:var(--gold-pressed)}
+  .btn-primary{background:var(--gold-strong);color:var(--white)}
+  .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
   .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .btn-sm{padding:8px 12px;font-size:14px;min-height:38px}
 

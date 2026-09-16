@@ -22,7 +22,7 @@
 :root{
   --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
   --cream:#FAF8F2;--cream-2:#F1EDE0;--subtle:#F7F7F7;
-  --gold:#B47F39;--gold-pressed:#96682B;--gold-soft:#F0E2CC;
+  --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--gold-soft:#F0E2CC;
   --muted:#6B6B6B;--line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;
   --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;
   --shadow-sm:0 1px 2px rgba(0,0,0,.03),0 2px 8px rgba(0,0,0,.03);
@@ -45,8 +45,8 @@ img,svg{display:block;max-width:100%}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 /* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
-.btn-primary{background:var(--gold);color:var(--white)}
-.btn-primary:hover{background:var(--gold-pressed)}
+.btn-primary{background:var(--gold-strong);color:var(--white)}
+.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
 .btn-ghost:hover{border-color:var(--ink);background:var(--white)}
@@ -178,7 +178,7 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="try-embed-foot">
       This is the same embed you'd drop on your site, one line of code.
     </div>
-    <div class="try-embed-alt" style="margin-top:10px;text-align:center;font-size:14px;color:var(--ink-60);letter-spacing:-.005em">Not ready? <a href="/sample-report" style="color:var(--gold-pressed);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500">See a sample report &rarr;</a></div>
+    <div class="try-embed-alt" style="margin-top:10px;text-align:center;font-size:14px;color:var(--ink-60);letter-spacing:-.005em">Not ready? <a href="/sample-report" style="color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500">See a sample report &rarr;</a></div>
   </div>
 </section>
 <section class="after">
