@@ -32,7 +32,7 @@
 :root{
   --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
   --cream:#FAF8F2;--subtle:#F7F7F7;
-  --gold:#B47F39;--gold-pressed:#96682B;--gold-soft:#F0E2CC;
+  --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--gold-soft:#F0E2CC;
   --muted:#6B6B6B;
   --line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;
   --nav-h:68px;--content:1200px;
@@ -49,8 +49,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
-.btn-primary{background:var(--gold);color:var(--white)}
-.btn-primary:hover{background:var(--gold-pressed)}
+.btn-primary{background:var(--gold-strong);color:var(--white)}
+.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-sm{padding:8px 12px;font-size:14px;min-height:38px}
 
 /* nav */
