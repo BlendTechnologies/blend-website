@@ -55,13 +55,15 @@
 }
 
 .blend-cookie-banner-text a {
-  color: var(--gold, #B47F39);
+  /* --gold on the cream banner is 3.3:1; --gold-strong is 4.6:1 and clears
+     the WCAG AA 4.5:1 floor for this 13.5px link text. */
+  color: var(--gold-strong, #96682B);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .blend-cookie-banner-text a:hover {
-  color: var(--gold-pressed, #96682B);
+  color: var(--gold-hover, #7F5824);
 }
 
 .blend-cookie-banner-actions {
@@ -89,18 +91,21 @@
 }
 
 .blend-cookie-banner-btn-accept {
-  background: var(--gold, #B47F39);
+  /* --gold (#B47F39) gives white text only 3.5:1, below the WCAG AA 4.5:1
+     floor for body-size text. --gold-strong (#96682B) is 4.9:1 and is what
+     .btn-primary across the site already uses. */
+  background: var(--gold-strong, #96682B);
   color: #ffffff;
-  border-color: var(--gold, #B47F39);
+  border-color: var(--gold-strong, #96682B);
 }
 
 .blend-cookie-banner-btn-accept:hover {
-  background: var(--gold-pressed, #96682B);
-  border-color: var(--gold-pressed, #96682B);
+  background: var(--gold-hover, #7F5824);
+  border-color: var(--gold-hover, #7F5824);
 }
 
 .blend-cookie-banner-btn-accept:focus-visible {
-  outline: 2px solid var(--gold, #B47F39);
+  outline: 2px solid var(--gold-strong, #96682B);
   outline-offset: 2px;
 }
 
