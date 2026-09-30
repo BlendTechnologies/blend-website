@@ -1,35 +1,72 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Blend">
   <!--
-    The browser-tab mark. One of a colour-inverted PAIR:
+    The browser-tab mark. No tile, and the ink follows the tab strip.
 
-      apps/blend-website/favicon.svg  white ground, black B.   (the site)
-      apps/webapp/app/icon.svg        black ground, white B.   (the app)
+    ## Why the tile went
 
-    THE GEOMETRY OF THE TWO FILES MUST STAY IDENTICAL. Only the two fill
-    values differ. They were not identical before 2026-09-04 and it showed:
-    this file had no ground at all (a bare black glyph on transparency,
-    which disappears against a dark tab strip), its viewBox was 2733.8
-    square against the app's 512, and its full stop sat at the letterform's
-    natural advance while the app's had been nudged 126 units closer. Side
-    by side they read as two different logos.
+    It used to be a filled 512x512 rounded square: white ground with a
+    #0A0A0A B. here, the inverse in the webapp. Founder, 2026-09-30, with
+    both tabs open: "One thing that is still ugly is the icon. Compare to
+    the website. I don't like the white border around the black." Then, on
+    bringing this file in line: "do it for the website too but white."
 
-    Canonical values, so a future edit can check itself:
+    A ground can only ever be right on one kind of chrome. Chrome draws the
+    ACTIVE tab light and the inactive ones dark, so the webapp's black tile
+    was a heavy box on the tab being looked at and this file's white tile
+    was a bright slab on the ones beside it. There is no fill that is quiet
+    on both, which is why the pair kept reading as wrong whichever half you
+    looked at.
+
+    Dropping the ground and letting the ink invert gives a mark that is
+    simply dark on light chrome and light on dark chrome. No border, because
+    there is no ground to have an edge. In a dark-themed browser, which is
+    where the founder asked for white, every tab renders it white.
+
+    ## Why this is not the 2026-09-04 regression
+
+    The ground was ADDED that day for a real reason: this file was a bare
+    #0A0A0A glyph on transparency, so it vanished against a dark tab strip.
+    That objection is answered here rather than ignored: the glyph is not a
+    fixed dark any more, it is a class driven by prefers-color-scheme, so
+    the case that was invisible is exactly the case that now paints white.
+
+    `color-scheme: light dark` is what makes a browser resolve the query
+    against the CHROME it is drawing, not the page underneath.
+
+    ## Geometry
+
+    Identical to apps/webapp/public/icon.svg in the Blend-OS repository,
+    which is the point: the two are one mark again rather than an inversion
+    of one. Glyph paths unchanged, still lifted verbatim from the wordmark
+    in index.html. Only the group transform moved, because the old one was
+    sized to sit inside a tile with 94.8/106 of padding; without the tile
+    that padding is just a smaller mark. Scaled 1.44x about the centre:
 
       viewBox        0 0 512 512
-      ground         rect 512x512, rx 112
-      glyph group    translate(61.9 24.4) scale(0.1993)
-      full stop      translate(1324.52 0)   the B's own advance width,
-                                            i.e. where a font would put it
-      resulting ink  322.3 x 300, centred, 94.8 left/right, 106 top/bottom
+      glyph group    translate(-23.504 -77.504) scale(0.28699)
+      full stop      translate(1324.52 0)   the B's own advance width
+      resulting ink  464.1 x 432, centred, 23.9 left/right, 40 top/bottom
 
-    Glyph paths are lifted verbatim from the wordmark in index.html. Not
-    redrawn, not approximated with a font.
+    Derivation, so a future edit can check itself: for a scale k about the
+    centre C=256, new_scale = 0.1993k and new_translate = C - k(C - old).
 
-    favicon.ico, favicon-16/32/48.png and apple-touch-icon.png are all
-    rasterized FROM this file, so they inherit any change made here.
+    ## The rasters do not follow
+
+    favicon.ico, favicon-16/32/48.png and apple-touch-icon.png keep the
+    white tile. Baked pixels cannot answer a media query, so a
+    transparent-ground raster would bring back precisely the 2026-09-04
+    disappearing act on any browser that does not take the SVG. index.html
+    offers this file first and the .ico only as `alternate icon`, so the
+    rasters are the old-browser floor, not what anyone sees. The
+    apple-touch-icon wants its ground regardless: iOS composites a home
+    screen icon onto its own background.
   -->
-  <rect width="512" height="512" rx="112" fill="#FFFFFF"/>
-  <g transform="translate(61.9 24.4) scale(0.1993)" fill="#0A0A0A">
+  <style>
+    :root { color-scheme: light dark; }
+    .mark { fill: #0A0A0A; }
+    @media (prefers-color-scheme: dark) { .mark { fill: #FFFFFF; } }
+  </style>
+  <g class="mark" transform="translate(-23.504 -77.504) scale(0.28699)">
     <g transform="translate(0 1899.6) scale(1 -1)">
       <path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/>
       <g transform="translate(1324.52 0)">
