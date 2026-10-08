@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product example: what your customer sees | Blend</title>
-<meta name="description" content="See what your customer lands on after taking a Blend quiz: a product page carrying the reasons that recommendation was made for them.">
+<title>The quiz button goes wherever you want | Blend</title>
+<meta name="description" content="Direct customers to your product page, add to their cart, bundle multiple products, or disable the button entirely. You control where the quiz leads.">
 <meta name="robots" content="noindex,follow">
  
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -84,56 +84,53 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .demo-banner span{color:rgba(255,255,255,.78)}
 .demo-banner a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:1px}
 .demo-banner a:hover{border-color:var(--white)}
- 
-/* PDP */
-.pdp{padding:48px 0 96px}
-.pdp-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:64px;align-items:start}
-@media(max-width:960px){.pdp-grid{grid-template-columns:1fr;gap:32px}}
- 
-/* Gallery */
-.gallery-main{aspect-ratio:1/1;background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
-.gallery-main img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .25s ease}
-.gallery-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.gallery-thumbs button{aspect-ratio:1/1;background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;padding:0;transition:border-color .15s ease,box-shadow .15s ease}
-.gallery-thumbs button:hover{border-color:var(--line-strong)}
-.gallery-thumbs button[aria-current="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--cream),0 0 0 3px var(--ink)}
-.gallery-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
- 
-/* Product info */
-.info h1{font-size:clamp(32px,4vw,44px);line-height:1.05;letter-spacing:-.025em;font-weight:600;margin:0 0 14px}
-.info-tag{font-size:16px;color:var(--ink-80);margin:0 0 22px;line-height:1.5;max-width:46ch}
-.review-row{display:flex;align-items:center;gap:10px;margin-bottom:24px;font-size:13.5px;color:var(--ink-60);flex-wrap:wrap}
-.stars{display:inline-flex;gap:0px;color:var(--gold)}
-.stars svg{width:15px;height:15px}
-.review-row .pipe{color:var(--ink-40)}
- 
-.price-card{border:1px solid var(--line);border-radius:14px;padding:4px;background:var(--white);margin-bottom:22px}
-.price-opt{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-radius:8px;cursor:pointer;transition:background .15s ease}
-.price-opt:hover{background:var(--cream)}
-.price-opt input{appearance:none;width:18px;height:18px;border:1.5px solid var(--line-strong);border-radius:999px;display:grid;place-items:center;cursor:pointer;background:var(--white);transition:border-color .15s ease,background .15s ease}
-.price-opt input:checked{border-color:var(--ink);border-width:5px;background:var(--white)}
-.price-opt-meta{display:flex;flex-direction:column;gap:0px}
-.price-opt-title{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
-.price-opt-sub{font-size:12px;color:var(--ink-60)}
-.price-opt-price{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.price-opt-price .strike{font-weight:400;color:var(--ink-40);text-decoration:line-through;margin-right:6px}
-.price-opt-badge{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);padding:4px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
- 
-.qty-row{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:stretch;margin-bottom:14px}
-.qty{display:inline-flex;align-items:center;border:1px solid var(--line-strong);border-radius:8px;background:var(--white);overflow:hidden;height:54px}
-.qty button{width:42px;height:100%;font-size:16px;color:var(--ink-80);transition:background .15s ease}
-.qty button:hover{background:var(--cream);color:var(--ink)}
-.qty span{min-width:36px;text-align:center;font-size:14px;font-weight:600;color:var(--ink)}
- 
-.cta-stack{display:grid;gap:8px}
-.cta-stack .btn{width:100%}
- 
-.trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
-.trust{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.trust svg{width:18px;height:18px;color:var(--gold)}
-.trust strong{font-size:12px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
-.trust span{font-size:12px;color:var(--ink-60);line-height:1.4}
-@media(max-width:520px){.trust-row{grid-template-columns:1fr 1fr}}
+
+/* Hero */
+.hero{padding:72px 0 48px;text-align:center}
+.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.08;letter-spacing:-.025em;font-weight:600;margin:0 0 20px;max-width:28ch;margin-left:auto;margin-right:auto}
+.hero-lead{font-size:clamp(16px,1.2vw,19px);line-height:1.5;color:var(--ink-80);max-width:56ch;margin:0 auto 12px;font-weight:400}
+@media(max-width:560px){.hero{padding:48px 0 32px}}
+
+/* Button modes */
+.modes{padding:48px 0 64px}
+.modes-intro{text-align:center;margin-bottom:48px}
+.modes-intro h2{font-size:clamp(26px,3.6vw,38px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0 0 14px}
+.modes-intro p{font-size:16px;line-height:1.55;color:var(--ink-80);max-width:52ch;margin:0 auto}
+.modes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1040px;margin:0 auto}
+.mode-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px;transition:border-color .2s ease,box-shadow .2s ease}
+.mode-card:hover{border-color:var(--line-strong);box-shadow:var(--shadow-sm)}
+.mode-head{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.mode-icon{flex:0 0 auto;display:grid;place-items:center}
+.mode-icon svg{width:22px;height:22px;color:var(--gold-strong)}
+.mode-card h3{font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em}
+.mode-card p{font-size:14px;line-height:1.5;color:var(--ink-80);margin:0}
+@media(max-width:680px){.modes-grid{grid-template-columns:1fr}}
+
+/* How it works */
+.how{padding:64px 0 72px;background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.how h2{font-size:clamp(26px,3.6vw,38px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0 0 42px;text-align:center}
+.steps{display:grid;gap:32px;max-width:680px;margin:0 auto}
+.step{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+.step-num{width:36px;height:36px;border-radius:999px;background:var(--gold-soft);color:var(--gold-strong);font-size:15px;font-weight:600;display:grid;place-items:center;flex-shrink:0}
+.soon{display:inline-flex;align-items:center;border-radius:999px;background:var(--gold-soft);color:var(--gold-active);padding:3px 9px;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-right:8px;vertical-align:1px}
+.soon-line{font-size:14px;line-height:1.6;color:var(--ink-80);margin:12px 0 0}
+.step-content h3{font-size:17px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+.step-content p{font-size:15px;line-height:1.5;color:var(--ink-80);margin:0}
+
+/* Analytics */
+.analytics{padding:64px 0}
+.analytics h2{font-size:clamp(26px,3.6vw,38px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0 0 14px;text-align:center}
+.analytics-lead{font-size:16px;line-height:1.55;color:var(--ink-80);max-width:56ch;margin:0 auto 36px;text-align:center}
+.analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;max-width:900px;margin:0 auto}
+.analytics-item{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:18px 20px;font-size:14px;color:var(--ink-80);line-height:1.5}
+@media(max-width:620px){.analytics-grid{grid-template-columns:1fr}}
+
+/* CTA */
+.cta{padding:72px 0 96px;text-align:center}
+.cta h2{font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0 0 16px}
+.cta p{font-size:17px;line-height:1.5;color:var(--ink-80);max-width:48ch;margin:0 auto 32px}
+.cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+@media(max-width:560px){.cta{padding:56px 0 80px}}
  
 /* footer */
 .footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
@@ -160,16 +157,16 @@ html,body{max-width:100%;overflow-x:clip}
 </style>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blend Technologies">
-<meta property="og:title" content="Product example: what your customer sees | Blend">
-<meta property="og:description" content="See what your customer lands on after taking a Blend quiz: a product page carrying the reasons that recommendation was made for them.">
+<meta property="og:title" content="The quiz button goes wherever you want | Blend">
+<meta property="og:description" content="Direct customers to your product page, add to their cart, bundle multiple products, or disable the button entirely. You control where the quiz leads.">
 <meta property="og:url" content="https://www.blend-technologies.com/product-example">
 <meta property="og:image" content="https://www.blend-technologies.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Product example: what your customer sees | Blend">
-<meta name="twitter:description" content="See what your customer lands on after taking a Blend quiz: a product page carrying the reasons that recommendation was made for them.">
+<meta name="twitter:title" content="The quiz button goes wherever you want | Blend">
+<meta name="twitter:description" content="Direct customers to your product page, add to their cart, bundle multiple products, or disable the button entirely. You control where the quiz leads.">
 <meta name="twitter:image" content="https://www.blend-technologies.com/og.png">
 </head>
 <body>
@@ -200,100 +197,107 @@ html,body{max-width:100%;overflow-x:clip}
 </header>
  
 <main id="main">
- 
-  <section class="pdp">
+
+  <section class="hero">
     <div class="wrap">
-      <div class="pdp-grid">
- 
-        <!-- Gallery -->
-        <div class="gallery">
-          <div class="gallery-main">
-            <img id="mainImage" src="/images/daily-energy-blend-front.jpg" alt="Daily Energy Blend">
-          </div>
-          <div class="gallery-thumbs" role="tablist" aria-label="Product images">
-            <button type="button" aria-current="true" data-img="/images/daily-energy-blend-front.jpg">
-              <img src="/images/daily-energy-blend-front.jpg" alt="Front view">
-            </button>
-            <button type="button" data-img="/images/daily-energy-blend-detail.jpg">
-              <img src="/images/daily-energy-blend-detail.jpg" alt="Detail view">
-            </button>
-            <button type="button" data-img="/images/daily-energy-blend-in-context.jpg">
-              <img src="/images/daily-energy-blend-in-context.jpg" alt="In context">
-            </button>
-          </div>
+      <h1>The quiz button goes wherever you want</h1>
+      <p class="hero-lead">Direct customers to your product page, add to their cart straight away, let them build a bundle, or turn the products section off completely. You choose how it works, and you can change it any time without touching the embed code.</p>
+    </div>
+  </section>
+
+  <section class="modes">
+    <div class="wrap">
+      <div class="modes-intro">
+        <h2>Three button modes, or no button at all</h2>
+        <p>Pick the experience that fits the type of store you run. Settings are controlled from your dashboard, so changing how the quiz behaves never requires pasting new code.</p>
+      </div>
+      <div class="modes-grid">
+        <div class="mode-card">
+          <div class="mode-head"><span class="mode-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>View product</h3></div>
+          <p>Sends the customer to your product page wherever it lives, on your store, on a third party marketplace, or anywhere else. They see the full details and add to cart themselves.</p>
         </div>
- 
-        <!-- Info -->
-        <div class="info">
-          <h1>Daily Energy Blend</h1>
-          <p class="info-tag">A clean morning formula, built for your goals and routine.</p>
- 
-          <div class="review-row">
-            <span class="stars" aria-label="4.8 out of 5 stars">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
-            </span>
-            <span><strong style="color:var(--ink);font-weight:600">4.8</strong></span>
-            <span class="pipe">·</span>
-            <span>1,247 reviews</span>
-          </div>
- 
-          <form class="price-card" aria-label="Choose plan">
-            <label class="price-opt">
-              <input type="radio" name="plan" value="subscribe" checked>
-              <span class="price-opt-meta">
-                <span class="price-opt-title">Subscribe &amp; Save<span class="price-opt-badge">Save 15%</span></span>
-                <span class="price-opt-sub">Delivered every 30 days · Cancel anytime</span>
-              </span>
-              <span class="price-opt-price"><span class="strike">$48</span>$40.80</span>
-            </label>
-            <label class="price-opt">
-              <input type="radio" name="plan" value="onetime">
-              <span class="price-opt-meta">
-                <span class="price-opt-title">One-time purchase</span>
-                <span class="price-opt-sub">30-day supply · Free shipping over $50</span>
-              </span>
-              <span class="price-opt-price">$48.00</span>
-            </label>
-          </form>
- 
-          <div class="qty-row">
-            <div class="qty" role="group" aria-label="Quantity">
-              <button type="button" id="qtyMinus" aria-label="Decrease quantity">&minus;</button>
-              <span id="qtyVal" aria-live="polite">1</span>
-              <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
-            </div>
-            <div class="cta-stack">
-              <button type="button" class="btn btn-primary btn-lg">Add to cart, $40.80</button>
-            </div>
-          </div>
- 
-          <div class="trust-row">
-            <div class="trust">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <strong>3rd-party tested</strong>
-              <span>Every batch, every ingredient</span>
-            </div>
-            <div class="trust">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              <strong>Free shipping</strong>
-              <span>On all subscription orders</span>
-            </div>
-            <div class="trust">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
-              <strong>60-day guarantee</strong>
-              <span>Full refund, no questions</span>
-            </div>
-          </div>
+        <div class="mode-card">
+          <div class="mode-head"><span class="mode-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span><h3>Add to cart</h3></div>
+          <p>Adds the product to the customer's cart without leaving the results page, so your store's cart count updates immediately and they can keep browsing or check out.</p>
         </div>
- 
+        <div class="mode-card">
+          <div class="mode-head"><span class="mode-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span><h3>Add to bundle</h3></div>
+          <p>Lets the customer collect multiple recommended products on the page, then add the whole set to their cart in one go. Useful when results typically show more than one product.</p>
+        </div>
+      </div>
+      <div style="margin-top:36px;text-align:center;font-size:15px;color:var(--ink-80);max-width:54ch;margin-left:auto;margin-right:auto;line-height:1.5">
+        <p style="margin:0">Or disable the products section entirely if you only want to collect customer signals and show recommendations elsewhere, outside the quiz. The section carries an enabled flag you can toggle from your dashboard.</p>
       </div>
     </div>
   </section>
- 
+
+  <section class="how">
+    <div class="wrap">
+      <h2>One script tag, works everywhere</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Paste one line of code</h3>
+            <p>Copy the embed script from your dashboard and drop it wherever you want the quiz to appear. Works in Shopify, Squarespace, Wix, WordPress, and anything else that accepts custom code.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Change settings without re-pasting</h3>
+            <p>Switch button modes, adjust branding, edit questions, or turn sections on and off from your dashboard. The embed stays the same. Settings resolve server side each time the page loads, so updates are instant.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Display inline or as a popup</h3>
+            <p>The quiz fills the width and height of wherever you place it. Show it as a page section, or attach it to a button that opens a modal. Both work with the same embed code.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Connect your store and link your catalogue</h3>
+            <p>Connect your Shopify store in seconds and Blend imports your products automatically. Each product is matched to the recommendation engine's ingredient model, and from then on the quiz recommends from your own range. Brands without Shopify can add products manually or upload a CSV. Product clicks and cart adds are tracked back to the quiz session.</p>
+            <p class="soon-line"><span class="soon">Coming soon</span>Purchase tracking, so revenue ties back to the quiz that produced it, and a one click install from the Shopify App Store.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="analytics">
+    <div class="wrap">
+      <h2>See what's working</h2>
+      <p class="analytics-lead">Track engagement, completion rates, drop-off points, and which products your customers are actually asking for.</p>
+      <div class="analytics-grid">
+        <div class="analytics-item">Quiz engagements and completion rate</div>
+        <div class="analytics-item">Median completion time</div>
+        <div class="analytics-item">Retake rate</div>
+        <div class="analytics-item">Products recommended per session</div>
+        <div class="analytics-item">Product click-through rate</div>
+        <div class="analytics-item">Drop-off by question</div>
+        <div class="analytics-item">Top recommended products</div>
+        <div class="analytics-item">Customer goals and preferences</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>See it in action</h2>
+      <p>Take the live quiz yourself to see how the personalisation engine works, from the first question to the final recommendations.</p>
+      <div class="cta-actions">
+        <a href="try.html" class="btn btn-primary btn-lg">Try the live demo</a>
+      </div>
+    </div>
+  </section>
+
 </main>
  
 <footer class="footer">
@@ -339,13 +343,13 @@ html,body{max-width:100%;overflow-x:clip}
 <script>
 // year
 document.getElementById('year').textContent = new Date().getFullYear();
- 
+
 // nav scroll
 const nav = document.getElementById('nav');
 const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
 setScrolled();
 window.addEventListener('scroll', setScrolled, { passive: true });
- 
+
 // mobile toggle
 const toggle = document.getElementById('nav-toggle');
 const links = document.getElementById('nav-links');
@@ -359,24 +363,6 @@ links.querySelectorAll('a').forEach(a => {
     toggle.setAttribute('aria-expanded', 'false');
   });
 });
- 
-// gallery
-const mainImg = document.getElementById('mainImage');
-document.querySelectorAll('.gallery-thumbs button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const src = btn.dataset.img;
-    if (!src) return;
-    mainImg.src = src;
-    document.querySelectorAll('.gallery-thumbs button').forEach(b => b.removeAttribute('aria-current'));
-    btn.setAttribute('aria-current', 'true');
-  });
-});
- 
-// quantity
-let qty = 1;
-const qtyVal = document.getElementById('qtyVal');
-document.getElementById('qtyMinus').addEventListener('click', () => { qty = Math.max(1, qty - 1); qtyVal.textContent = qty; });
-document.getElementById('qtyPlus').addEventListener('click', () => { qty = Math.min(9, qty + 1); qtyVal.textContent = qty; });
 </script>
 
 <!-- Cookie consent banner -->
