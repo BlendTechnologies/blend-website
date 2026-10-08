@@ -332,6 +332,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .sci-n{font-size:48px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
 .sci-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
 .sci-sub{margin-top:6px;font-size:14px;color:var(--muted-on-dark);line-height:1.5}
+.sci-note{grid-column:1/-1;margin:6px 0 2px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px}
+.sci-note p{margin:0;font-size:15px;line-height:1.6;color:var(--muted-on-dark)}
+.sci-note b{color:var(--white);font-weight:600}
+@media(max-width:860px){.sci-note{grid-template-columns:1fr;gap:14px}}
 .sci-method{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease,border-color .2s ease;margin-top:4px}
 .sci-method:hover{background:rgba(180,127,57,.15);border-color:var(--gold-soft)}
 .sci-method-left{display:flex;align-items:center;gap:16px}
@@ -1378,9 +1382,19 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="science-stats">
       <div class="sci-stat"><div class="sci-n">200+</div><div class="sci-label">Products audited</div><div class="sci-sub">Standardised so every score is comparable across the catalogue.</div></div>
       <div class="sci-stat"><div class="sci-n">30+</div><div class="sci-label">Product attributes</div><div class="sci-sub">Ingredients, dosing, evidence, contraindications, synergies, all scored.</div></div>
-      <div class="sci-stat"><div class="sci-n">26</div><div class="sci-label">Safety gates</div><div class="sci-sub">Interactions, medication conflicts, upper limits, and contraindications.</div></div>
+      <div class="sci-stat"><div class="sci-n">21</div><div class="sci-label">Safety gates</div><div class="sci-sub">Interactions, medication conflicts, upper limits, and contraindications.</div></div>
       <div class="sci-stat"><div class="sci-n">0</div><div class="sci-label">Black boxes</div><div class="sci-sub">Every recommendation traces to a goal or a measured nutrient gap.</div></div>
-      <div class="sci-stat"><div class="sci-n">1:1</div><div class="sci-label">Tuned to your brand</div><div class="sci-sub">Your catalogue, your customers, your questions, your algorithm.</div></div>    <a href="mailto:contact@blend-technologies.com" class="sci-method" aria-label="Request methodology documentation">
+      <div class="sci-stat"><div class="sci-n">1:1</div><div class="sci-label">Tuned to your brand</div><div class="sci-sub">Your catalogue, your customers, your questions, your algorithm.</div></div>
+      <div class="sci-note">
+        <p><b>The bar for recommending differs by nutrient.</b> One threshold used to gate all
+        thirty-two identically, so vitamin A and vitamin C were judged the same way. They should
+        not be. Too much protein is harmless; vitamin A at a ten per cent shortfall is not worth
+        taking, because retinol accumulates and nothing is gained above requirement. A product is
+        recommended for a nutrient only where correcting that nutrient is actually worth it.</p>
+        <p>This sits on top of the upper-limit ceiling rather than replacing it. Nobody was being
+        overdosed before; the ceiling already refused any dose that would breach a tolerable
+        limit. This is the separate question of whether a modest gap is worth supplementing at all.</p>
+      </div>    <a href="mailto:contact@blend-technologies.com" class="sci-method" aria-label="Request methodology documentation">
         <div class="sci-method-left"><div class="sci-method-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B47F39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div><div class="sci-method-copy"><div class="sci-method-label">See the methodology</div><div class="sci-method-sub">How scoring works, step by step. Request the full documentation.</div></div></div>
         <div class="sci-method-arrow">Request access <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </a>
