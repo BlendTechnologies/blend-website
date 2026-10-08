@@ -201,16 +201,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .steps:hover .step:not(:hover) p{opacity:.7}
 @media(max-width:960px){.steps{grid-template-columns:1fr 1fr;gap:24px}.steps::before{display:none}.step:nth-child(5){grid-column:1/-1}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}.step:nth-child(5){grid-column:auto}}
-/* Editor showcase. Deliberately not a card grid: the screenshot is the
-   argument, and the supporting points sit under it as a line of text rather
-   than three boxes of icon-plus-heading-plus-sentence. */
-.ed-lead{max-width:62ch;font-size:17px;line-height:1.55;color:var(--ink-60);margin:14px 0 0}
-.ed-shot{margin:34px 0 0;border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;
-  background:var(--white);box-shadow:0 18px 44px -28px rgba(10,10,10,.34)}
-.ed-shot img{display:block;width:100%;height:auto}
-.ed-cap{display:flex;flex-wrap:wrap;gap:8px 30px;margin:18px 2px 0;font-size:14px;color:var(--ink-60)}
-.ed-cap b{color:var(--ink);font-weight:600}
-@media(max-width:640px){.ed-shot{border-radius:10px;margin-top:24px}.ed-cap{gap:6px 18px;font-size:13px}}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
@@ -1178,7 +1168,7 @@ html,body{max-width:100%;overflow-x:clip}
         <div class="hero-foot">
           <span>15-day free trial</span><span class="dot" aria-hidden="true"></span>
           <span>Live in an afternoon</span><span class="dot" aria-hidden="true"></span>
-          <span>Built for trust</span>
+          <span>Live with our first clients</span>
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -1234,42 +1224,7 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </section>
-<section class="section section-subtle" id="editor">
-  <div class="wrap">
-    <h2 class="h2">Set your brand once. Every screen follows.</h2>
-    <p class="ed-lead">Logo, colours, type, layout, spacing and transitions are defaults the whole
-      quiz inherits, and any single screen can depart from them. Preview at desktop, tablet and
-      phone as you go, and publish when it reads right.</p>
-    <figure class="ed-shot">
-      <img src="images/editor-01-general-brand-design.jpg" width="1400" height="962" loading="lazy" decoding="async"
-           alt="The Blend editor. A left rail lists the quiz screens and brand settings, the centre shows a live welcome screen at desktop width, and the right panel sets logo, brand colours by hex, font family, heading and body size, layout and corner radius.">
-    </figure>
-    <div class="ed-cap">
-      <span><b>Eight brand colours</b>, set by hex</span>
-      <span><b>Per-screen overrides</b>, on top of the defaults</span>
-      <span><b>Desktop, tablet and phone</b> previews</span>
-      <span><b>Draft and publish</b>, so nothing goes live by accident</span>
-    </div>
-  </div>
-</section>
-<section class="section section-cream">
-  <div class="wrap">
-    <h2 class="h2">Design the results page. The recommendations stay ours.</h2>
-    <p class="ed-lead">Reorder the plan, switch sections on and off, choose product cards or a list,
-      show prices or hide them, and set what the product button does. What you cannot do is change
-      which products the engine returns, or remove a notice the law requires. That line is deliberate:
-      it is what lets you hand the page to a designer without anyone having to re-read the regulations.</p>
-    <figure class="ed-shot">
-      <img src="images/editor-04-results-editor.jpg" width="1400" height="962" loading="lazy" decoding="async"
-           alt="The results page editor. Page sections such as plan header, their goals, recommended products and nutrition breakdown can each be switched on or off, while required notices are marked always on and recommendations are marked as coming from the engine.">
-    </figure>
-    <div class="ed-cap">
-      <span><b>Sections reorder</b> and switch off</span>
-      <span><b>Required notices</b> stay on, always</span>
-      <span><b>Three button modes</b>: view, add to cart, or bundle</span>
-    </div>
-  </div>
-</section>
+
 <section class="section section-subtle">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Two outcomes, one engine</span><h2 class="h2">Customers get a match. You get a dataset.</h2><p class="lead">One quiz. A personalised plan for them. Analytics, insights, and a better-performing catalogue for you.</p></div>
