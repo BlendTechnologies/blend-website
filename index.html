@@ -188,8 +188,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section-cream{background:var(--cream)}
 .section-subtle{background:var(--subtle)}
 @media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
-.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative}
-.steps::before{content:"";position:absolute;left:32px;right:32px;top:22px;height:1px;background:var(--line-strong);z-index:0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 44px;position:relative}
 .step{position:relative;padding:0 4px;z-index:1}
 .step-n{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--ink-60);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .2s ease,border-color .2s ease,color .2s ease;font-feature-settings:"tnum"}
 .step-body{padding:16px 4px 4px;margin-top:14px}
@@ -199,8 +198,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .step:hover .step-n{background:var(--ink)!important;border-color:var(--ink)!important;color:var(--white)!important}
 .steps:hover .step:not(:hover) h3{color:var(--ink-60)}
 .steps:hover .step:not(:hover) p{opacity:.7}
-@media(max-width:960px){.steps{grid-template-columns:1fr 1fr;gap:24px}.steps::before{display:none}.step:nth-child(5){grid-column:1/-1}}
-@media(max-width:520px){.steps{grid-template-columns:1fr}.step:nth-child(5){grid-column:auto}}
+@media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:26px 20px}}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:30px 26px}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
@@ -572,9 +572,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .quiz,.results{position:static;margin:0}
   .results{padding:22px}
   .step{padding:0}
-  .step:nth-child(5){grid-column:auto}
-  .steps::before{display:none}
-  .split-card{min-height:auto;padding:28px 24px}
+    .split-card{min-height:auto;padding:28px 24px}
   .split-card h3{font-size:20px;margin-top:10px}
   .tier{padding:30px 24px}
   .tier.featured::before{top:18px;right:18px;font-size:10.5px}
@@ -1216,11 +1214,12 @@ html,body{max-width:100%;overflow-x:clip}
   <div class="wrap">
     <div class="section-head"><h2 class="h2">Your catalogue. Their personalised plan.</h2></div>
     <div class="steps">
-      <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Connect your catalogue</h3><p>Connect a Shopify store and Blend reads its public catalogue. Nothing to install. No Shopify app, no theme edit, no developer. Or import a CSV, or add products by hand.</p></div></div>
-      <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Match it to the science</h3><p>Every product is matched to the ingredient model the engine scores against, so the quiz recommends your range and not a generic one. Multi-ingredient formulas match on each ingredient they contain.</p></div></div>
-      <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Design the quiz</h3><p>Screens and brand in one editor. Set type, colour, layout and spacing once, override any single screen, preview at desktop, tablet and phone, publish when it reads right.</p></div></div>
+      <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Connect your catalogue</h3><p>Shopify, CSV, or by hand. A Shopify store connects from its address alone: no app to install, no developer, nothing added to your theme.</p></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Match it to the science</h3><p>Every product maps to the ingredient model the engine scores against, deterministically and in the open. Multi-ingredient formulas are flagged, so a D3 and K2 spray never syncs as plain D3.</p></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Design the quiz</h3><p>Build it screen by screen, or answer ten questions and let Blend AI draft it. It configures from the question bank the engine already scores, so it cannot invent a question that scores nothing.</p></div></div>
       <div class="step"><div class="step-n">4</div><div class="step-body"><h3>Put it where your customers are</h3><p>One script tag on your own storefront, inline or as a popup. On Pro and above it carries no Blend badge at all.</p></div></div>
-      <div class="step"><div class="step-n">5</div><div class="step-body"><h3>They get a plan. You get the sale.</h3><p>Add to cart sends them to your Shopify cart with the products in it, the way any Shopify add-to-cart does. Or let them gather a bundle first and add the whole set at once. Product clicks and add-to-cart are tracked from the day your store is connected.</p></div></div>
+      <div class="step"><div class="step-n">5</div><div class="step-body"><h3>They get a plan. You get the sale.</h3><p>Every pick says why, in their own words back to them. Add to cart takes them to your Shopify cart with it in, or they add the whole bundle in one go.</p></div></div>
+      <div class="step"><div class="step-n">6</div><div class="step-body"><h3>Analyse the data</h3><p>Goals, diet, conditions, what they clicked and what they added. First-party data on your own customers, brand-scoped and yours.</p></div></div>
     </div>
   </div>
 </section>
