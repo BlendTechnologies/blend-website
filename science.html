@@ -184,18 +184,29 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section-cream{background:var(--cream)}
 .section-subtle{background:var(--subtle)}
 @media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 44px;position:relative}
-.step{position:relative;padding:0 4px;z-index:1}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+.step{position:relative;display:flex;flex-direction:column;padding:24px 22px;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
+.step:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.step:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
 .step-n{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--ink-60);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .2s ease,border-color .2s ease,color .2s ease;font-feature-settings:"tnum"}
-.step-body{padding:16px 4px 4px;margin-top:14px}
-.step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.step-body{padding:0;margin-top:16px}
+.step h3{margin:0 0 6px;padding-right:26px;font-size:16px;font-weight:600;letter-spacing:-.01em}
 .step p{margin:0;font-size:14px;color:var(--ink-60);line-height:1.5}
+/* The plus is drawn at all times, never on hover alone. Touch has no hover,
+   and an affordance half the audience cannot see is not an affordance. It
+   does not rotate on hover: a plus turning into a cross reads as "close". */
+.step-plus{position:absolute;top:20px;right:20px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;transition:border-color .18s ease,background .18s ease}
+.step-plus::before,.step-plus::after{content:"";position:absolute;background:var(--ink-60);transition:background .18s ease}
+.step-plus::before{width:10px;height:1.5px}
+.step-plus::after{width:1.5px;height:10px}
+.step:hover .step-plus{border-color:var(--gold);background:var(--gold-soft)}
+.step:hover .step-plus::before,.step:hover .step-plus::after{background:var(--gold-active)}
 .steps:hover .step .step-n{background:var(--cream);border-color:var(--line-strong);color:var(--ink-60)}
 .step:hover .step-n{background:var(--ink)!important;border-color:var(--ink)!important;color:var(--white)!important}
 .steps:hover .step:not(:hover) h3{color:var(--ink-60)}
 .steps:hover .step:not(:hover) p{opacity:.7}
-@media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:26px 20px}}
-@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:30px 26px}}
+@media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
@@ -567,7 +578,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   /* card-specific tightening so nothing looks oversized in a swipe context */
   .quiz,.results{position:static;margin:0}
   .results{padding:22px}
-  .step{padding:0}
+  .step{padding:22px 20px}
     .split-card{min-height:auto;padding:28px 24px}
   .split-card h3{font-size:20px;margin-top:10px}
   .tier{padding:30px 24px}
@@ -1135,17 +1146,24 @@ html,body{max-width:100%;overflow-x:clip}
 
 /* A visible link on every step box, not a plus that appears on hover. Touch
    has no hover, so a hover-only affordance tells half the audience nothing. */
-.step-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:500;color:var(--gold-active);border-bottom:1px solid transparent;transition:border-color .15s ease,opacity .2s ease}
-.step-link svg{transition:transform .18s ease}
-.step:hover .step-link{border-bottom-color:var(--gold-soft)}
-.step:hover .step-link svg{transform:translateX(3px)}
-.steps:hover .step:not(:hover) .step-link{opacity:.55}
 
 /* /how-it-works: one block per step. The step marker is the only new
    element; what sits under it are sections that used to be on the homepage. */
 .hw-hero{padding:56px 0 64px;background:var(--cream);border-bottom:1px solid var(--line)}
 .hw-title{margin-top:14px;max-width:820px}
 .hw-hero .lead{margin-top:18px;max-width:600px}
+/* The homepage engine block: three ideas, no boxes. Every other band on that
+   page is a grid of cards, so this one is deliberately not one. */
+.sci-points{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px}
+.sci-point{padding-top:22px;border-top:1px solid rgba(255,255,255,.2)}
+.sci-point h3{margin:0 0 10px;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--white)}
+.sci-point p{margin:0;font-size:15px;line-height:1.62;color:var(--muted-on-dark)}
+.science .sci-method{margin-top:48px}
+@media(max-width:860px){
+  .sci-points{grid-template-columns:1fr;gap:26px;margin-top:40px}
+  .sci-point{padding-top:18px}
+  .science .sci-method{margin-top:32px}
+}
 section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 .hw-head{margin-bottom:48px}
 .hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-active)}
