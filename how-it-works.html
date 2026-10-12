@@ -1183,9 +1183,12 @@ html,body{max-width:100%;overflow-x:clip}
 .eng-val{display:inline;margin-left:8px;font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
 .eng-word.r2{animation-name:eng-word-2}
 .eng-word.r3{animation-name:eng-word-3}
-@keyframes eng-word{0%{opacity:0}5%,27%{opacity:1}33%,100%{opacity:0}}
-@keyframes eng-word-2{0%{opacity:0}4%,44%{opacity:1}50%,100%{opacity:0}}
-@keyframes eng-word-3{0%{opacity:0}5%,27%{opacity:1}33%,100%{opacity:0}}
+/* The visible window is shorter than the slot each word owns, and the
+   slack is what lets a word jitter inside its slot without two in a
+   row ever overlapping. */
+@keyframes eng-word{0%{opacity:0}5%,22%{opacity:1}27%,100%{opacity:0}}
+@keyframes eng-word-2{0%{opacity:0}4%,38%{opacity:1}44%,100%{opacity:0}}
+@keyframes eng-word-3{0%{opacity:0}5%,22%{opacity:1}27%,100%{opacity:0}}
 
 /* the catalogue */
 .eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
