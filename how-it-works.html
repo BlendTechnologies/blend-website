@@ -1229,10 +1229,10 @@ html,body{max-width:100%;overflow-x:clip}
 .rbrand{flex-shrink:0;color:var(--white)}
 .rbrand .qbrand-mark{width:17px}
 .rlabel{font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(231,207,163,.7)}
-.rtitle{margin-top:8px;font-size:18px;font-weight:600;line-height:1.1;letter-spacing:-.022em;color:var(--white)}
+.rtitle{margin-top:8px;font-size:18px;font-weight:600;line-height:1.1;letter-spacing:-.022em;color:#F5F3EF}
 .rprofile{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
-.rprofile span{font-size:9.5px;font-weight:500;color:rgba(255,255,255,.58);background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.rprofile span{font-size:9.5px;font-weight:500;color:#AAA69E;background:rgba(255,255,255,.035);
+  border:1px solid #30302D;border-radius:999px;padding:4px 10px;white-space:nowrap}
 
 /* The gap lives on the card, and the deck pulls back by the same amount, so
    two cards never touch mid-swipe and the resting card still lines up with
@@ -1248,46 +1248,55 @@ html,body{max-width:100%;overflow-x:clip}
   72%,87%{transform:translateX(-66.6667%)}
   90%,100%{transform:translateX(-83.3334%)}
 }
+.pc>*{flex-shrink:0}
 .pc{height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
-  background:#171717;border:1px solid rgba(255,255,255,.13);border-radius:13px;color:var(--white)}
-.pc-badge{align-self:flex-start;font-size:7.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
-  color:rgba(255,255,255,.48);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  border-radius:999px;padding:4px 9px}
-.pc-name{margin-top:11px;font-size:16px;font-weight:600;letter-spacing:-.015em;line-height:1.2;
+  background:#171717;border:1px solid #30302D;border-radius:13px;color:#F5F3EF}
+.pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;color:#89867F}
+.pc-name{margin-top:6px;font-size:17px;font-weight:600;letter-spacing:-.018em;line-height:1.2;color:#F5F3EF;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-tags{display:flex;gap:5px;margin-top:9px;overflow:hidden}
-.pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:rgba(255,255,255,.5);
-  background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px 10px;white-space:nowrap}
-.pc-tag.is-match{color:rgba(231,207,163,.9);background:rgba(180,127,57,.18);border-color:rgba(231,207,163,.22)}
-.pc-desc{margin:11px 0 0;font-size:10.5px;line-height:1.5;color:rgba(255,255,255,.42);
+.pc-tags{display:flex;align-items:center;gap:9px;margin-top:12px;overflow:hidden}
+.pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:#89867F;padding:4px 0;white-space:nowrap}
+.pc-tag.is-match{color:rgba(231,207,163,.92);background:rgba(180,127,57,.18);
+  border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:4px 10px}
+.pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pc-rule{height:1px;background:rgba(255,255,255,.1);margin:11px 0 0}
+/* two auto margins, so the free space splits evenly above the divider and
+   above the button instead of piling up under a short reason. */
+.pc-rule{height:1px;background:#30302D;margin:auto 0 0}
 
 /* Why, When and Serving on one grid, so the values start at the same x even
    when the reason runs to two lines. */
-.pc-facts{display:grid;grid-template-columns:46px minmax(0,1fr);gap:7px 8px;margin:11px 0 0;font-size:10.5px;line-height:1.45}
-.pc-facts dt{font-weight:600;color:rgba(255,255,255,.75)}
-.pc-facts dd{margin:0;color:rgba(255,255,255,.5)}
-.pc-facts dd:first-of-type{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11.5px;font-weight:600;letter-spacing:.01em;
-  color:rgba(255,255,255,.92);background:rgba(180,127,57,.78);border-radius:9px;padding:10px 14px}
+.pc-facts{display:grid;gap:8px;margin:13px 0 0;font-size:10.5px;line-height:1.45}
+.pc-fact{display:grid;grid-template-columns:42px minmax(0,1fr);gap:5px}
+.pc-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px}
+.pc-facts dt{font-weight:600;color:#89867F;white-space:nowrap}
+.pc-facts dd{margin:0;color:#AAA69E}
+.pc-fact-why dd{min-height:2.9em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.01em;
+  color:#F5F3EF;background:rgba(180,127,57,.78);border-radius:8px;padding:8px 14px}
 
-.pc-gaps .pc-name{margin-top:0}
-.nb{margin-top:13px;display:grid;gap:10px}
-.nb-row{display:grid;grid-template-columns:62px minmax(0,1fr) 30px;align-items:center;gap:8px;font-size:10.5px}
-.nb-n{color:rgba(255,255,255,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nb-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.09);overflow:hidden}
-.nb-bar i{display:block;height:100%;border-radius:2px;background:rgba(255,255,255,.26)}
-.nb-bar i.is-mid{background:rgba(214,145,78,.82)}
-.nb-bar i.is-low{background:rgba(224,121,92,.86)}
-.nb-v{text-align:right;font-feature-settings:"tnum";color:rgba(255,255,255,.42);font-weight:500}
-.nb-v.is-mid{color:rgba(214,145,78,.92)}
-.nb-v.is-low{color:rgba(224,121,92,.94)}
+/* the one slide with no reason to clamp a description */
+.pc-gaps .pc-desc{min-height:0}
+.nb{margin-top:12px;display:grid;gap:9px}
+/* fixed tracks either side, so every bar starts and ends at the same x */
+.nb-row{display:grid;grid-template-columns:62px minmax(0,1fr) 30px;align-items:center;gap:10px;font-size:10.5px;line-height:1.3}
+.nb-n{color:#AAA69E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nb-bar{height:5px;border-radius:2.5px;background:#30302D;overflow:hidden}
+.nb-bar i{display:block;height:100%;border-radius:2.5px;background:#605E58}
+.nb-bar i.is-mid{background:var(--gold)}
+.nb-bar i.is-low{background:var(--red-soft)}
+.nb-v{text-align:right;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";color:#AAA69E;font-weight:500}
+.nb-v.is-mid{color:#C79256}
+.nb-v.is-low{color:#DE7259}
 
 @media(prefers-reduced-motion:reduce){.pc-track{animation:none !important}}
 @media(max-width:560px){
   .pc{height:292px}
   .rtitle{font-size:20px}
+  /* the breakdown's description takes a second line at this width, and the
+     card is nine pixels shorter; the rows give that back. */
+  .nb{gap:7px}
 }
 
 /* ---- The engine band -------------------------------------------------
