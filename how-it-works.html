@@ -188,24 +188,23 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section-subtle{background:var(--subtle)}
 @media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
-.step{position:relative;display:flex;flex-direction:column;padding:24px 22px;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
-.step:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
+.step:hover,.step:focus-visible{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .step:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
-.step-n{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--ink-60);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .2s ease,border-color .2s ease,color .2s ease;font-feature-settings:"tnum"}
-.step-body{padding:0;margin-top:16px}
-.step h3{margin:0 0 6px;padding-right:26px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+/* Flush to the card edge, clipped to the top corners by the card's own
+   overflow. One fixed height so the six titles sit on the same line. */
+.step-thumb{display:block;height:132px;background:var(--cream);border-bottom:1px solid var(--line)}
+.step-thumb svg{display:block;width:100%;height:100%}
+.step-body{padding:20px 22px 0;flex:1}
+.step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em;font-feature-settings:"tnum"}
 .step p{margin:0;font-size:14px;color:var(--ink-60);line-height:1.5}
-/* The plus is drawn at all times, never on hover alone. Touch has no hover,
-   and an affordance half the audience cannot see is not an affordance. It
-   does not rotate on hover: a plus turning into a cross reads as "close". */
-.step-plus{position:absolute;top:20px;right:20px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;transition:border-color .18s ease,background .18s ease}
-.step-plus::before,.step-plus::after{content:"";position:absolute;background:var(--ink-60);transition:background .18s ease}
-.step-plus::before{width:10px;height:1.5px}
-.step-plus::after{width:1.5px;height:10px}
-.step:hover .step-plus{border-color:var(--gold);background:var(--gold-soft)}
-.step:hover .step-plus::before,.step:hover .step-plus::after{background:var(--gold-active)}
-.steps:hover .step .step-n{background:var(--cream);border-color:var(--line-strong);color:var(--ink-60)}
-.step:hover .step-n{background:var(--ink)!important;border-color:var(--ink)!important;color:var(--white)!important}
+/* The row is laid out whether or not it is visible, so nothing shifts when
+   it appears: only opacity changes. Touch has no hover, so there it is
+   simply always on. */
+.step-cta{display:block;padding:14px 22px 18px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
+.step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
+@media(hover:none){.step-cta{opacity:1}}
+@media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
 .steps:hover .step:not(:hover) h3{color:var(--ink-60)}
 .steps:hover .step:not(:hover) p{opacity:.7}
 @media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
@@ -581,7 +580,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   /* card-specific tightening so nothing looks oversized in a swipe context */
   .quiz,.results{position:static;margin:0}
   .results{padding:22px}
-  .step{padding:22px 20px}
+  .step{padding:0}
     .split-card{min-height:auto;padding:28px 24px}
   .split-card h3{font-size:20px;margin-top:10px}
   .tier{padding:30px 24px}
@@ -671,11 +670,7 @@ html,body{max-width:100%;overflow-x:clip}
       and looked like that product's tag. Reordering makes the quantity wrap
       instead, which is unambiguous. That item stays two lines tall; forcing
       all three onto one line needs 12px we do not have, and any longer product
-      name would break it again, so the wrap is the intended fallback.
-   7. .step stacked its number above its text with the desktop rhythm intact,
-      leaving the circle floating far from the copy it belongs to. Side by
-      side on phones, which is the conventional pattern and tightens each
-      step by ~44px. */
+      name would break it again, so the wrap is the intended fallback. */
 @media (max-width:560px){
   .hero-title{font-size:32px;line-height:1.12;letter-spacing:-.02em}
   .hero-eyebrow{text-wrap:balance;font-size:12px}
@@ -686,8 +681,6 @@ html,body{max-width:100%;overflow-x:clip}
   .routine-item{column-gap:8px}
   .routine-item .routine-tag{order:2}
   .routine-item .routine-qty{order:3}
-  .step{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:12px;align-items:start}
-  .step .step-body{margin-top:0}
 }
 
 /* ---- Phone: horizontal card decks ---------------------------------------

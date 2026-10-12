@@ -189,24 +189,23 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section-subtle{background:var(--subtle)}
 @media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
-.step{position:relative;display:flex;flex-direction:column;padding:24px 22px;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
-.step:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
+.step:hover,.step:focus-visible{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .step:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
-.step-n{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--ink-60);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .2s ease,border-color .2s ease,color .2s ease;font-feature-settings:"tnum"}
-.step-body{padding:0;margin-top:16px}
-.step h3{margin:0 0 6px;padding-right:26px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+/* Flush to the card edge, clipped to the top corners by the card's own
+   overflow. One fixed height so the six titles sit on the same line. */
+.step-thumb{display:block;height:132px;background:var(--cream);border-bottom:1px solid var(--line)}
+.step-thumb svg{display:block;width:100%;height:100%}
+.step-body{padding:20px 22px 0;flex:1}
+.step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em;font-feature-settings:"tnum"}
 .step p{margin:0;font-size:14px;color:var(--ink-60);line-height:1.5}
-/* The plus is drawn at all times, never on hover alone. Touch has no hover,
-   and an affordance half the audience cannot see is not an affordance. It
-   does not rotate on hover: a plus turning into a cross reads as "close". */
-.step-plus{position:absolute;top:20px;right:20px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;transition:border-color .18s ease,background .18s ease}
-.step-plus::before,.step-plus::after{content:"";position:absolute;background:var(--ink-60);transition:background .18s ease}
-.step-plus::before{width:10px;height:1.5px}
-.step-plus::after{width:1.5px;height:10px}
-.step:hover .step-plus{border-color:var(--gold);background:var(--gold-soft)}
-.step:hover .step-plus::before,.step:hover .step-plus::after{background:var(--gold-active)}
-.steps:hover .step .step-n{background:var(--cream);border-color:var(--line-strong);color:var(--ink-60)}
-.step:hover .step-n{background:var(--ink)!important;border-color:var(--ink)!important;color:var(--white)!important}
+/* The row is laid out whether or not it is visible, so nothing shifts when
+   it appears: only opacity changes. Touch has no hover, so there it is
+   simply always on. */
+.step-cta{display:block;padding:14px 22px 18px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
+.step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
+@media(hover:none){.step-cta{opacity:1}}
+@media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
 .steps:hover .step:not(:hover) h3{color:var(--ink-60)}
 .steps:hover .step:not(:hover) p{opacity:.7}
 @media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
@@ -582,7 +581,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   /* card-specific tightening so nothing looks oversized in a swipe context */
   .quiz,.results{position:static;margin:0}
   .results{padding:22px}
-  .step{padding:22px 20px}
+  .step{padding:0}
     .split-card{min-height:auto;padding:28px 24px}
   .split-card h3{font-size:20px;margin-top:10px}
   .tier{padding:30px 24px}
@@ -672,11 +671,7 @@ html,body{max-width:100%;overflow-x:clip}
       and looked like that product's tag. Reordering makes the quantity wrap
       instead, which is unambiguous. That item stays two lines tall; forcing
       all three onto one line needs 12px we do not have, and any longer product
-      name would break it again, so the wrap is the intended fallback.
-   7. .step stacked its number above its text with the desktop rhythm intact,
-      leaving the circle floating far from the copy it belongs to. Side by
-      side on phones, which is the conventional pattern and tightens each
-      step by ~44px. */
+      name would break it again, so the wrap is the intended fallback. */
 @media (max-width:560px){
   .hero-title{font-size:32px;line-height:1.12;letter-spacing:-.02em}
   .hero-eyebrow{text-wrap:balance;font-size:12px}
@@ -687,8 +682,6 @@ html,body{max-width:100%;overflow-x:clip}
   .routine-item{column-gap:8px}
   .routine-item .routine-tag{order:2}
   .routine-item .routine-qty{order:3}
-  .step{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:12px;align-items:start}
-  .step .step-body{margin-top:0}
 }
 
 /* ---- Phone: horizontal card decks ---------------------------------------
@@ -1270,12 +1263,12 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   <div class="wrap">
     <div class="section-head"><h2 class="h2">Your catalogue. Their personalised plan.</h2></div>
     <div class="steps">
-      <a class="step" href="/how-it-works#step-1"><div class="step-n">1</div><span class="step-plus" aria-hidden="true"></span><div class="step-body"><h3>Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div></a>
-      <a class="step" href="/how-it-works#step-2"><div class="step-n">2</div><span class="step-plus" aria-hidden="true"></span><div class="step-body"><h3>Match your catalogue</h3><p>Every product matched automatically to what the algorithm scores. No black box.</p></div></a>
-      <a class="step" href="/how-it-works#step-3"><div class="step-n">3</div><span class="step-plus" aria-hidden="true"></span><div class="step-body"><h3>Design your quiz</h3><p>Create your fully bespoke quiz, screen by screen. Or let Blend AI draft it.</p></div></a>
-      <a class="step" href="/how-it-works#step-4"><div class="step-n">4</div><span class="step-plus" aria-hidden="true"></span><div class="step-body"><h3>Put it where your customers are</h3><p>One script tag on your own storefront, inline or as a popup. No developer needed.</p></div></a>
-      <a class="step" href="/how-it-works#step-5"><div class="step-n">5</div><span class="step-plus" aria-hidden="true"></span><div class="step-body"><h3>They get a plan. You get the sale.</h3><p>Every product comes with a reason. Customers buy with confidence, and buy more.</p></div></a>
-      <a class="step" href="/how-it-works#step-6"><div class="step-n">6</div><span class="step-plus" aria-hidden="true"></span><div class="step-body"><h3>Analyse the data</h3><p>Collect and analyse first-party data on your customers and know where to expand.</p></div></a>
+      <a class="step" href="/how-it-works#step-1"><span class="step-thumb" aria-hidden="true"><svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="34" width="100" height="64" rx="7" fill="#fff" stroke="#E3DDCC"/><rect x="44" y="50" width="58" height="5" rx="2.5" fill="#D1C9B2"/><rect x="44" y="62" width="72" height="5" rx="2.5" fill="#D1C9B2"/><rect x="44" y="74" width="46" height="5" rx="2.5" fill="#D1C9B2"/><path d="M142 66h16m-5-5 5 5-5 5" stroke="#D1C9B2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="170" y="34" width="100" height="64" rx="7" fill="#fff" stroke="#E3DDCC"/><rect x="184" y="50" width="58" height="5" rx="2.5" fill="#F0E2CC"/><rect x="184" y="62" width="72" height="5" rx="2.5" fill="#D1C9B2"/><rect x="184" y="74" width="46" height="5" rx="2.5" fill="#D1C9B2"/></svg></span><div class="step-body"><h3>1 &#8211; Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
+      <a class="step" href="/how-it-works#step-2"><span class="step-thumb" aria-hidden="true"><svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="34" y="30" width="76" height="18" rx="5" fill="#fff" stroke="#E3DDCC"/><rect x="34" y="57" width="76" height="18" rx="5" fill="#fff" stroke="#E3DDCC"/><rect x="34" y="84" width="76" height="18" rx="5" fill="#fff" stroke="#E3DDCC"/><rect x="190" y="30" width="76" height="18" rx="5" fill="#fff" stroke="#E3DDCC"/><rect x="190" y="57" width="76" height="18" rx="5" fill="#F0E2CC" stroke="#D1C9B2"/><rect x="190" y="84" width="76" height="18" rx="5" fill="#fff" stroke="#E3DDCC"/><path d="M110 39h80" stroke="#D1C9B2" stroke-width="1.25"/><path d="M110 66c30 0 50 27 80 27" stroke="#D1C9B2" stroke-width="1.25"/><path d="M110 93c30 0 50-27 80-27" stroke="#B47F39" stroke-width="1.25"/></svg></span><div class="step-body"><h3>2 &#8211; Match your catalogue</h3><p>Every product matched automatically to what the algorithm scores. No black box.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
+      <a class="step" href="/how-it-works#step-3"><span class="step-thumb" aria-hidden="true"><svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="52" y="20" width="196" height="92" rx="8" fill="#fff" stroke="#E3DDCC"/><rect x="68" y="34" width="72" height="5" rx="2.5" fill="#D1C9B2"/><rect x="68" y="48" width="164" height="17" rx="5" fill="#F0E2CC" stroke="#D1C9B2"/><rect x="68" y="70" width="164" height="17" rx="5" fill="#fff" stroke="#E3DDCC"/><rect x="68" y="94" width="66" height="9" rx="4.5" fill="#D1C9B2"/></svg></span><div class="step-body"><h3>3 &#8211; Design your quiz</h3><p>Create your fully bespoke quiz, screen by screen. Or let Blend AI draft it.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
+      <a class="step" href="/how-it-works#step-4"><span class="step-thumb" aria-hidden="true"><svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="84" rx="7" fill="#fff" stroke="#E3DDCC"/><path d="M30 41h240" stroke="#E3DDCC"/><circle cx="44" cy="32.5" r="2.5" fill="#D1C9B2"/><circle cx="54" cy="32.5" r="2.5" fill="#D1C9B2"/><circle cx="64" cy="32.5" r="2.5" fill="#D1C9B2"/><rect x="46" y="56" width="96" height="5" rx="2.5" fill="#D1C9B2"/><rect x="46" y="68" width="70" height="5" rx="2.5" fill="#D1C9B2"/><rect x="46" y="80" width="84" height="5" rx="2.5" fill="#D1C9B2"/><rect x="180" y="54" width="76" height="42" rx="6" fill="#F0E2CC" stroke="#B47F39"/><rect x="192" y="66" width="42" height="4" rx="2" fill="#D1C9B2"/><rect x="192" y="76" width="28" height="4" rx="2" fill="#D1C9B2"/></svg></span><div class="step-body"><h3>4 &#8211; Put it where your customers are</h3><p>One script tag on your own storefront, inline or as a popup. No developer needed.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
+      <a class="step" href="/how-it-works#step-5"><span class="step-thumb" aria-hidden="true"><svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="46" y="20" width="208" height="92" rx="8" fill="#fff" stroke="#E3DDCC"/><rect x="62" y="34" width="18" height="18" rx="5" fill="#F0E2CC" stroke="#D1C9B2"/><rect x="92" y="38" width="108" height="5" rx="2.5" fill="#D1C9B2"/><rect x="92" y="47" width="70" height="4" rx="2" fill="#E3DDCC"/><rect x="62" y="58" width="18" height="18" rx="5" fill="#fff" stroke="#E3DDCC"/><rect x="92" y="62" width="108" height="5" rx="2.5" fill="#D1C9B2"/><rect x="92" y="71" width="70" height="4" rx="2" fill="#E3DDCC"/><rect x="62" y="82" width="18" height="18" rx="5" fill="#fff" stroke="#E3DDCC"/><rect x="92" y="86" width="108" height="5" rx="2.5" fill="#D1C9B2"/><rect x="92" y="95" width="70" height="4" rx="2" fill="#E3DDCC"/></svg></span><div class="step-body"><h3>5 &#8211; They get a plan. You get the sale.</h3><p>Every product comes with a reason. Customers buy with confidence, and buy more.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
+      <a class="step" href="/how-it-works#step-6"><span class="step-thumb" aria-hidden="true"><svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M44 100h212" stroke="#E3DDCC"/><rect x="62" y="66" width="22" height="34" rx="3" fill="#D1C9B2"/><rect x="98" y="44" width="22" height="56" rx="3" fill="#D1C9B2"/><rect x="134" y="56" width="22" height="44" rx="3" fill="#D1C9B2"/><rect x="170" y="30" width="22" height="70" rx="3" fill="#F0E2CC" stroke="#B47F39"/><rect x="206" y="70" width="22" height="30" rx="3" fill="#D1C9B2"/></svg></span><div class="step-body"><h3>6 &#8211; Analyse the data</h3><p>Collect and analyse first-party data on your customers and know where to expand.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
     </div>
   </div>
 </section>
