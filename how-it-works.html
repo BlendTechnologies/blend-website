@@ -1164,7 +1164,7 @@ html,body{max-width:100%;overflow-x:clip}
    `animation:none !important`, which reaches css and cannot reach a timer.
    The first version of this band used a setInterval and the harness caught
    it mid-capture. Frozen, every feed sits at its first frame. */
-.eng{display:grid;grid-template-columns:200px minmax(0,1fr) 230px;gap:0 28px;margin-top:56px;align-items:start}
+.eng{display:grid;grid-template-columns:210px minmax(0,1fr) 272px;gap:0 26px;margin-top:56px;align-items:start}
 .eng-cap{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px}
 
 /* The two word feeds. Not a scroll: words appear and fade at staggered
@@ -1181,9 +1181,17 @@ html,body{max-width:100%;overflow-x:clip}
           mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
 .eng-track{display:flex;flex-direction:column;gap:11px;animation:eng-drift 44s linear infinite}
 @keyframes eng-drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
-.eng-word{white-space:nowrap;font-size:14px;line-height:1.45;color:rgba(255,255,255,.42);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
+.eng-word{white-space:nowrap;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.4);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
 .eng-word.is-key{color:var(--white);font-weight:600}
-.eng-val{display:inline;margin-left:8px;font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
+/* Conditions and medications: the signals that rule products out, which is
+   the half of the mechanism the grid's red cells are showing. */
+.eng-word.is-gate{color:#F97066}
+.eng-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.eng-name{font-style:normal;overflow:hidden;text-overflow:ellipsis}
+.eng-val{font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
+.eng-val.is-ok{color:#75E0A7}
+.eng-val.is-low{color:#F97066}
+.eng-badge{font-style:normal;font-size:9.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:2px 6px;white-space:nowrap}
 /* Each word fades out and back on its own clock while it travels, so
    the two effects run at once and neither has a rhythm to follow. */
 @keyframes eng-word{0%,24%{opacity:1}36%,54%{opacity:0}66%,100%{opacity:1}}
