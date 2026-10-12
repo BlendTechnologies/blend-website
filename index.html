@@ -1231,46 +1231,52 @@ html,body{max-width:100%;overflow-x:clip}
    setInterval. Frozen, the deck sits on the first card. */
 .qprog{display:flex;align-items:center;gap:12px}
 .qprog .qprog-bar{flex:1}
-.qbrand{flex-shrink:0;display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:var(--ink);color:var(--white);font-size:13px;font-weight:700;letter-spacing:-.02em;line-height:1}
+/* The real letterforms, lifted from the wordmark rather than set as text,
+   so the dot is the brand's circle and not a full stop. */
+.qbrand{flex-shrink:0;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--white)}
+.qbrand-mark{width:15px;height:auto;display:block}
 
-.pc-deck{overflow:hidden;margin-top:12px;border-radius:12px}
-.pc-track{display:flex;width:400%;animation:pc-swipe 18s cubic-bezier(.65,0,.35,1) infinite}
-.pc-slide{width:25%;flex:0 0 25%;padding:0 1px}
+.rgoals{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.rgoals span{font-size:10.5px;font-weight:500;color:var(--sand);background:rgba(231,207,163,.14);border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:3px 9px;white-space:nowrap}
+
+/* One shape for every card. The body is a column with the button pushed to
+   the bottom and the reason clamped to two lines, so four different product
+   names and four different reasons still produce four identical cards. */
+.pc-deck{overflow:hidden;margin-top:14px;border-radius:12px}
+.pc-track{display:flex;width:500%;animation:pc-swipe 22s cubic-bezier(.65,0,.35,1) infinite}
+.pc-slide{width:20%;flex:0 0 20%;padding:0 1px}
 @keyframes pc-swipe{
-  0%,24%{transform:translateX(0)}
-  28%,52%{transform:translateX(-25%)}
-  56%,80%{transform:translateX(-50%)}
-  84%,100%{transform:translateX(-75%)}
+  0%,19%{transform:translateX(0)}
+  22%,41%{transform:translateX(-20%)}
+  44%,63%{transform:translateX(-40%)}
+  66%,85%{transform:translateX(-60%)}
+  88%,100%{transform:translateX(-80%)}
 }
-.pc{background:var(--white);border-radius:11px;overflow:hidden;color:var(--ink)}
-.pc-shot{position:relative;height:84px;background:#E8EEDF}
-/* The shots are landscape and the canister sits just below centre, so a
-   short band through the exact middle cuts its waist. */
+.pc{background:var(--white);border-radius:11px;overflow:hidden;color:var(--ink);height:234px;display:flex;flex-direction:column}
+.pc-shot{position:relative;height:104px;flex-shrink:0;background:#E8EEDF}
 .pc-shot img{width:100%;height:100%;object-fit:cover;object-position:center 46%;display:block}
-.pc-badge{position:absolute;top:8px;left:8px;background:rgba(255,255,255,.92);color:var(--ink);font-size:9.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:5px}
-.pc-body{padding:9px 11px 11px}
-.pc-name{font-size:13px;font-weight:600;letter-spacing:-.01em}
-.pc-tags{display:flex;gap:5px;margin-top:5px;flex-wrap:nowrap;overflow:hidden}
-.pc-tag{font-size:9.5px;font-weight:500;color:var(--gold-active);background:var(--gold-soft);border-radius:999px;padding:3px 7px;white-space:nowrap}
+.pc-badge{position:absolute;top:8px;left:8px;background:rgba(255,255,255,.93);color:var(--ink);font-size:9.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:5px}
+.pc-body{padding:10px 12px 11px;flex:1;display:flex;flex-direction:column;min-height:0}
+.pc-name{font-size:13px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-tags{display:flex;gap:5px;margin-top:5px}
+.pc-tag{font-size:9.5px;font-weight:500;color:var(--gold-active);background:var(--gold-soft);border-radius:999px;padding:3px 8px;white-space:nowrap}
 .pc-why{margin:7px 0 0;font-size:10.5px;line-height:1.4;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pc-why b{color:var(--ink);font-weight:600}
-.pc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px}
-.pc-price{font-size:13px;font-weight:600;font-feature-settings:"tnum"}
-.pc-cta{font-size:11px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:7px;padding:6px 12px}
+.pc-cta{display:block;margin-top:auto;text-align:center;font-size:11px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:7px;padding:7px 12px}
 
-/* The dots follow the deck rather than sitting there as decoration. */
 .rmore span{transition:none}
-.rmore .d1{animation:pc-dot 18s linear infinite}
-.rmore .d2{animation:pc-dot 18s linear -4.9s infinite}
-.rmore .d3{animation:pc-dot 18s linear -9.9s infinite}
-@keyframes pc-dot{0%,26%{opacity:1}30%,96%{opacity:.3}100%{opacity:1}}
+.rmore .d1{animation:pc-dot 22s linear infinite}
+.rmore .d2{animation:pc-dot 22s linear -4.84s infinite}
+.rmore .d3{animation:pc-dot 22s linear -9.68s infinite}
+.rmore .d4{animation:pc-dot 22s linear -14.52s infinite}
+@keyframes pc-dot{0%,21%{opacity:1}24%,97%{opacity:.3}100%{opacity:1}}
 
 @media(prefers-reduced-motion:reduce){
-  .pc-track,.rmore .d1,.rmore .d2,.rmore .d3{animation:none !important}
+  .pc-track,.rmore span{animation:none !important}
 }
 @media(max-width:560px){
-  .pc-shot{height:74px}
-  .pc-why{display:none}
+  .pc{height:212px}
+  .pc-shot{height:88px}
 }
 
 /* ---- The engine band -------------------------------------------------
@@ -1446,7 +1452,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
       <div class="hero-visual" aria-hidden="true">
         <div class="hero-stage">
           <div class="quiz" id="quiz">
-            <div class="qprog"><div class="qprog-bar"><div class="qprog-fill"></div></div><span class="qbrand" aria-hidden="true">B.</span></div>
+            <div class="qprog"><span class="qbrand" aria-hidden="true"><svg class="qbrand-mark" viewBox="108 370 1690 1585" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(0 1899.6) scale(1 -1)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/><g transform="translate(1300 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></span><div class="qprog-bar"><div class="qprog-fill"></div></div></div>
             <div class="qtitle">What are your top wellness goals?</div>
             <div class="qopts" role="radiogroup" aria-label="Sample quiz options">
               <button class="qopt" data-i="0" role="radio" aria-checked="false"><span class="qopt-label">Boost energy</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
@@ -1458,21 +1464,14 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
           </div>
           <div class="card card-dark results">
             <div class="rheader">
-              <div class="rring">
-                <svg viewBox="0 0 64 64" width="64" height="64" aria-label="Health score 82 of 100">
-                  <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
-                  <circle class="r-fill" cx="32" cy="32" r="24" fill="none" stroke="#6AA84F" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="27.1" transform="rotate(-90 32 32)"/>
-                  <text x="32" y="38" text-anchor="middle" font-size="16" font-weight="650" fill="#6AA84F">82</text>
-                </svg>
-              </div>
               <div class="rheader-copy">
                 <div class="rlabel">Your wellness plan</div>
-                <div class="rtitle">Jade, 32 &#xB7; Vegetarian</div>
-                <div class="rhint">11 personalised picks</div>
+                <div class="rtitle">Jade, 32</div>
+                <div class="rgoals"><span>Boost energy</span><span>Gut health</span><span>Better sleep</span></div>
               </div>
             </div>
-            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-front.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Vitamin D3</div><div class="pc-tags"><span class="pc-tag">Healthy Ageing</span><span class="pc-tag">Immunity</span></div><p class="pc-why"><b>Why:</b> Your vitamin D3 is at 49% of your target, which one serving covers.</p><div class="pc-foot"><span class="pc-price">£12.95</span><span class="pc-cta">Add to cart</span></div></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">Creatine Monohydrate</div><div class="pc-tags"><span class="pc-tag">Build Muscle</span><span class="pc-tag">Endurance</span></div><p class="pc-why"><b>Why:</b> You told us about difficulty building muscle and low workout stamina.</p><div class="pc-foot"><span class="pc-price">£15.45</span><span class="pc-cta">Add to cart</span></div></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-detail.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">L-Theanine</div><div class="pc-tags"><span class="pc-tag">Sleep</span><span class="pc-tag">Mood</span></div><p class="pc-why"><b>Why:</b> You told us about short sleep and occasional stress.</p><div class="pc-foot"><span class="pc-price">£11.45</span><span class="pc-cta">Add to cart</span></div></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-front.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Vitamin D3</div><div class="pc-tags"><span class="pc-tag">Healthy Ageing</span><span class="pc-tag">Immunity</span></div><p class="pc-why"><b>Why:</b> Your vitamin D3 is at 49% of your target, which one serving covers.</p><div class="pc-foot"><span class="pc-price">£12.95</span><span class="pc-cta">Add to cart</span></div></div></div></div></div></div>
-            <div class="rmore" aria-label="More recommendations available"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Vitamin B12</div><div class="pc-tags"><span class="pc-tag">Boost energy</span></div><p class="pc-why"><b>Why:</b> Your B12 sits at 61% of your target, which one serving covers.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Prebiotic (FOS/GOS)</div><div class="pc-tags"><span class="pc-tag">Gut health</span></div><p class="pc-why"><b>Why:</b> You told us about bloating and occasional indigestion.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">Magnesium Glycinate</div><div class="pc-tags"><span class="pc-tag">Better sleep</span></div><p class="pc-why"><b>Why:</b> You told us you sleep six to seven hours and wake unrested.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">L-Theanine</div><div class="pc-tags"><span class="pc-tag">Better sleep</span></div><p class="pc-why"><b>Why:</b> You told us about stress, and short sleep on work nights.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Vitamin B12</div><div class="pc-tags"><span class="pc-tag">Boost energy</span></div><p class="pc-why"><b>Why:</b> Your B12 sits at 61% of your target, which one serving covers.</p><span class="pc-cta">Add to cart</span></div></div></div></div></div>
+            <div class="rmore" aria-label="More recommendations available"><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span></div>
           </div>
         </div>
       </div>

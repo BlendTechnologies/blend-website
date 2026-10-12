@@ -1230,46 +1230,52 @@ html,body{max-width:100%;overflow-x:clip}
    setInterval. Frozen, the deck sits on the first card. */
 .qprog{display:flex;align-items:center;gap:12px}
 .qprog .qprog-bar{flex:1}
-.qbrand{flex-shrink:0;display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:var(--ink);color:var(--white);font-size:13px;font-weight:700;letter-spacing:-.02em;line-height:1}
+/* The real letterforms, lifted from the wordmark rather than set as text,
+   so the dot is the brand's circle and not a full stop. */
+.qbrand{flex-shrink:0;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--white)}
+.qbrand-mark{width:15px;height:auto;display:block}
 
-.pc-deck{overflow:hidden;margin-top:12px;border-radius:12px}
-.pc-track{display:flex;width:400%;animation:pc-swipe 18s cubic-bezier(.65,0,.35,1) infinite}
-.pc-slide{width:25%;flex:0 0 25%;padding:0 1px}
+.rgoals{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.rgoals span{font-size:10.5px;font-weight:500;color:var(--sand);background:rgba(231,207,163,.14);border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:3px 9px;white-space:nowrap}
+
+/* One shape for every card. The body is a column with the button pushed to
+   the bottom and the reason clamped to two lines, so four different product
+   names and four different reasons still produce four identical cards. */
+.pc-deck{overflow:hidden;margin-top:14px;border-radius:12px}
+.pc-track{display:flex;width:500%;animation:pc-swipe 22s cubic-bezier(.65,0,.35,1) infinite}
+.pc-slide{width:20%;flex:0 0 20%;padding:0 1px}
 @keyframes pc-swipe{
-  0%,24%{transform:translateX(0)}
-  28%,52%{transform:translateX(-25%)}
-  56%,80%{transform:translateX(-50%)}
-  84%,100%{transform:translateX(-75%)}
+  0%,19%{transform:translateX(0)}
+  22%,41%{transform:translateX(-20%)}
+  44%,63%{transform:translateX(-40%)}
+  66%,85%{transform:translateX(-60%)}
+  88%,100%{transform:translateX(-80%)}
 }
-.pc{background:var(--white);border-radius:11px;overflow:hidden;color:var(--ink)}
-.pc-shot{position:relative;height:84px;background:#E8EEDF}
-/* The shots are landscape and the canister sits just below centre, so a
-   short band through the exact middle cuts its waist. */
+.pc{background:var(--white);border-radius:11px;overflow:hidden;color:var(--ink);height:234px;display:flex;flex-direction:column}
+.pc-shot{position:relative;height:104px;flex-shrink:0;background:#E8EEDF}
 .pc-shot img{width:100%;height:100%;object-fit:cover;object-position:center 46%;display:block}
-.pc-badge{position:absolute;top:8px;left:8px;background:rgba(255,255,255,.92);color:var(--ink);font-size:9.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:5px}
-.pc-body{padding:9px 11px 11px}
-.pc-name{font-size:13px;font-weight:600;letter-spacing:-.01em}
-.pc-tags{display:flex;gap:5px;margin-top:5px;flex-wrap:nowrap;overflow:hidden}
-.pc-tag{font-size:9.5px;font-weight:500;color:var(--gold-active);background:var(--gold-soft);border-radius:999px;padding:3px 7px;white-space:nowrap}
+.pc-badge{position:absolute;top:8px;left:8px;background:rgba(255,255,255,.93);color:var(--ink);font-size:9.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:5px}
+.pc-body{padding:10px 12px 11px;flex:1;display:flex;flex-direction:column;min-height:0}
+.pc-name{font-size:13px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-tags{display:flex;gap:5px;margin-top:5px}
+.pc-tag{font-size:9.5px;font-weight:500;color:var(--gold-active);background:var(--gold-soft);border-radius:999px;padding:3px 8px;white-space:nowrap}
 .pc-why{margin:7px 0 0;font-size:10.5px;line-height:1.4;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pc-why b{color:var(--ink);font-weight:600}
-.pc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px}
-.pc-price{font-size:13px;font-weight:600;font-feature-settings:"tnum"}
-.pc-cta{font-size:11px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:7px;padding:6px 12px}
+.pc-cta{display:block;margin-top:auto;text-align:center;font-size:11px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:7px;padding:7px 12px}
 
-/* The dots follow the deck rather than sitting there as decoration. */
 .rmore span{transition:none}
-.rmore .d1{animation:pc-dot 18s linear infinite}
-.rmore .d2{animation:pc-dot 18s linear -4.9s infinite}
-.rmore .d3{animation:pc-dot 18s linear -9.9s infinite}
-@keyframes pc-dot{0%,26%{opacity:1}30%,96%{opacity:.3}100%{opacity:1}}
+.rmore .d1{animation:pc-dot 22s linear infinite}
+.rmore .d2{animation:pc-dot 22s linear -4.84s infinite}
+.rmore .d3{animation:pc-dot 22s linear -9.68s infinite}
+.rmore .d4{animation:pc-dot 22s linear -14.52s infinite}
+@keyframes pc-dot{0%,21%{opacity:1}24%,97%{opacity:.3}100%{opacity:1}}
 
 @media(prefers-reduced-motion:reduce){
-  .pc-track,.rmore .d1,.rmore .d2,.rmore .d3{animation:none !important}
+  .pc-track,.rmore span{animation:none !important}
 }
 @media(max-width:560px){
-  .pc-shot{height:74px}
-  .pc-why{display:none}
+  .pc{height:212px}
+  .pc-shot{height:88px}
 }
 
 /* ---- The engine band -------------------------------------------------
