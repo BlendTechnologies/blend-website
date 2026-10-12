@@ -1241,26 +1241,22 @@ html,body{max-width:100%;overflow-x:clip}
 .qopts{margin-top:18px;display:grid;gap:10px;flex:1;align-content:start}
 .qopt{min-height:58px}
 
+/* Three bands of the same card, spaced evenly: who it is for, the plan,
+   and where you are in it. The photo is gone, which is what buys the room
+   for a description, a reason and a timing line without crowding. */
 .rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .rbrand{flex-shrink:0;color:var(--white)}
-.rbrand .qbrand-mark{width:18px}
-.rtitle{margin-top:12px;font-size:23px;font-weight:600;line-height:1.08;letter-spacing:-.025em}
-.rhint{margin-top:6px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.4}
-.rgoals{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.rgoals span{font-size:10.5px;font-weight:500;color:rgba(255,255,255,.72);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 10px;white-space:nowrap}
-.rgoals span:last-child{color:var(--white);background:rgba(180,127,57,.32);border-color:rgba(231,207,163,.35)}
-.rfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
-.rcount{font-size:11px;color:rgba(255,255,255,.45)}
-.rmore{display:flex;gap:5px;opacity:.6}
+.rbrand .qbrand-mark{width:17px}
+.rlabel{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(231,207,163,.72)}
+.rtitle{margin-top:9px;font-size:22px;font-weight:600;line-height:1.1;letter-spacing:-.022em;color:var(--white)}
+.rfoot{display:flex;justify-content:center;margin-top:14px}
+.rmore{display:flex;gap:6px;opacity:.55}
 .rmore span{width:5px;height:5px;border-radius:50%;background:var(--white);transition:none}
 
-/* The card the customer actually gets, at hero scale. Same parts in the same
-   order as the real one: the tan pill on the shot, the name, the goal tags
-   with the matched goal filled, the reason on a Why row, and a full-width
-   button. Abridged, not reinvented: the description and the When and Serving
-   rows do not fit at this size and nothing else was moved to make room. */
+/* A softer black than the card it sits in, with a light hairline, so the
+   plan reads as a surface on a surface rather than a hole. */
 .pc-deck{overflow:hidden;margin-top:16px;border-radius:14px}
-.pc-track{display:flex;width:500%;animation:pc-swipe 24s cubic-bezier(.65,0,.35,1) infinite}
+.pc-track{display:flex;width:500%;animation:pc-swipe 26s cubic-bezier(.65,0,.35,1) infinite}
 .pc-slide{width:20%;flex:0 0 20%;padding:0 1px}
 @keyframes pc-swipe{
   0%,18%{transform:translateX(0)}
@@ -1269,45 +1265,47 @@ html,body{max-width:100%;overflow-x:clip}
   66%,84%{transform:translateX(-60%)}
   88%,100%{transform:translateX(-80%)}
 }
-.pc{background:var(--white);border-radius:13px;overflow:hidden;color:var(--ink);height:300px;display:flex;flex-direction:column}
-.pc-shot{position:relative;height:150px;flex-shrink:0;background:#E9EDE2}
-.pc-shot img{width:100%;height:100%;object-fit:cover;object-position:center 46%;display:block}
-.pc-badge{position:absolute;top:10px;left:10px;background:rgba(250,248,242,.92);color:var(--gold-active);font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
-.pc-body{padding:13px 14px 14px;flex:1;display:flex;flex-direction:column;min-height:0}
-.pc-body--full{padding:16px}
-.pc-name{font-size:15px;font-weight:600;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-tags{display:flex;gap:5px;margin-top:7px;overflow:hidden}
-.pc-tag{font-size:9.5px;font-weight:600;color:var(--gold-active);border:1px solid var(--line-strong);border-radius:999px;padding:3px 9px;white-space:nowrap}
-.pc-tag.is-primary{background:var(--gold-strong);border-color:var(--gold-strong);color:var(--white)}
-.pc-why{margin:9px 0 0;font-size:11px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pc-why b{color:var(--ink);font-weight:600}
-.pc-why--lead{-webkit-line-clamp:2;margin-top:7px}
-.pc-cta{display:block;text-align:center;margin-top:auto;font-size:12px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:9px;padding:10px 14px}
-.pc-cta--ghost{background:transparent;color:var(--gold-active);border:1px solid var(--line-strong)}
+.pc{height:336px;display:flex;flex-direction:column;padding:17px 16px 16px;
+  background:#171717;border:1px solid rgba(255,255,255,.13);border-radius:13px;color:var(--white)}
+.pc-badge{align-self:flex-start;font-size:8.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;padding:4px 9px}
+.pc-name{margin-top:13px;font-size:16px;font-weight:600;letter-spacing:-.015em;line-height:1.2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-tags{display:flex;gap:6px;margin-top:9px}
+.pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:rgba(231,207,163,.85);
+  background:rgba(180,127,57,.16);border:1px solid rgba(231,207,163,.18);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.pc-desc{margin:13px 0 0;font-size:11px;line-height:1.5;color:rgba(255,255,255,.42);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pc-why,.pc-when{margin:11px 0 0;font-size:11px;line-height:1.45;color:rgba(255,255,255,.52)}
+.pc-why{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-why b,.pc-when b{display:inline-block;min-width:38px;margin-right:4px;font-weight:600;color:rgba(255,255,255,.78)}
+.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11.5px;font-weight:600;letter-spacing:.01em;
+  color:rgba(255,255,255,.92);background:rgba(180,127,57,.78);border-radius:9px;padding:10px 14px}
 
-/* The breakdown slide: the report's own bars, short of target in red. */
-.nb{margin-top:14px;display:grid;gap:12px}
-.nb-row{display:grid;grid-template-columns:66px minmax(0,1fr) 32px;align-items:center;gap:8px;font-size:11px}
-.nb-n{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nb-bar{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
-.nb-bar i{display:block;height:100%;border-radius:3px;background:var(--gold)}
-.nb-bar i.is-low{background:#C2410C}
-.nb-v{text-align:right;font-feature-settings:"tnum";color:var(--gold-active);font-weight:600}
-.nb-v.is-low{color:#C2410C}
+/* The breakdown: the same panel, carrying the report's own bars. */
+.pc-gaps .pc-name{margin-top:0}
+.nb{margin-top:15px;display:grid;gap:11px}
+.nb-row{display:grid;grid-template-columns:62px minmax(0,1fr) 30px;align-items:center;gap:8px;font-size:10.5px}
+.nb-n{color:rgba(255,255,255,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nb-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.09);overflow:hidden}
+.nb-bar i{display:block;height:100%;border-radius:2px;background:rgba(231,207,163,.62)}
+.nb-bar i.is-low{background:rgba(224,121,92,.82)}
+.nb-v{text-align:right;font-feature-settings:"tnum";color:rgba(255,255,255,.5);font-weight:500}
+.nb-v.is-low{color:rgba(224,121,92,.9)}
 
-.rmore .d1{animation:pc-dot 24s linear infinite}
-.rmore .d2{animation:pc-dot 24s linear -5.28s infinite}
-.rmore .d3{animation:pc-dot 24s linear -10.56s infinite}
-.rmore .d4{animation:pc-dot 24s linear -15.84s infinite}
-@keyframes pc-dot{0%,20%{opacity:1}23%,97%{opacity:.3}100%{opacity:1}}
+.rmore .d1{animation:pc-dot 26s linear infinite}
+.rmore .d2{animation:pc-dot 26s linear -5.72s infinite}
+.rmore .d3{animation:pc-dot 26s linear -11.44s infinite}
+.rmore .d4{animation:pc-dot 26s linear -17.16s infinite}
+@keyframes pc-dot{0%,20%{opacity:1}23%,97%{opacity:.28}100%{opacity:1}}
 
 @media(prefers-reduced-motion:reduce){
   .pc-track,.rmore span{animation:none !important}
 }
 @media(max-width:560px){
-  .pc{height:286px}
-  .pc-shot{height:138px}
-  .rtitle{font-size:21px}
+  .pc{height:320px}
+  .rtitle{font-size:20px}
 }
 
 /* ---- The engine band -------------------------------------------------
@@ -1496,10 +1494,8 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
           <div class="card card-dark results">
             <div class="rtop"><span class="rlabel">Your wellness plan</span><span class="rbrand" aria-hidden="true"><svg class="qbrand-mark" viewBox="108 370 1690 1585" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(0 1899.6) scale(1 -1)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/><g transform="translate(1300 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></span></div>
             <div class="rtitle">Made for Jane.</div>
-            <div class="rhint">3 products. Your goals, considered.</div>
-            <div class="rgoals"><span>Boost energy</span><span>Gut health</span><span>Better sleep</span></div>
-            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag is-primary">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-why"><b>Why:</b> Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">Prebiotic (FOS/GOS)</div><div class="pc-tags"><span class="pc-tag is-primary">Gut Health</span></div><p class="pc-why"><b>Why:</b> You told us about bloating. This one feeds the bacteria already there.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">L-Theanine</div><div class="pc-tags"><span class="pc-tag is-primary">Sleep</span><span class="pc-tag">Mood & Emotions</span></div><p class="pc-why"><b>Why:</b> You told us about a racing mind at bedtime.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-body pc-body--full"><div class="pc-name">Where the gaps are</div><p class="pc-why pc-why--lead">Only the nutrients short of target. Everything else is on track.</p><div class="nb"><div class="nb-row"><span class="nb-n">Vitamin D3</span><span class="nb-bar"><i class="is-low" style="width:10%"></i></span><span class="nb-v is-low">10%</span></div><div class="nb-row"><span class="nb-n">Iron</span><span class="nb-bar"><i class="is-low" style="width:39%"></i></span><span class="nb-v is-low">39%</span></div><div class="nb-row"><span class="nb-n">Selenium</span><span class="nb-bar"><i class="" style="width:74%"></i></span><span class="nb-v ">74%</span></div><div class="nb-row"><span class="nb-n">Vitamin B6</span><span class="nb-bar"><i class="" style="width:88%"></i></span><span class="nb-v ">88%</span></div></div><span class="pc-cta pc-cta--ghost">See the full breakdown</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag is-primary">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-why"><b>Why:</b> Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><span class="pc-cta">Add to cart</span></div></div></div></div></div>
-            <div class="rfoot"><span class="rcount">Three products, one per goal</span><span class="rmore" aria-label="More in the plan"><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span></span></div>
+            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><span class="pc-badge">Essential</span><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag">Boost Energy</span></div><p class="pc-desc">Contributes to normal formation of red blood cells and haemoglobin, and to the reduction of tiredness.</p><p class="pc-why"><b>Why</b>Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><p class="pc-when"><b>When</b>With meal</p><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><span class="pc-badge">Recommended</span><div class="pc-name">Prebiotic (FOS/GOS)</div><div class="pc-tags"><span class="pc-tag">Gut Health</span></div><p class="pc-desc">Fructooligosaccharide and galactooligosaccharide blend that feeds beneficial gut bacteria.</p><p class="pc-why"><b>Why</b>You told us about bloating and occasional indigestion.</p><p class="pc-when"><b>When</b>With meal</p><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><span class="pc-badge">Recommended</span><div class="pc-name">L-Theanine</div><div class="pc-tags"><span class="pc-tag">Sleep</span></div><p class="pc-desc">Amino acid naturally found in green tea, studied for its role in relaxation and focus.</p><p class="pc-why"><b>Why</b>You told us about a racing mind at bedtime.</p><p class="pc-when"><b>When</b>Before bed</p><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc pc-gaps"><div class="pc-name">Where the gaps are</div><p class="pc-desc">Only what is short of target. Everything else is on track.</p><div class="nb"><div class="nb-row"><span class="nb-n">Vitamin D3</span><span class="nb-bar"><i class="is-low" style="width:10%"></i></span><span class="nb-v is-low">10%</span></div><div class="nb-row"><span class="nb-n">Iron</span><span class="nb-bar"><i class="is-low" style="width:39%"></i></span><span class="nb-v is-low">39%</span></div><div class="nb-row"><span class="nb-n">Selenium</span><span class="nb-bar"><i class="" style="width:74%"></i></span><span class="nb-v ">74%</span></div><div class="nb-row"><span class="nb-n">Vitamin B6</span><span class="nb-bar"><i class="" style="width:88%"></i></span><span class="nb-v ">88%</span></div><div class="nb-row"><span class="nb-n">Calories</span><span class="nb-bar"><i class="" style="width:84%"></i></span><span class="nb-v ">84%</span></div><div class="nb-row"><span class="nb-n">Protein</span><span class="nb-bar"><i class="" style="width:82%"></i></span><span class="nb-v ">82%</span></div><div class="nb-row"><span class="nb-n">Fats</span><span class="nb-bar"><i class="" style="width:79%"></i></span><span class="nb-v ">79%</span></div><div class="nb-row"><span class="nb-n">Omega-3</span><span class="nb-bar"><i class="is-low" style="width:8%"></i></span><span class="nb-v is-low">8%</span></div></div></div></div><div class="pc-slide"><div class="pc"><span class="pc-badge">Essential</span><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag">Boost Energy</span></div><p class="pc-desc">Contributes to normal formation of red blood cells and haemoglobin, and to the reduction of tiredness.</p><p class="pc-why"><b>Why</b>Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><p class="pc-when"><b>When</b>With meal</p><span class="pc-cta">Add to cart</span></div></div></div></div>
+            <div class="rfoot"><span class="rmore" aria-label="More in the plan"><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span></span></div>
           </div>
         </div>
       </div>

@@ -1240,26 +1240,22 @@ html,body{max-width:100%;overflow-x:clip}
 .qopts{margin-top:18px;display:grid;gap:10px;flex:1;align-content:start}
 .qopt{min-height:58px}
 
+/* Three bands of the same card, spaced evenly: who it is for, the plan,
+   and where you are in it. The photo is gone, which is what buys the room
+   for a description, a reason and a timing line without crowding. */
 .rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .rbrand{flex-shrink:0;color:var(--white)}
-.rbrand .qbrand-mark{width:18px}
-.rtitle{margin-top:12px;font-size:23px;font-weight:600;line-height:1.08;letter-spacing:-.025em}
-.rhint{margin-top:6px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.4}
-.rgoals{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.rgoals span{font-size:10.5px;font-weight:500;color:rgba(255,255,255,.72);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 10px;white-space:nowrap}
-.rgoals span:last-child{color:var(--white);background:rgba(180,127,57,.32);border-color:rgba(231,207,163,.35)}
-.rfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
-.rcount{font-size:11px;color:rgba(255,255,255,.45)}
-.rmore{display:flex;gap:5px;opacity:.6}
+.rbrand .qbrand-mark{width:17px}
+.rlabel{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(231,207,163,.72)}
+.rtitle{margin-top:9px;font-size:22px;font-weight:600;line-height:1.1;letter-spacing:-.022em;color:var(--white)}
+.rfoot{display:flex;justify-content:center;margin-top:14px}
+.rmore{display:flex;gap:6px;opacity:.55}
 .rmore span{width:5px;height:5px;border-radius:50%;background:var(--white);transition:none}
 
-/* The card the customer actually gets, at hero scale. Same parts in the same
-   order as the real one: the tan pill on the shot, the name, the goal tags
-   with the matched goal filled, the reason on a Why row, and a full-width
-   button. Abridged, not reinvented: the description and the When and Serving
-   rows do not fit at this size and nothing else was moved to make room. */
+/* A softer black than the card it sits in, with a light hairline, so the
+   plan reads as a surface on a surface rather than a hole. */
 .pc-deck{overflow:hidden;margin-top:16px;border-radius:14px}
-.pc-track{display:flex;width:500%;animation:pc-swipe 24s cubic-bezier(.65,0,.35,1) infinite}
+.pc-track{display:flex;width:500%;animation:pc-swipe 26s cubic-bezier(.65,0,.35,1) infinite}
 .pc-slide{width:20%;flex:0 0 20%;padding:0 1px}
 @keyframes pc-swipe{
   0%,18%{transform:translateX(0)}
@@ -1268,45 +1264,47 @@ html,body{max-width:100%;overflow-x:clip}
   66%,84%{transform:translateX(-60%)}
   88%,100%{transform:translateX(-80%)}
 }
-.pc{background:var(--white);border-radius:13px;overflow:hidden;color:var(--ink);height:300px;display:flex;flex-direction:column}
-.pc-shot{position:relative;height:150px;flex-shrink:0;background:#E9EDE2}
-.pc-shot img{width:100%;height:100%;object-fit:cover;object-position:center 46%;display:block}
-.pc-badge{position:absolute;top:10px;left:10px;background:rgba(250,248,242,.92);color:var(--gold-active);font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
-.pc-body{padding:13px 14px 14px;flex:1;display:flex;flex-direction:column;min-height:0}
-.pc-body--full{padding:16px}
-.pc-name{font-size:15px;font-weight:600;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-tags{display:flex;gap:5px;margin-top:7px;overflow:hidden}
-.pc-tag{font-size:9.5px;font-weight:600;color:var(--gold-active);border:1px solid var(--line-strong);border-radius:999px;padding:3px 9px;white-space:nowrap}
-.pc-tag.is-primary{background:var(--gold-strong);border-color:var(--gold-strong);color:var(--white)}
-.pc-why{margin:9px 0 0;font-size:11px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pc-why b{color:var(--ink);font-weight:600}
-.pc-why--lead{-webkit-line-clamp:2;margin-top:7px}
-.pc-cta{display:block;text-align:center;margin-top:auto;font-size:12px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:9px;padding:10px 14px}
-.pc-cta--ghost{background:transparent;color:var(--gold-active);border:1px solid var(--line-strong)}
+.pc{height:336px;display:flex;flex-direction:column;padding:17px 16px 16px;
+  background:#171717;border:1px solid rgba(255,255,255,.13);border-radius:13px;color:var(--white)}
+.pc-badge{align-self:flex-start;font-size:8.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;padding:4px 9px}
+.pc-name{margin-top:13px;font-size:16px;font-weight:600;letter-spacing:-.015em;line-height:1.2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-tags{display:flex;gap:6px;margin-top:9px}
+.pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:rgba(231,207,163,.85);
+  background:rgba(180,127,57,.16);border:1px solid rgba(231,207,163,.18);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.pc-desc{margin:13px 0 0;font-size:11px;line-height:1.5;color:rgba(255,255,255,.42);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pc-why,.pc-when{margin:11px 0 0;font-size:11px;line-height:1.45;color:rgba(255,255,255,.52)}
+.pc-why{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-why b,.pc-when b{display:inline-block;min-width:38px;margin-right:4px;font-weight:600;color:rgba(255,255,255,.78)}
+.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11.5px;font-weight:600;letter-spacing:.01em;
+  color:rgba(255,255,255,.92);background:rgba(180,127,57,.78);border-radius:9px;padding:10px 14px}
 
-/* The breakdown slide: the report's own bars, short of target in red. */
-.nb{margin-top:14px;display:grid;gap:12px}
-.nb-row{display:grid;grid-template-columns:66px minmax(0,1fr) 32px;align-items:center;gap:8px;font-size:11px}
-.nb-n{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nb-bar{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
-.nb-bar i{display:block;height:100%;border-radius:3px;background:var(--gold)}
-.nb-bar i.is-low{background:#C2410C}
-.nb-v{text-align:right;font-feature-settings:"tnum";color:var(--gold-active);font-weight:600}
-.nb-v.is-low{color:#C2410C}
+/* The breakdown: the same panel, carrying the report's own bars. */
+.pc-gaps .pc-name{margin-top:0}
+.nb{margin-top:15px;display:grid;gap:11px}
+.nb-row{display:grid;grid-template-columns:62px minmax(0,1fr) 30px;align-items:center;gap:8px;font-size:10.5px}
+.nb-n{color:rgba(255,255,255,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nb-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.09);overflow:hidden}
+.nb-bar i{display:block;height:100%;border-radius:2px;background:rgba(231,207,163,.62)}
+.nb-bar i.is-low{background:rgba(224,121,92,.82)}
+.nb-v{text-align:right;font-feature-settings:"tnum";color:rgba(255,255,255,.5);font-weight:500}
+.nb-v.is-low{color:rgba(224,121,92,.9)}
 
-.rmore .d1{animation:pc-dot 24s linear infinite}
-.rmore .d2{animation:pc-dot 24s linear -5.28s infinite}
-.rmore .d3{animation:pc-dot 24s linear -10.56s infinite}
-.rmore .d4{animation:pc-dot 24s linear -15.84s infinite}
-@keyframes pc-dot{0%,20%{opacity:1}23%,97%{opacity:.3}100%{opacity:1}}
+.rmore .d1{animation:pc-dot 26s linear infinite}
+.rmore .d2{animation:pc-dot 26s linear -5.72s infinite}
+.rmore .d3{animation:pc-dot 26s linear -11.44s infinite}
+.rmore .d4{animation:pc-dot 26s linear -17.16s infinite}
+@keyframes pc-dot{0%,20%{opacity:1}23%,97%{opacity:.28}100%{opacity:1}}
 
 @media(prefers-reduced-motion:reduce){
   .pc-track,.rmore span{animation:none !important}
 }
 @media(max-width:560px){
-  .pc{height:286px}
-  .pc-shot{height:138px}
-  .rtitle{font-size:21px}
+  .pc{height:320px}
+  .rtitle{font-size:20px}
 }
 
 /* ---- The engine band -------------------------------------------------
