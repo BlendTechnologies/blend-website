@@ -1167,23 +1167,25 @@ html,body{max-width:100%;overflow-x:clip}
 .eng{display:grid;grid-template-columns:200px minmax(0,1fr) 230px;gap:0 28px;margin-top:56px;align-items:start}
 .eng-cap{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px}
 
-/* the two scrolling feeds */
-.eng-feed{height:240px;overflow:hidden;position:relative;
-  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);
-          mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent)}
-.eng-track{display:flex;flex-direction:column;gap:10px;animation:eng-scroll 38s linear infinite}
-@keyframes eng-scroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
-.eng-ans{display:block;font-size:14px;line-height:1.45;color:rgba(255,255,255,.4);white-space:nowrap}
-.eng-ans.is-key{color:var(--white);font-weight:600}
-/* The same shape as the signals feed, so the two read as a pair: what went
-   in on the left, what came out on the right. Unordered, some emphasised,
-   some carrying a figure and some not. Percentages rather than doses: a
-   dose here would read as a nutrient target, and no target on this page
-   has been verified. */
-.eng-res{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:12px;font-size:14px;line-height:1.45;color:rgba(255,255,255,.4)}
-.eng-res-lab{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.eng-res.is-key{color:var(--white);font-weight:600}
-.eng-res-val{font-feature-settings:"tnum";color:var(--gold);white-space:nowrap}
+/* The two word feeds. Not a scroll: words appear and fade at staggered
+   times, the same effect the catalogue grid uses, so all three bands read
+   as one mechanism rather than two tickers either side of a chart.
+
+   One row slot per line so nothing collides, three words per row taking
+   turns, each row phase-shifted so the band never flips in unison. The
+   first word of each row carries .on, which is its base opacity, so a
+   frozen frame shows one word per row rather than an empty box. That is
+   what the visual-diff spec sees, and what a reduced-motion visitor gets. */
+.eng-feed{height:240px;position:relative;overflow:hidden}
+.eng-word{position:absolute;white-space:nowrap;font-size:14px;line-height:1.45;color:rgba(255,255,255,.42);opacity:0;animation:eng-word 12s linear infinite}
+.eng-word.on{opacity:1}
+.eng-word.is-key{color:var(--white);font-weight:600}
+.eng-val{display:inline;margin-left:8px;font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
+.eng-word.r2{animation-name:eng-word-2}
+.eng-word.r3{animation-name:eng-word-3}
+@keyframes eng-word{0%{opacity:0}5%,27%{opacity:1}33%,100%{opacity:0}}
+@keyframes eng-word-2{0%{opacity:0}4%,44%{opacity:1}50%,100%{opacity:0}}
+@keyframes eng-word-3{0%{opacity:0}5%,27%{opacity:1}33%,100%{opacity:0}}
 
 /* the catalogue */
 .eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
@@ -1218,7 +1220,7 @@ html,body{max-width:100%;overflow-x:clip}
 @media(prefers-reduced-motion:reduce){
   /* Every feed holds its first frame, so the band is a complete picture
      rather than an empty one. */
-  .eng-track,.eng-cell{animation:none !important}
+  .eng-word,.eng-cell{animation:none !important}
 }
 
 /* The homepage engine block: three ideas, no boxes. Every other band on that
