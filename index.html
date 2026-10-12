@@ -141,7 +141,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-arrow{display:none}
 .results{position:absolute;top:112px;right:0;width:61%;height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.results{opacity:0;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s both}
+/* `backwards`, not `both`, over a visible base: the from-keyframe still
+   hides the card through the 2s delay, and the end state is the base state
+   anyway — but when animations do not run at all, the card is simply there.
+   With `opacity:0` as the base it was not: the visual-diff harness disables
+   animation outright, so every baseline of this page was captured with the
+   plan card invisible and none of its design was ever regression-guarded. */
+.results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
 @media(max-width:960px){
   .hero{padding:32px 0 56px}
