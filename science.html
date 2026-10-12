@@ -1172,17 +1172,15 @@ html,body{max-width:100%;overflow-x:clip}
 @keyframes eng-scroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
 .eng-ans{display:block;font-size:14px;line-height:1.45;color:rgba(255,255,255,.4);white-space:nowrap}
 .eng-ans.is-key{color:var(--white);font-weight:600}
-/* What a report actually holds: the products, then the macros, vitamins
-   and minerals behind them. Section markers so it reads as a structured
-   plan and not a list, and bars rather than figures because a number here
-   would be a nutrient claim nobody verified. */
-.eng-sec{display:block;margin-top:14px;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.eng-track>.eng-sec:first-child{margin-top:0}
-.eng-res{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.62)}
-.eng-res-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+/* The same shape as the signals feed, so the two read as a pair: what went
+   in on the left, what came out on the right. Unordered, some emphasised,
+   some carrying a figure and some not. Percentages rather than doses: a
+   dose here would read as a nutrient target, and no target on this page
+   has been verified. */
+.eng-res{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:12px;font-size:14px;line-height:1.45;color:rgba(255,255,255,.4)}
 .eng-res-lab{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.eng-res-bar{display:block;height:5px;border-radius:3px;background:rgba(255,255,255,.1);min-width:40px}
-.eng-res-bar i{display:block;height:100%;border-radius:3px;background:var(--gold);opacity:.75}
+.eng-res.is-key{color:var(--white);font-weight:600}
+.eng-res-val{font-feature-settings:"tnum";color:var(--gold);white-space:nowrap}
 
 /* the catalogue */
 .eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
