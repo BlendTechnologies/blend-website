@@ -1176,19 +1176,17 @@ html,body{max-width:100%;overflow-x:clip}
    first word of each row carries .on, which is its base opacity, so a
    frozen frame shows one word per row rather than an empty box. That is
    what the visual-diff spec sees, and what a reduced-motion visitor gets. */
-.eng-feed{height:240px;position:relative;overflow:hidden}
-.eng-word{position:absolute;white-space:nowrap;font-size:14px;line-height:1.45;color:rgba(255,255,255,.42);opacity:0;animation:eng-word 12s linear infinite}
-.eng-word.on{opacity:1}
+.eng-feed{height:240px;position:relative;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);
+          mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
+.eng-track{display:flex;flex-direction:column;gap:11px;animation:eng-drift 44s linear infinite}
+@keyframes eng-drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.eng-word{white-space:nowrap;font-size:14px;line-height:1.45;color:rgba(255,255,255,.42);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
 .eng-word.is-key{color:var(--white);font-weight:600}
 .eng-val{display:inline;margin-left:8px;font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
-.eng-word.r2{animation-name:eng-word-2}
-.eng-word.r3{animation-name:eng-word-3}
-/* The visible window is shorter than the slot each word owns, and the
-   slack is what lets a word jitter inside its slot without two in a
-   row ever overlapping. */
-@keyframes eng-word{0%{opacity:0}5%,22%{opacity:1}27%,100%{opacity:0}}
-@keyframes eng-word-2{0%{opacity:0}4%,38%{opacity:1}44%,100%{opacity:0}}
-@keyframes eng-word-3{0%{opacity:0}5%,22%{opacity:1}27%,100%{opacity:0}}
+/* Each word fades out and back on its own clock while it travels, so
+   the two effects run at once and neither has a rhythm to follow. */
+@keyframes eng-word{0%,24%{opacity:1}36%,54%{opacity:0}66%,100%{opacity:1}}
 
 /* the catalogue */
 .eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
@@ -1223,7 +1221,7 @@ html,body{max-width:100%;overflow-x:clip}
 @media(prefers-reduced-motion:reduce){
   /* Every feed holds its first frame, so the band is a complete picture
      rather than an empty one. */
-  .eng-word,.eng-cell{animation:none !important}
+  .eng-track,.eng-word,.eng-cell{animation:none !important}
 }
 
 /* The homepage engine block: three ideas, no boxes. Every other band on that
