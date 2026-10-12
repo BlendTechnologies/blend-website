@@ -1565,10 +1565,15 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
   const delays = reduce ? [0, 0, 0] : [400, 1000, 1600];
   opts.forEach((btn, i) => {
     if (i >= delays.length) return;
-    setTimeout(() => {
+    const apply = () => {
       btn.classList.add('active');
       btn.setAttribute('aria-checked', 'true');
-    }, delays[i]);
+    };
+    // Reduced motion meant "the same choreography with zero delay", and a
+    // zero delay is still a macrotask. Under load it lands after the paint,
+    // so the third option was sometimes ticked and sometimes not. Reduced
+    // motion should mean no choreography at all, so apply it synchronously.
+    if (reduce) apply(); else setTimeout(apply, delays[i]);
   });
 })();
 const newsForm = document.getElementById('news-form');
