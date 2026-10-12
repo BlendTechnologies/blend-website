@@ -151,6 +151,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:960px){
   .hero{padding:32px 0 56px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
+  /* A grid item's automatic minimum is min-content, and `1fr` is really
+     minmax(auto,1fr), so one wide descendant drags the whole track with it.
+     .pc-track is width:600% — six slides side by side — and its min-content
+     is 1342px, which is why the single column resolved to 1364px inside an
+     834px iPad and ran both hero cards off the right edge. Above 960 the plan
+     card is position:absolute and contributes nothing, which is the only
+     reason the desktop grid escaped it. The ≤760 deck block already carries
+     this line for the same reason; it belongs to the whole stacked range. */
+  .hero-grid,.hero-copy,.hero-visual{min-width:0}
   .hero-visual{min-height:auto;padding-top:0}
   .hero-stage{height:auto;display:flex;flex-direction:column;gap:20px}
   .quiz,.results{position:static;width:100%}
@@ -683,6 +692,19 @@ html,body{max-width:100%;overflow-x:clip}
   }
   .personas>:last-child,
   .pricing>:last-child{scroll-snap-align:end;margin-right:32px}
+}
+
+/* ---- Tablet (761-960): the hero goes two-up, not one-wide --------------
+   Same complaint as the block above, same cause: below 961 the desktop grid
+   collapses to one column, and a hero card then runs the full wrap width —
+   734px at 834, with "Serving" stranded 600px from "When" and a full-width
+   Add to cart. The hero is exactly two cards, so it does not need the swipe
+   the three-card rails needed: two tracks put each card at 340-440px, which
+   brackets the 382px it has on desktop, and the whole hero still fits one
+   screen instead of stacking to ~900px. */
+@media (min-width:761px) and (max-width:960px){
+  .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+  .quiz,.results{width:auto}
 }
 
 /* ---- Phone polish: hero density + card consistency ----------------------
@@ -1263,6 +1285,8 @@ html,body{max-width:100%;overflow-x:clip}
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pc-tags{display:flex;align-items:center;gap:9px;margin-top:12px;overflow:hidden}
 .pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:#89867F;padding:4px 0;white-space:nowrap}
+.pc-tag.is-match{flex:0 0 auto}
+.pc-tag:not(.is-match){min-width:0;overflow:hidden;text-overflow:ellipsis}
 .pc-tag.is-match{color:rgba(231,207,163,.92);background:rgba(180,127,57,.18);
   border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:4px 10px}
 .pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em;
@@ -1275,7 +1299,10 @@ html,body{max-width:100%;overflow-x:clip}
    when the reason runs to two lines. */
 .pc-facts{display:grid;gap:8px;margin:13px 0 0;font-size:10.5px;line-height:1.45}
 .pc-fact{display:grid;grid-template-columns:42px minmax(0,1fr);gap:5px}
-.pc-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px}
+/* side by side when the card can hold two of them, stacked when it cannot —
+   auto-fit does that without a breakpoint, and at 320px "With meal" was
+   wrapping onto a second line rather than giving up the pairing. */
+.pc-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:5px 10px}
 .pc-facts dt{font-weight:600;color:#89867F;white-space:nowrap}
 .pc-facts dd{margin:0;color:#AAA69E}
 .pc-fact-why dd{min-height:2.9em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
