@@ -1214,17 +1214,32 @@ html,body{max-width:100%;overflow-x:clip}
 .eng-lab{margin-top:12px;font-size:15px;font-weight:600;line-height:1.4;color:var(--white)}
 .eng-lab span{display:block;margin-top:6px;font-size:14px;font-weight:400;line-height:1.5;color:var(--muted-on-dark)}
 
+/* A row is as wide as its column, and at 373px the name and the figure fly
+   to opposite edges with a hand's width of nothing between them. Capping
+   the track keeps a plan row the same shape at every size. */
+.eng-plan .eng-track{max-width:300px}
+
 @media(max-width:1000px){
-  .eng{grid-template-columns:1fr 1fr;gap:32px 24px}
+  /* Three bands abreast would leave the grid 236px for 24 columns, so the
+     catalogue goes full width on top and the two feeds sit under it. */
+  .eng{grid-template-columns:1fr 1fr;gap:34px 26px}
   .eng-band:nth-child(2){grid-column:1/-1;order:-1}
-  .eng-figs{grid-template-columns:1fr 1fr;gap:26px}
+  /* Stacked, the bands no longer need to match heights, so the grid sizes
+     from its own column count and the cells come out square. */
+  .eng-grid{height:auto;aspect-ratio:24/10}
+  .eng-feed{height:208px}
+  .eng-figs{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(max-width:560px){
-  .eng{grid-template-columns:1fr;margin-top:40px;gap:28px}
-  .eng-feed,.eng-grid{height:180px}
-  .eng-grid{gap:3px}
-  .eng-figs{grid-template-columns:1fr;gap:22px;margin-top:40px}
-  .eng-note{font-size:13px}
+  .eng{grid-template-columns:1fr;margin-top:40px;gap:26px}
+  /* 24 columns on a 350px screen is a 11px cell, too small to read a gate
+     firing. 16 across reflows the same 240 cells into 15 rows at twice the
+     size, and the aspect ratio keeps them square. */
+  .eng-grid{grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(15,1fr);aspect-ratio:16/15;gap:3px}
+  .eng-feed{height:172px}
+  .eng-word{font-size:13px}
+  .eng-plan .eng-track{max-width:none}
+  .eng-figs{grid-template-columns:1fr;gap:24px;margin-top:40px}
 }
 @media(prefers-reduced-motion:reduce){
   /* Every feed holds its first frame, so the band is a complete picture
