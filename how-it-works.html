@@ -1175,11 +1175,17 @@ html,body{max-width:100%;overflow-x:clip}
 @keyframes eng-scroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
 .eng-ans{display:block;font-size:14px;line-height:1.45;color:rgba(255,255,255,.4);white-space:nowrap}
 .eng-ans.is-key{color:var(--white);font-weight:600}
-.eng-res{display:grid;grid-template-columns:8px minmax(0,1fr) auto;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.4)}
-.eng-res-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18)}
-.eng-res.is-key .eng-res-dot{background:#75E0A7}
-.eng-res.is-key .eng-res-lab{color:var(--white);font-weight:600}
-.eng-res-score{font-feature-settings:"tnum";color:var(--gold);font-weight:600}
+/* What a report actually holds: the products, then the macros, vitamins
+   and minerals behind them. Section markers so it reads as a structured
+   plan and not a list, and bars rather than figures because a number here
+   would be a nutrient claim nobody verified. */
+.eng-sec{display:block;margin-top:14px;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.eng-track>.eng-sec:first-child{margin-top:0}
+.eng-res{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.62)}
+.eng-res-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.eng-res-lab{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eng-res-bar{display:block;height:5px;border-radius:3px;background:rgba(255,255,255,.1);min-width:40px}
+.eng-res-bar i{display:block;height:100%;border-radius:3px;background:var(--gold);opacity:.75}
 
 /* the catalogue */
 .eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
@@ -1191,11 +1197,9 @@ html,body{max-width:100%;overflow-x:clip}
 @keyframes eng-drop{0%,5%{background:rgba(180,127,57,var(--o))}8%,15%{background:#B42318}24%,92%{background:rgba(180,127,57,.05)}100%{background:rgba(180,127,57,var(--o))}}
 @keyframes eng-pulse{0%,12%{background:rgba(180,127,57,var(--o))}18%,26%{background:rgba(180,127,57,.95)}36%,100%{background:rgba(180,127,57,var(--o))}}
 
-.eng-note{margin:26px 0 0;font-size:14px;color:rgba(255,255,255,.55)}
-
 /* Figures, not stat boxes, so the band stays the one thing on this page
    that is not a grid of cards. */
-.eng-figs{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:56px}
+.eng-figs{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:64px}
 .eng-fig{padding-top:20px;border-top:1px solid rgba(255,255,255,.2)}
 .eng-n{font-size:clamp(32px,3.6vw,42px);line-height:1;font-weight:600;letter-spacing:-.03em;color:var(--white);font-feature-settings:"tnum"}
 .eng-lab{margin-top:12px;font-size:15px;font-weight:600;line-height:1.4;color:var(--white)}
