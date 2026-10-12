@@ -118,11 +118,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
 .cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
 .cta-alt a:hover{text-decoration-color:var(--gold-strong)}
-.hero-visual{position:relative;min-height:690px;padding-top:8px}
-.hero-stage{position:relative;width:100%;height:646px}
+.hero-visual{position:relative;min-height:620px;padding-top:8px}
+.hero-stage{position:relative;width:100%;height:580px}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
 .card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{position:absolute;top:0;left:0;width:55%;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
+.quiz{position:absolute;top:0;left:0;width:52%;height:472px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -135,11 +135,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .qopt-label{flex:1;min-width:0}
 
 
-.quiz-next{margin-top:18px;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--ink);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;}
+.quiz-next{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--ink);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
-.results{position:absolute;top:128px;right:0;width:49%;padding:22px 20px 18px;z-index:3;min-width:0;}
+.results{position:absolute;top:96px;right:0;width:52%;height:472px;padding:20px 18px 16px;z-index:3;min-width:0;}
 .results .rheader{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 .results .rring{flex-shrink:0}
 .results .rring svg{display:block}
@@ -1231,34 +1231,34 @@ html,body{max-width:100%;overflow-x:clip}
    so the dot is the brand's circle and not a full stop. */
 .qbrand{flex-shrink:0;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--white)}
 .qbrand-mark{width:16px;height:auto;display:block}
-.qsub{margin:8px 0 0;font-size:13px;line-height:1.5;color:var(--muted)}
-.qopts{margin-top:18px;display:grid;gap:8px}
-.qopt-box{flex-shrink:0;width:18px;height:18px;border-radius:5px;border:1px solid var(--line-strong)}
-.qopt .qopt-check{flex-shrink:0;width:18px;height:18px;display:grid;place-items:center;color:var(--ink);opacity:0;transition:opacity .3s ease}
-.qopt .qopt-check svg{width:13px;height:13px}
-.qopt.active .qopt-check{opacity:1}
-.qopt.active{background:#FBF9F4;border-color:var(--line-strong)}
-/* The most recent answer, so the card reads as mid-flow rather than done. */
-.qopt.active[data-last]{background:var(--gold-soft);border-color:#E0CBA6}
-.qfoot{display:flex;align-items:center;gap:14px;margin-top:18px;font-size:11.5px;color:var(--muted)}
-.qsaved{color:var(--gold-active);font-weight:500}
+/* The quiz card is the one that shipped; only its proportions changed.
+   The filled-circle tick came back with it. */
+.qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .38s cubic-bezier(.2,.7,.25,1),border-color .38s cubic-bezier(.2,.7,.25,1)}
+.qopt-check svg{width:9px;height:9px;opacity:0;transform:scale(.4);transition:opacity .3s cubic-bezier(.2,.7,.25,1),transform .3s cubic-bezier(.2,.7,.25,1)}
+.qopt.active .qopt-check{background:var(--ink);border-color:var(--ink)}
+.qopt.active .qopt-check svg{opacity:1;transform:scale(1)}
+.qopt.active .qopt-check svg path{stroke:var(--white)!important}
+.qopts{margin-top:18px;display:grid;gap:10px;flex:1;align-content:start}
+.qopt{min-height:58px}
 
 .rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .rbrand{flex-shrink:0;color:var(--white)}
 .rbrand .qbrand-mark{width:18px}
-.rtitle{margin-top:13px;font-size:26px;font-weight:600;line-height:1.08;letter-spacing:-.028em}
-.rhint{margin-top:7px;font-size:12.5px;color:rgba(255,255,255,.58);line-height:1.4}
-.rgoals{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.rtitle{margin-top:12px;font-size:23px;font-weight:600;line-height:1.08;letter-spacing:-.025em}
+.rhint{margin-top:6px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.4}
+.rgoals{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .rgoals span{font-size:10.5px;font-weight:500;color:rgba(255,255,255,.72);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 10px;white-space:nowrap}
-.rgoals span:last-child{color:var(--white);background:rgba(180,127,57,.3);border-color:rgba(231,207,163,.35)}
+.rgoals span:last-child{color:var(--white);background:rgba(180,127,57,.32);border-color:rgba(231,207,163,.35)}
 .rfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
 .rcount{font-size:11px;color:rgba(255,255,255,.45)}
 .rmore{display:flex;gap:5px;opacity:.6}
 .rmore span{width:5px;height:5px;border-radius:50%;background:var(--white);transition:none}
 
-/* One shape for every slide: a fixed height with the body as a column and
-   the button pushed to the bottom, so a product card and the breakdown card
-   are the same card. */
+/* The card the customer actually gets, at hero scale. Same parts in the same
+   order as the real one: the tan pill on the shot, the name, the goal tags
+   with the matched goal filled, the reason on a Why row, and a full-width
+   button. Abridged, not reinvented: the description and the When and Serving
+   rows do not fit at this size and nothing else was moved to make room. */
 .pc-deck{overflow:hidden;margin-top:16px;border-radius:14px}
 .pc-track{display:flex;width:500%;animation:pc-swipe 24s cubic-bezier(.65,0,.35,1) infinite}
 .pc-slide{width:20%;flex:0 0 20%;padding:0 1px}
@@ -1269,29 +1269,25 @@ html,body{max-width:100%;overflow-x:clip}
   66%,84%{transform:translateX(-60%)}
   88%,100%{transform:translateX(-80%)}
 }
-.pc{background:var(--white);border-radius:13px;overflow:hidden;color:var(--ink);height:326px;display:flex;flex-direction:column}
-.pc-shot{position:relative;height:132px;flex-shrink:0;background:#0E0E0E}
-.pc-shot img{width:100%;height:100%;object-fit:cover;object-position:center 48%;display:block}
-.pc-kicker{position:absolute;top:10px;left:12px;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6)}
-.pc-badge{position:absolute;top:9px;right:12px;background:rgba(255,255,255,.14);color:var(--white);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px}
-.pc-note{position:absolute;bottom:8px;right:12px;font-size:8.5px;color:rgba(255,255,255,.38)}
-.pc-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;min-height:0}
-.pc-meta{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.pc-goal{color:var(--gold-active)}
-.pc-idx{color:var(--line-strong);font-feature-settings:"tnum"}
-.pc-name{margin-top:7px;font-size:17px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-rule{height:1px;background:var(--line);margin:11px 0}
-.pc-whyhead{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--ink)}
-.pc-spark{width:14px;height:14px;color:var(--gold)}
-.pc-why{margin:6px 0 0;font-size:11.5px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pc-why--note{-webkit-line-clamp:2;margin-top:10px;font-size:10.5px}
-.pc-cta{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:auto;font-size:12px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:9px;padding:10px 14px}
-.pc-cta i{font-style:normal;font-size:14px;line-height:1}
+.pc{background:var(--white);border-radius:13px;overflow:hidden;color:var(--ink);height:300px;display:flex;flex-direction:column}
+.pc-shot{position:relative;height:150px;flex-shrink:0;background:#E9EDE2}
+.pc-shot img{width:100%;height:100%;object-fit:cover;object-position:center 46%;display:block}
+.pc-badge{position:absolute;top:10px;left:10px;background:rgba(250,248,242,.92);color:var(--gold-active);font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+.pc-body{padding:13px 14px 14px;flex:1;display:flex;flex-direction:column;min-height:0}
+.pc-body--full{padding:16px}
+.pc-name{font-size:15px;font-weight:600;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-tags{display:flex;gap:5px;margin-top:7px;overflow:hidden}
+.pc-tag{font-size:9.5px;font-weight:600;color:var(--gold-active);border:1px solid var(--line-strong);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.pc-tag.is-primary{background:var(--gold-strong);border-color:var(--gold-strong);color:var(--white)}
+.pc-why{margin:9px 0 0;font-size:11px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-why b{color:var(--ink);font-weight:600}
+.pc-why--lead{-webkit-line-clamp:2;margin-top:7px}
+.pc-cta{display:block;text-align:center;margin-top:auto;font-size:12px;font-weight:600;color:var(--white);background:var(--gold-strong);border-radius:9px;padding:10px 14px}
 .pc-cta--ghost{background:transparent;color:var(--gold-active);border:1px solid var(--line-strong)}
 
-/* The breakdown card: the same shape, carrying bars instead of a product. */
-.nb{margin-top:12px;display:grid;gap:11px}
-.nb-row{display:grid;grid-template-columns:68px minmax(0,1fr) 32px;align-items:center;gap:8px;font-size:11px}
+/* The breakdown slide: the report's own bars, short of target in red. */
+.nb{margin-top:14px;display:grid;gap:12px}
+.nb-row{display:grid;grid-template-columns:66px minmax(0,1fr) 32px;align-items:center;gap:8px;font-size:11px}
 .nb-n{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nb-bar{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
 .nb-bar i{display:block;height:100%;border-radius:3px;background:var(--gold)}
@@ -1306,11 +1302,11 @@ html,body{max-width:100%;overflow-x:clip}
 @keyframes pc-dot{0%,20%{opacity:1}23%,97%{opacity:.3}100%{opacity:1}}
 
 @media(prefers-reduced-motion:reduce){
-  .pc-track,.rmore span,.qopt .qopt-check{animation:none !important;transition:none}
+  .pc-track,.rmore span{animation:none !important}
 }
 @media(max-width:560px){
-  .pc{height:306px}
-  .pc-shot{height:116px}
+  .pc{height:286px}
+  .pc-shot{height:138px}
   .rtitle{font-size:21px}
 }
 
@@ -1489,16 +1485,20 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
           <div class="quiz" id="quiz">
             <div class="qprog"><span class="qbrand" aria-hidden="true"><svg class="qbrand-mark" viewBox="108 370 1690 1585" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(0 1899.6) scale(1 -1)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/><g transform="translate(1300 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></span><div class="qprog-bar"><div class="qprog-fill"></div></div></div>
             <div class="qtitle">What are your top wellness goals?</div>
-            <p class="qsub">A little about you. A plan that fits.</p>
-            <div class="qopts" role="radiogroup" aria-label="Sample quiz options"><button class="qopt" data-i="0" role="radio" aria-checked="false"><span class="qopt-label">Boost energy</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 4.9 8.6 9.5 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><button class="qopt" data-i="1" role="radio" aria-checked="false"><span class="qopt-label">Gut health</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 4.9 8.6 9.5 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><button class="qopt" data-i="2" data-last role="radio" aria-checked="false"><span class="qopt-label">Better sleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 4.9 8.6 9.5 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><button class="qopt" role="radio" aria-checked="false"><span class="qopt-label">Muscle growth</span><span class="qopt-box" aria-hidden="true"></span></button></div>
-            <div class="qfoot"><span>3 goals selected</span><span class="qsaved">&#10003; Answers saved</span></div>
+            <div class="qopts" role="radiogroup" aria-label="Sample quiz options">
+              <button class="qopt" data-i="0" role="radio" aria-checked="false"><span class="qopt-label">Boost energy</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt" data-i="1" role="radio" aria-checked="false"><span class="qopt-label">Gut health</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt" data-i="2" role="radio" aria-checked="false"><span class="qopt-label">Better sleep</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+              <button class="qopt" data-i="3" role="radio" aria-checked="false"><span class="qopt-label">Muscle growth</span><span class="qopt-check" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+            </div>
+            <button class="quiz-next" type="button">Continue &#8594;</button>
           </div>
           <div class="card card-dark results">
             <div class="rtop"><span class="rlabel">Your wellness plan</span><span class="rbrand" aria-hidden="true"><svg class="qbrand-mark" viewBox="108 370 1690 1585" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(0 1899.6) scale(1 -1)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/><g transform="translate(1300 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></span></div>
             <div class="rtitle">Made for Jane.</div>
             <div class="rhint">3 products. Your goals, considered.</div>
             <div class="rgoals"><span>Boost energy</span><span>Gut health</span><span>Better sleep</span></div>
-            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-front.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-kicker">Daily essentials</span><span class="pc-badge">Essential</span><span class="pc-note">Illustrative packaging</span></div><div class="pc-body"><div class="pc-meta"><span class="pc-goal">Your energy goal</span><span class="pc-idx">01 / 04</span></div><div class="pc-name">Iron</div><div class="pc-rule"></div><div class="pc-whyhead"><svg class="pc-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4 12.7 8.3 17 10l-4.3 1.7L11 16l-1.7-4.3L5 10l4.3-1.7z"/><path d="M18 4.5v3M16.5 6h3"/></svg>Why it&#8217;s in your plan</div><p class="pc-why">Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><span class="pc-cta">Add to cart<i>+</i></span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-front.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-kicker">Daily essentials</span><span class="pc-badge">Recommended</span><span class="pc-note">Illustrative packaging</span></div><div class="pc-body"><div class="pc-meta"><span class="pc-goal">Your gut goal</span><span class="pc-idx">02 / 04</span></div><div class="pc-name">Prebiotic (FOS/GOS)</div><div class="pc-rule"></div><div class="pc-whyhead"><svg class="pc-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4 12.7 8.3 17 10l-4.3 1.7L11 16l-1.7-4.3L5 10l4.3-1.7z"/><path d="M18 4.5v3M16.5 6h3"/></svg>Why it&#8217;s in your plan</div><p class="pc-why">You told us about bloating. This one feeds the bacteria already there.</p><span class="pc-cta">Add to cart<i>+</i></span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-front.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-kicker">Daily essentials</span><span class="pc-badge">Recommended</span><span class="pc-note">Illustrative packaging</span></div><div class="pc-body"><div class="pc-meta"><span class="pc-goal">Your sleep goal</span><span class="pc-idx">03 / 04</span></div><div class="pc-name">L-Theanine</div><div class="pc-rule"></div><div class="pc-whyhead"><svg class="pc-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4 12.7 8.3 17 10l-4.3 1.7L11 16l-1.7-4.3L5 10l4.3-1.7z"/><path d="M18 4.5v3M16.5 6h3"/></svg>Why it&#8217;s in your plan</div><p class="pc-why">You told us about a racing mind at bedtime, and short sleep on work nights.</p><span class="pc-cta">Add to cart<i>+</i></span></div></div></div><div class="pc-slide"><div class="pc pc-wide"><div class="pc-body"><div class="pc-meta"><span class="pc-goal">Your breakdown</span><span class="pc-idx">04 / 04</span></div><div class="pc-name">Where the gaps are</div><div class="pc-rule"></div><div class="nb"><div class="nb-row"><span class="nb-n">Vitamin D3</span><span class="nb-bar"><i class="is-low" style="width:10%"></i></span><span class="nb-v is-low">10%</span></div><div class="nb-row"><span class="nb-n">Iron</span><span class="nb-bar"><i class="is-low" style="width:39%"></i></span><span class="nb-v is-low">39%</span></div><div class="nb-row"><span class="nb-n">Selenium</span><span class="nb-bar"><i class="" style="width:74%"></i></span><span class="nb-v ">74%</span></div><div class="nb-row"><span class="nb-n">Vitamin B6</span><span class="nb-bar"><i class="" style="width:88%"></i></span><span class="nb-v ">88%</span></div></div><p class="pc-why pc-why--note">Only the nutrients with a gap. Everything else is on track.</p><span class="pc-cta pc-cta--ghost">See the full breakdown</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-front.jpg" alt="" width="1000" height="562" loading="lazy" decoding="async"><span class="pc-kicker">Daily essentials</span><span class="pc-badge">Essential</span><span class="pc-note">Illustrative packaging</span></div><div class="pc-body"><div class="pc-meta"><span class="pc-goal">Your energy goal</span><span class="pc-idx">01 / 04</span></div><div class="pc-name">Iron</div><div class="pc-rule"></div><div class="pc-whyhead"><svg class="pc-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4 12.7 8.3 17 10l-4.3 1.7L11 16l-1.7-4.3L5 10l4.3-1.7z"/><path d="M18 4.5v3M16.5 6h3"/></svg>Why it&#8217;s in your plan</div><p class="pc-why">Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><span class="pc-cta">Add to cart<i>+</i></span></div></div></div></div></div>
+            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag is-primary">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-why"><b>Why:</b> Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">Prebiotic (FOS/GOS)</div><div class="pc-tags"><span class="pc-tag is-primary">Gut Health</span></div><p class="pc-why"><b>Why:</b> You told us about bloating. This one feeds the bacteria already there.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Recommended</span></div><div class="pc-body"><div class="pc-name">L-Theanine</div><div class="pc-tags"><span class="pc-tag is-primary">Sleep</span><span class="pc-tag">Mood & Emotions</span></div><p class="pc-why"><b>Why:</b> You told us about a racing mind at bedtime.</p><span class="pc-cta">Add to cart</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-body pc-body--full"><div class="pc-name">Where the gaps are</div><p class="pc-why pc-why--lead">Only the nutrients short of target. Everything else is on track.</p><div class="nb"><div class="nb-row"><span class="nb-n">Vitamin D3</span><span class="nb-bar"><i class="is-low" style="width:10%"></i></span><span class="nb-v is-low">10%</span></div><div class="nb-row"><span class="nb-n">Iron</span><span class="nb-bar"><i class="is-low" style="width:39%"></i></span><span class="nb-v is-low">39%</span></div><div class="nb-row"><span class="nb-n">Selenium</span><span class="nb-bar"><i class="" style="width:74%"></i></span><span class="nb-v ">74%</span></div><div class="nb-row"><span class="nb-n">Vitamin B6</span><span class="nb-bar"><i class="" style="width:88%"></i></span><span class="nb-v ">88%</span></div></div><span class="pc-cta pc-cta--ghost">See the full breakdown</span></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="1000" height="500" loading="lazy" decoding="async"><span class="pc-badge">Essential</span></div><div class="pc-body"><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag is-primary">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-why"><b>Why:</b> Your iron is at 39% of your target, and you told us about ongoing tiredness.</p><span class="pc-cta">Add to cart</span></div></div></div></div></div>
             <div class="rfoot"><span class="rcount">Three products, one per goal</span><span class="rmore" aria-label="More in the plan"><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span></span></div>
           </div>
         </div>
