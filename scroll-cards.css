@@ -1,0 +1,156 @@
+/* ============================================================
+   Scroll cards — the shared block treatment for blend-technologies.com
+   ------------------------------------------------------------
+   Two shapes, one idea: a full-bleed block that closes into a rounded
+   card, and a rounded card that opens to full bleed. Both are driven by
+   a --sc-p that scroll-cards.js writes on the element itself, so a page
+   can carry as many as it likes, and both are clip-path only — nothing
+   here animates a property that would make the browser lay the page out
+   again, and nothing inside either shape is scaled, moved or reflowed.
+
+   Lifted out of the homepage's inline stylesheet unchanged so
+   /how-it-works can use the same component. The values, the easing and
+   the geometry are the homepage's; only the selectors are new.
+   ============================================================ */
+:root{
+  --sc-inset:40px;--sc-round:36px;--sc-grow:.06;
+  /* Top edge, at every width. A centre origin grows the block both ways,
+     so on any viewport where the content is close to the block's height
+     it lifts the first line above the block and behind the header. */
+  --sc-origin:50% 0;
+}
+/* Smaller margins and a tighter corner on a phone: 40px either side of a
+   375px screen is a fifth of the width, and the card stops reading as a
+   full-bleed block that has pulled in. */
+@media (max-width:560px){
+  :root{--sc-inset:24px;--sc-round:24px;--sc-grow:.05}
+}
+/* The grow halves below 1300: see the gutter note at the end of the file. */
+@media (max-width:1299px){
+  :root{--sc-grow:.03}
+}
+
+/* Defaults are the state each shape should hold with no JS at all, and
+   the state reduced motion keeps: the hero already a card, every reveal
+   already open. The handler never writes under reduced motion, so an
+   inline value can never beat this. */
+.sc-hero{--sc-p:0}
+.sc-reveal{--sc-p:0}
+@media (prefers-reduced-motion:reduce){
+  .sc-hero{--sc-p:1}
+  .sc-reveal{--sc-p:1}
+}
+
+/* ---- The hero: full bleed at 0, a card at 1 --------------------------
+   The hairline is two clips. The block's own background is the edge
+   colour and the fill sits a pixel inside it, so the ring appears in the
+   gap between them; both are scaled by --sc-p, which is what makes it
+   fade in with the inset rather than drawing a line round the viewport
+   at rest.
+
+   There is no shadow, and that is not an oversight: clip-path clips an
+   element's own box shadow away with its edge, so a real one would mean
+   animating inset and border-radius on an unclipped box - the
+   layout-triggering animation this whole thing exists to avoid. */
+.sc-hero{position:relative;display:grid;align-content:safe center;overflow:hidden;
+  min-height:calc(100vh - var(--nav-h));
+  min-height:calc(100svh - var(--nav-h));
+  padding:40px 0 56px;
+  background:rgba(10,10,10,.07);
+  clip-path:inset(
+    calc(var(--sc-p) * var(--sc-inset)) calc(var(--sc-p) * var(--sc-inset))
+    calc(var(--sc-p) * var(--sc-inset)) calc(var(--sc-p) * var(--sc-inset))
+    round calc(var(--sc-p) * var(--sc-round)));}
+/* The fill, a pixel inside the hairline. Deeper than --cream on purpose:
+   against a white page #FAF8F2 was close enough that the card barely read
+   as a separate surface. */
+.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:#F4EFE4;
+  clip-path:inset(
+    calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
+    calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
+    round calc(var(--sc-p) * (var(--sc-round) - 1px)))}
+/* The drift, over the fill and oversized so no edge of it ever enters.
+   Transform, not background-position, so it runs on the compositor. */
+.sc-hero::after{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(44% 48% at 18% 26%, rgba(231,207,163,.62), rgba(231,207,163,0) 70%),
+    radial-gradient(40% 44% at 80% 34%, rgba(226,196,146,.54), rgba(226,196,146,0) 72%),
+    radial-gradient(48% 42% at 50% 78%, rgba(212,183,136,.46), rgba(212,183,136,0) 70%);
+  animation:sc-wash 19s ease-in-out infinite alternate;
+  will-change:transform}
+@keyframes sc-wash{
+  from{transform:translate3d(-2.5%,-1.5%,0) scale(1.04)}
+  to{transform:translate3d(2.5%,2%,0) scale(1.12)}
+}
+@media (prefers-reduced-motion:reduce){
+  .sc-hero::after{animation:none}
+}
+/* The block's own height carries the space the padding used to. */
+@media (max-width:960px){ .sc-hero{padding:32px 0 56px} }
+@media (max-width:760px){ .sc-hero{padding:24px 0 48px} }
+@media (max-width:560px){ .sc-hero{align-content:start;padding-top:34px} }
+/* The content shrinks with its own card. The card's visible width goes
+   from the full viewport to the viewport less two insets, which at 1440
+   is 5.6%, so the content starts 6% over and settles at its design size
+   on the same progression - the block and what is inside it move as one
+   thing rather than the frame closing around fixed content. */
+.sc-hero > .wrap{position:relative;z-index:1;will-change:transform;transform-origin:var(--sc-origin);
+  transform:scale(calc(1 + (1 - var(--sc-p)) * var(--sc-grow)))}
+
+/* ---- A reveal: a card at 0, full bleed at 1 -------------------------
+   The ink is a layer inside the block rather than the block's own
+   background, because clipping the block would reveal the page behind
+   it, and what belongs either side of a reveal is the ground it sits on.
+   The block keeps that ground; the layer carries the ink. */
+.sc-reveal{position:relative;overflow:hidden}
+.sc-reveal::before{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);
+  clip-path:inset(
+    calc((1 - var(--sc-p)) * var(--sc-inset)) calc((1 - var(--sc-p)) * var(--sc-inset))
+    calc((1 - var(--sc-p)) * var(--sc-inset)) calc((1 - var(--sc-p)) * var(--sc-inset))
+    round calc((1 - var(--sc-p)) * var(--sc-round)))}
+.sc-reveal > .wrap{position:relative;z-index:1}
+/* A pair that reads as one card: the upper half insets its top and sides
+   and rounds only its top corners, the lower half insets its sides and
+   bottom and rounds only its bottom corners, and neither insets the edge
+   they share. Two clipped layers, one continuous shape. */
+.sc-reveal--top::before{
+  clip-path:inset(
+    calc((1 - var(--sc-p)) * var(--sc-inset))
+    calc((1 - var(--sc-p)) * var(--sc-inset))
+    0
+    calc((1 - var(--sc-p)) * var(--sc-inset))
+    round calc((1 - var(--sc-p)) * var(--sc-round))
+          calc((1 - var(--sc-p)) * var(--sc-round)) 0 0)}
+.sc-reveal--bottom::before{
+  clip-path:inset(
+    0
+    calc((1 - var(--sc-p)) * var(--sc-inset))
+    calc((1 - var(--sc-p)) * var(--sc-inset))
+    calc((1 - var(--sc-p)) * var(--sc-inset))
+    round 0 0 calc((1 - var(--sc-p)) * var(--sc-round))
+              calc((1 - var(--sc-p)) * var(--sc-round)))}
+
+/* ---- Clipped blocks need a gutter wider than their own inset --------
+   The page gutter is 32px and the cards inset by 40, so wherever .wrap is
+   not centred by its max-width the content crosses the card's edge and
+   the first and last few pixels of every line sit on the ground outside
+   it. On a reveal that is white text on beige, so they simply disappear.
+
+   Static, not scaled by progress: padding is layout, and the card is at
+   its deepest inset at rest, which is the case that has to fit. Above the
+   width where the wrap's own centring already clears the card the gutter
+   is left alone, so the desktop composition keeps its full width.
+
+   The hero needs a wider one and keeps it further up, because its content
+   is scaled as well: at --sc-grow the block is 6% over at rest, which
+   moves its edges out by 3% of its own width on top of the inset. */
+@media (max-width:1263px){
+  .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 20px)}
+}
+@media (max-width:1299px){
+  .sc-hero > .wrap{padding-inline:calc(var(--sc-inset) + 24px)}
+}
+@media (max-width:560px){
+  .sc-hero > .wrap{padding-inline:calc(var(--sc-inset) + 16px)}
+  .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 12px)}
+}
