@@ -33,6 +33,7 @@
 </script>
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/scroll-cards.css">
 <link rel="stylesheet" href="cookie-consent.css">
 <style>
 /* ============================================================
@@ -51,30 +52,6 @@
   --shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
   --shadow-lg:0 2px 6px rgba(0,0,0,.05),0 20px 40px rgba(0,0,0,.08);
   --nav-h:68px;--content:1200px;
-  /* Scroll progressions, written by the handler at the end of this file.
-     --hero-p 0 is the hero full bleed and 1 is the hero as a card;
-     --eng-p 0 is the engine as a card and 1 is the engine full bleed.
-     Both default to the state the page should hold with no JS at all. */
-  --hero-p:0;--eng-p:0;--closer-p:0;
-  --hero-inset:40px;--hero-round:36px;--hero-grow:.06;
-  /* Top edge, at every width. A centre origin grows the block both ways,
-     so on any viewport where the content is close to the hero's height it
-     lifted the first line above the hero and behind the header. Growing
-     downward from the top edge cannot do that at any size. */
-  --hero-origin:50% 0;
-  --eng-inset:40px;--eng-round:36px;
-  --closer-inset:40px;--closer-round:36px;
-}
-/* With reduced motion there is no progression: both land on their end
-   state and the handler never writes to them. */
-@media (prefers-reduced-motion:reduce){
-  :root{--hero-p:1;--eng-p:1;--closer-p:1}
-}
-/* Smaller margins and a tighter corner on a phone: 20px either side of a
-   375px screen is a tenth of the width, and the card stops reading as a
-   full-bleed block that has pulled in. */
-@media (max-width:560px){
-  :root{--hero-grow:.05;--hero-inset:24px;--hero-round:24px;--eng-inset:24px;--eng-round:24px;--closer-inset:24px;--closer-round:24px}
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -134,39 +111,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .nav-toggle{display:inline-flex}
   .nav-actions .btn{padding:8px 16px;font-size:14px}
 }
-/* ---- The hero, and the card it becomes -------------------------------
-   One screen of warm ground that insets into a rounded card as you scroll
-   through it, revealing the white page underneath. --hero-p is written by
-   the scroll handler at the end of this file and runs 0 (full bleed) to 1
-   (card); clip-path is the whole effect, so nothing inside is scaled,
-   reflowed or moved, and no layout property is touched.
-
-   The border-bottom is gone: the page below is white and the hero's own
-   bottom inset is what separates them now. */
-/* safe center, not center: between 561 and 960 the hero's content is
-   taller than the hero on a short or narrow window, and centring overflow
-   pushes it out of BOTH ends - the eyebrow ended up 6px under the sticky
-   header at 600x800 and at 740x360. safe falls back to start exactly when
-   that would happen. */
-.hero{position:relative;display:grid;align-content:safe center;overflow:hidden;
-  min-height:calc(100vh - var(--nav-h));
-  min-height:calc(100svh - var(--nav-h));
-  padding:40px 0 56px;
-  /* The hairline. The hero's own background is the edge colour and the fill
-     sits a pixel inside it, so the ring appears in the gap between the two
-     clips. Both are scaled by --hero-p, which is what makes it fade in with
-     the inset rather than drawing a line round the viewport at rest.
-
-     A shadow is not available here: clip-path clips an element's own box
-     shadow away with its edge, so a real one would mean animating inset and
-     border-radius on an unclipped box, which is the layout-triggering
-     animation this effect exists to avoid. The deeper ground and the ring
-     carry the edge instead. */
-  background:rgba(10,10,10,.07);
-  clip-path:inset(
-    calc(var(--hero-p) * var(--hero-inset)) calc(var(--hero-p) * var(--hero-inset))
-    calc(var(--hero-p) * var(--hero-inset)) calc(var(--hero-p) * var(--hero-inset))
-    round calc(var(--hero-p) * var(--hero-round)));}
+/* ---- The hero ---------------------------------------------------------
+   Its shape is the shared .sc-hero in scroll-cards.css. What is here is
+   the composition inside it. */
 .hero-grid{display:grid;grid-template-columns:0.95fr 1.05fr;gap:48px;align-items:center;padding:8px 0}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .hero-title{margin-top:14px}
@@ -209,7 +156,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
 @media(max-width:960px){
-  .hero{padding:32px 0 56px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
   /* A grid item's automatic minimum is min-content, and `1fr` is really
      minmax(auto,1fr), so one wide descendant drags the whole track with it.
@@ -449,20 +395,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .preason{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
 @media(max-width:860px){.personas{grid-template-columns:1fr}}
 /* ---- The engine ------------------------------------------------------
-   The hero's move in reverse. The section itself is beige and the black is
-   a clipped layer inside it, so the card can open to full bleed and close
-   again without the content ever moving: at --eng-p 0 it is a rounded card
-   inset from the edges, at 1 it is the full-width band.
-
-   The ink has to be a layer rather than the section's own background,
-   because clipping the section would reveal the white page behind it, and
-   what belongs either side of this band is the beige. */
+   The page's one dark block. Its shape is the shared .sc-reveal in
+   scroll-cards.css; what is here is the ground it sits on and the type
+   that goes over it. */
 .science{position:relative;padding:120px 0;background:var(--cream);color:var(--white);overflow:hidden}
-.science::before{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);
-  clip-path:inset(
-    calc((1 - var(--eng-p)) * var(--eng-inset)) calc((1 - var(--eng-p)) * var(--eng-inset))
-    calc((1 - var(--eng-p)) * var(--eng-inset)) calc((1 - var(--eng-p)) * var(--eng-inset))
-    round calc((1 - var(--eng-p)) * var(--eng-round)))}
 .science .wrap{position:relative;z-index:1}
 .science-head{max-width:800px}
 .science-head .h2{max-width:680px}
@@ -716,14 +652,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    edge they share. Two clipped layers, one continuous shape, one
    progression. Wrapping them in a single element would have been simpler
    and is not available: </main> closes between them. */
-.closer::before{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);
-  clip-path:inset(
-    calc((1 - var(--closer-p)) * var(--closer-inset))
-    calc((1 - var(--closer-p)) * var(--closer-inset))
-    0
-    calc((1 - var(--closer-p)) * var(--closer-inset))
-    round calc((1 - var(--closer-p)) * var(--closer-round))
-          calc((1 - var(--closer-p)) * var(--closer-round)) 0 0)}
 .closer > .wrap{position:relative;z-index:1}
 .closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px);color:var(--white)}
 .closer .lead{margin:0 auto 32px;max-width:520px;color:var(--muted-on-dark)}
@@ -739,14 +667,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
 .closer-foot a:hover{border-bottom-color:var(--white)}
 .footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:80px 0 32px}
-.footer::before{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);
-  clip-path:inset(
-    0
-    calc((1 - var(--closer-p)) * var(--closer-inset))
-    calc((1 - var(--closer-p)) * var(--closer-inset))
-    calc((1 - var(--closer-p)) * var(--closer-inset))
-    round 0 0 calc((1 - var(--closer-p)) * var(--closer-round))
-              calc((1 - var(--closer-p)) * var(--closer-round)))}
 .footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -785,7 +705,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .closer{padding:72px 0}
   .wl-section{padding:64px 0}
   .science{padding:72px 0}
-  .hero{padding:24px 0 48px}
   .hero-grid{gap:24px}
  
   /* shared carousel behaviour */
@@ -1128,7 +1047,6 @@ html,body{max-width:100%;overflow-x:clip}
 @media (max-width:560px){
   /* .hero-grid carries padding:8px 0 from the base rule, which would push
      the whole block down from the top it is meant to start at. */
-  .hero{align-content:start;padding-top:34px}
   .hero .hero-grid{padding-top:0}
   .hero .hero-copy{
     min-height:0;
@@ -1176,86 +1094,6 @@ html,body{max-width:100%;overflow-x:clip}
   /* Autos shrink on their own when space is tight, which is what keeps the
      three small texts on screen at 568px tall. Nothing to override here. */
   .hero .hero-copy::after{display:none}
-}
-
-/* ---- The hero's ground ------------------------------------------------
-   A slow warm drift behind the hero, built on --sand and --sand-soft, which
-   are several steps darker than --cream. That contrast is the point: the
-   hero has to read as a warm block for the move to white to register when
-   it closes into its card.
-
-   This used to be a phone-only wash on body::before, placed there so it
-   would read through the translucent nav without drawing a seam at the
-   hero's top edge. It belongs on the hero now, at every width: the page
-   ground is white, and a wash on the body painted the margins the hero's
-   card is supposed to reveal.
-
-   Transform, not background-position, so the drift runs on the compositor.
-   The layer is oversized and the hero clips it, so no edge ever enters. */
-/* The fill, a pixel inside the hairline. Deeper than --cream on purpose:
-   against a white page #FAF8F2 was close enough that the card barely read
-   as a separate surface. */
-.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:#F4EFE4;
-  clip-path:inset(
-    calc(var(--hero-p) * (var(--hero-inset) + 1px)) calc(var(--hero-p) * (var(--hero-inset) + 1px))
-    calc(var(--hero-p) * (var(--hero-inset) + 1px)) calc(var(--hero-p) * (var(--hero-inset) + 1px))
-    round calc(var(--hero-p) * (var(--hero-round) - 1px)))}
-/* The drift, over the fill and oversized so no edge of it ever enters. */
-.hero::after{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(44% 48% at 18% 26%, rgba(231,207,163,.62), rgba(231,207,163,0) 70%),
-    radial-gradient(40% 44% at 80% 34%, rgba(226,196,146,.54), rgba(226,196,146,0) 72%),
-    radial-gradient(48% 42% at 50% 78%, rgba(212,183,136,.46), rgba(212,183,136,0) 70%);
-  animation:hero-wash 19s ease-in-out infinite alternate;
-  will-change:transform}
-/* The hero shrinks with its own card. The card's visible width goes from
-   the full viewport to the viewport less two 40px margins, which at 1440 is
-   a 5.6% reduction, so the content starts 6% over and settles at its design
-   size on the same progression - the block and what is inside it move as
-   one thing rather than the frame closing around fixed content.
-
-   Not matched any closer on a phone: there the margins are a larger share
-   of the width, and a content scale that big would push the text under the
-   hero's own clip before it settled. */
-/* ---- Clipped blocks need a gutter wider than their own inset ----------
-   The page gutter is 32px and the cards inset by 40, so wherever .wrap is
-   not centred by its max-width - anything under 1264 - the content crossed
-   the card's edge and the first and last few pixels of every line sat on
-   the ground outside it. White text on beige, so they simply disappeared.
-
-   Static, not scaled by progress: padding is layout, and the card is at its
-   deepest inset at rest, which is the case that has to fit. Above 1264 the
-   wrap's own centring already clears the card, so the gutter is untouched
-   there and the desktop composition keeps its full width. */
-@media (max-width:1263px){
-  .science > .wrap,
-  .closer > .wrap,
-  .footer > .wrap{padding-inline:calc(var(--eng-inset) + 20px)}
-}
-/* The hero needs a wider gutter than the others and loses it later, because
-   its content is also scaled: at --hero-grow the block is 6% over at rest,
-   which moves its edges out by 3% of its own width on top of the inset. The
-   grow halves below 1300 so that overhang stays smaller than the gutter can
-   absorb. Above 1300 the wrap's centring covers both. */
-@media (max-width:1299px){
-  :root{--hero-grow:.03}
-  .hero > .wrap{padding-inline:calc(var(--hero-inset) + 24px)}
-}
-@media (max-width:560px){
-  .hero > .wrap{padding-inline:calc(var(--hero-inset) + 16px)}
-  .science > .wrap,
-  .closer > .wrap,
-  .footer > .wrap{padding-inline:calc(var(--eng-inset) + 12px)}
-}
-.hero > .wrap{position:relative;z-index:1;will-change:transform;transform-origin:var(--hero-origin);
-  transform:scale(calc(1 + (1 - var(--hero-p)) * var(--hero-grow)))}
-
-@keyframes hero-wash{
-  from{transform:translate3d(-2.5%,-1.5%,0) scale(1.04)}
-  to{transform:translate3d(2.5%,2%,0) scale(1.12)}
-}
-@media (prefers-reduced-motion:reduce){
-  .hero::after{animation:none}
 }
 
 /* ---- Phone: scoring model and FAQ compaction ----------------------------
@@ -1694,7 +1532,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   </div>
 </header>
 <main id="main">
-<section class="hero">
+<section class="hero sc-hero" data-sc="hero">
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-copy">
@@ -1774,7 +1612,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
     </div>
   </div>
 </section>
-<section class="science" id="science">
+<section class="science sc-reveal" data-sc="reveal" id="science">
   <div class="wrap">
     <div class="science-head"><span class="eyebrow">The engine</span><h2 class="h2">Every answer shapes the recommendation.</h2><p class="lead">Customer answers, research-backed product data, and your brand&#8217;s priorities come together in one recommendation engine. Blend scores your catalogue, applies protected safety checks, and explains the reasoning behind each recommendation.</p></div>
     <p class="eng-example">Example: health &amp; wellness</p>
@@ -1871,7 +1709,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
     </div></div>
   </div>
 </section>
-<section class="closer" id="contact">
+<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
     <h2 class="h1">Put your catalogue to work.</h2>
     <p class="lead">Try the demo, or book 15 minutes with us.</p>
@@ -1884,7 +1722,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   </div>
 </section>
 </main>
-<footer class="footer">
+<footer class="footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -2350,92 +2188,7 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   </div>
 </div>
 
-<script>
-/* Two scroll-linked progressions, one handler.
-
-   Both are written as plain numbers into custom properties that clip-path
-   reads, so the browser only ever recomposites: no width, height, margin or
-   anything else that would make it lay the page out again. One passive
-   listener, batched into a frame, writing two properties.
-
-   Neither is a trigger. The value tracks the scroll position in both
-   directions, so scrolling back up takes the hero out of its card and
-   closes the engine again. */
-(function(){
-  var root = document.documentElement;
-  var hero = document.querySelector('.hero');
-  var eng  = document.querySelector('.science');
-  var closer = document.querySelector('.closer');
-  var footer = document.querySelector('.footer');
-  if (!hero || !eng || !window.requestAnimationFrame) return;
-
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var queued = false;
-
-  function clamp(n){ return n < 0 ? 0 : (n > 1 ? 1 : n); }
-
-  function update(){
-    queued = false;
-    /* The stylesheet holds the end state under reduced motion. Writing an
-       inline value here would beat that media query and undo it. */
-    if (reduce.matches) return;
-
-    var vh = window.innerHeight || 1;
-
-    /* The hero closes into its card over the first half of its own height,
-       so the card has formed well before the hero leaves rather than just
-       as it goes. */
-    var h = hero.getBoundingClientRect();
-    root.style.setProperty('--hero-p', clamp(-h.top / Math.max(1, h.height * 0.5)).toFixed(4));
-
-    /* The engine opens as it arrives and closes as it leaves: the smaller
-       of how far it has entered and how much of it is left. */
-    var span = vh * 0.55;
-    function band(el){
-      var r = el.getBoundingClientRect();
-      /* Entry runs the full viewport: 0 when the section's top crosses the
-         bottom edge, 1 when it reaches the top. On the exit span (0.55vh)
-         it opened inside the bottom half of the screen, which is why the
-         card was effectively never seen on the way in - the section looked
-         as though it only ever contracted on the way out. Exit keeps the
-         shorter span, so it closes late rather than early. */
-      return Math.min(clamp((vh - r.top) / vh), clamp(r.bottom / span)).toFixed(4);
-    }
-    root.style.setProperty('--eng-p', band(eng));
-    /* The closing band only opens. It sits against the footer, which is
-       already black, so contracting it on the way out would put a beige
-       stripe between two dark blocks rather than returning anything to
-       beige. The engine has cream on both sides and does contract. */
-    if (closer && footer) {
-      /* Measured across the whole end block rather than the band alone.
-         On the band's own span it reached full bleed while the footer was
-         still below the fold, so the two never appeared as one card at
-         all: the shape opened before the half of it that was joined on
-         could be seen. Here it opens as the end of the page arrives and is
-         full bleed exactly when you reach the bottom. */
-      var cr = closer.getBoundingClientRect(), fr = footer.getBoundingClientRect();
-      var reach = Math.max(1, fr.bottom - cr.top);
-      root.style.setProperty('--closer-p', clamp((vh - cr.top) / reach).toFixed(4));
-    }
-  }
-
-  function onScroll(){ if (!queued) { queued = true; requestAnimationFrame(update); } }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  /* Turning reduced motion on mid-session has to hand control back to the
-     stylesheet, which means clearing what was written inline. */
-  var onPref = function(){
-    if (reduce.matches) {
-      root.style.removeProperty('--hero-p');
-      root.style.removeProperty('--eng-p');
-      root.style.removeProperty('--closer-p');
-    } else { update(); }
-  };
-  if (reduce.addEventListener) reduce.addEventListener('change', onPref);
-  update();
-})();
-</script>
+<script src="/scroll-cards.js"></script>
 <script src="cookie-consent.js">
 </script>
 
