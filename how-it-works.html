@@ -62,8 +62,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-.025em;font-weight:600;margin:0}
-.h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.022em;font-weight:600;margin:0}
+.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0;text-wrap:balance}
+.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0;text-wrap:balance}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
@@ -569,8 +569,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
 }
-.closer{padding:128px 0;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(34px,4.6vw,56px)}
+.closer{padding:120px 0;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
+.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px)}
 .closer .lead{margin:0 auto 32px;max-width:520px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .closer-foot{margin-top:28px;font-size:14px;color:var(--muted)}
@@ -1517,12 +1517,18 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 /* Both bars are sticky, so an anchor has to clear the pair of them. */
 section[id^="step-"]{scroll-margin-top:calc(var(--nav-h) + 72px)}
 
-.hw-step{padding:104px 0}
-.hw-step + .hw-step{border-top:1px solid var(--line)}
-.hw-eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--gold-active)}
+/* The homepage's rhythm, and the way it handles a boundary: full padding
+   above the rule, half below it, so the pair reads as one deliberate pause
+   rather than two sections' worth of nothing. */
+.hw-step{padding:120px 0}
+.hw-step + .hw-step{border-top:1px solid var(--line);padding-top:56px}
+/* Same treatment as .eyebrow everywhere else on the site. Gold is kept for
+   the things you can act on - buttons, links, the expansion controls - which
+   is how the homepage spends it. */
+.hw-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted)}
 .hw-step .h2{margin-top:14px;text-wrap:balance}
-.hw-desc{margin:20px 0 0;font-size:16px;line-height:1.65;color:var(--ink-60)}
+.hw-desc{margin:20px 0 0;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80)}
 
 /* A. Split: explanation left, screenshot right. Centred against each other
    rather than stretched to a common height, which on a short explanation
@@ -1544,12 +1550,12 @@ section[id^="step-"]{scroll-margin-top:calc(var(--nav-h) + 72px)}
    capability labels above a screenshot on steps 3 and 6. Neither is a tab,
    so neither is a button. */
 .hw-chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0}
-.hw-chips li{font-size:12.5px;font-weight:500;color:var(--ink-80);background:var(--white);
-  border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+.hw-chips li{font-size:12px;font-weight:500;color:var(--ink-80);background:var(--white);
+  border:1px solid var(--line);border-radius:999px;padding:8px 14px}
 .hw-labels{list-style:none;display:flex;flex-wrap:wrap;gap:10px 28px;margin:36px 0 0;padding:0}
 .hw-labels li{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
   color:var(--muted);display:flex;align-items:center;gap:9px}
-.hw-labels li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold-soft)}
+.hw-labels li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--line-strong)}
 
 /* The aside under each explanation: what you do, or what stays yours. */
 .hw-note{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
@@ -1572,8 +1578,8 @@ section[id^="step-"]{scroll-margin-top:calc(var(--nav-h) + 72px)}
 /* Screenshots. The frame is on the box, not the image, so a clamped capture
    keeps its border and radius along the cut. */
 .hw-fig{margin:0}
-.hw-fig-box{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;
-  background:var(--white);box-shadow:0 1px 2px rgba(23,22,20,.04),0 10px 28px -14px rgba(23,22,20,.16)}
+.hw-fig-box{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  background:var(--white);box-shadow:var(--shadow-sm)}
 .hw-fig-box img{display:block;width:100%;height:auto}
 /* Tall captures show their top and say so, rather than shrinking a whole
    dashboard to thumbnail type. */
@@ -1600,10 +1606,11 @@ a.hw-expand{border-bottom:0}
   .hw-expand--sm{display:inline-block}
 }
 
-.hw-closer{padding:104px 0;text-align:center;border-top:1px solid var(--line)}
+/* The closing band follows a step, so it takes the same halved top padding
+   the homepage gives the section after a rule. */
+.hw-step + .closer{padding-top:56px}
 .hw-closer .eyebrow{display:inline-block;margin-bottom:14px}
-.hw-closer .h2{margin:0 auto 20px;max-width:16ch}
-.hw-closer .lead{margin:0 auto 32px;max-width:44ch}
+.hw-closer .lead{max-width:44ch}
 .hw-closer-alt{margin-top:18px;font-size:14px;color:var(--muted)}
 .hw-closer-alt a{color:var(--ink);border-bottom:1px solid var(--ink);font-weight:500}
 
@@ -1613,8 +1620,9 @@ a.hw-expand{border-bottom:0}
 }
 @media(max-width:860px){
   .hw-intro{padding:56px 0 44px}
-  .hw-step{padding:84px 0}
-  .hw-closer{padding:84px 0}
+  .hw-step{padding:88px 0}
+  .hw-step + .hw-step{padding-top:44px}
+  .hw-step + .closer{padding-top:44px}
   .hw-split{grid-template-columns:1fr;gap:34px;align-items:start}
   .hw-copy{max-width:62ch}
   .hw-show-head{grid-template-columns:1fr;gap:20px;align-items:start}
@@ -1630,9 +1638,9 @@ a.hw-expand{border-bottom:0}
   .stepnav ol{grid-template-columns:repeat(3,1fr)}
   .stepnav a{padding:12px 2px;font-size:13px;gap:7px}
   section[id^="step-"]{scroll-margin-top:calc(var(--nav-h) + 108px)}
-  .hw-step{padding:64px 0}
-  .hw-closer{padding:68px 0}
-  .hw-desc{font-size:15px}
+  .hw-step{padding:72px 0}
+  .hw-step + .hw-step{padding-top:36px}
+  .hw-step + .closer{padding-top:36px}
   .hw-fig--clamp .hw-fig-box{max-height:380px}
   .hw-cap{gap:8px}
 }
@@ -1790,10 +1798,10 @@ a.hw-expand{border-bottom:0}
   </div>
 </section>
 
-<section class="hw-closer" id="contact">
+<section class="closer hw-closer" id="contact">
   <div class="wrap">
     <span class="eyebrow">From catalogue to customer</span>
-    <h2 class="h2">See it from their side.</h2>
+    <h2 class="h1">See it from their side.</h2>
     <p class="lead">Take the quiz and explore a personalised result.</p>
     <div class="closer-ctas">
       <a href="/try" class="btn btn-primary btn-lg">Try the demo &#8594;</a>
