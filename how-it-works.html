@@ -193,20 +193,45 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    they should be set the way the product sets them. The interiors never take
    a click — the whole card is the link. */
 .step-thumb svg{display:block;width:100%;height:100%;font-family:inherit;pointer-events:none}
-/* The picture moves when you point at the card, and what moves is the thing
-   the picture is about: the tick that says connected, the pair that matched,
-   the answer that was chosen, the widget on the storefront, the bars. */
-.th-pop,.th-lift,.th-grow{transform-box:fill-box;will-change:transform}
-.th-pop{transform-origin:center;transition:transform .24s cubic-bezier(.2,.7,.25,1)}
-.th-lift{transform-origin:center;transition:transform .24s cubic-bezier(.2,.7,.25,1)}
-.th-grow{transform-origin:bottom;transition:transform .3s cubic-bezier(.2,.7,.25,1)}
-.step:hover .th-pop,.step:focus-visible .th-pop{transform:scale(1.22)}
-.step:hover .th-lift,.step:focus-visible .th-lift{transform:translateY(-5px)}
-.step:hover .th-grow,.step:focus-visible .th-grow{transform:scaleY(1.16)}
+/* Pointing at a card plays its step once: the address typed and the import
+   pressed, the match ticked and applied, the answer chosen and Continue
+   pressed, the placement picked, the product added, the chart drawn.
+
+   All of it is CSS keyframes rather than a timer, so the visual-diff harness's
+   `animation:none !important` reaches it the way it reaches everything else.
+   And every resting state below is the state its sequence ENDS in, so frozen,
+   each thumbnail sits at its finished frame: `.t-ghost` (the before of a
+   toggle) and `.t-caret` and `.t-added` are the only things hidden at rest,
+   and `.t-real` and `.t-draw` are simply themselves. No baseline depends on
+   when a frame was captured. */
+@keyframes t-type{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes t-caret{0%{transform:translateX(-114px);opacity:1}88%{opacity:1}100%{transform:translateX(0);opacity:0}}
+@keyframes t-press{0%,100%{transform:none}32%{transform:scale(.93)}64%{transform:scale(1.02)}}
+@keyframes t-ghost{0%,38%{opacity:1}54%,100%{opacity:0}}
+@keyframes t-real{0%,38%{opacity:0}54%,100%{opacity:1}}
+@keyframes t-pop{0%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
+@keyframes t-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.t-type,.t-wipe{transform-box:fill-box;transform-origin:left}
+.t-press,.t-added,.t-dot{transform-box:fill-box;transform-origin:center}
+.t-caret,.t-ghost,.t-added{opacity:0}
+.t-draw{stroke-dasharray:1;stroke-dashoffset:0}
+.step:hover .t-type,.step:focus-visible .t-type{animation:t-type .8s steps(23,end) both}
+.step:hover .t-caret,.step:focus-visible .t-caret{animation:t-caret .8s steps(23,end) both}
+.step:hover .t-ghost,.step:focus-visible .t-ghost{animation:t-ghost .9s ease both}
+.step:hover .t-real,.step:focus-visible .t-real{animation:t-real .9s ease both}
+/* Each press waits for the thing it is pressing to have happened; --d carries
+   that card's cue, set on the group itself. */
+.step:hover .t-press,.step:focus-visible .t-press{animation:t-press .42s cubic-bezier(.3,.8,.3,1) var(--d,.9s) both}
+.step:hover .t-added,.step:focus-visible .t-added{animation:t-pop .34s cubic-bezier(.2,.7,.25,1) .52s both}
+.step:hover .t-draw,.step:focus-visible .t-draw{animation:t-draw 1.05s cubic-bezier(.4,0,.25,1) both}
+.step:hover .t-wipe,.step:focus-visible .t-wipe{animation:t-type 1.05s cubic-bezier(.4,0,.25,1) both}
+.step:hover .t-dot,.step:focus-visible .t-dot{animation:t-pop .3s cubic-bezier(.2,.7,.25,1) .98s both}
 @media(prefers-reduced-motion:reduce){
-  .th-pop,.th-lift,.th-grow{transition:none}
-  .step:hover .th-pop,.step:hover .th-lift,.step:hover .th-grow,
-  .step:focus-visible .th-pop,.step:focus-visible .th-lift,.step:focus-visible .th-grow{transform:none}
+  .step:hover .t-type,.step:hover .t-caret,.step:hover .t-ghost,.step:hover .t-real,
+  .step:hover .t-press,.step:hover .t-added,.step:hover .t-draw,.step:hover .t-wipe,.step:hover .t-dot,
+  .step:focus-visible .t-type,.step:focus-visible .t-caret,.step:focus-visible .t-ghost,
+  .step:focus-visible .t-real,.step:focus-visible .t-press,.step:focus-visible .t-added,
+  .step:focus-visible .t-draw,.step:focus-visible .t-wipe,.step:focus-visible .t-dot{animation:none}
 }
 .step-body{padding:20px 22px 0;flex:1}
 .step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em;font-feature-settings:"tnum"}
@@ -782,29 +807,17 @@ html,body{max-width:100%;overflow-x:clip}
      widening it. It bled on the left and stopped 40px short on the right. */
   .hero-stage{width:auto}
 
-  /* how-it-works opts out of the deck rule above and stays a vertical list */
-  .steps{
-    display:grid;
-    grid-template-columns:minmax(0,1fr);
-    gap:16px;
-    overflow:visible;
-    scroll-snap-type:none;
-    margin-left:0;
-    margin-right:0;
-    padding:0;
-  }
-  .steps>.step{
-    flex:none;
-    width:auto;
-    max-width:100%;
-    scroll-snap-align:none;
-  }
+  /* The six steps swipe here too. They used to opt out and stay a vertical
+     list, on the argument that five numbered steps read as a sequence and a
+     swipe hides four of them. Six cards with a picture each is a different
+     object: stacked, the section ran most of a phone screen per card. */
 
   /* The last card's start position sits past the deck's maximum scroll, so
      with scroll-snap-align:start it is unreachable and mandatory snapping
      falls back to the second-to-last card. Tapping the final dot landed one
      card short. The last card snaps flush right instead. */
   .hero-stage>:last-child,
+  .steps>:last-child,
   .split>:last-child,
   .personas>:last-child,
   .pricing>:last-child{scroll-snap-align:end}
@@ -1793,7 +1806,7 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
    deck really overflows, so a deck that happens to fit gets no dots. */
 (function(){
   var MQ = window.matchMedia('(max-width:860px)');
-  var DECKS = ['.hero-stage','.split','.personas','.pricing'];
+  var DECKS = ['.hero-stage','.steps','.split','.personas','.pricing'];
   var built = [];
 
   function clear(){
