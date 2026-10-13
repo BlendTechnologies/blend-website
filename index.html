@@ -1257,13 +1257,57 @@ html,body{max-width:100%;overflow-x:clip}
    Fourteen questions in one column ran 900px of mostly whitespace and gave
    a reader no way in. Grouped, the same information is half the height and
    says what each part is about before it is opened. */
-.faq-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px 56px;align-items:start}
-.faq-group{break-inside:avoid}
-.faq-group-t{margin:0 0 4px;padding-top:18px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-active)}
-.faq-group:first-child .faq-group-t,.faq-group:nth-child(2) .faq-group-t{padding-top:0}
+/* ---- FAQ: an introduction on the left, one reading path on the right ----
+   The four grouped columns made four starting points on a page whose whole
+   job here is to answer one question at a time. Scoped to .faq-split so the
+   use-cases pages, which share .faq-item and .faq-answer, keep the accordion
+   they already have. */
+.faq-split{display:grid;grid-template-columns:minmax(0,35fr) minmax(0,65fr);gap:56px;align-items:start}
+.faq-h{margin:14px 0 0;font-size:clamp(30px,3.1vw,40px);font-weight:500;line-height:1.12;letter-spacing:-.025em;color:var(--ink)}
+.faq-sub{margin:16px 0 0;font-size:15px;line-height:1.6;color:var(--ink-60);max-width:30ch}
+.faq-ask{margin-top:40px}
+.faq-ask-q{display:block;font-size:14px;color:var(--muted)}
+.faq-ask-a{display:inline-block;margin-top:6px;font-size:15px;font-weight:500;color:var(--gold-strong)}
+.faq-ask-a:hover{color:var(--gold-active)}
+.faq-ask-a:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
+
+.faq-split .faq-list{max-width:none;margin:0}
+/* The open question steps up a weight. There is no webfont here — the stack
+   falls through to the system face — so 400/500 rather than a 450 that would
+   round somewhere different on every machine. */
+.faq-split .faq-item > summary{padding:23px 4px;gap:40px;font-weight:400}
+.faq-split .faq-item[open] > summary{font-weight:500;color:var(--ink)}
+/* A thin plus that loses its upright when the row opens. Two bars rather than
+   a glyph, so the stroke matches the rules above and below it. */
+.faq-split .faq-item > summary::after{content:none}
+.faq-split .faq-item > summary .faq-pm{position:relative;flex-shrink:0;width:11px;height:11px;margin-top:6px;margin-right:4px}
+.faq-split .faq-item > summary .faq-pm::before,
+.faq-split .faq-item > summary .faq-pm::after{content:"";position:absolute;background:var(--muted);transition:background .18s ease,opacity .2s ease,transform .2s ease}
+.faq-split .faq-item > summary .faq-pm::before{left:0;right:0;top:5px;height:1.5px}
+.faq-split .faq-item > summary .faq-pm::after{top:0;bottom:0;left:5px;width:1.5px}
+.faq-split .faq-item[open] > summary .faq-pm::after{opacity:0;transform:scaleY(0)}
+.faq-split .faq-item > summary:hover .faq-pm::before,
+.faq-split .faq-item > summary:hover .faq-pm::after{background:var(--gold-strong)}
+.faq-split .faq-item .faq-answer{padding:0 44px 26px 4px;font-size:14.5px;line-height:1.7;max-width:none}
+@media(prefers-reduced-motion:no-preference){
+  .faq-split .faq-item[open] .faq-answer{animation:faq-in .22s cubic-bezier(.2,.7,.25,1) both}
+}
+@keyframes faq-in{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+
+.faq-more[hidden]{display:none}
+.faq-more{border-top:0}
+.faq-toggle{display:inline-block;margin-top:22px;padding:4px 4px;font:inherit;font-size:14px;font-weight:500;
+  color:var(--gold-strong);background:none;border:0;cursor:pointer;transition:color .18s ease}
+.faq-toggle:hover{color:var(--gold-active)}
+.faq-toggle:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
+
 @media(max-width:860px){
-  .faq-cols{grid-template-columns:1fr;gap:0}
-  .faq-group:nth-child(2) .faq-group-t{padding-top:18px}
+  .faq-split{grid-template-columns:1fr;gap:30px}
+  .faq-ask{margin-top:24px}
+  .faq-split .faq-item > summary{padding:20px 4px;gap:24px;font-size:15px}
+  .faq-split .faq-item .faq-answer{padding:0 30px 22px 4px}
+}
+@media(max-width:860px){
 }
 
 /* ---- Hero: the brand mark and the product deck -----------------------
@@ -1529,8 +1573,6 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
       <a href="/use-cases">Use cases</a>
       <a href="/science">Science</a>
       <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="mailto:contact@blend-technologies.com">Contact</a>
     </nav>
     <div class="nav-actions">
       <a href="https://app.blend-technologies.com" class="nav-login">Log in</a>
@@ -1698,13 +1740,22 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 </section>
 <section class="section section--tight section-cream" id="faq">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Frequently asked questions</span>
-      <h2 class="h2">About Blend's personalisation engine</h2>
-      <p class="lead">Short answers to what product brands ask before getting started.</p>
-    </div>
-    <div class="faq-cols"><div class="faq-group"><h3 class="faq-group-t">What it is</h3><div class="faq-list"><details class="faq-item"><summary>What is a personalised product quiz?</summary><div class="faq-answer"><p>A fully customizable quiz on your store that learns each visitor's goals, health, lifestyle, and diet, then matches them to the right products in your catalogue through a deterministic scoring algorithm. Not a decision tree, not persona-based. <strong>The algorithm is the differentiator.</strong></p></div></details><details class="faq-item"><summary>How is Blend different from other quiz tools?</summary><div class="faq-answer"><p>General quiz tools match products to multiple-choice answers using tags or point accumulators. <strong>Blend runs deterministic scoring across every product in your catalogue</strong>, factoring in ingredient interactions, upper-limit safety, synergies, and nutrient gaps inferred from a food-frequency questionnaire. Same input always produces the same output, auditable, defensible, and shippable to brands in regulated categories. Every recommendation carries the reasons that produced it.</p></div></details><details class="faq-item"><summary>Which verticals does Blend support today?</summary><div class="faq-answer"><p>Supplements and over-the-counter health is the live vertical, that's where the scoring engine has the deepest content layer (nutrient gaps, RDIs, ingredient interactions, dosing). Beauty and food are on the roadmap. The scoring architecture is portable across categories; the category-specific content layer is what we build out per vertical. If you're not in supplements yet, <a href="mailto:contact@blend-technologies.com">talk to us about timing</a>.</p></div></details></div></div><div class="faq-group"><h3 class="faq-group-t">How it works</h3><div class="faq-list"><details class="faq-item"><summary>How does the engine actually personalise?</summary><div class="faq-answer"><p>It scores every product in your catalogue against the customer using <strong>more than 30 product attributes</strong> (ingredients, dosing, interactions, evidence, contraindications, synergies) and user signals spanning goals, sub-goals, conditions, lifestyle, and nutrient gaps inferred from a food-frequency questionnaire. Each pick comes with the specific reasons that produced it, not just an answer-to-tag match. <a href="/science">See the methodology &rarr;</a></p></div></details><details class="faq-item"><summary>What can a customer actually tell you in the quiz?</summary><div class="faq-answer"><p>Goals first, then the signals underneath each one. A customer picks the goals that matter to them, spanning energy, sleep, gut health, hormonal balance, sports performance, healthy ageing and more. Each goal opens a follow-up that captures the specific signals behind it, so “gut health” becomes bloating, irregular habits, discomfort after dairy, and so on. That detail is what the scoring engine reads, alongside diet, lifestyle and biology.</p></div></details><details class="faq-item"><summary>How does Blend handle safety, interactions, contraindications, ingredient limits?</summary><div class="faq-answer"><p>The engine includes a safety layer that runs on every recommendation: supplement&ndash;supplement interaction checks, medication conflict screens, upper-limit gating against EFSA tolerable intakes, and synergy pairing. Every flagged interaction or limit is traceable to a source rule, important if you operate in a regulated category.</p></div></details><details class="faq-item"><summary>Can I tune the algorithm to my brand?</summary><div class="faq-answer"><p>Yes. You can adjust scoring weights, exclude product attributes, prioritise specific goal-to-product mappings, and configure brand-specific overrides during onboarding. The deterministic core stays, your tuning is layered on top.</p></div></details></div></div><div class="faq-group"><h3 class="faq-group-t">Setting it up</h3><div class="faq-list"><details class="faq-item"><summary>How do I get my catalogue into Blend?</summary><div class="faq-answer"><p>Upload it through the webapp. Shopify connects directly and re-syncs on a schedule, and CSV or manual upload covers any other source. A listing in the Shopify App Store is in review; WooCommerce, BigCommerce and the rest follow. Our team can help if your catalogue has anything unusual.</p></div></details><details class="faq-item"><summary>What does Blend AI do?</summary><div class="faq-answer"><p>It drafts your quiz. Describe your brand in a short interview and it writes the layout, the tone, the palette and a first set of screens, which you then edit. It configures from the questions the engine already scores rather than inventing new ones, so a drafted quiz runs the first time. Anything it proposes but cannot apply is dropped and reported back to you, never changed silently.</p></div></details><details class="faq-item"><summary>Can I migrate from another quiz tool?</summary><div class="faq-answer"><p>Yes. Most brands switch over in days, not weeks: we map your existing quiz logic into Blend's scoring engine, ingest your catalogue, and you keep your existing embed slot. Your old persona/tag rules become inputs to the algorithm.</p></div></details><details class="faq-item"><summary>Is the quiz white-label?</summary><div class="faq-answer"><p>On Pro and above, completely. Your brand, your colours, your domain, no &ldquo;Powered by Blend&rdquo; anywhere, as if you had a team of devs build it for you. Starter quizzes carry a small Blend badge. <a href="/how-it-works#step-4">See the white-label options &rarr;</a></p></div></details><details class="faq-item"><summary>What languages does the quiz support?</summary><div class="faq-answer"><p>English today. Multi-language support, French and other major languages, is coming soon. The quiz text (questions, labels, CTAs) is fully customizable per brand, so when new languages land you can run a localised quiz per market.</p></div></details></div></div><div class="faq-group"><h3 class="faq-group-t">Data, reach and cost</h3><div class="faq-list"><details class="faq-item"><summary>What analytics do I get back as a brand?</summary><div class="faq-answer"><p>A conversion funnel running from <strong>Started the quiz</strong> through <strong>Completed</strong>, <strong>Clicked a recommended product</strong>, <strong>Added to cart</strong> and <strong>Purchased</strong>, so you can see where people drop and what the quiz actually earned. Underneath it: drop-off by question, completion by goal, answer insights across every question, product performance, and <strong>Catalogue gaps</strong>, which ranks where your customers&#8217; needs and your catalogue do not overlap yet, split into not stocked and stocked but not matched. The last two funnel steps need a connected store. Orders are tied back by a per-click token, so a quiz session id never leaves your Blend account.</p></div></details><details class="faq-item"><summary>Where can I run Blend? Which countries?</summary><div class="faq-answer"><p>Blend is fully GDPR-compliant under UK/EU regulations and the major US state privacy laws (CCPA, etc.). Brands can run quizzes globally, the platform serves customers in any country. Data residency requirements (EU, US, UK) are covered; <a href="mailto:contact@blend-technologies.com">talk to us during onboarding</a> if you have specific compliance needs.</p></div></details><details class="faq-item"><summary>What does Blend cost?</summary><div class="faq-answer"><p>15-day free trial on every plan. Card required up front, nothing charged until it ends, cancel any time before. Starter from $49/month, Pro from $189/month, Enterprise custom pricing. Plans scale by quiz responses and catalogue size. <a href="#pricing">See pricing &rarr;</a></p></div></details></div></div></div>
-  </div>
+    <div class="faq-split">
+      <div class="faq-intro">
+        <span class="eyebrow">Frequently asked questions</span>
+        <h2 class="faq-h">Good questions.<br>Clear answers.</h2>
+        <p class="faq-sub">Everything you need to know before getting started.</p>
+        <div class="faq-ask">
+          <span class="faq-ask-q">Still have a question?</span>
+          <a class="faq-ask-a" href="mailto:contact@blend-technologies.com">Let&#8217;s talk &#8599;</a>
+        </div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-list"><details class="faq-item" name="faq" open><summary>How is Blend different from other quiz tools?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>General quiz tools match products to multiple-choice answers using tags or point accumulators. <strong>Blend runs deterministic scoring across every product in your catalogue</strong>, factoring in ingredient interactions, upper-limit safety, synergies, and nutrient gaps inferred from a food-frequency questionnaire. Same input always produces the same output, auditable, defensible, and shippable to brands in regulated categories. Every recommendation carries the reasons that produced it.</p></div></details><details class="faq-item" name="faq"><summary>Which industries does Blend support?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>Supplements and over-the-counter health is the live vertical, that's where the scoring engine has the deepest content layer (nutrient gaps, RDIs, ingredient interactions, dosing). Beauty and food are on the roadmap. The scoring architecture is portable across categories; the category-specific content layer is what we build out per vertical. If you're not in supplements yet, <a href="mailto:contact@blend-technologies.com">talk to us about timing</a>.</p></div></details><details class="faq-item" name="faq"><summary>How do I connect my product catalogue?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>Upload it through the webapp. Shopify connects directly and re-syncs on a schedule, and CSV or manual upload covers any other source. A listing in the Shopify App Store is in review; WooCommerce, BigCommerce and the rest follow. Our team can help if your catalogue has anything unusual.</p></div></details><details class="faq-item" name="faq"><summary>Can I customise the quiz and recommendations?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>Yes. You can adjust scoring weights, exclude product attributes, prioritise specific goal-to-product mappings, and configure brand-specific overrides during onboarding. The deterministic core stays, your tuning is layered on top.</p></div></details><details class="faq-item" name="faq"><summary>Can I use my own branding?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>On Pro and above, completely. Your brand, your colours, your domain, no &ldquo;Powered by Blend&rdquo; anywhere, as if you had a team of devs build it for you. Starter quizzes carry a small Blend badge. <a href="/how-it-works#step-4">See the white-label options &rarr;</a></p></div></details><details class="faq-item" name="faq"><summary>Which languages does Blend support?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>English today. Multi-language support, French and other major languages, is coming soon. The quiz text (questions, labels, CTAs) is fully customisable per brand, so when new languages land you can run a localised quiz per market.</p></div></details><details class="faq-item" name="faq"><summary>What customer insights will I get?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>A conversion funnel running from <strong>Started the quiz</strong> through <strong>Completed</strong>, <strong>Clicked a recommended product</strong>, <strong>Added to cart</strong> and <strong>Purchased</strong>, so you can see where people drop and what the quiz actually earned. Underneath it: drop-off by question, completion by goal, answer insights across every question, product performance, and <strong>Catalogue gaps</strong>, which ranks where your customers&#8217; needs and your catalogue do not overlap yet, split into not stocked and stocked but not matched. The last two funnel steps need a connected store. Orders are tied back by a per-click token, so a quiz session id never leaves your Blend account.</p></div></details><details class="faq-item" name="faq"><summary>How does pricing work?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>15-day free trial on every plan. Card required up front, nothing charged until it ends, cancel any time before. Starter from $49/month, Pro from $189/month, Enterprise custom pricing. Plans scale by quiz responses and catalogue size. <a href="#pricing">See pricing &rarr;</a></p></div></details></div>
+        <div class="faq-list faq-more" id="faq-more" hidden><details class="faq-item" name="faq"><summary>What is a personalised product quiz?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>A fully customisable quiz on your store that learns each visitor's goals, health, lifestyle, and diet, then matches them to the right products in your catalogue through a deterministic scoring algorithm. Not a decision tree, not persona-based. <strong>The algorithm is the differentiator.</strong></p></div></details><details class="faq-item" name="faq"><summary>How does the engine actually personalise?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>It scores every product in your catalogue against the customer using <strong>more than 30 product attributes</strong> (ingredients, dosing, interactions, evidence, contraindications, synergies) and user signals spanning goals, sub-goals, conditions, lifestyle, and nutrient gaps inferred from a food-frequency questionnaire. Each pick comes with the specific reasons that produced it, not just an answer-to-tag match. <a href="/science">See the methodology &rarr;</a></p></div></details><details class="faq-item" name="faq"><summary>What can a customer actually tell you in the quiz?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>Goals first, then the signals underneath each one. A customer picks the goals that matter to them, spanning energy, sleep, gut health, hormonal balance, sports performance, healthy ageing and more. Each goal opens a follow-up that captures the specific signals behind it, so “gut health” becomes bloating, irregular habits, discomfort after dairy, and so on. That detail is what the scoring engine reads, alongside diet, lifestyle and biology.</p></div></details><details class="faq-item" name="faq"><summary>How does Blend handle safety, interactions, contraindications, ingredient limits?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>The engine includes a safety layer that runs on every recommendation: supplement&ndash;supplement interaction checks, medication conflict screens, upper-limit gating against EFSA tolerable intakes, and synergy pairing. Every flagged interaction or limit is traceable to a source rule, important if you operate in a regulated category.</p></div></details><details class="faq-item" name="faq"><summary>What does Blend AI do?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>It drafts your quiz. Describe your brand in a short interview and it writes the layout, the tone, the palette and a first set of screens, which you then edit. It configures from the questions the engine already scores rather than inventing new ones, so a drafted quiz runs the first time. Anything it proposes but cannot apply is dropped and reported back to you, never changed silently.</p></div></details><details class="faq-item" name="faq"><summary>Can I migrate from another quiz tool?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>Yes. Most brands switch over in days, not weeks: we map your existing quiz logic into Blend's scoring engine, ingest your catalogue, and you keep your existing embed slot. Your old persona/tag rules become inputs to the algorithm.</p></div></details><details class="faq-item" name="faq"><summary>Where can I run Blend? Which countries?<span class="faq-pm" aria-hidden="true"></span></summary><div class="faq-answer"><p>Blend is fully GDPR-compliant under UK/EU regulations and the major US state privacy laws (CCPA, etc.). Brands can run quizzes globally, the platform serves customers in any country. Data residency requirements (EU, US, UK) are covered; <a href="mailto:contact@blend-technologies.com">talk to us during onboarding</a> if you have specific compliance needs.</p></div></details></div>
+        <button class="faq-toggle" type="button" aria-expanded="false" aria-controls="faq-more" data-more="More questions &#8595;" data-less="Fewer questions &#8593;">More questions &#8595;</button>
+      </div>
+    </div></div>
   </div>
 </section>
 <section class="closer" id="contact">
@@ -1784,6 +1835,37 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
     // motion should mean no choreography at all, so apply it synchronously.
     if (reduce) apply(); else setTimeout(apply, delays[i]);
   });
+})();
+/* ---- FAQ accordion ------------------------------------------------------
+   `name` on <details> gives one-open-at-a-time natively, and closing the open
+   one still works, which is the whole behaviour. This closes the siblings for
+   browsers that do not support the attribute yet; where they do, it is a
+   no-op because the browser has already done it.
+
+   The "More questions" group is `hidden` rather than absent, so its answers
+   are in the page for anyone reading it with the keyboard or a crawler. */
+(function(){
+  const lists = document.querySelectorAll('.faq-split .faq-list');
+  if (lists.length) {
+    const all = [...document.querySelectorAll('.faq-split .faq-item')];
+    all.forEach(d => d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      all.forEach(o => { if (o !== d && o.open) o.open = false; });
+    }));
+  }
+  const btn = document.querySelector('.faq-toggle');
+  const more = document.getElementById('faq-more');
+  if (btn && more) {
+    btn.addEventListener('click', () => {
+      const open = more.hasAttribute('hidden');
+      if (open) more.removeAttribute('hidden'); else more.setAttribute('hidden', '');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? btn.dataset.less : btn.dataset.more;
+      /* Collapsing the group with an answer open inside it would leave that
+         answer's state behind for the next reveal. */
+      if (!open) more.querySelectorAll('.faq-item[open]').forEach(d => { d.open = false; });
+    });
+  }
 })();
 const newsForm = document.getElementById('news-form');
 if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); const btn = document.getElementById('news-submit'); const inp = document.getElementById('news-email'); btn.textContent = 'Thanks ✓'; btn.disabled = true; inp.value = ''; setTimeout(() => { btn.textContent = 'Subscribe'; btn.disabled = false; }, 3000); }); }

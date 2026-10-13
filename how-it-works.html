@@ -1233,13 +1233,7 @@ html,body{max-width:100%;overflow-x:clip}
    Fourteen questions in one column ran 900px of mostly whitespace and gave
    a reader no way in. Grouped, the same information is half the height and
    says what each part is about before it is opened. */
-.faq-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px 56px;align-items:start}
-.faq-group{break-inside:avoid}
-.faq-group-t{margin:0 0 4px;padding-top:18px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-active)}
-.faq-group:first-child .faq-group-t,.faq-group:nth-child(2) .faq-group-t{padding-top:0}
 @media(max-width:860px){
-  .faq-cols{grid-template-columns:1fr;gap:0}
-  .faq-group:nth-child(2) .faq-group-t{padding-top:18px}
 }
 
 /* ---- Hero: the brand mark and the product deck -----------------------
@@ -1503,8 +1497,6 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
       <a href="/use-cases">Use cases</a>
       <a href="/science">Science</a>
       <a href="/#pricing">Pricing</a>
-      <a href="/#faq">FAQ</a>
-      <a href="mailto:contact@blend-technologies.com">Contact</a>
     </nav>
     <div class="nav-actions">
       <a href="https://app.blend-technologies.com" class="nav-login">Log in</a>
