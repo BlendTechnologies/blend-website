@@ -179,12 +179,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
 .step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
-.step:hover,.step:focus-visible{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+/* Muted amber-beige, not the full gold: six cards in a grid each wearing a
+   bright outline on hover read as an alert, not as a pointer. */
+.step:hover,.step:focus-visible{border-color:#CFB68F;box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .step:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
 /* Flush to the card edge, clipped to the top corners by the card's own
    overflow. One fixed height so the six titles sit on the same line. */
-.step-thumb{display:block;height:132px;background:linear-gradient(170deg,#FDFCF9 0%,#F4F0E6 100%);border-bottom:1px solid var(--line)}
-.step-thumb svg{display:block;width:100%;height:100%}
+/* Flat cream, no gradient: the thumbnails are previews of a product whose
+   own surfaces are flat, and a gradient behind a white panel reads as
+   decoration sitting under an interface. */
+.step-thumb{display:block;height:132px;background:#F4EFE3;border-bottom:1px solid var(--line)}
+/* Inherit Inter from the page: the labels inside are the product's own, and
+   they should be set the way the product sets them. The interiors never take
+   a click — the whole card is the link. */
+.step-thumb svg{display:block;width:100%;height:100%;font-family:inherit;pointer-events:none}
 /* The picture moves when you point at the card, and what moves is the thing
    the picture is about: the tick that says connected, the pair that matched,
    the answer that was chosen, the widget on the storefront, the bars. */
@@ -210,8 +218,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
 @media(hover:none){.step-cta{opacity:1}}
 @media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
-.steps:hover .step:not(:hover) h3{color:var(--ink-60)}
-.steps:hover .step:not(:hover) p{opacity:.7}
 @media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
 @media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
