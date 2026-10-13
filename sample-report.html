@@ -41,7 +41,10 @@
   .btn-primary{background:var(--gold-strong);color:var(--white)}
   .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
   .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  .btn-sm{padding:8px 12px;font-size:14px;min-height:38px}
+  /* 12px of side padding on a 93px label left "Try it yourself" all but
+   touching both ends of its own pill. The ≤860 rule below already carried
+   16px, so the phone had the roomier button and the desktop did not. */
+.btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 
   /* Nav, copied verbatim from blend-technologies.com */
   .nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent}
@@ -257,10 +260,14 @@
   .cta h2{color:#fff;font-size:20px;margin-bottom:8px}
   .cta p{font-size:14px;max-width:470px;margin:0 auto 16px;line-height:1.55}
   .btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-  .btn{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;
+  /* Scoped to this panel. Unscoped, it redefined the site's .btn further down
+     the stylesheet than the real one and beat .btn-sm on equal specificity,
+     so the nav CTA on this page alone rendered inline-block at 12px with no
+     min-height: 119.5x42.6 against 128.8x38 on the other twelve. */
+  .cta .btn{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;
     font-size:12px;font-weight:600}
-  .btn-gold{background:var(--accent);color:#fff}
-  .btn-ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
+  .cta .btn-gold{background:var(--accent);color:#fff}
+  .cta .btn-ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
 
 @media(max-width:560px){.wrap{padding:28px 18px 56px}}
 @media(max-width:380px){.wrap{padding:24px 14px 48px}}
@@ -277,8 +284,6 @@ html,body{max-width:100%;overflow-x:clip}
       <a href="https://www.blend-technologies.com/use-cases">Use cases</a>
       <a href="/science">Science</a>
       <a href="https://www.blend-technologies.com/#pricing">Pricing</a>
-      <a href="https://www.blend-technologies.com/#faq">FAQ</a>
-      <a href="mailto:contact@blend-technologies.com">Contact</a>
     </nav>
     <div class="nav-actions">
       <a href="https://app.blend-technologies.com" class="nav-login">Log in</a>
