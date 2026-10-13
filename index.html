@@ -56,7 +56,12 @@
      --eng-p 0 is the engine as a card and 1 is the engine full bleed.
      Both default to the state the page should hold with no JS at all. */
   --hero-p:0;--eng-p:0;--closer-p:0;
-  --hero-inset:40px;--hero-round:36px;--hero-grow:.06;--hero-origin:50% 50%;
+  --hero-inset:40px;--hero-round:36px;--hero-grow:.06;
+  /* Top edge, at every width. A centre origin grows the block both ways,
+     so on any viewport where the content is close to the hero's height it
+     lifted the first line above the hero and behind the header. Growing
+     downward from the top edge cannot do that at any size. */
+  --hero-origin:50% 0;
   --eng-inset:40px;--eng-round:36px;
   --closer-inset:40px;--closer-round:36px;
 }
@@ -69,7 +74,7 @@
    375px screen is a tenth of the width, and the card stops reading as a
    full-bleed block that has pulled in. */
 @media (max-width:560px){
-  :root{--hero-grow:.05;--hero-origin:50% 0;--hero-inset:24px;--hero-round:24px;--eng-inset:24px;--eng-round:24px;--closer-inset:24px;--closer-round:24px}
+  :root{--hero-grow:.05;--hero-inset:24px;--hero-round:24px;--eng-inset:24px;--eng-round:24px;--closer-inset:24px;--closer-round:24px}
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -138,7 +143,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
    The border-bottom is gone: the page below is white and the hero's own
    bottom inset is what separates them now. */
-.hero{position:relative;display:grid;align-content:center;overflow:hidden;
+/* safe center, not center: between 561 and 960 the hero's content is
+   taller than the hero on a short or narrow window, and centring overflow
+   pushes it out of BOTH ends - the eyebrow ended up 6px under the sticky
+   header at 600x800 and at 740x360. safe falls back to start exactly when
+   that would happen. */
+.hero{position:relative;display:grid;align-content:safe center;overflow:hidden;
   min-height:calc(100vh - var(--nav-h));
   min-height:calc(100svh - var(--nav-h));
   padding:40px 0 56px;
@@ -1120,11 +1130,6 @@ html,body{max-width:100%;overflow-x:clip}
      the whole block down from the top it is meant to start at. */
   .hero{align-content:start;padding-top:34px}
   .hero .hero-grid{padding-top:0}
-  /* --hero-origin is 50% 0 on a phone: a centre origin grows the block in
-     both directions, and here the content is top-aligned and nearly a
-     screen tall, so 5% of it put the eyebrow 5px above the hero and behind
-     the sticky header. Growing from the top edge keeps that edge where the
-     padding puts it. */
   .hero .hero-copy{
     min-height:0;
     display:flex;
@@ -1212,6 +1217,36 @@ html,body{max-width:100%;overflow-x:clip}
    Not matched any closer on a phone: there the margins are a larger share
    of the width, and a content scale that big would push the text under the
    hero's own clip before it settled. */
+/* ---- Clipped blocks need a gutter wider than their own inset ----------
+   The page gutter is 32px and the cards inset by 40, so wherever .wrap is
+   not centred by its max-width - anything under 1264 - the content crossed
+   the card's edge and the first and last few pixels of every line sat on
+   the ground outside it. White text on beige, so they simply disappeared.
+
+   Static, not scaled by progress: padding is layout, and the card is at its
+   deepest inset at rest, which is the case that has to fit. Above 1264 the
+   wrap's own centring already clears the card, so the gutter is untouched
+   there and the desktop composition keeps its full width. */
+@media (max-width:1263px){
+  .science > .wrap,
+  .closer > .wrap,
+  .footer > .wrap{padding-inline:calc(var(--eng-inset) + 20px)}
+}
+/* The hero needs a wider gutter than the others and loses it later, because
+   its content is also scaled: at --hero-grow the block is 6% over at rest,
+   which moves its edges out by 3% of its own width on top of the inset. The
+   grow halves below 1300 so that overhang stays smaller than the gutter can
+   absorb. Above 1300 the wrap's centring covers both. */
+@media (max-width:1299px){
+  :root{--hero-grow:.03}
+  .hero > .wrap{padding-inline:calc(var(--hero-inset) + 24px)}
+}
+@media (max-width:560px){
+  .hero > .wrap{padding-inline:calc(var(--hero-inset) + 16px)}
+  .science > .wrap,
+  .closer > .wrap,
+  .footer > .wrap{padding-inline:calc(var(--eng-inset) + 12px)}
+}
 .hero > .wrap{position:relative;z-index:1;will-change:transform;transform-origin:var(--hero-origin);
   transform:scale(calc(1 + (1 - var(--hero-p)) * var(--hero-grow)))}
 
