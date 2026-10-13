@@ -118,7 +118,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-stage{position:relative;width:100%;height:560px}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
 .card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{position:absolute;top:0;left:0;width:61%;height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
+.quiz{position:absolute;top:0;left:0;width:61%;min-height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -135,7 +135,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
-.results{position:absolute;top:112px;right:0;width:61%;height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
+.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* `backwards`, not `both`, over a visible base: the from-keyframe still
    hides the card through the 2s delay, and the end state is the base state
@@ -236,7 +236,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* The row is laid out whether or not it is visible, so nothing shifts when
    it appears: only opacity changes. Touch has no hover, so there it is
    simply always on. */
-.step-cta{display:block;padding:14px 22px 18px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
+.step-cta{display:block;padding:8px 22px 14px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
 .step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
 @media(hover:none){.step-cta{opacity:1}}
 @media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
@@ -1261,7 +1261,7 @@ html,body{max-width:100%;overflow-x:clip}
 .qopt.active .qopt-check svg{opacity:1;transform:scale(1)}
 .qopt.active .qopt-check svg path{stroke:var(--white)!important}
 .qopts{margin-top:18px;display:grid;gap:10px;flex:1;align-content:start}
-.qopt{min-height:58px}
+.qopt{min-height:50px}
 
 /* Three bands of the same card, spaced evenly: who it is for, the plan,
    and where you are in it. The photo is gone, which is what buys the room
@@ -1283,7 +1283,7 @@ html,body{max-width:100%;overflow-x:clip}
    the edges of the one it sits in. */
 .pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px}
 .pc-track{display:flex;width:600%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
-.pc-slide{width:16.6667%;flex:0 0 16.6667%}
+.pc-slide{width:16.6667%;flex:0 0 16.6667%;display:flex}
 @keyframes pc-swipe{
   0%,15%{transform:translateX(0)}
   18%,33%{transform:translateX(-16.6667%)}
@@ -1293,10 +1293,19 @@ html,body{max-width:100%;overflow-x:clip}
   90%,100%{transform:translateX(-83.3334%)}
 }
 .pc>*{flex-shrink:0}
-.pc{height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
+.pc{flex:1;min-height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
   background:#171717;border:1px solid #30302D;border-radius:13px;color:#F5F3EF}
 .pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
   letter-spacing:.15em;text-transform:uppercase;color:#89867F}
+/* The shot squares up with the two lines beside it rather than setting its
+   own height, so adding it cost the card nothing: badge + name already
+   measured 37px. */
+.pc-head{display:flex;align-items:center;gap:10px}
+.pc-shot{flex:0 0 37px;width:37px;height:37px;border-radius:8px;overflow:hidden;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16)}
+.pc-shot img{display:block;width:100%;height:100%;object-fit:cover}
+.pc-headtext{min-width:0;flex:1}
+.pc-badge,.pc-name{display:block}
 .pc-name{margin-top:6px;font-size:17px;font-weight:600;letter-spacing:-.018em;line-height:1.2;color:#F5F3EF;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pc-tags{display:flex;align-items:center;gap:9px;margin-top:12px;overflow:hidden}
@@ -1305,8 +1314,7 @@ html,body{max-width:100%;overflow-x:clip}
 .pc-tag:not(.is-match){min-width:0;overflow:hidden;text-overflow:ellipsis}
 .pc-tag.is-match{color:rgba(231,207,163,.92);background:rgba(180,127,57,.18);
   border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:4px 10px}
-.pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em}
 /* two auto margins, so the free space splits evenly above the divider and
    above the button instead of piling up under a short reason. */
 .pc-rule{height:1px;background:#30302D;margin:auto 0 0}
@@ -1321,7 +1329,7 @@ html,body{max-width:100%;overflow-x:clip}
 .pc-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:5px 10px}
 .pc-facts dt{font-weight:600;color:#89867F;white-space:nowrap}
 .pc-facts dd{margin:0;color:#AAA69E}
-.pc-fact-why dd{min-height:2.9em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-fact-why dd{min-height:2.9em}
 .pc-cta{display:block;text-align:center;margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.01em;
   color:#F5F3EF;background:rgba(180,127,57,.78);border-radius:8px;padding:8px 14px}
 
@@ -1341,7 +1349,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 @media(prefers-reduced-motion:reduce){.pc-track{animation:none !important}}
 @media(max-width:560px){
-  .pc{height:292px}
+  .pc{min-height:292px}
   .rtitle{font-size:20px}
   /* the breakdown's description takes a second line at this width, and the
      card is nine pixels shorter; the rows give that back. */

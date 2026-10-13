@@ -122,7 +122,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-stage{position:relative;width:100%;height:560px}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
 .card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{position:absolute;top:0;left:0;width:61%;height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
+.quiz{position:absolute;top:0;left:0;width:61%;min-height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -139,7 +139,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
-.results{position:absolute;top:112px;right:0;width:61%;height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
+.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* `backwards`, not `both`, over a visible base: the from-keyframe still
    hides the card through the 2s delay, and the end state is the base state
@@ -240,7 +240,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* The row is laid out whether or not it is visible, so nothing shifts when
    it appears: only opacity changes. Touch has no hover, so there it is
    simply always on. */
-.step-cta{display:block;padding:14px 22px 18px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
+.step-cta{display:block;padding:8px 22px 14px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
 .step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
 @media(hover:none){.step-cta{opacity:1}}
 @media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
@@ -1265,7 +1265,7 @@ html,body{max-width:100%;overflow-x:clip}
 .qopt.active .qopt-check svg{opacity:1;transform:scale(1)}
 .qopt.active .qopt-check svg path{stroke:var(--white)!important}
 .qopts{margin-top:18px;display:grid;gap:10px;flex:1;align-content:start}
-.qopt{min-height:58px}
+.qopt{min-height:50px}
 
 /* Three bands of the same card, spaced evenly: who it is for, the plan,
    and where you are in it. The photo is gone, which is what buys the room
@@ -1287,7 +1287,7 @@ html,body{max-width:100%;overflow-x:clip}
    the edges of the one it sits in. */
 .pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px}
 .pc-track{display:flex;width:600%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
-.pc-slide{width:16.6667%;flex:0 0 16.6667%}
+.pc-slide{width:16.6667%;flex:0 0 16.6667%;display:flex}
 @keyframes pc-swipe{
   0%,15%{transform:translateX(0)}
   18%,33%{transform:translateX(-16.6667%)}
@@ -1297,10 +1297,19 @@ html,body{max-width:100%;overflow-x:clip}
   90%,100%{transform:translateX(-83.3334%)}
 }
 .pc>*{flex-shrink:0}
-.pc{height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
+.pc{flex:1;min-height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
   background:#171717;border:1px solid #30302D;border-radius:13px;color:#F5F3EF}
 .pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
   letter-spacing:.15em;text-transform:uppercase;color:#89867F}
+/* The shot squares up with the two lines beside it rather than setting its
+   own height, so adding it cost the card nothing: badge + name already
+   measured 37px. */
+.pc-head{display:flex;align-items:center;gap:10px}
+.pc-shot{flex:0 0 37px;width:37px;height:37px;border-radius:8px;overflow:hidden;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16)}
+.pc-shot img{display:block;width:100%;height:100%;object-fit:cover}
+.pc-headtext{min-width:0;flex:1}
+.pc-badge,.pc-name{display:block}
 .pc-name{margin-top:6px;font-size:17px;font-weight:600;letter-spacing:-.018em;line-height:1.2;color:#F5F3EF;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pc-tags{display:flex;align-items:center;gap:9px;margin-top:12px;overflow:hidden}
@@ -1309,8 +1318,7 @@ html,body{max-width:100%;overflow-x:clip}
 .pc-tag:not(.is-match){min-width:0;overflow:hidden;text-overflow:ellipsis}
 .pc-tag.is-match{color:rgba(231,207,163,.92);background:rgba(180,127,57,.18);
   border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:4px 10px}
-.pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em}
 /* two auto margins, so the free space splits evenly above the divider and
    above the button instead of piling up under a short reason. */
 .pc-rule{height:1px;background:#30302D;margin:auto 0 0}
@@ -1325,7 +1333,7 @@ html,body{max-width:100%;overflow-x:clip}
 .pc-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:5px 10px}
 .pc-facts dt{font-weight:600;color:#89867F;white-space:nowrap}
 .pc-facts dd{margin:0;color:#AAA69E}
-.pc-fact-why dd{min-height:2.9em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-fact-why dd{min-height:2.9em}
 .pc-cta{display:block;text-align:center;margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.01em;
   color:#F5F3EF;background:rgba(180,127,57,.78);border-radius:8px;padding:8px 14px}
 
@@ -1345,7 +1353,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 @media(prefers-reduced-motion:reduce){.pc-track{animation:none !important}}
 @media(max-width:560px){
-  .pc{height:292px}
+  .pc{min-height:292px}
   .rtitle{font-size:20px}
   /* the breakdown's description takes a second line at this width, and the
      card is nine pixels shorter; the rows give that back. */
@@ -1539,7 +1547,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
             <div class="rtop"><span class="rlabel">Your wellness plan</span><span class="rbrand" aria-hidden="true"><svg class="qbrand-mark" viewBox="108 370 1690 1585" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(0 1899.6) scale(1 -1)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/><g transform="translate(1300 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></span></div>
             <div class="rtitle">Made for Jane.</div>
             <div class="rprofile"><span>Vegetarian</span><span>Healthy Weight*</span><span>Active</span><span>Diabetes</span></div>
-            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><span class="pc-badge">Essential</span><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag is-match">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-desc">Contributes to normal formation of red blood cells and haemoglobin, and to the reduction of tiredness.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>Your iron is at 39% of your target, and you told us about ongoing tiredness.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Capsule</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><span class="pc-badge">Essential</span><div class="pc-name">Omega-3 (Algae Oil)</div><div class="pc-tags"><span class="pc-tag is-match">Healthy Ageing</span><span class="pc-tag">Mood &amp; Emotions</span></div><p class="pc-desc">Plant-based DHA and EPA from marine algae, the original source of omega-3s.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>Your omega-3 is at 8% of your target.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Softgel</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><span class="pc-badge">Recommended</span><div class="pc-name">Prebiotic (FOS/GOS)</div><div class="pc-tags"><span class="pc-tag is-match">Gut Health</span></div><p class="pc-desc">Fructooligosaccharide and galactooligosaccharide blend that feeds beneficial gut bacteria.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>You told us about bloating and occasional indigestion.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Scoop</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><span class="pc-badge">Recommended</span><div class="pc-name">L-Theanine</div><div class="pc-tags"><span class="pc-tag is-match">Sleep</span><span class="pc-tag">Mood &amp; Emotions</span></div><p class="pc-desc">Amino acid naturally found in green tea, studied for its role in relaxation and focus.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>You told us about a racing mind at bedtime.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>Before bed</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Capsule</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc pc-gaps"><span class="pc-badge">Breakdown</span><div class="pc-name">Where the gaps are</div><p class="pc-desc">Only what is short of target. Everything else is on track.</p><div class="pc-rule"></div><div class="nb"><div class="nb-row"><span class="nb-n">Vitamin D3</span><span class="nb-bar"><i class="is-low" style="width:10%"></i></span><span class="nb-v is-low">10%</span></div><div class="nb-row"><span class="nb-n">Iron</span><span class="nb-bar"><i class="is-low" style="width:39%"></i></span><span class="nb-v is-low">39%</span></div><div class="nb-row"><span class="nb-n">Selenium</span><span class="nb-bar"><i class="is-mid" style="width:74%"></i></span><span class="nb-v is-mid">74%</span></div><div class="nb-row"><span class="nb-n">Vitamin B6</span><span class="nb-bar"><i class="is-mid" style="width:88%"></i></span><span class="nb-v is-mid">88%</span></div><div class="nb-row"><span class="nb-n">Calories</span><span class="nb-bar"><i class="" style="width:84%"></i></span><span class="nb-v ">84%</span></div><div class="nb-row"><span class="nb-n">Protein</span><span class="nb-bar"><i class="is-mid" style="width:82%"></i></span><span class="nb-v is-mid">82%</span></div><div class="nb-row"><span class="nb-n">Fats</span><span class="nb-bar"><i class="" style="width:79%"></i></span><span class="nb-v ">79%</span></div><div class="nb-row"><span class="nb-n">Omega-3</span><span class="nb-bar"><i class="is-low" style="width:8%"></i></span><span class="nb-v is-low">8%</span></div></div></div></div><div class="pc-slide"><div class="pc"><span class="pc-badge">Essential</span><div class="pc-name">Iron</div><div class="pc-tags"><span class="pc-tag is-match">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-desc">Contributes to normal formation of red blood cells and haemoglobin, and to the reduction of tiredness.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>Your iron is at 39% of your target, and you told us about ongoing tiredness.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Capsule</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div></div></div>
+            <div class="pc-deck"><div class="pc-track"><div class="pc-slide"><div class="pc"><div class="pc-head"><span class="pc-shot"><img src="/images/daily-energy-blend-detail.jpg" alt="" width="74" height="74" decoding="async"></span><span class="pc-headtext"><span class="pc-badge">Essential</span><span class="pc-name">Iron</span></span></div><div class="pc-tags"><span class="pc-tag is-match">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-desc">Contributes to normal formation of red blood cells and haemoglobin, and to the reduction of tiredness.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>Your iron is at 39% of your target, and you told us about ongoing tiredness.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Capsule</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><div class="pc-head"><span class="pc-shot"><img src="/images/daily-energy-blend-in-context.jpg" alt="" width="74" height="74" decoding="async"></span><span class="pc-headtext"><span class="pc-badge">Essential</span><span class="pc-name">Omega-3 (Algae Oil)</span></span></div><div class="pc-tags"><span class="pc-tag is-match">Healthy Ageing</span><span class="pc-tag">Mood &amp; Emotions</span></div><p class="pc-desc">Plant-based DHA and EPA from marine algae, the original source of omega-3s.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>Your omega-3 is at 8% of your target.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Softgel</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><div class="pc-head"><span class="pc-shot"><img src="/images/daily-energy-blend-front.jpg" alt="" width="74" height="74" decoding="async"></span><span class="pc-headtext"><span class="pc-badge">Recommended</span><span class="pc-name">Prebiotic (FOS/GOS)</span></span></div><div class="pc-tags"><span class="pc-tag is-match">Gut Health</span></div><p class="pc-desc">Fructooligosaccharide and galactooligosaccharide blend that feeds beneficial gut bacteria.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>You told us about bloating and occasional indigestion.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Scoop</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc"><div class="pc-head"><span class="pc-shot"><img src="/images/daily-energy-blend-detail.jpg" alt="" width="74" height="74" decoding="async"></span><span class="pc-headtext"><span class="pc-badge">Recommended</span><span class="pc-name">L-Theanine</span></span></div><div class="pc-tags"><span class="pc-tag is-match">Sleep</span><span class="pc-tag">Mood &amp; Emotions</span></div><p class="pc-desc">Amino acid naturally found in green tea, studied for its role in relaxation and focus.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>You told us about a racing mind at bedtime.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>Before bed</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Capsule</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div><div class="pc-slide"><div class="pc pc-gaps"><span class="pc-badge">Breakdown</span><div class="pc-name">Where the gaps are</div><p class="pc-desc">Only what is short of target. Everything else is on track.</p><div class="pc-rule"></div><div class="nb"><div class="nb-row"><span class="nb-n">Vitamin D3</span><span class="nb-bar"><i class="is-low" style="width:10%"></i></span><span class="nb-v is-low">10%</span></div><div class="nb-row"><span class="nb-n">Iron</span><span class="nb-bar"><i class="is-low" style="width:39%"></i></span><span class="nb-v is-low">39%</span></div><div class="nb-row"><span class="nb-n">Selenium</span><span class="nb-bar"><i class="is-mid" style="width:74%"></i></span><span class="nb-v is-mid">74%</span></div><div class="nb-row"><span class="nb-n">Vitamin B6</span><span class="nb-bar"><i class="is-mid" style="width:88%"></i></span><span class="nb-v is-mid">88%</span></div><div class="nb-row"><span class="nb-n">Calories</span><span class="nb-bar"><i class="" style="width:84%"></i></span><span class="nb-v ">84%</span></div><div class="nb-row"><span class="nb-n">Protein</span><span class="nb-bar"><i class="is-mid" style="width:82%"></i></span><span class="nb-v is-mid">82%</span></div><div class="nb-row"><span class="nb-n">Fats</span><span class="nb-bar"><i class="" style="width:79%"></i></span><span class="nb-v ">79%</span></div><div class="nb-row"><span class="nb-n">Omega-3</span><span class="nb-bar"><i class="is-low" style="width:8%"></i></span><span class="nb-v is-low">8%</span></div></div></div></div><div class="pc-slide"><div class="pc"><div class="pc-head"><span class="pc-shot"><img src="/images/daily-energy-blend-detail.jpg" alt="" width="74" height="74" decoding="async"></span><span class="pc-headtext"><span class="pc-badge">Essential</span><span class="pc-name">Iron</span></span></div><div class="pc-tags"><span class="pc-tag is-match">Boost Energy</span><span class="pc-tag">General Health Support</span></div><p class="pc-desc">Contributes to normal formation of red blood cells and haemoglobin, and to the reduction of tiredness.</p><div class="pc-rule"></div><dl class="pc-facts"><div class="pc-fact pc-fact-why"><dt>Why</dt><dd>Your iron is at 39% of your target, and you told us about ongoing tiredness.</dd></div><div class="pc-pair"><div class="pc-fact"><dt>When</dt><dd>With meal</dd></div><div class="pc-fact"><dt>Serving</dt><dd>Capsule</dd></div></div></dl><span class="pc-cta">Add to cart</span></div></div></div></div>
           </div>
         </div>
       </div>
