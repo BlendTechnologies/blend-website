@@ -56,7 +56,7 @@
      --eng-p 0 is the engine as a card and 1 is the engine full bleed.
      Both default to the state the page should hold with no JS at all. */
   --hero-p:0;--eng-p:0;--closer-p:0;
-  --hero-inset:40px;--hero-round:36px;
+  --hero-inset:40px;--hero-round:36px;--hero-grow:.06;
   --eng-inset:40px;--eng-round:36px;
   --closer-inset:40px;--closer-round:36px;
 }
@@ -69,7 +69,7 @@
    375px screen is a tenth of the width, and the card stops reading as a
    full-bleed block that has pulled in. */
 @media (max-width:560px){
-  :root{--hero-inset:24px;--hero-round:24px;--eng-inset:24px;--eng-round:24px;--closer-inset:24px;--closer-round:24px}
+  :root{--hero-grow:.05;--hero-inset:24px;--hero-round:24px;--eng-inset:24px;--eng-round:24px;--closer-inset:24px;--closer-round:24px}
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -254,7 +254,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* Flat cream, no gradient: the thumbnails are previews of a product whose
    own surfaces are flat, and a gradient behind a white panel reads as
    decoration sitting under an interface. */
-.step-thumb{display:block;height:132px;background:#F4EFE3;border-bottom:1px solid var(--line)}
+/* The preview sits on the same black as the engine and the closing band,
+   so the six previews read as the product rather than as six beige tiles.
+   Everything inside them is a white panel, so nothing was drawn against
+   the old cream ground and nothing needed recolouring. No rule under it
+   either: black meeting the card's white body is its own edge. */
+.step-thumb{display:block;height:132px;background:var(--ink);border-bottom:0}
 /* Inherit Inter from the page: the labels inside are the product's own, and
    they should be set the way the product sets them. The interiors never take
    a click — the whole card is the link. */
@@ -684,11 +689,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    from a rounded card to full bleed as it arrives. The border-top is gone
    because the card's own edge is the divider now. */
 .closer{position:relative;padding:120px 0;text-align:center;background:var(--cream);color:var(--white);overflow:hidden}
+/* The closing band and the footer are one card, not two. The closer insets
+   its top and sides and rounds only its top corners; the footer insets its
+   sides and bottom and rounds only its bottom corners; neither insets the
+   edge they share. Two clipped layers, one continuous shape, one
+   progression. Wrapping them in a single element would have been simpler
+   and is not available: </main> closes between them. */
 .closer::before{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);
   clip-path:inset(
-    calc((1 - var(--closer-p)) * var(--closer-inset)) calc((1 - var(--closer-p)) * var(--closer-inset))
-    calc((1 - var(--closer-p)) * var(--closer-inset)) calc((1 - var(--closer-p)) * var(--closer-inset))
-    round calc((1 - var(--closer-p)) * var(--closer-round)))}
+    calc((1 - var(--closer-p)) * var(--closer-inset))
+    calc((1 - var(--closer-p)) * var(--closer-inset))
+    0
+    calc((1 - var(--closer-p)) * var(--closer-inset))
+    round calc((1 - var(--closer-p)) * var(--closer-round))
+          calc((1 - var(--closer-p)) * var(--closer-round)) 0 0)}
 .closer > .wrap{position:relative;z-index:1}
 .closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px);color:var(--white)}
 .closer .lead{margin:0 auto 32px;max-width:520px;color:var(--muted-on-dark)}
@@ -703,7 +717,16 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot{margin-top:28px;font-size:14px;color:rgba(255,255,255,.62)}
 .closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
 .closer-foot a:hover{border-bottom-color:var(--white)}
-.footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
+.footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:80px 0 32px}
+.footer::before{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);
+  clip-path:inset(
+    0
+    calc((1 - var(--closer-p)) * var(--closer-inset))
+    calc((1 - var(--closer-p)) * var(--closer-inset))
+    calc((1 - var(--closer-p)) * var(--closer-inset))
+    round 0 0 calc((1 - var(--closer-p)) * var(--closer-round))
+              calc((1 - var(--closer-p)) * var(--closer-round)))}
+.footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
@@ -1155,7 +1178,17 @@ html,body{max-width:100%;overflow-x:clip}
     radial-gradient(48% 42% at 50% 78%, rgba(212,183,136,.46), rgba(212,183,136,0) 70%);
   animation:hero-wash 19s ease-in-out infinite alternate;
   will-change:transform}
-.hero > .wrap{position:relative;z-index:1}
+/* The hero shrinks with its own card. The card's visible width goes from
+   the full viewport to the viewport less two 40px margins, which at 1440 is
+   a 5.6% reduction, so the content starts 6% over and settles at its design
+   size on the same progression - the block and what is inside it move as
+   one thing rather than the frame closing around fixed content.
+
+   Not matched any closer on a phone: there the margins are a larger share
+   of the width, and a content scale that big would push the text under the
+   hero's own clip before it settled. */
+.hero > .wrap{position:relative;z-index:1;will-change:transform;
+  transform:scale(calc(1 + (1 - var(--hero-p)) * var(--hero-grow)))}
 
 @keyframes hero-wash{
   from{transform:translate3d(-2.5%,-1.5%,0) scale(1.04)}
@@ -2273,6 +2306,7 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   var hero = document.querySelector('.hero');
   var eng  = document.querySelector('.science');
   var closer = document.querySelector('.closer');
+  var footer = document.querySelector('.footer');
   if (!hero || !eng || !window.requestAnimationFrame) return;
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -2306,9 +2340,16 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
        already black, so contracting it on the way out would put a beige
        stripe between two dark blocks rather than returning anything to
        beige. The engine has cream on both sides and does contract. */
-    if (closer) {
-      var cr = closer.getBoundingClientRect();
-      root.style.setProperty('--closer-p', clamp((vh - cr.top) / span).toFixed(4));
+    if (closer && footer) {
+      /* Measured across the whole end block rather than the band alone.
+         On the band's own span it reached full bleed while the footer was
+         still below the fold, so the two never appeared as one card at
+         all: the shape opened before the half of it that was joined on
+         could be seen. Here it opens as the end of the page arrives and is
+         full bleed exactly when you reach the bottom. */
+      var cr = closer.getBoundingClientRect(), fr = footer.getBoundingClientRect();
+      var reach = Math.max(1, fr.bottom - cr.top);
+      root.style.setProperty('--closer-p', clamp((vh - cr.top) / reach).toFixed(4));
     }
   }
 
