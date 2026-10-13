@@ -46,7 +46,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
 .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
-.btn-sm{padding:8px 12px;font-size:14px;min-height:38px}
+/* 12px of side padding on a 93px label left "Try it yourself" all but
+   touching both ends of its own pill. The ≤860 rule below already carried
+   16px, so the phone had the roomier button and the desktop did not. */
+.btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 
 /* nav */
 .nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent}
