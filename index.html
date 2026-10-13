@@ -991,85 +991,49 @@ html,body{max-width:100%;overflow-x:clip}
   .pricing>:last-child{margin-right:16px}
 }
 
-/* ---- Phone hero: one full screen, centred ------------------------------
-   The hero copy now owns the entire first screen and the card deck starts
-   below the fold, so nothing peeks. Previously 346px of the deck was visible
-   under the trust row.
+/* ---- Phone hero: one full screen --------------------------------------
+   The copy owns the entire first screen and the card deck starts below the
+   fold. calc(100svh - nav) with the hero's own top padding zeroed, so the
+   block ends exactly at the fold. svh rather than vh is deliberate: it is
+   the height with iOS browser chrome expanded, which is the worst case, so
+   the deck stays hidden even before the URL bar collapses.
 
-   Height is calc(100svh - nav) with the hero's own top padding zeroed, so the
-   copy block ends exactly at the fold. svh rather than vh is deliberate: it is
-   the height with iOS browser chrome expanded, which is the worst case, so the
-   deck stays hidden even before the URL bar collapses.
+   An earlier pass dropped the full height, and the copy collapsed to 398px
+   inside an 844px screen with the deck pressed up underneath it: a dense
+   block in the top half and two half-cards under it. The height is back.
 
-   Centred rather than left aligned, per the Neko reference.
+   The internal gaps are not. The slack goes above and below the group and
+   never between the headline, the sub-headline and the buttons, which stay
+   one connected block at any screen height. That is the difference between
+   this and the earlier three-auto-margin version, where the same free space
+   was split three ways and the composition came apart into three strangers.
 
-   Separated into three logical groups rather than one evenly-spaced column:
-     message  - headline and sub-headline, tight together, they are one thought
-     action   - the two buttons and the sample-report link
-     trust    - pinned to the bottom with margin-top:auto
-   The message and action groups sit centred in the space above; the trust row
-   anchors the bottom edge. That reads as a deliberate composition instead of a
-   block floating in a void, which is what pure vertical centring gave. */
+   Centred rather than left aligned, per the Neko reference, with a small
+   bottom bias: a text block has to sit slightly above geometric centre to
+   look centred. */
 @media (max-width:560px){
-  /* .hero-grid carries padding:8px 0 from the base rule, which offset the
-     headline by 8px and made the 20% top gap measure 21.1%. */
+  /* .hero-grid carries padding:8px 0 from the base rule, which would offset
+     the block inside its own full-height box. */
   .hero{padding-top:0}
   .hero .hero-grid{padding-top:0}
   .hero .hero-copy{
-    min-height:0;
+    min-height:calc(100vh - var(--nav-h));
+    min-height:calc(100svh - var(--nav-h));
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
-    /* Three equal auto margins below do the vertical distribution, so this
-       block must not add a fixed top offset of its own. */
-    padding-top:18px;
-    padding-bottom:0;
+    padding:0 0 4svh;
   }
 
-  /* Vertical distribution is done with three auto margins, one before each
-     group, so the free space is split equally three ways: above the message,
-     between the message and the action, and between the action and the trust
-     row. Everything inside a group keeps a small fixed gap so the group still
-     reads as one unit.
-
-     A fixed top padding used to do this job and it is why the hero read as
-     crowded: it placed the message near the top and then a single auto margin
-     on the trust row swallowed all the remaining space in one 248px lump, so
-     the title, sub, buttons and link all sat in the upper half with a void
-     underneath. Splitting the slack three ways puts the message upper-middle
-     and the buttons in the lower part, and it self-balances at any screen
-     height rather than being tuned to one. */
-
-  /* message group, sits near the top of the screen */
-  /* Three equal gaps that stretch to fill the screen:
-       nav bottom      -> headline
-       sub-headline    -> CTA group
-       CTA group       -> the three small texts
-
-     Three auto margins split the free space equally three ways, so the block
-     fills the screen and the three gaps are the same number as each other at
-     any height. The gap is therefore larger on a taller phone, which is the
-     point of stretching: a fixed value cannot both stay constant across
-     devices and reach the bottom of every one of them. */
+  /* Fixed gaps, so the four parts read as one unit however tall the screen
+     is. Only the space around the group stretches. */
   .hero .hero-title{margin-top:0}
   .hero .hero-sub{margin-top:14px;max-width:32ch;margin-left:auto;margin-right:auto}
-
-  /* action group, lands in the lower part of the screen */
   .hero .hero-ctas{margin-top:22px;justify-content:center}
   .hero .cta-alt{margin-top:16px}
-
-  /* Trust row takes a fixed gap rather than a third auto margin. With three
-     equal autos, a full third of the free space sat *below* the buttons, which
-     is what kept holding them up at 67%. Two autos above and a fixed gap below
-     pushes the action group into the lower part of the screen and still pins
-     the trust row to the bottom edge. */
   .hero .hero-foot{margin-top:18px;padding-top:0;justify-content:center}
-
-  /* The scroll cue that used to sit here existed because the copy block
-     filled the screen and the cards were entirely below the fold. They are
-     not now, so the page shows there is more by showing it. */
 }
 @media (prefers-reduced-motion:reduce){
 }
