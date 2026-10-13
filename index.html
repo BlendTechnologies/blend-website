@@ -583,8 +583,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vlead::before{background:
     linear-gradient(to top,rgba(10,10,10,.74) 0%,rgba(10,10,10,0) 40%),
     linear-gradient(104deg,#0A0A0A 0%,rgba(10,10,10,.95) 34%,rgba(10,10,10,.6) 60%,rgba(10,10,10,.1) 92%)}
-  .vlead-copy{padding:24px 20px 22px;max-width:76%}
-  .vlead-note{max-width:26ch}
+  /* The copy box is wide enough for two tags a row; the description keeps
+     its own narrow measure so the words still clear the bottle. */
+  .vlead-copy{padding:24px 20px 22px;max-width:88%}
+  .vlead-note{max-width:23ch}
   .vlead-tags{padding-top:18px;gap:6px}
   .vlead-tags span{font-size:12px;padding:4px 10px}
   .vrow{grid-template-columns:34px minmax(0,1fr);row-gap:8px;padding:12px}
@@ -1601,7 +1603,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
           <span class="vbadge vbadge-live"><i class="vdot"></i>Live today</span>
           <h3 class="vlead-name">Health and wellness</h3>
           <p class="vlead-note">Personalised product recommendations for supplement and wellness brands.</p>
-          <div class="vlead-tags"><span>Supplement brands</span><span>Sports nutrition</span><span>Wellness retailers</span></div>
+          <div class="vlead-tags"><span>Supplement brands</span><span>Sports nutrition</span><span>Gyms &amp; studios</span><span>Clinics &amp; practitioners</span><span>Retailers</span></div>
         </div>
       </article>
       <div class="vnext">
