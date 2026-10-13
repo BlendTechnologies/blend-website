@@ -110,7 +110,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .nav-toggle{display:inline-flex}
   .nav-actions .btn{padding:8px 16px;font-size:14px}
 }
-.hero{padding:56px 0 88px;background:var(--cream);position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
+.hero{padding:56px 0 112px;background:var(--cream);position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
 .hero-grid{display:grid;grid-template-columns:0.95fr 1.05fr;gap:48px;align-items:center;padding:8px 0}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .hero-title{margin-top:14px}
@@ -153,7 +153,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
 @media(max-width:960px){
-  .hero{padding:32px 0 56px}
+  .hero{padding:32px 0 88px}
   .hero-grid{grid-template-columns:1fr;gap:40px}
   /* A grid item's automatic minimum is min-content, and `1fr` is really
      minmax(auto,1fr), so one wide descendant drags the whole track with it.
@@ -168,30 +168,42 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .hero-stage{height:auto;display:flex;flex-direction:column;gap:20px}
   .quiz,.results{position:static;width:100%}
 }
-.section{padding:88px 0}
-/* Nine of twelve sections ran an identical 112px top and bottom while content
-   filled only 54-76% of each. Emphasis needs contrast: with every section
-   spaced the same, none of them reads as more important than the rest.
-   Supporting sections (integrations, FAQ, roadmap) tighten; the sections
-   carrying the argument keep 112. Alignment is untouched. */
-.section--tight{padding:72px 0}
-.section-head{max-width:680px;margin:0 auto 36px;text-align:center}
+/* ---- Section rhythm ---------------------------------------------------
+   Every section is a chapter. Generous separation between them, controlled
+   spacing inside them — the two have to move in opposite directions or the
+   page reads as one undifferentiated column. Majors run 120, supporting
+   sections 112: enough to rank them, not enough to read as a different
+   page. Alignment is untouched. */
+.section{padding:120px 0}
+.section--tight{padding:112px 0}
+.section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:14px;display:inline-block}
-.section-head .h2{margin-bottom:18px}
+.section-head .h2{margin-bottom:20px}
 .section-cream{background:var(--cream)}
 .section-subtle{background:var(--subtle)}
-/* Every light section shares one cream now, so two of them meeting stacked
-   88 + 88 for a boundary that needs one of them. The lower section gives up
-   its top padding and the gap is the upper one's. A colour change keeps
-   both, because there the padding is doing something the colour cannot. */
+/* A colour change divides the space either side of it: you never see the
+   sum, only 120 of black and then 120 of cream, so both sections keep their
+   full padding across that edge and nothing is pressed against it.
+   Cream meeting cream is one continuous void, where the same sum reads as a
+   hole rather than a pause. There the lower section gives up half its top
+   padding and the pair settles near 170 — halved, not collapsed. An earlier
+   pass took it to zero and the sections ran together. */
 .hero + .section-cream,
 .section-cream + .section-cream,
-.science + .section-cream{padding-top:0}
-.section-cream + .closer{padding-top:24px}
-/* The dark band is its own divider, so the cream above it does not need a
-   full section's worth of bottom padding as well. */
-.section-cream:has(+ .science){padding-bottom:40px}
-@media(max-width:860px){.section{padding:64px 0}.section--tight{padding:56px 0}.section-head{margin-bottom:30px}}
+.section-cream + .closer{padding-top:56px}
+@media(max-width:860px){
+  .section{padding:88px 0}
+  .section--tight{padding:80px 0}
+  .section-head{margin-bottom:48px}
+  .hero + .section-cream,
+  .section-cream + .section-cream,
+  .section-cream + .closer{padding-top:44px}
+}
+@media(max-width:760px){
+  .hero + .section-cream,
+  .section-cream + .section-cream,
+  .section-cream + .closer{padding-top:36px}
+}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
 .step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
 /* Muted amber-beige, not the full gold: six cards in a grid each wearing a
@@ -371,12 +383,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pname{font-size:14px;font-weight:600;line-height:1.25}
 .preason{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
 @media(max-width:860px){.personas{grid-template-columns:1fr}}
-.science{position:relative;padding:88px 0;background:var(--ink);color:var(--white);overflow:hidden}
+.science{position:relative;padding:120px 0;background:var(--ink);color:var(--white);overflow:hidden}
 .science .wrap{position:relative;z-index:1}
 .science-head{max-width:680px}
 .science-head .eyebrow{color:rgba(255,255,255,.6)}
 .science-head h2{margin-top:14px}
-.science-head .lead{color:var(--muted-on-dark);margin-top:18px}
+.science-head .lead{color:var(--muted-on-dark);margin-top:20px}
 .science-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:64px}
 .sci-stat{padding:24px 20px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
 .sci-n{font-size:48px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
@@ -385,7 +397,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .sci-note{grid-column:1/-1;margin:6px 0 2px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px}
 .sci-note p{margin:0;font-size:15px;line-height:1.6;color:var(--muted-on-dark)}
 .sci-note b{color:var(--white);font-weight:600}
-@media(max-width:860px){.sci-note{grid-template-columns:1fr;gap:14px}}
+@media(max-width:860px){.sci-note{grid-template-columns:1fr;gap:14px}.science{padding:88px 0}}
 .sci-method{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease,border-color .2s ease;margin-top:4px}
 .sci-method:hover{background:rgba(180,127,57,.15);border-color:var(--gold-soft)}
 .sci-method-left{display:flex;align-items:center;gap:16px}
@@ -606,8 +618,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
 }
-.closer{padding:96px 0;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(28px,3.4vw,42px)}
+.closer{padding:120px 0;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
+.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px)}
 .closer .lead{margin:0 auto 32px;max-width:520px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .closer-foot{margin-top:28px;font-size:14px;color:var(--muted)}
@@ -634,7 +646,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
 .footer-trust-label{color:var(--gold);font-weight:600}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
-@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
+@media(max-width:860px){.closer{padding:88px 0}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
  
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
@@ -644,13 +656,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    become horizontally-snapping swipe carousels with edge bleed.
    ============================================================ */
 @media (max-width:760px){
-  /* tighten section rhythm so the page feels less crammed */
-  .section{padding:64px 0}
+  /* a chapter still needs a pause on a phone, just a shorter one */
+  .section,.section--tight{padding:72px 0}
   .section-head{margin-bottom:36px;padding:0 4px}
-  .closer{padding:64px 0}
+  .closer{padding:72px 0}
   .wl-section{padding:64px 0}
-  .science{padding:64px 0}
-  .hero{padding:24px 0 48px}
+  .science{padding:72px 0}
+  .hero{padding:24px 0 72px}
   .hero-grid{gap:24px}
  
   /* shared carousel behaviour */
@@ -1196,10 +1208,10 @@ html,body{max-width:100%;overflow-x:clip}
    came to 1.43 screens before a single answer is opened. Tighter rows and
    slightly smaller type cut that without touching the content. */
 @media (max-width:560px){
-  .science{padding:52px 0}
+  .science{padding:64px 0}
   .science-head{margin-bottom:22px}
   .science-head .h2{font-size:26px;line-height:1.15}
-  .science-head .lead{font-size:14px;line-height:1.5;margin-top:8px}
+  .science-head .lead{font-size:14px;line-height:1.5;margin-top:14px}
   .science-stats{gap:8px}
 
   .sci-stat{padding:12px 12px;border-radius:12px}
@@ -1255,8 +1267,12 @@ html,body{max-width:100%;overflow-x:clip}
    use-cases pages, which share .faq-item and .faq-answer, keep the accordion
    they already have. */
 .faq-split{display:grid;grid-template-columns:minmax(0,35fr) minmax(0,65fr);gap:56px;align-items:start}
-.faq-h{margin:14px 0 0;font-size:clamp(30px,3.1vw,40px);font-weight:500;line-height:1.12;letter-spacing:-.025em;color:var(--ink)}
-.faq-sub{margin:16px 0 0;font-size:15px;line-height:1.6;color:var(--ink-60);max-width:30ch}
+/* The heading is .h2 — the shared section scale, family, weight and
+   tracking — and this adds only what is local to it: the gap under the
+   eyebrow, and normal wrapping, because the two lines are set with a <br>
+   and balancing would re-break them. */
+.faq-h{margin:14px 0 0;text-wrap:wrap}
+.faq-sub{margin:20px 0 0;font-size:15px;line-height:1.6;color:var(--ink-60);max-width:30ch}
 .faq-ask{margin-top:40px}
 .faq-ask-q{display:block;font-size:14px;color:var(--muted)}
 .faq-ask-a{display:inline-block;margin-top:6px;font-size:15px;font-weight:500;color:var(--gold-strong)}
@@ -1441,7 +1457,7 @@ html,body{max-width:100%;overflow-x:clip}
 /* Says what the picture is. The animation illustrates the shape of the
    flow; it is not a live calculation, and one vertical is not the
    platform. */
-.eng-example{margin:40px 0 0;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+.eng-example{margin:56px 0 0;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.42)}
 .eng-example + .eng{margin-top:14px}
 .eng{display:grid;grid-template-columns:210px minmax(0,1fr) 272px;gap:0 26px;margin-top:40px;align-items:start}
 /* The three bands are one sentence read left to right - an answer, the
@@ -1531,6 +1547,7 @@ html,body{max-width:100%;overflow-x:clip}
      grid so none of the three costs a screen. */
   .eng-band:nth-child(2){order:0}
   .eng-grid{grid-template-columns:repeat(20,1fr);grid-template-rows:repeat(9,1fr);aspect-ratio:20/9;gap:3px}
+  .eng-example{margin-top:36px}
   .eng{grid-template-columns:1fr;margin-top:40px;gap:26px}
   .eng-feed{height:172px}
   .eng-word{font-size:13px}
@@ -1754,7 +1771,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
     <div class="faq-split">
       <div class="faq-intro">
         <span class="eyebrow">Frequently asked questions</span>
-        <h2 class="faq-h">Good questions.<br>Clear answers.</h2>
+        <h2 class="h2 faq-h">Good questions.<br>Clear answers.</h2>
         <p class="faq-sub">Everything you need to know before getting started.</p>
         <div class="faq-ask">
           <span class="faq-ask-q">Still have a question?</span>
@@ -1771,7 +1788,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 </section>
 <section class="closer" id="contact">
   <div class="wrap">
-    <h2 class="h1" style="margin-top:18px">Put your catalogue to work.</h2>
+    <h2 class="h1">Put your catalogue to work.</h2>
     <p class="lead">Try the demo, or book 15 minutes with us.</p>
     <div class="closer-ctas">
       <a href="try.html" class="btn btn-primary btn-lg">Try the demo</a>
