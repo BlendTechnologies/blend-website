@@ -196,19 +196,19 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    pass took it to zero and the sections ran together. */
 .hero + .section-cream,
 .section-cream + .section-cream,
-.section-cream + .closer{padding-top:88px}
+/* The closing band is a dark card, so its padding is the room inside it
+   rather than a gap between two cream sections. It keeps its own, and the
+   pair rule that used to halve it no longer applies. */
 @media(max-width:860px){
   .section{padding:88px 0}
   .section--tight{padding:80px 0}
   .section-head{margin-bottom:48px}
   .hero + .section-cream,
   .section-cream + .section-cream,
-  .section-cream + .closer{padding-top:44px}
 }
 @media(max-width:760px){
   .hero + .section-cream,
   .section-cream + .section-cream,
-  .section-cream + .closer{padding-top:36px}
 }
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
 .step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
@@ -504,8 +504,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-mark svg{width:38px;height:38px;flex:0 0 auto;color:var(--ink)}
 .tier-mark-note{font-size:14px;color:var(--muted);font-weight:400}
 .tier-blurb{font-size:14px;color:var(--ink-80);margin:0;min-height:44px;line-height:1.5}
-.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0}
-.tier-list li{display:flex;gap:8px;align-items:center;font-size:14px;line-height:1.5;color:var(--ink-80)}
+/* minmax, not a fixed 25px: a feature that wrapped to two lines
+   overflowed its row and sat on top of the next one, which is what made
+   three-up pricing look broken between 861 and 1100. */
+.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:minmax(25px,auto);gap:0}
+.tier-list li{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:14px;line-height:1.5;color:var(--ink-80);padding:2px 0}
 .tier-list li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23B47F39' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;margin-top:3px;flex-shrink:0}
 .tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
 .tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
@@ -535,6 +538,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pricing-foot details[open] summary{border-bottom-color:var(--ink)}
 .pricing-foot details p{margin-top:14px;color:var(--ink-80);max-width:560px;margin-left:auto;margin-right:auto;text-align:left;background:var(--white);padding:16px;border:1px solid var(--line);border-radius:8px;font-size:14px}
 @media(max-width:860px){.pricing{grid-template-columns:1fr}}
+/* Three columns inside a viewport narrower than the 1100px the grid is
+   drawn for leaves each card around 268px. It keeps three columns - seeing
+   all three plans at once is the point of the section - and gives back the
+   padding instead. */
+@media (min-width:861px) and (max-width:1100px){
+  .tier{padding:24px 20px;gap:13px}
+  .tier-list li{font-size:13.5px}
+}
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
 .faq-item > summary{padding:20px 4px;font-size:16px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
@@ -667,6 +678,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
 .closer-foot a:hover{border-bottom-color:var(--white)}
 .footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:80px 0 32px}
+@media (max-width:760px){.footer{padding:76px 0 28px}}
 .footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -702,7 +714,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   /* a chapter still needs a pause on a phone, just a shorter one */
   .section,.section--tight{padding:72px 0}
   .section-head{margin-bottom:36px;padding:0 4px}
-  .closer{padding:72px 0}
+  .closer{padding:80px 0}
   .wl-section{padding:64px 0}
   .science{padding:72px 0}
   .hero-grid{gap:24px}
@@ -827,10 +839,11 @@ html,body{max-width:100%;overflow-x:clip}
    the three-card rails needed: two tracks put each card at 340-440px, which
    brackets the 382px it has on desktop, and the whole hero still fits one
    screen instead of stacking to ~900px. */
-@media (min-width:761px) and (max-width:960px){
-  .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
-  .quiz,.results{width:auto}
-}
+/* The two cards went two-up between 761 and 960, which gave a 434px-tall
+   quiz and a taller plan card half a narrow viewport each: both came out
+   squeezed and neither read. The <=960 rule already stacks them full
+   width, which is what this range wants too, so this no longer overrides
+   it. */
 
 /* ---- Phone polish: hero density + card consistency ----------------------
    Follow-up to the stacking fix. Once the sections stacked correctly the
@@ -896,7 +909,7 @@ html,body{max-width:100%;overflow-x:clip}
   /* Kept on phones now: the hero owns a full screen, the eyebrow is the
      line that says what Blend is, and the content sits at the top rather
      than filling the height, so there is room for it. */
-  .hero-eyebrow{display:inline-block;max-width:30ch}
+  .hero-eyebrow{max-width:30ch}
   /* .hero-stage carries width:100% from its base rule, which pins it to the
      wrap width so the negative bleed margins only shifted it left instead of
      widening it. It bled on the left and stopped 40px short on the right. */
@@ -1452,10 +1465,13 @@ html,body{max-width:100%;overflow-x:clip}
 .eng-plan .eng-track{max-width:300px}
 
 @media(max-width:1000px){
-  /* Three bands abreast would leave the grid 236px for 24 columns, so the
-     catalogue goes full width on top and the two feeds sit under it. */
-  .eng{grid-template-columns:1fr 1fr;gap:34px 26px}
-  .eng-band:nth-child(2){grid-column:1/-1;order:-1}
+  /* One band per row, in source order. Lifting the catalogue to the top
+     put a full-width matrix in front of the answers that feed it, and with
+     each label and caption now sitting under its own animation the
+     sequence read catalogue, its caption, then two feeds and their
+     captions: the story out of order and split across a column break. */
+  .eng{grid-template-columns:minmax(0,1fr);gap:34px 0}
+  .eng-band:nth-child(2){grid-column:auto;order:0}
   /* Stacked, the bands no longer need to match heights, so the grid sizes
      from its own column count and the cells come out square. */
   .eng-grid{height:auto;aspect-ratio:24/10}
@@ -1510,6 +1526,22 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   .hw-head{margin-bottom:32px}
   .hw-cols{grid-template-columns:1fr;gap:14px}
   .hw-col{padding:22px 20px}
+}
+/* The hero eyebrow is desktop only. Below the two-column hero the
+   headline is the first thing a reader meets, and two lines of uppercase
+   above it only delay it. Last in the file so the earlier phone rules
+   cannot turn it back on. */
+@media (max-width:960px){
+  .hero-eyebrow{display:none}
+}
+/* ---- Phone: the two left-aligned introductions centre -----------------
+   Both are a short stack - eyebrow, heading, one paragraph - sitting alone
+   on a narrow screen with nothing beside them to align to. The FAQ's left
+   column exists to sit next to the accordion, and on a phone it does not. */
+@media (max-width:560px){
+  .science-head{text-align:center}
+  .faq-split .faq-intro{text-align:center}
+  .faq-split .faq-ask{margin-top:22px}
 }
 </style>
 </head>
