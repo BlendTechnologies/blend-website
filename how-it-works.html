@@ -78,7 +78,16 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
-.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent;}
+/* At rest the bar is whatever the page starts with, so the seam between
+   it and the top of the page is not there to find. --nav-bg is set by
+   the pages whose first block is not cream; everything else keeps the
+   translucent default. Once the page scrolls it goes back to being a
+   bar over moving content. */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.82));backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease,background-color .2s ease;border-bottom:1px solid transparent;}
+.nav.scrolled{background:rgba(250,248,242,.82)}
+/* This page opens on the hero card, so the bar is its beige until the
+   page moves. */
+.nav{--nav-bg:#F4EFE4}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
 .logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
@@ -568,7 +577,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
 }
-.closer{padding:120px 0;text-align:center;background:var(--cream)}
+.closer{padding:120px 0 72px;text-align:center;background:var(--cream)}
 .closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px)}
 .closer .lead{margin:0 auto 32px;max-width:520px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
@@ -577,7 +586,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* The dark is painted by the reveal, not by the footer, so the footer sits
    on cream like the section above it and the two become one card. Same as
    the homepage. */
-.footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:80px 0 32px}
+.footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:48px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
@@ -612,7 +621,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   /* tighten section rhythm so the page feels less crammed */
   .section{padding:64px 0}
   .section-head{margin-bottom:36px;padding:0 4px}
-  .closer{padding:88px 0}
+  .closer{padding:88px 0 72px}
   .wl-section{padding:64px 0}
   .science{padding:80px 0}
   .hero-grid{gap:24px}
@@ -1439,7 +1448,9 @@ html,body{max-width:100%;overflow-x:clip}
    that runs behind the homepage's hero does not run behind this one. */
 .hw-top.sc-hero::after{display:none}
 .hw-top-inner{max-width:980px;margin:0 auto;text-align:center}
-.hw-top-eyebrow{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;
+/* The homepage hero's eyebrow exactly: 12px, 500, .08em. All three lines
+   of the header now measure the same as the main hero's. */
+.hw-top-eyebrow{display:block;font-size:12px;font-weight:500;letter-spacing:.08em;
   text-transform:uppercase;color:var(--muted)}
 .hw-top-title{margin:22px 0 0;font-size:58px;line-height:1.06;letter-spacing:-.025em;
   font-weight:600;color:var(--ink)}
@@ -1621,7 +1632,9 @@ html,body{max-width:100%;overflow-x:clip}
 /* ---- The close -------------------------------------------------------
    The homepage's endcap: the dark card opens as it arrives and the footer
    is the same card continuing, so the two never read as two blocks. */
-.hw-closer{padding:var(--sec) 0}
+/* Less room under the call to action than above it: below it is the
+   footer, which is the same dark card continuing. */
+.hw-closer{padding:var(--sec) 0 72px}
 .hw-closer .eyebrow{display:inline-block;margin-bottom:14px}
 .hw-closer .lead{max-width:46ch}
 .hw-closer-alt{margin-top:18px;font-size:14px;color:var(--muted-on-dark)}
