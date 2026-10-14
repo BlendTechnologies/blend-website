@@ -145,7 +145,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
-.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
+/* The pair is one object, so the two cards are always the same height.
+   The only thing that ever made them differ was the profile row wrapping
+   to a second line - at 761 and again between 1200 and 1300, where the
+   card is narrow enough that "Diabetes" drops below the other three. That
+   made the plan card 28px taller than the quiz beside it.
+   Side by side the grid row stretches both. Overlapping, the stage is
+   560px and the plan sits 112px down, so both cards are exactly what is
+   left: 448. Either way the deck below takes the difference, and the
+   auto margins inside the product card spread it. */
+.quiz,.results{height:calc(100% - 112px)}
+.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;
+  display:flex;flex-direction:column}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* `backwards`, not `both`, over a visible base: the from-keyframe still
    hides the card through the 2s delay, and the end state is the base state
@@ -168,7 +179,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .hero-grid,.hero-copy,.hero-visual{min-width:0}
   .hero-visual{min-height:auto;padding-top:0}
   .hero-stage{height:auto;display:flex;flex-direction:column;gap:20px}
-  .quiz,.results{position:static;width:100%}
+  .quiz,.results{position:static;width:100%;height:auto}
 }
 /* ---- Section rhythm ---------------------------------------------------
    Every section is a chapter. Generous separation between them, controlled
@@ -201,7 +212,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    that runs to the next `{` swallowed the whole 860 rule behind it — which
    is how every section below 760 came to carry its desktop padding. */
 .hero + .section-cream,
-.section-cream + .section-cream{padding-top:88px}
+.section-cream + .section-cream{padding-top:56px}
 @media(max-width:860px){
   .section{padding:88px 0}
   .section--tight{padding:80px 0}
@@ -850,7 +861,7 @@ html,body{max-width:100%;overflow-x:clip}
    depth and starts reading as one card sitting on top of another. Side by
    side, both are whole. */
 @media (min-width:761px) and (max-width:1199px){
-  .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+  .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .quiz,.results{width:auto}
 }
 
@@ -1285,8 +1296,8 @@ html,body{max-width:100%;overflow-x:clip}
 /* The gap lives on the card, and the deck pulls back by the same amount, so
    two cards never touch mid-swipe and the resting card still lines up with
    the edges of the one it sits in. */
-.pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px}
-.pc-track{display:flex;width:600%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
+.pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px;flex:1;min-height:301px}
+.pc-track{display:flex;width:600%;height:100%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
 .pc-slide{width:16.6667%;flex:0 0 16.6667%;display:flex}
 @keyframes pc-swipe{
   0%,15%{transform:translateX(0)}
@@ -1297,7 +1308,7 @@ html,body{max-width:100%;overflow-x:clip}
   90%,100%{transform:translateX(-83.3334%)}
 }
 .pc>*{flex-shrink:0}
-.pc{flex:1;min-height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
+.pc{flex:1;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
   background:#171717;border:1px solid #30302D;border-radius:13px;color:#F5F3EF}
 .pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
   letter-spacing:.15em;text-transform:uppercase;color:#97948C}
@@ -1353,7 +1364,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 @media(prefers-reduced-motion:reduce){.pc-track{animation:none !important}}
 @media(max-width:560px){
-  .pc{min-height:292px}
+  .pc-deck{min-height:292px}
   .rtitle{font-size:20px}
   /* the breakdown's description takes a second line at this width, and the
      card is nine pixels shorter; the rows give that back. */
