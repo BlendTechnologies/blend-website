@@ -1429,53 +1429,66 @@ html,body{max-width:100%;overflow-x:clip}
 .hw-anchor{display:block;height:0}
 
 /* ---- Header ----------------------------------------------------------
-   Compact, white, no shrink effect: this page is a reference, and a reader
-   who clicked "How it works" has already been sold the hero once. */
-/* The homepage hero's shape - beige card, corners rounding off and pulling
-   in as it leaves - at a reference page's height rather than a full screen.
-   .sc-hero brings the background, the drift and the clip-path; the only
-   thing overridden is how tall it insists on being. */
-.hw-top{padding:84px 0 72px;display:grid;grid-template-columns:minmax(0,1fr)}
-.hw-top.sc-hero{min-height:0}
-.hw-top .eyebrow{color:var(--muted)}
-/* A grid item with auto inline margins stops stretching and sizes to
-   fit-content, so .wrap - which carries margin:0 auto - came out as wide as
-   the headline and sat centred in the page. */
-.hw-top > .wrap{width:100%}
-.hw-top h1{margin-top:14px;max-width:16ch}
-.hw-price{margin:20px 0 0;font-size:21px;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
-.hw-price .hw-price-trial{color:var(--muted);font-weight:500}
-.hw-top .lead{margin-top:16px;max-width:52ch}
-.hw-top-ctas{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}
+   Type on flat beige, centred, nothing else. No hero card, no gradient,
+   no visual: the page is a reference and its opening is a title page. */
+.hw-top{background:var(--cream);padding:120px 0 0}
+.hw-top-inner{max-width:980px;margin:0 auto;text-align:center}
+.hw-top-eyebrow{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.hw-top-title{margin:22px 0 0;font-size:88px;line-height:1;letter-spacing:-.045em;
+  font-weight:600;color:var(--ink)}
+.hw-price{margin:30px 0 0;font-size:20px;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+.hw-price .hw-price-trial{color:var(--muted);font-weight:400}
+.hw-top-sub{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--ink-80)}
+.hw-top-ctas{margin:36px 0 0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:1279px){.hw-top-title{font-size:clamp(48px,6.6vw,80px)}}
 @media(max-width:760px){
-  .hw-top{padding:56px 0 64px}
-  .hw-price{font-size:19px}
+  .hw-top{padding:64px 0 0}
+  .hw-top-title{font-size:48px;letter-spacing:-.035em}
+  .hw-price{font-size:18px}
+  .hw-top-sub{font-size:16px}
+  .hw-top-ctas{flex-direction:column;align-items:center;gap:10px}
+  .hw-top-ctas .btn{width:100%;max-width:320px}
 }
 
-/* ---- The six, inside the hero ----------------------------------------
-   Text only, and all six visible at once: the point of this block is that
-   there are six and that they are short, which a picture would undo. They
-   sit in the hero card rather than under it, so the page opens with the
-   whole shape of the thing. */
-.hw-ov-list{list-style:none;margin:56px 0 0;padding:0;display:grid;
-  grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.hw-ov-item{display:flex}
-.hw-ov-card{flex:1;display:flex;flex-direction:column;gap:3px;min-height:0;padding:11px 12px 12px;
-  background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:12px;color:inherit;
-  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease,background .18s ease}
-.hw-ov-card:hover{background:var(--white);border-color:#CFB68F;box-shadow:var(--shadow-sm);transform:translateY(-2px)}
-.hw-ov-card:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
-.hw-ov-n{color:var(--gold-active);font-variant-numeric:tabular-nums}
-.hw-ov-name{font-size:13.5px;font-weight:600;letter-spacing:-.012em;color:var(--ink)}
-.hw-ov-line{margin:0;font-size:12px;line-height:1.42;color:var(--ink-80)}
-@media(max-width:1100px){.hw-ov-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:44px}}
-@media(max-width:620px){.hw-ov-list{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:36px}}
+/* ---- The step index --------------------------------------------------
+   One hairline with six columns hanging off it. Hovering or focusing a
+   column draws a heavier brown line in from the left along its own top,
+   over the hairline - the index behaves like a tab strip without
+   pretending to be one. */
+.hw-ix{max-width:1100px;margin:120px auto 0;display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line)}
+.hw-ix-item{position:relative;display:flex;align-items:baseline;gap:8px;
+  padding:18px 4px 0;color:inherit;text-decoration:none}
+.hw-ix-line{position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--gold-active);
+  transform:scaleX(0);transform-origin:0 50%;transition:transform .3s cubic-bezier(.2,.7,.25,1)}
+.hw-ix-item:hover .hw-ix-line,
+.hw-ix-item:focus-visible .hw-ix-line{transform:scaleX(1)}
+.hw-ix-n{font-size:12px;font-weight:600;color:var(--gold-active);
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.hw-ix-name{font-size:15px;font-weight:500;color:var(--ink-80);transition:color .2s ease}
+.hw-ix-item:hover .hw-ix-name,
+.hw-ix-item:focus-visible .hw-ix-name{color:var(--ink)}
+.hw-ix-item:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
 
-/* ---- Background rhythm ----------------------------------------------
-   White where the header leaves off, beige by the time the algorithm is
-   being explained. Steps 05 and 06 sit on flat cream. */
-.hw-grad{background:linear-gradient(to bottom,var(--white) 0,var(--cream) 82%,var(--cream) 100%)}
-.hw-flat{background:var(--cream)}
+/* Six columns need room for "01 Recommend"; below 900 they go two-up. */
+@media(max-width:1099px){.hw-ix{max-width:none}}
+@media(max-width:900px){
+  .hw-ix{margin-top:64px;grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:16px;border-top:0}
+  .hw-ix-item{padding:14px 0;border-bottom:1px solid var(--line)}
+  .hw-ix-line{top:auto;bottom:-1px}
+}
+@media (prefers-reduced-motion:reduce){
+  .hw-ix-line{transition:none}
+  .hw-ix-name{transition:none}
+}
+
+/* ---- Background ------------------------------------------------------
+   One beige from the header to the last step, so nothing jumps colour on
+   the way down. The dark close is the only break. */
+.hw-steps{background:var(--cream)}
 
 /* ---- One step ---------------------------------------------------------
    Text on one side, the screen on the other, sides swapping step to step.
@@ -1614,7 +1627,6 @@ html,body{max-width:100%;overflow-x:clip}
   .hw-shot.is-armed [data-reveal]{opacity:1 !important}
   .hw-shot.is-in [data-reveal]{animation:none !important}
   [data-zone]{transition:none !important}
-  .hw-ov-card{transition:none}
 }
 </style>
 </head>
@@ -1639,11 +1651,11 @@ html,body{max-width:100%;overflow-x:clip}
 
 
 <main id="main">
-<section class="hw-top sc-hero" data-sc="hero"><div class="wrap"><span class="eyebrow">How it works</span><h1 class="h1">Live in an afternoon.</h1><p class="hw-price" id="hw-price" data-plan="starter"><span id="hw-price-from">From $49/month</span> <span class="hw-price-trial">&#183; 15-day free trial</span></p><p class="lead">Six steps from your catalogue to their personalised plan.</p><div class="hw-top-ctas"><a href="/try" class="btn btn-primary btn-lg">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/30min" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Book a call</a></div><ol class="hw-ov-list"><li class="hw-ov-item"><a class="hw-ov-card" href="#connect"><span class="hw-ov-name"><span class="hw-ov-n">01.</span> Connect</span><span class="hw-ov-line">Shopify, a CSV, or by hand.</span></a></li><li class="hw-ov-item"><a class="hw-ov-card" href="#match"><span class="hw-ov-name"><span class="hw-ov-n">02.</span> Match</span><span class="hw-ov-line">Products meet the research data.</span></a></li><li class="hw-ov-item"><a class="hw-ov-card" href="#design"><span class="hw-ov-name"><span class="hw-ov-n">03.</span> Design</span><span class="hw-ov-line">Your questions, your brand.</span></a></li><li class="hw-ov-item"><a class="hw-ov-card" href="#launch"><span class="hw-ov-name"><span class="hw-ov-n">04.</span> Launch</span><span class="hw-ov-line">On a page, a pop-up or a link.</span></a></li><li class="hw-ov-item"><a class="hw-ov-card" href="#recommend"><span class="hw-ov-name"><span class="hw-ov-n">05.</span> Recommend</span><span class="hw-ov-line">A scored, explained plan.</span></a></li><li class="hw-ov-item"><a class="hw-ov-card" href="#analyse"><span class="hw-ov-name"><span class="hw-ov-n">06.</span> Analyse</span><span class="hw-ov-line">What worked, and what to stock.</span></a></li></ol></div></section>
-<div class="hw-grad">
+<section class="hw-top"><div class="wrap"><div class="hw-top-inner"><span class="hw-top-eyebrow">How it works</span><h1 class="hw-top-title">Live in an afternoon.</h1><p class="hw-price" id="hw-price" data-plan="starter"><span id="hw-price-from">From $49/month</span> <span class="hw-price-trial">&#183; 15-day free trial</span></p><p class="hw-top-sub">The plug and play solution for true personalisation.</p><div class="hw-top-ctas"><a href="/try" class="btn btn-primary btn-lg">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/30min" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Book a call</a></div></div><nav class="hw-ix" aria-label="The six steps"><a class="hw-ix-item" href="#connect"><span class="hw-ix-line" aria-hidden="true"></span><span class="hw-ix-n">01</span><span class="hw-ix-name">Connect</span></a><a class="hw-ix-item" href="#match"><span class="hw-ix-line" aria-hidden="true"></span><span class="hw-ix-n">02</span><span class="hw-ix-name">Match</span></a><a class="hw-ix-item" href="#design"><span class="hw-ix-line" aria-hidden="true"></span><span class="hw-ix-n">03</span><span class="hw-ix-name">Design</span></a><a class="hw-ix-item" href="#launch"><span class="hw-ix-line" aria-hidden="true"></span><span class="hw-ix-n">04</span><span class="hw-ix-name">Launch</span></a><a class="hw-ix-item" href="#recommend"><span class="hw-ix-line" aria-hidden="true"></span><span class="hw-ix-n">05</span><span class="hw-ix-name">Recommend</span></a><a class="hw-ix-item" href="#analyse"><span class="hw-ix-line" aria-hidden="true"></span><span class="hw-ix-n">06</span><span class="hw-ix-name">Analyse</span></a></nav></div></section>
+<div class="hw-steps">
 <section class="hw-step" id="connect"><span class="hw-anchor" id="step-1" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">01. CONNECT</span><h2>Start with your catalogue.</h2><p class="hw-lead">Connect Shopify, import a CSV, pick from our catalogue or add products by hand. Your catalogue is the starting point for every recommendation.</p><div class="hw-pills" role="tablist" aria-label="What to look at in the connect screen"><button class="hw-pill" type="button" role="tab" id="pill-connect-shopify" aria-selected="false" aria-controls="shot-connect" tabindex="0" data-zone-target="shopify">Shopify</button><button class="hw-pill" type="button" role="tab" id="pill-connect-csv" aria-selected="false" aria-controls="shot-connect" tabindex="-1" data-zone-target="csv">CSV</button><button class="hw-pill" type="button" role="tab" id="pill-connect-manual" aria-selected="false" aria-controls="shot-connect" tabindex="-1" data-zone-target="manual">Add by hand</button><button class="hw-pill" type="button" role="tab" id="pill-connect-our-data" aria-selected="false" aria-controls="shot-connect" tabindex="-1" data-zone-target="our-data">Our data</button></div><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Connect your catalogue with a click and it re-syncs on a schedule, so price and stock changes flow through on their own. Or upload a CSV and let us work out what goes where.</p></div></div><div class="hw-vis"><div class="hw-photo" style="--ph-ar:1200/900"><span class="hw-photo-note">Photo slot &#183; 1200 × 900</span><div class="hw-slot" role="img" aria-label="Adding a product to the catalogue — mockup to come"><span class="hw-slot-label">01. Connect mockup</span><span class="hw-slot-note">Adding a product to the catalogue</span></div></div></div></div></div></section><section class="hw-step hw-step--flip" id="match"><span class="hw-anchor" id="step-2" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">02. MATCH</span><h2>Connect products to the data.</h2><p class="hw-lead">Blend reads what&#8217;s in each product, matches it to its research database, and fills in the data the engine scores. You review every match before anything is saved.</p><div class="hw-pills" role="tablist" aria-label="What to look at in the match screen"><button class="hw-pill" type="button" role="tab" id="pill-match-ingredients" aria-selected="false" aria-controls="shot-match" tabindex="0" data-zone-target="ingredients">Ingredients</button><button class="hw-pill" type="button" role="tab" id="pill-match-goals-subgoals" aria-selected="false" aria-controls="shot-match" tabindex="-1" data-zone-target="goals-subgoals">Goals &amp; subgoals</button><button class="hw-pill" type="button" role="tab" id="pill-match-diet-safety" aria-selected="false" aria-controls="shot-match" tabindex="-1" data-zone-target="diet-safety">Diet &amp; safety</button><button class="hw-pill" type="button" role="tab" id="pill-match-review" aria-selected="false" aria-controls="shot-match" tabindex="-1" data-zone-target="review">Your review</button></div><dl class="hw-beats"><div class="hw-beat"><dt>What we read</dt><dd>Every ingredient, including the ones combined in a single product.</dd></div><div class="hw-beat"><dt>What we fill in</dt><dd>Goals, subgoals and who each product isn&#8217;t suitable for, from a research database.</dd></div><div class="hw-beat"><dt>What you approve</dt><dd>The scorer matches, Blend AI checks the hard cases, and nothing is saved until you apply.</dd></div></dl><p class="hw-bridge">That&#8217;s only the input. For every customer, the algorithm then scores each product across every factor. <a href="#recommend">See how it&#8217;s scored &#8595;</a></p><blockquote class="hw-quote"><p>Collagen comes from animals. Blend marks it not suitable for vegetarians, so a vegetarian customer never gets it.</p></blockquote><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>You never tag a product. Blend pre-fills everything the engine needs from what&#8217;s actually in it.</p></div><p class="hw-more"><a href="/science">How the models work &#8594;</a></p></div><div class="hw-vis"><div class="hw-photo" style="--ph-ar:900/620"><span class="hw-photo-note">Photo slot &#183; 900 × 620</span><div class="hw-slot" role="img" aria-label="Reviewing suggested matches before applying them — mockup to come"><span class="hw-slot-label">02. Match mockup</span><span class="hw-slot-note">Reviewing suggested matches before applying them</span></div></div></div></div></div></section><section class="hw-step" id="design"><span class="hw-anchor" id="step-3" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">03. DESIGN</span><h2>Your questions. Your look and feel.</h2><p class="hw-lead">Build the experience in your brand&#8217;s voice. Edit the content, adjust the design, and preview the quiz as your customers will see it.</p><div class="hw-pills" role="tablist" aria-label="What to look at in the design screen"><button class="hw-pill" type="button" role="tab" id="pill-design-questions" aria-selected="false" aria-controls="shot-design" tabindex="0" data-zone-target="questions">Questions &amp; content</button><button class="hw-pill" type="button" role="tab" id="pill-design-brand" aria-selected="false" aria-controls="shot-design" tabindex="-1" data-zone-target="brand">Brand &amp; typography</button><button class="hw-pill" type="button" role="tab" id="pill-design-layout" aria-selected="false" aria-controls="shot-design" tabindex="-1" data-zone-target="layout">Layout &amp; effects</button></div><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Fully bespoke, or let Blend AI draft it. Edits stay a draft until you publish.</p></div></div><div class="hw-vis"><div class="hw-slot" role="img" aria-label="A question being edited in the builder — mockup to come"><span class="hw-slot-label">03. Design mockup</span><span class="hw-slot-note">A question being edited in the builder</span></div></div></div></div></section><section class="hw-step hw-step--flip" id="launch"><span class="hw-anchor" id="step-4" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">04. LAUNCH</span><h2>Put it where customers shop.</h2><p class="hw-lead">Embed the quiz on a page, open it from a button as a pop-up, or share a direct link.</p><div class="hw-pills" role="tablist" aria-label="What to look at in the launch screen"><button class="hw-pill" type="button" role="tab" id="pill-launch-page" aria-selected="false" aria-controls="shot-launch" tabindex="0" data-zone-target="page">On a page</button><button class="hw-pill" type="button" role="tab" id="pill-launch-popup" aria-selected="false" aria-controls="shot-launch" tabindex="-1" data-zone-target="popup">Button + pop-up</button><button class="hw-pill" type="button" role="tab" id="pill-launch-link" aria-selected="false" aria-controls="shot-launch" tabindex="-1" data-zone-target="link">Direct link</button></div><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Paste one script once. Change how it shows any time without touching code, and lock it to your own domains.</p></div></div><div class="hw-vis"><div class="hw-slot" role="img" aria-label="The quiz embedded on a brand’s page — mockup to come"><span class="hw-slot-label">04. Launch mockup</span><span class="hw-slot-note">The quiz embedded on a brand’s page</span></div></div></div></div></section>
 </div>
-<div class="hw-flat">
+<div class="hw-steps">
 <section class="hw-step" id="recommend"><span class="hw-anchor" id="step-5" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">05. RECOMMEND</span><h2>Their answers. A plan of their own.</h2><p class="hw-lead">The algorithm scores every product in your catalogue against each customer&#8217;s answers, targets and your rules, then explains every pick.</p><div class="hw-pills" role="tablist" aria-label="What to look at in the recommend screen"><button class="hw-pill" type="button" role="tab" id="pill-recommend-scored" aria-selected="false" aria-controls="shot-recommend" tabindex="0" data-zone-target="scored">Scored</button><button class="hw-pill" type="button" role="tab" id="pill-recommend-personalised" aria-selected="false" aria-controls="shot-recommend" tabindex="-1" data-zone-target="personalised">Personalised</button><button class="hw-pill" type="button" role="tab" id="pill-recommend-safety" aria-selected="false" aria-controls="shot-recommend" tabindex="-1" data-zone-target="safety">Safety-checked</button><button class="hw-pill" type="button" role="tab" id="pill-recommend-explained" aria-selected="false" aria-controls="shot-recommend" tabindex="-1" data-zone-target="explained">Explained</button></div><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Not a tag match. Every product runs through a multi-layer algorithm that weighs the customer&#8217;s answers, the product&#8217;s own data and the safety rules, and every pick comes back with the reason and the method behind it.</p></div><p class="hw-more"><a href="/sample-report">See the full sample report &#8594;</a></p></div><div class="hw-vis"><div class="hw-slot" role="img" aria-label="A personalised plan, with the reason under every pick — mockup to come"><span class="hw-slot-label">05. Recommend mockup</span><span class="hw-slot-note">A personalised plan, with the reason under every pick</span></div></div></div></div></section><section class="hw-step hw-step--flip" id="analyse"><span class="hw-anchor" id="step-6" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">06. ANALYSE</span><h2>Learn from every journey.</h2><p class="hw-lead">See where customers engage, where they drop off, and what they need from your range.</p><div class="hw-pills" role="tablist" aria-label="What to look at in the analyse screen"><button class="hw-pill" type="button" role="tab" id="pill-analyse-quiz" aria-selected="false" aria-controls="shot-analyse" tabindex="0" data-zone-target="quiz">Quiz performance</button><button class="hw-pill" type="button" role="tab" id="pill-analyse-customers" aria-selected="false" aria-controls="shot-analyse" tabindex="-1" data-zone-target="customers">Customer insights</button><button class="hw-pill" type="button" role="tab" id="pill-analyse-gaps" aria-selected="false" aria-controls="shot-analyse" tabindex="-1" data-zone-target="gaps">Catalogue gaps</button><button class="hw-pill" type="button" role="tab" id="pill-analyse-products" aria-selected="false" aria-controls="shot-analyse" tabindex="-1" data-zone-target="products">Product insights</button></div><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>First-party data you own: who your customers are, what they came for, and what they expect a personalised range to include. Catalogue gaps turns that into what to stock next.</p></div></div><div class="hw-vis"><div class="hw-slot" role="img" aria-label="Quiz performance and catalogue gaps — mockup to come"><span class="hw-slot-label">06. Analyse mockup</span><span class="hw-slot-note">Quiz performance and catalogue gaps</span></div><p class="hw-cap">Demo data</p></div></div></div></section>
 </div>
 <section class="closer hw-closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact"><div class="wrap"><span class="eyebrow">From catalogue to customer</span><h2 class="h2">See it from your customer&#8217;s side.</h2><p class="lead">Take the quiz and explore a personalised result.</p><div class="closer-ctas"><a href="/try" class="btn btn-primary">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/30min" class="btn btn-ghost" target="_blank" rel="noopener">Book a call</a></div><p class="hw-closer-alt"><a href="/sample-report">See a sample report &#8594;</a></p></div></section>
