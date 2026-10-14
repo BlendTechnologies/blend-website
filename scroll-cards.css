@@ -187,10 +187,11 @@
   70%{transform:scale(1.45);opacity:0}
   100%{transform:scale(1.45);opacity:0}
 }
-/* Desktop only. Below that the hero runs taller than the viewport - the
-   two cards push it past 100svh - so the cue sits over them rather than
-   under them. */
-@media (max-width:960px){.sc-cue{display:none}}
+/* Only where the hero is two columns with the cards beside the copy.
+   Below 1200 they stack under it, the block runs taller than the viewport,
+   and a circle 32px above its bottom edge lands on the cards instead of
+   under them. Same breakpoint as the hero grid itself. */
+@media (max-width:1199px){.sc-cue{display:none}}
 @media (prefers-reduced-motion:reduce){
   .sc-cue{opacity:1}
   .sc-cue svg{animation:none}
