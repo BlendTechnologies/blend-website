@@ -125,10 +125,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
 .cta-alt a:hover{text-decoration-color:var(--gold-strong)}
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
-.hero-stage{position:relative;width:100%;height:560px}
+/* No height here. The plan card's own content and its own padding set
+   the height of the pair; see the composition block below. */
+.hero-stage{position:relative;width:100%}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
 .card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{position:absolute;top:0;left:0;width:61%;min-height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
+.quiz{width:61%;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -145,18 +147,30 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
-/* The pair is one object, so the two cards are always the same height.
-   The only thing that ever made them differ was the profile row wrapping
-   to a second line - at 761 and again between 1200 and 1300, where the
-   card is narrow enough that "Diabetes" drops below the other three. That
-   made the plan card 28px taller than the quiz beside it.
-   Side by side the grid row stretches both. Overlapping, the stage is
-   560px and the plan sits 112px down, so both cards are exactly what is
-   left: 448. Either way the deck below takes the difference, and the
-   auto margins inside the product card spread it. */
-.quiz,.results{height:calc(100% - 112px)}
-.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;
+/* ---- The pair, structurally --------------------------------------------
+   One rule, every width: the plan card's content plus its own fixed
+   padding is the height, and the quiz grows to it.
+
+   Neither card carries a height or a min-height of its own any more, and
+   the stage carries none either. That is what kept breaking: a fixed 560
+   stage and a 434 floor on each card meant the pair's height came from
+   three numbers that had nothing to do with what is in the plan card, so
+   every width where its profile row wrapped produced a different answer
+   and needed its own patch.
+
+   Side by side the two share a grid row, so the taller sets it and the
+   shorter stretches. Overlapping, the same thing in three rows: the plan
+   card's offset, the shared middle, the offset again. The quiz spans the
+   first two, the plan the last two, so both are exactly as tall as
+   whichever needs more - and that is the plan card, because of the deck.
+   The deck is the only thing in either card with a minimum. */
+.results{width:61%;padding:19px 18px 17px;z-index:3;min-width:0;
   display:flex;flex-direction:column}
+@media (min-width:1200px){
+  .hero-stage{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:112px auto 112px}
+  .quiz{grid-area:1/1/3/2;justify-self:start}
+  .results{grid-area:2/1/4/2;justify-self:end}
+}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* `backwards`, not `both`, over a visible base: the from-keyframe still
    hides the card through the 2s delay, and the end state is the base state
@@ -182,13 +196,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .quiz,.results{position:static;width:100%;height:auto}
 }
 /* ---- Section rhythm ---------------------------------------------------
-   Every section is a chapter. Generous separation between them, controlled
-   spacing inside them — the two have to move in opposite directions or the
-   page reads as one undifferentiated column. Majors run 120, supporting
-   sections 112: enough to rank them, not enough to read as a different
-   page. Alignment is untouched. */
-.section{padding:120px 0}
-.section--tight{padding:112px 0}
+   Three numbers, declared once, and every seam on the page is made of
+   them. A major section pays --sec, a supporting one --sec-tight, and
+   where two cream sections meet with no colour change to divide them the
+   lower one pays --sec-join instead of its own, because there the two
+   paddings are one continuous void rather than a pause either side of an
+   edge.
+
+   What a reader actually sees between two sections, measured content to
+   content, is 120 to 128 across the whole desktop page. Against a dark
+   card it is the cream section's padding plus the card's 40px inset, and
+   the 80px inside the card is the card's own room, not a gap. The hero
+   reads the same: its card edge sits ~115px above the next heading.
+   Tablet and phone keep the values they already had. */
+:root{--sec:88px;--sec-tight:80px;--sec-join:40px}
+@media(max-width:860px){:root{--sec-join:44px}}
+@media(max-width:760px){:root{--sec:72px;--sec-tight:72px;--sec-join:36px}}
+.section{padding:var(--sec) 0}
+.section--tight{padding:var(--sec-tight) 0}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:14px;display:inline-block}
 .section-head .h2{margin-bottom:20px}
@@ -212,18 +237,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    that runs to the next `{` swallowed the whole 860 rule behind it — which
    is how every section below 760 came to carry its desktop padding. */
 .hero + .section-cream,
-.section-cream + .section-cream{padding-top:56px}
-@media(max-width:860px){
-  .section{padding:88px 0}
-  .section--tight{padding:80px 0}
-  .section-head{margin-bottom:48px}
-  .hero + .section-cream,
-  .section-cream + .section-cream{padding-top:44px}
-}
-@media(max-width:760px){
-  .hero + .section-cream,
-  .section-cream + .section-cream{padding-top:36px}
-}
+.section-cream + .section-cream{padding-top:var(--sec-join)}
+@media(max-width:860px){.section-head{margin-bottom:48px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
 .step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
 /* Muted amber-beige, not the full gold: six cards in a grid each wearing a
@@ -725,8 +740,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    become horizontally-snapping swipe carousels with edge bleed.
    ============================================================ */
 @media (max-width:760px){
-  /* a chapter still needs a pause on a phone, just a shorter one */
-  .section,.section--tight{padding:72px 0}
+  /* a chapter still needs a pause on a phone, just a shorter one: the
+     tokens at the top of the rhythm block carry it. */
   .section-head{margin-bottom:36px;padding:0 4px}
   .closer{padding:80px 0}
   .wl-section{padding:64px 0}
