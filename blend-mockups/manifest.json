@@ -18,31 +18,40 @@
     "description": "The plan itself, with the reason, the timing and the serving under every product."
   },
   {
-    "id": "connect-manual",
-    "file": "connect-manual.html",
-    "png": "connect-manual.png",
-    "designWidth": 980,
-    "aspectRatio": 1.333,
-    "reveals": 0,
-    "description": "Adding a product by hand, part filled."
+    "id": "connect-sources",
+    "file": "connect-sources.html",
+    "png": "connect-sources.png",
+    "designWidth": 900,
+    "aspectRatio": 1.915,
+    "reveals": 3,
+    "description": "Any source of product data, arriving at Blend."
   },
   {
     "id": "match-review",
     "file": "match-review.html",
     "png": "match-review.png",
     "designWidth": 980,
-    "aspectRatio": 1.766,
+    "aspectRatio": 0.878,
     "reveals": 0,
     "description": "Three catalogue products matched to the master list, ready to apply."
   },
   {
-    "id": "design-questions",
-    "file": "design-questions.html",
-    "png": "design-questions.png",
-    "designWidth": 900,
-    "aspectRatio": 0.643,
-    "reveals": 2,
-    "description": "A question as the brand's customer sees it, in the brand's own styling."
+    "id": "design-editor",
+    "file": "design-editor.html",
+    "png": "design-editor.png",
+    "designWidth": 1440,
+    "aspectRatio": 1.078,
+    "reveals": 0,
+    "description": "The editor: every screen on the left, the customer's screen on the canvas, the controls on the right."
+  },
+  {
+    "id": "launch-embed",
+    "file": "launch-embed.html",
+    "png": "launch-embed.png",
+    "designWidth": 640,
+    "aspectRatio": 0.749,
+    "reveals": 0,
+    "description": "The snippet a brand pastes, and the direct link beside it."
   },
   {
     "id": "analyse-quiz",

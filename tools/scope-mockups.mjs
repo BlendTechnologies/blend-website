@@ -78,7 +78,7 @@ await writeFile(join(OUT, 'mockups.css'),
 const files = await readdir(SRC);
 let copied = 0;
 for (const f of files) {
-  if (f.endsWith('.html') || f === 'manifest.json') { await copyFile(join(SRC, f), join(OUT, f)); copied++; }
+  if (f.endsWith('.html') || f.endsWith('.png') || f === 'manifest.json') { await copyFile(join(SRC, f), join(OUT, f)); copied++; }
 }
 
 console.log(`css: ${lines.length} lines in, ${kept.length} out, ${dropped} @font-face dropped`);

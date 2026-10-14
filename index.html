@@ -641,10 +641,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vlead-name{margin:14px 0 0;font-size:clamp(22px,2.4vw,28px);line-height:1.15;letter-spacing:-.02em;font-weight:600;color:#F5F3EF}
 .vlead-note{margin:12px 0 0;font-size:15px;line-height:1.6;color:rgba(245,243,239,.72);max-width:34ch}
 .vlead-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:22px}
-.vlead-tags span{font-size:12.5px;font-weight:500;color:rgba(231,207,163,.92);background:rgba(255,255,255,.06);
+.vlead-tags span,.vlead-tags a{font-size:12.5px;font-weight:500;color:rgba(231,207,163,.92);background:rgba(255,255,255,.06);
   border:1px solid rgba(231,207,163,.26);border-radius:999px;padding:5px 12px}
 .vlead .vbadge-live{background:rgba(40,88,50,.6);color:#D9E9D6;border:1px solid rgba(106,168,79,.32)}
 
+.vlead-tags a{text-decoration:none;cursor:pointer;
+  transition:border-color .18s ease,color .18s ease}
+.vlead-tags a:hover{border-color:rgba(255,255,255,.55);color:var(--white)}
+.vlead-tags a:focus-visible{outline:2px solid var(--sand);outline-offset:2px}
+/* The site's secondary button, on a dark card: same height, same radius,
+   a border that comes up to full on hover and an arrow that moves with it. */
+.vlead-cta{display:inline-flex;align-items:center;gap:8px;margin-top:24px;align-self:flex-start;
+  min-height:44px;padding:12px 20px;border-radius:8px;border:1px solid rgba(255,255,255,.35);
+  background:transparent;color:var(--white);font-size:14px;font-weight:600;letter-spacing:-.005em;
+  transition:border-color .18s ease,background .18s ease}
+.vlead-cta span{transition:transform .18s ease}
+.vlead-cta:hover{border-color:var(--white);background:rgba(255,255,255,.06)}
+.vlead-cta:hover span{transform:translateX(2px)}
+.vlead-cta:focus-visible{outline:2px solid var(--sand);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.vlead-cta span{transition:none}}
 .vnext{display:flex;flex-direction:column;gap:8px}
 .vnext-cap{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .vrow{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:13px 14px;flex:1;transition:border-color .18s ease,transform .18s ease}
@@ -687,7 +702,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vlead-copy{padding:24px 20px 22px;max-width:88%}
   .vlead-note{max-width:23ch}
   .vlead-tags{padding-top:18px;gap:6px}
-  .vlead-tags span{font-size:12px;padding:4px 10px}
+  .vlead-tags span,.vlead-tags a{font-size:12px;padding:4px 10px}
   .vrow{grid-template-columns:34px minmax(0,1fr);row-gap:8px;padding:12px}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
@@ -706,6 +721,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer > .wrap{position:relative;z-index:1}
 .closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px);color:var(--white)}
 .closer .lead{margin:0 auto 32px;max-width:520px;color:var(--muted-on-dark)}
+.closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 /* The outlined button is drawn for ink on cream, so it gets a light
    counterpart here rather than a near-invisible dark outline on black. */
@@ -1699,7 +1715,8 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
           <span class="vbadge vbadge-live"><i class="vdot"></i>Live today</span>
           <h3 class="vlead-name">Health and wellness</h3>
           <p class="vlead-note">Personalised product recommendations for supplement and wellness brands.</p>
-          <div class="vlead-tags"><span>Supplement brands</span><span>Sports nutrition</span><span>Gyms &amp; studios</span><span>Clinics &amp; practitioners</span><span>Retailers</span></div>
+          <div class="vlead-tags"><a href="/use-cases#supplement-brands">Supplement brands</a><a href="/use-cases#sports-nutrition">Sports nutrition</a><a href="/use-cases#gyms-studios">Gyms &amp; studios</a><a href="/use-cases#clinics-practitioners">Clinics &amp; practitioners</a><a href="/use-cases#retailers">Retailers</a></div>
+          <a class="vlead-cta" href="/use-cases">Explore use cases <span aria-hidden="true">&#8594;</span></a>
         </div>
       </article>
       <div class="vnext">
@@ -1814,6 +1831,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 </section>
 <section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
+    <span class="eyebrow">Get started</span>
     <h2 class="h1">Put your catalogue to work.</h2>
     <p class="lead">Try the demo, or book 15 minutes with us.</p>
     <div class="closer-ctas">

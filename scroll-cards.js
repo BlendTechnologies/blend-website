@@ -18,12 +18,13 @@
    ============================================================ */
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var heroes, reveals, endcap, queued = false;
+  var heroes, reveals, endcap, zooms, queued = false;
 
   function collect() {
     heroes  = [].slice.call(document.querySelectorAll('[data-sc="hero"]'));
     reveals = [].slice.call(document.querySelectorAll('[data-sc="reveal"]'));
     endcap  = [].slice.call(document.querySelectorAll('[data-sc="endcap"]'));
+    zooms   = [].slice.call(document.querySelectorAll('[data-sc="zoom"]'));
   }
 
   function clamp(n) { return n < 0 ? 0 : (n > 1 ? 1 : n); }
@@ -46,6 +47,14 @@
          of reach and out of the tab order once it has, so there is never an
          invisible button sitting over the page. */
       el.classList.toggle('is-cue-gone', p > 0.15);
+    });
+
+    /* 1 when the element's middle is at the middle of the screen, falling
+       away to 0 as it reaches either edge. */
+    zooms.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      var mid = r.top + r.height / 2;
+      set(el, clamp(1 - Math.abs(mid - vh / 2) / (vh * 0.75)));
     });
 
     reveals.forEach(function (el) {
@@ -78,6 +87,7 @@
     heroes.concat(reveals, endcap).forEach(function (el) {
       el.style.removeProperty('--sc-p');
     });
+    zooms.forEach(function (el) { el.style.removeProperty('--sc-p'); });
   }
 
   /* The cue scrolls to whatever it names. A <button> already fires click
@@ -95,7 +105,7 @@
   function start() {
     collect();
     wireCue();
-    if (!heroes.length && !reveals.length && !endcap.length) return;
+    if (!heroes.length && !reveals.length && !endcap.length && !zooms.length) return;
     if (!window.requestAnimationFrame) return;
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
