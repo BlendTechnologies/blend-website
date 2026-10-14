@@ -1380,7 +1380,7 @@ html,body{max-width:100%;overflow-x:clip}
    scoring it drives, the recommendation that comes out - and nothing said
    so. Two chevrons in the column gaps do, without claiming the picture is
    a live calculation. Only while the three sit side by side. */
-.eng-band{position:relative}
+.eng-band{position:relative;min-width:0}
 @media(min-width:1101px){
   .eng-band:not(:last-child)::after{content:"";position:absolute;right:-16px;top:3px;
     width:7px;height:7px;border-right:1.5px solid rgba(255,255,255,.32);
@@ -1422,6 +1422,7 @@ html,body{max-width:100%;overflow-x:clip}
           mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
 .eng-track{display:flex;flex-direction:column;gap:11px;animation:eng-drift 44s linear infinite}
 @keyframes eng-drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes eng-drift-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .eng-word{white-space:nowrap;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.4);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
 .eng-word.is-key{color:var(--white);font-weight:600}
 /* Conditions and medications: the signals that rule products out, which is
@@ -1464,7 +1465,11 @@ html,body{max-width:100%;overflow-x:clip}
    the track keeps a plan row the same shape at every size. */
 .eng-plan .eng-track{max-width:300px}
 
-@media(max-width:1000px){
+/* 1100, not 1000: three bands abreast leave the catalogue column about
+   300px at 1024, which is a 9px cell against 19px at 1440 - the same
+   squashing the phone had, one breakpoint up. Stacked, it gets the whole
+   width and the cells come back to 34px. */
+@media(max-width:1100px){
   /* One band per row, in source order. Lifting the catalogue to the top
      put a full-width matrix in front of the answers that feed it, and with
      each label and caption now sitting under its own animation the
@@ -1475,7 +1480,19 @@ html,body{max-width:100%;overflow-x:clip}
   /* Stacked, the bands no longer need to match heights, so the grid sizes
      from its own column count and the cells come out square. */
   .eng-grid{height:auto;aspect-ratio:24/10}
-  .eng-feed{height:208px}
+  /* Stacked, a feed has the whole width and no height to spare, so it
+     rolls sideways instead of down: same list, same loop, one axis over.
+     As a column it was a tall sparse box with four words showing. */
+  .eng-feed{height:46px;display:flex;align-items:center;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
+            mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
+  .eng-track{flex-direction:row;align-items:center;gap:22px;animation-name:eng-drift-x}
+  /* The per-word fade reads as depth in a column and as a hole in a strip:
+     a word going transparent mid-roll leaves a gap in the line. The roll
+     carries the motion on its own here. */
+  .eng-word{animation-name:none;opacity:1}
+  .eng-row{width:auto;justify-content:flex-start;gap:8px}
+  .eng-plan .eng-track{max-width:none}
   .eng-figs{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(max-width:560px){
@@ -1485,12 +1502,19 @@ html,body{max-width:100%;overflow-x:clip}
      read, catalogue scored, the plan - so restore it here, and flatten the
      grid so none of the three costs a screen. */
   .eng-band:nth-child(2){order:0}
-  .eng-grid{grid-template-columns:repeat(20,1fr);grid-template-rows:repeat(9,1fr);aspect-ratio:20/9;gap:3px}
+  /* Fewer boxes, the same size. 24 columns inside 303px of phone made an
+     8.8px cell against 19.5px on desktop, which is what turned the
+     catalogue into a texture. 11 columns puts it back to 24px, and the
+     cells past the seventh row simply do not render. */
+  .eng-grid{grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(7,1fr);aspect-ratio:11/7;gap:4px}
+  .eng-cell:nth-child(n+78){display:none}
   .eng-example{margin-top:36px}
-  .eng{grid-template-columns:1fr;margin-top:40px;gap:26px}
-  .eng-feed{height:172px}
+  /* minmax(0,1fr), not 1fr. A grid item's automatic minimum is min-content,
+     and the feed's track is now a single row of 52 nowrap words, so a plain
+     1fr column resolved to the width of that row and took the catalogue's
+     cells with it: 570px each. */
+  .eng{grid-template-columns:minmax(0,1fr);margin-top:40px;gap:26px}
   .eng-word{font-size:13px}
-  .eng-plan .eng-track{max-width:none}
   .eng-figs{grid-template-columns:1fr;gap:24px;margin-top:40px}
 }
 @media(prefers-reduced-motion:reduce){
