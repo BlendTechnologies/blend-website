@@ -47,7 +47,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
 /* At rest the bar is the beige this page starts with, so the seam is not
    there to find; scrolled, it goes back to being a bar over content. */
-.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.85));backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease,background-color .2s ease;--nav-bg:var(--hero-beige)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.85));backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease,background-color .2s ease;--nav-bg:var(--cream)}
 .nav.scrolled{background:rgba(255,255,255,.82)}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
@@ -63,11 +63,9 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .nav-toggle span::before{top:0}.nav-toggle span i{top:6px;display:block}.nav-toggle span::after{top:12px}
 .nav.open .nav-toggle span::before{top:6px;transform:rotate(45deg)}.nav.open .nav-toggle span::after{top:6px;transform:rotate(-45deg)}.nav.open .nav-toggle span i{opacity:0}
 @media(max-width:860px){.nav-inner{grid-template-columns:1fr auto}.nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(250,248,242,.98);backdrop-filter:blur(14px);flex-direction:column;gap:0;margin:0;padding:8px 20px 24px;border-bottom:1px solid var(--line);box-shadow:var(--shadow-md);justify-self:stretch}.nav.open .nav-links{display:flex}.nav-links a{width:100%;padding:16px 4px;font-size:16px;border-bottom:1px solid var(--line)}.nav-links a:last-child{border-bottom:0}.nav-login{display:none}.nav-toggle{display:inline-flex}.nav-actions .btn{padding:8px 16px;font-size:14px}}
-/* The site's hero card: beige, corners rounding off as it scrolls away,
-   at this page's height rather than a full screen. */
-.hero{padding:80px 0 72px;text-align:center}
-.hero.sc-hero{min-height:0}
-.hero > .wrap{width:100%}
+/* One light beige from the top of the page to the closing band: no card,
+   no shrink, nothing for the eye to catch on before the content. */
+.hero{padding:80px 0 72px;text-align:center;background:var(--cream)}
 .hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
 .hero-title{margin:0}
@@ -181,7 +179,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 <main id="main">
 
-<section class="hero sc-hero" data-sc="hero">
+<section class="hero">
   <div class="wrap">
     <div class="hero-inner">
       <span class="hero-eyebrow">Use cases</span>

@@ -34,7 +34,11 @@
    the state reduced motion keeps: the hero already a card, every reveal
    already open. The handler never writes under reduced motion, so an
    inline value can never beat this. */
-:root{--hero-beige:#F4EFE5}
+/* The component carries the tokens it needs. A page that does not define
+   --sand or --muted-on-dark used to get white for both, because an
+   undefined var() falls back to inheritance - which is how the use-cases
+   closing band ended up with a white eyebrow and a white lead. */
+:root{--hero-beige:#F4EFE5;--sand:#E7CFA3;--muted-on-dark:rgba(255,255,255,.72)}
 .sc-hero{--sc-p:0}
 .sc-reveal{--sc-p:0}
 @media (prefers-reduced-motion:reduce){
