@@ -125,10 +125,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
 .cta-alt a:hover{text-decoration-color:var(--gold-strong)}
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
-.hero-stage{position:relative;width:100%;height:560px}
+/* No height here. The plan card's own content and its own padding set
+   the height of the pair; see the composition block below. */
+.hero-stage{position:relative;width:100%}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
 .card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{position:absolute;top:0;left:0;width:61%;min-height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
+.quiz{width:61%;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -145,7 +147,30 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
-.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
+/* ---- The pair, structurally --------------------------------------------
+   One rule, every width: the plan card's content plus its own fixed
+   padding is the height, and the quiz grows to it.
+
+   Neither card carries a height or a min-height of its own any more, and
+   the stage carries none either. That is what kept breaking: a fixed 560
+   stage and a 434 floor on each card meant the pair's height came from
+   three numbers that had nothing to do with what is in the plan card, so
+   every width where its profile row wrapped produced a different answer
+   and needed its own patch.
+
+   Side by side the two share a grid row, so the taller sets it and the
+   shorter stretches. Overlapping, the same thing in three rows: the plan
+   card's offset, the shared middle, the offset again. The quiz spans the
+   first two, the plan the last two, so both are exactly as tall as
+   whichever needs more - and that is the plan card, because of the deck.
+   The deck is the only thing in either card with a minimum. */
+.results{width:61%;padding:19px 18px 17px;z-index:3;min-width:0;
+  display:flex;flex-direction:column}
+@media (min-width:1200px){
+  .hero-stage{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:112px auto 112px}
+  .quiz{grid-area:1/1/3/2;justify-self:start}
+  .results{grid-area:2/1/4/2;justify-self:end}
+}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* `backwards`, not `both`, over a visible base: the from-keyframe still
    hides the card through the 2s delay, and the end state is the base state
@@ -155,7 +180,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    plan card invisible and none of its design was ever regression-guarded. */
 .results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
-@media(max-width:960px){
+@media(max-width:1199px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
   /* A grid item's automatic minimum is min-content, and `1fr` is really
      minmax(auto,1fr), so one wide descendant drags the whole track with it.
@@ -168,16 +193,27 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .hero-grid,.hero-copy,.hero-visual{min-width:0}
   .hero-visual{min-height:auto;padding-top:0}
   .hero-stage{height:auto;display:flex;flex-direction:column;gap:20px}
-  .quiz,.results{position:static;width:100%}
+  .quiz,.results{position:static;width:100%;height:auto}
 }
 /* ---- Section rhythm ---------------------------------------------------
-   Every section is a chapter. Generous separation between them, controlled
-   spacing inside them — the two have to move in opposite directions or the
-   page reads as one undifferentiated column. Majors run 120, supporting
-   sections 112: enough to rank them, not enough to read as a different
-   page. Alignment is untouched. */
-.section{padding:120px 0}
-.section--tight{padding:112px 0}
+   Three numbers, declared once, and every seam on the page is made of
+   them. A major section pays --sec, a supporting one --sec-tight, and
+   where two cream sections meet with no colour change to divide them the
+   lower one pays --sec-join instead of its own, because there the two
+   paddings are one continuous void rather than a pause either side of an
+   edge.
+
+   What a reader actually sees between two sections, measured content to
+   content, is 120 to 128 across the whole desktop page. Against a dark
+   card it is the cream section's padding plus the card's 40px inset, and
+   the 80px inside the card is the card's own room, not a gap. The hero
+   reads the same: its card edge sits ~115px above the next heading.
+   Tablet and phone keep the values they already had. */
+:root{--sec:88px;--sec-tight:80px;--sec-join:40px}
+@media(max-width:860px){:root{--sec-join:44px}}
+@media(max-width:760px){:root{--sec:72px;--sec-tight:72px;--sec-join:36px}}
+.section{padding:var(--sec) 0}
+.section--tight{padding:var(--sec-tight) 0}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:14px;display:inline-block}
 .section-head .h2{margin-bottom:20px}
@@ -194,22 +230,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    hole rather than a pause. There the lower section gives up half its top
    padding and the pair settles near 170 — halved, not collapsed. An earlier
    pass took it to zero and the sections ran together. */
+/* The closing band is a dark card, so its padding is the room inside it
+   rather than a gap between two cream sections: it is no longer in these
+   lists. The cream-to-cream pairs still are. Dropping the declaration along
+   with the selector left three selector lists with no block, and a prelude
+   that runs to the next `{` swallowed the whole 860 rule behind it — which
+   is how every section below 760 came to carry its desktop padding. */
 .hero + .section-cream,
-.section-cream + .section-cream,
-.section-cream + .closer{padding-top:88px}
-@media(max-width:860px){
-  .section{padding:88px 0}
-  .section--tight{padding:80px 0}
-  .section-head{margin-bottom:48px}
-  .hero + .section-cream,
-  .section-cream + .section-cream,
-  .section-cream + .closer{padding-top:44px}
-}
-@media(max-width:760px){
-  .hero + .section-cream,
-  .section-cream + .section-cream,
-  .section-cream + .closer{padding-top:36px}
-}
+.section-cream + .section-cream{padding-top:var(--sec-join)}
+@media(max-width:860px){.section-head{margin-bottom:48px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
 .step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
 /* Muted amber-beige, not the full gold: six cards in a grid each wearing a
@@ -504,8 +533,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-mark svg{width:38px;height:38px;flex:0 0 auto;color:var(--ink)}
 .tier-mark-note{font-size:14px;color:var(--muted);font-weight:400}
 .tier-blurb{font-size:14px;color:var(--ink-80);margin:0;min-height:44px;line-height:1.5}
-.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0}
-.tier-list li{display:flex;gap:8px;align-items:center;font-size:14px;line-height:1.5;color:var(--ink-80)}
+/* minmax, not a fixed 25px: a feature that wrapped to two lines
+   overflowed its row and sat on top of the next one, which is what made
+   three-up pricing look broken between 861 and 1100. */
+.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:minmax(25px,auto);gap:0}
+.tier-list li{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:14px;line-height:1.5;color:var(--ink-80);padding:2px 0}
 .tier-list li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23B47F39' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;margin-top:3px;flex-shrink:0}
 .tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
 .tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
@@ -535,6 +567,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .pricing-foot details[open] summary{border-bottom-color:var(--ink)}
 .pricing-foot details p{margin-top:14px;color:var(--ink-80);max-width:560px;margin-left:auto;margin-right:auto;text-align:left;background:var(--white);padding:16px;border:1px solid var(--line);border-radius:8px;font-size:14px}
 @media(max-width:860px){.pricing{grid-template-columns:1fr}}
+/* Three columns inside a viewport narrower than the 1100px the grid is
+   drawn for leaves each card around 268px. It keeps three columns - seeing
+   all three plans at once is the point of the section - and gives back the
+   padding instead. */
+@media (min-width:861px) and (max-width:1100px){
+  .tier{padding:24px 20px;gap:13px}
+  .tier-list li{font-size:13.5px}
+}
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
 .faq-item > summary{padding:20px 4px;font-size:16px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
@@ -667,6 +707,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
 .closer-foot a:hover{border-bottom-color:var(--white)}
 .footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:80px 0 32px}
+@media (max-width:760px){.footer{padding:76px 0 28px}}
 .footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -699,10 +740,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    become horizontally-snapping swipe carousels with edge bleed.
    ============================================================ */
 @media (max-width:760px){
-  /* a chapter still needs a pause on a phone, just a shorter one */
-  .section,.section--tight{padding:72px 0}
+  /* a chapter still needs a pause on a phone, just a shorter one: the
+     tokens at the top of the rhythm block carry it. */
   .section-head{margin-bottom:36px;padding:0 4px}
-  .closer{padding:72px 0}
+  .closer{padding:80px 0}
   .wl-section{padding:64px 0}
   .science{padding:72px 0}
   .hero-grid{gap:24px}
@@ -819,16 +860,23 @@ html,body{max-width:100%;overflow-x:clip}
   .pricing>:last-child{scroll-snap-align:end;margin-right:32px}
 }
 
-/* ---- Tablet (761-960): the hero goes two-up, not one-wide --------------
-   Same complaint as the block above, same cause: below 961 the desktop grid
-   collapses to one column, and a hero card then runs the full wrap width —
-   734px at 834, with "Serving" stranded 600px from "When" and a full-width
-   Add to cart. The hero is exactly two cards, so it does not need the swipe
-   the three-card rails needed: two tracks put each card at 340-440px, which
-   brackets the 382px it has on desktop, and the whole hero still fits one
-   screen instead of stacking to ~900px. */
-@media (min-width:761px) and (max-width:960px){
-  .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+/* ---- Between a phone and a desktop (761-1199): the hero goes two-up ----
+   Same complaint as the block above, same cause: where the desktop grid
+   collapses to one column a hero card runs the full wrap width — 727px at
+   834, with "Serving" stranded 600px from "When" and a full-width Add to
+   cart. The hero is exactly two cards, so it does not need the swipe the
+   three-card rails needed: two tracks put each card at 318px at 761 and
+   543px at 1199, against the 369px it has at 1440.
+
+   The range now runs to 1199 rather than 960, because the overlapping
+   composition it replaces needs room the widths below 1200 do not have.
+   The two cards keep a constant 36% overlap at every width, so at 1024 the
+   stage column is 445px, each card 280px, and barely 179px of the quiz is
+   left showing to the left of the plan card: the layering stops reading as
+   depth and starts reading as one card sitting on top of another. Side by
+   side, both are whole. */
+@media (min-width:761px) and (max-width:1199px){
+  .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .quiz,.results{width:auto}
 }
 
@@ -896,7 +944,7 @@ html,body{max-width:100%;overflow-x:clip}
   /* Kept on phones now: the hero owns a full screen, the eyebrow is the
      line that says what Blend is, and the content sits at the top rather
      than filling the height, so there is room for it. */
-  .hero-eyebrow{display:inline-block;max-width:30ch}
+  .hero-eyebrow{max-width:30ch}
   /* .hero-stage carries width:100% from its base rule, which pins it to the
      wrap width so the negative bleed margins only shifted it left instead of
      widening it. It bled on the left and stopped 40px short on the right. */
@@ -1263,8 +1311,8 @@ html,body{max-width:100%;overflow-x:clip}
 /* The gap lives on the card, and the deck pulls back by the same amount, so
    two cards never touch mid-swipe and the resting card still lines up with
    the edges of the one it sits in. */
-.pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px}
-.pc-track{display:flex;width:600%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
+.pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px;flex:1;min-height:301px}
+.pc-track{display:flex;width:600%;height:100%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
 .pc-slide{width:16.6667%;flex:0 0 16.6667%;display:flex}
 @keyframes pc-swipe{
   0%,15%{transform:translateX(0)}
@@ -1275,7 +1323,7 @@ html,body{max-width:100%;overflow-x:clip}
   90%,100%{transform:translateX(-83.3334%)}
 }
 .pc>*{flex-shrink:0}
-.pc{flex:1;min-height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
+.pc{flex:1;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
   background:#171717;border:1px solid #30302D;border-radius:13px;color:#F5F3EF}
 .pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
   letter-spacing:.15em;text-transform:uppercase;color:#97948C}
@@ -1331,7 +1379,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 @media(prefers-reduced-motion:reduce){.pc-track{animation:none !important}}
 @media(max-width:560px){
-  .pc{min-height:292px}
+  .pc-deck{min-height:292px}
   .rtitle{font-size:20px}
   /* the breakdown's description takes a second line at this width, and the
      card is nine pixels shorter; the rows give that back. */
@@ -1367,7 +1415,7 @@ html,body{max-width:100%;overflow-x:clip}
    scoring it drives, the recommendation that comes out - and nothing said
    so. Two chevrons in the column gaps do, without claiming the picture is
    a live calculation. Only while the three sit side by side. */
-.eng-band{position:relative}
+.eng-band{position:relative;min-width:0}
 @media(min-width:1101px){
   .eng-band:not(:last-child)::after{content:"";position:absolute;right:-16px;top:3px;
     width:7px;height:7px;border-right:1.5px solid rgba(255,255,255,.32);
@@ -1409,6 +1457,7 @@ html,body{max-width:100%;overflow-x:clip}
           mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
 .eng-track{display:flex;flex-direction:column;gap:11px;animation:eng-drift 44s linear infinite}
 @keyframes eng-drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes eng-drift-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .eng-word{white-space:nowrap;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.4);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
 .eng-word.is-key{color:var(--white);font-weight:600}
 /* Conditions and medications: the signals that rule products out, which is
@@ -1451,15 +1500,34 @@ html,body{max-width:100%;overflow-x:clip}
    the track keeps a plan row the same shape at every size. */
 .eng-plan .eng-track{max-width:300px}
 
-@media(max-width:1000px){
-  /* Three bands abreast would leave the grid 236px for 24 columns, so the
-     catalogue goes full width on top and the two feeds sit under it. */
-  .eng{grid-template-columns:1fr 1fr;gap:34px 26px}
-  .eng-band:nth-child(2){grid-column:1/-1;order:-1}
+/* 1100, not 1000: three bands abreast leave the catalogue column about
+   300px at 1024, which is a 9px cell against 19px at 1440 - the same
+   squashing the phone had, one breakpoint up. Stacked, it gets the whole
+   width and the cells come back to 34px. */
+@media(max-width:1100px){
+  /* One band per row, in source order. Lifting the catalogue to the top
+     put a full-width matrix in front of the answers that feed it, and with
+     each label and caption now sitting under its own animation the
+     sequence read catalogue, its caption, then two feeds and their
+     captions: the story out of order and split across a column break. */
+  .eng{grid-template-columns:minmax(0,1fr);gap:34px 0}
+  .eng-band:nth-child(2){grid-column:auto;order:0}
   /* Stacked, the bands no longer need to match heights, so the grid sizes
      from its own column count and the cells come out square. */
   .eng-grid{height:auto;aspect-ratio:24/10}
-  .eng-feed{height:208px}
+  /* Stacked, a feed has the whole width and no height to spare, so it
+     rolls sideways instead of down: same list, same loop, one axis over.
+     As a column it was a tall sparse box with four words showing. */
+  .eng-feed{height:46px;display:flex;align-items:center;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
+            mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
+  .eng-track{flex-direction:row;align-items:center;gap:22px;animation-name:eng-drift-x}
+  /* The per-word fade reads as depth in a column and as a hole in a strip:
+     a word going transparent mid-roll leaves a gap in the line. The roll
+     carries the motion on its own here. */
+  .eng-word{animation-name:none;opacity:1}
+  .eng-row{width:auto;justify-content:flex-start;gap:8px}
+  .eng-plan .eng-track{max-width:none}
   .eng-figs{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(max-width:560px){
@@ -1469,12 +1537,19 @@ html,body{max-width:100%;overflow-x:clip}
      read, catalogue scored, the plan - so restore it here, and flatten the
      grid so none of the three costs a screen. */
   .eng-band:nth-child(2){order:0}
-  .eng-grid{grid-template-columns:repeat(20,1fr);grid-template-rows:repeat(9,1fr);aspect-ratio:20/9;gap:3px}
+  /* Fewer boxes, the same size. 24 columns inside 303px of phone made an
+     8.8px cell against 19.5px on desktop, which is what turned the
+     catalogue into a texture. 11 columns puts it back to 24px, and the
+     cells past the seventh row simply do not render. */
+  .eng-grid{grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(7,1fr);aspect-ratio:11/7;gap:4px}
+  .eng-cell:nth-child(n+78){display:none}
   .eng-example{margin-top:36px}
-  .eng{grid-template-columns:1fr;margin-top:40px;gap:26px}
-  .eng-feed{height:172px}
+  /* minmax(0,1fr), not 1fr. A grid item's automatic minimum is min-content,
+     and the feed's track is now a single row of 52 nowrap words, so a plain
+     1fr column resolved to the width of that row and took the catalogue's
+     cells with it: 570px each. */
+  .eng{grid-template-columns:minmax(0,1fr);margin-top:40px;gap:26px}
   .eng-word{font-size:13px}
-  .eng-plan .eng-track{max-width:none}
   .eng-figs{grid-template-columns:1fr;gap:24px;margin-top:40px}
 }
 @media(prefers-reduced-motion:reduce){
@@ -1510,6 +1585,22 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   .hw-head{margin-bottom:32px}
   .hw-cols{grid-template-columns:1fr;gap:14px}
   .hw-col{padding:22px 20px}
+}
+/* The hero eyebrow is desktop only. Below the two-column hero the
+   headline is the first thing a reader meets, and two lines of uppercase
+   above it only delay it. Last in the file so the earlier phone rules
+   cannot turn it back on. */
+@media (max-width:960px){
+  .hero-eyebrow{display:none}
+}
+/* ---- Phone: the two left-aligned introductions centre -----------------
+   Both are a short stack - eyebrow, heading, one paragraph - sitting alone
+   on a narrow screen with nothing beside them to align to. The FAQ's left
+   column exists to sit next to the accordion, and on a phone it does not. */
+@media (max-width:560px){
+  .science-head{text-align:center}
+  .faq-split .faq-intro{text-align:center}
+  .faq-split .faq-ask{margin-top:22px}
 }
 </style>
 </head>
