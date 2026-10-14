@@ -154,3 +154,21 @@
   .sc-hero > .wrap{padding-inline:calc(var(--sc-inset) + 16px)}
   .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 12px)}
 }
+
+/* ---- What sits on a dark reveal ---------------------------------------
+   The reveal paints a near-black card behind a section that is otherwise
+   cream, so everything inside it has to switch colour with it. These were
+   written inline on the homepage; they are here so a second page using the
+   component gets them too. The homepage's own copies are declared after
+   this file and carry identical values, so nothing moves there.
+
+   Scoped to .sc-reveal, not to .closer, because it is the dark card that
+   makes the text white - a .closer without one would be unreadable. */
+.sc-reveal{position:relative;overflow:hidden;color:var(--white)}
+.sc-reveal > .wrap{position:relative;z-index:1}
+.sc-reveal .h1,
+.sc-reveal .h2{color:var(--white)}
+.sc-reveal .lead{color:var(--muted-on-dark)}
+.sc-reveal .eyebrow{color:var(--sand)}
+.sc-reveal .btn-ghost{color:var(--white);border-color:rgba(255,255,255,.34);background:transparent}
+.sc-reveal .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
