@@ -155,7 +155,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    plan card invisible and none of its design was ever regression-guarded. */
 .results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
-@media(max-width:960px){
+@media(max-width:1199px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
   /* A grid item's automatic minimum is min-content, and `1fr` is really
      minmax(auto,1fr), so one wide descendant drags the whole track with it.
@@ -194,21 +194,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    hole rather than a pause. There the lower section gives up half its top
    padding and the pair settles near 170 — halved, not collapsed. An earlier
    pass took it to zero and the sections ran together. */
-.hero + .section-cream,
-.section-cream + .section-cream,
 /* The closing band is a dark card, so its padding is the room inside it
-   rather than a gap between two cream sections. It keeps its own, and the
-   pair rule that used to halve it no longer applies. */
+   rather than a gap between two cream sections: it is no longer in these
+   lists. The cream-to-cream pairs still are. Dropping the declaration along
+   with the selector left three selector lists with no block, and a prelude
+   that runs to the next `{` swallowed the whole 860 rule behind it — which
+   is how every section below 760 came to carry its desktop padding. */
+.hero + .section-cream,
+.section-cream + .section-cream{padding-top:88px}
 @media(max-width:860px){
   .section{padding:88px 0}
   .section--tight{padding:80px 0}
   .section-head{margin-bottom:48px}
   .hero + .section-cream,
-  .section-cream + .section-cream,
+  .section-cream + .section-cream{padding-top:44px}
 }
 @media(max-width:760px){
   .hero + .section-cream,
-  .section-cream + .section-cream,
+  .section-cream + .section-cream{padding-top:36px}
 }
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
 .step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
@@ -831,19 +834,25 @@ html,body{max-width:100%;overflow-x:clip}
   .pricing>:last-child{scroll-snap-align:end;margin-right:32px}
 }
 
-/* ---- Tablet (761-960): the hero goes two-up, not one-wide --------------
-   Same complaint as the block above, same cause: below 961 the desktop grid
-   collapses to one column, and a hero card then runs the full wrap width —
-   734px at 834, with "Serving" stranded 600px from "When" and a full-width
-   Add to cart. The hero is exactly two cards, so it does not need the swipe
-   the three-card rails needed: two tracks put each card at 340-440px, which
-   brackets the 382px it has on desktop, and the whole hero still fits one
-   screen instead of stacking to ~900px. */
-/* The two cards went two-up between 761 and 960, which gave a 434px-tall
-   quiz and a taller plan card half a narrow viewport each: both came out
-   squeezed and neither read. The <=960 rule already stacks them full
-   width, which is what this range wants too, so this no longer overrides
-   it. */
+/* ---- Between a phone and a desktop (761-1199): the hero goes two-up ----
+   Same complaint as the block above, same cause: where the desktop grid
+   collapses to one column a hero card runs the full wrap width — 727px at
+   834, with "Serving" stranded 600px from "When" and a full-width Add to
+   cart. The hero is exactly two cards, so it does not need the swipe the
+   three-card rails needed: two tracks put each card at 318px at 761 and
+   543px at 1199, against the 369px it has at 1440.
+
+   The range now runs to 1199 rather than 960, because the overlapping
+   composition it replaces needs room the widths below 1200 do not have.
+   The two cards keep a constant 36% overlap at every width, so at 1024 the
+   stage column is 445px, each card 280px, and barely 179px of the quiz is
+   left showing to the left of the plan card: the layering stops reading as
+   depth and starts reading as one card sitting on top of another. Side by
+   side, both are whole. */
+@media (min-width:761px) and (max-width:1199px){
+  .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+  .quiz,.results{width:auto}
+}
 
 /* ---- Phone polish: hero density + card consistency ----------------------
    Follow-up to the stacking fix. Once the sections stacked correctly the
