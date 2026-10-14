@@ -57,6 +57,11 @@
      Both default to the state the page should hold with no JS at all. */
   --hero-p:0;--eng-p:0;--closer-p:0;
   --hero-inset:40px;--hero-round:36px;--hero-grow:.06;
+  /* Top edge, at every width. A centre origin grows the block both ways,
+     so on any viewport where the content is close to the hero's height it
+     lifted the first line above the hero and behind the header. Growing
+     downward from the top edge cannot do that at any size. */
+  --hero-origin:50% 0;
   --eng-inset:40px;--eng-round:36px;
   --closer-inset:40px;--closer-round:36px;
 }
@@ -138,10 +143,26 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
    The border-bottom is gone: the page below is white and the hero's own
    bottom inset is what separates them now. */
-.hero{position:relative;display:grid;align-content:center;overflow:hidden;
+/* safe center, not center: between 561 and 960 the hero's content is
+   taller than the hero on a short or narrow window, and centring overflow
+   pushes it out of BOTH ends - the eyebrow ended up 6px under the sticky
+   header at 600x800 and at 740x360. safe falls back to start exactly when
+   that would happen. */
+.hero{position:relative;display:grid;align-content:safe center;overflow:hidden;
   min-height:calc(100vh - var(--nav-h));
   min-height:calc(100svh - var(--nav-h));
-  padding:40px 0 56px;background:var(--cream);
+  padding:40px 0 56px;
+  /* The hairline. The hero's own background is the edge colour and the fill
+     sits a pixel inside it, so the ring appears in the gap between the two
+     clips. Both are scaled by --hero-p, which is what makes it fade in with
+     the inset rather than drawing a line round the viewport at rest.
+
+     A shadow is not available here: clip-path clips an element's own box
+     shadow away with its edge, so a real one would mean animating inset and
+     border-radius on an unclipped box, which is the layout-triggering
+     animation this effect exists to avoid. The deeper ground and the ring
+     carry the edge instead. */
+  background:rgba(10,10,10,.07);
   clip-path:inset(
     calc(var(--hero-p) * var(--hero-inset)) calc(var(--hero-p) * var(--hero-inset))
     calc(var(--hero-p) * var(--hero-inset)) calc(var(--hero-p) * var(--hero-inset))
@@ -254,12 +275,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* Flat cream, no gradient: the thumbnails are previews of a product whose
    own surfaces are flat, and a gradient behind a white panel reads as
    decoration sitting under an interface. */
-/* The preview sits on the same black as the engine and the closing band,
-   so the six previews read as the product rather than as six beige tiles.
-   Everything inside them is a white panel, so nothing was drawn against
-   the old cream ground and nothing needed recolouring. No rule under it
-   either: black meeting the card's white body is its own edge. */
-.step-thumb{display:block;height:132px;background:var(--ink);border-bottom:0}
+/* Light again, and the engine is the only dark block on the page. Beige
+   rather than white: the card's body is white and the section's gradient
+   has reached nearly cream by the time the grid arrives, so white would
+   have left the preview with no edge on either side of it. The mockups
+   inside were drawn for this ground and go back to it unchanged. */
+.step-thumb{display:block;height:132px;background:#F4EFE3;border-bottom:1px solid var(--line)}
 /* Inherit Inter from the page: the labels inside are the product's own, and
    they should be set the way the product sets them. The interiors never take
    a click — the whole card is the link. */
@@ -1107,7 +1128,7 @@ html,body{max-width:100%;overflow-x:clip}
 @media (max-width:560px){
   /* .hero-grid carries padding:8px 0 from the base rule, which would push
      the whole block down from the top it is meant to start at. */
-  .hero{align-content:start;padding-top:18px}
+  .hero{align-content:start;padding-top:34px}
   .hero .hero-grid{padding-top:0}
   .hero .hero-copy{
     min-height:0;
@@ -1171,7 +1192,16 @@ html,body{max-width:100%;overflow-x:clip}
 
    Transform, not background-position, so the drift runs on the compositor.
    The layer is oversized and the hero clips it, so no edge ever enters. */
-.hero::before{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;
+/* The fill, a pixel inside the hairline. Deeper than --cream on purpose:
+   against a white page #FAF8F2 was close enough that the card barely read
+   as a separate surface. */
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:#F4EFE4;
+  clip-path:inset(
+    calc(var(--hero-p) * (var(--hero-inset) + 1px)) calc(var(--hero-p) * (var(--hero-inset) + 1px))
+    calc(var(--hero-p) * (var(--hero-inset) + 1px)) calc(var(--hero-p) * (var(--hero-inset) + 1px))
+    round calc(var(--hero-p) * (var(--hero-round) - 1px)))}
+/* The drift, over the fill and oversized so no edge of it ever enters. */
+.hero::after{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;
   background:
     radial-gradient(44% 48% at 18% 26%, rgba(231,207,163,.62), rgba(231,207,163,0) 70%),
     radial-gradient(40% 44% at 80% 34%, rgba(226,196,146,.54), rgba(226,196,146,0) 72%),
@@ -1187,7 +1217,37 @@ html,body{max-width:100%;overflow-x:clip}
    Not matched any closer on a phone: there the margins are a larger share
    of the width, and a content scale that big would push the text under the
    hero's own clip before it settled. */
-.hero > .wrap{position:relative;z-index:1;will-change:transform;
+/* ---- Clipped blocks need a gutter wider than their own inset ----------
+   The page gutter is 32px and the cards inset by 40, so wherever .wrap is
+   not centred by its max-width - anything under 1264 - the content crossed
+   the card's edge and the first and last few pixels of every line sat on
+   the ground outside it. White text on beige, so they simply disappeared.
+
+   Static, not scaled by progress: padding is layout, and the card is at its
+   deepest inset at rest, which is the case that has to fit. Above 1264 the
+   wrap's own centring already clears the card, so the gutter is untouched
+   there and the desktop composition keeps its full width. */
+@media (max-width:1263px){
+  .science > .wrap,
+  .closer > .wrap,
+  .footer > .wrap{padding-inline:calc(var(--eng-inset) + 20px)}
+}
+/* The hero needs a wider gutter than the others and loses it later, because
+   its content is also scaled: at --hero-grow the block is 6% over at rest,
+   which moves its edges out by 3% of its own width on top of the inset. The
+   grow halves below 1300 so that overhang stays smaller than the gutter can
+   absorb. Above 1300 the wrap's centring covers both. */
+@media (max-width:1299px){
+  :root{--hero-grow:.03}
+  .hero > .wrap{padding-inline:calc(var(--hero-inset) + 24px)}
+}
+@media (max-width:560px){
+  .hero > .wrap{padding-inline:calc(var(--hero-inset) + 16px)}
+  .science > .wrap,
+  .closer > .wrap,
+  .footer > .wrap{padding-inline:calc(var(--eng-inset) + 12px)}
+}
+.hero > .wrap{position:relative;z-index:1;will-change:transform;transform-origin:var(--hero-origin);
   transform:scale(calc(1 + (1 - var(--hero-p)) * var(--hero-grow)))}
 
 @keyframes hero-wash{
@@ -1195,7 +1255,7 @@ html,body{max-width:100%;overflow-x:clip}
   to{transform:translate3d(2.5%,2%,0) scale(1.12)}
 }
 @media (prefers-reduced-motion:reduce){
-  .hero::before{animation:none}
+  .hero::after{animation:none}
 }
 
 /* ---- Phone: scoring model and FAQ compaction ----------------------------
@@ -1704,7 +1764,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
       <div class="vnext">
         <span class="vnext-cap">Coming next</span>
         <div class="vrow"><span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.2 4.2 6 7.1 6 10.5a6 6 0 0 1-12 0C6 10.1 8.8 7.2 12 3z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></svg></span><span class="vrow-copy"><span class="vrow-name">Beauty</span><span class="vrow-note">Skincare, haircare, cosmetics</span></span></div><div class="vrow"><span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M8 7.5c0-1.5 1.2-2 1.2-3.5M12 7c0-2 1.4-2.5 1.4-4M16 7.5c0-1.5 1.1-2 1.1-3"/><path d="M4 20h16"/></svg></span><span class="vrow-copy"><span class="vrow-name">Food</span><span class="vrow-note">Nutrition, snacks, meal plans</span></span></div><div class="vrow"><span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.2a2 2 0 1 1 2 2c-1.1 0-2 .9-2 2v.8"/><path d="M12 10 3.6 16.2a1 1 0 0 0 .6 1.8h15.6a1 1 0 0 0 .6-1.8L12 10z"/></svg></span><span class="vrow-copy"><span class="vrow-name">Fashion</span><span class="vrow-note">Apparel, footwear, accessories</span></span></div>
-        <a class="vrow vrow-talk" href="mailto:contact@blend-technologies.com">
+        <a class="vrow vrow-talk" href="" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&amp;primary_color=1a1a1a');">
           <span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
           <span class="vrow-copy"><span class="vrow-name">Don&#39;t see your category?</span>
           <span class="vrow-note">Let&#39;s explore your catalogue.</span></span>
@@ -1726,7 +1786,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
       </div>
       <div class="eng-band">
         <span class="eng-cap">Catalogue scored</span>
-        <p class="eng-sub">Every product scored against that profile, your data and the research, behind non-negotiable safety checks.</p>
+        <p class="eng-sub">Every product scored against that profile, your rules and the research, behind non-negotiable safety checks.</p>
         <div class="eng-grid" aria-hidden="true"><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.1;animation-delay:1.34s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.48;animation-delay:2.92s"></i><i class="eng-cell p" style="--o:0.06;animation-delay:3.64s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell r" style="--o:0.6;animation-delay:3.69s"></i><i class="eng-cell g" style="--o:0.9;animation-delay:0.44s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.06;animation-delay:0.86s"></i><i class="eng-cell p" style="--o:0.08;animation-delay:6.83s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.74;animation-delay:5.13s"></i><i class="eng-cell p" style="--o:0.28;animation-delay:4.18s"></i><i class="eng-cell g" style="--o:0.08;animation-delay:7.74s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell g" style="--o:0.74;animation-delay:0.05s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.48;animation-delay:6.5s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.14;animation-delay:3.5s"></i><i class="eng-cell p" style="--o:0.74;animation-delay:7.36s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell r" style="--o:0.48;animation-delay:8.88s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell g" style="--o:0.6;animation-delay:0.91s"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell p" style="--o:0.36;animation-delay:5.78s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell p" style="--o:0.48;animation-delay:0.66s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell g" style="--o:0.08;animation-delay:1.45s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell p" style="--o:0.2;animation-delay:5.57s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell p" style="--o:0.28;animation-delay:2.21s"></i><i class="eng-cell g" style="--o:0.48;animation-delay:6.94s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.28;animation-delay:5.35s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.6;animation-delay:6.42s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell r" style="--o:0.48;animation-delay:0.9s"></i><i class="eng-cell r" style="--o:0.2;animation-delay:8.41s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell r" style="--o:0.6;animation-delay:7.13s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell r" style="--o:0.28;animation-delay:2.89s"></i><i class="eng-cell p" style="--o:0.36;animation-delay:4.28s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell p" style="--o:0.36;animation-delay:8.02s"></i><i class="eng-cell g" style="--o:0.2;animation-delay:4.67s"></i><i class="eng-cell g" style="--o:0.08;animation-delay:3.65s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.28;animation-delay:8.22s"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell r" style="--o:0.9;animation-delay:6.48s"></i><i class="eng-cell p" style="--o:0.74;animation-delay:0.3s"></i><i class="eng-cell p" style="--o:0.9;animation-delay:2.75s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell p" style="--o:0.36;animation-delay:3.68s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell g" style="--o:0.2;animation-delay:2.74s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.6;animation-delay:3.93s"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.1;animation-delay:4.51s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell p" style="--o:0.6;animation-delay:4.48s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell p" style="--o:0.28;animation-delay:0.07s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell r" style="--o:0.48;animation-delay:3.68s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell r" style="--o:0.1;animation-delay:6.81s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell p" style="--o:0.9;animation-delay:2.22s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.2;animation-delay:4.49s"></i><i class="eng-cell p" style="--o:0.14;animation-delay:0.54s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell g" style="--o:0.1;animation-delay:7.92s"></i><i class="eng-cell p" style="--o:0.6;animation-delay:5.87s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell p" style="--o:0.28;animation-delay:3.73s"></i><i class="eng-cell r" style="--o:0.36;animation-delay:4.84s"></i><i class="eng-cell p" style="--o:0.14;animation-delay:3.59s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.1;animation-delay:6.75s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell g" style="--o:0.06;animation-delay:1.52s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.9;animation-delay:0.35s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell r" style="--o:0.1;animation-delay:1.48s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.36;animation-delay:5.97s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.14;animation-delay:4.19s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell p" style="--o:0.14;animation-delay:2.3s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell p" style="--o:0.1;animation-delay:8.62s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell r" style="--o:0.06;animation-delay:5.22s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell p" style="--o:0.36;animation-delay:0.73s"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell p" style="--o:0.2;animation-delay:4.43s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.2;animation-delay:6.3s"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell p" style="--o:0.74;animation-delay:8.99s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.36"></i></div>
       </div>
       <div class="eng-band">
@@ -2333,7 +2393,13 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
     var span = vh * 0.55;
     function band(el){
       var r = el.getBoundingClientRect();
-      return Math.min(clamp((vh - r.top) / span), clamp(r.bottom / span)).toFixed(4);
+      /* Entry runs the full viewport: 0 when the section's top crosses the
+         bottom edge, 1 when it reaches the top. On the exit span (0.55vh)
+         it opened inside the bottom half of the screen, which is why the
+         card was effectively never seen on the way in - the section looked
+         as though it only ever contracted on the way out. Exit keeps the
+         shorter span, so it closes late rather than early. */
+      return Math.min(clamp((vh - r.top) / vh), clamp(r.bottom / span)).toFixed(4);
     }
     root.style.setProperty('--eng-p', band(eng));
     /* The closing band only opens. It sits against the footer, which is
