@@ -85,10 +85,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    translucent default. Once the page scrolls it goes back to being a
    bar over moving content. */
 .nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.82));backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease,background-color .2s ease;border-bottom:1px solid transparent;}
-.nav.scrolled{background:rgba(250,248,242,.82)}
+/* Scrolled, the card has inset and what is behind the bar is the white
+   page, not the hero. */
+.nav.scrolled{background:rgba(255,255,255,.82)}
 /* This page opens on the hero card, so the bar is its beige until the
    page moves. */
-.nav{--nav-bg:#F4EFE4}
+.nav{--nav-bg:var(--hero-beige)}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
 .logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
@@ -1671,6 +1673,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
       </div>
     </div>
   </div>
+  <button type="button" class="sc-cue" data-sc-cue="#how" aria-label="Scroll to How it works"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 <section class="section section-cream" id="how">
   <div class="wrap">

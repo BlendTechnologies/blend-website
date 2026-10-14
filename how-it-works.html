@@ -84,10 +84,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    translucent default. Once the page scrolls it goes back to being a
    bar over moving content. */
 .nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.82));backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease,background-color .2s ease;border-bottom:1px solid transparent;}
-.nav.scrolled{background:rgba(250,248,242,.82)}
+.nav.scrolled{background:rgba(255,255,255,.82)}
 /* This page opens on the hero card, so the bar is its beige until the
    page moves. */
-.nav{--nav-bg:#F4EFE4}
+.nav{--nav-bg:var(--hero-beige)}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
 .logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
@@ -1444,9 +1444,6 @@ html,body{max-width:100%;overflow-x:clip}
    type is the homepage's scale - 58px, not 88. */
 .hw-top{padding:72px 0}
 .hw-top.sc-hero{min-height:0}
-/* Flat beige: the card keeps its fill and its hairline, and the drift
-   that runs behind the homepage's hero does not run behind this one. */
-.hw-top.sc-hero::after{display:none}
 .hw-top-inner{max-width:980px;margin:0 auto;text-align:center}
 /* The homepage hero's eyebrow exactly: 12px, 500, .08em. All three lines
    of the header now measure the same as the main hero's. */

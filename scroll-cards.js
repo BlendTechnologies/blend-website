@@ -40,7 +40,12 @@
       /* Closes over the first half of its own height, so the card has
          formed well before the block leaves rather than just as it goes. */
       var r = el.getBoundingClientRect();
-      set(el, clamp(-r.top / Math.max(1, r.height * 0.5)));
+      var p = clamp(-r.top / Math.max(1, r.height * 0.5));
+      set(el, p);
+      /* The cue fades out on this same progression; the class takes it out
+         of reach and out of the tab order once it has, so there is never an
+         invisible button sitting over the page. */
+      el.classList.toggle('is-cue-gone', p > 0.15);
     });
 
     reveals.forEach(function (el) {
@@ -75,8 +80,21 @@
     });
   }
 
+  /* The cue scrolls to whatever it names. A <button> already fires click
+     on Enter and Space, so there is no key handling to add. */
+  function wireCue() {
+    document.addEventListener('click', function (e) {
+      var cue = e.target && e.target.closest ? e.target.closest('[data-sc-cue]') : null;
+      if (!cue) return;
+      var target = document.querySelector(cue.getAttribute('data-sc-cue'));
+      if (!target) return;
+      target.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+    });
+  }
+
   function start() {
     collect();
+    wireCue();
     if (!heroes.length && !reveals.length && !endcap.length) return;
     if (!window.requestAnimationFrame) return;
     window.addEventListener('scroll', onScroll, { passive: true });

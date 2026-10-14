@@ -34,6 +34,7 @@
    the state reduced motion keeps: the hero already a card, every reveal
    already open. The handler never writes under reduced motion, so an
    inline value can never beat this. */
+:root{--hero-beige:#F4EFE5}
 .sc-hero{--sc-p:0}
 .sc-reveal{--sc-p:0}
 @media (prefers-reduced-motion:reduce){
@@ -63,28 +64,13 @@
     round calc(var(--sc-p) * var(--sc-round)));}
 /* The fill, a pixel inside the hairline. Deeper than --cream on purpose:
    against a white page #FAF8F2 was close enough that the card barely read
-   as a separate surface. */
-.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:#F4EFE4;
+   as a separate surface. One token, because the nav has to match it
+   exactly while the page is at the top. */
+.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--hero-beige);
   clip-path:inset(
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
     round calc(var(--sc-p) * (var(--sc-round) - 1px)))}
-/* The drift, over the fill and oversized so no edge of it ever enters.
-   Transform, not background-position, so it runs on the compositor. */
-.sc-hero::after{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(44% 48% at 18% 26%, rgba(231,207,163,.62), rgba(231,207,163,0) 70%),
-    radial-gradient(40% 44% at 80% 34%, rgba(226,196,146,.54), rgba(226,196,146,0) 72%),
-    radial-gradient(48% 42% at 50% 78%, rgba(212,183,136,.46), rgba(212,183,136,0) 70%);
-  animation:sc-wash 19s ease-in-out infinite alternate;
-  will-change:transform}
-@keyframes sc-wash{
-  from{transform:translate3d(-2.5%,-1.5%,0) scale(1.04)}
-  to{transform:translate3d(2.5%,2%,0) scale(1.12)}
-}
-@media (prefers-reduced-motion:reduce){
-  .sc-hero::after{animation:none}
-}
 /* The block's own height carries the space the padding used to. */
 @media (max-width:960px){ .sc-hero{padding:32px 0 56px} }
 @media (max-width:760px){ .sc-hero{padding:24px 0 48px} }
@@ -172,3 +158,37 @@
 .sc-reveal .eyebrow{color:var(--sand)}
 .sc-reveal .btn-ghost{color:var(--white);border-color:rgba(255,255,255,.34);background:transparent}
 .sc-reveal .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+
+/* ---- The scroll cue --------------------------------------------------
+   A target at the bottom of a hero, for the readers who do not know the
+   page continues. It fades on the same progression as the card it sits
+   in, so it is gone by the time the hero has closed a sixth of the way
+   and back when the page returns to the top. */
+.sc-cue{position:absolute;left:50%;transform:translateX(-50%);z-index:2;
+  bottom:calc(32px + env(safe-area-inset-bottom, 0px));
+  width:44px;height:44px;display:grid;place-items:center;border-radius:50%;
+  background:transparent;border:1px solid rgba(107,107,107,.4);color:var(--muted);
+  cursor:pointer;-webkit-appearance:none;appearance:none;padding:0;
+  opacity:clamp(0, calc((.15 - var(--sc-p, 0)) * 6.6667), 1);
+  transition:border-color .18s ease,opacity .12s linear}
+.sc-cue:hover{border-color:var(--muted)}
+.sc-cue:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
+/* Out of the tab order and out of reach once it has faded, rather than an
+   invisible button sitting over the page. */
+.sc-hero.is-cue-gone .sc-cue{visibility:hidden}
+.sc-cue svg{width:16px;height:16px;display:block;animation:sc-cue-drift 2s ease-in-out infinite}
+/* The ring: one expansion every 2.5s, behind the border it starts from. */
+.sc-cue::after{content:"";position:absolute;inset:-1px;border-radius:50%;
+  border:1px solid rgba(107,107,107,.4);animation:sc-cue-ring 2.5s ease-out infinite;
+  pointer-events:none}
+@keyframes sc-cue-drift{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@keyframes sc-cue-ring{
+  0%{transform:scale(1);opacity:.5}
+  70%{transform:scale(1.45);opacity:0}
+  100%{transform:scale(1.45);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .sc-cue{opacity:1}
+  .sc-cue svg{animation:none}
+  .sc-cue::after{display:none}
+}
