@@ -517,10 +517,6 @@ html,body{max-width:100%;overflow-x:clip}
   .report-card-pill .pill-wide{display:none}
   .report-card-pill .pill-narrow{display:inline}
 
-  .sci-stat{padding:14px 18px}
-  .sci-stat .sci-n{font-size:32px;line-height:1.05}
-  .sci-stat .sci-label{font-size:14px}
-  .sci-stat .sci-sub{font-size:12px;line-height:1.45}
   .science-stats{gap:12px}
 }
 /* Trailing breathing room for the last card in each deck. Must pair a real
@@ -769,13 +765,9 @@ html,body{max-width:100%;overflow-x:clip}
   .science-head .lead{font-size:14px;line-height:1.5;margin-top:8px}
   .science-stats{gap:8px}
 
-  .sci-stat{padding:12px 12px;border-radius:12px}
-  .sci-stat .sci-n{font-size:26px;line-height:1}
-  .sci-stat .sci-label{margin-top:7px;font-size:14px}
   /* The per-card description is the only thing left that can go. Five of them
      at ~32px is 160px, which is what stands between 1.20 screens and one view.
      The number and its label carry the claim; the description restates it. */
-  .sci-stat .sci-sub{display:none}
 
   /* methodology becomes one compact row rather than a card */
   .sci-method{padding:12px 12px;gap:8px;margin-top:2px;border-radius:12px}
@@ -1032,21 +1024,9 @@ body{background:#151412}
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">What the engine covers</span>
+      <h2 class="h2"><span data-count="41">41</span> goals &#183; <span data-count="252">252</span> signals</h2>
+      <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
-    <div class="sci-stats sci-in">
-      <div class="sci-stat">
-        <span class="sci-stat-v"><b data-count="223">223</b><i aria-hidden="true">+</i></span>
-        <span class="sci-stat-l"><span>Products audited for safety</span><span>and composition</span></span>
-      </div>
-      <span class="sci-stat-x" aria-hidden="true">&#215;</span>
-      <div class="sci-stat">
-        <span class="sci-stat-v"><b data-count="25">25</b></span>
-        <span class="sci-stat-l"><span>Attributes recorded</span><span>for each product</span></span>
-      </div>
-    </div>
-    <hr class="sci-rule sci-in">
-    <h2 class="sci-covers-h sci-in"><span data-count="41">41</span> goals &#183; <span data-count="252">252</span> signals</h2>
-    <p class="sci-covers-sub sci-in">Explore a goal to see the signals behind it.</p>
     <div class="sci-goalgrid sci-in" data-goals>
       <button type="button" class="sci-goalname" data-goal="Bone &amp; Joint Health" aria-controls="sci-subs" aria-expanded="false">Bone &amp; Joint Health</button>
       <button type="button" class="sci-goalname" data-goal="Boost Energy" aria-controls="sci-subs" aria-expanded="false">Boost Energy</button>
@@ -1129,6 +1109,11 @@ body{background:#151412}
       <h2 class="h2">17 checks that can remove a product. None can be switched off.</h2>
       <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended. Sixteen of the 17 remove it outright; the last adds a warning instead. Nothing a customer should not take reaches their plan, and you can show which check stopped it.</p>
     </div>
+    <p class="sci-figs sci-in">
+      <span><span class="sci-figs-v"><b data-count="223">223</b><i aria-hidden="true">+</i></span> products audited for safety and composition</span>
+      <span class="sci-figs-sep" aria-hidden="true"></span>
+      <span><span class="sci-figs-v"><b data-count="25">25</b></span> attributes recorded for each product</span>
+    </p>
     <div class="sci-groups sci-in" data-groups>
       <button type="button" class="sci-gbox" aria-expanded="true" aria-controls="sci-g-0" data-group="0"><span class="sci-gbox-n">9</span><span class="sci-gbox-name">Contraindications</span></button>
       <button type="button" class="sci-gbox" aria-expanded="false" aria-controls="sci-g-1" data-group="1"><span class="sci-gbox-n">3</span><span class="sci-gbox-name">Upper limits</span></button>

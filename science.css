@@ -208,7 +208,7 @@
    end state is the resting state, so reduced motion and a
    capture with animation off both show the finished page.
    ============================================================ */
-.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-stat-v{
+.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-figs-v{
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
 /* ---- what the model covers --------------------------------------------- */
@@ -221,56 +221,29 @@
 .sci-sec.is-in .sci-goalname{opacity:1;transform:none;
   transition:opacity .4s ease,transform .4s cubic-bezier(.2,.7,.25,1);
   transition-delay:calc(var(--i,0) * 14ms)}
-/* ---- What the engine covers: two figures, then the taxonomy ------------
-   The figures are the section's claim, so they are the section's largest
-   thing. No card around either: a box would make them two statistics side by
-   side, and the point is that they multiply — 223 products, each described 25
-   ways. The sign between them says so quietly and is decorative to a screen
-   reader, which reads the two figures and their labels and needs no operator.
-
-   The numbers are gold and the labels warm white at reading size, which is
-   the whole colour decision; the rest is space. */
-/* One size drives the whole row, so the sign can never drift out of line with
-   the figures. The first pass ran the figures to 84px against a 14px label,
-   which is a headline with a caption under it rather than a figure with its
-   description: the two read as different orders of importance instead of one
-   statement. 62 over 16 keeps the figure clearly dominant and lets the
-   description carry its half of the sentence. */
-.sci-stats{--fig:clamp(42px,5.2vw,62px);
-  display:grid;grid-template-columns:1fr auto 1fr;align-items:start;
-  gap:clamp(20px,5vw,64px);max-width:860px;margin:38px auto 0;text-align:center}
-.sci-stat{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
-.sci-stat-v{display:inline-flex;align-items:baseline;justify-content:center;
-  font-size:var(--fig);line-height:1;font-weight:600;letter-spacing:-.03em;color:var(--gold)}
-.sci-stat-v i{font-style:normal;font-size:.46em;margin-left:.07em;opacity:.8}
-/* The two lines are written as lines, not left to wrap: where a description
-   breaks is a composition decision at this size, and a natural wrap puts
-   "safety and composition" across the break differently in each column. They
-   stay two short lines on a phone, so nothing is clipped. */
-.sci-stat-l{font-size:16px;line-height:1.5;color:var(--ink-80)}
-.sci-stat-l span{display:block}
-/* The line-height is the figures' own line box, so the sign centres on them
-   rather than on the figure-plus-label column. */
-.sci-stat-x{font-size:calc(var(--fig) * .36);line-height:var(--fig);
-  color:var(--muted);opacity:.55;font-weight:400}
-.sci-rule{border:0;border-top:1px solid var(--line);max-width:720px;margin:48px auto 0}
-/* Not a headline. The figures above are the section's claim; this names what
-   the controls underneath are, so it is set at reading size in regular weight
-   and warm white, with its instruction muted under it. It carried .h2 for one
-   revision and at 42px bold it competed with the figures instead of
-   introducing the taxonomy. */
-.sci-covers-h{margin:34px 0 0;text-align:center;font-size:22px;line-height:1.4;
-  font-weight:400;letter-spacing:-.01em;color:var(--ink)}
-.sci-covers-sub{margin:8px 0 0;text-align:center;font-size:14px;line-height:1.5;color:var(--muted)}
+/* ---- The product figures, in Safety -------------------------------------
+   They describe the products the checks below run on, which is why they live
+   here now rather than opening a section about goals. A quiet line, not a
+   pair of monuments: at 62px they were the largest thing on the page and said
+   less than the seventeen checks underneath them. */
+.sci-figs{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
+  max-width:860px;margin:26px auto 0;text-align:center;
+  font-size:15px;line-height:1.5;color:var(--ink-80)}
+/* The figure and its "+" are one unit, so the gap to the words is on the unit
+   and not on the number: with the margin on <b> it landed between 223 and the
+   plus. The plus stays outside the counting element — count-up rewrites that
+   element's text on every frame and would wipe it. */
+.sci-figs-v{display:inline-flex;align-items:baseline;margin-right:7px;vertical-align:-2px;
+  font-size:26px;line-height:1;font-weight:600;letter-spacing:-.02em;color:var(--gold)}
+.sci-figs-v b{font-weight:inherit;font-size:inherit;letter-spacing:inherit}
+.sci-figs-v i{font-style:normal;font-size:.6em;margin-left:.04em;opacity:.85}
+.sci-figs-sep{width:1px;height:22px;background:var(--line-strong)}
 @media (max-width:620px){
-  .sci-covers-h{font-size:20px}
+  .sci-figs{gap:12px;margin-top:22px}
+  .sci-figs-sep{display:none}
 }
 /* Stacked, the sign would be a stray character on its own line. */
 @media (max-width:620px){
-  .sci-stats{grid-template-columns:minmax(0,1fr);gap:30px;margin-top:30px}
-  .sci-stat-x{display:none}
-  .sci-stat-l{max-width:26ch}
-  .sci-rule{margin-top:36px}
 }
 
 /* ---- corner ticks: a panel that carries a reading ----------------------- */

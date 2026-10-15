@@ -104,25 +104,21 @@ const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
    to wrap three times at this type size ("attributes recorded for every
    product in a brand's catalogue"), and a label is not a claim. Every number
    on this page remains the engine's. */
+/* One section, one claim. This one is the taxonomy: what a customer can ask
+   for and how finely. The two product figures that used to open it moved to
+   Safety, where the products themselves are the subject — they were a second,
+   unrelated claim sharing a heading, and no amount of type scale was going to
+   make four numbers about two different things read as one statement.
+
+   With the figures gone it needs no bespoke heading stack: it is the page's
+   ordinary section head, the same eyebrow / h2 / lead as Safety and Markets. */
 const covers = `<section class="sci-sec" id="covers">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">What the engine covers</span>
+      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
+      <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
-    <div class="sci-stats sci-in">
-      <div class="sci-stat">
-        <span class="sci-stat-v"><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b><i aria-hidden="true">+</i></span>
-        <span class="sci-stat-l"><span>Products audited for safety</span><span>and composition</span></span>
-      </div>
-      <span class="sci-stat-x" aria-hidden="true">&#215;</span>
-      <div class="sci-stat">
-        <span class="sci-stat-v"><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b></span>
-        <span class="sci-stat-l"><span>Attributes recorded</span><span>for each product</span></span>
-      </div>
-    </div>
-    <hr class="sci-rule sci-in">
-    <h2 class="sci-covers-h sci-in"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
-    <p class="sci-covers-sub sci-in">Explore a goal to see the signals behind it.</p>
     <div class="sci-goalgrid sci-in" data-goals>
 ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
     </div>
@@ -330,6 +326,11 @@ const safety = `<section class="sci-sec" id="safety">
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
       <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended. Sixteen of the ${num(h.counts.safety_checks.value)} remove it outright; the last adds a warning instead. Nothing a customer should not take reaches their plan, and you can show which check stopped it.</p>
     </div>
+    <p class="sci-figs sci-in">
+      <span><span class="sci-figs-v"><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b><i aria-hidden="true">+</i></span> products audited for safety and composition</span>
+      <span class="sci-figs-sep" aria-hidden="true"></span>
+      <span><span class="sci-figs-v"><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b></span> attributes recorded for each product</span>
+    </p>
     <div class="sci-groups sci-in" data-groups>
 ${groupBtns}
 ${planBtn}
