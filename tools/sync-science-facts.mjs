@@ -202,7 +202,16 @@ function panelBody(s) {
         `</span><span class="sci-row-v">${esc(v)}</span>` +
         (pct != null ? `<div class="sci-bar ${met.has(x.nutrient) ? 'is-ok' : ''}"><i style="--v:${Math.max(.02, Math.min(1, pct)).toFixed(3)}"></i></div>` : '') +
         `</div>`;
-    }).join('');
+    }).join('') +
+    /* The products her own food took off the list, with the reason the
+       engine gave. In the export and not on the page until now, which
+       left the diet credit as a label on a bar rather than something
+       with a consequence. */
+    ((s.already_met_by_diet.products_removed || []).length
+      ? `<div class="sci-after"><h4 class="sci-sub-h">Removed because her food already covers it</h4>` +
+        s.already_met_by_diet.products_removed.map(r =>
+          row(r.product, '', r.because, ' is-cut')).join('') + `</div>`
+      : '');
   }
   if (s.per_nutrient && s.authority) {
     const a = s.authority;

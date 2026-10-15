@@ -304,3 +304,5 @@
 @media (max-width:760px){.sci-macros{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sci-macro-t{margin-top:5px;font-size:11px;line-height:1.4;color:var(--ink-60);
   border-top:1px solid var(--line);padding-top:5px}
+.sci-sub-h{margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-60)}
