@@ -183,11 +183,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .results{grid-area:2/1/4/2;justify-self:end}
 }
 /* ---- The hero intro ---------------------------------------------------
-   One sequence, once a session: the quiz card arrives a little forward of
-   its place, three answers pick themselves, the card settles back, and
-   the plan card rises behind it. The step forward is small on purpose —
-   see HI_MAX in the controller for why an upscale cannot be both large
-   and sharp.
+   One sequence, once a session: the quiz card arrives as tall as the
+   finished pair — its own top edge to the bottom of the plan card —
+   three answers pick themselves, the card settles into its place, and
+   the plan card rises behind it.
 
    Every rule is scoped to .hero-intro on <html>, which the head adds
    before the first paint and the controller removes at the end, so the
@@ -1972,7 +1971,6 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
     el.classList.add('hi-press');
     at(300, function () { el.classList.remove('hi-press'); });
   }
-  var HI_MAX = 1.08;
   var PROG = ['.6', '.8', '1'];
   function step(i) { pick(i); quiz.style.setProperty('--hi-prog', PROG[i]); press(opts[i]); }
 
@@ -2004,22 +2002,30 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
   function onSkip() { finish(true); }
 
   function play() {
-    /* The card steps forward from its own top-left and settles back.
-       It used to grow to the far corner of the plan card, 1.575 at 1440,
-       and that was wrong twice over: too big to read as one hero, and
-       blurred, because a browser rasterises a layer once and resamples it
-       for the rest of a transform animation. Which end it rasterises at
-       is not ours to choose and differs between engines, so an upscale of
-       any size is soft somewhere. HI_MAX keeps it small enough that the
-       softness is not the thing you notice; it is the one number to turn.
-       Only where the two cards overlap; the single-column layout picks
-       its answers at size. */
+    /* Height sets the scale: the card starts as tall as the pair, from
+       its own top edge to the bottom of the plan card, and settles from
+       there. Measured off the two boxes rather than written down, so it
+       follows the layout at any width.
+
+       Width is whatever that comes to — 1.26 makes the card 457px wide at
+       1440, which stops short of the plan card's right edge. Reaching
+       that corner as well needs 1.575, and a uniform scale cannot do
+       both; this is the one that was asked for.
+
+       It is a transform, so the enlarged state is resampled: a browser
+       rasterises a layer once and reuses it for the rest of the
+       animation, and the bigger the step the more that shows. Only where
+       the two cards overlap; the single-column layout picks its answers
+       at size. */
     if (results && window.matchMedia('(min-width:1200px)').matches) {
-      var q = quiz.getBoundingClientRect();
-      var r = results.getBoundingClientRect();
-      var cover = Math.max((r.right - q.left) / q.width, (r.bottom - q.top) / q.height);
-      var s = Math.min(Math.max(cover, 1), HI_MAX);
-      if (s > 1) quiz.style.setProperty('--hi-s', s.toFixed(4));
+      /* offsetTop/offsetHeight, not getBoundingClientRect: both cards share
+         .hero-stage as their offset parent, and the layout box ignores
+         transforms. The plan card is already sitting 24px low in its start
+         state, and measuring its painted box made the card 1.32 instead of
+         1.26 — tall enough to reach where the plan card starts rather than
+         where it lands. */
+      var s = (results.offsetTop + results.offsetHeight - quiz.offsetTop) / quiz.offsetHeight;
+      if (s > 1 && s < 2) quiz.style.setProperty('--hi-s', s.toFixed(4));
     }
     html.classList.add('hi-play');
     window.addEventListener('scroll', onSkip, { passive: true });
