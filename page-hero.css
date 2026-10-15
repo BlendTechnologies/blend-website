@@ -1,0 +1,88 @@
+/* ============================================================
+   PageHero — the hero the inner pages share
+   ------------------------------------------------------------
+   Lifted out of /science, which is the reference. Every value is
+   the one that page already carried, so the extraction changed
+   nothing about how it looks; /how-it-works and /use-cases use it
+   now instead of each keeping a hero of its own.
+
+   The shape and the shrink-on-scroll are .sc-hero in
+   scroll-cards.css. This is the composition inside it, top to
+   bottom: eyebrow, headline, sub, meta line, two buttons, and a
+   bottom strip that is either figures or an index.
+
+   The tint is one token per page, --hero-tint, at the same
+   lightness on each, so the ink, the muted secondary and the
+   brown accent keep the contrast they were measured at. It is
+   separate from --hero-beige on purpose: on /use-cases that is
+   the whole page's ground, and only the hero is tinted.
+   ============================================================ */
+.ph{padding:72px 0 80px;position:relative}
+/* No width:100% here: a grid item with auto inline margins sizes to
+   fit-content rather than stretching, and /science was built with that
+   and centres fine. The pages that need the full wrap set it themselves
+   — see .ph--fill below. */
+.ph > .wrap{position:relative;z-index:1}
+.ph--fill > .wrap{width:100%}
+.ph-inner{max-width:860px;margin:0 auto;text-align:center}
+/* Secondary text takes --ph-muted where a page sets one. The site's
+   --muted is 4.65:1 on /science's tint and 4.30 and 4.46 on the two
+   others, so the pages that tint darker pass a darker grey in rather
+   than everyone losing AA for one shared value. */
+.ph .eyebrow{display:inline-block;margin-bottom:16px;color:var(--ph-muted,var(--muted))}
+.ph .h1{max-width:17ch;margin:0 auto}
+.ph .lead{margin:20px auto 0;max-width:640px}
+
+/* The meta line: small, secondary, items parted by a dot. */
+.ph-meta{margin:24px 0 0;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ph-muted,var(--muted))}
+.ph-meta b{font-weight:600;color:var(--ink)}
+.ph-dot{width:3px;height:3px;border-radius:50%;background:var(--line-strong);flex:0 0 auto}
+.ph-live{display:inline-flex;align-items:center;gap:6px;font-weight:500;color:var(--ink-80)}
+.ph-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#5E8E3E;box-shadow:0 0 0 3px rgba(94,142,62,.18)}
+
+.ph-ctas{margin-top:30px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+
+/* ---- bottom strip, figures ------------------------------------------
+   Facts about the page on the hero's own ground rather than in a box of
+   their own. --ph-figs is how many there are. */
+.ph-figs{margin:56px 0 0;display:grid;grid-template-columns:repeat(var(--ph-figs,4),minmax(0,1fr));gap:0;border-top:1px solid var(--line-strong)}
+.ph-fig{padding:24px 24px 4px;border-right:1px solid var(--line);text-align:center}
+.ph-fig:last-child{border-right:0}
+.ph-fig-n{font-size:clamp(34px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--ink);font-feature-settings:"ss01","cv11","tnum"}
+.ph-fig-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
+.ph-fig-sub{margin:6px auto 0;font-size:13.5px;color:var(--ink-60);line-height:1.5;max-width:30ch}
+
+/* ---- bottom strip, index --------------------------------------------
+   One column per entry, each drawing its rule on hover. --ph-ix is how
+   many columns. */
+.ph-ix{margin:56px auto 0;max-width:1100px;display:grid;grid-template-columns:repeat(var(--ph-ix,6),minmax(0,1fr));border-top:1px solid var(--line)}
+.ph-ix-item{position:relative;display:flex;align-items:baseline;justify-content:center;gap:8px;padding:18px 4px 0;color:inherit;text-decoration:none}
+.ph-ix-line{position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--gold-active);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s cubic-bezier(.2,.7,.25,1)}
+.ph-ix-item:hover .ph-ix-line,
+.ph-ix-item:focus-visible .ph-ix-line{transform:scaleX(1)}
+.ph-ix-n{font-size:12px;font-weight:600;color:var(--gold-active);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";flex:0 0 auto}
+.ph-ix-name{font-size:15px;font-weight:500;color:var(--ink-80);transition:color .2s ease}
+.ph-ix-item:hover .ph-ix-name,
+.ph-ix-item:focus-visible .ph-ix-name{color:var(--ink)}
+.ph-ix-item:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
+
+/* ---- narrow ----------------------------------------------------------
+   The figures fold to two and then one. The index goes: six columns at
+   117px each wrap "01 Recommend", and what it indexes is one short
+   scroll away. */
+@media (max-width:1099px){.ph-ix{max-width:none}}
+@media (max-width:980px){
+  .ph-figs{grid-template-columns:repeat(2,minmax(0,1fr));border-top:0}
+  .ph-fig{padding:20px 0 4px;border-right:0;border-top:1px solid var(--line)}
+  .ph-fig:nth-child(odd){padding-right:20px}
+  .ph-fig:nth-child(even){padding-left:20px;border-left:1px solid var(--line)}
+}
+@media (max-width:960px){.ph-ix{display:none}}
+@media (max-width:760px){.ph{padding:56px 0 64px}}
+@media (max-width:420px){
+  .ph-figs{grid-template-columns:minmax(0,1fr)}
+  .ph-fig:nth-child(odd),.ph-fig:nth-child(even){padding:18px 0 4px;border-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .ph-ix-line,.ph-ix-name{transition:none}
+}

@@ -1,0 +1,403 @@
+{
+  "_generated_by": "algorithms/personalization/tools/export_engine_trace.py",
+  "_note": "One real engine run for the demo customer Jane. Every value is from the run; nothing is typed.",
+  "customer": {
+    "name": "Jane",
+    "diet": "Vegetarian",
+    "bmi_status": "Healthy Weight*",
+    "activity": "Very Active",
+    "condition": "Diabetes",
+    "goals": "Gut Health, Stress",
+    "route": "full",
+    "health_score": "87",
+    "health_score_label": "Excellent"
+  },
+  "catalogue": {
+    "tenant": "1777914547769x511962629417775200",
+    "note": "On-disk Blend demo catalogue (51 products + 3 QA placeholders)."
+  },
+  "headline_gaps": {
+    "iron_pct_of_target": 50,
+    "omega3_pct_of_target": 8
+  },
+  "plan_products": [
+    "Omega-3 (Algae Oil — Vegan)",
+    "Iron",
+    "Vitamin D3",
+    "Iodine 150mcg",
+    "L-Theanine",
+    "Digestive Enzyme Complex",
+    "L-Glutamine",
+    "Ashwagandha"
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "Signals",
+      "lines": [
+        {
+          "text": "Diet",
+          "value": "Vegetarian",
+          "source": "quiz answer 045XDOAN"
+        },
+        {
+          "text": "Activity level",
+          "value": "Very Active",
+          "source": "quiz answer 035XEXCL"
+        },
+        {
+          "text": "Age / sex",
+          "value": "41 years, Woman",
+          "source": "quiz answers 006XHOWO / 005XWHAT"
+        },
+        {
+          "text": "Body-mass status",
+          "value": "Healthy Weight*",
+          "source": "derived from height 166 cm / weight 63 kg"
+        },
+        {
+          "text": "Diagnosed condition",
+          "value": "Diabetes",
+          "source": "quiz answer 016XSELE"
+        },
+        {
+          "text": "Prescription medication",
+          "value": "Anti-diabetics",
+          "source": "quiz answer 018XSELE"
+        },
+        {
+          "text": "Goals",
+          "value": "Gut Health, Stress",
+          "source": "quiz answer 021XHERE"
+        },
+        {
+          "text": "Vegetarian diet raises iron and omega-3 requirements and excludes animal-derived products",
+          "source": "diet-relevance gate + RDI model"
+        },
+        {
+          "text": "Anti-diabetic medication triggers hard interaction blocks and a metformin / B12 advisory",
+          "source": "medication gate + advisories"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Targets",
+      "lines": [
+        {
+          "text": "Iron target",
+          "value": "26.64 mg/day",
+          "source": "EFSA PRI, raised ~1.8x for a vegetarian diet (lower non-haem absorption)"
+        },
+        {
+          "text": "Omega-3 target",
+          "value": "1.0 g/day EPA+DHA",
+          "source": "EFSA adequate intake, EPA+DHA"
+        },
+        {
+          "text": "Vitamin D3 target",
+          "value": "10.0 mcg/day",
+          "source": "SACN 2016 / EFSA"
+        },
+        {
+          "text": "Vitamin B6 target",
+          "value": "1.2 mg/day",
+          "source": "EFSA PRI"
+        },
+        {
+          "text": "Selenium target",
+          "value": "60.0 mcg/day",
+          "source": "EFSA PRI"
+        },
+        {
+          "text": "Iodine target",
+          "value": "140.0 mcg/day",
+          "source": "EFSA PRI"
+        },
+        {
+          "text": "Protein target",
+          "value": "88 g/day",
+          "source": "EFSA 0.83 g/kg baseline, adjusted for activity and goal"
+        },
+        {
+          "text": "Energy target",
+          "value": "1952 kcal/day",
+          "source": "Mifflin-St Jeor BMR x activity"
+        },
+        {
+          "text": "Omega-3 (EPA+DHA) target",
+          "value": "0.25 g/day",
+          "source": "EFSA adequate intake"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Gaps",
+      "lines": [
+        {
+          "text": "Omega-3: 8% of target",
+          "value": "0.02 / 0.25"
+        },
+        {
+          "text": "Water: 33% of target",
+          "value": "722 / 2207"
+        },
+        {
+          "text": "Iron: 50% of target",
+          "value": "50 / 100"
+        },
+        {
+          "text": "Vitamin D3: 56% of target",
+          "value": "56 / 100"
+        },
+        {
+          "text": "Cholesterol: 59% of target",
+          "value": "177 / 300"
+        },
+        {
+          "text": "Iodine: 76% of target",
+          "value": "76 / 100"
+        },
+        {
+          "text": "Potassium: 81% of target",
+          "value": "81 / 100"
+        },
+        {
+          "text": "Protein: 83% of target",
+          "value": "73 / 88"
+        },
+        {
+          "text": "Trans fat: 83% of target",
+          "value": "2 / 2.4"
+        },
+        {
+          "text": "Selenium: 85% of target",
+          "value": "85 / 100"
+        },
+        {
+          "text": "Carbohydrates: 88% of target",
+          "value": "257 / 293"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Scoring",
+      "lines": [
+        {
+          "text": "Products in the demo catalogue scored",
+          "value": 54,
+          "source": "every product in the brand catalogue is scored against Jane's answers"
+        },
+        {
+          "text": "Candidates surviving the safety gates",
+          "value": 35,
+          "source": "scored pool minus every exclusion, before ranking"
+        },
+        {
+          "text": "Recommended (top of the ranking)",
+          "value": 8,
+          "source": "the ranked candidates that made the plan"
+        },
+        {
+          "text": "#1 Omega-3 (Algae Oil — Vegan)",
+          "value": "Strong match",
+          "source": "matched on nutrient gap"
+        },
+        {
+          "text": "#2 Iron",
+          "value": "Strong match",
+          "source": "matched on nutrient gap"
+        },
+        {
+          "text": "#3 Vitamin D3",
+          "value": "Strong match",
+          "source": "matched on nutrient gap"
+        },
+        {
+          "text": "#4 Iodine 150mcg",
+          "value": "Good match",
+          "source": "matched on nutrient gap"
+        },
+        {
+          "text": "#5 L-Theanine",
+          "value": "General match",
+          "source": "matched on goal: Stress"
+        },
+        {
+          "text": "#6 Digestive Enzyme Complex",
+          "value": "General match",
+          "source": "matched on goal: Gut Health"
+        },
+        {
+          "text": "#7 L-Glutamine",
+          "value": "General match",
+          "source": "matched on goal: Gut Health"
+        },
+        {
+          "text": "#8 Ashwagandha",
+          "value": "General match",
+          "source": "matched on goal: Stress"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Gates",
+      "lines": [
+        {
+          "text": "Green Tea Extract — Hard medication contraindication",
+          "value": "Hard medication contraindication",
+          "source": "gate group: medication conflicts"
+        },
+        {
+          "text": "Prebiotic Complex (FOS/GOS) — Hard medication contraindication",
+          "value": "Hard medication contraindication",
+          "source": "gate group: medication conflicts"
+        },
+        {
+          "text": "Multivitamin (Men's 50+) — Age-band / demographic",
+          "value": "Age-band / demographic",
+          "source": "gate group: contraindications"
+        },
+        {
+          "text": "Multivitamin (Prenatal) — Age-band / demographic",
+          "value": "Age-band / demographic",
+          "source": "gate group: contraindications"
+        },
+        {
+          "text": "Multivitamin (Women's 50+) — Age-band / demographic",
+          "value": "Age-band / demographic",
+          "source": "gate group: contraindications"
+        },
+        {
+          "text": "Selenium — Diagnosed-condition contraindication",
+          "value": "Diagnosed-condition contraindication",
+          "source": "gate group: contraindications"
+        },
+        {
+          "text": "Vitamin B3 — Diagnosed-condition contraindication",
+          "value": "Diagnosed-condition contraindication",
+          "source": "gate group: contraindications"
+        },
+        {
+          "text": "Sodium — No-DRV supplemental ceiling",
+          "value": "No-DRV supplemental ceiling",
+          "source": "gate group: upper limits"
+        },
+        {
+          "text": "Vitamin K2 — No-DRV supplemental ceiling",
+          "value": "No-DRV supplemental ceiling",
+          "source": "gate group: upper limits"
+        },
+        {
+          "text": "Coenzyme Q10 — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "Collagen Peptides (Type I & III) — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "Marine Collagen — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "Omega-3 (Fish Oil) — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "Probiotics — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "Vitamin A — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "Vitamin E — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "BCAA 2:1:1 — Requires training load",
+          "value": "Requires training load",
+          "source": "gate group: contraindications"
+        },
+        {
+          "text": "Pre-Workout Complex — Requires training load",
+          "value": "Requires training load",
+          "source": "gate group: contraindications"
+        },
+        {
+          "text": "Zinc — Upper limit — serving exceeds headroom",
+          "value": "Upper limit — serving exceeds headroom",
+          "source": "gate group: upper limits; upper limit 25.0"
+        },
+        {
+          "text": "Multivitamin (Prenatal) — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        },
+        {
+          "text": "Omega-3 — Diet compatibility",
+          "value": "Diet compatibility",
+          "source": "gate group: diet"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Plan",
+      "lines": [
+        {
+          "text": "1. Omega-3 (Algae Oil — Vegan)",
+          "value": "Essential",
+          "source": "Chosen because your omega 3 is at 8% of your target."
+        },
+        {
+          "text": "2. Iron",
+          "value": "Essential",
+          "source": "Chosen because your iron is at 50% of your target, which one serving covers."
+        },
+        {
+          "text": "3. Vitamin D3",
+          "value": "Essential",
+          "source": "Chosen because your vitamin D3 is at 56% of your target, which one serving covers."
+        },
+        {
+          "text": "4. Iodine 150mcg",
+          "value": "Essential",
+          "source": "Chosen because your iodine is at 76% of your target, which one serving covers."
+        },
+        {
+          "text": "5. L-Theanine",
+          "value": "Recommended",
+          "source": "Chosen because it matches your stress goal. This one is an amino acid."
+        },
+        {
+          "text": "6. Digestive Enzyme Complex",
+          "value": "Recommended",
+          "source": "Chosen because it matches your gut health goal. This one is a multi-nutrient blend."
+        },
+        {
+          "text": "7. L-Glutamine",
+          "value": "Recommended",
+          "source": "Chosen because it matches your gut health goal. This one is an amino acid."
+        },
+        {
+          "text": "8. Ashwagandha",
+          "value": "Recommended",
+          "source": "Chosen because it matches your stress goal. This one is an adaptogen."
+        }
+      ]
+    }
+  ]
+}

@@ -79,7 +79,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
-.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent;}
+/* At rest the bar is whatever the page starts with, so the seam between
+   it and the top of the page is not there to find. --nav-bg is set by
+   the pages whose first block is not cream; everything else keeps the
+   translucent default. Once the page scrolls it goes back to being a
+   bar over moving content. */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.82));backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease,background-color .2s ease;border-bottom:1px solid transparent;}
+/* Scrolled, the card has inset and what is behind the bar is the white
+   page, not the hero. */
+.nav.scrolled{background:rgba(255,255,255,.82)}
+/* This page opens on the hero card, so the bar is its beige until the
+   page moves. */
+.nav{--nav-bg:var(--hero-beige)}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
 .logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
@@ -130,7 +141,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-stage{position:relative;width:100%}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
 .card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{width:61%;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
+.quiz{width:63.5%;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -164,21 +175,70 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    first two, the plan the last two, so both are exactly as tall as
    whichever needs more - and that is the plan card, because of the deck.
    The deck is the only thing in either card with a minimum. */
-.results{width:61%;padding:19px 18px 17px;z-index:3;min-width:0;
+.results{width:63.5%;padding:19px 18px 17px;z-index:3;min-width:0;
   display:flex;flex-direction:column}
 @media (min-width:1200px){
   .hero-stage{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:112px auto 112px}
   .quiz{grid-area:1/1/3/2;justify-self:start}
   .results{grid-area:2/1/4/2;justify-self:end}
 }
-@keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-/* `backwards`, not `both`, over a visible base: the from-keyframe still
-   hides the card through the 2s delay, and the end state is the base state
-   anyway — but when animations do not run at all, the card is simply there.
-   With `opacity:0` as the base it was not: the visual-diff harness disables
-   animation outright, so every baseline of this page was captured with the
-   plan card invisible and none of its design was ever regression-guarded. */
-.results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
+/* ---- The hero intro ---------------------------------------------------
+   One sequence, once a session: the quiz card arrives at the size of the
+   finished pair — its own top-left corner to the far corner of the plan
+   card — three answers pick themselves, the card settles into its place,
+   and the plan card rises behind it.
+
+   Every rule is scoped to .hero-intro on <html>, which the head adds
+   before the first paint and the controller removes at the end, so the
+   base state is the finished hero. With no script, on a second visit in
+   the session, or with animation disabled — which is how the visual-diff
+   harness captures this page — the hero is simply there. The plan card's
+   own entrance, which this replaces, carried the same lesson the hard
+   way: with `opacity:0` as its base, every baseline of this page was
+   captured with the card invisible and none of its design was guarded.
+
+   Transform and opacity only, the progress bar included: it advances on
+   scaleX rather than width, because width is layout. */
+.results{opacity:1}
+.qprog-fill{transform-origin:left center;transition:transform .5s cubic-bezier(.2,.7,.25,1)}
+.hero-intro .quiz{opacity:0}
+.hero-intro.hi-box .quiz{width:var(--hi-w);height:var(--hi-h)}
+/* The middle row is auto, so a taller quiz card grows it and pushes the
+   plan card down the page while the intro runs. Frozen at the sizes the
+   browser resolved before the card grew, the enlarged card overflows its
+   area instead and nothing underneath it moves. */
+.hero-intro.hi-box .hero-stage{grid-template-rows:var(--hi-rows)}
+.hero-intro .results{opacity:0;transform:translateY(24px)}
+.hero-intro .pc-track{animation-play-state:paused}
+.hero-intro .qprog-fill{transform:scaleX(var(--hi-prog,.4))}
+.hero-intro.hi-play .quiz{animation:hi-fade 2650ms both}
+.hero-intro.hi-play.hi-box .quiz{animation:hi-fade 2650ms both,hi-box 2650ms both}
+.hero-intro.hi-play .results{animation:hi-plan 2950ms both}
+/* 300ms in, held to 2000ms, then 650ms down.
+
+   The box is animated, not a transform of it. A transform rasterises the
+   card once and resamples it for every frame after, which is why the
+   enlarged card was soft however big the step was; laying the card out at
+   each size costs a reflow a frame and renders every glyph at its own
+   resolution. One card for 650ms, and it is the only way to be both this
+   exact and this sharp. It is also the only way to reach the pair's width
+   and its height at once: a uniform scale cannot, and a stretched one
+   would make the type a different shape on the way. */
+@keyframes hi-fade{0%{opacity:0}11.32%,100%{opacity:1}}
+@keyframes hi-box{
+  0%,75.47%{width:var(--hi-w);height:var(--hi-h);animation-timing-function:cubic-bezier(.65,0,.35,1)}
+  100%{width:var(--hi-w0);height:var(--hi-h0)}
+}
+/* Held to 2450ms, then 500ms up, overlapping the end of the shrink. */
+@keyframes hi-plan{
+  0%{opacity:0;transform:translateY(24px)}
+  83.05%{opacity:0;transform:translateY(24px);animation-timing-function:cubic-bezier(.16,.84,.44,1)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.qopt.hi-press,.quiz-next.hi-press{animation:hi-press 240ms cubic-bezier(.2,.7,.25,1)}
+@keyframes hi-press{0%{transform:scale(1)}35%{transform:scale(.98)}100%{transform:scale(1)}}
+/* Skipped: the end state arrives with nothing still in flight. */
+.hi-skip .hero-visual,.hi-skip .hero-visual *{animation:none!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
 @media(max-width:1199px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -630,10 +690,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vlead-name{margin:14px 0 0;font-size:clamp(22px,2.4vw,28px);line-height:1.15;letter-spacing:-.02em;font-weight:600;color:#F5F3EF}
 .vlead-note{margin:12px 0 0;font-size:15px;line-height:1.6;color:rgba(245,243,239,.72);max-width:34ch}
 .vlead-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:22px}
-.vlead-tags span{font-size:12.5px;font-weight:500;color:rgba(231,207,163,.92);background:rgba(255,255,255,.06);
+.vlead-tags span,.vlead-tags a{font-size:12.5px;font-weight:500;color:rgba(231,207,163,.92);background:rgba(255,255,255,.06);
   border:1px solid rgba(231,207,163,.26);border-radius:999px;padding:5px 12px}
 .vlead .vbadge-live{background:rgba(40,88,50,.6);color:#D9E9D6;border:1px solid rgba(106,168,79,.32)}
 
+.vlead-tags a{text-decoration:none;cursor:pointer;
+  transition:border-color .18s ease,color .18s ease}
+.vlead-tags a:hover{border-color:rgba(255,255,255,.55);color:var(--white)}
+.vlead-tags a:focus-visible{outline:2px solid var(--sand);outline-offset:2px}
+/* The site's secondary button, on a dark card: same height, same radius,
+   a border that comes up to full on hover and an arrow that moves with it. */
+.vlead-cta{display:inline-flex;align-items:center;gap:8px;margin-top:24px;align-self:flex-start;
+  min-height:44px;padding:12px 20px;border-radius:8px;border:1px solid rgba(255,255,255,.35);
+  background:transparent;color:var(--white);font-size:14px;font-weight:600;letter-spacing:-.005em;
+  transition:border-color .18s ease,background .18s ease}
+.vlead-cta span{transition:transform .18s ease}
+.vlead-cta:hover{border-color:var(--white);background:rgba(255,255,255,.06)}
+.vlead-cta:hover span{transform:translateX(2px)}
+.vlead-cta:focus-visible{outline:2px solid var(--sand);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.vlead-cta span{transition:none}}
 .vnext{display:flex;flex-direction:column;gap:8px}
 .vnext-cap{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .vrow{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:13px 14px;flex:1;transition:border-color .18s ease,transform .18s ease}
@@ -676,7 +751,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vlead-copy{padding:24px 20px 22px;max-width:88%}
   .vlead-note{max-width:23ch}
   .vlead-tags{padding-top:18px;gap:6px}
-  .vlead-tags span{font-size:12px;padding:4px 10px}
+  .vlead-tags span,.vlead-tags a{font-size:12px;padding:4px 10px}
   .vrow{grid-template-columns:34px minmax(0,1fr);row-gap:8px;padding:12px}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
@@ -685,7 +760,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    The engine's move again: beige section, black layer inside it, clipped
    from a rounded card to full bleed as it arrives. The border-top is gone
    because the card's own edge is the divider now. */
-.closer{position:relative;padding:120px 0;text-align:center;background:var(--cream);color:var(--white);overflow:hidden}
+.closer{position:relative;padding:120px 0 72px;text-align:center;background:var(--cream);color:var(--white);overflow:hidden}
 /* The closing band and the footer are one card, not two. The closer insets
    its top and sides and rounds only its top corners; the footer insets its
    sides and bottom and rounds only its bottom corners; neither insets the
@@ -695,6 +770,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer > .wrap{position:relative;z-index:1}
 .closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px);color:var(--white)}
 .closer .lead{margin:0 auto 32px;max-width:520px;color:var(--muted-on-dark)}
+.closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 /* The outlined button is drawn for ink on cream, so it gets a light
    counterpart here rather than a near-invisible dark outline on black. */
@@ -706,7 +782,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot{margin-top:28px;font-size:14px;color:rgba(255,255,255,.62)}
 .closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
 .closer-foot a:hover{border-bottom-color:var(--white)}
-.footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:80px 0 32px}
+.footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:48px 0 32px}
 @media (max-width:760px){.footer{padding:76px 0 28px}}
 .footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
@@ -730,7 +806,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
 .footer-trust-label{color:var(--gold);font-weight:600}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
-@media(max-width:860px){.closer{padding:88px 0}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
+@media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
  
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
@@ -743,7 +819,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   /* a chapter still needs a pause on a phone, just a shorter one: the
      tokens at the top of the rhythm block carry it. */
   .section-head{margin-bottom:36px;padding:0 4px}
-  .closer{padding:80px 0}
+  .closer{padding:80px 0 72px}
   .wl-section{padding:64px 0}
   .science{padding:72px 0}
   .hero-grid{gap:24px}
@@ -904,7 +980,6 @@ html,body{max-width:100%;overflow-x:clip}
       all three onto one line needs 12px we do not have, and any longer product
       name would break it again, so the wrap is the intended fallback. */
 @media (max-width:560px){
-  .hero-title{font-size:32px;line-height:1.12;letter-spacing:-.02em}
   .hero-eyebrow{text-wrap:balance;font-size:12px}
   .hero-foot{gap:4px 14px}
   .hero-foot .dot{display:none}
@@ -1130,7 +1205,6 @@ html,body{max-width:100%;overflow-x:clip}
      two. padding-bottom sits below the trust row, not between elements, so it
      does not affect the three gaps. */
   .hero .hero-copy{padding-top:0;padding-bottom:12px}
-  .hero .hero-title{font-size:32px}
   .hero .hero-sub{margin-top:12px}
   .hero .cta-alt{margin-top:12px}
   .hero .hero-foot{padding-top:16px}
@@ -1603,6 +1677,22 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   .faq-split .faq-ask{margin-top:22px}
 }
 </style>
+<script>
+/* The hero intro's start state has to be on the document before the hero's
+   first paint, or the finished hero shows and then rewinds. This only
+   decides whether the sequence runs; the sequence itself is at the end of
+   the body. The failsafe is not decoration: every intro rule is scoped to
+   this class, so if the controller never runs the hero would stay hidden. */
+(function(){
+  var seen = false;
+  try { seen = sessionStorage.getItem('blend:hero-intro') === '1'; } catch (e) {}
+  if (seen) return;
+  try { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; } catch (e) {}
+  var h = document.documentElement;
+  h.classList.add('hero-intro');
+  setTimeout(function(){ h.classList.remove('hero-intro'); }, 5000);
+})();
+</script>
 </head>
 <body>
 <a href="#main" class="skip">Skip to content</a>
@@ -1662,6 +1752,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
       </div>
     </div>
   </div>
+  <button type="button" class="sc-cue sc-cue--desktop" data-sc-cue="#how" aria-label="Scroll to How it works"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 <section class="section section-cream" id="how">
   <div class="wrap">
@@ -1687,7 +1778,8 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
           <span class="vbadge vbadge-live"><i class="vdot"></i>Live today</span>
           <h3 class="vlead-name">Health and wellness</h3>
           <p class="vlead-note">Personalised product recommendations for supplement and wellness brands.</p>
-          <div class="vlead-tags"><span>Supplement brands</span><span>Sports nutrition</span><span>Gyms &amp; studios</span><span>Clinics &amp; practitioners</span><span>Retailers</span></div>
+          <div class="vlead-tags"><a href="/use-cases#supplement-brands">Supplement brands</a><a href="/use-cases#sports-nutrition">Sports nutrition</a><a href="/use-cases#gyms-studios">Gyms &amp; studios</a><a href="/use-cases#clinics-practitioners">Clinics &amp; practitioners</a><a href="/use-cases#retailers">Retailers</a></div>
+          <a class="vlead-cta" href="/use-cases">Explore use cases <span aria-hidden="true">&#8594;</span></a>
         </div>
       </article>
       <div class="vnext">
@@ -1802,6 +1894,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 </section>
 <section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
+    <span class="eyebrow">Get started</span>
     <h2 class="h1">Put your catalogue to work.</h2>
     <p class="lead">Try the demo, or book 15 minutes with us.</p>
     <div class="closer-ctas">
@@ -1859,24 +1952,137 @@ const toggle = document.getElementById('nav-toggle');
 const links = document.getElementById('nav-links');
 toggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
 links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
-/* Hero quiz: sequenced auto-selection choreography, aligned with the wellness card's product fade-in */
-(function() {
-  const opts = document.querySelectorAll('#quiz .qopt');
-  if (!opts.length) return;
-  const reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const delays = reduce ? [0, 0, 0] : [400, 1000, 1600];
-  opts.forEach((btn, i) => {
-    if (i >= delays.length) return;
-    const apply = () => {
-      btn.classList.add('active');
-      btn.setAttribute('aria-checked', 'true');
-    };
-    // Reduced motion meant "the same choreography with zero delay", and a
-    // zero delay is still a macrotask. Under load it lands after the paint,
-    // so the third option was sometimes ticked and sometimes not. Reduced
-    // motion should mean no choreography at all, so apply it synchronously.
-    if (reduce) apply(); else setTimeout(apply, delays[i]);
-  });
+/* ---- The hero intro ----------------------------------------------------
+   The sequence the CSS block above describes, driven from one clock so the
+   answer picks land with the card's own animation rather than near it.
+
+   The class on <html> is the switch: the head put the hero in its start
+   state before first paint, this plays it and takes it off at the end.
+   Anything that means the sequence should not run — reduced motion, a
+   second visit in the session — means the class is absent, and then this
+   only applies the answers. Synchronously: a zero delay is still a
+   macrotask, and under load it lands after the paint, which is how the
+   third option used to be ticked on some loads and not others. */
+(function () {
+  var html = document.documentElement;
+  var quiz = document.getElementById('quiz');
+  var results = document.querySelector('.hero-stage .results');
+  var opts = [].slice.call(document.querySelectorAll('#quiz .qopt'));
+  var next = document.querySelector('.quiz-next');
+  if (!quiz || opts.length < 3) return;
+
+  function pick(i) {
+    if (!opts[i]) return;
+    opts[i].classList.add('active');
+    opts[i].setAttribute('aria-checked', 'true');
+  }
+  function picked() { pick(0); pick(1); pick(2); }
+  if (!html.classList.contains('hero-intro')) { picked(); return; }
+
+  var timers = [];
+  function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+  function press(el) {
+    if (!el) return;
+    el.classList.add('hi-press');
+    at(300, function () { el.classList.remove('hi-press'); });
+  }
+  var PROG = ['.6', '.8', '1'];
+  function step(i) { pick(i); quiz.style.setProperty('--hi-prog', PROG[i]); press(opts[i]); }
+
+  function detach() {
+    window.removeEventListener('scroll', onSkip);
+    window.removeEventListener('keydown', onSkip);
+    window.removeEventListener('pointerdown', onSkip);
+  }
+  /* Scrolling, clicking or typing says the visitor is past it. The end
+     state has to arrive with nothing mid-flight, so the hero's own
+     animations and transitions are cut for the frame it takes to get
+     there - otherwise three answer borders fade in over 380ms after a
+     jump that was meant to be instant. */
+  function finish(skip) {
+    timers.forEach(clearTimeout);
+    timers = [];
+    detach();
+    if (skip) html.classList.add('hi-skip');
+    html.classList.remove('hero-intro', 'hi-play', 'hi-box');
+    picked();
+    ['--hi-w', '--hi-h', '--hi-w0', '--hi-h0', '--hi-prog'].forEach(function (n) {
+      quiz.style.removeProperty(n);
+    });
+    if (quiz.parentElement) quiz.parentElement.style.removeProperty('--hi-rows');
+    [].forEach.call(document.querySelectorAll('.hi-press'), function (el) {
+      el.classList.remove('hi-press');
+    });
+    if (skip) requestAnimationFrame(function () { html.classList.remove('hi-skip'); });
+    try { sessionStorage.setItem('blend:hero-intro', '1'); } catch (e) {}
+  }
+  function onSkip() { finish(true); }
+
+  function play() {
+    /* Height sets the scale: the card starts as tall as the pair, from
+       its own top edge to the bottom of the plan card, and settles from
+       there. Measured off the two boxes rather than written down, so it
+       follows the layout at any width.
+
+       Width is whatever that comes to — 1.26 makes the card 457px wide at
+       1440, which stops short of the plan card's right edge. Reaching
+       that corner as well needs 1.575, and a uniform scale cannot do
+       both; this is the one that was asked for.
+
+       It is a transform, so the enlarged state is resampled: a browser
+       rasterises a layer once and reuses it for the rest of the
+       animation, and the bigger the step the more that shows. Only where
+       the two cards overlap; the single-column layout picks its answers
+       at size. */
+    if (results && window.matchMedia('(min-width:1200px)').matches) {
+      /* The box the card starts in: its own top-left corner to the far
+         corner of the plan card, and the size it ends at.
+
+         offset*, not getBoundingClientRect: both cards share .hero-stage
+         as their offset parent, and the layout box ignores transforms.
+         The plan card sits 24px low in its own start state, and measuring
+         its painted box made the card tall enough to reach where the plan
+         card begins rather than where it lands. */
+      var w = results.offsetLeft + results.offsetWidth - quiz.offsetLeft;
+      var h = results.offsetTop + results.offsetHeight - quiz.offsetTop;
+      if (w > quiz.offsetWidth && h > quiz.offsetHeight) {
+        quiz.style.setProperty('--hi-w', w + 'px');
+        quiz.style.setProperty('--hi-h', h + 'px');
+        quiz.style.setProperty('--hi-w0', quiz.offsetWidth + 'px');
+        quiz.style.setProperty('--hi-h0', quiz.offsetHeight + 'px');
+        /* The rows as the browser resolved them, read before the card
+           grows and then frozen, rather than a guess at what they add up
+           to: the middle row is not the plan card's height, it is that
+           height less the row below it, and pinning the wrong value moved
+           the whole stage 31px up for the length of the intro. On the
+           stage, not the card — custom properties inherit downwards. */
+        var stage = quiz.parentElement;
+        if (stage) stage.style.setProperty('--hi-rows', getComputedStyle(stage).gridTemplateRows);
+        html.classList.add('hi-box');
+      }
+    }
+    html.classList.add('hi-play');
+    window.addEventListener('scroll', onSkip, { passive: true });
+    window.addEventListener('keydown', onSkip);
+    window.addEventListener('pointerdown', onSkip);
+    at(500, function () { step(0); });
+    at(950, function () { step(1); });
+    at(1400, function () { step(2); });
+    at(1750, function () { press(next); });
+    at(2950, function () { finish(false); });
+  }
+
+  /* In view first. On this page it always is at load, but a deep link to
+     an anchor lands further down, and a sequence nobody saw has still
+     spent its once per session. */
+  var visual = document.querySelector('.hero-visual') || quiz;
+  if (!window.IntersectionObserver) { play(); return; }
+  var io = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) { io.disconnect(); play(); return; }
+    }
+  }, { threshold: 0.25 });
+  io.observe(visual);
 })();
 /* ---- FAQ accordion ------------------------------------------------------
    `name` on <details> gives one-open-at-a-time natively, and closing the open

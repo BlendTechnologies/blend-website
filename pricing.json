@@ -1,0 +1,8 @@
+{
+  "_comment": "The one place the plan prices are written. /how-it-works reads this at runtime; tools/check-prices.mjs fails if it and the homepage's tiers disagree.",
+  "currencies": ["usd", "eur", "gbp"],
+  "plans": [
+    { "id": "starter", "name": "Starter", "monthly": { "usd": 49,  "eur": 45,  "gbp": 39  }, "yearly": { "usd": 490,  "eur": 450,  "gbp": 390  } },
+    { "id": "pro",     "name": "Pro",     "monthly": { "usd": 189, "eur": 169, "gbp": 149 }, "yearly": { "usd": 1890, "eur": 1690, "gbp": 1490 } }
+  ]
+}

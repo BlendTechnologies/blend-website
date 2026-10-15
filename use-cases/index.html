@@ -25,16 +25,18 @@
 <meta name="theme-color" content="#FAF8F2">
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/scroll-cards.css">
+<link rel="stylesheet" href="/page-hero.css">
 <style>
 :root{--ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);--cream:#FAF8F2;--cream-2:#F1EDE0;--subtle:#F7F7F7;--gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--gold-soft:#F0E2CC;--muted:#6B6B6B;--line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;--shadow-sm:0 1px 2px rgba(0,0,0,.03),0 2px 8px rgba(0,0,0,.03);--shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);--nav-h:68px;--content:1200px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--hero-beige);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}.skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(38px,5.2vw,60px);line-height:1.05;letter-spacing:-.025em;font-weight:600;margin:0}
-.h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0}
+.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0;text-wrap:balance}
+.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0;text-wrap:balance}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
@@ -44,7 +46,10 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
-.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.85);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease}
+/* At rest the bar is the beige this page starts with, so the seam is not
+   there to find; scrolled, it goes back to being a bar over content. */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.85));backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease,background-color .2s ease;--nav-bg:var(--hero-tint,var(--hero-beige))}
+.nav.scrolled{background:rgba(255,255,255,.82)}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
 .logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}.logo svg{display:block;height:26px;width:auto}
@@ -59,13 +64,22 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .nav-toggle span::before{top:0}.nav-toggle span i{top:6px;display:block}.nav-toggle span::after{top:12px}
 .nav.open .nav-toggle span::before{top:6px;transform:rotate(45deg)}.nav.open .nav-toggle span::after{top:6px;transform:rotate(-45deg)}.nav.open .nav-toggle span i{opacity:0}
 @media(max-width:860px){.nav-inner{grid-template-columns:1fr auto}.nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(250,248,242,.98);backdrop-filter:blur(14px);flex-direction:column;gap:0;margin:0;padding:8px 20px 24px;border-bottom:1px solid var(--line);box-shadow:var(--shadow-md);justify-self:stretch}.nav.open .nav-links{display:flex}.nav-links a{width:100%;padding:16px 4px;font-size:16px;border-bottom:1px solid var(--line)}.nav-links a:last-child{border-bottom:0}.nav-login{display:none}.nav-toggle{display:inline-flex}.nav-actions .btn{padding:8px 16px;font-size:14px}}
-.hero{padding:80px 0 48px;background:var(--cream);text-align:center;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center top,rgba(180,127,57,.05) 0%,transparent 50%);pointer-events:none}
-.hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1}
-.hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.hero-title{margin:0}
-.hero-sub{margin-top:22px;max-width:600px;margin-left:auto;margin-right:auto}
-.cases-section{padding:48px 0 112px;background:var(--cream)}
+/* The shared PageHero: /page-hero.css. The tint is this page's, at the
+   same lightness as the others; the page's own ground stays --hero-beige
+   underneath it. */
+:root{--hero-tint:#E9ECE2;--ph-muted:#676767}
+.ph{--ph-ix:3}
+@media(max-width:760px){
+  .ph-ctas{flex-direction:column;align-items:center;gap:10px}
+  .ph-ctas .btn{width:100%;max-width:320px}
+}
+/* The rhythm the rest of the site keeps: a chapter pays the same above
+   and below. */
+.cases-section{padding:88px 0;background:var(--hero-beige)}
+/* Same adjacency rule as the homepage: a section that follows the hero
+   is already separated by the hero's own bottom padding, so it joins at
+   40 rather than opening another full 88. */
+.ph + .cases-section{padding-top:40px}
 .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
 @media(max-width:1000px){.cases-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:660px){.cases-grid{grid-template-columns:1fr}}
@@ -75,16 +89,52 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .case-card-icon.shopify{background:rgba(149,191,71,.18)}
 .case-card-icon svg{width:22px;height:22px;color:var(--gold-strong)}
 .case-card-icon.shopify svg{color:#5E8E3E}
-.case-card h3{font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink)}
+/* Two of the three titles are one line and one is two, so without a floor
+   the three paragraphs start at three different heights. */
+.case-card h3{font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink);min-height:2.5em}
 .case-card p{font-size:14px;color:var(--ink-80);line-height:1.6;margin:0 0 24px;flex:1}
 .case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--gold-strong);font-size:14px;font-weight:600;letter-spacing:-.005em}
 .case-card-cta::after{content:"\2192";transition:transform .2s ease}
 .case-card:hover .case-card-cta::after{transform:translateX(3px)}
-.closer{padding:96px 0 112px;background:var(--cream-2);text-align:center;border-top:1px solid var(--line)}
-.closer h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0 auto 14px;max-width:640px}
-.closer p{margin:0 auto 28px;max-width:520px;color:var(--ink-80);font-size:16px;line-height:1.55}
+
+/* ---- Who it's for -------------------------------------------------------
+   Five anchored rows, one per chip on the homepage's "Who we work with"
+   card. Those chips have been linking into this page since the homepage
+   gained them; the page had no anchors at all, so all five landed at the
+   top. Rows rather than a grid: five cards leave a ragged last row at
+   every column count, and the names are the thing being scanned. */
+.aud-section{padding:0 0 88px;background:var(--hero-beige)}
+.aud-head{max-width:720px;margin:0 auto 40px;text-align:center}
+.aud-head .eyebrow{display:inline-block;margin-bottom:14px}
+.aud-head .h2{margin-bottom:16px}
+.aud-head .lead{margin-left:auto;margin-right:auto;max-width:560px}
+.aud-list{max-width:1100px;margin:0 auto;padding:0;border-top:1px solid var(--line)}
+.aud-row{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) minmax(0,240px);gap:16px 36px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
+.aud-row dt{margin:0;font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;color:var(--ink)}
+.aud-row dd{margin:0}
+.aud-row .aud-go{text-align:right}
+.aud-row dd p{margin:0;font-size:15px;line-height:1.6;color:var(--ink-80)}
+.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold-strong);font-size:14px;font-weight:600;letter-spacing:-.005em;line-height:1.6}
+.aud-link::after{content:"\2192";transition:transform .2s ease}
+.aud-link:hover::after{transform:translateX(3px)}
+@media (prefers-reduced-motion:reduce){.aud-link::after{transition:none}}
+@media(max-width:980px){.aud-row{grid-template-columns:minmax(0,220px) minmax(0,1fr)}.aud-link{margin-top:12px}}
+@media(max-width:760px){.aud-row{grid-template-columns:minmax(0,1fr);gap:10px;padding:24px 0}.aud-row dt{font-size:18px}}
+/* The bar is sticky and 68px tall, so an anchor that scrolls to 0 puts its
+   own heading underneath it. */
+[id]{scroll-margin-top:calc(var(--nav-h) + 28px)}
+.closer{padding:88px 0 72px;background:var(--hero-beige);text-align:center}
+.closer h2{margin:0 auto 14px;max-width:640px}
+.closer p{margin:0 auto 28px;max-width:520px}
+.closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
+.cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
+.cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
+.closer .cta-alt{color:rgba(255,255,255,.62)}
+.closer .cta-alt a{color:var(--sand);text-decoration-color:rgba(231,207,163,.45)}
+.closer .cta-alt a:hover{text-decoration-color:var(--sand)}
+/* The dark is the reveal, not the footer, so the two read as one card. */
+.footer{position:relative;overflow:hidden;background:var(--hero-beige);color:rgba(255,255,255,.72);padding:48px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px}
 .footer-brand .logo svg{filter:brightness(0) invert(1);height:24px}
@@ -170,56 +220,111 @@ html,body{max-width:100%;overflow-x:clip}
 
 <main id="main">
 
-<section class="hero">
+<section class="ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
-    <div class="hero-inner">
-      <span class="hero-eyebrow">Use cases</span>
-      <h1 class="h1 hero-title">How brands use Blend.</h1>
-      <p class="lead hero-sub">A personalised product quiz engine for supplement and OTC health brands. Pick the entry point that matches where you are.</p>
+    <div class="ph-inner">
+      <span class="eyebrow">Use cases</span>
+      <h1 class="h1">How brands use Blend.</h1>
+      <p class="lead">The right products for each customer, with the reason attached to every pick.</p>
+      <p class="ph-meta">Live for supplements and health <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
+      <div class="ph-ctas">
+        <a href="/try" class="btn btn-primary btn-lg">Try the demo</a>
+        <a href="https://calendly.com/julien-blend-technologies/30min" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Book a call</a>
+      </div>
     </div>
+    <nav class="ph-ix" aria-label="The three use cases"><a class="ph-ix-item" href="#case-shopify"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">01</span><span class="ph-ix-name">Shopify supplement brands</span></a><a class="ph-ix-item" href="#case-supplements"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">02</span><span class="ph-ix-name">Supplement brands</span></a><a class="ph-ix-item" href="#case-compare"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">03</span><span class="ph-ix-name">Blend vs other quiz tools</span></a></nav>
   </div>
+  <button type="button" class="sc-cue" data-sc-cue="#cases" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 
-<section class="cases-section">
+<section class="cases-section" id="cases">
   <div class="wrap">
     <div class="cases-grid">
-      <a href="/use-cases/shopify" class="case-card">
+      <a href="/use-cases/shopify" class="case-card" id="case-shopify">
         <div class="case-card-icon shopify"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
         <h3>For Shopify supplement brands</h3>
-        <p>Native catalogue sync, white-label embed, and a deterministic scoring engine that runs on the same Shopify store you already have.</p>
+        <p>Connect the store once and your products and variants come across on their own, nightly. The quiz runs on your own storefront in your own branding, and every pick links straight back to the product page.</p>
         <span class="case-card-cta">See the Shopify use case</span>
       </a>
-      <a href="/use-cases/supplement-brands" class="case-card">
+      <a href="/use-cases/supplement-brands" class="case-card" id="case-supplements">
         <div class="case-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12a5 5 0 0 1 10 0c0 3-3 5-5 9-2-4-5-6-5-9z"/><circle cx="12" cy="12" r="2"/></svg></div>
         <h3>For supplement brands</h3>
-        <p>The science. More than 30 product attributes, 20+ safety checks on every pick, and the specific reasons behind every recommendation.</p>
+        <p>The science, and the part a customer can argue with. 25 product attributes scored against their answers, 17 safety gates on every pick, and the specific reason behind each one.</p>
         <span class="case-card-cta">See the supplement use case</span>
       </a>
-      <a href="/use-cases/compare" class="case-card">
+      <a href="/use-cases/compare" class="case-card" id="case-compare">
         <div class="case-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19l-3-3 3-3"/><path d="M5 16h11a4 4 0 0 0 4-4v-1"/><path d="M15 5l3 3-3 3"/><path d="M19 8H8a4 4 0 0 0-4 4v1"/></svg></div>
         <h3>Blend vs other quiz tools</h3>
-        <p>Side by side against Octane AI, Rebuy, and Lifery. What Blend has that tag-based quiz tools don't, and where they're equivalent.</p>
+        <p>Feature by feature against tag-based quiz tools. Where they match an answer to a tag, Blend computes the need, checks it for safety, and shows its working.</p>
         <span class="case-card-cta">See the comparison</span>
       </a>
     </div>
   </div>
 </section>
 
-<section class="closer">
+<section class="aud-section">
   <div class="wrap">
-    <h2>Not sure which fits? Start a trial.</h2>
-    <p>15-day free trial on every plan. Live in an afternoon.</p>
+    <div class="aud-head">
+      <span class="eyebrow">Who it&#8217;s for</span>
+      <h2 class="h2">Same engine, different shop floor.</h2>
+      <p class="lead">Supplements and over-the-counter health is the live vertical. What changes is the catalogue and the room it sells in, not the scoring underneath.</p>
+    </div>
+    <dl class="aud-list">
+      <div class="aud-row" id="supplement-brands">
+        <dt>Supplement brands</dt>
+        <dd>
+          <p>Your range, scored product by product against each customer&#8217;s answers, with the reason attached to every pick. They stop guessing in front of a forty-product grid, and a product that is wrong for them never reaches them.</p>
+        </dd>
+        <dd class="aud-go"><a class="aud-link" href="/use-cases/supplement-brands">See the supplement use case</a></dd>
+      </div>
+      <div class="aud-row" id="sports-nutrition">
+        <dt>Sports nutrition</dt>
+        <dd>
+          <p>The engine reads sport, intensity and sessions a week, and carries separate multipliers for weight training, endurance and everything else, so someone lifting four times a week and someone training for a marathon come out with different targets and different plans from one catalogue. You write no rules for either. And you don&#8217;t need a catalogue of your own to start: pick from our product list, or add the partner products you already stock.</p>
+        </dd>
+        <dd class="aud-go"><a class="aud-link" href="/how-it-works#recommend">See how a plan is built</a></dd>
+      </div>
+      <div class="aud-row" id="gyms-studios">
+        <dt>Gyms &amp; studios</dt>
+        <dd>
+          <p>Members ask your staff what they should be taking, and your staff guess. The quiz answers it in your own branding, on your own site, and shows you what your members keep asking for. No range of your own needed: build one from our product list, or add the partner products you already recommend.</p>
+        </dd>
+        <dd class="aud-go"><a class="aud-link" href="/how-it-works#launch">See where the quiz goes</a></dd>
+      </div>
+      <div class="aud-row" id="clinics-practitioners">
+        <dt>Clinics &amp; practitioners</dt>
+        <dd>
+          <p>Accelerate your online consultations. Every pick is traceable to the rule that produced it. Medication conflicts, contraindications and upper limits are checked on every recommendation, so what a client leaves with is a product recommendation with its reasoning attached, not a diagnosis. Work from your own dispensary, or from our product list.</p>
+        </dd>
+        <dd class="aud-go"><a class="aud-link" href="/science">How the models work</a></dd>
+      </div>
+      <div class="aud-row" id="retailers">
+        <dt>Retailers</dt>
+        <dd>
+          <p>A multi-brand range is harder to navigate, not easier. The quiz scores everything you stock, puts the right product in front of each customer and ranks what to show first. Catalogue gaps then tells you what your customers keep needing that you don&#8217;t stock, and what you do stock that never matches.</p>
+        </dd>
+        <dd class="aud-go"><a class="aud-link" href="/how-it-works#analyse">See what the data tells you</a></dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">Get started</span>
+    <h2 class="h2">Not sure which fits? Start a trial.</h2>
+    <p class="lead">15-day free trial on every plan. Live in an afternoon.</p>
     <div class="closer-ctas">
       <a href="/#pricing" class="btn btn-primary btn-lg">Start free trial</a>
       <a href="/try" class="btn btn-ghost btn-lg">Try the live demo</a>
     </div>
-    <div style="text-align:center;margin-top:16px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em">Not ready? <a href="/sample-report" style="color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500">See a sample report &rarr;</a></div>
+    <div class="cta-alt" style="text-align:center;margin-top:16px">Not ready? <a href="/sample-report">See a sample report &rarr;</a></div>
   </div>
 </section>
 
 </main>
 
-<footer class="footer">
+<footer class="footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -311,5 +416,6 @@ toggle.addEventListener('click', () => { const open = nav.classList.toggle('open
   window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(schedule, 160); }, { passive: true });
 })();
 </script>
+<script src="/scroll-cards.js"></script>
 </body>
 </html>

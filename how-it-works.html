@@ -33,6 +33,7 @@
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="/scroll-cards.css">
+<link rel="stylesheet" href="/page-hero.css">
 <link rel="stylesheet" href="/cookie-consent.css">
 <style>
 /* ============================================================
@@ -78,7 +79,16 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
-.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease;border-bottom:1px solid transparent;}
+/* At rest the bar is whatever the page starts with, so the seam between
+   it and the top of the page is not there to find. --nav-bg is set by
+   the pages whose first block is not cream; everything else keeps the
+   translucent default. Once the page scrolls it goes back to being a
+   bar over moving content. */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.82));backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease,background-color .2s ease;border-bottom:1px solid transparent;}
+.nav.scrolled{background:rgba(255,255,255,.82)}
+/* This page opens on the hero card, so the bar is its beige until the
+   page moves. */
+.nav{--nav-bg:var(--hero-tint,var(--hero-beige))}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
 .logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
@@ -568,13 +578,16 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
 }
-.closer{padding:120px 0;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
+.closer{padding:120px 0 72px;text-align:center;background:var(--cream)}
 .closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px)}
 .closer .lead{margin:0 auto 32px;max-width:520px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .closer-foot{margin-top:28px;font-size:14px;color:var(--muted)}
 .closer-foot a{color:var(--ink);border-bottom:1px solid var(--ink)}
-.footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
+/* The dark is painted by the reveal, not by the footer, so the footer sits
+   on cream like the section above it and the two become one card. Same as
+   the homepage. */
+.footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:48px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
@@ -609,7 +622,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   /* tighten section rhythm so the page feels less crammed */
   .section{padding:64px 0}
   .section-head{margin-bottom:36px;padding:0 4px}
-  .closer{padding:88px 0}
+  .closer{padding:88px 0 72px}
   .wl-section{padding:64px 0}
   .science{padding:80px 0}
   .hero-grid{gap:24px}
@@ -1404,436 +1417,162 @@ html,body{max-width:100%;overflow-x:clip}
   .sci-point{padding-top:18px}
   .science .sci-method{margin-top:32px}
 }
-section[id^="step-"]{scroll-margin-top:var(--nav-h)}
-.hw-head{margin-bottom:48px}
-.hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-active)}
-.hw-n::before{content:"";width:24px;height:1px;background:var(--line-strong)}
-.hw-head .h2{margin-top:14px;max-width:760px}
-.hw-head .lead{margin-top:14px;max-width:720px}
-.hw-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.hw-col{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px 24px;box-shadow:var(--shadow-sm)}
-.hw-col h3{margin:0 0 8px;font-size:16px;font-weight:600;letter-spacing:-.01em}
-.hw-col p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-60)}
-@media(max-width:860px){
-  .hw-hero{padding:40px 0 48px}
-  .hw-head{margin-bottom:32px}
-  .hw-cols{grid-template-columns:1fr;gap:14px}
-  .hw-col{padding:22px 20px}
+/* ======================================================================
+   /how-it-works — rebuilt 2026-10-14 around the webapp team's mockups.
+
+   The page is a header, six steps and one dark close. Every step is the
+   same object: eyebrow, headline, sentence, three pills, a "why it's
+   different" line, and the step's mockup. Nothing here styles product UI;
+   the mockups arrive whole from blend-mockups/ and this file only places,
+   scales and crops them.
+   ====================================================================== */
+
+/* The homepage's rhythm, same three tokens, same values. */
+:root{--sec:88px;--sec-tight:80px;--sec-join:40px}
+@media(max-width:860px){:root{--sec-join:44px}}
+@media(max-width:760px){:root{--sec:72px;--sec-tight:72px;--sec-join:36px}}
+
+/* Every step answers to two ids: the name the brief gives it, and the
+   step-N the homepage's six boxes have always linked to. The second is an
+   empty anchor inside the section, so neither has to move. */
+.hw-step,.hw-anchor{scroll-margin-top:calc(var(--nav-h) + 16px)}
+.hw-anchor{display:block;height:0}
+
+/* ---- Header ----------------------------------------------------------
+   The shared PageHero: /page-hero.css. The tint is this page's, at the
+   same lightness as the others so the ink and the brown keep the
+   contrast they were measured at. The price line is the meta slot. */
+:root{--hero-tint:#EFE6D5;--ph-muted:#676767}
+.ph{--ph-ix:6}
+.ph-meta .hw-price-trial{color:var(--ph-muted,var(--muted))}
+@media(max-width:760px){
+  .ph-ctas{flex-direction:column;align-items:center;gap:10px}
+  .ph-ctas .btn{width:100%;max-width:320px}
+}
 }
 
-/* ============================================================
-   /how-it-works: the six steps, shown inside the real product
-   ------------------------------------------------------------
-   Every screenshot on this page is a capture of the running app,
-   taken from the Blend Demo account. Nothing here is a rebuilt
-   approximation of an interface, which is why the catalogue shows
-   an unconnected store and the match dialog shows a review state
-   with nothing ticked: that is what those screens actually say.
-   ============================================================ */
-.hw-title{margin:0;max-width:18ch}
-.hw-lead{margin:22px 0 0;max-width:56ch}
+/* ---- Background ------------------------------------------------------
+   White where the hero card leaves off, settling into beige by the last
+   step. One element around all six, so it is one gradient rather than
+   six, and nothing banding between them. */
+.hw-steps{background:linear-gradient(to bottom,var(--white) 0,var(--white) 6%,var(--cream) 100%)}
 
-/* The six steps as a row of anchors. Sticky under the site nav, never over
-   it: top is the nav's own height, so the two stack rather than overlap. */
-.stepnav{position:sticky;top:var(--nav-h);z-index:40;background:var(--cream);
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.stepnav ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr)}
-.stepnav a{display:flex;align-items:baseline;gap:9px;padding:15px 2px;font-size:14px;
-  color:var(--muted);letter-spacing:-.005em;transition:color .16s ease}
-.stepnav-n{font-size:11px;font-weight:600;letter-spacing:.07em;color:var(--line-strong);
-  transition:color .16s ease}
-.stepnav a:hover,.stepnav a:focus-visible{color:var(--gold-strong)}
-.stepnav a:hover .stepnav-n,.stepnav a:focus-visible .stepnav-n{color:var(--gold-strong)}
-.stepnav a.is-current{color:var(--ink)}
-.stepnav a.is-current .stepnav-n{color:var(--gold-strong)}
-.stepnav a:focus-visible{outline:2px solid var(--gold-active);outline-offset:-2px;border-radius:4px}
-/* Both bars are sticky, so an anchor has to clear the pair of them. */
-section[id^="step-"]{scroll-margin-top:calc(var(--nav-h) + 72px)}
+/* ---- One step ---------------------------------------------------------
+   Text on one side, the screen on the other, sides swapping step to step.
+   Both columns are centred against each other, so a short step and a long
+   one have the same shape. */
+/* Six steps are one chapter, not six, so the seam between them is shorter
+   than the one the homepage puts between its sections. */
+.hw-step{padding:64px 0}
+@media(max-width:760px){.hw-step{padding:52px 0}}
+.hw-step-grid{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,56fr);
+  gap:56px;align-items:center}
+.hw-step--flip .hw-step-text{order:2}
+.hw-step-text,.hw-vis{min-width:0}
 
-/* The homepage's rhythm, and the way it handles a boundary: full padding
-   above the rule, half below it, so the pair reads as one deliberate pause
-   rather than two sections' worth of nothing. */
-.hw-step{padding:120px 0}
-.hw-step + .hw-step{border-top:1px solid var(--line);padding-top:56px}
-/* Same treatment as .eyebrow everywhere else on the site. Gold is kept for
-   the things you can act on - buttons, links, the expansion controls - which
-   is how the homepage spends it. */
-.hw-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted)}
-.hw-step .h2{margin-top:14px;text-wrap:balance}
-.hw-desc{margin:20px 0 0;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80)}
+/* The site has one overheading: 12px, 500, .08em, the secondary text
+   colour. Every one on every page is that, this page included. */
+.hw-eyebrow{display:inline-block;font-size:12px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hw-step-text h2{margin-top:14px;font-size:clamp(26px,2.4vw,34px);line-height:1.12;
+  letter-spacing:-.025em;font-weight:600}
+.hw-lead{margin-top:14px;font-size:15.5px;line-height:1.62;color:var(--ink-80)}
 
-/* A. Split: explanation left, screenshot right. Centred against each other
-   rather than stretched to a common height, which on a short explanation
-   left a column of white beside a tall image. */
-.hw-split{display:grid;grid-template-columns:minmax(0,37fr) minmax(0,63fr);gap:64px;align-items:center}
-.hw-copy{max-width:48ch}
-/* Expanded, the screenshot takes the whole content width and the
-   explanation moves above it. One column does both. */
-.hw-split.is-open{grid-template-columns:minmax(0,1fr);gap:40px}
-.hw-split.is-open .hw-copy{max-width:72ch}
+/* ---- The three parts ------------------------------------------------
+   Labels for what is in the screen beside them. They were a tablist that
+   dimmed zones in the mockup; the export does not mark zones, so there
+   was nothing to activate and nothing should look pressable. */
+.hw-pills{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0;padding:0;list-style:none}
+.hw-pill{padding:8px 14px;border:1px solid var(--line-strong);border-radius:999px;
+  background:var(--white);color:var(--ink-80);font-size:13px;font-weight:500;line-height:1.2}
 
-/* B. Showcase: number and heading upper left, copy upper right, screenshot
-   underneath across the content width. */
-.hw-show-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,44%);gap:56px;align-items:end}
-.hw-show-head .hw-desc{margin:0;padding-bottom:4px}
-.hw-show .hw-fig{margin-top:40px}
+/* ---- The three beats, step 02 only ----------------------------------- */
+.hw-beats{margin:20px 0 0;display:grid;gap:12px}
+.hw-beat{display:grid;grid-template-columns:minmax(0,8.5rem) minmax(0,1fr);gap:12px;
+  padding-top:10px;border-top:1px solid var(--line);font-size:14px;line-height:1.55}
+.hw-beat dt{font-weight:600;color:var(--ink)}
+.hw-beat dd{margin:0;color:var(--ink-80)}
+@media(max-width:1099px){.hw-beat{grid-template-columns:minmax(0,9rem) minmax(0,1fr)}}
+@media(max-width:560px){.hw-beat{grid-template-columns:minmax(0,1fr);gap:3px}}
 
-/* Small labels. Three kinds, deliberately quiet: import methods on step 1,
-   capability labels above a screenshot on steps 3 and 6. Neither is a tab,
-   so neither is a button. */
-.hw-chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0}
-.hw-chips li{font-size:12px;font-weight:500;color:var(--ink-80);background:var(--white);
-  border:1px solid var(--line);border-radius:999px;padding:8px 14px}
-.hw-labels{list-style:none;display:flex;flex-wrap:wrap;gap:10px 28px;margin:36px 0 0;padding:0}
-.hw-labels li{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--muted);display:flex;align-items:center;gap:9px}
-.hw-labels li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--line-strong)}
+.hw-bridge{margin:18px 0 0;font-size:14.5px;line-height:1.6;color:var(--ink-80)}
+.hw-bridge a{color:var(--gold-strong);font-weight:500;text-decoration:underline;
+  text-decoration-color:var(--gold-soft);text-underline-offset:3px}
+.hw-bridge a:hover{text-decoration-color:var(--gold-strong)}
+.hw-quote{margin:18px 0 0;padding:14px 16px;border-left:2px solid var(--gold);
+  background:rgba(180,127,57,.06);border-radius:0 10px 10px 0;font-size:14.5px;line-height:1.6;color:var(--ink)}
+.hw-quote p{margin:0}
 
-/* The aside under each explanation: what you do, or what stays yours. */
-.hw-note{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
-.hw-note-label{display:block;font-size:11px;font-weight:600;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--muted)}
-.hw-note p{margin:9px 0 0;font-size:15px;line-height:1.6;color:var(--ink-80)}
-.hw-note a{color:var(--ink);border-bottom:1px solid var(--line-strong);font-weight:500}
-.hw-note a:hover{border-bottom-color:var(--gold-strong);color:var(--gold-strong)}
+/* ---- Why it's different ---------------------------------------------
+   The same shape on all six, because the point is that each step has one. */
+.hw-why{margin-top:22px;padding:13px 0 0;border-top:1px solid var(--line-strong)}
+.hw-why-label{display:block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted)}
+.hw-why p{margin:6px 0 0;font-size:14px;line-height:1.6;color:var(--ink)}
+.hw-more{margin-top:16px;font-size:14px}
+.hw-more a{color:var(--gold-strong);font-weight:500;text-decoration:underline;
+  text-decoration-color:var(--gold-soft);text-underline-offset:3px}
+.hw-more a:hover{text-decoration-color:var(--gold-strong)}
 
-/* Step 4's three placements. Rows, not cards: three boxes for three one-line
-   facts was more furniture than content. */
-.hw-rows{list-style:none;margin:26px 0 0;padding:0}
-.hw-row{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;align-items:baseline;
-  padding:15px 0;border-top:1px solid var(--line)}
-.hw-row:last-child{border-bottom:1px solid var(--line)}
-.hw-row-n{font-size:11.5px;font-weight:600;letter-spacing:.06em;color:var(--gold-active)}
-.hw-row-name{font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
-.hw-row-sub{display:block;margin-top:3px;font-size:14px;line-height:1.55;color:var(--ink-60);font-weight:400}
+/* ---- The screen ------------------------------------------------------
+   The webapp team's export, one image per step. Every card carries the
+   same padding, and the image inside keeps its own proportions - they run
+   from 1.9:1 to 0.69:1, so a shared crop would cut four of the six. The
+   height is capped instead, which keeps the six cards comparable without
+   deciding what to cut.
 
-/* Screenshots. The frame is on the box, not the image, so a clamped capture
-   keeps its border and radius along the cut. */
-.hw-fig{margin:0}
-.hw-fig-box{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;
-  background:var(--white);box-shadow:var(--shadow-sm)}
-.hw-fig-box img{display:block;width:100%;height:auto}
-/* Tall captures show their top and say so, rather than shrinking a whole
-   dashboard to thumbnail type. */
-.hw-fig--clamp .hw-fig-box{max-height:700px}
-.hw-fig--clamp .hw-fig-box::after{content:"";position:absolute;left:0;right:0;bottom:0;height:140px;
-  background:linear-gradient(to top,var(--cream) 10%,rgba(250,248,242,0));pointer-events:none}
-.hw-fig--clamp.is-open .hw-fig-box{max-height:none}
-.hw-fig--clamp.is-open .hw-fig-box::after{display:none}
-.hw-cap{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
-  gap:6px 20px;margin-top:14px;font-size:12px;line-height:1.5;color:var(--muted)}
-.hw-expand{font:inherit;font-size:12px;font-weight:500;color:var(--gold-strong);background:none;
-  border:0;padding:3px 0;cursor:pointer;white-space:nowrap;transition:color .16s ease}
-.hw-expand:hover{color:var(--gold-active)}
-.hw-expand:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
-a.hw-expand{border-bottom:0}
-/* A phone has one column already, so "Expand" would move nothing. Below 860
-   every capture offers the full-size image instead, which on a 348px screen
-   is the only expansion that actually helps. display:none also takes the
-   hidden one out of the tab order, so there is never a second control to
-   reach by keyboard. */
-.hw-expand--sm{display:none}
-@media(max-width:860px){
-  .hw-expand[data-expand]{display:none}
-  .hw-expand--sm{display:inline-block}
+   width and height are on the img, so the space is reserved from the
+   ratio before the file arrives and nothing below it moves. */
+.hw-shot{margin:0;padding:18px;border-radius:16px;background:var(--white);
+  border:1px solid var(--line);box-shadow:var(--shadow-md)}
+.hw-shot img{display:block;margin:0 auto;max-width:100%;max-height:520px;
+  width:auto;height:auto;border-radius:8px}
+.hw-cap{margin:10px 2px 0;font-size:12px;color:var(--muted)}
+
+/* The card grows as it comes into the middle of the screen and settles
+   back as it leaves, so the step you are reading is the one with weight.
+   Transform only, and the stylesheet holds the end state, so with no
+   script or under reduced motion every card is simply at full size. */
+.hw-vis{transform:scale(calc(.94 + var(--sc-p, 1) * .06));
+  transform-origin:50% 50%;will-change:transform}
+@media (prefers-reduced-motion:reduce){.hw-vis{transform:none}}
+
+@media(max-width:560px){
+  .hw-step-text h2{font-size:25px}
+  .hw-lead{font-size:15px}
+  .hw-photo{padding:5% 5% 7%}
 }
 
-/* The closing band follows a step, so it takes the same halved top padding
-   the homepage gives the section after a rule. */
-.hw-step + .closer{padding-top:56px}
+/* ---- Entrance --------------------------------------------------------
+   One pass per mockup, the first time it is seen. The end state is the
+   plain declaration, so a frozen or scriptless render shows the finished
+   mockup rather than an empty box. */
+[data-reveal]{opacity:1}
+.hw-shot.is-armed [data-reveal]{opacity:0}
+.hw-shot.is-in [data-reveal]{opacity:1;animation:hw-rise .55s cubic-bezier(.2,.7,.25,1) both}
+.hw-shot.is-in [data-reveal="2"]{animation-delay:.14s}
+.hw-shot.is-in [data-reveal="3"]{animation-delay:.28s}
+@keyframes hw-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---- The close -------------------------------------------------------
+   The homepage's endcap: the dark card opens as it arrives and the footer
+   is the same card continuing, so the two never read as two blocks. */
+/* Less room under the call to action than above it: below it is the
+   footer, which is the same dark card continuing. */
+.hw-closer{padding:var(--sec) 0 72px}
 .hw-closer .eyebrow{display:inline-block;margin-bottom:14px}
-.hw-closer .lead{max-width:44ch}
-.hw-closer-alt{margin-top:18px;font-size:14px;color:var(--muted)}
-.hw-closer-alt a{color:var(--ink);border-bottom:1px solid var(--ink);font-weight:500}
+.hw-closer .lead{max-width:46ch}
+.hw-closer-alt{margin-top:18px;font-size:14px;color:var(--muted-on-dark)}
+.hw-closer-alt a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
+.hw-closer-alt a:hover{border-bottom-color:var(--white)}
 
-@media(max-width:1100px){
-  .hw-split{gap:44px}
-  .hw-show-head{gap:40px}
-}
-@media(max-width:860px){
-    .hw-step{padding:88px 0}
-  .hw-step + .hw-step{padding-top:44px}
-  .hw-step + .closer{padding-top:44px}
-  .hw-split{grid-template-columns:1fr;gap:34px;align-items:start}
-  .hw-copy{max-width:62ch}
-  .hw-show-head{grid-template-columns:1fr;gap:20px;align-items:start}
-  .hw-show .hw-fig{margin-top:32px}
-  .hw-labels{margin-top:28px}
-  .hw-fig--clamp .hw-fig-box{max-height:460px}
-  /* Expanding a split section on a phone cannot widen anything: it is
-     already one column. The control still unclamps, so it still does
-     something, and where it would not, it is not rendered at all. */
-  .hw-split.is-open{gap:34px}
-}
-@media(max-width:620px){
-  .stepnav ol{grid-template-columns:repeat(3,1fr)}
-  .stepnav a{padding:12px 2px;font-size:13px;gap:7px}
-  section[id^="step-"]{scroll-margin-top:calc(var(--nav-h) + 108px)}
-  .hw-step{padding:72px 0}
-  .hw-step + .hw-step{padding-top:36px}
-  .hw-step + .closer{padding-top:36px}
-  .hw-fig--clamp .hw-fig-box{max-height:380px}
-  .hw-cap{gap:8px}
-}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-}
-
-/* ============================================================
-   Step mockups — one moment from the product, at a readable size
-   ------------------------------------------------------------
-   HTML and CSS, not screenshots: a 1440-wide admin screen shrunk into a
-   673px column is unreadable, and these have to be legible at 12px. Each
-   one is a larger, more detailed version of the matching step-card
-   thumbnail on the homepage - same data, same surfaces - so clicking
-   through from there lands somewhere recognisable.
-
-   Light surfaces throughout, except step 05, which is the page's one dark
-   block. Nothing here loads, so nothing can shift or flash while it does.
-
-   Each plays one entrance when it first enters view, on the homepage's
-   easing. .is-in is set once by an observer and never removed, so the
-   animation does not replay on the way back up. Reduced motion skips the
-   observer entirely and the end state is what the stylesheet already
-   says. */
-.mk{position:relative;border:1px solid var(--line);border-radius:14px;background:#F4EFE3;
-  box-shadow:var(--shadow-sm);overflow:hidden;padding:20px;display:flex;flex-direction:column;gap:11px}
-.mk-c{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.mk-row{display:flex;align-items:center;gap:10px}
-.mk-t{display:block;font-size:13px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.3}
-.mk-s{display:block;font-size:12px;color:var(--muted);line-height:1.35}
-.mk-dot{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:#067647}
-.mk-chip{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--gold-strong);background:var(--gold-soft);border-radius:999px;padding:4px 9px;white-space:nowrap}
-.mk-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:7px;
-  background:var(--gold-strong);color:#fff;font-size:12px;font-weight:600;white-space:nowrap}
-.mk-bar{height:5px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:9px}
-.mk-bar > i{display:block;height:100%;width:100%;border-radius:999px;background:var(--gold-strong);
-  transform:scaleX(0);transform-origin:0 50%}
-.mk-pack{flex:0 0 auto;width:30px;height:34px;border-radius:5px;border:1px solid var(--line-strong);
-  background:linear-gradient(160deg,#F7F2E7,#E9E0CE);position:relative}
-.mk-pack::before{content:"";position:absolute;left:50%;top:-4px;transform:translateX(-50%);
-  width:13px;height:6px;border-radius:2px 2px 0 0;background:#D8CDB6}
-.mk-pack::after{content:"";position:absolute;left:5px;right:5px;top:12px;height:7px;border-radius:2px;
-  background:rgba(150,104,42,.22)}
-
-/* the entrance: a short rise, staggered by --d */
-@keyframes mk-rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-@keyframes mk-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes mk-tick{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
-@keyframes mk-swap-out{to{opacity:0;transform:translateY(-4px)}}
-@keyframes mk-swap-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-@keyframes mk-draw{to{stroke-dashoffset:0}}
-.mk-a{opacity:0}
-.is-in .mk-a{opacity:1;animation:mk-rise .5s cubic-bezier(.2,.7,.25,1) var(--d,0s) both}
-.is-in .mk-bar > i{transform:none;animation:mk-fill 1.15s cubic-bezier(.2,.7,.25,1) var(--d,.25s) both}
-.mk-tick{opacity:0}
-.is-in .mk-tick{opacity:1;animation:mk-tick .34s cubic-bezier(.2,.7,.25,1) var(--d,0s) both}
-.mk-was{opacity:1}
-.is-in .mk-was{opacity:0;animation:mk-swap-out .3s ease var(--d,1.3s) both}
-.mk-now{opacity:0}
-.is-in .mk-now{opacity:1;animation:mk-swap-in .36s cubic-bezier(.2,.7,.25,1) calc(var(--d,1.3s) + .18s) both}
-.mk-swap{display:grid}
-.mk-swap > *{grid-area:1/1;align-self:center}
-/* The .is-in rules carry two classes and would otherwise out-specify a
-   plain reduced-motion override, so the animation would still run. These
-   are the one place on the page that earns !important. */
 @media (prefers-reduced-motion:reduce){
-  .mk-a,.mk-tick,.mk-now,.mk-area{opacity:1!important;animation:none!important;transform:none!important}
-  .mk-was{display:none!important}
-  .mk-bar > i,.mk-goal .mk-track i{transform:none!important;animation:none!important}
-  .mk-draw{stroke-dashoffset:0!important;animation:none!important}
-}
-
-/* 01 connect */
-.mk-list{display:grid;gap:7px}
-.mk-prod{display:flex;align-items:center;gap:11px;background:var(--white);border:1px solid var(--line);
-  border-radius:9px;padding:9px 12px}
-.mk-prod .mk-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mk-ready{font-size:11px;font-weight:600;color:#067647;white-space:nowrap}
-
-/* 02 match */
-.mk-match{display:flex;align-items:center;gap:11px;background:var(--white);border:1px solid var(--line);
-  border-radius:9px;padding:10px 12px}
-.mk-box{flex:0 0 auto;width:16px;height:16px;border-radius:4px;border:1.5px solid var(--line-strong);
-  display:grid;place-items:center;background:var(--white)}
-.is-in .mk-box{border-color:var(--gold-strong);background:var(--gold-strong);
-  transition:border-color .3s ease var(--d,0s),background .3s ease var(--d,0s)}
-.mk-box svg{width:9px;height:9px;display:block}
-.mk-from{font-size:12.5px;font-weight:600;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mk-arr{color:var(--muted);font-size:12px}
-.mk-to{font-size:12.5px;font-weight:600;color:var(--gold-strong);white-space:nowrap}
-.mk-foot{display:flex;align-items:center;gap:12px;margin-top:2px}
-
-/* 03 design */
-.mk-design{display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:11px;align-items:start}
-.mk-quiz{background:var(--white);border:1px solid var(--line);border-radius:var(--mk-r,10px);padding:14px;
-  transition:border-radius .5s cubic-bezier(.2,.7,.25,1)}
-.is-in .mk-quiz{--mk-r:16px}
-.mk-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);
-  border-radius:calc(var(--mk-r,10px) - 4px);padding:9px 11px;font-size:12.5px;font-weight:500;margin-top:7px;
-  transition:border-color .5s ease,background .5s ease,border-radius .5s cubic-bezier(.2,.7,.25,1)}
-.mk-opt.on{border-color:var(--mk-ac,#96682A);background:var(--mk-ac-soft,rgba(150,104,42,.08))}
-.is-in .mk-opt.on{--mk-ac:#2F6F5E;--mk-ac-soft:rgba(47,111,94,.1)}
-.mk-cta{margin-top:10px;display:inline-block;padding:8px 14px;border-radius:calc(var(--mk-r,10px) - 4px);
-  background:var(--mk-ac,#96682A);color:#fff;font-size:12px;font-weight:600;
-  transition:background .5s ease,border-radius .5s cubic-bezier(.2,.7,.25,1)}
-.is-in .mk-cta{--mk-ac:#2F6F5E}
-.mk-panel{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:11px}
-.mk-lab{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.mk-sw{display:flex;gap:6px;margin-top:7px}
-.mk-sw i{width:17px;height:17px;border-radius:5px;display:block;border:1px solid rgba(0,0,0,.08)}
-.mk-sw i.sel{outline:2px solid var(--ink);outline-offset:2px}
-.mk-seg{display:flex;gap:3px;background:var(--subtle);border-radius:7px;padding:3px;margin-top:11px}
-.mk-seg span{flex:1;text-align:center;font-size:11px;font-weight:600;padding:5px 0;border-radius:5px;color:var(--muted)}
-.mk-seg span.on{background:var(--white);color:var(--ink);box-shadow:var(--shadow-sm)}
-
-/* 04 launch */
-.mk-store{background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.mk-store-bar{display:flex;align-items:center;gap:6px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--subtle)}
-.mk-store-bar i{width:7px;height:7px;border-radius:50%;background:var(--line-strong)}
-.mk-store-url{margin-left:6px;font-size:11px;color:var(--muted)}
-.mk-store-body{padding:13px;position:relative;min-height:168px}
-.mk-shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.mk-tile{border:1px solid var(--line);border-radius:7px;padding:8px;display:grid;gap:6px;justify-items:center}
-.mk-tile .mk-s{font-size:11px}
-.mk-inline{margin-top:10px;border:1px solid var(--gold-soft);background:rgba(240,226,204,.4);
-  border-radius:8px;padding:10px 11px}
-.mk-modal{position:absolute;left:14px;right:14px;top:30px;background:var(--white);border:1px solid var(--line);
-  border-radius:10px;box-shadow:var(--shadow-lg);padding:12px 13px}
-.mk-scrim{position:absolute;inset:0;background:rgba(10,10,10,.34)}
-
-/* 05 recommend, on the dark block */
-.mk--dark{background:#171717;border-color:#30302D;box-shadow:none}
-.mk--dark .mk-c{background:#0F0F0F;border-color:#30302D}
-.mk--dark .mk-t{color:#F5F3EF}
-.mk--dark .mk-s{color:#AAA69E}
-.mk--dark .mk-lab{color:#89867F}
-.mk-plan-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.mk-pill{font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-  color:rgba(231,207,163,.92);background:rgba(180,127,57,.18);border:1px solid rgba(231,207,163,.2);
-  border-radius:999px;padding:3px 9px;white-space:nowrap}
-.mk-why{display:grid;grid-template-columns:38px minmax(0,1fr);gap:4px 8px;margin-top:8px;
-  font-size:11.5px;line-height:1.45}
-.mk-why dt{color:#89867F}
-.mk-why dd{margin:0;color:#AAA69E}
-.mk--dark .mk-pack{border-color:#3A3733;background:linear-gradient(160deg,#2A2724,#1C1A18)}
-.mk--dark .mk-pack::before{background:#3A3733}
-.mk--dark .mk-pack::after{background:rgba(231,207,163,.26)}
-
-/* 06 analyse */
-.mk-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.mk-kpi{background:var(--white);border:1px solid var(--line);border-radius:9px;padding:10px 11px}
-.mk-kpi b{display:block;font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--ink);line-height:1.1;
-  font-feature-settings:"tnum"}
-.mk-up{font-size:11px;font-weight:600;color:#067647}
-.mk-chart{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px 13px}
-.mk-chart svg{display:block;width:100%;height:84px;margin-top:8px}
-.mk-draw{stroke-dasharray:1;stroke-dashoffset:1}
-.is-in .mk-draw{stroke-dashoffset:0;animation:mk-draw 1.5s cubic-bezier(.2,.7,.25,1) .35s both}
-.mk-goals{display:grid;gap:6px;margin-top:4px}
-.mk-goal{display:grid;grid-template-columns:92px minmax(0,1fr) 30px;align-items:center;gap:9px;font-size:11.5px}
-.mk-goal .mk-track{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
-.mk-goal .mk-track i{display:block;height:100%;background:var(--gold-strong);border-radius:999px;
-  transform:scaleX(0);transform-origin:0 50%}
-.is-in .mk-goal .mk-track i{transform:none;animation:mk-fill .9s cubic-bezier(.2,.7,.25,1) var(--d,.4s) both}
-.mk-goal b{text-align:right;font-weight:600;color:var(--ink);font-feature-settings:"tnum"}
-.mk-note{font-size:11px;color:var(--muted);margin:0}
-
-@media (max-width:860px){
-  .mk{padding:16px;gap:9px}
-  .mk-design{grid-template-columns:minmax(0,1fr)}
-  .mk-panel{display:none}
-}
-@media (max-width:560px){
-  /* Simplified rather than shrunk: the rows that repeat a point drop out
-     so the ones that carry it stay at a readable size. */
-  .mk{padding:14px}
-  .mk-prod:nth-child(n+4),.mk-match:nth-child(n+3),.mk-goal:nth-child(n+4){display:none}
-  .mk-kpis{grid-template-columns:1fr 1fr}
-  .mk-kpi:nth-child(3){display:none}
-  .mk-shelf{grid-template-columns:repeat(2,1fr)}
-}
-
-/* ============================================================
-   /how-it-works — the homepage's blocks, this page's content
-   ------------------------------------------------------------
-   The hero and step 05 are the shared shapes from scroll-cards.css. What
-   is here is the ground each one sits on and the composition inside it.
-
-   One dark block per page, and on this page it is step 05. Steps 01-04
-   ride the homepage's white-to-beige gradient; 06 and the closing banner
-   sit on the beige it settles into.
-   ============================================================ */
-.hero-visual{min-height:0;padding-top:0}
-.hwh{display:grid;justify-items:stretch}
-.hwh-card{background:var(--white);border:1px solid var(--line);border-radius:12px;
-  padding:13px 15px;box-shadow:var(--shadow-sm)}
-.hwh-card--dark{background:#171717;border-color:#30302D}
-.hwh-card--dark .mk-t{color:#F5F3EF}
-.hwh-card--dark .mk-s{color:#AAA69E}
-.hwh-card--dark .mk-lab{color:#89867F}
-/* The three cards sit in a column and never overlap, so no card can cover
-   another's key content. The link between them is a rule and a chevron. */
-.hwh-link{display:block;height:20px;width:1px;margin:0 auto;background:var(--line-strong);position:relative}
-.hwh-link::after{content:"";position:absolute;left:50%;bottom:0;width:5px;height:5px;
-  transform:translateX(-50%) rotate(45deg);border-right:1.5px solid var(--line-strong);
-  border-bottom:1.5px solid var(--line-strong)}
-
-/* The step nav arrives with the hero's card: it sits directly after it in
-   flow, so it is reached exactly as the hero finishes shrinking. */
-.stepnav{opacity:0;transform:translateY(-6px);transition:opacity .4s cubic-bezier(.2,.7,.25,1),transform .4s cubic-bezier(.2,.7,.25,1)}
-.stepnav.is-in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.stepnav{opacity:1;transform:none;transition:none}}
-.stepnav-n{margin-right:1px}
-/* Named anchors alongside the numbered section ids, so both land. */
-.hw-anchor{display:block;height:0;scroll-margin-top:calc(var(--nav-h) + 72px)}
-
-.hw-grad{background:linear-gradient(to bottom,var(--white) 0,var(--white) 6%,var(--cream) 100%)}
-.hw-grad .hw-step + .hw-step{border-top:1px solid var(--line);padding-top:56px}
-.hw-step + .hw-step{border-top:0}
-/* Step 05: beige ground, the ink supplied by the shared reveal. */
-#step-5{background:var(--cream);color:var(--white)}
-#step-5 .h2{color:var(--white)}
-#step-5 .hw-eyebrow{color:rgba(255,255,255,.55)}
-#step-5 .hw-desc{color:var(--muted-on-dark)}
-#step-5 .hw-labels li{color:rgba(255,255,255,.55)}
-#step-5 .hw-labels li::before{background:rgba(255,255,255,.28)}
-#step-5 .hw-cap{color:rgba(255,255,255,.55)}
-#step-5 .hw-cap a,#step-5 .hw-expand{color:var(--sand)}
-#step-5 .hw-expand:hover,#step-5 .hw-cap a:hover{color:#F3E3C6}
-#step-6,.hw-closer{background:var(--cream)}
-.hw-closer{border-top:0}
-@media (max-width:860px){
-  .hw-grad .hw-step + .hw-step{padding-top:44px}
-}
-@media (max-width:620px){
-  .hw-grad .hw-step + .hw-step{padding-top:36px}
-  .hw-anchor{scroll-margin-top:calc(var(--nav-h) + 108px)}
-}
-
-/* the middle column of a row takes the slack, so a trailing pill sits at
-   the edge rather than against the text */
-.mk-row > span:not([class]){flex:1;min-width:0}
-.mk-chip-swap{margin-left:auto}
-.mk-chip-swap .mk-chip{margin-left:0}
-/* step 04: the two placements are alternatives, stacked and cross-faded */
-.mk-pop{position:absolute;inset:0}
-/* step 03: the phone preview is a second, narrower rendering rather than
-   the first one resized - a width animation is layout, and scaling the
-   desktop card would distort its type */
-.mk-phone-wrap{display:grid;place-items:center}
-.mk-phone{width:196px;border:6px solid var(--ink);border-radius:24px;background:var(--ink);
-  box-shadow:var(--shadow-md);overflow:hidden}
-.mk-phone .mk-quiz{border:0;border-radius:18px;padding:12px}
-.mk-phone .mk-opt{font-size:11.5px;padding:7px 9px}
-.mk-phone .mk-cta{font-size:11px;padding:7px 11px}
-.mk-area{opacity:0}
-.is-in .mk-area{opacity:1;animation:mk-rise .6s cubic-bezier(.2,.7,.25,1) .5s both}
-
-@media (max-width:560px){
-  .mk-phone{width:168px}
+  /* The base stylesheet sets scroll-behavior:smooth on html for the
+     overview cards; a jump is what this preference asks for. */
+  html{scroll-behavior:auto !important}
+  .hw-shot.is-armed [data-reveal]{opacity:1 !important}
+  .hw-shot.is-in [data-reveal]{animation:none !important}
+  [data-zone]{transition:none !important}
 }
 </style>
 </head>
@@ -1856,325 +1595,16 @@ a.hw-expand{border-bottom:0}
   </div>
 </header>
 
-<div class="wrap crumb"><a href="/">Home</a><span class="crumb-sep">/</span>How it works</div>
 
 <main id="main">
-<section class="hero sc-hero" data-sc="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <span class="hero-eyebrow">How it works</span>
-        <h1 class="h1 hero-title">Your catalogue.<br>Their personalised plan.</h1>
-        <p class="lead hero-sub">From connecting your products to understanding your customers. See the six steps, inside the actual product.</p>
-        <div class="hero-ctas">
-          <a href="/try" class="btn btn-primary btn-lg">Try the demo</a>
-          <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&amp;primary_color=1a1a1a');">Book a call</a>
-        </div>
-        <div class="cta-alt">Not ready? <a href="/sample-report">See a sample report &#8594;</a></div>
-      </div>
-      <div class="hero-visual mk" data-mk aria-hidden="true">
-        <div class="hwh">
-          <div class="hwh-card mk-a" style="--d:.1s">
-            <span class="mk-lab">Your catalogue</span>
-            <div class="mk-row" style="margin-top:8px"><span class="mk-pack"></span><span><span class="mk-t">Vitamin D3 25mcg</span><span class="mk-s">Matched &#183; Vitamin D3</span></span><span class="mk-ready">Ready</span></div>
-          </div>
-          <span class="hwh-link mk-a" style="--d:.2s" aria-hidden="true"></span>
-          <div class="hwh-card mk-a" style="--d:.3s">
-            <span class="mk-lab">Their quiz</span>
-            <p class="mk-t" style="margin:8px 0 0;font-size:14px">Which best describes your main goal?</p>
-            <div class="mk-opt on" style="--mk-ac:#96682A;--mk-ac-soft:rgba(150,104,42,.08)">Better sleep</div>
-          </div>
-          <span class="hwh-link mk-a" style="--d:.4s" aria-hidden="true"></span>
-          <div class="hwh-card hwh-card--dark mk-a" style="--d:.5s">
-            <span class="mk-lab">Their plan</span>
-            <span class="mk-t" style="display:block;font-size:15px;margin-top:3px">Made for Jane.</span>
-            <div class="mk-row" style="margin-top:9px"><span class="mk-pack"></span><span><span class="mk-t">Magnesium</span><span class="mk-s">Why: 58% of target, trouble winding down.</span></span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<nav class="stepnav" aria-label="The six steps">
-  <div class="wrap">
-    <ol>
-      <li><a href="#step-1"><span class="stepnav-n">01.</span>Connect</a></li>
-      <li><a href="#step-2"><span class="stepnav-n">02.</span>Match</a></li>
-      <li><a href="#step-3"><span class="stepnav-n">03.</span>Design</a></li>
-      <li><a href="#step-4"><span class="stepnav-n">04.</span>Launch</a></li>
-      <li><a href="#step-5"><span class="stepnav-n">05.</span>Recommend</a></li>
-      <li><a href="#step-6"><span class="stepnav-n">06.</span>Analyse</a></li>
-    </ol>
-  </div>
-</nav>
-
-<div class="hw-grad">
-<section class="hw-step" id="step-1"><span class="hw-anchor" id="connect" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="hw-split" id="split-1">
-      <div class="hw-copy">
-        <span class="hw-eyebrow">01 / Connect</span>
-        <h2 class="h2">01. Start with your catalogue.</h2>
-        <p class="hw-desc">Connect your store, import a CSV, or add products manually. Your catalogue is the starting point for every recommendation.</p>
-        <ul class="hw-chips"><li>Shopify</li><li>CSV</li><li>Manual entry</li></ul>
-        <div class="hw-note">
-          <span class="hw-note-label">What you do</span>
-          <p>Import your products and review the connection before syncing with the engine.</p>
-          <p>Shopify connects directly and re-syncs on a schedule; CSV or manual entry covers any other source. A listing in the Shopify App Store is in review, and WooCommerce, BigCommerce and the rest follow.</p>
-        </div>
-      </div>
-      <figure class="hw-fig" id="fig-1">
-        <div class="mk mk-connect" data-mk>
-          <div class="mk-c mk-row mk-a" style="--d:0s">
-            <span class="mk-dot"></span>
-            <span><span class="mk-t">Store connected</span><span class="mk-s">yourbrand.myshopify.com</span></span>
-            <span class="mk-chip">Shopify</span>
-          </div>
-          <div class="mk-c mk-a" style="--d:.16s">
-            <div class="mk-row"><span class="mk-s">Importing catalogue</span>
-              <span class="mk-swap mk-s" style="margin-left:auto"><span class="mk-was">Reading products&#8230;</span><span class="mk-now" style="--d:1.35s"><b class="mk-t">54 products synced</b></span></span>
-            </div>
-            <div class="mk-bar" style="--d:.3s"><i></i></div>
-          </div>
-          <div class="mk-list">
-            <div class="mk-prod mk-a" style="--d:0.55s"><span class="mk-pack"></span><span class="mk-t">Daily Multivitamin</span><span class="mk-ready">Ready</span></div>
-            <div class="mk-prod mk-a" style="--d:0.68s"><span class="mk-pack"></span><span class="mk-t">Vitamin D3 25mcg</span><span class="mk-ready">Ready</span></div>
-            <div class="mk-prod mk-a" style="--d:0.81s"><span class="mk-pack"></span><span class="mk-t">Magnesium Glycinate</span><span class="mk-ready">Ready</span></div>
-            <div class="mk-prod mk-a" style="--d:0.94s"><span class="mk-pack"></span><span class="mk-t">Algae Omega-3</span><span class="mk-ready">Ready</span></div>
-            <div class="mk-prod mk-a" style="--d:1.07s"><span class="mk-pack"></span><span class="mk-t">Zinc Picolinate</span><span class="mk-ready">Ready</span></div>
-          </div>
-        </div>
-        <figcaption class="hw-cap"><span>Your catalogue, connected to the engine.</span><a class="hw-expand" href="/images/product/step-1-catalogue.jpg" target="_blank" rel="noopener">View full size &#8599;</a></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="hw-step" id="step-2"><span class="hw-anchor" id="match" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="hw-split" id="split-2">
-      <div class="hw-copy">
-        <span class="hw-eyebrow">02 / Match</span>
-        <h2 class="h2">02. Connect products to the data.</h2>
-        <p class="hw-desc">Review how your products map to the information the engine uses. Inspect the suggested matches, then apply your selection.</p>
-        <div class="hw-note">
-          <span class="hw-note-label">You stay in control</span>
-          <p>Review flagged matches before applying. The screen makes the proposed changes visible, and nothing is saved until you apply it. <a href="/science">How the models work &#8594;</a></p>
-        </div>
-      </div>
-      <figure class="hw-fig" id="fig-2">
-        <div class="mk mk-match" data-mk>
-          <div class="mk-row mk-a" style="--d:0s"><span class="mk-t">Match my catalogue</span><span class="mk-chip">Blend AI</span></div>
-          <div class="mk-match mk-a" style="--d:0.10s">
-            <span class="mk-box" style="--d:0.75s"><span class="mk-tick" style="--d:0.75s"><svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 5l2 2 4-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
-            <span class="mk-from">Vitamin D3 25mcg (Vegan, Lichen)</span><span class="mk-arr">&#8594;</span><span class="mk-to">Vitamin D3</span>
-          </div>
-          <div class="mk-match mk-a" style="--d:0.22s">
-            <span class="mk-box" style="--d:1.01s"><span class="mk-tick" style="--d:1.01s"><svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 5l2 2 4-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
-            <span class="mk-from">Magnesium Glycinate 200mg</span><span class="mk-arr">&#8594;</span><span class="mk-to">Magnesium</span>
-          </div>
-          <div class="mk-match mk-a" style="--d:0.34s">
-            <span class="mk-box" style="--d:1.27s"><span class="mk-tick" style="--d:1.27s"><svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 5l2 2 4-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
-            <span class="mk-from">Algae Omega-3 500mg</span><span class="mk-arr">&#8594;</span><span class="mk-to">Omega-3</span>
-          </div>
-          <div class="mk-foot mk-a" style="--d:.46s">
-            <span class="mk-swap"><span class="mk-btn mk-was" style="--d:1.62s">Apply 3 matches</span><span class="mk-now" style="--d:1.62s"><span class="mk-btn" style="background:#067647">3 matches applied</span></span></span>
-            <span class="mk-s">Nothing is saved until you apply.</span>
-          </div>
-        </div>
-        <figcaption class="hw-cap"><span>A match reviewed, then applied.</span><a class="hw-expand" href="/images/product/step-2-match.jpg" target="_blank" rel="noopener">View full size &#8599;</a></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="hw-step" id="step-3"><span class="hw-anchor" id="design" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="hw-show">
-      <div class="hw-show-head">
-        <div>
-          <span class="hw-eyebrow">03 / Design</span>
-          <h2 class="h2">03. Your questions.<br>Your look and feel.</h2>
-        </div>
-        <p class="hw-desc">Build the experience in your brand&#8217;s voice. Edit the content, adjust the design, and preview the quiz as your customers will see it.</p>
-      </div>
-      <ul class="hw-labels"><li>Questions &amp; content</li><li>Brand &amp; typography</li><li>Desktop &amp; mobile previews</li></ul>
-      <figure class="hw-fig" id="fig-3">
-        <div class="mk mk-design" data-mk>
-          <div class="mk-design">
-            <div class="mk-swap">
-              <div class="mk-quiz mk-a mk-was" style="--d:1.75s">
-                <span class="mk-lab">Your goals</span>
-                <p class="mk-t" style="margin:7px 0 0;font-size:14px">Which best describes your main goal?</p>
-                <div class="mk-opt on">Better sleep<span class="mk-s">Make room for restful nights</span></div>
-                <div class="mk-opt">More energy<span class="mk-s">Feel ready for the day</span></div>
-                <span class="mk-cta">Continue &#8594;</span>
-              </div>
-              <div class="mk-now mk-phone-wrap" style="--d:1.75s">
-                <div class="mk-phone">
-                  <div class="mk-quiz" style="--mk-r:14px">
-                    <span class="mk-lab">Your goals</span>
-                    <p class="mk-t" style="margin:6px 0 0;font-size:13px">Which best describes your main goal?</p>
-                    <div class="mk-opt on" style="--mk-ac:#2F6F5E;--mk-ac-soft:rgba(47,111,94,.1)">Better sleep</div>
-                    <div class="mk-opt">More energy</div>
-                    <span class="mk-cta" style="--mk-ac:#2F6F5E">Continue &#8594;</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="mk-panel mk-a" style="--d:.14s">
-              <span class="mk-lab">Accent</span>
-              <div class="mk-sw"><i style="background:#96682A"></i><i class="sel" style="background:#2F6F5E"></i><i style="background:#3C4B7A"></i><i style="background:#8A3F5B"></i></div>
-              <span class="mk-lab" style="display:block;margin-top:11px">Corners</span>
-              <div class="mk-bar" style="--d:.5s;margin-top:7px"><i></i></div>
-              <div class="mk-seg"><span>Desktop</span><span class="on">Phone</span></div>
-            </div>
-          </div>
-        </div>
-        <figcaption class="hw-cap"><span>One editor for the content, design, and customer experience.</span><a class="hw-expand" href="/images/product/step-3-builder.jpg" target="_blank" rel="noopener">View full size &#8599;</a></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="hw-step" id="step-4"><span class="hw-anchor" id="launch" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="hw-split" id="split-4">
-      <div class="hw-copy">
-        <span class="hw-eyebrow">04 / Launch</span>
-        <h2 class="h2">04. Put it where customers shop.</h2>
-        <p class="hw-desc">Embed the quiz on a page, open it from a button as a popup, or share a direct link.</p>
-        <ul class="hw-rows">
-          <li class="hw-row"><span class="hw-row-n">01</span><span class="hw-row-name">On a page<span class="hw-row-sub">A quiz within your existing storefront.</span></span></li>
-          <li class="hw-row"><span class="hw-row-n">02</span><span class="hw-row-name">As a popup<span class="hw-row-sub">A focused experience opened from a button.</span></span></li>
-          <li class="hw-row"><span class="hw-row-n">03</span><span class="hw-row-name">With a direct link<span class="hw-row-sub">Send customers straight to the quiz.</span></span></li>
-        </ul>
-        <div class="hw-note">
-          <span class="hw-note-label">One setup, flexible placement</span>
-          <p>Change the display settings without pasting the code again.</p>
-        </div>
-      </div>
-      <figure class="hw-fig" id="fig-4">
-        <div class="mk mk-launch" data-mk>
-          <div class="mk-row mk-a" style="--d:0s"><span class="mk-t">Embed your quiz</span>
-            <span class="mk-swap mk-chip-swap">
-              <span class="mk-chip mk-was" style="--d:1.6s">On a page</span>
-              <span class="mk-now" style="--d:1.6s"><span class="mk-chip">As a popup</span></span>
-            </span>
-          </div>
-          <div class="mk-store mk-a" style="--d:.12s">
-            <div class="mk-store-bar"><i></i><i></i><i></i><span class="mk-store-url">yourbrand.example/quiz</span></div>
-            <div class="mk-store-body">
-              <div class="mk-shelf"><div class="mk-tile"><span class="mk-pack"></span><span class="mk-s">Product</span></div><div class="mk-tile"><span class="mk-pack"></span><span class="mk-s">Product</span></div><div class="mk-tile"><span class="mk-pack"></span><span class="mk-s">Product</span></div></div>
-              <div class="mk-inline mk-was" style="--d:1.6s"><span class="mk-t">Find your plan in 2 minutes</span><span class="mk-s">A short quiz, right on the page.</span></div>
-              <div class="mk-pop mk-now" style="--d:1.6s">
-                <div class="mk-scrim"></div>
-                <div class="mk-modal"><span class="mk-t">Find your plan in 2 minutes</span><span class="mk-s">The same quiz, opened from a button.</span><span class="mk-cta" style="--mk-ac:#96682A">Start &#8594;</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <figcaption class="hw-cap"><span>The same quiz, on a page or behind a button.</span><a class="hw-expand" href="/images/product/step-4-embed.jpg" target="_blank" rel="noopener">View full size &#8599;</a></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
+<section class="ph ph--fill sc-hero" data-sc="hero"><div class="wrap"><div class="ph-inner"><span class="eyebrow">How it works</span><h1 class="h1">Live in an afternoon.</h1><p class="lead">The plug and play solution for true personalisation.</p><p class="ph-meta" id="hw-price" data-plan="starter"><b id="hw-price-from">From $49/month</b> <span class="ph-dot" aria-hidden="true"></span> <span class="hw-price-trial">15-day free trial</span></p><div class="ph-ctas"><a href="/try" class="btn btn-primary btn-lg">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/30min" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Book a call</a></div></div><nav class="ph-ix" aria-label="The six steps"><a class="ph-ix-item" href="#connect"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">01</span><span class="ph-ix-name">Connect</span></a><a class="ph-ix-item" href="#match"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">02</span><span class="ph-ix-name">Match</span></a><a class="ph-ix-item" href="#design"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">03</span><span class="ph-ix-name">Design</span></a><a class="ph-ix-item" href="#launch"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">04</span><span class="ph-ix-name">Launch</span></a><a class="ph-ix-item" href="#recommend"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">05</span><span class="ph-ix-name">Recommend</span></a><a class="ph-ix-item" href="#analyse"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">06</span><span class="ph-ix-name">Analyse</span></a></nav></div><button type="button" class="sc-cue" data-sc-cue="#connect" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></section>
+<div class="hw-steps">
+<section class="hw-step" id="connect"><span class="hw-anchor" id="step-1" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">01. CONNECT</span><h2>Start with your catalogue.</h2><p class="hw-lead">Connect Shopify, import a CSV, pick from our catalogue or add products by hand. Your catalogue is the starting point for every recommendation.</p><ul class="hw-pills"><li class="hw-pill">Shopify</li><li class="hw-pill">CSV</li><li class="hw-pill">Add by hand</li><li class="hw-pill">Our data</li></ul><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Connect your catalogue with a click and it re-syncs on a schedule, so price and stock changes flow through on their own. Or upload a CSV and let us work out what goes where.</p></div></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"><img src="/blend-mockups/connect-sources.png" alt="Product data arriving in Blend from a store, a CSV and the master catalogue" width="1800" height="940" loading="lazy" decoding="async"></figure></div></div></div></section><section class="hw-step hw-step--flip" id="match"><span class="hw-anchor" id="step-2" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">02. MATCH</span><h2>Connect products to the data.</h2><p class="hw-lead">Blend reads what&#8217;s in each product, matches it to its research database, and fills in the data the engine scores. You review every match before anything is saved.</p><ul class="hw-pills"><li class="hw-pill">Ingredients</li><li class="hw-pill">Goals &amp; subgoals</li><li class="hw-pill">Diet &amp; safety</li><li class="hw-pill">Your review</li></ul><dl class="hw-beats"><div class="hw-beat"><dt>What we read</dt><dd>Every ingredient, including the ones combined in a single product.</dd></div><div class="hw-beat"><dt>What we fill in</dt><dd>Goals, subgoals and who each product isn&#8217;t suitable for, from a research database.</dd></div><div class="hw-beat"><dt>What you approve</dt><dd>The scorer matches, Blend AI checks the hard cases, and nothing is saved until you apply.</dd></div></dl><p class="hw-bridge">That&#8217;s only the input. For every customer, the algorithm then scores each product across every factor. <a href="#recommend">See how it&#8217;s scored &#8595;</a></p><blockquote class="hw-quote"><p>Collagen comes from animals. Blend marks it not suitable for vegetarians, so a vegetarian customer never gets it.</p></blockquote><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>You never tag a product. Blend pre-fills everything the engine needs from what&#8217;s actually in it.</p></div><p class="hw-more"><a href="/science">How the models work &#8594;</a></p></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"><img src="/blend-mockups/match-review.png" alt="Catalogue products matched to the research database, ready to apply" width="1536" height="2232" loading="lazy" decoding="async"></figure></div></div></div></section><section class="hw-step" id="design"><span class="hw-anchor" id="step-3" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">03. DESIGN</span><h2>Your questions. Your look and feel.</h2><p class="hw-lead">Build the experience in your brand&#8217;s voice. Edit the content, adjust the design, and preview the quiz as your customers will see it.</p><ul class="hw-pills"><li class="hw-pill">Questions &amp; content</li><li class="hw-pill">Brand &amp; typography</li><li class="hw-pill">Layout &amp; effects</li></ul><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Fully bespoke, or let Blend AI draft it. Edits stay a draft until you publish.</p></div></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"><img src="/blend-mockups/design-editor.png" alt="The quiz editor, with the customer view beside it" width="2880" height="2672" loading="lazy" decoding="async"></figure></div></div></div></section><section class="hw-step hw-step--flip" id="launch"><span class="hw-anchor" id="step-4" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">04. LAUNCH</span><h2>Put it where customers shop.</h2><p class="hw-lead">Embed the quiz on a page, open it from a button as a pop-up, or share a direct link.</p><ul class="hw-pills"><li class="hw-pill">On a page</li><li class="hw-pill">Button + pop-up</li><li class="hw-pill">Direct link</li></ul><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Paste one script once. Change how it shows any time without touching code, and lock it to your own domains.</p></div></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"><img src="/blend-mockups/launch-embed.png" alt="The embed snippet and the direct link to the quiz" width="1280" height="1710" loading="lazy" decoding="async"></figure></div></div></div></section>
+<section class="hw-step" id="recommend"><span class="hw-anchor" id="step-5" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">05. RECOMMEND</span><h2>Their answers. A plan of their own.</h2><p class="hw-lead">The algorithm scores every product in your catalogue against each customer&#8217;s answers, targets and your rules, then explains every pick.</p><ul class="hw-pills"><li class="hw-pill">Scored</li><li class="hw-pill">Personalised</li><li class="hw-pill">Safety-checked</li><li class="hw-pill">Explained</li></ul><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Not a tag match. Every product runs through a multi-layer algorithm that weighs the customer&#8217;s answers, the product&#8217;s own data and the safety rules, and every pick comes back with the reason and the method behind it.</p></div><p class="hw-more"><a href="/sample-report">See the full sample report &#8594;</a></p></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"><img src="/blend-mockups/recommend-explained.png" alt="A personalised plan, with the reason under every pick" width="2200" height="3198" loading="lazy" decoding="async"></figure></div></div></div></section><section class="hw-step hw-step--flip" id="analyse"><span class="hw-anchor" id="step-6" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><span class="hw-eyebrow">06. ANALYSE</span><h2>Learn from every journey.</h2><p class="hw-lead">See where customers engage, where they drop off, and what they need from your range.</p><ul class="hw-pills"><li class="hw-pill">Quiz performance</li><li class="hw-pill">Customer insights</li><li class="hw-pill">Catalogue gaps</li><li class="hw-pill">Product insights</li></ul><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>First-party data you own: who your customers are, what they came for, and what they expect a personalised range to include. Catalogue gaps turns that into what to stock next.</p></div></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"><img src="/blend-mockups/analyse-quiz.png" alt="The quiz funnel, from started to added to cart" width="1800" height="1120" loading="lazy" decoding="async"></figure><p class="hw-cap">Demo data</p></div></div></div></section>
 </div>
-
-<section class="hw-step sc-reveal" data-sc="reveal" id="step-5"><span class="hw-anchor" id="recommend" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="hw-show">
-      <div class="hw-show-head">
-        <div>
-          <span class="hw-eyebrow">05 / Recommend</span>
-          <h2 class="h2">05. Their answers.<br>A plan of their own.</h2>
-        </div>
-        <p class="hw-desc">Customers see a personalised selection with reasons behind the recommendations, and a direct path from discovery to their basket.</p>
-      </div>
-      <ul class="hw-labels"><li>Example: health &amp; wellness</li><li>Profile &#8594; Priorities &#8594; Products &#8594; Reasons</li></ul>
-      <figure class="hw-fig" id="fig-5">
-        <div class="mk mk-recommend mk--dark" data-mk>
-          <div class="mk-plan-head mk-a" style="--d:0s">
-            <span><span class="mk-lab">Your wellness plan</span><span class="mk-t" style="display:block;font-size:16px;margin-top:3px">Made for Jane.</span></span>
-            <span class="mk-s">4 key areas</span>
-          </div>
-          <div class="mk-c mk-a" style="--d:0.35s">
-            <div class="mk-row"><span class="mk-pack"></span><span><span class="mk-t">Vitamin D3</span><span class="mk-s">Softgel &#183; once daily</span></span><span class="mk-pill">Essential</span></div>
-            <dl class="mk-why"><dt>Why</dt><dd>Your vitamin D is at 31% of target and you told us you work indoors.</dd></dl>
-          </div>
-          <div class="mk-c mk-a" style="--d:0.65s">
-            <div class="mk-row"><span class="mk-pack"></span><span><span class="mk-t">Magnesium</span><span class="mk-s">Capsule &#183; once daily</span></span><span class="mk-pill">Essential</span></div>
-            <dl class="mk-why"><dt>Why</dt><dd>Your magnesium is at 58% of target, and you reported trouble winding down.</dd></dl>
-          </div>
-          <div class="mk-c mk-a" style="--d:0.95s">
-            <div class="mk-row"><span class="mk-pack"></span><span><span class="mk-t">Omega-3</span><span class="mk-s">Softgel &#183; once daily</span></span><span class="mk-pill">Recommended</span></div>
-            <dl class="mk-why"><dt>Why</dt><dd>Your omega 3 is at 9% of target, the largest single shortfall.</dd></dl>
-          </div>
-        </div>
-        <figcaption class="hw-cap"><span>A plan built from one customer&#8217;s answers. <a href="/sample-report">See the full sample report &#8594;</a></span><a class="hw-expand" href="/images/product/step-5-report.jpg" target="_blank" rel="noopener">View full size &#8599;</a></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="hw-step" id="step-6"><span class="hw-anchor" id="analyse" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="hw-show">
-      <div class="hw-show-head">
-        <div>
-          <span class="hw-eyebrow">06 / Analyse</span>
-          <h2 class="h2">06. Learn from every journey.</h2>
-        </div>
-        <p class="hw-desc">Explore quiz performance and customer needs. See where people engage, where they leave, and how they interact with your products.</p>
-      </div>
-      <ul class="hw-labels"><li>Quiz performance</li><li>Customer insights</li><li>Product engagement</li></ul>
-      <figure class="hw-fig" id="fig-6">
-        <div class="mk mk-analyse" data-mk>
-          <div class="mk-kpis">
-            <div class="mk-kpi mk-a" style="--d:0.08s"><span class="mk-s">Quiz engagements</span><b>1,284</b><span class="mk-up">&#9650; 18% vs last period</span></div>
-            <div class="mk-kpi mk-a" style="--d:0.18s"><span class="mk-s">Completion rate</span><b>68%</b><span class="mk-up">&#9650; 4 pts</span></div>
-            <div class="mk-kpi mk-a" style="--d:0.28s"><span class="mk-s">Added to cart</span><b>31%</b><span class="mk-up">&#9650; 6 pts</span></div>
-          </div>
-          <div class="mk-chart mk-a" style="--d:.3s">
-            <div class="mk-row"><span class="mk-t">Quiz engagements</span><span class="mk-s" style="margin-left:auto">Last 30 days</span></div>
-            <svg viewBox="0 0 300 84" fill="none" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0 74 L50 66 L100 52 L150 54 L200 34 L250 26 L300 9 L300 84 L0 84 Z" fill="rgba(150,104,42,.09)" class="mk-area"/>
-              <path d="M0 80 L50 76 L100 70 L150 66 L200 58 L250 52 L300 44" stroke="#DCCBA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="1" class="mk-draw"/>
-              <path d="M0 74 L50 66 L100 52 L150 54 L200 34 L250 26 L300 9" stroke="#96682A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" class="mk-draw"/>
-            </svg>
-          </div>
-          <div class="mk-c mk-a" style="--d:.42s">
-            <span class="mk-lab">Top customer goals</span>
-            <div class="mk-goals">
-              <div class="mk-goal"><span class="mk-s">Better sleep</span><span class="mk-track"><i style="width:82%;--d:0.50s"></i></span><b>82%</b></div>
-              <div class="mk-goal"><span class="mk-s">More energy</span><span class="mk-track"><i style="width:74%;--d:0.60s"></i></span><b>74%</b></div>
-              <div class="mk-goal"><span class="mk-s">Gut health</span><span class="mk-track"><i style="width:61%;--d:0.70s"></i></span><b>61%</b></div>
-              <div class="mk-goal"><span class="mk-s">Stress support</span><span class="mk-track"><i style="width:48%;--d:0.80s"></i></span><b>48%</b></div>
-            </div>
-          </div>
-          <p class="mk-note mk-a" style="--d:.55s">Demo account data.</p>
-        </div>
-        <figcaption class="hw-cap"><span>Quiz performance, and what the people taking it are asking for.</span><a class="hw-expand" href="/images/product/step-6-analytics.jpg" target="_blank" rel="noopener">View full size &#8599;</a></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="closer hw-closer" id="contact">
-  <div class="wrap">
-    <span class="eyebrow">From catalogue to customer</span>
-    <h2 class="h1">See it from their side.</h2>
-    <p class="lead">Take the quiz and explore a personalised result.</p>
-    <div class="closer-ctas">
-      <a href="/try" class="btn btn-primary btn-lg">Try the demo</a>
-      <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&amp;primary_color=1a1a1a');">Book a call</a>
-    </div>
-    <div class="cta-alt" style="text-align:center;margin-top:16px">Not ready? <a href="/sample-report">See a sample report &#8594;</a></div>
-  </div>
-</section>
+<section class="closer hw-closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact"><div class="wrap"><span class="eyebrow">From catalogue to customer</span><h2 class="h2">See it from your customer&#8217;s side.</h2><p class="lead">Take the quiz and explore a personalised result.</p><div class="closer-ctas"><a href="/try" class="btn btn-primary">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/30min" class="btn btn-ghost" target="_blank" rel="noopener">Book a call</a></div><p class="hw-closer-alt"><a href="/sample-report">See a sample report &#8594;</a></p></div></section>
 </main>
-<footer class="footer">
+<footer class="footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -2411,82 +1841,74 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
 </div>
 
 <script>
-/* The six-step page: screenshot expansion, and the step the reader is in.
-   Both are progressive: with no JS the captures still render (tall ones
-   clamped, which is a crop, not a hidden control) and every anchor works. */
+/* The price line. The number is never written into this page: it comes from
+   pricing.json, which is the one place the plans' prices are recorded, and
+   the currency from the same /api/geo call the homepage's pricing section
+   makes. USD renders first and is corrected if geo answers, which is how
+   the homepage behaves too. tools/check-prices.mjs fails if pricing.json
+   and the homepage's own tiers ever disagree. */
 (function(){
-  /* Expansion. Two kinds, one handler: a split section opens to the full
-     content width with its explanation above, and a clamped capture drops
-     its height limit. Both keep the reader where they were - the control is
-     below a tall image, so growing the image above it would otherwise push
-     the button out from under the cursor. */
-  document.querySelectorAll('.hw-expand[data-expand]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var kind = btn.dataset.expand;
-      var target = kind === 'split'
-        ? btn.closest('.hw-split')
-        : document.getElementById(btn.getAttribute('aria-controls'));
-      if (!target) return;
-      var before = btn.getBoundingClientRect().top;
-      var open = target.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', String(open));
-      btn.textContent = open ? btn.dataset.less : btn.dataset.more;
-      var after = btn.getBoundingClientRect().top;
-      /* The page scrolls smoothly by default, so a plain scrollBy would
-         animate a correction that is meant to be imperceptible. */
-      if (after !== before) window.scrollBy({ top: after - before, left: 0, behavior: 'instant' });
-    });
-  });
-
-  /* Which step the reader is in. A reading line two fifths down the screen,
-     and the current step is the last one whose heading has passed it.
-
-     This replaced an IntersectionObserver keyed on "has the section top
-     cleared the sticky bars", which was off by one for the case that
-     matters most: following a step link puts that section's top *just
-     below* the bars, so the rule excluded the very section the reader had
-     asked for and highlighted the one above it. */
-  var links = [].slice.call(document.querySelectorAll('.stepnav a'));
-  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
-  if (sections.some(function(s){ return !s; })) return;
-  var queued = false;
-  function mark(){
-    queued = false;
-    var line = window.innerHeight * 0.4, current = -1;
-    for (var i = 0; i < sections.length; i++) {
-      if (sections[i].getBoundingClientRect().top <= line) current = i;
+  var el = document.getElementById('hw-price-from');
+  if (!el) return;
+  var SYMBOLS = { usd: '$', eur: '€', gbp: '£' };
+  var plans = null, currency = 'usd';
+  function render(){
+    if (!plans) return;
+    var lowest = null;
+    for (var i = 0; i < plans.length; i++) {
+      var m = plans[i].monthly && plans[i].monthly[currency];
+      if (typeof m === 'number' && (lowest === null || m < lowest)) lowest = m;
     }
-    links.forEach(function(a, i){ a.classList.toggle('is-current', i === current); });
+    if (lowest === null) return;
+    el.textContent = 'From ' + (SYMBOLS[currency] || '') + lowest + '/month';
   }
-  function onScroll(){ if (!queued) { queued = true; requestAnimationFrame(mark); } }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  mark();
+  fetch('/pricing.json').then(function(r){ return r.json(); }).then(function(d){
+    plans = d && d.plans; render();
+  }).catch(function(){});
+  fetch('/api/geo').then(function(r){ return r.json(); }).then(function(d){
+    if (d && d.currency && SYMBOLS[d.currency.toLowerCase()]) { currency = d.currency.toLowerCase(); render(); }
+  }).catch(function(){});
 })();
-</script>
 
-<script>
-/* One entrance per mockup, the first time it comes into view, and never
-   again: the observer stops watching as soon as it fires, so scrolling
-   back up does not replay anything. Reduced motion never starts it - the
-   stylesheet already shows every end state - and without JS the mockups
-   are simply there, finished. */
+/* One entrance per mockup, the first time it comes into view and never
+   again. Reduced motion never arms it, and with no JS at all the mockups
+   are simply there: the armed state is added by this script, so the end
+   state is what the stylesheet renders on its own. */
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var bits = [].slice.call(document.querySelectorAll('[data-mk], .stepnav'));
-  if (!bits.length) return;
-  if (reduce.matches || !('IntersectionObserver' in window)) {
-    bits.forEach(function(el){ el.classList.add('is-in'); });
-    return;
-  }
+  var shots = [].slice.call(document.querySelectorAll('.hw-shot[data-mk]'));
+  if (!shots.length || reduce.matches || !('IntersectionObserver' in window)) return;
+  shots.forEach(function(s){ if (s.querySelector('[data-reveal]')) s.classList.add('is-armed'); });
   var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-in');
-      io.unobserve(e.target);
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      en.target.classList.add('is-in');
+      io.unobserve(en.target);
     });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.18 });
-  bits.forEach(function(el){ io.observe(el); });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.2 });
+  shots.forEach(function(s){ io.observe(s); });
+})();
+/* Deep links. The homepage's six boxes land on this page at a hash, and the
+   browser scrolls to it before the page has finished settling, so the reader
+   arrives a few hundred pixels short. Put it right once things have stopped
+   moving - but only while the page is still young, and only if the target is
+   not already where it belongs, so a reader who scrolled first is left
+   alone. Scroll anchoring moves scrollY on its own, so "has the reader
+   scrolled" cannot be answered by watching scrollY; asking whether the
+   target is in place can. */
+(function(){
+  if (!location.hash) return;
+  var START = Date.now();
+  function settle(){
+    if (Date.now() - START > 2500) return;
+    var el = document.querySelector(location.hash);
+    if (!el) return;
+    var want = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+    if (Math.abs(el.getBoundingClientRect().top - want) < 4) return;
+    el.scrollIntoView();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle).catch(function(){});
+  window.addEventListener('load', function(){ requestAnimationFrame(settle); });
 })();
 </script>
 <script src="/scroll-cards.js"></script>

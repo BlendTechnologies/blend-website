@@ -13,27 +13,23 @@
    the geometry are the homepage's; only the selectors are new.
    ============================================================ */
 :root{
-  --sc-inset:40px;--sc-round:36px;--sc-grow:.06;
-  /* Top edge, at every width. A centre origin grows the block both ways,
-     so on any viewport where the content is close to the block's height
-     it lifts the first line above the block and behind the header. */
-  --sc-origin:50% 0;
+  --sc-inset:40px;--sc-round:36px;
 }
 /* Smaller margins and a tighter corner on a phone: 40px either side of a
    375px screen is a fifth of the width, and the card stops reading as a
    full-bleed block that has pulled in. */
 @media (max-width:560px){
-  :root{--sc-inset:24px;--sc-round:24px;--sc-grow:.05}
+  :root{--sc-inset:24px;--sc-round:24px}
 }
-/* The grow halves below 1300: see the gutter note at the end of the file. */
-@media (max-width:1299px){
-  :root{--sc-grow:.03}
-}
-
 /* Defaults are the state each shape should hold with no JS at all, and
    the state reduced motion keeps: the hero already a card, every reveal
    already open. The handler never writes under reduced motion, so an
    inline value can never beat this. */
+/* The component carries the tokens it needs. A page that does not define
+   --sand or --muted-on-dark used to get white for both, because an
+   undefined var() falls back to inheritance - which is how the use-cases
+   closing band ended up with a white eyebrow and a white lead. */
+:root{--hero-beige:#F4EFE5;--sand:#E7CFA3;--muted-on-dark:rgba(255,255,255,.72)}
 .sc-hero{--sc-p:0}
 .sc-reveal{--sc-p:0}
 @media (prefers-reduced-motion:reduce){
@@ -63,39 +59,27 @@
     round calc(var(--sc-p) * var(--sc-round)));}
 /* The fill, a pixel inside the hairline. Deeper than --cream on purpose:
    against a white page #FAF8F2 was close enough that the card barely read
-   as a separate surface. */
-.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:#F4EFE4;
+   as a separate surface. One token, because the nav has to match it
+   exactly while the page is at the top. */
+.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--hero-tint,var(--hero-beige));
   clip-path:inset(
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
     round calc(var(--sc-p) * (var(--sc-round) - 1px)))}
-/* The drift, over the fill and oversized so no edge of it ever enters.
-   Transform, not background-position, so it runs on the compositor. */
-.sc-hero::after{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(44% 48% at 18% 26%, rgba(231,207,163,.62), rgba(231,207,163,0) 70%),
-    radial-gradient(40% 44% at 80% 34%, rgba(226,196,146,.54), rgba(226,196,146,0) 72%),
-    radial-gradient(48% 42% at 50% 78%, rgba(212,183,136,.46), rgba(212,183,136,0) 70%);
-  animation:sc-wash 19s ease-in-out infinite alternate;
-  will-change:transform}
-@keyframes sc-wash{
-  from{transform:translate3d(-2.5%,-1.5%,0) scale(1.04)}
-  to{transform:translate3d(2.5%,2%,0) scale(1.12)}
-}
-@media (prefers-reduced-motion:reduce){
-  .sc-hero::after{animation:none}
-}
 /* The block's own height carries the space the padding used to. */
 @media (max-width:960px){ .sc-hero{padding:32px 0 56px} }
 @media (max-width:760px){ .sc-hero{padding:24px 0 48px} }
 @media (max-width:560px){ .sc-hero{align-content:start;padding-top:34px} }
-/* The content shrinks with its own card. The card's visible width goes
-   from the full viewport to the viewport less two insets, which at 1440
-   is 5.6%, so the content starts 6% over and settles at its design size
-   on the same progression - the block and what is inside it move as one
-   thing rather than the frame closing around fixed content. */
-.sc-hero > .wrap{position:relative;z-index:1;will-change:transform;transform-origin:var(--sc-origin);
-  transform:scale(calc(1 + (1 - var(--sc-p)) * var(--sc-grow)))}
+/* The content used to scale with the card: 6% over at rest, settling to
+   its design size as the card formed, so the block and its contents moved
+   as one thing. It cost more than it bought. A scaled layer rasterises
+   its glyphs and resamples them, so every hero's type rendered 6% larger
+   than its own spec and visibly softer than the identical component on a
+   page with no hero card - a 12px eyebrow on /science reading at 12.7px
+   and half a weight light beside the same 12px eyebrow on /use-cases.
+   Reported as "not using the right font", which is what it looks like.
+   The frame closes around fixed content now, and the type is the type. */
+.sc-hero > .wrap{position:relative;z-index:1}
 
 /* ---- A reveal: a card at 0, full bleed at 1 -------------------------
    The ink is a layer inside the block rather than the block's own
@@ -141,9 +125,10 @@
    width where the wrap's own centring already clears the card the gutter
    is left alone, so the desktop composition keeps its full width.
 
-   The hero needs a wider one and keeps it further up, because its content
-   is scaled as well: at --sc-grow the block is 6% over at rest, which
-   moves its edges out by 3% of its own width on top of the inset. */
+   The hero keeps a wider one further up than the reveals do. That began
+   as headroom for the content scale, which is gone; it stays because the
+   hero's inset is the deepest on the site and its first line is the one
+   that must not graze the card's corner. */
 @media (max-width:1263px){
   .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 20px)}
 }
@@ -153,4 +138,64 @@
 @media (max-width:560px){
   .sc-hero > .wrap{padding-inline:calc(var(--sc-inset) + 16px)}
   .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 12px)}
+}
+
+/* ---- What sits on a dark reveal ---------------------------------------
+   The reveal paints a near-black card behind a section that is otherwise
+   cream, so everything inside it has to switch colour with it. These were
+   written inline on the homepage; they are here so a second page using the
+   component gets them too. The homepage's own copies are declared after
+   this file and carry identical values, so nothing moves there.
+
+   Scoped to .sc-reveal, not to .closer, because it is the dark card that
+   makes the text white - a .closer without one would be unreadable. */
+.sc-reveal{position:relative;overflow:hidden;color:var(--white)}
+.sc-reveal > .wrap{position:relative;z-index:1}
+.sc-reveal .h1,
+.sc-reveal .h2{color:var(--white)}
+.sc-reveal .lead{color:var(--muted-on-dark)}
+.sc-reveal .eyebrow{color:var(--sand)}
+.sc-reveal .btn-ghost{color:var(--white);border-color:rgba(255,255,255,.34);background:transparent}
+.sc-reveal .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+
+/* ---- The scroll cue --------------------------------------------------
+   A target at the bottom of a hero, for the readers who do not know the
+   page continues. It fades on the same progression as the card it sits
+   in, so it is gone by the time the hero has closed a sixth of the way
+   and back when the page returns to the top. */
+.sc-cue{position:absolute;left:50%;transform:translateX(-50%);z-index:2;
+  bottom:calc(32px + env(safe-area-inset-bottom, 0px));
+  width:44px;height:44px;display:grid;place-items:center;border-radius:50%;
+  background:transparent;border:1px solid rgba(107,107,107,.4);color:var(--muted);
+  cursor:pointer;-webkit-appearance:none;appearance:none;padding:0;
+  opacity:clamp(0, calc((.15 - var(--sc-p, 0)) * 6.6667), 1);
+  transition:border-color .18s ease,opacity .12s linear}
+.sc-cue:hover{border-color:var(--muted)}
+.sc-cue:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
+/* Out of the tab order and out of reach once it has faded, rather than an
+   invisible button sitting over the page. */
+.sc-hero.is-cue-gone .sc-cue{visibility:hidden}
+.sc-cue svg{width:16px;height:16px;display:block;animation:sc-cue-drift 2s ease-in-out infinite}
+/* The ring: one expansion every 2.5s, behind the border it starts from. */
+.sc-cue::after{content:"";position:absolute;inset:-1px;border-radius:50%;
+  border:1px solid rgba(107,107,107,.4);animation:sc-cue-ring 2.5s ease-out infinite;
+  pointer-events:none}
+@keyframes sc-cue-drift{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@keyframes sc-cue-ring{
+  0%{transform:scale(1);opacity:.5}
+  70%{transform:scale(1.45);opacity:0}
+  100%{transform:scale(1.45);opacity:0}
+}
+/* Only where the hero is two columns with the cards beside the copy.
+   Below 1200 they stack under it, the block runs taller than the viewport,
+   and a circle 32px above its bottom edge lands on the cards instead of
+   under them. Same breakpoint as the hero grid itself. */
+/* The homepage hero puts its cards to the right of the type, and below
+   1200 they stack under it and the cue lands on top of them. The centred
+   heroes have nothing there, so they keep theirs at every width. */
+@media (max-width:1199px){.sc-cue--desktop{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .sc-cue{opacity:1}
+  .sc-cue svg{animation:none}
+  .sc-cue::after{display:none}
 }
