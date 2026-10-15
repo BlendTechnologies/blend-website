@@ -67,7 +67,17 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 /* The shared PageHero: /page-hero.css. The tint is this page's, at the
    same lightness as the others; the page's own ground stays --hero-beige
    underneath it. */
-:root{--hero-tint:#E9ECE2;--ph-muted:#676767}
+:root{--ph-muted:#676767}
+/* ---- the page's ground ------------------------------------------------
+   One gradient on the body, white under the hero and beige by the end of
+   the page, so the fade runs the whole way down and the ink of the
+   closing card and the footer is cut out of beige rather than out of a
+   band that stops above them. The hero paints its own beige over the top
+   of it; the sections below are transparent so the gradient is what you
+   see. */
+body{background:linear-gradient(to bottom,var(--white) 0,var(--white) 38%,var(--hero-beige) 100%)}
+.closer,.footer{background:transparent}
+
 .ph{--ph-ix:3}
 @media(max-width:760px){
   .ph-ctas{flex-direction:column;align-items:center;gap:10px}
@@ -75,7 +85,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 }
 /* The rhythm the rest of the site keeps: a chapter pays the same above
    and below. */
-.cases-section{padding:88px 0;background:var(--hero-beige)}
+.cases-section{padding:88px 0}
 /* Same adjacency rule as the homepage: a section that follows the hero
    is already separated by the hero's own bottom padding, so it joins at
    40 rather than opening another full 88. */
@@ -103,7 +113,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
    gained them; the page had no anchors at all, so all five landed at the
    top. Rows rather than a grid: five cards leave a ragged last row at
    every column count, and the names are the thing being scanned. */
-.aud-section{padding:0 0 88px;background:var(--hero-beige)}
+.aud-section{padding:0 0 88px}
 .aud-head{max-width:720px;margin:0 auto 40px;text-align:center}
 .aud-head .eyebrow{display:inline-block;margin-bottom:14px}
 .aud-head .h2{margin-bottom:16px}
@@ -123,7 +133,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 /* The bar is sticky and 68px tall, so an anchor that scrolls to 0 puts its
    own heading underneath it. */
 [id]{scroll-margin-top:calc(var(--nav-h) + 28px)}
-.closer{padding:88px 0 72px;background:var(--hero-beige);text-align:center}
+.closer{padding:88px 0 72px;background:transparent;text-align:center}
 .closer h2{margin:0 auto 14px;max-width:640px}
 .closer p{margin:0 auto 28px;max-width:520px}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
@@ -134,7 +144,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .closer .cta-alt a{color:var(--sand);text-decoration-color:rgba(231,207,163,.45)}
 .closer .cta-alt a:hover{text-decoration-color:var(--sand)}
 /* The dark is the reveal, not the footer, so the two read as one card. */
-.footer{position:relative;overflow:hidden;background:var(--hero-beige);color:rgba(255,255,255,.72);padding:48px 0 32px}
+.footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:48px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px}
 .footer-brand .logo svg{filter:brightness(0) invert(1);height:24px}
