@@ -266,3 +266,19 @@
   .sci-js .sci-bar:not(.is-drawn) i{transform:scaleX(var(--v,0))}
   .sci-gbox::after{transition:none}
 }
+
+/* ---- a goal shows its signals -------------------------------------------
+   One panel under the grid rather than a popover on each of 41 labels:
+   a popover at this density either covers the grid or pushes it about,
+   and a panel with a floor under it does neither. Hover, focus and tap
+   all drive it, so it is not hover-only on a phone. */
+.sci-goalname{background:transparent;border:0;font-family:inherit;cursor:pointer;
+  transition:color .16s ease}
+.sci-goalname:hover,.sci-goalname[aria-expanded="true"]{color:var(--gold)}
+.sci-goalname:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.sci-subs{max-width:860px;margin:22px auto 0;min-height:112px;text-align:center}
+.sci-subs-t{font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--gold)}
+.sci-subs-list{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
+.sci-subs-list span{font-size:12.5px;line-height:1.5;padding:5px 11px;border-radius:999px;
+  background:var(--raised);border:1px solid var(--line);color:var(--ink-80)}
+@media (max-width:760px){.sci-subs{min-height:150px}}

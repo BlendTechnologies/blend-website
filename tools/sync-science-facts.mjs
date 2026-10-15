@@ -87,16 +87,24 @@ const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
    The breadth of the category in one band: the counts, every goal by name,
    and the two figures about a product, which belong with what the model
    knows rather than in a strip under the hero. */
+/* "None of the above." is a quiz option, not a signal, so it is the one
+   thing dropped between the taxonomy and the page. */
 const SIGNAL = x => x.trim().toLowerCase() !== 'none of the above.';
-const goalList = h.goals.map(g => g.goal);
+const goals = h.goals.map(g => ({ goal: g.goal, subgoals: g.subgoals.filter(SIGNAL) }));
+const goalList = goals.map(g => g.goal);
+const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
 const covers = `<section class="sci-sec" id="covers">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">What the model covers</span>
       <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals, <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals underneath.</h2>
     </div>
-    <div class="sci-goalgrid sci-in" aria-label="Every goal the model covers">
-${goalList.map(g => `      <span class="sci-goalname">${esc(g)}</span>`).join('\n')}
+    <div class="sci-goalgrid sci-in" data-goals>
+${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
+    </div>
+    <div class="sci-subs sci-in" id="sci-subs" data-subs aria-live="polite">
+      <div class="sci-subs-t">${esc(openGoal.goal)}</div>
+      <div class="sci-subs-list">${openGoal.subgoals.map(x => `<span>${esc(x)}</span>`).join('')}</div>
     </div>
     <p class="sci-figline sci-in">
       <span><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b> ${esc(h.counts.products_audited.label)}</span>

@@ -86,6 +86,38 @@
     targets.forEach(function (t) { io.observe(t); });
   })();
 
+  /* ---- a goal shows its signals -------------------------------------- */
+  (function goals() {
+    var grid = $('[data-goals]'), panel = $('[data-subs]');
+    if (!grid || !panel) return;
+    var data = null;
+    try { data = JSON.parse($('#sci-data').textContent); } catch (e) { return; }
+    var live = Object.keys(data.verticals).filter(function (k) { return data.verticals[k].status === 'live'; })[0];
+    var map = {};
+    (data.verticals[live].goals || []).forEach(function (g) {
+      map[g.goal] = g.subgoals.filter(function (x) { return x.trim().toLowerCase() !== 'none of the above.'; });
+    });
+    var btns = $$('.sci-goalname', grid);
+    function show(btn) {
+      var subs = map[btn.getAttribute('data-goal')];
+      if (!subs) return;
+      btns.forEach(function (b) { b.setAttribute('aria-expanded', String(b === btn)); });
+      $('.sci-subs-t', panel).textContent = btn.getAttribute('data-goal');
+      var list = $('.sci-subs-list', panel);
+      list.textContent = '';
+      subs.forEach(function (x) {
+        var el = document.createElement('span');
+        el.textContent = x;
+        list.appendChild(el);
+      });
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('mouseenter', function () { show(b); });
+      b.addEventListener('focus', function () { show(b); });
+      b.addEventListener('click', function () { show(b); });
+    });
+  })();
+
   /* ---- the run ------------------------------------------------------
      The reader drives: tabs and arrow keys, nothing on a timer. */
   (function run() {
