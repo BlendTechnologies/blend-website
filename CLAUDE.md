@@ -33,7 +33,23 @@ its own copy in `data-price-*` attributes on each tier;
 `node tools/check-prices.mjs` refuses when the two disagree. Run it before
 merging anything that touches either.
 
+## The Science page
+
+`/science` states what the engine does, so none of those figures are typed
+here. `blend-mockups/science/science-facts.json` is generated from the
+engine by `algorithms/personalization/tools/export_science_facts.py` and
+arrives with the mockup export;
+`node tools/sync-science-facts.mjs` writes the stat strip, the goal rails
+and the `GOAL_SUBS` map from it, between `science:*` markers. To change one
+of those numbers, change the engine and regenerate — editing the page by
+hand will be overwritten, and `--check` refuses a stale page.
+
+Before this existed the strip claimed 30+ scored product attributes where
+the scorer reads 25, and the rails showed 37 of the engine's 41 goals under
+a heading promising every goal a customer can pick.
+
 ## Before merging
 
 - `node tools/check-prices.mjs`
+- `node tools/sync-science-facts.mjs --check`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`

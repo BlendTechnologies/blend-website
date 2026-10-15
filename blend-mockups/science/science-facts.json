@@ -1,0 +1,738 @@
+{
+  "_generated_by": "algorithms/personalization/tools/export_science_facts.py",
+  "_note": "Every figure is read or computed from the engine at generation time. Do not hand-edit.",
+  "model": {
+    "name": "Blend Wellness Model",
+    "version": "1.0.0",
+    "contract_version": "2.0",
+    "status": "live"
+  },
+  "authorities": {
+    "default": {
+      "name": "EFSA",
+      "full_name": "European Food Safety Authority",
+      "url": "https://www.efsa.europa.eu/en/topics/topic/dietary-reference-values"
+    },
+    "secondary": [
+      {
+        "name": "NIH",
+        "full_name": "National Institutes of Health, Office of Dietary Supplements",
+        "url": "https://ods.od.nih.gov/factsheets/list-all/"
+      },
+      {
+        "name": "NHS",
+        "full_name": "National Health Service (UK)",
+        "url": "https://www.nhs.uk/conditions/vitamins-and-minerals/"
+      }
+    ]
+  },
+  "counts": {
+    "nutrients": 42,
+    "nutrients_tracked": 42,
+    "nutrients_micronutrients": 29,
+    "nutrients_by_group": {
+      "macros": 5,
+      "minerals": 16,
+      "nutrients": 8,
+      "vitamins": 13
+    },
+    "product_attributes": 25,
+    "safety_gates": 17,
+    "goals": 41,
+    "subgoals": 252,
+    "subgoal_questions": 40,
+    "products_audited": 223,
+    "products_activated": 116
+  },
+  "calculations_per_customer": {
+    "value": 108460,
+    "food_rows": 1276,
+    "nutrient_columns": 85,
+    "formula": "food_rows x nutrient_columns"
+  },
+  "safety_gates": [
+    {
+      "gate": "apply_hard_medication_blocks",
+      "name": "Hard medication contraindication",
+      "group": "medication conflicts"
+    },
+    {
+      "gate": "apply_declared_medication_cautions",
+      "name": "Medication interaction caution",
+      "group": "medication conflicts"
+    },
+    {
+      "gate": "apply_condition_blocks",
+      "name": "Diagnosed-condition contraindication",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_pregnancy_blocks",
+      "name": "Pregnancy / breastfeeding contraindication",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_prenatal_gate",
+      "name": "Prenatal-only audience",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_sex_gate",
+      "name": "Sex-specific product",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_smoker_blocks",
+      "name": "Smoker beta-carotene block",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_demographic_gate",
+      "name": "Age-band / demographic",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_iron_status_gate",
+      "name": "Iron-status need",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_low_bmi_gate",
+      "name": "Low-BMI safety",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_requires_activity_gate",
+      "name": "Requires training load",
+      "group": "contraindications"
+    },
+    {
+      "gate": "apply_sleep_conflict_gate",
+      "name": "Stimulant x sleep conflict",
+      "group": "interactions"
+    },
+    {
+      "gate": "apply_caffeine_ceiling",
+      "name": "Total caffeine ceiling",
+      "group": "upper limits"
+    },
+    {
+      "gate": "apply_ceiling_nodrv_gate",
+      "name": "No-DRV supplemental ceiling",
+      "group": "upper limits"
+    },
+    {
+      "gate": "apply_total_ceiling",
+      "name": "Upper-limit (tolerable intake) ceiling",
+      "group": "upper limits"
+    },
+    {
+      "gate": "apply_diet_relevance_gate",
+      "name": "Diet compatibility",
+      "group": "diet"
+    },
+    {
+      "gate": "apply_country_gate",
+      "name": "Market ingredient legality",
+      "group": "diet"
+    }
+  ],
+  "safety_gate_counts_by_group": {
+    "medication conflicts": 2,
+    "contraindications": 9,
+    "interactions": 1,
+    "upper limits": 3,
+    "diet": 2
+  },
+  "non_safety_gates": [
+    {
+      "gate": "apply_multivitamin_dedup",
+      "name": "Multivitamin de-duplication",
+      "group": "redundancy"
+    },
+    {
+      "gate": "apply_mv_standalone_dedup",
+      "name": "Multivitamin vs standalone",
+      "group": "redundancy"
+    },
+    {
+      "gate": "apply_exclusive_family_dedup",
+      "name": "Exclusive-family de-duplication",
+      "group": "redundancy"
+    },
+    {
+      "gate": "apply_duplicate_active_dedup",
+      "name": "Duplicate-active de-duplication",
+      "group": "redundancy"
+    },
+    {
+      "gate": "apply_redundant_complex_dedup",
+      "name": "Redundant-complex de-duplication",
+      "group": "redundancy"
+    },
+    {
+      "gate": "apply_food_credit_gates",
+      "name": "Food-credit (already met by diet)",
+      "group": "need"
+    }
+  ],
+  "recommendation_thresholds": {
+    "default_shortfall_before_recommend": 0.1,
+    "note": "Shortfall is how far below target a nutrient must fall before a product is recommended for it. It sits on top of the upper-limit ceiling, which refuses any dose breaching a tolerable limit.",
+    "nutrients": [
+      {
+        "nutrient": "Protein",
+        "shortfall_before_recommend": 0.05,
+        "shortfall_pct": 5.0,
+        "strictness": "lenient",
+        "upper_limit": null,
+        "target_reference_adult": null,
+        "target_basis": "derived per person from body weight and goal (EFSA PRI 0.83 g/kg baseline)"
+      },
+      {
+        "nutrient": "Vitamin A",
+        "shortfall_before_recommend": 0.4,
+        "shortfall_pct": 40.0,
+        "strictness": "strict",
+        "upper_limit": 3000,
+        "target_reference_adult": 540.0,
+        "target_unit": "mcg"
+      },
+      {
+        "nutrient": "Vitamin C",
+        "shortfall_before_recommend": 0.1,
+        "shortfall_pct": 10.0,
+        "strictness": "lenient",
+        "upper_limit": 2000,
+        "target_reference_adult": 44.0,
+        "target_unit": "mg"
+      },
+      {
+        "nutrient": "Vitamin D3",
+        "shortfall_before_recommend": 0.1,
+        "shortfall_pct": 10.0,
+        "strictness": "lenient",
+        "upper_limit": 100,
+        "target_reference_adult": 10.0,
+        "target_unit": "mcg"
+      },
+      {
+        "nutrient": "Iron",
+        "shortfall_before_recommend": 0.4,
+        "shortfall_pct": 40.0,
+        "strictness": "strict",
+        "upper_limit": 40,
+        "target_reference_adult": 14.8,
+        "target_unit": "mg"
+      },
+      {
+        "nutrient": "Omega-3",
+        "shortfall_before_recommend": 0.1,
+        "shortfall_pct": 10.0,
+        "strictness": "lenient",
+        "upper_limit": null,
+        "target_reference_adult": 1.0,
+        "target_unit": "g EPA+DHA"
+      }
+    ]
+  },
+  "goals": [
+    {
+      "goal": "Bone & Joint Health",
+      "id": "021XHEREX001XBONE",
+      "subgoals": [
+        "Joint stiffness or discomfort",
+        "Bone strength",
+        "Bone density with age",
+        "Cartilage and joint support",
+        "Reduced flexibility",
+        "Aches after activity",
+        "Bouncing back after a strain",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Boost Energy",
+      "id": "021XHEREX002XBOOS",
+      "subgoals": [
+        "Ongoing tiredness",
+        "Afternoon dips",
+        "Low daily stamina",
+        "Slow to bounce back after illness",
+        "Run-down",
+        "Caffeine reliance",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Build Muscle",
+      "id": "021XHEREX003XBUIL",
+      "subgoals": [
+        "Difficulty building muscle",
+        "Slow recovery",
+        "Low workout stamina",
+        "Plateau",
+        "Low pre-workout energy",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Cognitive Health",
+      "id": "021XHEREX004XCOGN",
+      "subgoals": [
+        "Difficulty concentrating",
+        "Forgetfulness or memory lapses",
+        "Reduced mental clarity",
+        "Brain fog",
+        "Afternoon mental fatigue",
+        "Slow recall under pressure",
+        "Focus and productivity",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Eye Health",
+      "id": "021XHEREX006XEYES",
+      "subgoals": [
+        "Screen eye strain",
+        "Dry or tired eyes",
+        "Night-vision support",
+        "Maintaining vision with age",
+        "Light sensitivity",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Healthy Weight Gain",
+      "id": "021XHEREX007XGAIN",
+      "subgoals": [
+        "Struggle to gain weight",
+        "Low appetite",
+        "Feel like a fast metabolism",
+        "Gain fat not muscle",
+        "Low energy to train",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "General Health Support",
+      "id": "021XHEREX008XGENE",
+      "subgoals": []
+    },
+    {
+      "goal": "Gut Health",
+      "id": "021XHEREX009XGUTH",
+      "subgoals": [
+        "Occasional gas",
+        "Bloating",
+        "Indigestion",
+        "Heartburn or reflux",
+        "Constipation",
+        "Loose stools",
+        "Tummy cramping",
+        "Over-full after small meals",
+        "Irregular bowel habits",
+        "Discomfort after dairy",
+        "Discomfort after gluten or wheat",
+        "Sluggish on fatty meals",
+        "Occasional nausea",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Healthy Ageing & Longevity",
+      "id": "021XHEREX011XHEAL",
+      "subgoals": [
+        "Visible signs of ageing",
+        "Lower energy with age",
+        "Slower recovery",
+        "Everyday antioxidant support",
+        "Maintaining muscle",
+        "Skin or joint changes with age",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Heart Health",
+      "id": "021XHEREX012XHEAR",
+      "subgoals": [
+        "Support healthy cholesterol",
+        "Support healthy blood pressure",
+        "Cold hands and feet",
+        "Support healthy circulation",
+        "Occasional leg or ankle puffiness",
+        "Family history of heart concerns",
+        "Support healthy triglycerides",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Hormonal Balance",
+      "id": "021XHEREX013XHORM",
+      "subgoals": [
+        "Premenstrual mood changes",
+        "Cycle-related bloating",
+        "Skin changes with cycle",
+        "Low energy with cycle",
+        "Irregular patterns",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Immunity",
+      "id": "021XHEREX014XIMMU",
+      "subgoals": [
+        "Frequent colds or sniffles",
+        "Seasonal sensitivities",
+        "Slow to bounce back",
+        "Run-down when busy or travelling",
+        "Frequent sore throats",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Increase Endurance",
+      "id": "021XHEREX015XINCR",
+      "subgoals": [
+        "Low workout stamina",
+        "Cramps",
+        "Slow recovery",
+        "Electrolyte loss from sweating",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Sexual Health",
+      "id": "021XHEREX016XLIBI",
+      "subgoals": [
+        "Desire or libido",
+        "Stamina and staying power",
+        "Blood flow and vitality",
+        "Performance confidence",
+        "Arousal and sensitivity",
+        "Comfort and dryness",
+        "Overall vitality",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Liver Health",
+      "id": "021XHEREX017XLIVE",
+      "subgoals": [
+        "Heavy or sluggish after rich meals",
+        "Frequent social drinking",
+        "High pollution or chemical exposure",
+        "Poor tolerance of fatty foods",
+        "Looking for a reset",
+        "Lifestyle-related dull skin",
+        "Morning-after recovery",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Lose Weight",
+      "id": "021XHEREX018XLOSE",
+      "subgoals": [
+        "Sugar or carb cravings",
+        "Energy dips after meals",
+        "Hard to lose despite effort",
+        "Constant hunger or low fullness",
+        "Stubborn midsection",
+        "Late-night snacking",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Lung Health",
+      "id": "021XHEREX019XLUNG",
+      "subgoals": [
+        "Support healthy breathing",
+        "Seasonal or airborne sensitivity",
+        "Stamina and breathing during activity",
+        "Active-outdoor-lifestyle support",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Menopause",
+      "id": "021XHEREX020XMENO",
+      "subgoals": [
+        "Hot flushes",
+        "Night sweats",
+        "Mood changes",
+        "Sleep disruption",
+        "Low energy",
+        "Changes in skin or hair",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Mood & Emotions",
+      "id": "021XHEREX021XMOOD",
+      "subgoals": [
+        "Low or flat mood",
+        "Irritability",
+        "Feeling overwhelmed",
+        "Nervousness or on edge",
+        "Emotional eating",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Prostate Health",
+      "id": "021XHEREX022XPROS",
+      "subgoals": [
+        "Frequent urination",
+        "Night-time urination",
+        "Weaker flow",
+        "General prostate support",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Sleep",
+      "id": "021XHEREX023XSLEE",
+      "subgoals": [
+        "Trouble falling asleep",
+        "Waking during the night",
+        "Waking unrested",
+        "Short sleep",
+        "Racing mind at bedtime",
+        "Shift work",
+        "Jet lag",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Stress",
+      "id": "021XHEREX024XSTRE",
+      "subgoals": [
+        "Feeling overwhelmed",
+        "Trouble winding down",
+        "Everyday tension",
+        "Stress-related eating",
+        "Restlessness",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Testosterone Health",
+      "id": "021XHEREX025XTEST",
+      "subgoals": [
+        "Low energy or drive",
+        "Reduced muscle tone",
+        "Low desire",
+        "Low stamina",
+        "Mood or motivation dips",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Urinary Health",
+      "id": "021XHEREX026XURIN",
+      "subgoals": [
+        "Bladder comfort",
+        "Urinary tract comfort",
+        "Bladder control comfort",
+        "Kidney and fluid support",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Blood Sugar Support",
+      "id": "021XHEREX028XBLOO",
+      "subgoals": [
+        "Strong sugar or carb cravings",
+        "Energy crashes after meals",
+        "Afternoon slumps",
+        "Late-night snacking",
+        "Steady-energy goal",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Thyroid & Metabolism Support",
+      "id": "021XHEREX029XMETA",
+      "subgoals": [
+        "Slow-metabolism feeling",
+        "Often feeling cold",
+        "Unexplained tiredness with weight changes",
+        "Low daily energy",
+        "Sluggish after meals",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Cycle Support",
+      "id": "021XHEREX030XCYCL",
+      "subgoals": [
+        "Irregular or missed periods",
+        "Heavy or uncomfortable periods",
+        "Premenstrual mood changes",
+        "Cycle bloating",
+        "Low energy around your period",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Conception Support",
+      "id": "021XHEREX031XCONC",
+      "subgoals": [
+        "Trying to conceive",
+        "Preparing to try",
+        "Supporting reproductive health",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Prenatal Support",
+      "id": "021XHEREX032XPREN",
+      "subgoals": [
+        "First trimester",
+        "Second trimester",
+        "Third trimester",
+        "Planning pregnancy nutrition",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Postnatal Support",
+      "id": "021XHEREX033XPOST",
+      "subgoals": [
+        "Postnatal tiredness",
+        "Hair changes after birth",
+        "Breastfeeding nutrition",
+        "Rebuilding energy",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Men's Fertility",
+      "id": "021XHEREX034XMENF",
+      "subgoals": [
+        "Trying to conceive",
+        "Preparing to try",
+        "Supporting reproductive health",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Skin Health",
+      "id": "021XHEREX035XSKIN",
+      "subgoals": [
+        "Blemish-prone skin",
+        "Dry skin",
+        "Dry, sensitive or irritated skin",
+        "Fine lines and wrinkles",
+        "Loss of firmness",
+        "Dull or uneven tone",
+        "Redness or sensitivity",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Hair Health",
+      "id": "021XHEREX036XHAIR",
+      "subgoals": [
+        "Hair thinning or shedding",
+        "Slow hair growth",
+        "Brittle hair",
+        "Split ends",
+        "Dull or lifeless hair",
+        "Scalp concerns",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Nail Health",
+      "id": "021XHEREX037XNAIL",
+      "subgoals": [
+        "Brittle or weak nails",
+        "Peeling or splitting nails",
+        "Slow nail growth",
+        "Ridges or discolouration",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Mass Gain",
+      "id": "021XHEREX038XMASS",
+      "subgoals": [
+        "Difficulty gaining size",
+        "Low appetite for a surplus",
+        "Slow recovery",
+        "Strength plateau",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Tone & Definition",
+      "id": "021XHEREX039XTONE",
+      "subgoals": [
+        "Struggle to lean out",
+        "Holding stubborn fat",
+        "Muscle definition",
+        "Recovery between sessions",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Strength & Power",
+      "id": "021XHEREX040XSTRG",
+      "subgoals": [
+        "Strength plateau",
+        "Low power output",
+        "Slow recovery",
+        "Pre-workout energy",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Recovery & Repair",
+      "id": "021XHEREX041XRECO",
+      "subgoals": [
+        "Soreness after training",
+        "Slow recovery between sessions",
+        "Poor sleep after hard sessions",
+        "Muscle cramps",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Hydration & Electrolytes",
+      "id": "021XHEREX042XHYDR",
+      "subgoals": [
+        "Muscle cramps",
+        "After heavy sweating or exercise",
+        "Hot-climate or outdoor work",
+        "Post-workout",
+        "Dehydration headaches",
+        "Frequent travel or flying",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Plant-Based Nutrition",
+      "id": "021XHEREX043XPLAN",
+      "subgoals": [
+        "Following a vegan or vegetarian diet",
+        "Low energy on plant-based",
+        "Want complete daily nutrition",
+        "Concerned about common gaps",
+        "New to plant-based",
+        "None of the above."
+      ]
+    },
+    {
+      "goal": "Everyday Comfort",
+      "id": "021XHEREX044XCOMF",
+      "subgoals": [
+        "Soreness after exercise",
+        "Everyday aches or stiffness",
+        "Bouncing back after intense activity",
+        "General muscle and joint comfort",
+        "None of the above."
+      ]
+    }
+  ]
+}
