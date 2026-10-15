@@ -29,6 +29,7 @@
 </script>
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/scroll-cards.css">
 <link rel="stylesheet" href="/cookie-consent.css">
 <style>
 /* ============================================================
@@ -59,8 +60,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-.025em;font-weight:600;margin:0}
-.h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.022em;font-weight:600;margin:0}
+.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0;text-wrap:balance}
+.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0;text-wrap:balance}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
@@ -170,6 +171,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .hero-stage{height:auto;display:flex;flex-direction:column;gap:20px}
   .quiz,.results{position:static;width:100%}
 }
+:root{--sec:88px;--sec-tight:80px;--sec-join:40px}
+@media(max-width:760px){:root{--sec:72px;--sec-tight:72px;--sec-join:36px}}
 .section{padding:112px 0}
 /* Nine of twelve sections ran an identical 112px top and bottom while content
    filled only 54-76% of each. Emphasis needs contrast: with every section
@@ -1489,6 +1492,162 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   .hw-cols{grid-template-columns:1fr;gap:14px}
   .hw-col{padding:22px 20px}
 }
+/* ======================================================================
+   /science, rebuilt
+   ----------------------------------------------------------------------
+   Everything here is prefixed sx-. The page's older sci-* components were
+   built for a black section at the top of the page; the black has moved to
+   the end, where every other page on the site keeps it, so none of them
+   applies any more.
+
+   The rhythm is the site's: beige hero with the shared .sc-hero shape,
+   then white and beige alternating, then the dark endcap.
+   ====================================================================== */
+.sx-hero{padding:72px 0 80px;position:relative}
+.sx-hero > .wrap{position:relative;z-index:1}
+/* Centred, like /how-it-works. Left-aligned it left half the hero empty
+   at desktop width, and this page has no card to put there. */
+.sx-hero-inner{max-width:860px;margin:0 auto;text-align:center}
+.sx-hero .eyebrow{display:inline-block;margin-bottom:16px}
+.sx-hero .h1{max-width:17ch;margin:0 auto}
+.sx-hero .lead{margin:20px auto 0;max-width:640px}
+.sx-model{margin-top:24px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.sx-model b{font-weight:600;color:var(--ink)}
+.sx-model .sx-dot{width:3px;height:3px;border-radius:50%;background:var(--line-strong)}
+.sx-live{display:inline-flex;align-items:center;gap:6px;font-weight:500;color:var(--ink-80)}
+.sx-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#5E8E3E;box-shadow:0 0 0 3px rgba(94,142,62,.18)}
+.sx-hero-ctas{margin-top:30px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+
+/* The strip reads as four facts about the model, on the hero's own ground
+   rather than in a box of its own. */
+.sx-stats{margin-top:56px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line-strong)}
+.sx-stat{padding:24px 24px 4px;border-right:1px solid var(--line);text-align:center}
+.sx-stat:last-child{border-right:0}
+
+.sx-n{font-size:clamp(34px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--ink);font-feature-settings:"ss01","cv11","tnum"}
+.sx-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
+.sx-sub{margin:6px auto 0;font-size:13.5px;color:var(--ink-60);line-height:1.5;max-width:30ch}
+
+/* ---- sections -------------------------------------------------------- */
+.sx-sec{padding:var(--sec,88px) 0}
+.sx-sec--beige{background:var(--hero-beige)}
+.sx-head{max-width:720px;margin:0 auto 48px;text-align:center}
+.sx-head .eyebrow{display:inline-block;margin-bottom:14px}
+.sx-head .h2{margin-bottom:16px}
+.sx-head .lead{margin-left:auto;margin-right:auto;max-width:600px}
+
+/* ---- the worked example ---------------------------------------------- */
+.sx-who{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 auto 36px;max-width:820px}
+.sx-chip{font-size:12.5px;font-weight:500;color:var(--ink-80);background:var(--hero-beige);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.sx-chip b{font-weight:600;color:var(--ink)}
+
+.sx-funnel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:820px;margin:0 auto 40px}
+.sx-fstep{text-align:center;padding:20px 16px;border:1px solid var(--line);border-radius:14px;background:var(--white);position:relative}
+.sx-fstep + .sx-fstep::before{content:"";position:absolute;left:-13px;top:50%;width:14px;height:1px;background:var(--line-strong)}
+.sx-fn{font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
+.sx-flabel{margin-top:8px;font-size:13px;color:var(--ink-60);line-height:1.45}
+
+/* The six steps are tabs: one run, six views of it, and the whole trace is
+   in the page rather than fetched, so it is there with scripting off too. */
+.sx-steps{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:0 auto 24px;max-width:900px}
+.sx-step{display:inline-flex;align-items:baseline;gap:8px;padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:13.5px;font-weight:500;color:var(--ink-80);cursor:pointer;font-family:inherit;transition:border-color .16s ease,background .16s ease,color .16s ease}
+.sx-step:hover{border-color:var(--line-strong)}
+.sx-step[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.sx-step:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sx-step-n{font-size:11.5px;font-weight:600;letter-spacing:.04em;opacity:.55;font-feature-settings:"tnum"}
+
+.sx-panel{max-width:900px;margin:0 auto;border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
+.sx-panel-head{padding:18px 24px;border-bottom:1px solid var(--line);background:var(--subtle);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sx-panel-t{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.sx-panel-c{font-size:12.5px;color:var(--ink-60);font-feature-settings:"tnum"}
+.sx-line{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;padding:14px 24px;border-bottom:1px solid var(--line);align-items:baseline}
+.sx-line:last-child{border-bottom:0}
+.sx-ltext{font-size:14.5px;color:var(--ink);line-height:1.45}
+.sx-lvalue{font-size:14px;font-weight:600;letter-spacing:-.005em;white-space:nowrap;font-feature-settings:"tnum";text-align:right}
+.sx-lsource{grid-column:1/-1;font-size:12.5px;color:var(--ink-60);line-height:1.5}
+.sx-foot{max-width:900px;margin:18px auto 0;font-size:13px;color:var(--ink-60);text-align:center;line-height:1.6}
+
+/* ---- the gates ------------------------------------------------------- */
+/* align-items:start, or the one-gate card is stretched to the height of
+   the nine-gate card beside it and reads as mostly empty. */
+.sx-gates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto;align-items:start}
+.sx-gate{border:1px solid var(--line);border-radius:14px;background:var(--white);padding:22px 22px 20px}
+.sx-gate-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.sx-gate-name{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.sx-gate-n{font-size:12px;font-weight:600;color:var(--gold-strong);background:var(--gold-soft);border-radius:999px;padding:3px 9px;font-feature-settings:"tnum"}
+.sx-gate ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sx-gate li{font-size:13.5px;color:var(--ink-80);line-height:1.45;padding-left:16px;position:relative}
+.sx-gate li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:1px;background:var(--line-strong)}
+.sx-aside{border:1px solid var(--line-strong);border-radius:14px;padding:22px;background:transparent}
+.sx-aside h3{margin:0 0 8px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.sx-aside p{margin:0;font-size:13.5px;color:var(--ink-80);line-height:1.6}
+.sx-aside-list{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.sx-aside-list span{font-size:12.5px;color:var(--ink-60);background:var(--subtle);border-radius:999px;padding:4px 11px}
+
+/* ---- thresholds ------------------------------------------------------ */
+.sx-tw{max-width:900px;margin:0 auto;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
+.sx-th{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+.sx-th th{text-align:left;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:16px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sx-th td{padding:15px 20px;border-bottom:1px solid var(--line);color:var(--ink-80);font-feature-settings:"tnum"}
+.sx-th tr:last-child td{border-bottom:0}
+.sx-th td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.sx-strict{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.sx-strict.is-strict{color:#8A4B2A;background:rgba(190,110,60,.12)}
+.sx-strict.is-lenient{color:#4A6B3A;background:rgba(94,142,62,.12)}
+.sx-prose{max-width:720px;margin:0 auto 40px}
+.sx-prose p{margin:0 0 14px;font-size:15px;line-height:1.65;color:var(--ink-80)}
+.sx-prose p:last-child{margin-bottom:0}
+.sx-prose b{color:var(--ink);font-weight:600}
+
+/* ---- sources --------------------------------------------------------- */
+.sx-src{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;max-width:1100px;margin:0 auto}
+.sx-card{display:block;border:1px solid var(--line);border-radius:14px;background:var(--white);padding:24px;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+a.sx-card:hover{border-color:var(--line-strong);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.05)}
+.sx-card-role{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-strong)}
+.sx-card-n{margin-top:12px;font-size:22px;font-weight:600;letter-spacing:-.018em}
+.sx-card-f{margin-top:6px;font-size:13.5px;color:var(--ink-60);line-height:1.5}
+.sx-card-l{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--gold-strong);display:inline-flex;gap:4px;align-items:center}
+.sx-card-l::after{content:"\2197";transition:transform .2s ease}
+a.sx-card:hover .sx-card-l::after{transform:translate(2px,-2px)}
+@media (prefers-reduced-motion:reduce){a.sx-card,a.sx-card:hover,.sx-card-l::after{transition:none;transform:none}}
+
+/* ---- the goal map, on the new rhythm --------------------------------- */
+.gm.sx-gm{background:var(--white);padding:var(--sec,88px) 0}
+
+/* ---- the endcap ------------------------------------------------------ */
+.closer{padding:88px 0 72px;text-align:center;background:var(--hero-beige);border-top:0}
+.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(28px,3.4vw,42px)}
+.closer .closer-foot{color:rgba(255,255,255,.6)}
+.closer .closer-foot a{color:var(--white);border-bottom-color:rgba(255,255,255,.4)}
+.footer{position:relative;overflow:hidden;background:var(--hero-beige);padding:48px 0 32px}
+.nav{--nav-bg:var(--hero-beige)}
+
+/* ---- narrow ---------------------------------------------------------- */
+@media (max-width:980px){
+  .sx-stats{grid-template-columns:repeat(2,minmax(0,1fr));border-top:0}
+  .sx-stat{padding:20px 0 4px;border-right:0;border-top:1px solid var(--line)}
+  .sx-stat:nth-child(odd){padding-right:20px}
+  .sx-stat:nth-child(even){padding-left:20px;border-left:1px solid var(--line)}
+  .sx-gates{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sx-src{grid-template-columns:1fr 1fr}
+  .sx-src .sx-card:first-child{grid-column:1/-1}
+}
+@media (max-width:760px){
+  .sx-hero{padding:56px 0 64px}
+  .sx-funnel{grid-template-columns:minmax(0,1fr);gap:10px}
+  .sx-fstep + .sx-fstep::before{left:50%;top:-11px;width:1px;height:12px}
+  .sx-gates,.sx-src{grid-template-columns:minmax(0,1fr)}
+  .sx-steps{gap:5px}
+  .sx-step{padding:8px 13px;font-size:13px}
+  .sx-line{padding:13px 18px}
+  .sx-panel-head{padding:16px 18px}
+  .sx-lvalue{text-align:left}
+  .sx-line{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:420px){
+  .sx-stats{grid-template-columns:minmax(0,1fr)}
+  .sx-stat:nth-child(odd),.sx-stat:nth-child(even){padding:18px 0 4px;border-left:0}
+}
 </style>
 </head>
 <body>
@@ -1510,52 +1669,246 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   </div>
 </header>
 
-<div class="wrap crumb"><a href="/">Home</a><span class="crumb-sep">/</span>Science</div>
 
 <main id="main">
-<section class="science" id="science">
+<section class="sx-hero sc-hero" data-sc="hero">
   <div class="wrap">
-    <div class="science-head"><span class="eyebrow">Data-driven &#xB7; Source-cited</span><h1 class="h2">A scoring model you can audit, line by line.</h1><p class="lead">Transparent attribute-level scoring against your catalogue. Nutrient targets and upper limits follow EFSA, the default authority, with NIH and the NHS behind it.</p></div>
-    <div class="science-stats">
-<!-- science:stats -->
-      <div class="sci-stat"><div class="sci-n">200+</div><div class="sci-label">Products audited</div><div class="sci-sub">Standardised so every score is comparable across the catalogue.</div></div>
-      <div class="sci-stat"><div class="sci-n">25</div><div class="sci-label">Product attributes</div><div class="sci-sub">Ingredients, dosing, evidence, contraindications, synergies, all scored.</div></div>
-      <div class="sci-stat"><div class="sci-n">17</div><div class="sci-label">Safety gates</div><div class="sci-sub">Interactions, medication conflicts, upper limits, contraindications and diet.</div></div>
-<!-- /science:stats -->
-      <div class="sci-stat"><div class="sci-n">0</div><div class="sci-label">Black boxes</div><div class="sci-sub">Every recommendation traces to a goal or a measured nutrient gap.</div></div>
-      <div class="sci-stat"><div class="sci-n">1:1</div><div class="sci-label">Tuned to your brand</div><div class="sci-sub">Your catalogue, your customers, your questions, your algorithm.</div></div>
-      <div class="sci-note">
-        <p><b>The bar for recommending differs by nutrient.</b> One threshold used to gate every
-        nutrient identically, so vitamin A and vitamin C were judged the same way. They should
-        not be. Too much protein is harmless; vitamin A at a ten per cent shortfall is not worth
-        taking, because retinol accumulates and nothing is gained above requirement. A product is
-        recommended for a nutrient only where correcting that nutrient is actually worth it.</p>
-        <p>This sits on top of the upper-limit ceiling rather than replacing it. Nobody was being
-        overdosed before; the ceiling already refused any dose that would breach a tolerable
-        limit. This is the separate question of whether a modest gap is worth supplementing at all.</p>
-      </div>    <a href="mailto:contact@blend-technologies.com" class="sci-method" aria-label="Request methodology documentation">
-        <div class="sci-method-left"><div class="sci-method-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B47F39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div><div class="sci-method-copy"><div class="sci-method-label">See the methodology</div><div class="sci-method-sub">How scoring works, step by step. Request the full documentation.</div></div></div>
-        <div class="sci-method-arrow">Request access <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </a>
+    <div class="sx-hero-inner">
+      <span class="eyebrow">The model</span>
+      <h1 class="h1">A scoring model you can audit, line by line.</h1>
+      <p class="lead">Every recommendation is a number the engine worked out, against a target it can cite, over a catalogue it has read in full. This page shows the working: one real run end to end, every gate that can refuse a product, the bar each nutrient has to clear, and where the reference values come from.</p>
+      <p class="sx-model"><!-- science:model --><b>Blend Wellness Model</b> <span class="sx-dot" aria-hidden="true"></span> v1.0.0 <span class="sx-dot" aria-hidden="true"></span> API contract 2.0 <span class="sx-dot" aria-hidden="true"></span> <span class="sx-live">Live</span><!-- /science:model --></p>
+      <div class="sx-hero-ctas">
+        <a href="#worked" class="btn btn-primary btn-lg">See a run, step by step</a>
+        <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology%20documentation" class="btn btn-ghost btn-lg">Request the methodology</a>
+      </div>
     </div>
-    <div class="eng-figs"><div class="eng-fig"><h3 class="eng-fig-t">Built around each customer</h3><p class="eng-fig-s">Each customer&#8217;s answers shape the product scores, so the plan reflects that person rather than a segment.</p></div><div class="eng-fig"><h3 class="eng-fig-t">Your entire catalogue considered</h3><p class="eng-fig-s">Every product in your catalogue is evaluated against those answers and your own criteria.</p></div><div class="eng-fig"><h3 class="eng-fig-t">Research behind the data</h3><p class="eng-fig-s">The data behind every recommendation is backed by traceable research you can follow to its source.</p></div><div class="eng-fig"><h3 class="eng-fig-t">Your expertise, your controls</h3><p class="eng-fig-s">Modify the attributes, scoring priorities and recommendation rules to match your expertise and your brand.</p></div><div class="eng-fig"><h3 class="eng-fig-t">Safety beyond brand settings</h3><p class="eng-fig-s">Health and safety checks decide what can be recommended, and no configuration change can switch them off.</p></div><div class="eng-fig"><h3 class="eng-fig-t">A methodology you inspect</h3><p class="eng-fig-s">Request the methodology report to see how answers, attributes, scoring rules and research produce a recommendation.</p></div></div>
+    <div class="sx-stats">
+<!-- science:stats -->
+      <div class="sx-stat"><div class="sx-n">200+</div><div class="sx-label">Products audited</div><div class="sx-sub">Standardised so every score is comparable across the catalogue.</div></div>
+      <div class="sx-stat"><div class="sx-n">25</div><div class="sx-label">Product attributes</div><div class="sx-sub">Ingredients, dosing, evidence, contraindications and synergies, all scored.</div></div>
+      <div class="sx-stat"><div class="sx-n">17</div><div class="sx-label">Safety gates</div><div class="sx-sub">Any one of them can take a product out before ranking begins.</div></div>
+      <div class="sx-stat"><div class="sx-n">42</div><div class="sx-label">Nutrients per person</div><div class="sx-sub">Each with a target worked out for that person, not a population.</div></div><!-- /science:stats -->
+    </div>
   </div>
 </section>
 
-<section class="gm">
+<section class="sx-sec" id="worked">
+  <div class="wrap">
+    <div class="sx-head">
+      <span class="eyebrow">One run, end to end</span>
+      <h2 class="h2">Watch the engine make a decision.</h2>
+      <p class="lead">A real run against the Blend demo catalogue, captured as it happened. Not an illustration of one: every line below came out of the engine.</p>
+    </div>
+<!-- science:trace -->
+    <div class="sx-who"><span class="sx-chip"><b>Jane</b></span><span class="sx-chip">Diet <b>Vegetarian</b></span><span class="sx-chip">Activity <b>Very Active</b></span><span class="sx-chip">Body mass <b>Healthy Weight</b></span><span class="sx-chip">Condition <b>Diabetes</b></span><span class="sx-chip">Goals <b>Gut Health, Stress</b></span><span class="sx-chip">Health score <b>87 / 100 Excellent</b></span></div>
+    <div class="sx-funnel">
+      <div class="sx-fstep"><div class="sx-fn">54</div><div class="sx-flabel">Products in the demo catalogue scored</div></div>
+      <div class="sx-fstep"><div class="sx-fn">35</div><div class="sx-flabel">Candidates surviving the safety gates</div></div>
+      <div class="sx-fstep"><div class="sx-fn">8</div><div class="sx-flabel">Recommended (top of the ranking)</div></div>
+    </div>
+    <div class="sx-steps" role="tablist" aria-label="The steps of one run">
+      <button type="button" class="sx-step" role="tab" id="sx-tab-1" aria-controls="sx-panel-1" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">01</span>Signals</button>
+      <button type="button" class="sx-step" role="tab" id="sx-tab-2" aria-controls="sx-panel-2" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">02</span>Targets</button>
+      <button type="button" class="sx-step" role="tab" id="sx-tab-3" aria-controls="sx-panel-3" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">03</span>Gaps</button>
+      <button type="button" class="sx-step" role="tab" id="sx-tab-4" aria-controls="sx-panel-4" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">04</span>Scoring</button>
+      <button type="button" class="sx-step" role="tab" id="sx-tab-5" aria-controls="sx-panel-5" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">05</span>Gates</button>
+      <button type="button" class="sx-step" role="tab" id="sx-tab-6" aria-controls="sx-panel-6" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">06</span>Plan</button>
+    </div>
+      <div class="sx-panel" id="sx-panel-1" role="tabpanel" aria-labelledby="sx-tab-1" tabindex="0">
+        <div class="sx-panel-head"><span class="sx-panel-t">Signals</span><span class="sx-panel-c">Step 1 of 6</span></div>
+        <div class="sx-line"><span class="sx-ltext">Diet</span><span class="sx-lvalue">Vegetarian</span><span class="sx-lsource">quiz answer 045XDOAN</span></div>
+        <div class="sx-line"><span class="sx-ltext">Activity level</span><span class="sx-lvalue">Very Active</span><span class="sx-lsource">quiz answer 035XEXCL</span></div>
+        <div class="sx-line"><span class="sx-ltext">Age / sex</span><span class="sx-lvalue">41 years, Woman</span><span class="sx-lsource">quiz answers 006XHOWO / 005XWHAT</span></div>
+        <div class="sx-line"><span class="sx-ltext">Body-mass status</span><span class="sx-lvalue">Healthy Weight*</span><span class="sx-lsource">derived from height 166 cm / weight 63 kg</span></div>
+        <div class="sx-line"><span class="sx-ltext">Diagnosed condition</span><span class="sx-lvalue">Diabetes</span><span class="sx-lsource">quiz answer 016XSELE</span></div>
+        <div class="sx-line"><span class="sx-ltext">Prescription medication</span><span class="sx-lvalue">Anti-diabetics</span><span class="sx-lsource">quiz answer 018XSELE</span></div>
+        <div class="sx-line"><span class="sx-ltext">Goals</span><span class="sx-lvalue">Gut Health, Stress</span><span class="sx-lsource">quiz answer 021XHERE</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vegetarian diet raises iron and omega-3 requirements and excludes animal-derived products</span><span class="sx-lsource">diet-relevance gate + RDI model</span></div>
+        <div class="sx-line"><span class="sx-ltext">Anti-diabetic medication triggers hard interaction blocks and a metformin / B12 advisory</span><span class="sx-lsource">medication gate + advisories</span></div>
+      </div>
+      <div class="sx-panel" id="sx-panel-2" role="tabpanel" aria-labelledby="sx-tab-2" tabindex="0">
+        <div class="sx-panel-head"><span class="sx-panel-t">Targets</span><span class="sx-panel-c">Step 2 of 6</span></div>
+        <div class="sx-line"><span class="sx-ltext">Iron target</span><span class="sx-lvalue">26.64 mg/day</span><span class="sx-lsource">EFSA PRI, raised ~1.8x for a vegetarian diet (lower non-haem absorption)</span></div>
+        <div class="sx-line"><span class="sx-ltext">Omega-3 target</span><span class="sx-lvalue">1.0 g/day EPA+DHA</span><span class="sx-lsource">EFSA adequate intake, EPA+DHA</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vitamin D3 target</span><span class="sx-lvalue">10.0 mcg/day</span><span class="sx-lsource">SACN 2016 / EFSA</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vitamin B6 target</span><span class="sx-lvalue">1.2 mg/day</span><span class="sx-lsource">EFSA PRI</span></div>
+        <div class="sx-line"><span class="sx-ltext">Selenium target</span><span class="sx-lvalue">60.0 mcg/day</span><span class="sx-lsource">EFSA PRI</span></div>
+        <div class="sx-line"><span class="sx-ltext">Iodine target</span><span class="sx-lvalue">140.0 mcg/day</span><span class="sx-lsource">EFSA PRI</span></div>
+        <div class="sx-line"><span class="sx-ltext">Protein target</span><span class="sx-lvalue">88 g/day</span><span class="sx-lsource">EFSA 0.83 g/kg baseline, adjusted for activity and goal</span></div>
+        <div class="sx-line"><span class="sx-ltext">Energy target</span><span class="sx-lvalue">1952 kcal/day</span><span class="sx-lsource">Mifflin-St Jeor BMR x activity</span></div>
+        <div class="sx-line"><span class="sx-ltext">Omega-3 (EPA+DHA) target</span><span class="sx-lvalue">0.25 g/day</span><span class="sx-lsource">EFSA adequate intake</span></div>
+      </div>
+      <div class="sx-panel" id="sx-panel-3" role="tabpanel" aria-labelledby="sx-tab-3" tabindex="0">
+        <div class="sx-panel-head"><span class="sx-panel-t">Gaps</span><span class="sx-panel-c">Step 3 of 6</span></div>
+        <div class="sx-line"><span class="sx-ltext">Omega-3: 8% of target</span><span class="sx-lvalue">0.02 / 0.25</span></div>
+        <div class="sx-line"><span class="sx-ltext">Water: 33% of target</span><span class="sx-lvalue">722 / 2207</span></div>
+        <div class="sx-line"><span class="sx-ltext">Iron: 50% of target</span><span class="sx-lvalue">50 / 100</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vitamin D3: 56% of target</span><span class="sx-lvalue">56 / 100</span></div>
+        <div class="sx-line"><span class="sx-ltext">Cholesterol: 59% of target</span><span class="sx-lvalue">177 / 300</span></div>
+        <div class="sx-line"><span class="sx-ltext">Iodine: 76% of target</span><span class="sx-lvalue">76 / 100</span></div>
+        <div class="sx-line"><span class="sx-ltext">Potassium: 81% of target</span><span class="sx-lvalue">81 / 100</span></div>
+        <div class="sx-line"><span class="sx-ltext">Protein: 83% of target</span><span class="sx-lvalue">73 / 88</span></div>
+        <div class="sx-line"><span class="sx-ltext">Trans fat: 83% of target</span><span class="sx-lvalue">2 / 2.4</span></div>
+        <div class="sx-line"><span class="sx-ltext">Selenium: 85% of target</span><span class="sx-lvalue">85 / 100</span></div>
+        <div class="sx-line"><span class="sx-ltext">Carbohydrates: 88% of target</span><span class="sx-lvalue">257 / 293</span></div>
+      </div>
+      <div class="sx-panel" id="sx-panel-4" role="tabpanel" aria-labelledby="sx-tab-4" tabindex="0">
+        <div class="sx-panel-head"><span class="sx-panel-t">Scoring</span><span class="sx-panel-c">Step 4 of 6</span></div>
+        <div class="sx-line"><span class="sx-ltext">Products in the demo catalogue scored</span><span class="sx-lvalue">54</span><span class="sx-lsource">every product in the brand catalogue is scored against Jane&#8217;s answers</span></div>
+        <div class="sx-line"><span class="sx-ltext">Candidates surviving the safety gates</span><span class="sx-lvalue">35</span><span class="sx-lsource">scored pool minus every exclusion, before ranking</span></div>
+        <div class="sx-line"><span class="sx-ltext">Recommended (top of the ranking)</span><span class="sx-lvalue">8</span><span class="sx-lsource">the ranked candidates that made the plan</span></div>
+        <div class="sx-line"><span class="sx-ltext">#1 Omega-3 (Algae Oil &#8212; Vegan)</span><span class="sx-lvalue">Strong match</span><span class="sx-lsource">matched on nutrient gap</span></div>
+        <div class="sx-line"><span class="sx-ltext">#2 Iron</span><span class="sx-lvalue">Strong match</span><span class="sx-lsource">matched on nutrient gap</span></div>
+        <div class="sx-line"><span class="sx-ltext">#3 Vitamin D3</span><span class="sx-lvalue">Strong match</span><span class="sx-lsource">matched on nutrient gap</span></div>
+        <div class="sx-line"><span class="sx-ltext">#4 Iodine 150mcg</span><span class="sx-lvalue">Good match</span><span class="sx-lsource">matched on nutrient gap</span></div>
+        <div class="sx-line"><span class="sx-ltext">#5 L-Theanine</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Stress</span></div>
+        <div class="sx-line"><span class="sx-ltext">#6 Digestive Enzyme Complex</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Gut Health</span></div>
+        <div class="sx-line"><span class="sx-ltext">#7 L-Glutamine</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Gut Health</span></div>
+        <div class="sx-line"><span class="sx-ltext">#8 Ashwagandha</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Stress</span></div>
+      </div>
+      <div class="sx-panel" id="sx-panel-5" role="tabpanel" aria-labelledby="sx-tab-5" tabindex="0">
+        <div class="sx-panel-head"><span class="sx-panel-t">Gates</span><span class="sx-panel-c">Step 5 of 6</span></div>
+        <div class="sx-line"><span class="sx-ltext">Green Tea Extract &#8212; Hard medication contraindication</span><span class="sx-lvalue">Hard medication contraindication</span><span class="sx-lsource">gate group: medication conflicts</span></div>
+        <div class="sx-line"><span class="sx-ltext">Prebiotic Complex (FOS/GOS) &#8212; Hard medication contraindication</span><span class="sx-lvalue">Hard medication contraindication</span><span class="sx-lsource">gate group: medication conflicts</span></div>
+        <div class="sx-line"><span class="sx-ltext">Multivitamin (Men&#8217;s 50+) &#8212; Age-band / demographic</span><span class="sx-lvalue">Age-band / demographic</span><span class="sx-lsource">gate group: contraindications</span></div>
+        <div class="sx-line"><span class="sx-ltext">Multivitamin (Prenatal) &#8212; Age-band / demographic</span><span class="sx-lvalue">Age-band / demographic</span><span class="sx-lsource">gate group: contraindications</span></div>
+        <div class="sx-line"><span class="sx-ltext">Multivitamin (Women&#8217;s 50+) &#8212; Age-band / demographic</span><span class="sx-lvalue">Age-band / demographic</span><span class="sx-lsource">gate group: contraindications</span></div>
+        <div class="sx-line"><span class="sx-ltext">Selenium &#8212; Diagnosed-condition contraindication</span><span class="sx-lvalue">Diagnosed-condition contraindication</span><span class="sx-lsource">gate group: contraindications</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vitamin B3 &#8212; Diagnosed-condition contraindication</span><span class="sx-lvalue">Diagnosed-condition contraindication</span><span class="sx-lsource">gate group: contraindications</span></div>
+        <div class="sx-line"><span class="sx-ltext">Sodium &#8212; No-DRV supplemental ceiling</span><span class="sx-lvalue">No-DRV supplemental ceiling</span><span class="sx-lsource">gate group: upper limits</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vitamin K2 &#8212; No-DRV supplemental ceiling</span><span class="sx-lvalue">No-DRV supplemental ceiling</span><span class="sx-lsource">gate group: upper limits</span></div>
+        <div class="sx-line"><span class="sx-ltext">Coenzyme Q10 &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">Collagen Peptides (Type I &amp; III) &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">Marine Collagen &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">Omega-3 (Fish Oil) &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">Probiotics &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vitamin A &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">Vitamin E &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">BCAA 2:1:1 &#8212; Requires training load</span><span class="sx-lvalue">Requires training load</span><span class="sx-lsource">gate group: contraindications</span></div>
+        <div class="sx-line"><span class="sx-ltext">Pre-Workout Complex &#8212; Requires training load</span><span class="sx-lvalue">Requires training load</span><span class="sx-lsource">gate group: contraindications</span></div>
+        <div class="sx-line"><span class="sx-ltext">Zinc &#8212; Upper limit &#8212; serving exceeds headroom</span><span class="sx-lvalue">Upper limit &#8212; serving exceeds headroom</span><span class="sx-lsource">gate group: upper limits; upper limit 25.0</span></div>
+        <div class="sx-line"><span class="sx-ltext">Multivitamin (Prenatal) &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+        <div class="sx-line"><span class="sx-ltext">Omega-3 &#8212; Diet compatibility</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
+      </div>
+      <div class="sx-panel" id="sx-panel-6" role="tabpanel" aria-labelledby="sx-tab-6" tabindex="0">
+        <div class="sx-panel-head"><span class="sx-panel-t">Plan</span><span class="sx-panel-c">Step 6 of 6</span></div>
+        <div class="sx-line"><span class="sx-ltext">1. Omega-3 (Algae Oil &#8212; Vegan)</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your omega 3 is at 8% of your target.</span></div>
+        <div class="sx-line"><span class="sx-ltext">2. Iron</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your iron is at 50% of your target, which one serving covers.</span></div>
+        <div class="sx-line"><span class="sx-ltext">3. Vitamin D3</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your vitamin D3 is at 56% of your target, which one serving covers.</span></div>
+        <div class="sx-line"><span class="sx-ltext">4. Iodine 150mcg</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your iodine is at 76% of your target, which one serving covers.</span></div>
+        <div class="sx-line"><span class="sx-ltext">5. L-Theanine</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your stress goal. This one is an amino acid.</span></div>
+        <div class="sx-line"><span class="sx-ltext">6. Digestive Enzyme Complex</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your gut health goal. This one is a multi-nutrient blend.</span></div>
+        <div class="sx-line"><span class="sx-ltext">7. L-Glutamine</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your gut health goal. This one is an amino acid.</span></div>
+        <div class="sx-line"><span class="sx-ltext">8. Ashwagandha</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your stress goal. This one is an adaptogen.</span></div>
+      </div>
+    <p class="sx-foot">On-disk Blend demo catalogue (51 products + 3 QA placeholders). Every line above is from the run itself.</p><!-- /science:trace -->
+  </div>
+</section>
+
+<section class="sx-sec sx-sec--beige" id="safety">
+  <div class="wrap">
+    <div class="sx-head">
+      <span class="eyebrow">Safety</span>
+      <h2 class="h2">Every gate that can refuse a product, by name.</h2>
+      <p class="lead">A gate takes a product out of the pool before ranking happens. Brands tune weights, priorities and their own exclusions; nothing in a brand&#8217;s configuration reaches these.</p>
+    </div>
+<!-- science:gates -->
+    <p class="sx-foot" style="margin:0 auto 28px">17 gates, in 5 groups.</p>
+    <div class="sx-gates">
+      <div class="sx-gate">
+        <div class="sx-gate-head"><span class="sx-gate-name">Contraindications</span><span class="sx-gate-n">9</span></div>
+        <ul><li>Diagnosed-condition contraindication</li><li>Pregnancy / breastfeeding contraindication</li><li>Prenatal-only audience</li><li>Sex-specific product</li><li>Smoker beta-carotene block</li><li>Age-band / demographic</li><li>Iron-status need</li><li>Low-BMI safety</li><li>Requires training load</li></ul>
+      </div>
+      <div class="sx-gate">
+        <div class="sx-gate-head"><span class="sx-gate-name">Upper limits</span><span class="sx-gate-n">3</span></div>
+        <ul><li>Total caffeine ceiling</li><li>No-DRV supplemental ceiling</li><li>Upper-limit (tolerable intake) ceiling</li></ul>
+      </div>
+      <div class="sx-gate">
+        <div class="sx-gate-head"><span class="sx-gate-name">Diet</span><span class="sx-gate-n">2</span></div>
+        <ul><li>Diet compatibility</li><li>Market ingredient legality</li></ul>
+      </div>
+      <div class="sx-gate">
+        <div class="sx-gate-head"><span class="sx-gate-name">Medication conflicts</span><span class="sx-gate-n">2</span></div>
+        <ul><li>Hard medication contraindication</li><li>Medication interaction caution</li></ul>
+      </div>
+      <div class="sx-gate">
+        <div class="sx-gate-head"><span class="sx-gate-name">Interactions</span><span class="sx-gate-n">1</span></div>
+        <ul><li>Stimulant x sleep conflict</li></ul>
+      </div>
+      <div class="sx-aside">
+      <h3>And 6 more that are not safety</h3>
+      <p>These shape a sensible plan rather than a safe one &#8212; they stop the same active turning up twice, and drop what the person already gets from food. They are counted separately because calling them safety checks would overstate what runs.</p>
+        <div class="sx-aside-list"><span>Multivitamin de-duplication</span><span>Multivitamin vs standalone</span><span>Exclusive-family de-duplication</span><span>Duplicate-active de-duplication</span><span>Redundant-complex de-duplication</span><span>Food-credit (already met by diet)</span></div>
+      </div>
+    </div><!-- /science:gates -->
+  </div>
+</section>
+
+<section class="sx-sec" id="thresholds">
+  <div class="wrap">
+    <div class="sx-head">
+      <span class="eyebrow">Thresholds</span>
+      <h2 class="h2">The bar for recommending differs by nutrient.</h2>
+    </div>
+    <div class="sx-prose">
+      <p>One threshold used to gate every nutrient identically, so vitamin A and vitamin C were
+      judged the same way. They should not be. Too much protein is harmless; vitamin A at a ten
+      per cent shortfall is not worth taking, because retinol accumulates and nothing is gained
+      above requirement. A product is recommended for a nutrient only where correcting that
+      nutrient is actually worth it.</p>
+      <p>This sits on top of the upper-limit ceiling rather than replacing it. Nobody was being
+      overdosed before; the ceiling already refused any dose that would breach a tolerable limit.
+      This is the separate question of whether a modest gap is worth supplementing at all.</p>
+    </div>
+<!-- science:thresholds -->
+    <div class="sx-tw">
+      <table class="sx-th">
+        <thead><tr><th>Nutrient</th><th>Shortfall before recommending</th><th>Bar</th><th>Upper limit</th><th>Reference target, adult</th></tr></thead>
+        <tbody>
+        <tr><td>Protein</td><td>5%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>&#8212;</td><td><span style="color:var(--ink-60)">per person, from body weight and goal</span></td></tr>
+        <tr><td>Vitamin A</td><td>40%</td><td><span class="sx-strict is-strict">Strict</span></td><td>3,000 mcg</td><td>540 mcg</td></tr>
+        <tr><td>Vitamin C</td><td>10%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>2,000 mg</td><td>44 mg</td></tr>
+        <tr><td>Vitamin D3</td><td>10%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>100 mcg</td><td>10 mcg</td></tr>
+        <tr><td>Iron</td><td>40%</td><td><span class="sx-strict is-strict">Strict</span></td><td>40 mg</td><td>14.8 mg</td></tr>
+        <tr><td>Omega-3</td><td>10%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>&#8212;</td><td>1 g EPA+DHA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sx-foot">Default where a nutrient has no band of its own: 10%. Reference targets are for a 31&#8211;50 woman in the UK with no diet modifier; every real target is computed for the person.</p><!-- /science:thresholds -->
+  </div>
+</section>
+
+<section class="sx-sec sx-sec--beige" id="sources">
+  <div class="wrap">
+    <div class="sx-head">
+      <span class="eyebrow">Sources</span>
+      <h2 class="h2">Where the reference values come from.</h2>
+      <p class="lead">Targets are read from published dietary reference values rather than set by us. One authority is the default; the others fill its gaps and corroborate it.</p>
+    </div>
+<!-- science:sources -->
+    <div class="sx-src">
+      <a class="sx-card" href="https://www.efsa.europa.eu/en/topics/topic/dietary-reference-values" target="_blank" rel="noopener"><span class="sx-card-role">Default authority</span><div class="sx-card-n">EFSA</div><div class="sx-card-f">European Food Safety Authority</div><span class="sx-card-l">Dietary reference values</span></a>
+      <a class="sx-card" href="https://ods.od.nih.gov/factsheets/list-all/" target="_blank" rel="noopener"><span class="sx-card-role">Secondary</span><div class="sx-card-n">NIH</div><div class="sx-card-f">National Institutes of Health, Office of Dietary Supplements</div><span class="sx-card-l">Dietary reference values</span></a>
+      <a class="sx-card" href="https://www.nhs.uk/conditions/vitamins-and-minerals/" target="_blank" rel="noopener"><span class="sx-card-role">Secondary</span><div class="sx-card-n">NHS</div><div class="sx-card-f">National Health Service (UK)</div><span class="sx-card-l">Dietary reference values</span></a>
+    </div><!-- /science:sources -->
+  </div>
+</section>
+
+<section class="gm sx-gm">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Made for every catalogue</span><h2 class="h2">From general wellness to thyroid support, and the signals under each</h2><p class="lead">Every goal a customer can pick, and the signals the engine reads underneath each one.</p></div>
   </div>
   <div class="gm-rails" role="group" aria-label="Goals the quiz covers">
 <!-- science:goal-rails -->
     <div class="gm-rail a"><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="General Health Support">General Health Support</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Ageing &amp; Longevity">Healthy Ageing &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="General Health Support">General Health Support</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Ageing &amp; Longevity">Healthy Ageing &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button></div>
-    <div class="gm-rail b"><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men's Fertility">Men's Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men's Fertility">Men's Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button></div>
+    <div class="gm-rail b"><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#8217;s Fertility">Men&#8217;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#8217;s Fertility">Men&#8217;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button></div>
 <!-- /science:goal-rails -->
   </div>
   <div class="gm-panel" id="gm-panel"></div>
 </section>
 
-<section class="closer" id="contact">
+<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
     <span class="eyebrow">Get started</span>
     <h2 class="h1" style="margin-top:18px">Put a quiz on your storefront this week.</h2>
@@ -1569,7 +1922,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   </div>
 </section>
 </main>
-<footer class="footer">
+<footer class="footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1791,7 +2144,40 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   }, { passive: true });
 })();
 
+/* ---- The worked example's six steps ------------------------------------
+   One run, six views of it. Every panel is in the page already, so with
+   scripting off the whole trace reads as one long list rather than
+   disappearing. */
+(function(){
+  var tabs = [].slice.call(document.querySelectorAll('.sx-step'));
+  if (!tabs.length) return;
+  var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  function select(i, focus){
+    tabs.forEach(function(t, j){
+      var on = i === j;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      if (panels[j]) panels[j].hidden = !on;
+    });
+    if (focus && tabs[i]) tabs[i].focus();
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ select(i); });
+    t.addEventListener('keydown', function(e){
+      var n = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') n = 0;
+      else if (e.key === 'End') n = tabs.length - 1;
+      if (n === null) return;
+      e.preventDefault();
+      select(n, true);
+    });
+  });
+  select(0);
+})();
 </script>
+<script src="/scroll-cards.js"></script>
 <!-- Cookie consent banner -->
 <div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
   <div class="blend-cookie-banner-inner">
