@@ -83,7 +83,30 @@ const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
   <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>`;
 
-/* ---- 2. one real run -------------------------------------------------------
+/* ---- 2. what the model covers ---------------------------------------------
+   The breadth of the category in one band: the counts, every goal by name,
+   and the two figures about a product, which belong with what the model
+   knows rather than in a strip under the hero. */
+const SIGNAL = x => x.trim().toLowerCase() !== 'none of the above.';
+const goalList = h.goals.map(g => g.goal);
+const covers = `<section class="sci-sec" id="covers">
+  <div class="wrap">
+    <div class="sci-head sci-in">
+      <span class="eyebrow">What the model covers</span>
+      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals, <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals underneath.</h2>
+    </div>
+    <div class="sci-goalgrid sci-in" aria-label="Every goal the model covers">
+${goalList.map(g => `      <span class="sci-goalname">${esc(g)}</span>`).join('\n')}
+    </div>
+    <p class="sci-figline sci-in">
+      <span><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b> ${esc(h.counts.products_audited.label)}</span>
+      <span class="sci-sep" aria-hidden="true"></span>
+      <span><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b> ${esc(h.counts.product_attributes.label)}</span>
+    </p>
+  </div>
+</section>`;
+
+/* ---- 3. one real run -------------------------------------------------------
    A short label for what was asked, so a value is never bare and the whole
    quiz question is never printed. The map shortens; it states nothing. */
 const ASKED = [
@@ -309,7 +332,7 @@ const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" i
 
 const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
 
-const body = [hero, run, safety, markets, cta, data].join('\n\n');
+const body = [hero, covers, run, safety, markets, cta, data].join('\n\n');
 
 /* ---- splice ------------------------------------------------------------------ */
 let page = readFileSync(PAGE, 'utf8');
@@ -319,8 +342,8 @@ if (!re.test(page)) { console.error('FAILED: science.html has no <!-- science:bo
 page = page.replace(re, (_, o, cl) => o + body + cl);
 
 const summary = `${liveKey} live, ${num(h.counts.products_audited.value)} products audited, ` +
-  `${h.counts.safety_checks.value} safety checks, ${steps.length} run steps, ` +
-  `${sets.length} reference sets`;
+  `${h.counts.safety_checks.value} safety checks, ${goalList.length} goals, ` +
+  `${steps.length} run steps, ${sets.length} reference sets`;
 
 if (check) {
   if (page !== before) {

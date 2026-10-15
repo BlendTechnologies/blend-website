@@ -36,6 +36,56 @@
     }, 2000);
   })();
 
+  /* ---- figures count up as their section arrives --------------------- */
+  function countUp(el) {
+    var to = parseFloat(el.getAttribute('data-count'));
+    var text = el.textContent;
+    if (!isFinite(to) || reduce) return;
+    var start = null, dur = 900;
+    function frame(t) {
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / dur);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-GB');
+      if (p < 1) requestAnimationFrame(frame); else el.textContent = text;
+    }
+    el.textContent = '0';
+    requestAnimationFrame(frame);
+  }
+
+  /* An index on everything that arrives in order, so one rule can stagger
+     a list of any length without a nth-child for each position. */
+  (function order() {
+    $$('.sci-goalgrid').forEach(function (grid) {
+      $$('.sci-goalname', grid).forEach(function (el, i) { el.style.setProperty('--i', i); });
+    });
+    $$('.sci-panel, .sci-ladder').forEach(function (panel) {
+      $$('.sci-row, .sci-pick, .sci-tier', panel).forEach(function (el, i) {
+        el.style.setProperty('--i', Math.min(i, 14));
+      });
+    });
+  })();
+
+  /* Bars hold at zero until their step is actually looked at, so the draw
+     is something the reader sees rather than something that happened
+     while the panel was hidden. */
+  function drawBars(root) {
+    $$('.sci-bar', root).forEach(function (bar) { bar.classList.add('is-drawn'); });
+  }
+
+  (function counters() {
+    var targets = $$('[data-count]');
+    if (!targets.length) return;
+    if (reduce || !window.IntersectionObserver) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        countUp(e.target);
+      });
+    }, { threshold: 0.6 });
+    targets.forEach(function (t) { io.observe(t); });
+  })();
+
   /* ---- the run ------------------------------------------------------
      The reader drives: tabs and arrow keys, nothing on a timer. */
   (function run() {
@@ -59,6 +109,7 @@
       funnel.forEach(function (f) {
         f.classList.toggle('is-on', parseInt(f.getAttribute('data-at'), 10) <= i);
       });
+      if (panels[i]) drawBars(panels[i]);
       if (focus && tabs[i]) tabs[i].focus();
       if (moved && tabs[i] && tabs[i].scrollIntoView) {
         tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
@@ -78,6 +129,14 @@
       });
     });
     show(0, false);
+    /* The first step is open from the start, so its bars draw when the
+       stage arrives rather than on load behind the fold. */
+    if (window.IntersectionObserver && !reduce) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); drawBars(stage); } });
+      }, { threshold: 0.2 });
+      io.observe(stage);
+    } else { drawBars(stage); }
   })();
 
   /* ---- signals: the line under a group follows the chip you are on --- */

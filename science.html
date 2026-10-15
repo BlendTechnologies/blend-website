@@ -969,23 +969,17 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    and goes back to its normal scrolled state. --hero-tint is what
    .sc-hero paints and what the nav reads. */
 :root{--hero-tint:#0A0A0A}
-body{background:var(--white)}
+body{background:#151412}
 .nav .nav-links a{color:#B9B1A4}
 .nav .nav-links a:hover,.nav .nav-links a.active{color:#EDE6DA}
 .nav .nav-login{color:#B9B1A4}
 .nav .nav-login:hover{color:#EDE6DA}
 .nav .logo svg{filter:brightness(0) invert(1)}
 .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after,.nav-toggle span i{background:#EDE6DA}
-.nav.scrolled{background:rgba(255,255,255,.82);border-bottom-color:var(--line)}
-.nav.scrolled .nav-links a{color:var(--ink-80)}
-.nav.scrolled .nav-links a:hover,.nav.scrolled .nav-links a.active{color:var(--ink)}
-.nav.scrolled .nav-login{color:var(--ink-80)}
-.nav.scrolled .logo svg{filter:none}
-.nav.scrolled .nav-toggle span,.nav.scrolled .nav-toggle span::before,.nav.scrolled .nav-toggle span::after,.nav.scrolled .nav-toggle span i{background:var(--ink)}
+.nav.scrolled{background:rgba(21,20,18,.86);border-bottom-color:rgba(255,255,255,.1)}
 @media(max-width:860px){.nav-links{background:rgba(10,10,10,.98);border-bottom-color:rgba(255,255,255,.1)}
   .nav-links a{border-bottom-color:rgba(255,255,255,.1)}
-  .nav.scrolled .nav-links{background:rgba(250,248,242,.98);border-bottom-color:var(--line)}
-  .nav.scrolled .nav-links a{border-bottom-color:var(--line)}}
+}
 </style>
 </head>
 <body>
@@ -1025,6 +1019,63 @@ body{background:var(--white)}
     <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:4"><a class="ph-ix-item is-on" href="#run" data-vertical="health" aria-current="true"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">Health and wellness</span></a><span class="ph-ix-item is-off" data-vertical="beauty" tabindex="0" role="note"><span class="ph-ix-name">Beauty</span><span class="sci-tip">Coming soon</span></span><span class="ph-ix-item is-off" data-vertical="food" tabindex="0" role="note"><span class="ph-ix-name">Food</span><span class="sci-tip">Coming soon</span></span><span class="ph-ix-item is-off" data-vertical="fashion" tabindex="0" role="note"><span class="ph-ix-name">Fashion</span><span class="sci-tip">Coming soon</span></span></nav>
   </div>
   <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</section>
+
+<section class="sci-sec" id="covers">
+  <div class="wrap">
+    <div class="sci-head sci-in">
+      <span class="eyebrow">What the model covers</span>
+      <h2 class="h2"><span data-count="41">41</span> goals, <span data-count="252">252</span> signals underneath.</h2>
+    </div>
+    <div class="sci-goalgrid sci-in" aria-label="Every goal the model covers">
+      <span class="sci-goalname">Bone &amp; Joint Health</span>
+      <span class="sci-goalname">Boost Energy</span>
+      <span class="sci-goalname">Build Muscle</span>
+      <span class="sci-goalname">Cognitive Health</span>
+      <span class="sci-goalname">Eye Health</span>
+      <span class="sci-goalname">Healthy Weight Gain</span>
+      <span class="sci-goalname">General Health Support</span>
+      <span class="sci-goalname">Gut Health</span>
+      <span class="sci-goalname">Healthy Ageing &amp; Longevity</span>
+      <span class="sci-goalname">Heart Health</span>
+      <span class="sci-goalname">Hormonal Balance</span>
+      <span class="sci-goalname">Immunity</span>
+      <span class="sci-goalname">Increase Endurance</span>
+      <span class="sci-goalname">Sexual Health</span>
+      <span class="sci-goalname">Liver Health</span>
+      <span class="sci-goalname">Lose Weight</span>
+      <span class="sci-goalname">Lung Health</span>
+      <span class="sci-goalname">Menopause</span>
+      <span class="sci-goalname">Mood &amp; Emotions</span>
+      <span class="sci-goalname">Prostate Health</span>
+      <span class="sci-goalname">Sleep</span>
+      <span class="sci-goalname">Stress</span>
+      <span class="sci-goalname">Testosterone Health</span>
+      <span class="sci-goalname">Urinary Health</span>
+      <span class="sci-goalname">Blood Sugar Support</span>
+      <span class="sci-goalname">Thyroid &amp; Metabolism Support</span>
+      <span class="sci-goalname">Cycle Support</span>
+      <span class="sci-goalname">Conception Support</span>
+      <span class="sci-goalname">Prenatal Support</span>
+      <span class="sci-goalname">Postnatal Support</span>
+      <span class="sci-goalname">Men&#8217;s Fertility</span>
+      <span class="sci-goalname">Skin Health</span>
+      <span class="sci-goalname">Hair Health</span>
+      <span class="sci-goalname">Nail Health</span>
+      <span class="sci-goalname">Mass Gain</span>
+      <span class="sci-goalname">Tone &amp; Definition</span>
+      <span class="sci-goalname">Strength &amp; Power</span>
+      <span class="sci-goalname">Recovery &amp; Repair</span>
+      <span class="sci-goalname">Hydration &amp; Electrolytes</span>
+      <span class="sci-goalname">Plant-Based Nutrition</span>
+      <span class="sci-goalname">Everyday Comfort</span>
+    </div>
+    <p class="sci-figline sci-in">
+      <span><b data-count="223">223</b> products audited for safety and composition</span>
+      <span class="sci-sep" aria-hidden="true"></span>
+      <span><b data-count="25">25</b> attributes recorded for every product in a brand&#8217;s catalogue</span>
+    </p>
+  </div>
 </section>
 
 <section class="sci-sec" id="run">
