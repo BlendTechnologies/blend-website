@@ -249,8 +249,10 @@
 .sci-stat-x{font-size:calc(var(--fig) * .36);line-height:var(--fig);
   color:var(--muted);opacity:.55;font-weight:400}
 .sci-rule{border:0;border-top:1px solid var(--line);max-width:720px;margin:48px auto 0}
-.sci-covers-h{margin:28px 0 0;text-align:center;font-size:19px;line-height:1.4;
-  font-weight:600;letter-spacing:-.012em;color:var(--ink)}
+/* Type comes from .h2, which is the site's own heading scale and responsive
+   already (42px at desktop, 30px on a phone). Setting a size here as well is
+   how the two drift apart: this rule owns placement, .h2 owns type. */
+.sci-covers-h{margin:36px 0 0;text-align:center;color:var(--ink)}
 /* Stacked, the sign would be a stray character on its own line. */
 @media (max-width:620px){
   .sci-stats{grid-template-columns:minmax(0,1fr);gap:30px;margin-top:30px}

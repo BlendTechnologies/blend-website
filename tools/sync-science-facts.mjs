@@ -121,7 +121,7 @@ const covers = `<section class="sci-sec" id="covers">
       </div>
     </div>
     <hr class="sci-rule sci-in">
-    <h2 class="sci-covers-h sci-in"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
+    <h2 class="h2 sci-covers-h sci-in"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
     <div class="sci-goalgrid sci-in" data-goals>
 ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
     </div>
