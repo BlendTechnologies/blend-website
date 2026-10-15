@@ -112,16 +112,17 @@ const covers = `<section class="sci-sec" id="covers">
     <div class="sci-stats sci-in">
       <div class="sci-stat">
         <span class="sci-stat-v"><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b><i aria-hidden="true">+</i></span>
-        <span class="sci-stat-l">Products audited for safety and composition</span>
+        <span class="sci-stat-l"><span>Products audited for safety</span><span>and composition</span></span>
       </div>
       <span class="sci-stat-x" aria-hidden="true">&#215;</span>
       <div class="sci-stat">
         <span class="sci-stat-v"><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b></span>
-        <span class="sci-stat-l">Attributes recorded for each product</span>
+        <span class="sci-stat-l"><span>Attributes recorded</span><span>for each product</span></span>
       </div>
     </div>
     <hr class="sci-rule sci-in">
-    <h2 class="h2 sci-covers-h sci-in"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
+    <h2 class="sci-covers-h sci-in"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
+    <p class="sci-covers-sub sci-in">Explore a goal to see the signals behind it.</p>
     <div class="sci-goalgrid sci-in" data-goals>
 ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
     </div>

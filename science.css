@@ -243,16 +243,28 @@
 .sci-stat-v{display:inline-flex;align-items:baseline;justify-content:center;
   font-size:var(--fig);line-height:1;font-weight:600;letter-spacing:-.03em;color:var(--gold)}
 .sci-stat-v i{font-style:normal;font-size:.46em;margin-left:.07em;opacity:.8}
-.sci-stat-l{max-width:21ch;font-size:16px;line-height:1.5;color:var(--ink-80)}
+/* The two lines are written as lines, not left to wrap: where a description
+   breaks is a composition decision at this size, and a natural wrap puts
+   "safety and composition" across the break differently in each column. They
+   stay two short lines on a phone, so nothing is clipped. */
+.sci-stat-l{font-size:16px;line-height:1.5;color:var(--ink-80)}
+.sci-stat-l span{display:block}
 /* The line-height is the figures' own line box, so the sign centres on them
    rather than on the figure-plus-label column. */
 .sci-stat-x{font-size:calc(var(--fig) * .36);line-height:var(--fig);
   color:var(--muted);opacity:.55;font-weight:400}
 .sci-rule{border:0;border-top:1px solid var(--line);max-width:720px;margin:48px auto 0}
-/* Type comes from .h2, which is the site's own heading scale and responsive
-   already (42px at desktop, 30px on a phone). Setting a size here as well is
-   how the two drift apart: this rule owns placement, .h2 owns type. */
-.sci-covers-h{margin:36px 0 0;text-align:center;color:var(--ink)}
+/* Not a headline. The figures above are the section's claim; this names what
+   the controls underneath are, so it is set at reading size in regular weight
+   and warm white, with its instruction muted under it. It carried .h2 for one
+   revision and at 42px bold it competed with the figures instead of
+   introducing the taxonomy. */
+.sci-covers-h{margin:34px 0 0;text-align:center;font-size:22px;line-height:1.4;
+  font-weight:400;letter-spacing:-.01em;color:var(--ink)}
+.sci-covers-sub{margin:8px 0 0;text-align:center;font-size:14px;line-height:1.5;color:var(--muted)}
+@media (max-width:620px){
+  .sci-covers-h{font-size:20px}
+}
 /* Stacked, the sign would be a stray character on its own line. */
 @media (max-width:620px){
   .sci-stats{grid-template-columns:minmax(0,1fr);gap:30px;margin-top:30px}
