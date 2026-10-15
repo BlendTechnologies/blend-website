@@ -177,7 +177,12 @@ function panelBody(s) {
   }
   if (s.per_nutrient && s.already_met_by_diet) {
     const met = new Set(s.already_met_by_diet.nutrients_reading_as_met || []);
-    return s.per_nutrient.map(x => {
+    /* The macros and the modelled plate they come from. Dropped when this
+       step was rewritten around the per-nutrient bars, which left the
+       page showing micronutrients and no food. */
+    const macros = `<div class="sci-macros">` + (s.lines || []).map(l =>
+      `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div><div class="sci-macro-l">${esc(l.text)}</div></div>`).join('') + `</div>`;
+    return macros + s.per_nutrient.map(x => {
       const t = targetOf.get(x.nutrient);
       const pct = t && t.target ? (x.intake_from_food || 0) / t.target : null;
       const v = `${num(Math.round((x.intake_from_food || 0) * 10) / 10)} ${x.unit || ''}`.trim() +
@@ -203,7 +208,11 @@ function panelBody(s) {
     return ladder + (cand ? `<div class="sci-after">${cand}</div>` : '');
   }
   if (s.removed) {
-    return s.removed.map(r => row(r.product, r.check, r.why, ' is-cut')).join('');
+    /* Four of the twenty are plan checks rather than safety checks, and
+       the engine's own `kind` says which, so the page does not present
+       them as the same thing. */
+    return s.removed.map(r => row(r.product,
+      r.check + (r.kind && r.kind !== 'safety check' ? ' · plan check' : ''), r.why, ' is-cut')).join('');
   }
   if (s.picks) {
     return s.picks.map(p =>
@@ -272,7 +281,9 @@ ${groupBodies}
         <span>Plus ${num(h.counts.plan_checks.value)} plan checks</span><span class="sci-caret" aria-hidden="true"></span>
       </button>
       <div class="sci-glist" id="sci-plan-list" hidden>
-        ${h.plan_checks.map(x => `<div class="sci-check"><div class="sci-check-n">${esc(x.name)}</div><p class="sci-check-d">${esc(x.does)}</p></div>`).join('')}
+        ${h.plan_checks.map(x => `<div class="sci-check"><div class="sci-check-n">${esc(x.name)}` +
+          (firedNames.has(x.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
+          `</div><p class="sci-check-d">${esc(x.does)}</p></div>`).join('')}
       </div>
     </div>
   </div>
@@ -306,17 +317,30 @@ function ladder(n) {
       </div>`;
 }
 
+/* What the engine actually blocks in a market. Rules exist for two
+   ingredients in two countries and nowhere else, and absence of a rule is
+   absence of research rather than permission, so a market with none says
+   so instead of implying a clean sheet. */
+function legalLine(s) {
+  const rules = (s.ingredient_legality || {}).rules_in_force || {};
+  const names = Object.keys(rules);
+  if (!names.length) return 'No national ingredient ban recorded for this market.';
+  return 'Blocked here: ' + names.map(n =>
+    `${n} (${(rules[n] || []).join(', ')})`).join('; ') + '.';
+}
+
 const first = sets[0];
 const markets = `<section class="sci-sec" id="markets">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">Markets</span>
       <h2 class="h2">Targets follow the country you sell in.</h2>
-      <p class="lead">Reference targets follow the official authority for each market, and only ingredients permitted there are recommended.</p>
+      <p class="lead">Reference targets follow the official authority for each market, and an ingredient a country bans in supplements is never recommended there.</p>
     </div>
     <div class="sci-countries sci-in">
       <div class="sci-csel" role="group" aria-label="Market">${cbtns}</div>
-      <p class="sci-auth" data-auth><b>${esc(first.authority.name)}</b> <span>${esc(first.authority.reference)}</span></p>
+      <p class="sci-auth" data-auth><b>${esc(first.authority.name)}</b> <span>${esc(first.authority.reference)}</span>
+        <span class="sci-legal" data-legal>${esc(legalLine(first))}</span></p>
       <div class="sci-ladders" data-ladders>
 ${first.nutrients.map(ladder).join('\n')}
       </div>

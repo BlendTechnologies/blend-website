@@ -236,7 +236,15 @@
       var s = sets[i];
       if (auth) {
         $('b', auth).textContent = s.authority.name;
-        $('span', auth).textContent = s.authority.reference;
+        auth.querySelector('span:not(.sci-legal)').textContent = s.authority.reference;
+        var legal = $('.sci-legal', auth);
+        if (legal) {
+          var rules = (s.ingredient_legality || {}).rules_in_force || {};
+          var names = Object.keys(rules);
+          legal.textContent = names.length
+            ? 'Blocked here: ' + names.map(function (n) { return n + ' (' + (rules[n] || []).join(', ') + ')'; }).join('; ') + '.'
+            : 'No national ingredient ban recorded for this market.';
+        }
       }
       s.nutrients.forEach(function (n) {
         if (!ladders) return;
