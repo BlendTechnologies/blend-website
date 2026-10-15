@@ -230,16 +230,23 @@
 
    The numbers are gold and the labels warm white at reading size, which is
    the whole colour decision; the rest is space. */
-.sci-stats{display:grid;grid-template-columns:1fr auto 1fr;align-items:start;
+/* One size drives the whole row, so the sign can never drift out of line with
+   the figures. The first pass ran the figures to 84px against a 14px label,
+   which is a headline with a caption under it rather than a figure with its
+   description: the two read as different orders of importance instead of one
+   statement. 62 over 16 keeps the figure clearly dominant and lets the
+   description carry its half of the sentence. */
+.sci-stats{--fig:clamp(42px,5.2vw,62px);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:start;
   gap:clamp(20px,5vw,64px);max-width:860px;margin:38px auto 0;text-align:center}
-.sci-stat{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
+.sci-stat{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
 .sci-stat-v{display:inline-flex;align-items:baseline;justify-content:center;
-  font-size:clamp(52px,8vw,84px);line-height:1;font-weight:600;letter-spacing:-.03em;color:var(--gold)}
-.sci-stat-v i{font-style:normal;font-size:.5em;margin-left:.06em;opacity:.8}
-.sci-stat-l{max-width:19ch;font-size:14px;line-height:1.5;color:var(--ink-80)}
-/* The line-height matches the figures' own line box, so the sign centres on
-   them rather than on the figure-plus-label column. */
-.sci-stat-x{font-size:clamp(20px,2.6vw,28px);line-height:clamp(52px,8vw,84px);
+  font-size:var(--fig);line-height:1;font-weight:600;letter-spacing:-.03em;color:var(--gold)}
+.sci-stat-v i{font-style:normal;font-size:.46em;margin-left:.07em;opacity:.8}
+.sci-stat-l{max-width:21ch;font-size:16px;line-height:1.5;color:var(--ink-80)}
+/* The line-height is the figures' own line box, so the sign centres on them
+   rather than on the figure-plus-label column. */
+.sci-stat-x{font-size:calc(var(--fig) * .36);line-height:var(--fig);
   color:var(--muted);opacity:.55;font-weight:400}
 .sci-rule{border:0;border-top:1px solid var(--line);max-width:720px;margin:48px auto 0}
 .sci-covers-h{margin:28px 0 0;text-align:center;font-size:19px;line-height:1.4;
