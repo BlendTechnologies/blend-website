@@ -30,6 +30,7 @@
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="/scroll-cards.css">
+<link rel="stylesheet" href="/page-hero.css">
 <link rel="stylesheet" href="/cookie-consent.css">
 <style>
 /* ============================================================
@@ -1503,30 +1504,8 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    The rhythm is the site's: beige hero with the shared .sc-hero shape,
    then white and beige alternating, then the dark endcap.
    ====================================================================== */
-.sx-hero{padding:72px 0 80px;position:relative}
-.sx-hero > .wrap{position:relative;z-index:1}
-/* Centred, like /how-it-works. Left-aligned it left half the hero empty
-   at desktop width, and this page has no card to put there. */
-.sx-hero-inner{max-width:860px;margin:0 auto;text-align:center}
-.sx-hero .eyebrow{display:inline-block;margin-bottom:16px}
-.sx-hero .h1{max-width:17ch;margin:0 auto}
-.sx-hero .lead{margin:20px auto 0;max-width:640px}
-.sx-model{margin-top:24px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
-.sx-model b{font-weight:600;color:var(--ink)}
-.sx-model .sx-dot{width:3px;height:3px;border-radius:50%;background:var(--line-strong)}
-.sx-live{display:inline-flex;align-items:center;gap:6px;font-weight:500;color:var(--ink-80)}
-.sx-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#5E8E3E;box-shadow:0 0 0 3px rgba(94,142,62,.18)}
-.sx-hero-ctas{margin-top:30px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-
-/* The strip reads as four facts about the model, on the hero's own ground
-   rather than in a box of its own. */
-.sx-stats{margin-top:56px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line-strong)}
-.sx-stat{padding:24px 24px 4px;border-right:1px solid var(--line);text-align:center}
-.sx-stat:last-child{border-right:0}
-
-.sx-n{font-size:clamp(34px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--ink);font-feature-settings:"ss01","cv11","tnum"}
-.sx-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
-.sx-sub{margin:6px auto 0;font-size:13.5px;color:var(--ink-60);line-height:1.5;max-width:30ch}
+/* The hero is the shared PageHero: /page-hero.css. */
+.ph{--ph-figs:4}
 
 /* ---- sections -------------------------------------------------------- */
 .sx-sec{padding:var(--sec,88px) 0}
@@ -1620,20 +1599,15 @@ a.sx-card:hover .sx-card-l::after{transform:translate(2px,-2px)}
 .closer .closer-foot{color:rgba(255,255,255,.6)}
 .closer .closer-foot a{color:var(--white);border-bottom-color:rgba(255,255,255,.4)}
 .footer{position:relative;overflow:hidden;background:var(--hero-beige);padding:48px 0 32px}
-.nav{--nav-bg:var(--hero-beige)}
+.nav{--nav-bg:var(--hero-tint,var(--hero-beige))}
 
 /* ---- narrow ---------------------------------------------------------- */
 @media (max-width:980px){
-  .sx-stats{grid-template-columns:repeat(2,minmax(0,1fr));border-top:0}
-  .sx-stat{padding:20px 0 4px;border-right:0;border-top:1px solid var(--line)}
-  .sx-stat:nth-child(odd){padding-right:20px}
-  .sx-stat:nth-child(even){padding-left:20px;border-left:1px solid var(--line)}
   .sx-gates{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sx-src{grid-template-columns:1fr 1fr}
   .sx-src .sx-card:first-child{grid-column:1/-1}
 }
 @media (max-width:760px){
-  .sx-hero{padding:56px 0 64px}
   .sx-funnel{grid-template-columns:minmax(0,1fr);gap:10px}
   .sx-fstep + .sx-fstep::before{left:50%;top:-11px;width:1px;height:12px}
   .sx-gates,.sx-src{grid-template-columns:minmax(0,1fr)}
@@ -1643,10 +1617,6 @@ a.sx-card:hover .sx-card-l::after{transform:translate(2px,-2px)}
   .sx-panel-head{padding:16px 18px}
   .sx-lvalue{text-align:left}
   .sx-line{grid-template-columns:minmax(0,1fr)}
-}
-@media (max-width:420px){
-  .sx-stats{grid-template-columns:minmax(0,1fr)}
-  .sx-stat:nth-child(odd),.sx-stat:nth-child(even){padding:18px 0 4px;border-left:0}
 }
 </style>
 </head>
@@ -1671,26 +1641,27 @@ a.sx-card:hover .sx-card-l::after{transform:translate(2px,-2px)}
 
 
 <main id="main">
-<section class="sx-hero sc-hero" data-sc="hero">
+<section class="ph sc-hero" data-sc="hero">
   <div class="wrap">
-    <div class="sx-hero-inner">
+    <div class="ph-inner">
       <span class="eyebrow">The model</span>
       <h1 class="h1">A scoring model you can audit, line by line.</h1>
       <p class="lead">Every recommendation is a number the engine worked out, against a target it can cite, over a catalogue it has read in full. This page shows the working: one real run end to end, every gate that can refuse a product, the bar each nutrient has to clear, and where the reference values come from.</p>
-      <p class="sx-model"><!-- science:model --><b>Blend Wellness Model</b> <span class="sx-dot" aria-hidden="true"></span> v1.0.0 <span class="sx-dot" aria-hidden="true"></span> API contract 2.0 <span class="sx-dot" aria-hidden="true"></span> <span class="sx-live">Live</span><!-- /science:model --></p>
-      <div class="sx-hero-ctas">
+      <p class="ph-meta"><!-- science:model --><b>Blend Wellness Model</b> <span class="ph-dot" aria-hidden="true"></span> v1.0.0 <span class="ph-dot" aria-hidden="true"></span> API contract 2.0 <span class="ph-dot" aria-hidden="true"></span> <span class="ph-live">Live</span><!-- /science:model --></p>
+      <div class="ph-ctas">
         <a href="#worked" class="btn btn-primary btn-lg">See a run, step by step</a>
         <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology%20documentation" class="btn btn-ghost btn-lg">Request the methodology</a>
       </div>
     </div>
-    <div class="sx-stats">
+    <div class="ph-figs">
 <!-- science:stats -->
-      <div class="sx-stat"><div class="sx-n">200+</div><div class="sx-label">Products audited</div><div class="sx-sub">Standardised so every score is comparable across the catalogue.</div></div>
-      <div class="sx-stat"><div class="sx-n">25</div><div class="sx-label">Product attributes</div><div class="sx-sub">Ingredients, dosing, evidence, contraindications and synergies, all scored.</div></div>
-      <div class="sx-stat"><div class="sx-n">17</div><div class="sx-label">Safety gates</div><div class="sx-sub">Any one of them can take a product out before ranking begins.</div></div>
-      <div class="sx-stat"><div class="sx-n">42</div><div class="sx-label">Nutrients per person</div><div class="sx-sub">Each with a target worked out for that person, not a population.</div></div><!-- /science:stats -->
+      <div class="ph-fig"><div class="ph-fig-n">200+</div><div class="ph-fig-label">Products audited</div><div class="ph-fig-sub">Standardised so every score is comparable across the catalogue.</div></div>
+      <div class="ph-fig"><div class="ph-fig-n">25</div><div class="ph-fig-label">Product attributes</div><div class="ph-fig-sub">Ingredients, dosing, evidence, contraindications and synergies, all scored.</div></div>
+      <div class="ph-fig"><div class="ph-fig-n">17</div><div class="ph-fig-label">Safety gates</div><div class="ph-fig-sub">Any one of them can take a product out before ranking begins.</div></div>
+      <div class="ph-fig"><div class="ph-fig-n">42</div><div class="ph-fig-label">Nutrients per person</div><div class="ph-fig-sub">Each with a target worked out for that person, not a population.</div></div><!-- /science:stats -->
     </div>
   </div>
+  <button type="button" class="sc-cue" data-sc-cue="#worked" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 
 <section class="sx-sec" id="worked">

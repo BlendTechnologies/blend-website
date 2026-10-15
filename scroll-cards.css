@@ -61,7 +61,7 @@
    against a white page #FAF8F2 was close enough that the card barely read
    as a separate surface. One token, because the nav has to match it
    exactly while the page is at the top. */
-.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--hero-beige);
+.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--hero-tint,var(--hero-beige));
   clip-path:inset(
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
@@ -190,7 +190,10 @@
    Below 1200 they stack under it, the block runs taller than the viewport,
    and a circle 32px above its bottom edge lands on the cards instead of
    under them. Same breakpoint as the hero grid itself. */
-@media (max-width:1199px){.sc-cue{display:none}}
+/* The homepage hero puts its cards to the right of the type, and below
+   1200 they stack under it and the cue lands on top of them. The centred
+   heroes have nothing there, so they keep theirs at every width. */
+@media (max-width:1199px){.sc-cue--desktop{display:none}}
 @media (prefers-reduced-motion:reduce){
   .sc-cue{opacity:1}
   .sc-cue svg{animation:none}

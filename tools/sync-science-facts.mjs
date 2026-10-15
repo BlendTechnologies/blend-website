@@ -55,9 +55,9 @@ const c = facts.counts;
 /* ---- the model's own identity ------------------------------------------- */
 const m = facts.model;
 const model =
-  `<b>${esc(m.name)}</b> <span class="sx-dot" aria-hidden="true"></span> v${esc(m.version)} ` +
-  `<span class="sx-dot" aria-hidden="true"></span> API contract ${esc(m.contract_version)} ` +
-  `<span class="sx-dot" aria-hidden="true"></span> <span class="sx-live">${esc(m.status === 'live' ? 'Live' : m.status)}</span>`;
+  `<b>${esc(m.name)}</b> <span class="ph-dot" aria-hidden="true"></span> v${esc(m.version)} ` +
+  `<span class="ph-dot" aria-hidden="true"></span> API contract ${esc(m.contract_version)} ` +
+  `<span class="ph-dot" aria-hidden="true"></span> <span class="ph-live">${esc(m.status === 'live' ? 'Live' : m.status)}</span>`;
 
 /* ---- the stat strip ------------------------------------------------------ */
 const FLOOR_PRODUCTS = 200;
@@ -67,7 +67,7 @@ const stats = [
   [String(c.safety_gates), 'Safety gates', 'Any one of them can take a product out before ranking begins.'],
   [String(c.nutrients), 'Nutrients per person', 'Each with a target worked out for that person, not a population.'],
 ].map(([n, label, sub]) =>
-  `      <div class="sx-stat"><div class="sx-n">${n}</div><div class="sx-label">${label}</div><div class="sx-sub">${sub}</div></div>`
+  `      <div class="ph-fig"><div class="ph-fig-n">${n}</div><div class="ph-fig-label">${label}</div><div class="ph-fig-sub">${sub}</div></div>`
 ).join('\n');
 
 /* ---- one run, end to end ------------------------------------------------- */

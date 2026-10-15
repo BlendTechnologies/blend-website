@@ -26,6 +26,7 @@
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="/scroll-cards.css">
+<link rel="stylesheet" href="/page-hero.css">
 <style>
 :root{--ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);--cream:#FAF8F2;--cream-2:#F1EDE0;--subtle:#F7F7F7;--gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--gold-soft:#F0E2CC;--muted:#6B6B6B;--line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;--shadow-sm:0 1px 2px rgba(0,0,0,.03),0 2px 8px rgba(0,0,0,.03);--shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);--nav-h:68px;--content:1200px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -47,7 +48,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
 /* At rest the bar is the beige this page starts with, so the seam is not
    there to find; scrolled, it goes back to being a bar over content. */
-.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.85));backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease,background-color .2s ease;--nav-bg:var(--hero-beige)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.85));backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease,background-color .2s ease;--nav-bg:var(--hero-tint,var(--hero-beige))}
 .nav.scrolled{background:rgba(255,255,255,.82)}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
@@ -63,23 +64,22 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .nav-toggle span::before{top:0}.nav-toggle span i{top:6px;display:block}.nav-toggle span::after{top:12px}
 .nav.open .nav-toggle span::before{top:6px;transform:rotate(45deg)}.nav.open .nav-toggle span::after{top:6px;transform:rotate(-45deg)}.nav.open .nav-toggle span i{opacity:0}
 @media(max-width:860px){.nav-inner{grid-template-columns:1fr auto}.nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(250,248,242,.98);backdrop-filter:blur(14px);flex-direction:column;gap:0;margin:0;padding:8px 20px 24px;border-bottom:1px solid var(--line);box-shadow:var(--shadow-md);justify-self:stretch}.nav.open .nav-links{display:flex}.nav-links a{width:100%;padding:16px 4px;font-size:16px;border-bottom:1px solid var(--line)}.nav-links a:last-child{border-bottom:0}.nav-login{display:none}.nav-toggle{display:inline-flex}.nav-actions .btn{padding:8px 16px;font-size:14px}}
-/* One beige from the top of the page to the closing band, and it is the
-   #F4EFE5 the homepage and /how-it-works paint their heroes with. This page
-   was on #FAF8F2, half a shade off the rest of the site: close enough to
-   look like a mistake and not close enough to look deliberate. No card and
-   no shrink here, so there is nothing for the eye to catch on. */
-.hero{padding:80px 0 72px;text-align:center;background:var(--hero-beige)}
-.hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1}
-.hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.hero-title{margin:0}
-.hero-sub{margin-top:22px;max-width:600px;margin-left:auto;margin-right:auto}
+/* The shared PageHero: /page-hero.css. The tint is this page's, at the
+   same lightness as the others; the page's own ground stays --hero-beige
+   underneath it. */
+:root{--hero-tint:#E9ECE2;--ph-muted:#676767}
+.ph{--ph-ix:3}
+@media(max-width:760px){
+  .ph-ctas{flex-direction:column;align-items:center;gap:10px}
+  .ph-ctas .btn{width:100%;max-width:320px}
+}
 /* The rhythm the rest of the site keeps: a chapter pays the same above
    and below. */
 .cases-section{padding:88px 0;background:var(--hero-beige)}
 /* Same adjacency rule as the homepage: a section that follows the hero
    is already separated by the hero's own bottom padding, so it joins at
    40 rather than opening another full 88. */
-.hero + .cases-section{padding-top:40px}
+.ph + .cases-section{padding-top:40px}
 .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
 @media(max-width:1000px){.cases-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:660px){.cases-grid{grid-template-columns:1fr}}
@@ -220,32 +220,39 @@ html,body{max-width:100%;overflow-x:clip}
 
 <main id="main">
 
-<section class="hero">
+<section class="ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
-    <div class="hero-inner">
-      <span class="hero-eyebrow">Use cases</span>
-      <h1 class="h1 hero-title">How brands use Blend.</h1>
-      <p class="lead hero-sub">The right products for each customer, with the reason attached to every pick. Live for supplements and health, built for any catalogue.</p>
+    <div class="ph-inner">
+      <span class="eyebrow">Use cases</span>
+      <h1 class="h1">How brands use Blend.</h1>
+      <p class="lead">The right products for each customer, with the reason attached to every pick.</p>
+      <p class="ph-meta">Live for supplements and health <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
+      <div class="ph-ctas">
+        <a href="/try" class="btn btn-primary btn-lg">Try the demo</a>
+        <a href="https://calendly.com/julien-blend-technologies/30min" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Book a call</a>
+      </div>
     </div>
+    <nav class="ph-ix" aria-label="The three use cases"><a class="ph-ix-item" href="#case-shopify"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">01</span><span class="ph-ix-name">Shopify supplement brands</span></a><a class="ph-ix-item" href="#case-supplements"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">02</span><span class="ph-ix-name">Supplement brands</span></a><a class="ph-ix-item" href="#case-compare"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">03</span><span class="ph-ix-name">Blend vs other quiz tools</span></a></nav>
   </div>
+  <button type="button" class="sc-cue" data-sc-cue="#cases" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 
-<section class="cases-section">
+<section class="cases-section" id="cases">
   <div class="wrap">
     <div class="cases-grid">
-      <a href="/use-cases/shopify" class="case-card">
+      <a href="/use-cases/shopify" class="case-card" id="case-shopify">
         <div class="case-card-icon shopify"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
         <h3>For Shopify supplement brands</h3>
         <p>Connect the store once and your products and variants come across on their own, nightly. The quiz runs on your own storefront in your own branding, and every pick links straight back to the product page.</p>
         <span class="case-card-cta">See the Shopify use case</span>
       </a>
-      <a href="/use-cases/supplement-brands" class="case-card">
+      <a href="/use-cases/supplement-brands" class="case-card" id="case-supplements">
         <div class="case-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12a5 5 0 0 1 10 0c0 3-3 5-5 9-2-4-5-6-5-9z"/><circle cx="12" cy="12" r="2"/></svg></div>
         <h3>For supplement brands</h3>
         <p>The science, and the part a customer can argue with. 25 product attributes scored against their answers, 17 safety gates on every pick, and the specific reason behind each one.</p>
         <span class="case-card-cta">See the supplement use case</span>
       </a>
-      <a href="/use-cases/compare" class="case-card">
+      <a href="/use-cases/compare" class="case-card" id="case-compare">
         <div class="case-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19l-3-3 3-3"/><path d="M5 16h11a4 4 0 0 0 4-4v-1"/><path d="M15 5l3 3-3 3"/><path d="M19 8H8a4 4 0 0 0-4 4v1"/></svg></div>
         <h3>Blend vs other quiz tools</h3>
         <p>Feature by feature against tag-based quiz tools. Where they match an answer to a tag, Blend computes the need, checks it for safety, and shows its working.</p>
