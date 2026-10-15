@@ -94,8 +94,16 @@ body{background:linear-gradient(to bottom,var(--white) 0,var(--white) 38%,var(--
 .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
 @media(max-width:1000px){.cases-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:660px){.cases-grid{grid-template-columns:1fr}}
-.case-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:32px 32px;display:flex;flex-direction:column;text-align:left;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease;position:relative}
-.case-card:hover{border-color:var(--line-strong);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04)}
+/* The same reaction as the six step cards on the homepage: a clickable box
+   on this site lifts 2px, warms its border to the muted amber-beige and goes
+   from the small shadow to the medium one, over 180ms. Not the full gold —
+   three cards in a row each wearing a bright outline read as an alert rather
+   than a pointer — and not a grey border, which says "disabled" more than it
+   says "press me". Keyboard focus gets the identical treatment plus the ring,
+   because a keyboard user is pointing at it too. */
+.case-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:32px 32px;display:flex;flex-direction:column;text-align:left;box-shadow:var(--shadow-sm);transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease;position:relative}
+.case-card:hover,.case-card:focus-visible{border-color:#CFB68F;transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.case-card:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
 .case-card-icon{width:48px;height:48px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex-shrink:0}
 .case-card-icon.shopify{background:rgba(149,191,71,.18)}
 .case-card-icon svg{width:22px;height:22px;color:var(--gold-strong)}
@@ -313,7 +321,7 @@ html,body{max-width:100%;overflow-x:clip}
         <dd>
           <p>Accelerate your online consultations. Every pick is traceable to the rule that produced it. Medication conflicts, contraindications and upper limits are checked on every recommendation, so what a client leaves with is a product recommendation with its reasoning attached, not a diagnosis. Work from your own dispensary, or from our product list.</p>
         </dd>
-        <dd class="aud-go"><a class="aud-link" href="/science">How the models work</a></dd>
+        <dd class="aud-go"><a class="aud-link" href="/science">How the engine works</a></dd>
       </div>
       <div class="aud-row" id="retailers">
         <dt>Retailers</dt>

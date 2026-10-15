@@ -130,11 +130,13 @@
 .sci-dot,.sci-warn{position:relative;width:8px;height:8px;border-radius:50%;display:inline-block;flex:0 0 auto}
 .sci-dot{background:var(--gold-strong)}
 .sci-warn{background:var(--warn)}
-.sci-plan{max-width:900px;margin:28px auto 0}
-.sci-plan-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border:1px dashed var(--line-strong);border-radius:12px;background:transparent;font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer}
-.sci-plan-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-caret{width:9px;height:9px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg) translate(-2px,-2px);transition:transform .22s ease}
-.sci-plan-btn[aria-expanded="true"] .sci-caret{transform:rotate(225deg) translate(-2px,-2px)}
+/* The plan checks box: the same box as the safety groups, marked as a
+   different kind of check. Dashed rather than solid, and the figure in the
+   muted gold rather than the strong one — these shape a plan, they do not
+   stop an unsafe product, and the row should not imply they do. */
+.sci-gbox--plan{border-style:dashed}
+.sci-gbox--plan .sci-gbox-n{color:var(--gold)}
+.sci-gbox--plan[aria-expanded="true"]{border-style:solid}
 
 /* ---- markets ------------------------------------------------------------- */
 .sci-countries{max-width:1000px;margin:0 auto}
@@ -193,7 +195,7 @@
   .sci-js .sci-sec:not(.is-in) .sci-in{opacity:1;transform:none}
   .sci-sec .sci-in{transition:none}
   .sci-panel:not([hidden]){animation:none}
-  .sci-mark,.sci-caret,.sci-tip{transition:none}
+  .sci-mark,.sci-tip{transition:none}
 }
 
 /* ============================================================
@@ -206,7 +208,7 @@
    end state is the resting state, so reduced motion and a
    capture with animation off both show the finished page.
    ============================================================ */
-.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-figline b{
+.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-stat-v{
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
 /* ---- what the model covers --------------------------------------------- */
@@ -219,10 +221,36 @@
 .sci-sec.is-in .sci-goalname{opacity:1;transform:none;
   transition:opacity .4s ease,transform .4s cubic-bezier(.2,.7,.25,1);
   transition-delay:calc(var(--i,0) * 14ms)}
-.sci-figline{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
-  max-width:860px;margin:26px auto 0;font-size:13.5px;line-height:1.5;color:var(--ink-80);text-align:center}
-.sci-figline b{font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--gold);margin-right:7px;vertical-align:-2px}
-.sci-sep{width:1px;height:22px;background:var(--line-strong)}
+/* ---- What the engine covers: two figures, then the taxonomy ------------
+   The figures are the section's claim, so they are the section's largest
+   thing. No card around either: a box would make them two statistics side by
+   side, and the point is that they multiply — 223 products, each described 25
+   ways. The sign between them says so quietly and is decorative to a screen
+   reader, which reads the two figures and their labels and needs no operator.
+
+   The numbers are gold and the labels warm white at reading size, which is
+   the whole colour decision; the rest is space. */
+.sci-stats{display:grid;grid-template-columns:1fr auto 1fr;align-items:start;
+  gap:clamp(20px,5vw,64px);max-width:860px;margin:38px auto 0;text-align:center}
+.sci-stat{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
+.sci-stat-v{display:inline-flex;align-items:baseline;justify-content:center;
+  font-size:clamp(52px,8vw,84px);line-height:1;font-weight:600;letter-spacing:-.03em;color:var(--gold)}
+.sci-stat-v i{font-style:normal;font-size:.5em;margin-left:.06em;opacity:.8}
+.sci-stat-l{max-width:19ch;font-size:14px;line-height:1.5;color:var(--ink-80)}
+/* The line-height matches the figures' own line box, so the sign centres on
+   them rather than on the figure-plus-label column. */
+.sci-stat-x{font-size:clamp(20px,2.6vw,28px);line-height:clamp(52px,8vw,84px);
+  color:var(--muted);opacity:.55;font-weight:400}
+.sci-rule{border:0;border-top:1px solid var(--line);max-width:720px;margin:48px auto 0}
+.sci-covers-h{margin:28px 0 0;text-align:center;font-size:19px;line-height:1.4;
+  font-weight:600;letter-spacing:-.012em;color:var(--ink)}
+/* Stacked, the sign would be a stray character on its own line. */
+@media (max-width:620px){
+  .sci-stats{grid-template-columns:minmax(0,1fr);gap:30px;margin-top:30px}
+  .sci-stat-x{display:none}
+  .sci-stat-l{max-width:26ch}
+  .sci-rule{margin-top:36px}
+}
 
 /* ---- corner ticks: a panel that carries a reading ----------------------- */
 .sci-stage,.sci-glist{position:relative}
@@ -274,7 +302,14 @@
    all drive it, so it is not hover-only on a phone. */
 .sci-goalname{background:transparent;border:0;font-family:inherit;cursor:pointer;
   transition:color .16s ease}
-.sci-goalname:hover,.sci-goalname[aria-expanded="true"]{color:var(--gold)}
+.sci-goalname:hover{color:var(--gold)}
+/* The open goal is the one whose signals are showing underneath, so it is
+   marked more firmly than a hover: gold, heavier, and carrying its own
+   underline. Colour alone at 13px in a wall of 41 names was findable only if
+   you already knew where to look. */
+.sci-goalname[aria-expanded="true"]{color:var(--gold);font-weight:600}
+.sci-goalname[aria-expanded="true"]::before{content:"";position:absolute;left:14px;right:14px;
+  bottom:-1px;height:1.5px;background:var(--gold);border-radius:2px}
 .sci-goalname:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .sci-subs{max-width:860px;margin:22px auto 0;min-height:112px;text-align:center}
 .sci-subs-t{font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--gold)}

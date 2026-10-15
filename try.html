@@ -18,6 +18,7 @@
 <meta property="og:image" content="https://www.blend-technologies.com/og.png">
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/scroll-cards.css">
 <link rel="stylesheet" href="/nav-mobile.css">
 <style>
 :root{
@@ -112,12 +113,16 @@ body.is-fs-locked{overflow:hidden;touch-action:none}
 @media(max-width:560px){.fs-btn span.fs-label{display:none}.fs-btn{padding:9px}}
 .try-embed-foot{margin:18px auto 0;padding-bottom:16px;max-width:980px;text-align:center;font-size:12px;color:var(--muted);letter-spacing:-.005em}
 /* After CTA */
-.after{padding:96px 0 112px;background:var(--cream-2);text-align:center;border-top:1px solid var(--line)}
+/* Ground, not ink: .sc-reveal paints the dark card itself, and what belongs
+   either side of it while it is still a card is the page it sits on. The
+   border-top went with the background — it was the divider between a cream
+   block and the page, and on the dark card it is a hairline across it. */
+.after{padding:96px 0 112px;background:transparent;text-align:center}
 .after h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.022em;font-weight:600;margin:0 auto 14px;max-width:640px}
-.after p{margin:0 auto 28px;max-width:520px;color:var(--ink-80);font-size:16px;line-height:1.55}
+.after p{margin:0 auto 28px;max-width:520px;color:var(--muted-on-dark);font-size:16px;line-height:1.55}
 .after-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 /* Footer */
-.footer{background:var(--ink);color:rgba(255,255,255,.72);padding:80px 0 32px}
+.footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:80px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px}
@@ -185,7 +190,7 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="try-embed-alt" style="margin-top:10px;text-align:center;font-size:14px;color:var(--ink-60);letter-spacing:-.005em">Not ready? <a href="/sample-report" style="color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500">See a sample report &rarr;</a></div>
   </div>
 </section>
-<section class="after">
+<section class="after sc-reveal sc-reveal--top" data-sc="endcap">
   <div class="wrap">
     <h2>Ready to launch this on your store?</h2>
     <p>15-day free trial on every plan. Live in an afternoon.</p>
@@ -196,7 +201,7 @@ html,body{max-width:100%;overflow-x:clip}
   </div>
 </section>
 </main>
-<footer class="footer">
+<footer class="footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -322,6 +327,7 @@ links.querySelectorAll('a').forEach(a => {
     </div>
   </div>
 </div>
+<script src="/scroll-cards.js"></script>
 <script src="cookie-consent.js"></script>
 
 </body>

@@ -209,15 +209,6 @@
         if (mine) mine.hidden = false;
       });
     });
-    var plan = $('.sci-plan-btn');
-    if (plan) {
-      plan.addEventListener('click', function () {
-        var open = plan.getAttribute('aria-expanded') === 'true';
-        plan.setAttribute('aria-expanded', String(!open));
-        var body = document.getElementById(plan.getAttribute('aria-controls'));
-        if (body) body.hidden = open;
-      });
-    }
   })();
 
   /* ---- the market switcher ------------------------------------------

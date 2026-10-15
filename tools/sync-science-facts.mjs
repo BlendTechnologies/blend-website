@@ -2,7 +2,7 @@
 /**
  * Writes the whole of /science from the engine's own export.
  *
- * WHY THIS EXISTS. /science is the page that says the model can be audited,
+ * WHY THIS EXISTS. /science is the page that says the engine can be audited,
  * so it is the page that can least afford a figure nobody can reproduce. It
  * used to be typed by hand and it drifted: the strip claimed 30+ scored
  * attributes where the engine records 25, and the goal rails showed 37 of 41
@@ -70,8 +70,8 @@ const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
     <div class="ph-inner">
       <span class="eyebrow">The science</span>
-      <h1 class="h1">A scoring model you can audit, line by line.</h1>
-      <p class="lead">One model per category. Every pick scored, safety-checked and explained.</p>
+      <h1 class="h1">A scoring engine you can audit, line by line.</h1>
+      <p class="lead">One engine per vertical. Every pick scored, safety-checked and explained.</p>
       <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
       <div class="ph-ctas">
         <a href="#run" class="btn btn-primary btn-lg">See a real run</a>
@@ -83,9 +83,9 @@ const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
   <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>`;
 
-/* ---- 2. what the model covers ---------------------------------------------
+/* ---- 2. what the engine covers ---------------------------------------------
    The breadth of the category in one band: the counts, every goal by name,
-   and the two figures about a product, which belong with what the model
+   and the two figures about a product, which belong with what the engine
    knows rather than in a strip under the hero. */
 /* "None of the above." is a quiz option, not a signal, so it is the one
    thing dropped between the taxonomy and the page. */
@@ -93,12 +93,35 @@ const SIGNAL = x => x.trim().toLowerCase() !== 'none of the above.';
 const goals = h.goals.map(g => ({ goal: g.goal, subgoals: g.subgoals.filter(SIGNAL) }));
 const goalList = goals.map(g => g.goal);
 const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
+/* The two figures lead, because what the section is really claiming is the
+   breadth of what the engine knows about a product, and a figure buried in a
+   line under a taxonomy does not claim it. They sit either side of a quiet
+   multiplication sign, which is also how to read them: 223 products described
+   25 ways. Then a rule, then the taxonomy they feed.
+
+   The VALUES still come from the export and are never typed here. The two
+   short labels are written here on purpose: the export's own are long enough
+   to wrap three times at this type size ("attributes recorded for every
+   product in a brand's catalogue"), and a label is not a claim. Every number
+   on this page remains the engine's. */
 const covers = `<section class="sci-sec" id="covers">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">What the model covers</span>
-      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals, <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals underneath.</h2>
+      <span class="eyebrow">What the engine covers</span>
     </div>
+    <div class="sci-stats sci-in">
+      <div class="sci-stat">
+        <span class="sci-stat-v"><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b><i aria-hidden="true">+</i></span>
+        <span class="sci-stat-l">Products audited for safety and composition</span>
+      </div>
+      <span class="sci-stat-x" aria-hidden="true">&#215;</span>
+      <div class="sci-stat">
+        <span class="sci-stat-v"><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b></span>
+        <span class="sci-stat-l">Attributes recorded for each product</span>
+      </div>
+    </div>
+    <hr class="sci-rule sci-in">
+    <h2 class="sci-covers-h sci-in"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
     <div class="sci-goalgrid sci-in" data-goals>
 ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
     </div>
@@ -106,11 +129,6 @@ ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${
       <div class="sci-subs-t">${esc(openGoal.goal)}</div>
       <div class="sci-subs-list">${openGoal.subgoals.map(x => `<span>${esc(x)}</span>`).join('')}</div>
     </div>
-    <p class="sci-figline sci-in">
-      <span><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b> ${esc(h.counts.products_audited.label)}</span>
-      <span class="sci-sep" aria-hidden="true"></span>
-      <span><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b> ${esc(h.counts.product_attributes.label)}</span>
-    </p>
   </div>
 </section>`;
 
@@ -290,27 +308,33 @@ const groupBodies = groups.map((g, i) =>
     (ch.effect === 'warns' ? `<span class="sci-warn" role="note" tabindex="0"><span class="sci-tip">Warns, removes nothing</span></span>` : '') +
     `</div><p class="sci-check-d">${esc(ch.does)}</p></div>`).join('') + `</div>`).join('\n');
 
+/* The plan checks are a box in the same row, not a disclosure underneath it.
+   They are a different KIND of check — they shape a plan rather than remove
+   an unsafe product — so the box is marked as its own thing, but it sits with
+   the others because that is where a reader looks for "what else is checked".
+   It joins the same one-open-at-a-time behaviour by carrying the same class
+   and its own aria-controls; the separate handler it used to need is gone. */
+const planBtn = `      <button type="button" class="sci-gbox sci-gbox--plan" aria-expanded="false" aria-controls="sci-plan-list" data-group="plan">` +
+  `<span class="sci-gbox-n">${num(h.counts.plan_checks.value)}</span><span class="sci-gbox-name">Plan checks</span></button>`;
+
+const planBody = `      <div class="sci-glist" id="sci-plan-list" hidden>` +
+  h.plan_checks.map(x => `<div class="sci-check"><div class="sci-check-n">${esc(x.name)}` +
+    (firedNames.has(x.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
+    `</div><p class="sci-check-d">${esc(x.does)}</p></div>`).join('') + `</div>`;
+
 const safety = `<section class="sci-sec" id="safety">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">Safety</span>
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
-      <p class="lead">Sixteen remove a product; one adds a warning instead.</p>
+      <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended &#8212; sixteen of the ${num(h.counts.safety_checks.value)} remove it outright, the last adds a warning instead. Nothing a customer should not take reaches their plan, and you can show which check stopped it.</p>
     </div>
     <div class="sci-groups sci-in" data-groups>
 ${groupBtns}
+${planBtn}
     </div>
 ${groupBodies}
-    <div class="sci-plan sci-in">
-      <button type="button" class="sci-plan-btn" aria-expanded="false" aria-controls="sci-plan-list">
-        <span>Plus ${num(h.counts.plan_checks.value)} plan checks</span><span class="sci-caret" aria-hidden="true"></span>
-      </button>
-      <div class="sci-glist" id="sci-plan-list" hidden>
-        ${h.plan_checks.map(x => `<div class="sci-check"><div class="sci-check-n">${esc(x.name)}` +
-          (firedNames.has(x.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
-          `</div><p class="sci-check-d">${esc(x.does)}</p></div>`).join('')}
-      </div>
-    </div>
+${planBody}
   </div>
 </section>`;
 
@@ -369,7 +393,7 @@ const markets = `<section class="sci-sec" id="markets">
       <div class="sci-ladders" data-ladders>
 ${first.nutrients.map(ladder).join('\n')}
       </div>
-      <p class="sci-note">Shown for a woman aged 31 to 50. Every real target is computed for the person.</p>
+      <p class="sci-note">Shown for a woman aged 31 to 50 &#8212; <b>${num(first.nutrients.length)} of the ${num(h.counts.nutrients.value)}</b> nutrients the engine models and reports for every customer. Every real target is computed for the person, not read off this table.</p>
     </div>
   </div>
 </section>`;
