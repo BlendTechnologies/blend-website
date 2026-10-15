@@ -96,11 +96,21 @@ const tabs = trace.steps.map((s, i) =>
 ).join('\n');
 
 const panels = trace.steps.map((s, i) => {
-  const lines = s.lines.map(l =>
-    `        <div class="sx-line"><span class="sx-ltext">${esc(l.text)}</span>` +
-    (l.value === undefined || l.value === null || l.value === '' ? '' : `<span class="sx-lvalue">${esc(l.value)}</span>`) +
+  const lines = s.lines.map(l => {
+    // The trace writes "Product — reason" and then repeats the reason in
+    // `value`. In a row with a right-hand column that printed the reason
+    // twice and filled the panel with dashes, so the suffix comes off.
+    let text = l.text;
+    if (typeof l.value === 'string' && l.value && text.endsWith(' \u2014 ' + l.value)) {
+      text = text.slice(0, -(l.value.length + 3));
+    }
+    return `        <div class="sx-line"><span class="sx-ltext">${esc(text)}</span>` +
+    // The engine's own labels join two halves with a dash; a colon reads
+    // better in a right-hand column.
+    (l.value === undefined || l.value === null || l.value === '' ? '' : `<span class="sx-lvalue">${esc(String(l.value).replace(' \u2014 ', ': '))}</span>`) +
     (l.source ? `<span class="sx-lsource">${esc(l.source)}</span>` : '') +
-    `</div>`).join('\n');
+    `</div>`;
+  }).join('\n');
   return `      <div class="sx-panel" id="sx-panel-${s.id}" role="tabpanel" aria-labelledby="sx-tab-${s.id}" tabindex="0">\n` +
     `        <div class="sx-panel-head"><span class="sx-panel-t">${esc(s.name)}</span>` +
     `<span class="sx-panel-c">Step ${i + 1} of ${trace.steps.length}</span></div>\n${lines}\n      </div>`;
@@ -135,7 +145,7 @@ const gates = [
   `    <div class="sx-gates">`, gateCards,
   `      <div class="sx-aside">`,
   `      <h3>And ${other.length} more that are not safety</h3>`,
-  `      <p>These shape a sensible plan rather than a safe one &#8212; they stop the same active turning up twice, and drop what the person already gets from food. They are counted separately because calling them safety checks would overstate what runs.</p>`,
+  `      <p>These shape a sensible plan rather than a safe one. They stop the same active turning up twice, and drop what the person already gets from food. They are counted separately because calling them safety checks would overstate what runs.</p>`,
   `        <div class="sx-aside-list">${other.map(g => `<span>${esc(g.name)}</span>`).join('')}</div>`,
   `      </div>`,
   `    </div>`,
@@ -147,7 +157,7 @@ const rows = th.nutrients.map(n => {
   const target = n.target_reference_adult != null
     ? `${num(n.target_reference_adult)} ${esc(n.target_unit || '')}`.trim()
     : `<span style="color:var(--ink-60)">per person, from body weight and goal</span>`;
-  const ul = n.upper_limit != null ? num(n.upper_limit) + (n.target_unit ? ' ' + esc(String(n.target_unit).split(' ')[0]) : '') : '&#8212;';
+  const ul = n.upper_limit != null ? num(n.upper_limit) + (n.target_unit ? ' ' + esc(String(n.target_unit).split(' ')[0]) : '') : 'None';
   return `        <tr><td>${esc(n.nutrient)}</td><td>${num(n.shortfall_pct)}%</td>` +
     `<td><span class="sx-strict is-${esc(n.strictness)}">${esc(cap(n.strictness))}</span></td>` +
     `<td>${ul}</td><td>${target}</td></tr>`;
@@ -161,7 +171,7 @@ const thresholds = [
   `      </table>`,
   `    </div>`,
   `    <p class="sx-foot">Default where a nutrient has no band of its own: ${num(th.default_shortfall_before_recommend * 100)}%. ` +
-  `Reference targets are for a 31&#8211;50 woman in the UK with no diet modifier; every real target is computed for the person.</p>`,
+  `Reference targets are for a woman aged 31 to 50 in the UK with no diet modifier. Every real target is computed for the person.</p>`,
 ].join('\n');
 
 /* ---- sources ------------------------------------------------------------- */
