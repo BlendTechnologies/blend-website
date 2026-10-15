@@ -134,6 +134,12 @@ body{background:linear-gradient(to bottom,var(--white) 0,var(--white) 38%,var(--
 /* The bar is sticky and 68px tall, so an anchor that scrolls to 0 puts its
    own heading underneath it. */
 [id]{scroll-margin-top:calc(var(--nav-h) + 28px)}
+/* ...but [id] is broad enough to catch the bar itself. #nav, #nav-links and
+   #nav-toggle are not anchor targets, and a scroll-margin on a STICKY element
+   means that focusing it scrolls the page to make room above it: tabbing to
+   the menu button moved the page up 84px, and it could never succeed, because
+   the bar travels with the viewport. Anchor targets are the sections. */
+.nav,.nav *{scroll-margin-top:0}
 .closer{padding:88px 0 72px;background:transparent;text-align:center}
 .closer h2{margin:0 auto 14px;max-width:640px}
 .closer p{margin:0 auto 28px;max-width:520px}
