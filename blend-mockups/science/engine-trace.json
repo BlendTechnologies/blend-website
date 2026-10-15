@@ -1,403 +1,716 @@
 {
   "_generated_by": "algorithms/personalization/tools/export_engine_trace.py",
-  "_note": "One real engine run for the demo customer Jane. Every value is from the run; nothing is typed.",
+  "_note": "One real engine run for the demo customer Isabel. Every value is from the run; nothing is typed.",
+  "engine_order": {
+    "steps": [
+      "Signals",
+      "What her food already gives her",
+      "Targets",
+      "Gaps",
+      "Scoring",
+      "Safety checks",
+      "Plan"
+    ],
+    "confirmed": "This is the engine's own order. Scoring runs BEFORE the safety checks: every product in the catalogue is scored against her answers, and the checks then remove from that scored pool, which is why the removed products below all carry a score."
+  },
   "customer": {
-    "name": "Jane",
-    "diet": "Vegetarian",
+    "name": "Isabel",
+    "age": "52 years",
+    "sex": "Woman",
+    "country": "United Kingdom",
+    "height": "165 cm",
+    "weight": "67 kg",
+    "diet": "Pescatarian",
     "bmi_status": "Healthy Weight*",
-    "activity": "Very Active",
-    "condition": "Diabetes",
-    "goals": "Gut Health, Stress",
+    "activity": "Lightly Active",
+    "condition": "Cardiovascular Diseases",
+    "medication": "Antihypertensives",
+    "goals": "Sleep, Heart Health, Bone & Joint Health",
     "route": "full",
-    "health_score": "87",
-    "health_score_label": "Excellent"
+    "health_score": "69",
+    "health_score_label": "Fair",
+    "health_score_note": "The health score is part of the real customer report, which is why it appears here."
   },
   "catalogue": {
-    "tenant": "1777914547769x511962629417775200",
-    "note": "On-disk Blend demo catalogue (51 products + 3 QA placeholders)."
+    "products": 51,
+    "note": "The on-disk Blend demo catalogue. Its three QA placeholder entries carry no safety data, are never recommendable, and are excluded from every count and list here."
   },
-  "headline_gaps": {
-    "iron_pct_of_target": 50,
-    "omega3_pct_of_target": 8
+  "counts": {
+    "scored": 51,
+    "passed_the_checks": 30,
+    "recommended": 5
   },
-  "plan_products": [
-    "Omega-3 (Algae Oil — Vegan)",
-    "Iron",
-    "Vitamin D3",
-    "Iodine 150mcg",
-    "L-Theanine",
-    "Digestive Enzyme Complex",
-    "L-Glutamine",
-    "Ashwagandha"
-  ],
   "steps": [
     {
       "id": 1,
       "name": "Signals",
-      "lines": [
+      "groups": [
         {
-          "text": "Diet",
-          "value": "Vegetarian",
-          "source": "quiz answer 045XDOAN"
+          "group": "Diet",
+          "lines": [
+            {
+              "question": "Do any of the following dietary preferences or restrictions apply to you?",
+              "answer": "Pescatarian",
+              "changes": "Removes animal-derived products and shifts the modelled plate towards fish, dairy and plants."
+            },
+            {
+              "question": "How often do you eat fish and seafood?",
+              "answer": "Sometimes",
+              "changes": "Drives the modelled intake of EPA and DHA, the omega-3 fats that matter for her heart goal."
+            },
+            {
+              "question": "How often do you eat dairy products?",
+              "answer": "Daily",
+              "changes": "Drives the modelled calcium and iodine intake."
+            },
+            {
+              "question": "How often do you eat vegetables and legumes?",
+              "answer": "Rarely",
+              "changes": "Low vegetable intake pulls down potassium, folate and fibre."
+            },
+            {
+              "question": "What meals and snacks do you usually eat throughout the day?",
+              "answer": "Breakfast, Lunch, Dinner",
+              "changes": "Meal pattern and portion size set the total daily food mass, which sets every nutrient level."
+            },
+            {
+              "question": "What size are your usual portions?",
+              "answer": "Average",
+              "changes": "Portion size scales that same daily food mass."
+            },
+            {
+              "question": "Let's discuss your weekly eating habits. Which description fits you best?",
+              "answer": "Mixed diet with balanced and processed foods",
+              "changes": "Shifts the balance of the modelled plate between whole and processed foods."
+            }
+          ]
         },
         {
-          "text": "Activity level",
-          "value": "Very Active",
-          "source": "quiz answer 035XEXCL"
+          "group": "Lifestyle",
+          "lines": [
+            {
+              "question": "Excluding sports or workouts, how active is your daily routine?",
+              "answer": "Lightly Active",
+              "changes": "Sets the energy requirement, and with it the protein and macro targets."
+            },
+            {
+              "question": "Do you currently smoke or use nicotine products?",
+              "answer": "Sometimes",
+              "changes": "Removes beta-carotene products outright and raises the vitamin C requirement."
+            },
+            {
+              "question": "On an average night, how many hours do you sleep?",
+              "answer": "5–6",
+              "changes": "Five to six hours triggers the same stimulant block as a sleep goal, on its own."
+            },
+            {
+              "question": "How many drinks other than water do you have on a typical day?",
+              "answer": "4",
+              "changes": "Four drinks a day, taken as coffee, shifts the modelled beverage composition."
+            },
+            {
+              "question": "How much sun exposure do you usually get?",
+              "answer": "Moderate",
+              "changes": "Adjusts the vitamin D requirement for sun exposure."
+            },
+            {
+              "question": "How many alcoholic drinks do you have per week?",
+              "answer": "1",
+              "changes": "Enters the modelled plate as alcohol and energy."
+            }
+          ]
         },
         {
-          "text": "Age / sex",
-          "value": "41 years, Woman",
-          "source": "quiz answers 006XHOWO / 005XWHAT"
+          "group": "Medical",
+          "lines": [
+            {
+              "question": "Select all the medical conditions that apply",
+              "answer": "Cardiovascular Diseases",
+              "changes": "Removes products contraindicated in cardiovascular disease, and raises her omega-3 target above the general adult figure."
+            },
+            {
+              "question": "Select all the prescription medications that apply",
+              "answer": "Antihypertensives",
+              "changes": "Removes every product that cannot be taken with blood-pressure medication."
+            },
+            {
+              "question": "Are you currently pregnant or breastfeeding?",
+              "answer": "No",
+              "changes": "No pregnancy or breastfeeding uplift applies."
+            }
+          ]
         },
+        {
+          "group": "Goals",
+          "lines": [
+            {
+              "question": "Here are some popular goals. Which resonate with you?",
+              "answer": "Sleep, Heart Health, Bone & Joint Health",
+              "changes": "Decides which products are relevant at all, and brings the stimulant block into force through the sleep goal."
+            }
+          ]
+        }
+      ],
+      "derived": [
         {
           "text": "Body-mass status",
           "value": "Healthy Weight*",
-          "source": "derived from height 166 cm / weight 63 kg"
+          "changes": "Derived from her height and weight, not asked. Governs the low-body-weight check and the energy requirement."
         },
         {
-          "text": "Diagnosed condition",
-          "value": "Diabetes",
-          "source": "quiz answer 016XSELE"
-        },
-        {
-          "text": "Prescription medication",
-          "value": "Anti-diabetics",
-          "source": "quiz answer 018XSELE"
-        },
-        {
-          "text": "Goals",
-          "value": "Gut Health, Stress",
-          "source": "quiz answer 021XHERE"
-        },
-        {
-          "text": "Vegetarian diet raises iron and omega-3 requirements and excludes animal-derived products",
-          "source": "diet-relevance gate + RDI model"
-        },
-        {
-          "text": "Anti-diabetic medication triggers hard interaction blocks and a metformin / B12 advisory",
-          "source": "medication gate + advisories"
+          "text": "Route through the quiz",
+          "value": "full",
+          "changes": "She chose full personalisation, so every food question was asked and the detailed intake model is used."
         }
       ]
     },
     {
       "id": 2,
-      "name": "Targets",
+      "name": "What her food already gives her",
+      "note": "Every figure here is modelled from her answers, not measured. Vitamin D is the one line that is not food alone: the engine adds modelled skin synthesis to the same total.",
       "lines": [
         {
-          "text": "Iron target",
-          "value": "26.64 mg/day",
-          "source": "EFSA PRI, raised ~1.8x for a vegetarian diet (lower non-haem absorption)"
+          "text": "Food modelled per day",
+          "value": "1241 g",
+          "note": "Built from her meal pattern, portion size and how often she eats each food group."
         },
         {
-          "text": "Omega-3 target",
-          "value": "1.0 g/day EPA+DHA",
-          "source": "EFSA adequate intake, EPA+DHA"
+          "text": "Energy from that food",
+          "value": "2137 kcal"
         },
         {
-          "text": "Vitamin D3 target",
-          "value": "10.0 mcg/day",
-          "source": "SACN 2016 / EFSA"
+          "text": "Protein from that food",
+          "value": "99 g"
         },
         {
-          "text": "Vitamin B6 target",
-          "value": "1.2 mg/day",
-          "source": "EFSA PRI"
-        },
-        {
-          "text": "Selenium target",
-          "value": "60.0 mcg/day",
-          "source": "EFSA PRI"
-        },
-        {
-          "text": "Iodine target",
-          "value": "140.0 mcg/day",
-          "source": "EFSA PRI"
-        },
-        {
-          "text": "Protein target",
-          "value": "88 g/day",
-          "source": "EFSA 0.83 g/kg baseline, adjusted for activity and goal"
-        },
-        {
-          "text": "Energy target",
-          "value": "1952 kcal/day",
-          "source": "Mifflin-St Jeor BMR x activity"
-        },
-        {
-          "text": "Omega-3 (EPA+DHA) target",
-          "value": "0.25 g/day",
-          "source": "EFSA adequate intake"
+          "text": "Fibre from that food",
+          "value": "27 g"
         }
-      ]
+      ],
+      "per_nutrient": [
+        {
+          "nutrient": "Calcium",
+          "intake_from_food": 1198.13,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin D3",
+          "intake_from_food": 15.47,
+          "unit": "mcg",
+          "source": "Food plus modelled skin synthesis. The engine adds a sun credit to the same total, from her sun exposure answer, her skin tone, her country's latitude and the month, so this figure is not food alone."
+        },
+        {
+          "nutrient": "Magnesium",
+          "intake_from_food": 339.44,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Potassium",
+          "intake_from_food": 2106.64,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Iron",
+          "intake_from_food": 10.76,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Selenium",
+          "intake_from_food": 92.94,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Zinc",
+          "intake_from_food": 10.79,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B5 (Pantothenic Acid)",
+          "intake_from_food": 3.61,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B9 (Folate)",
+          "intake_from_food": 250.68,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Vitamin B12 (Cobalamin)",
+          "intake_from_food": 8.25,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Vitamin C (Ascorbic Acid)",
+          "intake_from_food": 76.28,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin E (Alpha-Tocopherol)",
+          "intake_from_food": 9.57,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin K",
+          "intake_from_food": 88.07,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Omega-3 (EPA and DHA)",
+          "intake_from_food": 1.093,
+          "unit": "g/day"
+        }
+      ],
+      "already_met_by_diet": {
+        "nutrients_reading_as_met": [
+          "Calcium",
+          "Vitamin D3",
+          "Magnesium",
+          "Iron",
+          "Selenium",
+          "Zinc",
+          "Vitamin B9 (Folate)",
+          "Vitamin B12 (Cobalamin)",
+          "Vitamin C (Ascorbic Acid)",
+          "Vitamin K"
+        ],
+        "products_removed": [
+          {
+            "product": "Omega-3 (Algae Oil — Vegan)",
+            "because": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
+          },
+          {
+            "product": "Omega-3 (Fish Oil)",
+            "because": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
+          }
+        ]
+      }
     },
     {
       "id": 3,
-      "name": "Gaps",
+      "name": "Targets",
+      "authority": {
+        "market": "United Kingdom",
+        "name": "SACN / COMA Reference Nutrient Intake",
+        "reference": "Government Dietary Recommendations, PHE / DH 2016. Reference Nutrient Intakes from Dietary Reference Values for Food Energy and Nutrients for the UK (1991); vitamin D from SACN Vitamin D and Health (2016).",
+        "licence": "Crown copyright, Open Government Licence v3.0"
+      },
       "lines": [
         {
-          "text": "Omega-3: 8% of target",
-          "value": "0.02 / 0.25"
+          "text": "Energy target",
+          "value": "1664 kcal/day",
+          "basis": "Mifflin-St Jeor resting metabolic rate, with her daily activity answer"
         },
         {
-          "text": "Water: 33% of target",
-          "value": "722 / 2207"
+          "text": "Protein target",
+          "value": "81 g/day",
+          "basis": "EFSA population reference intake of 0.83 g per kg, adjusted for activity and goal"
+        }
+      ],
+      "per_nutrient": [
+        {
+          "nutrient": "Calcium",
+          "target": 700.0,
+          "unit": "mg"
         },
         {
-          "text": "Iron: 50% of target",
-          "value": "50 / 100"
+          "nutrient": "Vitamin D3",
+          "target": 10.0,
+          "unit": "mcg"
         },
         {
-          "text": "Vitamin D3: 56% of target",
-          "value": "56 / 100"
+          "nutrient": "Magnesium",
+          "target": 297.0,
+          "unit": "mg"
         },
         {
-          "text": "Cholesterol: 59% of target",
-          "value": "177 / 300"
+          "nutrient": "Potassium",
+          "target": 3500.0,
+          "unit": "mg"
         },
         {
-          "text": "Iodine: 76% of target",
-          "value": "76 / 100"
+          "nutrient": "Iron",
+          "target": 8.7,
+          "unit": "mg"
         },
         {
-          "text": "Potassium: 81% of target",
-          "value": "81 / 100"
+          "nutrient": "Selenium",
+          "target": 66.0,
+          "unit": "mcg"
         },
         {
-          "text": "Protein: 83% of target",
-          "value": "73 / 88"
+          "nutrient": "Zinc",
+          "target": 7.7,
+          "unit": "mg"
         },
         {
-          "text": "Trans fat: 83% of target",
-          "value": "2 / 2.4"
+          "nutrient": "Vitamin B5 (Pantothenic Acid)",
+          "target": 5.25,
+          "unit": "mg"
         },
         {
-          "text": "Selenium: 85% of target",
-          "value": "85 / 100"
+          "nutrient": "Vitamin B9 (Folate)",
+          "target": 230.0,
+          "unit": "mcg"
         },
         {
-          "text": "Carbohydrates: 88% of target",
-          "value": "257 / 293"
+          "nutrient": "Vitamin B12 (Cobalamin)",
+          "target": 1.65,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Vitamin C (Ascorbic Acid)",
+          "target": 75.0,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin E (Alpha-Tocopherol)",
+          "target": 11.55,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin K",
+          "target": 90.0,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Omega-3 (EPA and DHA)",
+          "target": "1.0",
+          "unit": "g/day"
         }
       ]
     },
     {
       "id": 4,
-      "name": "Scoring",
+      "name": "Gaps",
+      "note": "Vitamins and minerals are reported as coverage of her own target and stop at 100%, so a nutrient she already gets enough of reads as met rather than as a surplus. Nutrients that are ceilings rather than targets, free sugars and saturated fat among them, are not shortfalls when they sit below the figure and are not listed here.",
       "lines": [
         {
-          "text": "Products in the demo catalogue scored",
-          "value": 54,
-          "source": "every product in the brand catalogue is scored against Jane's answers"
+          "text": "Potassium: 60% of target",
+          "value": "2106.64 mg from food"
         },
         {
-          "text": "Candidates surviving the safety gates",
-          "value": 35,
-          "source": "scored pool minus every exclusion, before ranking"
+          "text": "Vitamin B5 (Pantothenic Acid): 68% of target",
+          "value": "3.61 mg from food"
         },
         {
-          "text": "Recommended (top of the ranking)",
-          "value": 8,
-          "source": "the ranked candidates that made the plan"
-        },
-        {
-          "text": "#1 Omega-3 (Algae Oil — Vegan)",
-          "value": "Strong match",
-          "source": "matched on nutrient gap"
-        },
-        {
-          "text": "#2 Iron",
-          "value": "Strong match",
-          "source": "matched on nutrient gap"
-        },
-        {
-          "text": "#3 Vitamin D3",
-          "value": "Strong match",
-          "source": "matched on nutrient gap"
-        },
-        {
-          "text": "#4 Iodine 150mcg",
-          "value": "Good match",
-          "source": "matched on nutrient gap"
-        },
-        {
-          "text": "#5 L-Theanine",
-          "value": "General match",
-          "source": "matched on goal: Stress"
-        },
-        {
-          "text": "#6 Digestive Enzyme Complex",
-          "value": "General match",
-          "source": "matched on goal: Gut Health"
-        },
-        {
-          "text": "#7 L-Glutamine",
-          "value": "General match",
-          "source": "matched on goal: Gut Health"
-        },
-        {
-          "text": "#8 Ashwagandha",
-          "value": "General match",
-          "source": "matched on goal: Stress"
+          "text": "Vitamin E (Alpha-Tocopherol): 82% of target",
+          "value": "9.57 mg from food"
         }
       ]
     },
     {
       "id": 5,
-      "name": "Gates",
+      "name": "Scoring",
+      "note": "The engine gives a product no single score. It sorts the surviving products through the priority order below, tier by tier, and only compares the catalogue's own product rating when everything above is tied. So a fact about her always outranks a property of the catalogue. The catalogue rating is shown for each product below as what it is: the same number for every customer.",
+      "ranking_order": [
+        "Pregnancy and breastfeeding products come first",
+        "Fills a measured shortfall in one nutrient, worst shortfall first",
+        "Matches a specific concern she reported",
+        "A combination product covering several of her shortfalls, widest coverage first",
+        "Matches the training she reported",
+        "Matches one of her goals",
+        "More relevant to her answers than an otherwise equal product",
+        "Ranked on the catalogue's own product rating, every tier above being equal"
+      ],
       "lines": [
         {
-          "text": "Green Tea Extract — Hard medication contraindication",
-          "value": "Hard medication contraindication",
-          "source": "gate group: medication conflicts"
+          "text": "Products scored",
+          "value": 51,
+          "note": "Every product in the brand's catalogue is scored against her answers before any check runs."
         },
         {
-          "text": "Prebiotic Complex (FOS/GOS) — Hard medication contraindication",
-          "value": "Hard medication contraindication",
-          "source": "gate group: medication conflicts"
+          "text": "Survived the checks and entered the ranking",
+          "value": 30
         },
         {
-          "text": "Multivitamin (Men's 50+) — Age-band / demographic",
-          "value": "Age-band / demographic",
-          "source": "gate group: contraindications"
+          "text": "Recommended",
+          "value": 5
+        }
+      ],
+      "top_candidates": [
+        {
+          "position": 1,
+          "product": "Multivitamin (Women's 50+)",
+          "ranked_by": "A combination product covering several of her shortfalls, widest coverage first",
+          "catalogue_rating": 3,
+          "factors": [
+            "A combination product covering several of her shortfalls, widest coverage first",
+            "the goal it matches is Bone & Joint Health"
+          ],
+          "reason_shown_to_the_customer": "Chosen because it helps with potassium, vitamin B5 and 1 other, which you are short of, and it matches your bone & joint health goal."
         },
         {
-          "text": "Multivitamin (Prenatal) — Age-band / demographic",
-          "value": "Age-band / demographic",
-          "source": "gate group: contraindications"
+          "position": 2,
+          "product": "B-Complex",
+          "ranked_by": "A combination product covering several of her shortfalls, widest coverage first",
+          "catalogue_rating": 3,
+          "factors": [
+            "A combination product covering several of her shortfalls, widest coverage first"
+          ],
+          "reason_shown_to_the_customer": "Chosen because your vitamin B5 is at 68% of your target, which one serving covers, and it matches a goal you chose."
         },
         {
-          "text": "Multivitamin (Women's 50+) — Age-band / demographic",
-          "value": "Age-band / demographic",
-          "source": "gate group: contraindications"
+          "position": 3,
+          "product": "Collagen Peptides (Type I & III)",
+          "ranked_by": "Matches one of her goals",
+          "catalogue_rating": 3,
+          "factors": [
+            "Matches one of her goals",
+            "the goal it matches is Bone & Joint Health"
+          ],
+          "reason_shown_to_the_customer": "Chosen because it matches your bone & joint health goal. It is a source of protein, which contributes to the maintenance of normal bones."
         },
         {
-          "text": "Selenium — Diagnosed-condition contraindication",
-          "value": "Diagnosed-condition contraindication",
-          "source": "gate group: contraindications"
+          "position": 4,
+          "product": "L-Theanine",
+          "ranked_by": "Matches one of her goals",
+          "catalogue_rating": 3,
+          "factors": [
+            "Matches one of her goals",
+            "the goal it matches is Sleep"
+          ],
+          "reason_shown_to_the_customer": "Chosen because it matches your sleep goal."
         },
         {
-          "text": "Vitamin B3 — Diagnosed-condition contraindication",
-          "value": "Diagnosed-condition contraindication",
-          "source": "gate group: contraindications"
-        },
-        {
-          "text": "Sodium — No-DRV supplemental ceiling",
-          "value": "No-DRV supplemental ceiling",
-          "source": "gate group: upper limits"
-        },
-        {
-          "text": "Vitamin K2 — No-DRV supplemental ceiling",
-          "value": "No-DRV supplemental ceiling",
-          "source": "gate group: upper limits"
-        },
-        {
-          "text": "Coenzyme Q10 — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "Collagen Peptides (Type I & III) — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "Marine Collagen — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "Omega-3 (Fish Oil) — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "Probiotics — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "Vitamin A — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "Vitamin E — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "BCAA 2:1:1 — Requires training load",
-          "value": "Requires training load",
-          "source": "gate group: contraindications"
-        },
-        {
-          "text": "Pre-Workout Complex — Requires training load",
-          "value": "Requires training load",
-          "source": "gate group: contraindications"
-        },
-        {
-          "text": "Zinc — Upper limit — serving exceeds headroom",
-          "value": "Upper limit — serving exceeds headroom",
-          "source": "gate group: upper limits; upper limit 25.0"
-        },
-        {
-          "text": "Multivitamin (Prenatal) — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
-        },
-        {
-          "text": "Omega-3 — Diet compatibility",
-          "value": "Diet compatibility",
-          "source": "gate group: diet"
+          "position": 5,
+          "product": "Cordyceps",
+          "ranked_by": "Matches one of her goals",
+          "catalogue_rating": 2,
+          "factors": [
+            "Matches one of her goals"
+          ],
+          "reason_shown_to_the_customer": "Chosen because it matches a goal you chose."
         }
       ]
     },
     {
       "id": 6,
+      "name": "Safety checks",
+      "note": "Scoring has already happened at this point. These products were scored against her answers and then removed.",
+      "removed": [
+        {
+          "product": "BCAA 2:1:1",
+          "check": "Training-only products",
+          "group": "contraindications",
+          "kind": "safety check",
+          "why": "Product is a training-only ergogenic aid (pre-workout / beta-alanine / citrulline / BCAA / carnitine tartrate). The user reported no structured sport, so a workout performance/recovery supplement is not relevant."
+        },
+        {
+          "product": "Multivitamin (Men's 50+)",
+          "check": "Age band suitability",
+          "group": "contraindications",
+          "kind": "safety check",
+          "why": "This product has no RDI defined for Woman aged 52, structurally not applicable to this user."
+        },
+        {
+          "product": "Multivitamin (Prenatal)",
+          "check": "Age band suitability",
+          "group": "contraindications",
+          "kind": "safety check",
+          "why": "This product has no RDI defined for Woman aged 52, structurally not applicable to this user."
+        },
+        {
+          "product": "Sodium",
+          "check": "Diagnosed condition conflict",
+          "group": "contraindications",
+          "kind": "safety check",
+          "why": "This product is contraindicated for users with Cardiovascular Diseases."
+        },
+        {
+          "product": "Vitamin A",
+          "check": "Beta-carotene for smokers",
+          "group": "contraindications",
+          "kind": "safety check",
+          "why": "Removes products that raise risk for current smokers, beta-carotene above all."
+        },
+        {
+          "product": "Vitamin E",
+          "check": "Diagnosed condition conflict",
+          "group": "contraindications",
+          "kind": "safety check",
+          "why": "This product is contraindicated for users with Cardiovascular Diseases."
+        },
+        {
+          "product": "Vegan Collagen",
+          "check": "Diet compatibility",
+          "group": "diet",
+          "kind": "safety check",
+          "why": "Vegan-specific product variant. The standard (non-vegan) variant is the appropriate match for a non-plant diet."
+        },
+        {
+          "product": "Green Tea Extract",
+          "check": "Stimulants against sleep",
+          "group": "interactions",
+          "kind": "safety check",
+          "why": "Product is caffeine-bearing (pre-workout / green tea extract). The user is trying to improve their sleep (sleep goal + short sleep); caffeine within ~6 h of bedtime measurably reduces total sleep time and sleep efficiency (EFSA 2015), so a stimulant works against the stated goal."
+        },
+        {
+          "product": "Coenzyme Q10",
+          "check": "Hard medication conflict",
+          "group": "medication conflicts",
+          "kind": "safety check",
+          "why": "Cannot be taken with Antihypertensives. Flagged by the brand's own catalogue."
+        },
+        {
+          "product": "Electrolyte Complex",
+          "check": "Hard medication conflict",
+          "group": "medication conflicts",
+          "kind": "safety check",
+          "why": "Cannot be taken with Antihypertensives. Flagged by the brand's own catalogue."
+        },
+        {
+          "product": "Iron",
+          "check": "Hard medication conflict",
+          "group": "medication conflicts",
+          "kind": "safety check",
+          "why": "Cannot be taken with Antihypertensives. Flagged by the brand's own catalogue."
+        },
+        {
+          "product": "Magnesium Glycinate",
+          "check": "Hard medication conflict",
+          "group": "medication conflicts",
+          "kind": "safety check",
+          "why": "Cannot be taken with Antihypertensives. Flagged by the brand's own catalogue."
+        },
+        {
+          "product": "Melatonin",
+          "check": "Hard medication conflict",
+          "group": "medication conflicts",
+          "kind": "safety check",
+          "why": "Cannot be taken with Antihypertensives. Flagged by the brand's own catalogue."
+        },
+        {
+          "product": "Pre-Workout Complex",
+          "check": "Hard medication conflict",
+          "group": "medication conflicts",
+          "kind": "safety check",
+          "why": "Cannot be taken with Antihypertensives. Flagged by the brand's own catalogue."
+        },
+        {
+          "product": "Selenium",
+          "check": "Tolerable upper limit",
+          "group": "upper limits",
+          "kind": "safety check",
+          "why": "Her diet already supplies 92.9 mcg. The engine works to 90% of the 255.0 mcg upper limit, which leaves 136.6 mcg of headroom, and one serving of this product is 200.0 mcg.",
+          "upper_limit": 255.0
+        },
+        {
+          "product": "Zinc",
+          "check": "Tolerable upper limit",
+          "group": "upper limits",
+          "kind": "safety check",
+          "why": "Her diet already supplies 10.8 mg. The engine works to 90% of the 25.0 mg upper limit, which leaves 11.7 mg of headroom, and one serving of this product is 15.0 mg.",
+          "upper_limit": 25.0
+        },
+        {
+          "product": "Omega-3 (Algae Oil — Vegan)",
+          "check": "Already met by diet",
+          "group": "need",
+          "kind": "plan check",
+          "why": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
+        },
+        {
+          "product": "Omega-3 (Fish Oil)",
+          "check": "Already met by diet",
+          "group": "need",
+          "kind": "plan check",
+          "why": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
+        },
+        {
+          "product": "Marine Collagen",
+          "check": "One per product family",
+          "group": "redundancy",
+          "kind": "plan check",
+          "why": "Family 'collagen' already represented by Collagen Peptides (Type I & III) (better goal/rating match)."
+        },
+        {
+          "product": "Multivitamin (Standard)",
+          "check": "One per product family",
+          "group": "redundancy",
+          "kind": "plan check",
+          "why": "Family 'multivitamin' already represented by Multivitamin (Women's 50+) (better goal/rating match)."
+        }
+      ],
+      "removed_by_check": {
+        "Training-only products": 1,
+        "Age band suitability": 2,
+        "Diagnosed condition conflict": 2,
+        "Beta-carotene for smokers": 1,
+        "Diet compatibility": 1,
+        "Stimulants against sleep": 1,
+        "Hard medication conflict": 6,
+        "Tolerable upper limit": 2,
+        "Already met by diet": 2,
+        "One per product family": 2
+      }
+    },
+    {
+      "id": 7,
       "name": "Plan",
-      "lines": [
+      "picks": [
         {
-          "text": "1. Omega-3 (Algae Oil — Vegan)",
-          "value": "Essential",
-          "source": "Chosen because your omega 3 is at 8% of your target."
+          "position": "1",
+          "product": "Multivitamin (Women's 50+)",
+          "tier": "Recommended",
+          "why": "Chosen because it helps with potassium, vitamin B5 and 1 other, which you are short of, and it matches your bone & joint health goal."
         },
         {
-          "text": "2. Iron",
-          "value": "Essential",
-          "source": "Chosen because your iron is at 50% of your target, which one serving covers."
+          "position": "2",
+          "product": "B-Complex",
+          "tier": "Recommended",
+          "why": "Chosen because your vitamin B5 is at 68% of your target, which one serving covers, and it matches a goal you chose."
         },
         {
-          "text": "3. Vitamin D3",
-          "value": "Essential",
-          "source": "Chosen because your vitamin D3 is at 56% of your target, which one serving covers."
+          "position": "3",
+          "product": "Collagen Peptides (Type I & III)",
+          "tier": "Recommended",
+          "why": "Chosen because it matches your bone & joint health goal. It is a source of protein, which contributes to the maintenance of normal bones."
         },
         {
-          "text": "4. Iodine 150mcg",
-          "value": "Essential",
-          "source": "Chosen because your iodine is at 76% of your target, which one serving covers."
+          "position": "4",
+          "product": "L-Theanine",
+          "tier": "Recommended",
+          "why": "Chosen because it matches your sleep goal."
         },
         {
-          "text": "5. L-Theanine",
-          "value": "Recommended",
-          "source": "Chosen because it matches your stress goal. This one is an amino acid."
-        },
-        {
-          "text": "6. Digestive Enzyme Complex",
-          "value": "Recommended",
-          "source": "Chosen because it matches your gut health goal. This one is a multi-nutrient blend."
-        },
-        {
-          "text": "7. L-Glutamine",
-          "value": "Recommended",
-          "source": "Chosen because it matches your gut health goal. This one is an amino acid."
-        },
-        {
-          "text": "8. Ashwagandha",
-          "value": "Recommended",
-          "source": "Chosen because it matches your stress goal. This one is an adaptogen."
+          "position": "5",
+          "product": "Cordyceps",
+          "tier": "Recommended",
+          "why": "Chosen because it matches a goal you chose."
         }
       ]
+    }
+  ],
+  "profile_limitations": [
+    {
+      "asked_for": "High blood pressure as the diagnosed condition",
+      "engine": "The quiz offers Cardiovascular Diseases and no narrower cardiac option, so that is what she answers. The products removed are the ones flagged against cardiovascular disease rather than against hypertension specifically.",
+      "used": "Cardiovascular Diseases"
+    },
+    {
+      "asked_for": "Perimenopause as a goal",
+      "engine": "The goal list offers Menopause and Hormonal Balance, with no perimenopause option, and three goals were already requested. No menopause goal was added, so nothing in this run is driven by one.",
+      "used": "Sleep, Heart Health, Bone & Joint Health"
+    },
+    {
+      "asked_for": "Eats fish one to two times a week",
+      "engine": "The food questions ask frequency in bands, from Never through to more than twice a day, and not in times per week. Sometimes is the band that covers once or twice a week.",
+      "used": "Sometimes, with oily and white fish selected"
+    },
+    {
+      "asked_for": "Three to four coffees a day",
+      "engine": "The quiz asks how many drinks other than water you have on a typical day, then which types, rather than counting coffees. Four drinks with coffee selected is the closest honest rendering.",
+      "used": "Four drinks a day, coffee"
+    },
+    {
+      "asked_for": "A caffeine ceiling reacting to her coffee",
+      "engine": "The caffeine ceiling governs caffeine in the PRODUCTS only. The engine holds no caffeine figure for any food or drink, so her four coffees never enter the sum; a flat allowance for diet is subtracted from the daily total instead. What removed her green tea extract was the stimulant check, on her sleep goal and her short sleep.",
+      "used": "No caffeine ceiling exclusion in this run"
+    },
+    {
+      "asked_for": "The customer's country",
+      "engine": "The engine accepts a country and resolves the reference set from it, which is how this run is judged against United Kingdom requirements. No production caller supplies one yet: the web app would have to resolve it from the visitor, and until it does, the brand's own market fills the gap.",
+      "used": "United Kingdom, supplied directly to the engine"
     }
   ]
 }

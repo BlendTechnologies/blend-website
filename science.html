@@ -23,7 +23,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#FAF8F2">
+<meta name="theme-color" content="#0A0A0A">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"The scoring model behind Blend","url":"https://www.blend-technologies.com/science","description":"Transparent attribute-level scoring against your catalogue. Nutrient targets and upper limits follow EFSA, with NIH and the NHS behind it.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Science","item":"https://www.blend-technologies.com/science"}]}}
 </script>
@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="/scroll-cards.css">
 <link rel="stylesheet" href="/page-hero.css">
+<link rel="stylesheet" href="/science.css">
 <link rel="stylesheet" href="/cookie-consent.css">
 <style>
 /* ============================================================
@@ -56,7 +57,6 @@ body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,u
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--gold);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;z-index:200}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
@@ -66,7 +66,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
-.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
+.btn-primary:hover{background:var(--gold-hover)}
+.btn-primary:active{background:var(--gold-active)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
 .btn-ghost:hover{border-color:var(--ink);background:var(--white)}
@@ -112,41 +113,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .nav-links a:last-child{border-bottom:0}
   .nav-login{display:none}
   .nav-toggle{display:inline-flex}
-  .nav-actions .btn{padding:8px 16px;font-size:14px}
-}
-.hero{padding:64px 0 96px;background:var(--cream);position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
-.hero-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:48px;align-items:center;padding:8px 0}
-.hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.hero-title{margin-top:14px}
-.hero-sub{margin-top:22px;max-width:520px}
-.hero-ctas{margin-top:32px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.hero-foot{margin-top:24px;font-size:14px;color:var(--muted);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
-.cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
-.cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
-.cta-alt a:hover{text-decoration-color:var(--gold-strong)}
-.hero-visual{position:relative;min-height:600px;padding-top:8px}
-.hero-stage{position:relative;width:100%;height:560px}
-.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
-.card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{position:absolute;top:0;left:0;width:61%;min-height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
-.quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
-.qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
-.qprog-fill{height:100%;width:40%;background:var(--ink);border-radius:999px}
-.quiz .qtitle{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;margin:0}
-.quiz .qopts{margin-top:16px;display:grid;gap:7px}
-.qopt{padding:12px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:500;cursor:default;transition:border-color .38s cubic-bezier(.2,.7,.25,1),background .38s cubic-bezier(.2,.7,.25,1);background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
-.qopt:hover{border-color:var(--line-strong)}
-.qopt.active{border-color:var(--ink);background:var(--cream)}
-.qopt-label{flex:1;min-width:0}
-
-
-.quiz-next{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--ink);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;}
-.quiz-next:hover{background:#1f1f1f}
-.quiz-prebuilt{display:none}
-.hero-arrow{display:none}
-.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
+  .nav-actions .btn{padding:8px 16px;font-size:14px}}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* `backwards`, not `both`, over a visible base: the from-keyframe still
    hides the card through the 2s delay, and the end state is the base state
@@ -155,10 +122,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    animation outright, so every baseline of this page was captured with the
    plan card invisible and none of its design was ever regression-guarded. */
 .results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
-@media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
 @media(max-width:960px){
-  .hero{padding:32px 0 56px}
-  .hero-grid{grid-template-columns:1fr;gap:40px}
   /* A grid item's automatic minimum is min-content, and `1fr` is really
      minmax(auto,1fr), so one wide descendant drags the whole track with it.
      .pc-track is width:600% — six slides side by side — and its min-content
@@ -167,32 +131,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
      card is position:absolute and contributes nothing, which is the only
      reason the desktop grid escaped it. The ≤760 deck block already carries
      this line for the same reason; it belongs to the whole stacked range. */
-  .hero-grid,.hero-copy,.hero-visual{min-width:0}
-  .hero-visual{min-height:auto;padding-top:0}
-  .hero-stage{height:auto;display:flex;flex-direction:column;gap:20px}
-  .quiz,.results{position:static;width:100%}
-}
+  .hero-grid,.hero-copy,.hero-visual{min-width:0}}
 :root{--sec:88px;--sec-tight:80px;--sec-join:40px}
 @media(max-width:760px){:root{--sec:72px;--sec-tight:72px;--sec-join:36px}}
-.section{padding:112px 0}
 /* Nine of twelve sections ran an identical 112px top and bottom while content
    filled only 54-76% of each. Emphasis needs contrast: with every section
    spaced the same, none of them reads as more important than the rest.
    Supporting sections (integrations, FAQ, roadmap) tighten; the sections
    carrying the argument keep 112. Alignment is untouched. */
 .section--tight{padding:80px 0}
-.section-head{max-width:680px;margin:0 auto 64px;text-align:center}
-.section-head .eyebrow{margin-bottom:16px;display:inline-block}
-.section-head .h2{margin-bottom:18px}
-.section-cream{background:var(--cream)}
-.section-subtle{background:var(--subtle)}
-@media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
-.step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
 /* Muted amber-beige, not the full gold: six cards in a grid each wearing a
    bright outline on hover read as an alert, not as a pointer. */
 .step:hover,.step:focus-visible{border-color:#CFB68F;box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.step:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
 /* Flush to the card edge, clipped to the top corners by the card's own
    overflow. One fixed height so the six titles sit on the same line. */
 /* Flat cream, no gradient: the thumbnails are previews of a product whose
@@ -221,244 +171,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @keyframes t-real{0%,38%{opacity:0}54%,100%{opacity:1}}
 @keyframes t-pop{0%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
 @keyframes t-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-.t-type,.t-wipe{transform-box:fill-box;transform-origin:left}
-.t-press,.t-added,.t-dot{transform-box:fill-box;transform-origin:center}
-.t-caret,.t-ghost,.t-added{opacity:0}
-.t-draw{stroke-dasharray:1;stroke-dashoffset:0}
-.step:hover .t-type,.step:focus-visible .t-type{animation:t-type .8s steps(23,end) both}
-.step:hover .t-caret,.step:focus-visible .t-caret{animation:t-caret .8s steps(23,end) both}
-.step:hover .t-ghost,.step:focus-visible .t-ghost{animation:t-ghost .9s ease both}
-.step:hover .t-real,.step:focus-visible .t-real{animation:t-real .9s ease both}
 /* Each press waits for the thing it is pressing to have happened; --d carries
    that card's cue, set on the group itself. */
 .step:hover .t-press,.step:focus-visible .t-press{animation:t-press .42s cubic-bezier(.3,.8,.3,1) var(--d,.9s) both}
-.step:hover .t-added,.step:focus-visible .t-added{animation:t-pop .34s cubic-bezier(.2,.7,.25,1) .52s both}
-.step:hover .t-draw,.step:focus-visible .t-draw{animation:t-draw 1.05s cubic-bezier(.4,0,.25,1) both}
-.step:hover .t-wipe,.step:focus-visible .t-wipe{animation:t-type 1.05s cubic-bezier(.4,0,.25,1) both}
-.step:hover .t-dot,.step:focus-visible .t-dot{animation:t-pop .3s cubic-bezier(.2,.7,.25,1) .98s both}
-@media(prefers-reduced-motion:reduce){
-  .step:hover .t-type,.step:hover .t-caret,.step:hover .t-ghost,.step:hover .t-real,
-  .step:hover .t-press,.step:hover .t-added,.step:hover .t-draw,.step:hover .t-wipe,.step:hover .t-dot,
-  .step:focus-visible .t-type,.step:focus-visible .t-caret,.step:focus-visible .t-ghost,
-  .step:focus-visible .t-real,.step:focus-visible .t-press,.step:focus-visible .t-added,
-  .step:focus-visible .t-draw,.step:focus-visible .t-wipe,.step:focus-visible .t-dot{animation:none}
-}
-.step-body{padding:20px 22px 0;flex:1}
-.step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em;font-feature-settings:"tnum"}
-.step p{margin:0;font-size:14px;color:var(--ink-60);line-height:1.5}
 /* The row is laid out whether or not it is visible, so nothing shifts when
    it appears: only opacity changes. Touch has no hover, so there it is
    simply always on. */
 .step-cta{display:block;padding:8px 22px 14px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
-.step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
-@media(hover:none){.step-cta{opacity:1}}
-@media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
-@media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
-@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
-@media(max-width:520px){.steps{grid-template-columns:1fr}}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
 .soon{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;
   background:var(--gold-soft);color:var(--gold-active);font-size:11px;font-weight:600;
   letter-spacing:.04em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.split-card{padding:40px;border-radius:14px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.split-card.customers{background:var(--white);border:1px solid var(--line)}
-.split-card.brand{background:var(--ink);color:var(--white);border:1px solid transparent}
-.split-pill{display:inline-flex;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
-.split-card.brand .split-pill{color:rgba(255,255,255,.55)}
-.split-card h3{font-size:26px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:600}
-.split-bullets{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:8px}
-.split-bullets li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink-80)}
-.split-bullets li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:9px;flex-shrink:0}
-.split-card.brand .split-bullets li{color:rgba(255,255,255,.78)}
-.insight-pill{background:var(--subtle);color:var(--ink-80);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;white-space:nowrap;border:1px solid var(--line)}
-.insight-pill.warn{background:#FAEEEB;color:#8A2A1A;border-color:#F0D8D2}
-.report-card{margin-top:auto;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
-.report-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.report-card-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
-.report-card-pill{font-size:10px;color:var(--gold-strong);letter-spacing:.06em;text-transform:uppercase;font-weight:600;background:var(--gold-soft);padding:3px 8px;border-radius:999px}
-.report-products{display:grid;gap:7px}
-.rp-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--white);border:1px solid var(--line);border-radius:9px}
-.rp-swatch{width:30px;height:30px;border-radius:6px;background:var(--ink);display:grid;place-items:center;color:var(--white);font-size:9px;font-weight:700;flex-shrink:0;letter-spacing:.02em}
-.rp-info{flex:1;min-width:0}
-.rp-name{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.2}
-.rp-reason{font-size:11px;color:var(--muted);margin-top:1px}
-.rp-badge{flex-shrink:0;font-size:10px;font-weight:600;color:var(--gold-strong);background:var(--gold-soft);padding:2px 7px;border-radius:999px}
-.report-nutrients{background:var(--white);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
-.report-nut-title{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
-.report-nut-row{display:grid;grid-template-columns:88px 1fr 40px;align-items:center;gap:10px;margin-bottom:5px}
-.report-nut-row:last-child{margin-bottom:0}
-.report-nut-lab{font-size:12px;color:var(--ink);font-weight:500;letter-spacing:-.005em}
-.report-nut-track{height:5px;background:var(--line);border-radius:999px;overflow:hidden}
-.report-nut-fill{height:100%;border-radius:999px}
-.report-nut-val{font-size:11.5px;color:var(--muted);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
-.report-nutrients-full{padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-around}
-.report-nutrients-full .report-nut-row{margin-bottom:0;padding:4px 0}
-.routine{display:flex;flex-direction:column;gap:10px;flex:1}
-.routine-slot{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
-.routine-when{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;line-height:1;padding-left:14px}
-.routine-when::before{content:"";position:absolute;left:14px;top:13px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
-.routine-items{display:grid;gap:7px}
-.routine-item{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.routine-name{font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.routine-qty{font-size:11.5px;color:var(--muted);font-weight:400}
-.routine-tag{font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--gold-soft);color:var(--gold-strong);position:relative;top:-1px}
-.dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;color:var(--white);flex:1}
-.dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
-.dash-pill{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;font-weight:600;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:999px}
-.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.dash-tile{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.dash-tile svg{flex:0 0 auto;width:100%;max-width:88px;height:auto}
-.dash-tile-lab{font-size:10px;color:rgba(255,255,255,.65);font-weight:600;letter-spacing:.02em;text-align:center}
-.dash-bars{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px;flex:1;display:flex;flex-direction:column;justify-content:center}
-.dash-bars-title{font-size:11px;font-weight:700;color:var(--white);letter-spacing:.02em;margin-bottom:10px;display:block}
-.dash-bar{display:grid;grid-template-columns:86px 1fr 30px;align-items:center;gap:8px;margin-bottom:6px}
-.dash-bar:last-child{margin-bottom:0}
-.dash-bar-lab{font-size:10px;color:rgba(255,255,255,.7);font-weight:500}
-.dash-bar-track{height:6px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
-.dash-bar-fill{height:100%;background:var(--gold);border-radius:999px}
-.dash-bar-val{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;text-align:right;letter-spacing:.02em}
-@media(max-width:860px){.split{grid-template-columns:1fr}.split-card{min-height:auto}}
-.personas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.persona{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .18s ease}
-.persona:hover{border-color:var(--line-strong)}
-.persona-head{padding:20px 20px 12px;display:flex;align-items:center;gap:12px}
-.persona-score{width:48px;height:48px;border-radius:50%;background:conic-gradient(var(--ring,var(--green-soft)) 0 var(--pct,80%),var(--ring-rest,var(--gold-soft)) var(--pct,80%) 100%);display:grid;place-items:center;position:relative;flex-shrink:0}
-.persona-score::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--white)}
-.persona-score span{position:relative;z-index:1;font-weight:600;font-size:14px;font-feature-settings:"tnum"}
-.persona-head-copy{flex:1;min-width:0}
-.persona-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
-.persona-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
-.prow{position:relative}
-.pbadge{position:absolute;top:8px;right:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-strong);line-height:1.35}
-/* Goal marquee */
-.gm{padding:64px 0;background:var(--subtle);overflow:hidden}
-.gm .section-head{margin-bottom:30px}
-.gm-rails{display:grid;gap:8px;margin-bottom:28px;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
-.gm-rail{display:flex;gap:8px;width:max-content;will-change:transform}
-.gm-rail.a{animation:gm-l 68s linear infinite}
-.gm-rail.b{animation:gm-r 74s linear infinite}
-.gm:hover .gm-rail{animation-play-state:paused}
 @keyframes gm-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes gm-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.gm-chip{flex:0 0 auto;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:12px;font-weight:500;color:var(--ink-80);letter-spacing:-.005em;white-space:nowrap;cursor:pointer;font-family:inherit;transition:border-color .16s ease,color .16s ease,background .16s ease}
-.gm-chip:hover,.gm-chip.on{border-color:var(--gold);color:var(--gold-strong);background:var(--gold-soft)}
-.gm-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.gm-panel{max-width:680px;margin:0 auto;padding:0 32px;text-align:center;min-height:88px}
-.gm-panel-goal{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
-.gm-subs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.gm-sub{font-size:12px;padding:4px 12px;border-radius:999px;background:rgba(10,10,10,.045);border:0;color:var(--muted);font-weight:400}
-@media(max-width:860px){.gm{padding:64px 0}.gm-panel{padding:0 20px}.gm-chip{padding:12px 16px;font-size:14px}.gm-sub{padding:8px 12px;font-size:12px}
-  .gm-rails{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}}
-@media(prefers-reduced-motion:reduce){.gm-rail.a,.gm-rail.b{animation:none}}
-
-.personas-cta{margin-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.persona-body{padding:4px 20px 20px;display:flex;flex-direction:column;flex:1}
-.persona-insights{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:18px}
-.persona-list{display:grid;gap:8px}
-.prow{display:grid;grid-template-columns:32px 1fr;gap:8px;align-items:center;padding:8px 8px;background:var(--subtle);border-radius:8px}
-.pswatch{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;color:var(--white);font-weight:600;font-size:10px;letter-spacing:.02em}
-.pname{font-size:14px;font-weight:600;line-height:1.25}
-.preason{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
-@media(max-width:860px){.personas{grid-template-columns:1fr}}
-.science{position:relative;padding:112px 0;background:var(--ink);color:var(--white);overflow:hidden}
-.science .wrap{position:relative;z-index:1}
-.science-head{max-width:680px}
-.science-head .eyebrow{color:rgba(255,255,255,.6)}
-.science-head h2{margin-top:14px}
-.science-head .lead{color:var(--muted-on-dark);margin-top:18px}
-.science-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:64px}
-.sci-stat{padding:24px 20px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
-.sci-n{font-size:48px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
-.sci-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
-.sci-sub{margin-top:6px;font-size:14px;color:var(--muted-on-dark);line-height:1.5}
-.sci-note{grid-column:1/-1;margin:6px 0 2px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px}
-.sci-note p{margin:0;font-size:15px;line-height:1.6;color:var(--muted-on-dark)}
-.sci-note b{color:var(--white);font-weight:600}
-@media(max-width:860px){.sci-note{grid-template-columns:1fr;gap:14px}}
-.sci-method{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease,border-color .2s ease;margin-top:4px}
-.sci-method:hover{background:rgba(180,127,57,.15);border-color:var(--gold-soft)}
-.sci-method-left{display:flex;align-items:center;gap:16px}
-.sci-method-icon{width:44px;height:44px;border-radius:8px;background:rgba(180,127,57,.2);border:1px solid rgba(180,127,57,.4);display:grid;place-items:center;flex-shrink:0}
-.sci-method-copy .sci-method-label{font-size:16px;font-weight:600;color:var(--white);letter-spacing:-.01em}
-.sci-method-copy .sci-method-sub{font-size:14px;color:rgba(255,255,255,.6);margin-top:3px}
-.sci-method-arrow{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--gold);white-space:nowrap}
-.sci-method-arrow svg{transition:transform .2s ease}
-.sci-method:hover .sci-method-arrow svg{transform:translateX(4px)}
-@media(max-width:1100px){.science-stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:960px){.sci-method{flex-direction:column;align-items:flex-start;gap:16px}}
-@media(max-width:760px){.science-stats{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.science-stats{grid-template-columns:1fr}}
-.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:0 auto}
-.int{padding:32px 24px;text-align:center;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--line);border-radius:14px}
-.int-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
-.int-mark{height:32px;display:grid;place-items:center;margin-bottom:4px}
-.int-status{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.int.native .int-status{color:var(--gold-strong)}
-.int-more{font-size:14px;color:var(--muted);margin-top:22px;text-align:center;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6}
-.int-more a{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:0;font-weight:500}
-@media(max-width:640px){.int-grid{grid-template-columns:1fr}}
-.wl-section{padding:112px 0;background:var(--subtle)}
-@media(max-width:860px){.wl-section{padding:80px 0}}
-.wl-head{margin-bottom:56px}
-.wl-head .eyebrow{margin-bottom:14px;display:inline-block}
-.wl-head .h2{margin-bottom:16px;max-width:600px}
-.wl-head .lead{max-width:580px}
-.wl-body{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-@media(max-width:860px){.wl-body{grid-template-columns:1fr;gap:32px}}
-.wl-traits{display:grid;gap:0}
-.wl-trait{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
-.wl-trait:first-child{padding-top:0}
-.wl-trait:last-child{border-bottom:0;padding-bottom:0}
-.wl-trait-n{width:32px;height:32px;border-radius:8px;background:var(--gold-soft);border:1px solid var(--line-strong);display:grid;place-items:center;flex-shrink:0;transition:background .2s ease,border-color .2s ease}
-.wl-trait:hover .wl-trait-n{background:var(--ink);border-color:var(--ink)}
-.wl-trait:hover .wl-trait-n svg{stroke:var(--white)!important}
-.wl-trait-copy{flex:1;min-width:0;padding-top:2px}
-.wl-trait-label{font-size:14px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.2}
-.wl-trait-sub{font-size:14px;color:var(--muted);margin-top:3px;line-height:1.5}
-.wl-preview-wrap{position:sticky;top:calc(var(--nav-h) + 24px)}
-.wl-preview{border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;--p-bg:var(--ink);--p-accent:#B47F39;--p-accent-soft:rgba(180,127,57,.15);--p-accent-border:rgba(180,127,57,.5);--p-text:#ffffff;--p-text-dim:rgba(255,255,255,.55);--p-surface:rgba(255,255,255,.05);--p-border:rgba(255,255,255,.1);--p-font:"Inter","Inter var",sans-serif;--p-radius:10px;background:var(--p-bg);font-family:var(--p-font);transition:background .4s ease,color .4s ease;}
-.wl-preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.wl-preview-brand{display:flex;align-items:center;gap:9px}
-.wl-brand-logo{width:28px;height:28px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .4s ease}
-.wl-brand-logo svg,.wl-brand-logo img{width:18px;height:18px;display:block}
-.wl-preview-name{font-size:14px;font-weight:700;color:var(--p-text);letter-spacing:-.01em;transition:font-family .4s ease,color .4s ease;font-family:var(--p-font)}
-.wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--p-text-dim);background:var(--p-surface);padding:3px 8px;border-radius:999px;transition:color .4s ease,background .4s ease}
-.wl-quiz-content{display:flex;flex-direction:column;gap:12px;}
-.wl-qprog{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.wl-qprog-label{font-size:10.5px;color:var(--p-text-dim);font-weight:500;white-space:nowrap;transition:color .4s ease;font-family:var(--p-font)}
-.wl-qprog-bar{flex:1;height:2px;background:var(--p-border);border-radius:999px;overflow:hidden;transition:background .4s ease}
-.wl-qprog-fill{height:100%;width:60%;background:var(--p-accent);border-radius:999px;transition:background .4s ease}
-.wl-qtitle{font-size:16px;font-weight:600;color:var(--p-text);line-height:1.3;margin:0 0 12px;transition:color .4s ease,font-family .4s ease;font-family:var(--p-font)}
-.wl-qopts{display:grid;gap:4px}
-.wl-qopt{padding:8px 12px;border:1px solid var(--p-border);border-radius:var(--p-radius);font-size:12px;font-weight:500;color:var(--p-text-dim);background:transparent;display:flex;align-items:center;justify-content:space-between;transition:border-color .3s ease,background .3s ease,color .3s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font)}
-.wl-qopt.active{border-color:var(--p-accent);background:var(--p-accent-soft);color:var(--p-text)}
-.wl-qopt-check{width:16px;height:16px;border-radius:50%;border:1px solid var(--p-border);display:grid;place-items:center;transition:background .3s ease,border-color .3s ease}
-.wl-qopt.active .wl-qopt-check{background:var(--p-accent);border-color:var(--p-accent)}
-.wl-btn{display:inline-flex;align-self:flex-start;align-items:center;gap:4px;padding:8px 16px;background:var(--p-accent);color:#ffffff;border-radius:calc(var(--p-radius) - 2px);font-size:12px;font-weight:600;margin-top:2px;transition:background .4s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font);width:auto}
-.wl-tagline{font-size:12px;color:var(--p-text-dim);letter-spacing:.02em;transition:color .4s ease;font-family:var(--p-font)}
 /* Example switcher, sits BELOW the preview card, page-themed (not theme-scoped) so it stays visible regardless of which example is active */
 .wl-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px;padding:0 8px}
-.wl-ctrl{font-size:12px;font-weight:500;color:var(--ink-80);background:var(--white);border:1px solid var(--line);padding:8px 12px;border-radius:999px;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease;user-select:none}
-.wl-ctrl:hover{border-color:var(--line-strong);background:var(--cream);transform:translateY(-1px)}
-.wl-ctrl.active{background:var(--ink);border-color:var(--ink);color:var(--white)}
-.wl-ctrl-label{display:flex;align-items:center;gap:4px}
-.wl-ctrl-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;transition:background .3s ease}
-.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
-.tier{padding:32px 32px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:16px;position:relative;background:var(--white);border:1px solid var(--line);border-radius:16px}
-.tier.featured{background:#FBF7EE;border-color:var(--line-strong)}
-.tier.featured::before{content:"Most popular";position:absolute;top:20px;right:20px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--gold-strong);text-transform:uppercase}
-.tier-name{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
-.tier-price{font-size:40px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
-.tier-from{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px;vertical-align:baseline}
-.tier-per{font-size:14px;color:var(--muted);font-weight:400;margin-left:4px}
-.tier-vat{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
-.tier-custom{min-height:40px;display:flex;align-items:center}  /* 40, not 48: the price row on Starter and Pro is 40px, and the extra 8px
+/* 40, not 48: the price row on Starter and Pro is 40px, and the extra 8px
      here pushed Enterprise's blurb and feature list 9px below its neighbours.
      Three cards in a row that do not share a baseline read as a bug. */
 .tier-custom-label{font-size:16px;color:var(--ink-60);font-weight:500}
@@ -468,56 +198,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    cards share a baseline. stroke-width 2.5 keeps it at the same optical weight
    as a 600-weight numeral; 1.5 looked spindly beside one. */
 .tier-mark{display:flex;align-items:flex-end;gap:12px;height:40px}
-.tier-mark svg{width:38px;height:38px;flex:0 0 auto;color:var(--ink)}
-.tier-mark-note{font-size:14px;color:var(--muted);font-weight:400}
-.tier-blurb{font-size:14px;color:var(--ink-80);margin:0;min-height:44px;line-height:1.5}
-.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0}
-.tier-list li{display:flex;gap:8px;align-items:center;font-size:14px;line-height:1.5;color:var(--ink-80)}
-.tier-list li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23B47F39' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;margin-top:3px;flex-shrink:0}
-.tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
-.tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
-.tier-cta.dark{background:var(--ink);color:var(--white)}
-.tier-cta.dark:hover{background:#1f1f1f}
-.tier-cta.gold{background:var(--gold-strong);color:var(--white)}
-.tier-cta.gold:hover{background:var(--gold-hover)}.tier-cta.gold:active{background:var(--gold-active)}
-.tier-cta.outline{border:1px solid var(--line-strong);color:var(--ink);background:var(--white)}
-.tier-cta.outline:hover{border-color:var(--ink)}
-.tier-cta.is-loading{opacity:.7;cursor:wait;pointer-events:none}
-.pricing-controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
-.billing-toggle{display:inline-flex;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;position:relative}
-.billing-toggle button{padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted);background:transparent;transition:all .2s ease;cursor:pointer;position:relative;z-index:1}
-.billing-toggle button.active{color:var(--ink);background:var(--cream);border:1px solid var(--line-strong)}
-.billing-toggle button:not(.active):hover{color:var(--ink-80)}
-.billing-savings{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);padding:4px 8px;background:rgba(180,127,57,.12);color:var(--gold-strong);border-radius:8px;font-size:12px;font-weight:600;letter-spacing:.02em;white-space:nowrap;pointer-events:none}
-@media(max-width:560px){.billing-savings{position:static;transform:none;margin-top:8px;margin-left:0}}
-.tier-annual{display:block;font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
-.pricing-foot{text-align:center;margin-top:32px;font-size:14px;color:var(--muted)}
-.pricing-foot details{display:block;margin-left:0;margin-top:8px}  /* Its own line, not trailing the trial+VAT sentence. That sentence now runs
+/* Its own line, not trailing the trial+VAT sentence. That sentence now runs
      to two lines, and a toggle tacked onto the end of it read as part of the
      prose rather than as a control. */
 .pricing-foot summary{cursor:pointer;color:var(--ink);font-weight:500;border-bottom:1px solid var(--line);padding-bottom:0;display:inline;list-style:none}
-.pricing-foot summary::-webkit-details-marker{display:none}
-.pricing-foot details[open] summary{border-bottom-color:var(--ink)}
-.pricing-foot details p{margin-top:14px;color:var(--ink-80);max-width:560px;margin-left:auto;margin-right:auto;text-align:left;background:var(--white);padding:16px;border:1px solid var(--line);border-radius:8px;font-size:14px}
-@media(max-width:860px){.pricing{grid-template-columns:1fr}}
-.faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-item > summary{padding:20px 4px;font-size:16px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
-.faq-item > summary:hover{color:var(--gold-strong)}
-.faq-item > summary::-webkit-details-marker{display:none}
-.faq-item > summary::after{content:"";width:9px;height:9px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);transition:transform .25s ease,border-color .18s ease;flex-shrink:0;margin-top:9px;margin-right:4px}
-.faq-item > summary:hover::after{border-color:var(--gold-strong)}
-.faq-item[open] > summary::after{transform:rotate(-135deg);margin-top:13px}
-.faq-item[open] > summary{color:var(--ink)}
-.faq-item .faq-answer{padding:0 4px 24px;font-size:14px;color:var(--ink-80);line-height:1.7;max-width:680px}
-.faq-item .faq-answer p{margin:0 0 10px}
-.faq-item .faq-answer p:first-child{margin-top:-2px}
-.faq-item .faq-answer p:last-child{margin-bottom:0}
-.faq-item .faq-answer ul{padding-left:16px;margin:10px 0}
-.faq-item .faq-answer li{margin-bottom:6px;color:var(--ink-80)}
-.faq-item .faq-answer strong{color:var(--ink);font-weight:600}
-.faq-item .faq-answer a{color:var(--ink);border-bottom:1px solid var(--line-strong)}
-.faq-item .faq-answer a:hover{border-color:var(--ink)}
 /* ---- Who we work with -------------------------------------------------
    Not five equal tiles. Five equal tiles is the same grid of cards as the
    six steps directly above it, and it gave the one vertical that is live
@@ -529,60 +213,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    ground; the three that are not shipped yet stay neutral, so the band's
    hierarchy is the same information as its badges. */
 .vlead{background:linear-gradient(145deg,#FFFFFF 0%,#FBF8F1 58%,#F6EFE1 100%);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);display:grid;grid-template-columns:minmax(0,1fr) 210px;overflow:hidden}
-.vlead-copy{padding:34px 0 34px 32px;display:flex;flex-direction:column;align-items:flex-start}
-.vlead-shot{position:relative;margin:14px 14px 14px 24px;border-radius:14px;overflow:hidden}
-.vlead-shot img{width:100%;height:100%;object-fit:cover;display:block}
-.vlead-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#F6E6CB,#EBD5AF);color:var(--gold-active);margin-bottom:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
-.vlead-name{margin:14px 0 0;font-size:clamp(22px,2.4vw,28px);line-height:1.15;letter-spacing:-.02em;font-weight:600}
-.vlead-note{margin:12px 0 0;font-size:15px;line-height:1.6;color:var(--ink-60);max-width:46ch}
-.vlead-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:22px}
-.vlead-tags span{font-size:12.5px;font-weight:500;color:var(--gold-active);background:var(--gold-soft);border-radius:999px;padding:5px 12px}
-
-.vnext{display:flex;flex-direction:column;gap:8px}
-.vnext-cap{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-.vrow{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:13px 14px;flex:1;transition:border-color .18s ease,transform .18s ease}
-.vrow-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--subtle);color:var(--muted)}
-.vrow-name{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.005em}
-.vrow-note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.vrow-talk{background:var(--ink);border-color:var(--ink);color:var(--white)}
-.vrow-talk .vrow-icon{background:rgba(255,255,255,.1);color:var(--sand)}
-.vrow-talk .vrow-note{color:var(--muted-on-dark)}
-.vrow-talk .vbadge{background:rgba(255,255,255,.12);color:var(--white)}
-.vrow-talk:hover{transform:translateY(-2px)}
-.vrow:not(.vrow-talk):hover{border-color:var(--line-strong)}
-
-.vbadge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
-.vbadge-live{display:inline-flex;align-items:center;gap:7px;background:rgba(106,168,79,.14);color:#3F6B2E}
-.vbadge-soon{background:var(--subtle);color:var(--muted)}
 /* The one thing on this band that moves, because "live today" is the claim
    the band is making and a steady dot is how a status reads as current. */
 .vdot{width:7px;height:7px;border-radius:50%;background:var(--green-soft);animation:vpulse 2.4s ease-in-out infinite}
 @keyframes vpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.78)}}
-@media(prefers-reduced-motion:reduce){.vdot{animation:none}}
-
-@media(max-width:900px){
-  .vsplit{grid-template-columns:1fr;gap:16px}
-  .vlead{grid-template-columns:minmax(0,1fr) 170px}
-  .vlead-copy{padding:28px 0 28px 24px}
-  .vnext{gap:8px}
-}
-@media(max-width:560px){
-  .vlead{grid-template-columns:1fr;border-radius:14px}
-  .vlead-copy{padding:24px 20px 20px}
-  .vlead-shot{margin:0 20px 20px;height:150px}
-  .vlead-tags{padding-top:18px;gap:6px}
-  .vlead-tags span{font-size:12px;padding:4px 10px}
-  .vrow{grid-template-columns:34px minmax(0,1fr);row-gap:8px;padding:12px}
-  .vrow .vbadge{grid-column:2}
-  .vrow-icon{width:34px;height:34px}
-}
-.closer{padding:128px 0 72px;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(34px,4.6vw,56px)}
-.closer .lead{margin:0 auto 32px;max-width:520px}
-.closer .eyebrow{display:inline-block;margin-bottom:14px}
-.closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.closer-foot{margin-top:28px;font-size:14px;color:var(--muted)}
-.closer-foot a{color:var(--ink);border-bottom:1px solid var(--ink)}
 .footer{background:var(--ink);color:rgba(255,255,255,.72);padding:48px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -606,7 +240,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-trust-label{color:var(--gold);font-weight:600}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
- 
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
    Desktop is untouched. Tablet (761-860) swipes .personas and .pricing
@@ -680,12 +313,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .footer{padding:56px 0 24px}
   .footer-bottom{margin-top:40px}
 }
-
 html,body{max-width:100%;overflow-x:clip}
-
 @media(max-width:560px){.wrap{padding:0 20px}}
 @media(max-width:380px){.wrap{padding:0 16px}}
-
 /* ---- Tablet portrait (761-860): don't stretch ---------------------------
    Below 861 the desktop grid collapses everything to a single column, which on
    a 768-834 iPad meant ~685px-wide cards with the ESSENTIAL badge stranded at
@@ -735,7 +365,6 @@ html,body{max-width:100%;overflow-x:clip}
   .personas>:last-child,
   .pricing>:last-child{scroll-snap-align:end;margin-right:32px}
 }
-
 /* ---- Tablet (761-960): the hero goes two-up, not one-wide --------------
    Same complaint as the block above, same cause: below 961 the desktop grid
    collapses to one column, and a hero card then runs the full wrap width —
@@ -748,7 +377,6 @@ html,body{max-width:100%;overflow-x:clip}
   .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
   .quiz,.results{width:auto}
 }
-
 /* ---- Phone polish: hero density + card consistency ----------------------
    Follow-up to the stacking fix. Once the sections stacked correctly the
    remaining complaints were "hero looks jammed" and "cards a bit weird".
@@ -783,7 +411,6 @@ html,body{max-width:100%;overflow-x:clip}
   .routine-item .routine-tag{order:2}
   .routine-item .routine-qty{order:3}
 }
-
 /* ---- Phone: horizontal card decks ---------------------------------------
    Restores the swipe decks that shipped in 4e9ee16 and that I wrongly removed
    in #45, and fixes the two things that made them read as broken rather than
@@ -834,7 +461,6 @@ html,body{max-width:100%;overflow-x:clip}
   .pricing>:last-child{scroll-snap-align:end}
 
 }
-
 /* Deck affordance. Deliberately NOT media-gated: the dots only exist when the
    deck script builds them, and it builds them at any width where a deck really
    overflows (<=860). Gating the styling at 760 left the tablet decks with dots
@@ -848,23 +474,6 @@ html,body{max-width:100%;overflow-x:clip}
   margin-top:2px;
   padding:0;
 }
-.deck-dots button{
-  width:7px;height:7px;
-  padding:0;border:0;border-radius:999px;
-  background:var(--ink);
-  opacity:.18;
-  transition:opacity .2s ease,transform .2s ease;
-  cursor:pointer;
-}
-.deck-dots button[aria-current="true"]{opacity:.75;transform:scale(1.25)}
-/* the dot row is the visible target; the tap area around it stays 44px */
-.deck-dots button::before{
-  content:"";position:absolute;
-  width:32px;height:32px;
-  margin:-13px 0 0 -13px;
-}
-.deck-dots button{position:relative}
-
 /* Bleed has to equal the .wrap gutter at each step or the deck hangs off the
    edge. 561-760 keeps 32px; below that the gutter narrows and so does this. */
 @media (max-width:560px){
@@ -874,14 +483,6 @@ html,body{max-width:100%;overflow-x:clip}
     scroll-padding-left:20px;
   }
 }
-@media (max-width:380px){
-  .hero-stage,.split,.personas,.pricing{
-    margin-left:-16px;margin-right:-16px;
-    padding-left:16px;padding-right:16px;
-    scroll-padding-left:16px;
-  }
-}
-
 /* ---- Phone density pass --------------------------------------------------
    1. The two outcome cards ran 946px against an 844px viewport. The customers
       card is the taller of the two intrinsically (946 vs 810), and its "With
@@ -921,10 +522,6 @@ html,body{max-width:100%;overflow-x:clip}
   .sci-stat .sci-sub{font-size:12px;line-height:1.45}
   .science-stats{gap:12px}
 }
-@media (min-width:561px){
-  .report-card-pill .pill-narrow{display:none}
-}
-
 /* Trailing breathing room for the last card in each deck. Must pair a real
    margin (extends the scroll range) with scroll-padding-right (insets where
    end-snapping lands); either alone leaves the card flush. */
@@ -935,21 +532,6 @@ html,body{max-width:100%;overflow-x:clip}
   .personas>:last-child,
   .pricing>:last-child{margin-right:32px}
 }
-@media (max-width:560px){
-  .hero-stage,.split,.personas,.pricing{padding-right:0;scroll-padding-right:20px}
-  .hero-stage>:last-child,
-  .split>:last-child,
-  .personas>:last-child,
-  .pricing>:last-child{margin-right:20px}
-}
-@media (max-width:380px){
-  .hero-stage,.split,.personas,.pricing{padding-right:0;scroll-padding-right:16px}
-  .hero-stage>:last-child,
-  .split>:last-child,
-  .personas>:last-child,
-  .pricing>:last-child{margin-right:16px}
-}
-
 /* ---- Phone hero: one full screen, centred ------------------------------
    The hero copy now owns the entire first screen and the card deck starts
    below the fold, so nothing peeks. Previously 346px of the deck was visible
@@ -1050,10 +632,6 @@ html,body{max-width:100%;overflow-x:clip}
   0%,100%{transform:rotate(45deg) translate(0,0);opacity:.3}
   50%{transform:rotate(45deg) translate(3px,3px);opacity:.62}
 }
-@media (prefers-reduced-motion:reduce){
-  .hero .hero-copy::after{animation:none}
-}
-
 /* Short phones. At 320x568 the hero copy needed 620px against 499px of usable
    height, so "Built for trust" fell below the fold and the brief was not met.
    The overflow is not the copy itself but what a narrow screen does to it: the
@@ -1081,7 +659,6 @@ html,body{max-width:100%;overflow-x:clip}
      three small texts on screen at 568px tall. Nothing to override here. */
   .hero .hero-copy::after{display:none}
 }
-
 /* ---- Phone hero: subtle wash into the background ------------------------
    A warm tint at the top of the hero that resolves to flat --cream before the
    first screen ends, so the hero settles into the page background rather than
@@ -1167,15 +744,12 @@ html,body{max-width:100%;overflow-x:clip}
   }
   .hero{background:transparent;border-bottom:0}
 }
-
 @keyframes hero-wash{
   from{transform:translate3d(-7%,1%,0) scale(1.08)}
   to{transform:translate3d(7%,-4%,0) scale(1.20)}
 }
 @media (prefers-reduced-motion:reduce){
-  body::before{animation:none}
-}
-
+  body::before{animation:none}}
 /* ---- Phone: scoring model and FAQ compaction ----------------------------
    Scoring model. The section ran 1.54 screens: a 171px head, five 137px cards,
    a 153px methodology block and 112px of section padding. Target was one view,
@@ -1224,26 +798,19 @@ html,body{max-width:100%;overflow-x:clip}
 /* Breadcrumb and current-page nav state, previously only in the sub-page
    stylesheets. Here because the new pages clone this one. */
 .crumb{padding:20px 0 0;font-size:12px;color:var(--muted)}
-.crumb a{color:var(--muted);border-bottom:1px solid transparent}
-.crumb a:hover{color:var(--ink);border-bottom-color:var(--line-strong)}
-.crumb-sep{color:var(--line-strong);margin:0 8px}
 .nav-links a.active{color:var(--ink);font-weight:600}
-
 /* A visible link on every step box, not a plus that appears on hover. Touch
    has no hover, so a hover-only affordance tells half the audience nothing. */
 
 /* /how-it-works: one block per step. The step marker is the only new
    element; what sits under it are sections that used to be on the homepage. */
 .hw-hero{padding:56px 0 64px;background:var(--cream);border-bottom:1px solid var(--line)}
-.hw-title{margin-top:14px;max-width:820px}
-.hw-hero .lead{margin-top:18px;max-width:600px}
 /* ---- FAQ: four groups across two columns -----------------------------
    Fourteen questions in one column ran 900px of mostly whitespace and gave
    a reader no way in. Grouped, the same information is half the height and
    says what each part is about before it is opened. */
 @media(max-width:860px){
 }
-
 /* ---- Hero: the brand mark and the product deck -----------------------
    The quiz card carries the same B. mark the editor puts on a brand's own
    quiz, so the two surfaces read as the same product.
@@ -1256,21 +823,9 @@ html,body{max-width:100%;overflow-x:clip}
    `animation:none !important`, which reaches css and cannot reach a
    setInterval. Frozen, the deck sits on the first card. */
 .qprog{display:flex;align-items:center;gap:12px}
-.qprog .qprog-bar{flex:1}
 /* The real letterforms, lifted from the wordmark rather than set as text,
    so the dot is the brand's circle and not a full stop. */
 .qbrand{flex-shrink:0;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--white)}
-.qbrand-mark{width:16px;height:auto;display:block}
-/* The quiz card is the one that shipped; only its proportions changed.
-   The filled-circle tick came back with it. */
-.qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .38s cubic-bezier(.2,.7,.25,1),border-color .38s cubic-bezier(.2,.7,.25,1)}
-.qopt-check svg{width:9px;height:9px;opacity:0;transform:scale(.4);transition:opacity .3s cubic-bezier(.2,.7,.25,1),transform .3s cubic-bezier(.2,.7,.25,1)}
-.qopt.active .qopt-check{background:var(--ink);border-color:var(--ink)}
-.qopt.active .qopt-check svg{opacity:1;transform:scale(1)}
-.qopt.active .qopt-check svg path{stroke:var(--white)!important}
-.qopts{margin-top:18px;display:grid;gap:10px;flex:1;align-content:start}
-.qopt{min-height:50px}
-
 /* Three bands of the same card, spaced evenly: who it is for, the plan,
    and where you are in it. The photo is gone, which is what buys the room
    for a description, a reason and a timing line without crowding. */
@@ -1278,20 +833,10 @@ html,body{max-width:100%;overflow-x:clip}
    the quiz rather than beside it. The content is what it became; only the
    proportions went back. */
 .rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.rbrand{flex-shrink:0;color:var(--white)}
-.rbrand .qbrand-mark{width:17px}
-.rlabel{font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(231,207,163,.7)}
-.rtitle{margin-top:8px;font-size:18px;font-weight:600;line-height:1.1;letter-spacing:-.022em;color:#F5F3EF}
-.rprofile{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
-.rprofile span{font-size:9.5px;font-weight:500;color:#AAA69E;background:rgba(255,255,255,.035);
-  border:1px solid #30302D;border-radius:999px;padding:4px 10px;white-space:nowrap}
-
 /* The gap lives on the card, and the deck pulls back by the same amount, so
    two cards never touch mid-swipe and the resting card still lines up with
    the edges of the one it sits in. */
 .pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px}
-.pc-track{display:flex;width:600%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
-.pc-slide{width:16.6667%;flex:0 0 16.6667%;display:flex}
 @keyframes pc-swipe{
   0%,15%{transform:translateX(0)}
   18%,33%{transform:translateX(-16.6667%)}
@@ -1300,70 +845,26 @@ html,body{max-width:100%;overflow-x:clip}
   72%,87%{transform:translateX(-66.6667%)}
   90%,100%{transform:translateX(-83.3334%)}
 }
-.pc>*{flex-shrink:0}
-.pc{flex:1;min-height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
-  background:#171717;border:1px solid #30302D;border-radius:13px;color:#F5F3EF}
-.pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
-  letter-spacing:.15em;text-transform:uppercase;color:#89867F}
 /* The shot squares up with the two lines beside it rather than setting its
    own height, so adding it cost the card nothing: badge + name already
    measured 37px. */
 .pc-head{display:flex;align-items:center;gap:10px}
-.pc-shot{flex:0 0 37px;width:37px;height:37px;border-radius:8px;overflow:hidden;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16)}
-.pc-shot img{display:block;width:100%;height:100%;object-fit:cover}
-.pc-headtext{min-width:0;flex:1}
-.pc-badge,.pc-name{display:block}
-.pc-name{margin-top:6px;font-size:17px;font-weight:600;letter-spacing:-.018em;line-height:1.2;color:#F5F3EF;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-tags{display:flex;align-items:center;gap:9px;margin-top:12px;overflow:hidden}
-.pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:#89867F;padding:4px 0;white-space:nowrap}
-.pc-tag.is-match{flex:0 0 auto}
-.pc-tag:not(.is-match){min-width:0;overflow:hidden;text-overflow:ellipsis}
-.pc-tag.is-match{color:rgba(231,207,163,.92);background:rgba(180,127,57,.18);
-  border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:4px 10px}
-.pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em}
 /* two auto margins, so the free space splits evenly above the divider and
    above the button instead of piling up under a short reason. */
 .pc-rule{height:1px;background:#30302D;margin:auto 0 0}
-
 /* Why, When and Serving on one grid, so the values start at the same x even
    when the reason runs to two lines. */
 .pc-facts{display:grid;gap:8px;margin:13px 0 0;font-size:10.5px;line-height:1.45}
-.pc-fact{display:grid;grid-template-columns:42px minmax(0,1fr);gap:5px}
 /* side by side when the card can hold two of them, stacked when it cannot —
    auto-fit does that without a breakpoint, and at 320px "With meal" was
    wrapping onto a second line rather than giving up the pairing. */
 .pc-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:5px 10px}
-.pc-facts dt{font-weight:600;color:#89867F;white-space:nowrap}
-.pc-facts dd{margin:0;color:#AAA69E}
-.pc-fact-why dd{min-height:2.9em}
-.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.01em;
-  color:#F5F3EF;background:rgba(180,127,57,.78);border-radius:8px;padding:8px 14px}
-
-/* the one slide with no reason to clamp a description */
-.pc-gaps .pc-desc{min-height:0}
-.nb{margin-top:12px;display:grid;gap:9px}
 /* fixed tracks either side, so every bar starts and ends at the same x */
 .nb-row{display:grid;grid-template-columns:62px minmax(0,1fr) 30px;align-items:center;gap:10px;font-size:10.5px;line-height:1.3}
-.nb-n{color:#AAA69E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nb-bar{height:5px;border-radius:2.5px;background:#30302D;overflow:hidden}
-.nb-bar i{display:block;height:100%;border-radius:2.5px;background:#605E58}
-.nb-bar i.is-mid{background:var(--gold)}
-.nb-bar i.is-low{background:var(--red-soft)}
-.nb-v{text-align:right;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";color:#AAA69E;font-weight:500}
-.nb-v.is-mid{color:#C79256}
-.nb-v.is-low{color:#DE7259}
-
-@media(prefers-reduced-motion:reduce){.pc-track{animation:none !important}}
 @media(max-width:560px){
-  .pc{min-height:292px}
-  .rtitle{font-size:20px}
   /* the breakdown's description takes a second line at this width, and the
      card is nine pixels shorter; the rows give that back. */
-  .nb{gap:7px}
-}
-
+  .nb{gap:7px}}
 /* ---- The engine band -------------------------------------------------
    Three feeds of the same height: answers coming in, the catalogue being
    scored, the plan going out. Not three cards, because every other section
@@ -1381,8 +882,6 @@ html,body{max-width:100%;overflow-x:clip}
    The first version of this band used a setInterval and the harness caught
    it mid-capture. Frozen, every feed sits at its first frame. */
 .eng{display:grid;grid-template-columns:210px minmax(0,1fr) 272px;gap:0 26px;margin-top:56px;align-items:start}
-.eng-cap{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px}
-
 /* The two word feeds. Not a scroll: words appear and fade at staggered
    times, the same effect the catalogue grid uses, so all three bands read
    as one mechanism rather than two tickers either side of a chart.
@@ -1395,104 +894,46 @@ html,body{max-width:100%;overflow-x:clip}
 .eng-feed{height:240px;position:relative;overflow:hidden;
   -webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);
           mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
-.eng-track{display:flex;flex-direction:column;gap:11px;animation:eng-drift 44s linear infinite}
 @keyframes eng-drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
-.eng-word{white-space:nowrap;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.4);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
-.eng-word.is-key{color:var(--white);font-weight:600}
 /* Conditions and medications: the signals that rule products out, which is
    the half of the mechanism the grid's red cells are showing. */
 .eng-word.is-gate{color:#F97066}
-.eng-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.eng-name{font-style:normal;overflow:hidden;text-overflow:ellipsis}
-.eng-val{font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
-.eng-val.is-ok{color:#75E0A7}
-.eng-val.is-low{color:#F97066}
-.eng-badge{font-style:normal;font-size:9.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:2px 6px;white-space:nowrap}
 /* Each word fades out and back on its own clock while it travels, so
    the two effects run at once and neither has a rhythm to follow. */
 @keyframes eng-word{0%,24%{opacity:1}36%,54%{opacity:0}66%,100%{opacity:1}}
-
-/* the catalogue */
-.eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
-.eng-cell{display:block;border-radius:2px;background:rgba(180,127,57,var(--o))}
-.eng-cell.g{animation:eng-pick 9s linear infinite}
-.eng-cell.r{animation:eng-drop 9s linear infinite}
-.eng-cell.p{animation:eng-pulse 9s linear infinite}
 @keyframes eng-pick{0%,5%{background:rgba(180,127,57,var(--o))}8%,15%{background:#75E0A7}22%,100%{background:rgba(180,127,57,var(--o))}}
 @keyframes eng-drop{0%,5%{background:rgba(180,127,57,var(--o))}8%,15%{background:#B42318}24%,92%{background:rgba(180,127,57,.05)}100%{background:rgba(180,127,57,var(--o))}}
 @keyframes eng-pulse{0%,12%{background:rgba(180,127,57,var(--o))}18%,26%{background:rgba(180,127,57,.95)}36%,100%{background:rgba(180,127,57,var(--o))}}
-
 /* Figures, not stat boxes, so the band stays the one thing on this page
    that is not a grid of cards. */
 /* Four statements, not four figures. The numbers that used to sit here were
    the wellness model's, and this band has to describe how every algorithm
    works. They live on /science with the rest of the evidence. */
 .eng-figs{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px}
-.eng-fig{padding-top:20px;border-top:1px solid rgba(255,255,255,.2)}
-.eng-fig-t{margin:0;font-size:16px;font-weight:600;line-height:1.35;letter-spacing:-.01em;color:var(--white)}
-.eng-fig-s{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--muted-on-dark)}
-
 /* A row is as wide as its column, and at 373px the name and the figure fly
    to opposite edges with a hand's width of nothing between them. Capping
    the track keeps a plan row the same shape at every size. */
 .eng-plan .eng-track{max-width:300px}
-
 @media(max-width:1000px){
   /* Three bands abreast would leave the grid 236px for 24 columns, so the
      catalogue goes full width on top and the two feeds sit under it. */
   .eng{grid-template-columns:1fr 1fr;gap:34px 26px}
-  .eng-band:nth-child(2){grid-column:1/-1;order:-1}
   /* Stacked, the bands no longer need to match heights, so the grid sizes
      from its own column count and the cells come out square. */
-  .eng-grid{height:auto;aspect-ratio:24/10}
-  .eng-feed{height:208px}
-  .eng-figs{grid-template-columns:1fr 1fr;gap:28px}
-}
+  .eng-grid{height:auto;aspect-ratio:24/10}}
 @media(max-width:560px){
-  .eng{grid-template-columns:1fr;margin-top:40px;gap:26px}
   /* 24 columns on a 350px screen is a 11px cell, too small to read a gate
      firing. 16 across reflows the same 240 cells into 15 rows at twice the
      size, and the aspect ratio keeps them square. */
-  .eng-grid{grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(15,1fr);aspect-ratio:16/15;gap:3px}
-  .eng-feed{height:172px}
-  .eng-word{font-size:13px}
-  .eng-plan .eng-track{max-width:none}
-  .eng-figs{grid-template-columns:1fr;gap:24px;margin-top:40px}
-}
+  .eng-grid{grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(15,1fr);aspect-ratio:16/15;gap:3px}}
 @media(prefers-reduced-motion:reduce){
   /* Every feed holds its first frame, so the band is a complete picture
      rather than an empty one. */
-  .eng-track,.eng-word,.eng-cell{animation:none !important}
-}
-
+  .eng-track,.eng-word,.eng-cell{animation:none !important}}
 /* The homepage engine block: three ideas, no boxes. Every other band on that
    page is a grid of cards, so this one is deliberately not one. */
 .sci-points{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px}
-.sci-point{padding-top:22px;border-top:1px solid rgba(255,255,255,.2)}
-.sci-point h3{margin:0 0 10px;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--white)}
-.sci-point p{margin:0;font-size:15px;line-height:1.62;color:var(--muted-on-dark)}
-.science .sci-method{margin-top:48px}
-@media(max-width:860px){
-  .sci-points{grid-template-columns:1fr;gap:26px;margin-top:40px}
-  .sci-point{padding-top:18px}
-  .science .sci-method{margin-top:32px}
-}
 section[id^="step-"]{scroll-margin-top:var(--nav-h)}
-.hw-head{margin-bottom:48px}
-.hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-active)}
-.hw-n::before{content:"";width:24px;height:1px;background:var(--line-strong)}
-.hw-head .h2{margin-top:14px;max-width:760px}
-.hw-head .lead{margin-top:14px;max-width:720px}
-.hw-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.hw-col{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px 24px;box-shadow:var(--shadow-sm)}
-.hw-col h3{margin:0 0 8px;font-size:16px;font-weight:600;letter-spacing:-.01em}
-.hw-col p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-60)}
-@media(max-width:860px){
-  .hw-hero{padding:40px 0 48px}
-  .hw-head{margin-bottom:32px}
-  .hw-cols{grid-template-columns:1fr;gap:14px}
-  .hw-col{padding:22px 20px}
-}
 /* ======================================================================
    /science, rebuilt
    ----------------------------------------------------------------------
@@ -1506,118 +947,39 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    ====================================================================== */
 /* The hero is the shared PageHero: /page-hero.css. */
 .ph{--ph-figs:4}
-
-/* ---- sections -------------------------------------------------------- */
-.sx-sec{padding:var(--sec,88px) 0}
-.sx-sec--beige{background:var(--hero-beige)}
-.sx-head{max-width:720px;margin:0 auto 48px;text-align:center}
-.sx-head .eyebrow{display:inline-block;margin-bottom:14px}
-.sx-head .h2{margin-bottom:16px}
-.sx-head .lead{margin-left:auto;margin-right:auto;max-width:600px}
-
-/* ---- the worked example ---------------------------------------------- */
-.sx-who{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 auto 36px;max-width:820px}
-.sx-chip{font-size:12.5px;font-weight:500;color:var(--ink-80);background:var(--hero-beige);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
-.sx-chip b{font-weight:600;color:var(--ink)}
-
-.sx-funnel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:820px;margin:0 auto 40px}
-.sx-fstep{text-align:center;padding:20px 16px;border:1px solid var(--line);border-radius:14px;background:var(--white);position:relative}
-.sx-fstep + .sx-fstep::before{content:"";position:absolute;left:-13px;top:50%;width:14px;height:1px;background:var(--line-strong)}
-.sx-fn{font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
-.sx-flabel{margin-top:8px;font-size:13px;color:var(--ink-60);line-height:1.45}
-
 /* The six steps are tabs: one run, six views of it, and the whole trace is
    in the page rather than fetched, so it is there with scripting off too. */
 .sx-steps{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:0 auto 24px;max-width:900px}
-.sx-step{display:inline-flex;align-items:baseline;gap:8px;padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:13.5px;font-weight:500;color:var(--ink-80);cursor:pointer;font-family:inherit;transition:border-color .16s ease,background .16s ease,color .16s ease}
-.sx-step:hover{border-color:var(--line-strong)}
-.sx-step[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
-.sx-step:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sx-step-n{font-size:11.5px;font-weight:600;letter-spacing:.04em;opacity:.55;font-feature-settings:"tnum"}
-
-.sx-panel{max-width:900px;margin:0 auto;border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
-.sx-panel-head{padding:18px 24px;border-bottom:1px solid var(--line);background:var(--subtle);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.sx-panel-t{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sx-panel-c{font-size:12.5px;color:var(--ink-60);font-feature-settings:"tnum"}
-.sx-line{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;padding:14px 24px;border-bottom:1px solid var(--line);align-items:baseline}
-.sx-line:last-child{border-bottom:0}
-.sx-ltext{font-size:14.5px;color:var(--ink);line-height:1.45}
-.sx-lvalue{font-size:14px;font-weight:600;letter-spacing:-.005em;white-space:nowrap;font-feature-settings:"tnum";text-align:right}
-.sx-lsource{grid-column:1/-1;font-size:12.5px;color:var(--ink-60);line-height:1.5}
-.sx-foot{max-width:900px;margin:18px auto 0;font-size:13px;color:var(--ink-60);text-align:center;line-height:1.6}
-
 /* ---- the gates ------------------------------------------------------- */
 /* align-items:start, or the one-gate card is stretched to the height of
    the nine-gate card beside it and reads as mostly empty. */
 .sx-gates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto;align-items:start}
-.sx-gate{border:1px solid var(--line);border-radius:14px;background:var(--white);padding:22px 22px 20px}
-.sx-gate-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.sx-gate-name{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sx-gate-n{font-size:12px;font-weight:600;color:var(--gold-strong);background:var(--gold-soft);border-radius:999px;padding:3px 9px;font-feature-settings:"tnum"}
-.sx-gate ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.sx-gate li{font-size:13.5px;color:var(--ink-80);line-height:1.45;padding-left:16px;position:relative}
-.sx-gate li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:1px;background:var(--line-strong)}
-.sx-aside{border:1px solid var(--line-strong);border-radius:14px;padding:22px;background:transparent}
-.sx-aside h3{margin:0 0 8px;font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sx-aside p{margin:0;font-size:13.5px;color:var(--ink-80);line-height:1.6}
-.sx-aside-list{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
-.sx-aside-list span{font-size:12.5px;color:var(--ink-60);background:var(--subtle);border-radius:999px;padding:4px 11px}
-
-/* ---- thresholds ------------------------------------------------------ */
-.sx-tw{max-width:900px;margin:0 auto;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
-.sx-th{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
-.sx-th th{text-align:left;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:16px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
-.sx-th td{padding:15px 20px;border-bottom:1px solid var(--line);color:var(--ink-80);font-feature-settings:"tnum"}
-.sx-th tr:last-child td{border-bottom:0}
-.sx-th td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
-.sx-strict{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
-.sx-strict.is-strict{color:#8A4B2A;background:rgba(190,110,60,.12)}
-.sx-strict.is-lenient{color:#4A6B3A;background:rgba(94,142,62,.12)}
-.sx-prose{max-width:720px;margin:0 auto 40px}
-.sx-prose p{margin:0 0 14px;font-size:15px;line-height:1.65;color:var(--ink-80)}
-.sx-prose p:last-child{margin-bottom:0}
-.sx-prose b{color:var(--ink);font-weight:600}
-
-/* ---- sources --------------------------------------------------------- */
-.sx-src{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;max-width:1100px;margin:0 auto}
-.sx-card{display:block;border:1px solid var(--line);border-radius:14px;background:var(--white);padding:24px;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
-a.sx-card:hover{border-color:var(--line-strong);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.05)}
-.sx-card-role{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-strong)}
-.sx-card-n{margin-top:12px;font-size:22px;font-weight:600;letter-spacing:-.018em}
-.sx-card-f{margin-top:6px;font-size:13.5px;color:var(--ink-60);line-height:1.5}
-.sx-card-l{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--gold-strong);display:inline-flex;gap:4px;align-items:center}
-.sx-card-l::after{content:"\2197";transition:transform .2s ease}
-a.sx-card:hover .sx-card-l::after{transform:translate(2px,-2px)}
-@media (prefers-reduced-motion:reduce){a.sx-card,a.sx-card:hover,.sx-card-l::after{transition:none;transform:none}}
-
 /* ---- the goal map, on the new rhythm --------------------------------- */
 .gm.sx-gm{background:var(--white);padding:var(--sec,88px) 0}
-
-/* ---- the endcap ------------------------------------------------------ */
-.closer{padding:88px 0 72px;text-align:center;background:var(--hero-beige);border-top:0}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(28px,3.4vw,42px)}
-.closer .closer-foot{color:rgba(255,255,255,.6)}
-.closer .closer-foot a{color:var(--white);border-bottom-color:rgba(255,255,255,.4)}
 .footer{position:relative;overflow:hidden;background:var(--hero-beige);padding:48px 0 32px}
 .nav{--nav-bg:var(--hero-tint,var(--hero-beige))}
-
 /* ---- narrow ---------------------------------------------------------- */
 @media (max-width:980px){
   .sx-gates{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sx-src{grid-template-columns:1fr 1fr}
   .sx-src .sx-card:first-child{grid-column:1/-1}
 }
-@media (max-width:760px){
-  .sx-funnel{grid-template-columns:minmax(0,1fr);gap:10px}
-  .sx-fstep + .sx-fstep::before{left:50%;top:-11px;width:1px;height:12px}
-  .sx-gates,.sx-src{grid-template-columns:minmax(0,1fr)}
-  .sx-steps{gap:5px}
-  .sx-step{padding:8px 13px;font-size:13px}
-  .sx-line{padding:13px 18px}
-  .sx-panel-head{padding:16px 18px}
-  .sx-lvalue{text-align:left}
-  .sx-line{grid-template-columns:minmax(0,1fr)}
-}
+/* ---- the page's own ground, and the bar over it -----------------------
+   The whole page is black, so the hero card is black on black and the bar
+   has to be too: --hero-tint is what .sc-hero paints and what the nav
+   reads, and the scrolled state goes dark rather than white. */
+:root{--hero-tint:#0A0A0A}
+body{background:#0A0A0A}
+.nav.scrolled{background:rgba(10,10,10,.82)}
+.nav .nav-links a{color:#B9B1A4}
+.nav .nav-links a:hover,.nav .nav-links a.active{color:#EDE6DA}
+.nav .nav-login{color:#B9B1A4}
+.nav .nav-login:hover{color:#EDE6DA}
+.nav .logo svg{filter:brightness(0) invert(1)}
+.nav.scrolled{border-bottom-color:rgba(255,255,255,.1)}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after,.nav-toggle span i{background:#EDE6DA}
+@media(max-width:860px){.nav-links{background:rgba(10,10,10,.98);border-bottom-color:rgba(255,255,255,.1)}
+  .nav-links a{border-bottom-color:rgba(255,255,255,.1)}}
 </style>
 </head>
 <body>
@@ -1640,258 +1002,239 @@ a.sx-card:hover .sx-card-l::after{transform:translate(2px,-2px)}
 </header>
 
 
-<main id="main">
-<section class="ph sc-hero" data-sc="hero">
+<main id="main" class="sci">
+<!-- science:body -->
+<section class="ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
     <div class="ph-inner">
-      <span class="eyebrow">The model</span>
+      <span class="eyebrow">The science</span>
       <h1 class="h1">A scoring model you can audit, line by line.</h1>
-      <p class="lead">Every recommendation is a number the engine worked out, against a target it can cite, over a catalogue it has read in full. This page shows the working: one real run end to end, every gate that can refuse a product, the bar each nutrient has to clear, and where the reference values come from.</p>
-      <p class="ph-meta"><!-- science:model --><b>Blend Wellness Model</b> <span class="ph-dot" aria-hidden="true"></span> v1.0.0 <span class="ph-dot" aria-hidden="true"></span> API contract 2.0 <span class="ph-dot" aria-hidden="true"></span> <span class="ph-live">Live</span><!-- /science:model --></p>
+      <p class="lead">One model per category. Every pick scored, safety-checked and explained.</p>
+      <div class="sci-seg" role="tablist" aria-label="Category"><button type="button" role="tab" class="sci-seg-btn" data-vertical="health" aria-selected="true">Health and wellness</button><button type="button" role="tab" class="sci-seg-btn" data-vertical="beauty" aria-selected="false" disabled>Beauty<span class="sci-tip" role="tooltip">Coming soon</span></button><button type="button" role="tab" class="sci-seg-btn" data-vertical="food" aria-selected="false" disabled>Food<span class="sci-tip" role="tooltip">Coming soon</span></button><button type="button" role="tab" class="sci-seg-btn" data-vertical="fashion" aria-selected="false" disabled>Fashion<span class="sci-tip" role="tooltip">Coming soon</span></button></div>
+      <p class="ph-meta"><b>Blend Wellness Model</b> <span class="ph-dot" aria-hidden="true"></span> <span class="ph-live">Live</span></p>
       <div class="ph-ctas">
-        <a href="#worked" class="btn btn-primary btn-lg">See a run, step by step</a>
-        <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology%20documentation" class="btn btn-ghost btn-lg">Request the methodology</a>
+        <a href="#run" class="btn btn-primary btn-lg">See a real run</a>
+        <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-ghost btn-lg">Request the methodology</a>
       </div>
     </div>
-    <div class="ph-figs">
-<!-- science:stats -->
-      <div class="ph-fig"><div class="ph-fig-n">200+</div><div class="ph-fig-label">Products audited</div><div class="ph-fig-sub">Standardised so every score is comparable across the catalogue.</div></div>
-      <div class="ph-fig"><div class="ph-fig-n">25</div><div class="ph-fig-label">Product attributes</div><div class="ph-fig-sub">Ingredients, dosing, evidence, contraindications and synergies, all scored.</div></div>
-      <div class="ph-fig"><div class="ph-fig-n">17</div><div class="ph-fig-label">Safety gates</div><div class="ph-fig-sub">Any one of them can take a product out before ranking begins.</div></div>
-      <div class="ph-fig"><div class="ph-fig-n">42</div><div class="ph-fig-label">Nutrients per person</div><div class="ph-fig-sub">Each with a target worked out for that person, not a population.</div></div><!-- /science:stats -->
+    <div class="ph-figs" data-figs>
+      <div class="ph-fig"><div class="ph-fig-n" data-count-to="223" data-count-text="200+">200+</div><div class="ph-fig-label">Products audited for safety and composition</div></div>
+      <div class="ph-fig"><div class="ph-fig-n" data-count-to="25" data-count-text="25">25</div><div class="ph-fig-label">Attributes recorded for every product in a brand&#8217;s catalogue</div></div>
+      <div class="ph-fig"><div class="ph-fig-n" data-count-to="17" data-count-text="17">17</div><div class="ph-fig-label">Safety checks every product passes</div></div>
+      <div class="ph-fig"><div class="ph-fig-n" data-count-to="42" data-count-text="42">42</div><div class="ph-fig-label">Nutrients modelled and reported per person</div></div>
     </div>
   </div>
-  <button type="button" class="sc-cue" data-sc-cue="#worked" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button type="button" class="sc-cue" data-sc-cue="#how" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 
-<section class="sx-sec" id="worked">
+<section class="sci-sec" id="how">
   <div class="wrap">
-    <div class="sx-head">
-      <span class="eyebrow">One run, end to end</span>
-      <h2 class="h2">Watch the engine make a decision.</h2>
-      <p class="lead">A real run against the Blend demo catalogue, captured as it happened. Not an illustration of one: every line below came out of the engine.</p>
+    <div class="sci-head sci-in">
+      <span class="eyebrow">Every category</span>
+      <h2 class="h2">How every Blend model decides.</h2>
     </div>
-<!-- science:trace -->
-    <div class="sx-who"><span class="sx-chip"><b>Jane</b></span><span class="sx-chip">Diet <b>Vegetarian</b></span><span class="sx-chip">Activity <b>Very Active</b></span><span class="sx-chip">Body mass <b>Healthy Weight</b></span><span class="sx-chip">Condition <b>Diabetes</b></span><span class="sx-chip">Goals <b>Gut Health, Stress</b></span><span class="sx-chip">Health score <b>87 / 100 Excellent</b></span></div>
-    <div class="sx-funnel">
-      <div class="sx-fstep"><div class="sx-fn">54</div><div class="sx-flabel">Products in the demo catalogue scored</div></div>
-      <div class="sx-fstep"><div class="sx-fn">35</div><div class="sx-flabel">Candidates surviving the safety gates</div></div>
-      <div class="sx-fstep"><div class="sx-fn">8</div><div class="sx-flabel">Recommended (top of the ranking)</div></div>
+    <div class="sci-flow sci-in" aria-hidden="true"><span>Customer answers</span><span>Your full catalogue</span><span>Research data</span><span>Your rules</span><span>Safety checks</span><span>A reason</span></div>
+    <div class="sci-pipe">
+      <div class="sci-node"><div class="sci-node-n">01</div><h3 class="sci-node-t">Built around each customer</h3><p class="sci-node-p">Answers shape every score, so the plan fits the person, not a segment.</p></div>
+      <div class="sci-node"><div class="sci-node-n">02</div><h3 class="sci-node-t">Your entire catalogue</h3><p class="sci-node-p">Every product is evaluated, not a shortlist.</p></div>
+      <div class="sci-node"><div class="sci-node-n">03</div><h3 class="sci-node-t">Research behind the data</h3><p class="sci-node-p">Every value traces to a published source.</p></div>
+      <div class="sci-node"><div class="sci-node-n">04</div><h3 class="sci-node-t">Your controls</h3><p class="sci-node-p">Tune attributes, priorities and rules to your brand.</p></div>
+      <div class="sci-node"><div class="sci-node-n">05</div><h3 class="sci-node-t">Safety beyond settings</h3><p class="sci-node-p">No configuration can switch the checks off.</p></div>
+      <div class="sci-node"><div class="sci-node-n">06</div><h3 class="sci-node-t">A methodology you can inspect</h3><p class="sci-node-p">Request the full report.</p></div>
     </div>
-    <div class="sx-steps" role="tablist" aria-label="The steps of one run">
-      <button type="button" class="sx-step" role="tab" id="sx-tab-1" aria-controls="sx-panel-1" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">01</span>Signals</button>
-      <button type="button" class="sx-step" role="tab" id="sx-tab-2" aria-controls="sx-panel-2" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">02</span>Targets</button>
-      <button type="button" class="sx-step" role="tab" id="sx-tab-3" aria-controls="sx-panel-3" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">03</span>Gaps</button>
-      <button type="button" class="sx-step" role="tab" id="sx-tab-4" aria-controls="sx-panel-4" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">04</span>Scoring</button>
-      <button type="button" class="sx-step" role="tab" id="sx-tab-5" aria-controls="sx-panel-5" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">05</span>Gates</button>
-      <button type="button" class="sx-step" role="tab" id="sx-tab-6" aria-controls="sx-panel-6" aria-selected="false" tabindex="-1"><span class="sx-step-n" aria-hidden="true">06</span>Plan</button>
-    </div>
-      <div class="sx-panel" id="sx-panel-1" role="tabpanel" aria-labelledby="sx-tab-1" tabindex="0">
-        <div class="sx-panel-head"><span class="sx-panel-t">Signals</span><span class="sx-panel-c">Step 1 of 6</span></div>
-        <div class="sx-line"><span class="sx-ltext">Diet</span><span class="sx-lvalue">Vegetarian</span><span class="sx-lsource">quiz answer 045XDOAN</span></div>
-        <div class="sx-line"><span class="sx-ltext">Activity level</span><span class="sx-lvalue">Very Active</span><span class="sx-lsource">quiz answer 035XEXCL</span></div>
-        <div class="sx-line"><span class="sx-ltext">Age / sex</span><span class="sx-lvalue">41 years, Woman</span><span class="sx-lsource">quiz answers 006XHOWO / 005XWHAT</span></div>
-        <div class="sx-line"><span class="sx-ltext">Body-mass status</span><span class="sx-lvalue">Healthy Weight*</span><span class="sx-lsource">derived from height 166 cm / weight 63 kg</span></div>
-        <div class="sx-line"><span class="sx-ltext">Diagnosed condition</span><span class="sx-lvalue">Diabetes</span><span class="sx-lsource">quiz answer 016XSELE</span></div>
-        <div class="sx-line"><span class="sx-ltext">Prescription medication</span><span class="sx-lvalue">Anti-diabetics</span><span class="sx-lsource">quiz answer 018XSELE</span></div>
-        <div class="sx-line"><span class="sx-ltext">Goals</span><span class="sx-lvalue">Gut Health, Stress</span><span class="sx-lsource">quiz answer 021XHERE</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vegetarian diet raises iron and omega-3 requirements and excludes animal-derived products</span><span class="sx-lsource">diet-relevance gate + RDI model</span></div>
-        <div class="sx-line"><span class="sx-ltext">Anti-diabetic medication triggers hard interaction blocks and a metformin / B12 advisory</span><span class="sx-lsource">medication gate + advisories</span></div>
-      </div>
-      <div class="sx-panel" id="sx-panel-2" role="tabpanel" aria-labelledby="sx-tab-2" tabindex="0">
-        <div class="sx-panel-head"><span class="sx-panel-t">Targets</span><span class="sx-panel-c">Step 2 of 6</span></div>
-        <div class="sx-line"><span class="sx-ltext">Iron target</span><span class="sx-lvalue">26.64 mg/day</span><span class="sx-lsource">EFSA PRI, raised ~1.8x for a vegetarian diet (lower non-haem absorption)</span></div>
-        <div class="sx-line"><span class="sx-ltext">Omega-3 target</span><span class="sx-lvalue">1.0 g/day EPA+DHA</span><span class="sx-lsource">EFSA adequate intake, EPA+DHA</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vitamin D3 target</span><span class="sx-lvalue">10.0 mcg/day</span><span class="sx-lsource">SACN 2016 / EFSA</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vitamin B6 target</span><span class="sx-lvalue">1.2 mg/day</span><span class="sx-lsource">EFSA PRI</span></div>
-        <div class="sx-line"><span class="sx-ltext">Selenium target</span><span class="sx-lvalue">60.0 mcg/day</span><span class="sx-lsource">EFSA PRI</span></div>
-        <div class="sx-line"><span class="sx-ltext">Iodine target</span><span class="sx-lvalue">140.0 mcg/day</span><span class="sx-lsource">EFSA PRI</span></div>
-        <div class="sx-line"><span class="sx-ltext">Protein target</span><span class="sx-lvalue">88 g/day</span><span class="sx-lsource">EFSA 0.83 g/kg baseline, adjusted for activity and goal</span></div>
-        <div class="sx-line"><span class="sx-ltext">Energy target</span><span class="sx-lvalue">1952 kcal/day</span><span class="sx-lsource">Mifflin-St Jeor BMR x activity</span></div>
-        <div class="sx-line"><span class="sx-ltext">Omega-3 (EPA+DHA) target</span><span class="sx-lvalue">0.25 g/day</span><span class="sx-lsource">EFSA adequate intake</span></div>
-      </div>
-      <div class="sx-panel" id="sx-panel-3" role="tabpanel" aria-labelledby="sx-tab-3" tabindex="0">
-        <div class="sx-panel-head"><span class="sx-panel-t">Gaps</span><span class="sx-panel-c">Step 3 of 6</span></div>
-        <div class="sx-line"><span class="sx-ltext">Omega-3: 8% of target</span><span class="sx-lvalue">0.02 / 0.25</span></div>
-        <div class="sx-line"><span class="sx-ltext">Water: 33% of target</span><span class="sx-lvalue">722 / 2207</span></div>
-        <div class="sx-line"><span class="sx-ltext">Iron: 50% of target</span><span class="sx-lvalue">50 / 100</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vitamin D3: 56% of target</span><span class="sx-lvalue">56 / 100</span></div>
-        <div class="sx-line"><span class="sx-ltext">Cholesterol: 59% of target</span><span class="sx-lvalue">177 / 300</span></div>
-        <div class="sx-line"><span class="sx-ltext">Iodine: 76% of target</span><span class="sx-lvalue">76 / 100</span></div>
-        <div class="sx-line"><span class="sx-ltext">Potassium: 81% of target</span><span class="sx-lvalue">81 / 100</span></div>
-        <div class="sx-line"><span class="sx-ltext">Protein: 83% of target</span><span class="sx-lvalue">73 / 88</span></div>
-        <div class="sx-line"><span class="sx-ltext">Trans fat: 83% of target</span><span class="sx-lvalue">2 / 2.4</span></div>
-        <div class="sx-line"><span class="sx-ltext">Selenium: 85% of target</span><span class="sx-lvalue">85 / 100</span></div>
-        <div class="sx-line"><span class="sx-ltext">Carbohydrates: 88% of target</span><span class="sx-lvalue">257 / 293</span></div>
-      </div>
-      <div class="sx-panel" id="sx-panel-4" role="tabpanel" aria-labelledby="sx-tab-4" tabindex="0">
-        <div class="sx-panel-head"><span class="sx-panel-t">Scoring</span><span class="sx-panel-c">Step 4 of 6</span></div>
-        <div class="sx-line"><span class="sx-ltext">Products in the demo catalogue scored</span><span class="sx-lvalue">54</span><span class="sx-lsource">every product in the brand catalogue is scored against Jane&#8217;s answers</span></div>
-        <div class="sx-line"><span class="sx-ltext">Candidates surviving the safety gates</span><span class="sx-lvalue">35</span><span class="sx-lsource">scored pool minus every exclusion, before ranking</span></div>
-        <div class="sx-line"><span class="sx-ltext">Recommended (top of the ranking)</span><span class="sx-lvalue">8</span><span class="sx-lsource">the ranked candidates that made the plan</span></div>
-        <div class="sx-line"><span class="sx-ltext">#1 Omega-3 (Algae Oil &#8212; Vegan)</span><span class="sx-lvalue">Strong match</span><span class="sx-lsource">matched on nutrient gap</span></div>
-        <div class="sx-line"><span class="sx-ltext">#2 Iron</span><span class="sx-lvalue">Strong match</span><span class="sx-lsource">matched on nutrient gap</span></div>
-        <div class="sx-line"><span class="sx-ltext">#3 Vitamin D3</span><span class="sx-lvalue">Strong match</span><span class="sx-lsource">matched on nutrient gap</span></div>
-        <div class="sx-line"><span class="sx-ltext">#4 Iodine 150mcg</span><span class="sx-lvalue">Good match</span><span class="sx-lsource">matched on nutrient gap</span></div>
-        <div class="sx-line"><span class="sx-ltext">#5 L-Theanine</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Stress</span></div>
-        <div class="sx-line"><span class="sx-ltext">#6 Digestive Enzyme Complex</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Gut Health</span></div>
-        <div class="sx-line"><span class="sx-ltext">#7 L-Glutamine</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Gut Health</span></div>
-        <div class="sx-line"><span class="sx-ltext">#8 Ashwagandha</span><span class="sx-lvalue">General match</span><span class="sx-lsource">matched on goal: Stress</span></div>
-      </div>
-      <div class="sx-panel" id="sx-panel-5" role="tabpanel" aria-labelledby="sx-tab-5" tabindex="0">
-        <div class="sx-panel-head"><span class="sx-panel-t">Gates</span><span class="sx-panel-c">Step 5 of 6</span></div>
-        <div class="sx-line"><span class="sx-ltext">Green Tea Extract</span><span class="sx-lvalue">Hard medication contraindication</span><span class="sx-lsource">gate group: medication conflicts</span></div>
-        <div class="sx-line"><span class="sx-ltext">Prebiotic Complex (FOS/GOS)</span><span class="sx-lvalue">Hard medication contraindication</span><span class="sx-lsource">gate group: medication conflicts</span></div>
-        <div class="sx-line"><span class="sx-ltext">Multivitamin (Men&#8217;s 50+)</span><span class="sx-lvalue">Age-band / demographic</span><span class="sx-lsource">gate group: contraindications</span></div>
-        <div class="sx-line"><span class="sx-ltext">Multivitamin (Prenatal)</span><span class="sx-lvalue">Age-band / demographic</span><span class="sx-lsource">gate group: contraindications</span></div>
-        <div class="sx-line"><span class="sx-ltext">Multivitamin (Women&#8217;s 50+)</span><span class="sx-lvalue">Age-band / demographic</span><span class="sx-lsource">gate group: contraindications</span></div>
-        <div class="sx-line"><span class="sx-ltext">Selenium</span><span class="sx-lvalue">Diagnosed-condition contraindication</span><span class="sx-lsource">gate group: contraindications</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vitamin B3</span><span class="sx-lvalue">Diagnosed-condition contraindication</span><span class="sx-lsource">gate group: contraindications</span></div>
-        <div class="sx-line"><span class="sx-ltext">Sodium</span><span class="sx-lvalue">No-DRV supplemental ceiling</span><span class="sx-lsource">gate group: upper limits</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vitamin K2</span><span class="sx-lvalue">No-DRV supplemental ceiling</span><span class="sx-lsource">gate group: upper limits</span></div>
-        <div class="sx-line"><span class="sx-ltext">Coenzyme Q10</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">Collagen Peptides (Type I &amp; III)</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">Marine Collagen</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">Omega-3 (Fish Oil)</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">Probiotics</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vitamin A</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">Vitamin E</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">BCAA 2:1:1</span><span class="sx-lvalue">Requires training load</span><span class="sx-lsource">gate group: contraindications</span></div>
-        <div class="sx-line"><span class="sx-ltext">Pre-Workout Complex</span><span class="sx-lvalue">Requires training load</span><span class="sx-lsource">gate group: contraindications</span></div>
-        <div class="sx-line"><span class="sx-ltext">Zinc</span><span class="sx-lvalue">Upper limit: serving exceeds headroom</span><span class="sx-lsource">gate group: upper limits; upper limit 25.0</span></div>
-        <div class="sx-line"><span class="sx-ltext">Multivitamin (Prenatal)</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-        <div class="sx-line"><span class="sx-ltext">Omega-3</span><span class="sx-lvalue">Diet compatibility</span><span class="sx-lsource">gate group: diet</span></div>
-      </div>
-      <div class="sx-panel" id="sx-panel-6" role="tabpanel" aria-labelledby="sx-tab-6" tabindex="0">
-        <div class="sx-panel-head"><span class="sx-panel-t">Plan</span><span class="sx-panel-c">Step 6 of 6</span></div>
-        <div class="sx-line"><span class="sx-ltext">1. Omega-3 (Algae Oil &#8212; Vegan)</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your omega 3 is at 8% of your target.</span></div>
-        <div class="sx-line"><span class="sx-ltext">2. Iron</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your iron is at 50% of your target, which one serving covers.</span></div>
-        <div class="sx-line"><span class="sx-ltext">3. Vitamin D3</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your vitamin D3 is at 56% of your target, which one serving covers.</span></div>
-        <div class="sx-line"><span class="sx-ltext">4. Iodine 150mcg</span><span class="sx-lvalue">Essential</span><span class="sx-lsource">Chosen because your iodine is at 76% of your target, which one serving covers.</span></div>
-        <div class="sx-line"><span class="sx-ltext">5. L-Theanine</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your stress goal. This one is an amino acid.</span></div>
-        <div class="sx-line"><span class="sx-ltext">6. Digestive Enzyme Complex</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your gut health goal. This one is a multi-nutrient blend.</span></div>
-        <div class="sx-line"><span class="sx-ltext">7. L-Glutamine</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your gut health goal. This one is an amino acid.</span></div>
-        <div class="sx-line"><span class="sx-ltext">8. Ashwagandha</span><span class="sx-lvalue">Recommended</span><span class="sx-lsource">Chosen because it matches your stress goal. This one is an adaptogen.</span></div>
-      </div>
-    <p class="sx-foot">On-disk Blend demo catalogue (51 products + 3 QA placeholders). Every line above is from the run itself.</p><!-- /science:trace -->
   </div>
 </section>
 
-<section class="sx-sec sx-sec--beige" id="safety">
+<section class="sci-sec" id="covers">
   <div class="wrap">
-    <div class="sx-head">
+    <div class="sci-head sci-in">
+      <span class="eyebrow">What the model covers</span>
+      <h2 class="h2">41 goals, 252 signals underneath.</h2>
+    </div>
+    <div class="sci-goals sci-in" data-goals><button type="button" class="sci-goal" data-goal="Bone &amp; Joint Health" aria-expanded="false" aria-controls="sci-subs">Bone &amp; Joint Health</button><button type="button" class="sci-goal" data-goal="Boost Energy" aria-expanded="false" aria-controls="sci-subs">Boost Energy</button><button type="button" class="sci-goal" data-goal="Build Muscle" aria-expanded="false" aria-controls="sci-subs">Build Muscle</button><button type="button" class="sci-goal" data-goal="Cognitive Health" aria-expanded="false" aria-controls="sci-subs">Cognitive Health</button><button type="button" class="sci-goal" data-goal="Eye Health" aria-expanded="false" aria-controls="sci-subs">Eye Health</button><button type="button" class="sci-goal" data-goal="Healthy Weight Gain" aria-expanded="false" aria-controls="sci-subs">Healthy Weight Gain</button><button type="button" class="sci-goal" data-goal="General Health Support" aria-expanded="false" aria-controls="sci-subs">General Health Support</button><button type="button" class="sci-goal" data-goal="Gut Health" aria-expanded="true" aria-controls="sci-subs">Gut Health</button><button type="button" class="sci-goal" data-goal="Healthy Ageing &amp; Longevity" aria-expanded="false" aria-controls="sci-subs">Healthy Ageing &amp; Longevity</button><button type="button" class="sci-goal" data-goal="Heart Health" aria-expanded="false" aria-controls="sci-subs">Heart Health</button><button type="button" class="sci-goal" data-goal="Hormonal Balance" aria-expanded="false" aria-controls="sci-subs">Hormonal Balance</button><button type="button" class="sci-goal" data-goal="Immunity" aria-expanded="false" aria-controls="sci-subs">Immunity</button><button type="button" class="sci-goal" data-goal="Increase Endurance" aria-expanded="false" aria-controls="sci-subs">Increase Endurance</button><button type="button" class="sci-goal" data-goal="Sexual Health" aria-expanded="false" aria-controls="sci-subs">Sexual Health</button><button type="button" class="sci-goal" data-goal="Liver Health" aria-expanded="false" aria-controls="sci-subs">Liver Health</button><button type="button" class="sci-goal" data-goal="Lose Weight" aria-expanded="false" aria-controls="sci-subs">Lose Weight</button><button type="button" class="sci-goal" data-goal="Lung Health" aria-expanded="false" aria-controls="sci-subs">Lung Health</button><button type="button" class="sci-goal" data-goal="Menopause" aria-expanded="false" aria-controls="sci-subs">Menopause</button><button type="button" class="sci-goal" data-goal="Mood &amp; Emotions" aria-expanded="false" aria-controls="sci-subs">Mood &amp; Emotions</button><button type="button" class="sci-goal" data-goal="Prostate Health" aria-expanded="false" aria-controls="sci-subs">Prostate Health</button><button type="button" class="sci-goal" data-goal="Sleep" aria-expanded="false" aria-controls="sci-subs">Sleep</button><button type="button" class="sci-goal" data-goal="Stress" aria-expanded="false" aria-controls="sci-subs">Stress</button><button type="button" class="sci-goal" data-goal="Testosterone Health" aria-expanded="false" aria-controls="sci-subs">Testosterone Health</button><button type="button" class="sci-goal" data-goal="Urinary Health" aria-expanded="false" aria-controls="sci-subs">Urinary Health</button><button type="button" class="sci-goal" data-goal="Blood Sugar Support" aria-expanded="false" aria-controls="sci-subs">Blood Sugar Support</button><button type="button" class="sci-goal" data-goal="Thyroid &amp; Metabolism Support" aria-expanded="false" aria-controls="sci-subs">Thyroid &amp; Metabolism Support</button><button type="button" class="sci-goal" data-goal="Cycle Support" aria-expanded="false" aria-controls="sci-subs">Cycle Support</button><button type="button" class="sci-goal" data-goal="Conception Support" aria-expanded="false" aria-controls="sci-subs">Conception Support</button><button type="button" class="sci-goal" data-goal="Prenatal Support" aria-expanded="false" aria-controls="sci-subs">Prenatal Support</button><button type="button" class="sci-goal" data-goal="Postnatal Support" aria-expanded="false" aria-controls="sci-subs">Postnatal Support</button><button type="button" class="sci-goal" data-goal="Men&#8217;s Fertility" aria-expanded="false" aria-controls="sci-subs">Men&#8217;s Fertility</button><button type="button" class="sci-goal" data-goal="Skin Health" aria-expanded="false" aria-controls="sci-subs">Skin Health</button><button type="button" class="sci-goal" data-goal="Hair Health" aria-expanded="false" aria-controls="sci-subs">Hair Health</button><button type="button" class="sci-goal" data-goal="Nail Health" aria-expanded="false" aria-controls="sci-subs">Nail Health</button><button type="button" class="sci-goal" data-goal="Mass Gain" aria-expanded="false" aria-controls="sci-subs">Mass Gain</button><button type="button" class="sci-goal" data-goal="Tone &amp; Definition" aria-expanded="false" aria-controls="sci-subs">Tone &amp; Definition</button><button type="button" class="sci-goal" data-goal="Strength &amp; Power" aria-expanded="false" aria-controls="sci-subs">Strength &amp; Power</button><button type="button" class="sci-goal" data-goal="Recovery &amp; Repair" aria-expanded="false" aria-controls="sci-subs">Recovery &amp; Repair</button><button type="button" class="sci-goal" data-goal="Hydration &amp; Electrolytes" aria-expanded="false" aria-controls="sci-subs">Hydration &amp; Electrolytes</button><button type="button" class="sci-goal" data-goal="Plant-Based Nutrition" aria-expanded="false" aria-controls="sci-subs">Plant-Based Nutrition</button><button type="button" class="sci-goal" data-goal="Everyday Comfort" aria-expanded="false" aria-controls="sci-subs">Everyday Comfort</button></div>
+    <div class="sci-card sci-subs sci-in" id="sci-subs" data-subs>
+      <div class="sci-subs-t">Gut Health</div>
+      <div class="sci-subs-list"><span>Occasional gas</span><span>Bloating</span><span>Indigestion</span><span>Heartburn or reflux</span><span>Constipation</span><span>Loose stools</span><span>Tummy cramping</span><span>Over-full after small meals</span><span>Irregular bowel habits</span><span>Discomfort after dairy</span><span>Discomfort after gluten or wheat</span><span>Sluggish on fatty meals</span><span>Occasional nausea</span></div>
+    </div>
+    <p class="sci-note sci-in">Blend works out what you already get from food before it considers a supplement: your answers about meal pattern, portion size, how often you skip meals and how often you eat each food group are turned into an estimated daily plate in grams, and each food group&#8217;s composition comes from a published food composition database.</p>
+  </div>
+</section>
+
+<section class="sci-sec" id="run">
+  <div class="wrap">
+    <div class="sci-head sci-in">
+      <span class="eyebrow">One real run</span>
+      <h2 class="h2">Watch the engine decide for Isabel.</h2>
+      <p class="lead">This is the engine&#8217;s own order. Scoring runs BEFORE the safety checks: every product in the catalogue is scored against her answers, and the checks then remove from that scored pool, which is why the removed products below all carry a score.</p>
+    </div>
+    <div class="sci-run">
+      <div class="sci-card sci-persona sci-in">
+  <div class="sci-persona-n">Isabel</div>
+  <div class="sci-persona-m">52 years <span aria-hidden="true">&#183;</span> Woman <span aria-hidden="true">&#183;</span> United Kingdom</div>
+  <div class="sci-pgroup"><h4>Diet and lifestyle</h4><div><span class="sci-pchip">Pescatarian</span><span class="sci-pchip">Lightly Active</span></div></div>
+  <div class="sci-pgroup"><h4>Medical</h4><div><span class="sci-pchip">Cardiovascular Diseases</span><span class="sci-pchip">Antihypertensives</span></div></div>
+  <div class="sci-pgroup"><h4>Goals</h4><div><span class="sci-pchip">Sleep</span><span class="sci-pchip">Heart Health</span><span class="sci-pchip">Bone &amp; Joint Health</span></div></div>
+</div>
+      <div class="sci-card sci-stage sci-in" data-run>
+        <div class="sci-tabs" role="tablist" aria-label="The steps of one run"><button type="button" role="tab" class="sci-tab" id="sci-tab-1" aria-controls="sci-p-1" aria-selected="true" tabindex="0"><span class="sci-tab-n" aria-hidden="true">01</span>Signals</button><button type="button" role="tab" class="sci-tab" id="sci-tab-2" aria-controls="sci-p-2" aria-selected="false" tabindex="-1"><span class="sci-tab-n" aria-hidden="true">02</span>What her food already gives her</button><button type="button" role="tab" class="sci-tab" id="sci-tab-3" aria-controls="sci-p-3" aria-selected="false" tabindex="-1"><span class="sci-tab-n" aria-hidden="true">03</span>Targets</button><button type="button" role="tab" class="sci-tab" id="sci-tab-4" aria-controls="sci-p-4" aria-selected="false" tabindex="-1"><span class="sci-tab-n" aria-hidden="true">04</span>Gaps</button><button type="button" role="tab" class="sci-tab" id="sci-tab-5" aria-controls="sci-p-5" aria-selected="false" tabindex="-1"><span class="sci-tab-n" aria-hidden="true">05</span>Scoring</button><button type="button" role="tab" class="sci-tab" id="sci-tab-6" aria-controls="sci-p-6" aria-selected="false" tabindex="-1"><span class="sci-tab-n" aria-hidden="true">06</span>Safety checks</button><button type="button" role="tab" class="sci-tab" id="sci-tab-7" aria-controls="sci-p-7" aria-selected="false" tabindex="-1"><span class="sci-tab-n" aria-hidden="true">07</span>Plan</button></div>
+      <div class="sci-panel" role="tabpanel" id="sci-p-1" aria-labelledby="sci-tab-1" tabindex="0"><div class="sci-siggroup"><h4>Diet</h4><div class="sci-sigs"><button type="button" class="sci-sig" data-changes="Do any of the following dietary preferences or restrictions apply to you? Removes animal-derived products and shifts the modelled plate towards fish, dairy and plants.">Pescatarian</button><button type="button" class="sci-sig" data-changes="How often do you eat fish and seafood? Drives the modelled intake of EPA and DHA, the omega-3 fats that matter for her heart goal.">Sometimes</button><button type="button" class="sci-sig" data-changes="How often do you eat dairy products? Drives the modelled calcium and iodine intake.">Daily</button><button type="button" class="sci-sig" data-changes="How often do you eat vegetables and legumes? Low vegetable intake pulls down potassium, folate and fibre.">Rarely</button><button type="button" class="sci-sig" data-changes="What meals and snacks do you usually eat throughout the day? Meal pattern and portion size set the total daily food mass, which sets every nutrient level.">Breakfast, Lunch, Dinner</button><button type="button" class="sci-sig" data-changes="What size are your usual portions? Portion size scales that same daily food mass.">Average</button><button type="button" class="sci-sig" data-changes="Let&#8217;s discuss your weekly eating habits. Which description fits you best? Shifts the balance of the modelled plate between whole and processed foods.">Mixed diet with balanced and processed foods</button></div><p class="sci-sigwhy" data-why>Do any of the following dietary preferences or restrictions apply to you? Removes animal-derived products and shifts the modelled plate towards fish, dairy and plants.</p></div><div class="sci-siggroup"><h4>Lifestyle</h4><div class="sci-sigs"><button type="button" class="sci-sig" data-changes="Excluding sports or workouts, how active is your daily routine? Sets the energy requirement, and with it the protein and macro targets.">Lightly Active</button><button type="button" class="sci-sig" data-changes="Do you currently smoke or use nicotine products? Removes beta-carotene products outright and raises the vitamin C requirement.">Sometimes</button><button type="button" class="sci-sig" data-changes="On an average night, how many hours do you sleep? Five to six hours triggers the same stimulant block as a sleep goal, on its own.">5&#8211;6</button><button type="button" class="sci-sig" data-changes="How many drinks other than water do you have on a typical day? Four drinks a day, taken as coffee, shifts the modelled beverage composition.">4</button><button type="button" class="sci-sig" data-changes="How much sun exposure do you usually get? Adjusts the vitamin D requirement for sun exposure.">Moderate</button><button type="button" class="sci-sig" data-changes="How many alcoholic drinks do you have per week? Enters the modelled plate as alcohol and energy.">1</button></div><p class="sci-sigwhy" data-why>Excluding sports or workouts, how active is your daily routine? Sets the energy requirement, and with it the protein and macro targets.</p></div><div class="sci-siggroup"><h4>Medical</h4><div class="sci-sigs"><button type="button" class="sci-sig" data-changes="Select all the medical conditions that apply Removes products contraindicated in cardiovascular disease, and raises her omega-3 target above the general adult figure.">Cardiovascular Diseases</button><button type="button" class="sci-sig" data-changes="Select all the prescription medications that apply Removes every product that cannot be taken with blood-pressure medication.">Antihypertensives</button><button type="button" class="sci-sig" data-changes="Are you currently pregnant or breastfeeding? No pregnancy or breastfeeding uplift applies.">No</button></div><p class="sci-sigwhy" data-why>Select all the medical conditions that apply Removes products contraindicated in cardiovascular disease, and raises her omega-3 target above the general adult figure.</p></div><div class="sci-siggroup"><h4>Goals</h4><div class="sci-sigs"><button type="button" class="sci-sig" data-changes="Here are some popular goals. Which resonate with you? Decides which products are relevant at all, and brings the stimulant block into force through the sleep goal.">Sleep, Heart Health, Bone &amp; Joint Health</button></div><p class="sci-sigwhy" data-why>Here are some popular goals. Which resonate with you? Decides which products are relevant at all, and brings the stimulant block into force through the sleep goal.</p></div><div class="sci-siggroup"><h4>Derived, not asked</h4><div class="sci-sigs"><button type="button" class="sci-sig" data-changes="Derived from her height and weight, not asked. Governs the low-body-weight check and the energy requirement.">Body-mass status: Healthy Weight*</button><button type="button" class="sci-sig" data-changes="She chose full personalisation, so every food question was asked and the detailed intake model is used.">Route through the quiz: full</button></div><p class="sci-sigwhy" data-why>Derived from her height and weight, not asked. Governs the low-body-weight check and the energy requirement.</p></div></div>
+      <div class="sci-panel" role="tabpanel" id="sci-p-2" aria-labelledby="sci-tab-2" tabindex="0" hidden><p class="sci-panel-note">Every figure here is modelled from her answers, not measured. Vitamin D is the one line that is not food alone: the engine adds modelled skin synthesis to the same total.</p><div class="sci-row"><span class="sci-row-t">Food modelled per day</span><span class="sci-row-v">1241 g</span><span class="sci-row-s">Built from her meal pattern, portion size and how often she eats each food group.</span></div><div class="sci-row"><span class="sci-row-t">Energy from that food</span><span class="sci-row-v">2137 kcal</span></div><div class="sci-row"><span class="sci-row-t">Protein from that food</span><span class="sci-row-v">99 g</span></div><div class="sci-row"><span class="sci-row-t">Fibre from that food</span><span class="sci-row-v">27 g</span></div><div class="sci-row"><span class="sci-row-t">Calcium</span><span class="sci-row-v">1,198.13 mg</span><div class="sci-bar is-ok"><i style="--v:0.569"></i></div><span class="sci-row-s">Already met by diet</span></div><div class="sci-row"><span class="sci-row-t">Vitamin D3</span><span class="sci-row-v">15.47 mcg</span><div class="sci-bar is-ok"><i style="--v:0.007"></i></div><span class="sci-row-s">Already met by diet</span></div><div class="sci-row"><span class="sci-row-t">Magnesium</span><span class="sci-row-v">339.44 mg</span><div class="sci-bar is-ok"><i style="--v:0.161"></i></div><span class="sci-row-s">Already met by diet</span></div><div class="sci-row"><span class="sci-row-t">Potassium</span><span class="sci-row-v">2,106.64 mg</span><div class="sci-bar "><i style="--v:1.000"></i></div></div><div class="sci-row"><span class="sci-row-t">Iron</span><span class="sci-row-v">10.76 mg</span><div class="sci-bar is-ok"><i style="--v:0.005"></i></div><span class="sci-row-s">Already met by diet</span></div><div class="sci-row"><span class="sci-row-t">Selenium</span><span class="sci-row-v">92.94 mcg</span><div class="sci-bar is-ok"><i style="--v:0.044"></i></div><span class="sci-row-s">Already met by diet</span></div><div class="sci-row"><span class="sci-row-t">Zinc</span><span class="sci-row-v">10.79 mg</span><div class="sci-bar is-ok"><i style="--v:0.005"></i></div><span class="sci-row-s">Already met by diet</span></div><div class="sci-row"><span class="sci-row-t">Vitamin B5 (Pantothenic Acid)</span><span class="sci-row-v">3.61 mg</span><div class="sci-bar "><i style="--v:0.002"></i></div></div></div>
+      <div class="sci-panel" role="tabpanel" id="sci-p-3" aria-labelledby="sci-tab-3" tabindex="0" hidden><div class="sci-row"><span class="sci-row-t">Targets for United Kingdom</span><span class="sci-row-v">SACN / COMA Reference Nutrient Intake</span><span class="sci-row-s">Government Dietary Recommendations, PHE / DH 2016. Reference Nutrient Intakes from Dietary Reference Values for Food Energy and Nutrients for the UK (1991); vitamin D from SACN Vitamin D and Health (2016).</span></div><div class="sci-row"><span class="sci-row-t">Calcium</span><span class="sci-row-v">700 mg</span></div><div class="sci-row"><span class="sci-row-t">Vitamin D3</span><span class="sci-row-v">10 mcg</span></div><div class="sci-row"><span class="sci-row-t">Magnesium</span><span class="sci-row-v">297 mg</span></div><div class="sci-row"><span class="sci-row-t">Potassium</span><span class="sci-row-v">3,500 mg</span></div><div class="sci-row"><span class="sci-row-t">Iron</span><span class="sci-row-v">8.7 mg</span></div><div class="sci-row"><span class="sci-row-t">Selenium</span><span class="sci-row-v">66 mcg</span></div><div class="sci-row"><span class="sci-row-t">Zinc</span><span class="sci-row-v">7.7 mg</span></div><div class="sci-row"><span class="sci-row-t">Vitamin B5 (Pantothenic Acid)</span><span class="sci-row-v">5.25 mg</span></div></div>
+      <div class="sci-panel" role="tabpanel" id="sci-p-4" aria-labelledby="sci-tab-4" tabindex="0" hidden><p class="sci-panel-note">Vitamins and minerals are reported as coverage of her own target and stop at 100%, so a nutrient she already gets enough of reads as met rather than as a surplus. Nutrients that are ceilings rather than targets, free sugars and saturated fat among them, are not shortfalls when they sit below the figure and are not listed here.</p><div class="sci-row"><span class="sci-row-t">Potassium: 60% of target</span><span class="sci-row-v">2106.64 mg from food</span></div><div class="sci-row"><span class="sci-row-t">Vitamin B5 (Pantothenic Acid): 68% of target</span><span class="sci-row-v">3.61 mg from food</span></div><div class="sci-row"><span class="sci-row-t">Vitamin E (Alpha-Tocopherol): 82% of target</span><span class="sci-row-v">9.57 mg from food</span></div></div>
+      <div class="sci-panel" role="tabpanel" id="sci-p-5" aria-labelledby="sci-tab-5" tabindex="0" hidden><p class="sci-panel-note">The engine gives a product no single score. It sorts the surviving products through the priority order below, tier by tier, and only compares the catalogue&#8217;s own product rating when everything above is tied. So a fact about her always outranks a property of the catalogue. The catalogue rating is shown for each product below as what it is: the same number for every customer.</p><div class="sci-ladder"><div class="sci-tier"><b>01</b><span>Pregnancy and breastfeeding products come first</span></div><div class="sci-tier"><b>02</b><span>Fills a measured shortfall in one nutrient, worst shortfall first</span></div><div class="sci-tier"><b>03</b><span>Matches a specific concern she reported</span></div><div class="sci-tier is-hit"><b>04</b><span>A combination product covering several of her shortfalls, widest coverage first</span></div><div class="sci-tier"><b>05</b><span>Matches the training she reported</span></div><div class="sci-tier is-hit"><b>06</b><span>Matches one of her goals</span></div><div class="sci-tier"><b>07</b><span>More relevant to her answers than an otherwise equal product</span></div><div class="sci-tier"><b>08</b><span>Ranked on the catalogue&#8217;s own product rating, every tier above being equal</span></div></div><div style="margin-top:18px"><div class="sci-row"><span class="sci-row-t">1. Multivitamin (Women&#8217;s 50+)</span><span class="sci-row-v">ranked here</span><span class="sci-row-s">A combination product covering several of her shortfalls, widest coverage first · the goal it matches is Bone &amp; Joint Health</span></div><div class="sci-row"><span class="sci-row-t">2. B-Complex</span><span class="sci-row-v">ranked here</span><span class="sci-row-s">A combination product covering several of her shortfalls, widest coverage first</span></div><div class="sci-row"><span class="sci-row-t">3. Collagen Peptides (Type I &amp; III)</span><span class="sci-row-v">ranked here</span><span class="sci-row-s">Matches one of her goals · the goal it matches is Bone &amp; Joint Health</span></div><div class="sci-row"><span class="sci-row-t">4. L-Theanine</span><span class="sci-row-v">ranked here</span><span class="sci-row-s">Matches one of her goals · the goal it matches is Sleep</span></div><div class="sci-row"><span class="sci-row-t">5. Cordyceps</span><span class="sci-row-v">ranked here</span><span class="sci-row-s">Matches one of her goals</span></div></div></div>
+      <div class="sci-panel" role="tabpanel" id="sci-p-6" aria-labelledby="sci-tab-6" tabindex="0" hidden><p class="sci-panel-note">Scoring has already happened at this point. These products were scored against her answers and then removed.</p><div class="sci-row"><span class="sci-row-t">Training-only products</span><span class="sci-row-v">1 removed</span></div><div class="sci-row"><span class="sci-row-t">Age band suitability</span><span class="sci-row-v">2 removed</span></div><div class="sci-row"><span class="sci-row-t">Diagnosed condition conflict</span><span class="sci-row-v">2 removed</span></div><div class="sci-row"><span class="sci-row-t">Beta-carotene for smokers</span><span class="sci-row-v">1 removed</span></div><div class="sci-row"><span class="sci-row-t">Diet compatibility</span><span class="sci-row-v">1 removed</span></div><div class="sci-row"><span class="sci-row-t">Stimulants against sleep</span><span class="sci-row-v">1 removed</span></div><div class="sci-row"><span class="sci-row-t">Hard medication conflict</span><span class="sci-row-v">6 removed</span></div><div class="sci-row"><span class="sci-row-t">Tolerable upper limit</span><span class="sci-row-v">2 removed</span></div><div class="sci-row"><span class="sci-row-t">Already met by diet</span><span class="sci-row-v">2 removed</span></div><div class="sci-row"><span class="sci-row-t">One per product family</span><span class="sci-row-v">2 removed</span></div><div style="margin-top:18px"><div class="sci-row is-cut"><span class="sci-row-t">BCAA 2:1:1</span><span class="sci-row-v">Training-only products</span><span class="sci-row-s">Product is a training-only ergogenic aid (pre-workout / beta-alanine / citrulline / BCAA / carnitine tartrate). The user reported no structured sport, so a workout performance/recovery supplement is not relevant.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Multivitamin (Men&#8217;s 50+)</span><span class="sci-row-v">Age band suitability</span><span class="sci-row-s">This product has no RDI defined for Woman aged 52, structurally not applicable to this user.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Multivitamin (Prenatal)</span><span class="sci-row-v">Age band suitability</span><span class="sci-row-s">This product has no RDI defined for Woman aged 52, structurally not applicable to this user.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Sodium</span><span class="sci-row-v">Diagnosed condition conflict</span><span class="sci-row-s">This product is contraindicated for users with Cardiovascular Diseases.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Vitamin A</span><span class="sci-row-v">Beta-carotene for smokers</span><span class="sci-row-s">Removes products that raise risk for current smokers, beta-carotene above all.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Vitamin E</span><span class="sci-row-v">Diagnosed condition conflict</span><span class="sci-row-s">This product is contraindicated for users with Cardiovascular Diseases.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Vegan Collagen</span><span class="sci-row-v">Diet compatibility</span><span class="sci-row-s">Vegan-specific product variant. The standard (non-vegan) variant is the appropriate match for a non-plant diet.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Green Tea Extract</span><span class="sci-row-v">Stimulants against sleep</span><span class="sci-row-s">Product is caffeine-bearing (pre-workout / green tea extract). The user is trying to improve their sleep (sleep goal + short sleep); caffeine within ~6 h of bedtime measurably reduces total sleep time and sleep efficiency (EFSA 2015), so a stimulant works against the stated goal.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Coenzyme Q10</span><span class="sci-row-v">Hard medication conflict</span><span class="sci-row-s">Cannot be taken with Antihypertensives. Flagged by the brand&#8217;s own catalogue.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Electrolyte Complex</span><span class="sci-row-v">Hard medication conflict</span><span class="sci-row-s">Cannot be taken with Antihypertensives. Flagged by the brand&#8217;s own catalogue.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Iron</span><span class="sci-row-v">Hard medication conflict</span><span class="sci-row-s">Cannot be taken with Antihypertensives. Flagged by the brand&#8217;s own catalogue.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Magnesium Glycinate</span><span class="sci-row-v">Hard medication conflict</span><span class="sci-row-s">Cannot be taken with Antihypertensives. Flagged by the brand&#8217;s own catalogue.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Melatonin</span><span class="sci-row-v">Hard medication conflict</span><span class="sci-row-s">Cannot be taken with Antihypertensives. Flagged by the brand&#8217;s own catalogue.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Pre-Workout Complex</span><span class="sci-row-v">Hard medication conflict</span><span class="sci-row-s">Cannot be taken with Antihypertensives. Flagged by the brand&#8217;s own catalogue.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Selenium</span><span class="sci-row-v">Tolerable upper limit</span><span class="sci-row-s">Her diet already supplies 92.9 mcg. The engine works to 90% of the 255.0 mcg upper limit, which leaves 136.6 mcg of headroom, and one serving of this product is 200.0 mcg.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Zinc</span><span class="sci-row-v">Tolerable upper limit</span><span class="sci-row-s">Her diet already supplies 10.8 mg. The engine works to 90% of the 25.0 mg upper limit, which leaves 11.7 mg of headroom, and one serving of this product is 15.0 mg.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Omega-3 (Algae Oil &#8212; Vegan)</span><span class="sci-row-v">Already met by diet</span><span class="sci-row-s">Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Omega-3 (Fish Oil)</span><span class="sci-row-v">Already met by diet</span><span class="sci-row-s">Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill.</span></div><div class="sci-row is-cut"><span class="sci-row-t">Marine Collagen</span><span class="sci-row-v">One per product family</span><span class="sci-row-s">Family &#8217;collagen&#8217; already represented by Collagen Peptides (Type I &amp; III) (better goal/rating match).</span></div><div class="sci-row is-cut"><span class="sci-row-t">Multivitamin (Standard)</span><span class="sci-row-v">One per product family</span><span class="sci-row-s">Family &#8217;multivitamin&#8217; already represented by Multivitamin (Women&#8217;s 50+) (better goal/rating match).</span></div></div></div>
+      <div class="sci-panel" role="tabpanel" id="sci-p-7" aria-labelledby="sci-tab-7" tabindex="0" hidden><div class="sci-pick"><div class="sci-pick-n">1</div><div><div class="sci-pick-p">Multivitamin (Women&#8217;s 50+)<span class="sci-pick-tier">Recommended</span></div><p class="sci-pick-w">Chosen because it helps with potassium, vitamin B5 and 1 other, which you are short of, and it matches your bone &amp; joint health goal.</p></div></div><div class="sci-pick"><div class="sci-pick-n">2</div><div><div class="sci-pick-p">B-Complex<span class="sci-pick-tier">Recommended</span></div><p class="sci-pick-w">Chosen because your vitamin B5 is at 68% of your target, which one serving covers, and it matches a goal you chose.</p></div></div><div class="sci-pick"><div class="sci-pick-n">3</div><div><div class="sci-pick-p">Collagen Peptides (Type I &amp; III)<span class="sci-pick-tier">Recommended</span></div><p class="sci-pick-w">Chosen because it matches your bone &amp; joint health goal. It is a source of protein, which contributes to the maintenance of normal bones.</p></div></div><div class="sci-pick"><div class="sci-pick-n">4</div><div><div class="sci-pick-p">L-Theanine<span class="sci-pick-tier">Recommended</span></div><p class="sci-pick-w">Chosen because it matches your sleep goal.</p></div></div><div class="sci-pick"><div class="sci-pick-n">5</div><div><div class="sci-pick-p">Cordyceps<span class="sci-pick-tier">Recommended</span></div><p class="sci-pick-w">Chosen because it matches a goal you chose.</p></div></div></div>
+        <div class="sci-funnel" data-funnel>
+      <div class="sci-fstep" data-at="0"><div class="sci-fn">51</div><div class="sci-fl">scored</div></div>
+      <div class="sci-fstep" data-at="5"><div class="sci-fn">30</div><div class="sci-fl">passed the checks</div></div>
+      <div class="sci-fstep" data-at="6"><div class="sci-fn">5</div><div class="sci-fl">recommended</div></div>
+    </div>
+      </div>
+    </div>
+    <p class="sci-note">A real run against the Blend demo catalogue.</p>
+  </div>
+</section>
+
+<section class="sci-sec" id="safety">
+  <div class="wrap">
+    <div class="sci-head sci-in">
       <span class="eyebrow">Safety</span>
-      <h2 class="h2">Every gate that can refuse a product, by name.</h2>
-      <p class="lead">A gate takes a product out of the pool before ranking happens. Brands tune weights, priorities and their own exclusions; nothing in a brand&#8217;s configuration reaches these.</p>
+      <h2 class="h2">17 checks that can remove a product. None can be switched off.</h2>
+      <p class="lead">Gate functions in the engine&#8217;s safety chain. Sixteen remove a product and one adds a warning without removing anything.</p>
     </div>
-<!-- science:gates -->
-    <p class="sx-foot" style="margin:0 auto 28px">17 gates, in 5 groups.</p>
-    <div class="sx-gates">
-      <div class="sx-gate">
-        <div class="sx-gate-head"><span class="sx-gate-name">Contraindications</span><span class="sx-gate-n">9</span></div>
-        <ul><li>Diagnosed-condition contraindication</li><li>Pregnancy / breastfeeding contraindication</li><li>Prenatal-only audience</li><li>Sex-specific product</li><li>Smoker beta-carotene block</li><li>Age-band / demographic</li><li>Iron-status need</li><li>Low-BMI safety</li><li>Requires training load</li></ul>
+    <div class="sci-layers sci-in">
+      <div class="sci-layer">
+        <button type="button" class="sci-layer-btn" aria-expanded="true" aria-controls="sci-layer-0">
+          <span class="sci-layer-name">Contraindications</span>
+          <span class="sci-layer-n">9</span>
+          <span class="sci-layer-caret" aria-hidden="true"></span>
+        </button>
+        <div class="sci-layer-body" id="sci-layer-0">
+          <div class="sci-check"><div class="sci-check-n">Diagnosed condition conflict</div><p class="sci-check-d">Removes products that the product record says to avoid with a condition the customer has told us about.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+          <div class="sci-check"><div class="sci-check-n">Pregnancy and breastfeeding safety</div><p class="sci-check-d">Removes products that are not safe in pregnancy or while breastfeeding.</p></div>
+          <div class="sci-check"><div class="sci-check-n">Prenatal audience only</div><p class="sci-check-d">Removes products meant only for people trying to conceive, pregnant or breastfeeding from everybody else&#8217;s plan.</p></div>
+          <div class="sci-check"><div class="sci-check-n">Sex-specific products</div><p class="sci-check-d">Removes products formulated for one sex from the other sex&#8217;s plan.</p></div>
+          <div class="sci-check"><div class="sci-check-n">Beta-carotene for smokers</div><p class="sci-check-d">Removes products that raise risk for current smokers, beta-carotene above all.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+          <div class="sci-check"><div class="sci-check-n">Age band suitability</div><p class="sci-check-d">Removes products with no established requirement or dose for the customer&#8217;s age and sex.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+          <div class="sci-check"><div class="sci-check-n">Iron need check</div><p class="sci-check-d">Removes standalone iron from plans for people whose physiological need for it is low, because unneeded iron is not benign.</p></div>
+          <div class="sci-check"><div class="sci-check-n">Low body weight safety</div><p class="sci-check-d">Removes products that are unsafe or inappropriate at a very low body weight, and signposts support instead.</p></div>
+          <div class="sci-check"><div class="sci-check-n">Training-only products</div><p class="sci-check-d">Removes sport and training products from the plan of somebody who reports no structured exercise.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+        </div>
       </div>
-      <div class="sx-gate">
-        <div class="sx-gate-head"><span class="sx-gate-name">Upper limits</span><span class="sx-gate-n">3</span></div>
-        <ul><li>Total caffeine ceiling</li><li>No-DRV supplemental ceiling</li><li>Upper-limit (tolerable intake) ceiling</li></ul>
+      <div class="sci-layer">
+        <button type="button" class="sci-layer-btn" aria-expanded="false" aria-controls="sci-layer-1">
+          <span class="sci-layer-name">Upper limits</span>
+          <span class="sci-layer-n">3</span>
+          <span class="sci-layer-caret" aria-hidden="true"></span>
+        </button>
+        <div class="sci-layer-body" id="sci-layer-1" hidden>
+          <div class="sci-check"><div class="sci-check-n">Total caffeine ceiling</div><p class="sci-check-d">Removes caffeine-bearing products once the total caffeine across the whole plan would pass the daily ceiling.</p></div>
+          <div class="sci-check"><div class="sci-check-n">No reference intake ceiling</div><p class="sci-check-d">Removes single-nutrient products for nutrients with no established reference intake, where no real shortfall can be shown.</p></div>
+          <div class="sci-check"><div class="sci-check-n">Tolerable upper limit</div><p class="sci-check-d">Removes any product whose serving would take the customer&#8217;s total intake of a nutrient past its tolerable upper limit.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+        </div>
       </div>
-      <div class="sx-gate">
-        <div class="sx-gate-head"><span class="sx-gate-name">Diet</span><span class="sx-gate-n">2</span></div>
-        <ul><li>Diet compatibility</li><li>Market ingredient legality</li></ul>
+      <div class="sci-layer">
+        <button type="button" class="sci-layer-btn" aria-expanded="false" aria-controls="sci-layer-2">
+          <span class="sci-layer-name">Medication conflicts</span>
+          <span class="sci-layer-n">2</span>
+          <span class="sci-layer-caret" aria-hidden="true"></span>
+        </button>
+        <div class="sci-layer-body" id="sci-layer-2" hidden>
+          <div class="sci-check"><div class="sci-check-n">Hard medication conflict</div><p class="sci-check-d">Removes products that cannot be taken alongside a medication the customer says they are on.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+          <div class="sci-check"><div class="sci-check-n">Declared medication caution</div><p class="sci-check-d">Adds a warning to products whose own label cautions against a medication the customer is on, and removes nothing.</p><span class="sci-check-warn">Warns, removes nothing</span></div>
+        </div>
       </div>
-      <div class="sx-gate">
-        <div class="sx-gate-head"><span class="sx-gate-name">Medication conflicts</span><span class="sx-gate-n">2</span></div>
-        <ul><li>Hard medication contraindication</li><li>Medication interaction caution</li></ul>
+      <div class="sci-layer">
+        <button type="button" class="sci-layer-btn" aria-expanded="false" aria-controls="sci-layer-3">
+          <span class="sci-layer-name">Diet</span>
+          <span class="sci-layer-n">2</span>
+          <span class="sci-layer-caret" aria-hidden="true"></span>
+        </button>
+        <div class="sci-layer-body" id="sci-layer-3" hidden>
+          <div class="sci-check"><div class="sci-check-n">Diet compatibility</div><p class="sci-check-d">Removes products that clash with the customer&#8217;s diet, in both directions: incompatible ingredients, and vegan alternatives offered to somebody who is not vegan.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+          <div class="sci-check"><div class="sci-check-n">Market ingredient legality</div><p class="sci-check-d">Removes products containing an ingredient that cannot legally be sold as a food supplement in the customer&#8217;s market.</p></div>
+        </div>
       </div>
-      <div class="sx-gate">
-        <div class="sx-gate-head"><span class="sx-gate-name">Interactions</span><span class="sx-gate-n">1</span></div>
-        <ul><li>Stimulant x sleep conflict</li></ul>
+      <div class="sci-layer">
+        <button type="button" class="sci-layer-btn" aria-expanded="false" aria-controls="sci-layer-4">
+          <span class="sci-layer-name">Interactions</span>
+          <span class="sci-layer-n">1</span>
+          <span class="sci-layer-caret" aria-hidden="true"></span>
+        </button>
+        <div class="sci-layer-body" id="sci-layer-4" hidden>
+          <div class="sci-check"><div class="sci-check-n">Stimulants against sleep</div><p class="sci-check-d">Removes caffeine-bearing products when the customer&#8217;s goal is better sleep, or when they already sleep six hours or fewer.</p><span class="sci-check-run">In Isabel&#8217;s run</span></div>
+        </div>
       </div>
-      <div class="sx-aside">
-      <h3>And 6 more that are not safety</h3>
-      <p>These shape a sensible plan rather than a safe one. They stop the same active turning up twice, and drop what the person already gets from food. They are counted separately because calling them safety checks would overstate what runs.</p>
-        <div class="sx-aside-list"><span>Multivitamin de-duplication</span><span>Multivitamin vs standalone</span><span>Exclusive-family de-duplication</span><span>Duplicate-active de-duplication</span><span>Redundant-complex de-duplication</span><span>Food-credit (already met by diet)</span></div>
-      </div>
-    </div><!-- /science:gates -->
+    </div>
+    <div class="sci-plan-checks sci-in">
+      <h3>Plus 6 plan checks</h3>
+      <p>Redundancy and diet-credit checks, which are not safety checks. They shape a sensible plan rather than a safe one.</p>
+      <ul><li><b>One multivitamin only</b> &#8212; Removes every multivitamin after the best-matching one.</li><li><b>Multivitamin against standalone</b> &#8212; Removes a single-nutrient product when a recommended multivitamin already supplies that nutrient.</li><li><b>One per product family</b> &#8212; Removes products from a family where taking more than one together adds nothing, keeping the best match.</li><li><b>Duplicate active ingredient</b> &#8212; Removes a product whose active ingredient is already covered by another product in the plan.</li><li><b>Redundant complex</b> &#8212; Removes a combination product whose contents are already covered by the single-nutrient products in the plan.</li><li><b>Already met by diet</b> &#8212; Removes a product for a nutrient the customer&#8217;s own food intake already supplies at or above their target.</li></ul>
+    </div>
   </div>
 </section>
 
-<section class="sx-sec" id="thresholds">
+<section class="sci-sec" id="markets">
   <div class="wrap">
-    <div class="sx-head">
-      <span class="eyebrow">Thresholds</span>
-      <h2 class="h2">The bar for recommending differs by nutrient.</h2>
+    <div class="sci-head sci-in">
+      <span class="eyebrow">Markets</span>
+      <h2 class="h2">Targets follow the country you sell in.</h2>
+      <p class="lead">Reference targets, upper limits and which ingredients are allowed depend on the market. Blend applies the right authority for each country.</p>
     </div>
-    <div class="sx-prose">
-      <p>One threshold used to gate every nutrient identically, so vitamin A and vitamin C were
-      judged the same way. They should not be. Too much protein is harmless; vitamin A at a ten
-      per cent shortfall is not worth taking, because retinol accumulates and nothing is gained
-      above requirement. A product is recommended for a nutrient only where correcting that
-      nutrient is actually worth it.</p>
-      <p>This sits on top of the upper-limit ceiling rather than replacing it. Nobody was being
-      overdosed before; the ceiling already refused any dose that would breach a tolerable limit.
-      This is the separate question of whether a modest gap is worth supplementing at all.</p>
+    <div class="sci-countries sci-in">
+      <div class="sci-csel" role="group" aria-label="Market"><button type="button" class="sci-cbtn" data-set="0" aria-pressed="true">United Kingdom</button><button type="button" class="sci-cbtn" data-set="1" aria-pressed="false">Austria and 26 more</button><button type="button" class="sci-cbtn" data-set="2" aria-pressed="false">United States / Canada</button></div>
+      <div class="sci-card sci-auth" data-auth>
+      <div class="sci-auth-l">Reference targets</div>
+      <div class="sci-auth-n">SACN / COMA Reference Nutrient Intake</div>
+      <p class="sci-auth-r">Government Dietary Recommendations, PHE / DH 2016. Reference Nutrient Intakes from Dietary Reference Values for Food Energy and Nutrients for the UK (1991); vitamin D from SACN Vitamin D and Health (2016).</p>
+      <p class="sci-auth-x">The same table for every market: Frida, the Danish Food Composition Database. There is no per-country food composition table. A fortification overlay is applied on top for this market, because fortification is national law rather than composition.</p>
     </div>
-<!-- science:thresholds -->
-    <div class="sx-tw">
-      <table class="sx-th">
-        <thead><tr><th>Nutrient</th><th>Shortfall before recommending</th><th>Bar</th><th>Upper limit</th><th>Reference target, adult</th></tr></thead>
-        <tbody>
-        <tr><td>Protein</td><td>5%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>None</td><td><span style="color:var(--ink-60)">per person, from body weight and goal</span></td></tr>
-        <tr><td>Vitamin A</td><td>40%</td><td><span class="sx-strict is-strict">Strict</span></td><td>3,000 mcg</td><td>540 mcg</td></tr>
-        <tr><td>Vitamin C</td><td>10%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>2,000 mg</td><td>44 mg</td></tr>
-        <tr><td>Vitamin D3</td><td>10%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>100 mcg</td><td>10 mcg</td></tr>
-        <tr><td>Iron</td><td>40%</td><td><span class="sx-strict is-strict">Strict</span></td><td>40 mg</td><td>14.8 mg</td></tr>
-        <tr><td>Omega-3</td><td>10%</td><td><span class="sx-strict is-lenient">Lenient</span></td><td>None</td><td>1 g EPA+DHA</td></tr>
-        </tbody>
-      </table>
+      <div class="sci-ladders" data-ladders>
+      <div class="sci-card sci-dose" data-dose="Protein"><div class="sci-dose-h"><span class="sci-dose-n">Protein</span><span class="sci-dose-s is-lenient">lenient</span></div>
+        <p class="sci-dose-f">Target derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline). Recommended below 95% of it.</p>
+      </div>
+      <div class="sci-card sci-dose" data-dose="Vitamin A"><div class="sci-dose-h"><span class="sci-dose-n">Vitamin A</span><span class="sci-dose-s is-strict">strict</span></div>
+        <div class="sci-track"><div class="sci-never" style="left:84.7457627118644%"><span class="sci-never-l">Never</span></div><div class="sci-mark is-target" style="left:16.94915254237288%"><b>Target</b><i>600 mcg</i></div><div class="sci-mark is-below" style="left:10.16949152542373%" title="Recommend below"></div></div>
+        <p class="sci-dose-f">Upper limit 3,000 mcg. Recommended below 60% of target.</p>
+      </div>
+      <div class="sci-card sci-dose" data-dose="Vitamin C"><div class="sci-dose-h"><span class="sci-dose-n">Vitamin C</span><span class="sci-dose-s is-lenient">lenient</span></div>
+        <div class="sci-track"><div class="sci-never" style="left:84.7457627118644%"><span class="sci-never-l">Never</span></div><div class="sci-mark is-target is-left" style="left:1.694915254237288%"><b>Target</b><i>40 mg</i></div><div class="sci-mark is-below" style="left:1.5254237288135595%" title="Recommend below"></div></div>
+        <p class="sci-dose-f">Upper limit 2,000 mg. Recommended below 90% of target.</p>
+      </div>
+      <div class="sci-card sci-dose" data-dose="Vitamin D3"><div class="sci-dose-h"><span class="sci-dose-n">Vitamin D3</span><span class="sci-dose-s is-lenient">lenient</span></div>
+        <div class="sci-track"><div class="sci-never" style="left:84.7457627118644%"><span class="sci-never-l">Never</span></div><div class="sci-mark is-target is-left" style="left:8.47457627118644%"><b>Target</b><i>10 mcg</i></div><div class="sci-mark is-below" style="left:7.627118644067797%" title="Recommend below"></div></div>
+        <p class="sci-dose-f">Upper limit 100 mcg. Recommended below 90% of target.</p>
+      </div>
+      <div class="sci-card sci-dose" data-dose="Iron"><div class="sci-dose-h"><span class="sci-dose-n">Iron</span><span class="sci-dose-s is-strict">strict</span></div>
+        <div class="sci-track"><div class="sci-never" style="left:84.74576271186442%"><span class="sci-never-l">Never</span></div><div class="sci-mark is-target" style="left:31.355932203389834%"><b>Target</b><i>14.8 mg</i></div><div class="sci-mark is-below" style="left:18.813559322033903%" title="Recommend below"></div></div>
+        <p class="sci-dose-f">Upper limit 40 mg. Recommended below 60% of target.</p>
+      </div>
+      <div class="sci-card sci-dose" data-dose="Omega-3"><div class="sci-dose-h"><span class="sci-dose-n">Omega-3</span><span class="sci-dose-s is-lenient">lenient</span></div>
+        <div class="sci-track"><div class="sci-mark is-target" style="left:50%"><b>Target</b><i>0.25 g EPA+DHA</i></div><div class="sci-mark is-below" style="left:45%" title="Recommend below"></div></div>
+        <p class="sci-dose-f">None established. Recommended below 90% of target.</p>
+      </div>
+      </div>
+      <p class="sci-note">Shown for a woman aged 31 to 50, non-smoker, lightly active, no dietary restriction. Every real target is computed for the person.</p>
+      <p class="sci-note">The shortfall a nutrient must show before a product is offered is one set of bands worldwide. The tolerable upper limits are one set worldwide. The United Kingdom&#8217;s own guidance on retinol, for one, is lower than the limit applied here. Food composition is one table worldwide, with a fortification overlay for the United Kingdom only.</p>
     </div>
-    <p class="sx-foot">Default where a nutrient has no band of its own: 10%. Reference targets are for a woman aged 31 to 50 in the UK with no diet modifier. Every real target is computed for the person.</p><!-- /science:thresholds -->
   </div>
 </section>
 
-<section class="sx-sec sx-sec--beige" id="sources">
+<section class="sci-cta sc-reveal" data-sc="reveal">
   <div class="wrap">
-    <div class="sx-head">
-      <span class="eyebrow">Sources</span>
-      <h2 class="h2">Where the reference values come from.</h2>
-      <p class="lead">Targets are read from published dietary reference values rather than set by us. One authority is the default; the others fill its gaps and corroborate it.</p>
+    <div class="sci-cta-card">
+      <span class="eyebrow">The methodology</span>
+      <h2>Read the full methodology.</h2>
+      <p>See how answers, research and rules produce every recommendation.</p>
+      <div class="sci-cta-ctas">
+        <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-primary btn-lg">Request the methodology</a>
+        <a href="/try" class="btn btn-ghost btn-lg">Try the demo</a>
+      </div>
     </div>
-<!-- science:sources -->
-    <div class="sx-src">
-      <a class="sx-card" href="https://www.efsa.europa.eu/en/topics/topic/dietary-reference-values" target="_blank" rel="noopener"><span class="sx-card-role">Default authority</span><div class="sx-card-n">EFSA</div><div class="sx-card-f">European Food Safety Authority</div><span class="sx-card-l">Dietary reference values</span></a>
-      <a class="sx-card" href="https://ods.od.nih.gov/factsheets/list-all/" target="_blank" rel="noopener"><span class="sx-card-role">Secondary</span><div class="sx-card-n">NIH</div><div class="sx-card-f">National Institutes of Health, Office of Dietary Supplements</div><span class="sx-card-l">Dietary reference values</span></a>
-      <a class="sx-card" href="https://www.nhs.uk/conditions/vitamins-and-minerals/" target="_blank" rel="noopener"><span class="sx-card-role">Secondary</span><div class="sx-card-n">NHS</div><div class="sx-card-f">National Health Service (UK)</div><span class="sx-card-l">Dietary reference values</span></a>
-    </div><!-- /science:sources -->
   </div>
 </section>
 
-<section class="gm sx-gm">
-  <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Made for every catalogue</span><h2 class="h2">From general wellness to thyroid support, and the signals under each</h2><p class="lead">Every goal a customer can pick, and the signals the engine reads underneath each one.</p></div>
-  </div>
-  <div class="gm-rails" role="group" aria-label="Goals the quiz covers">
-<!-- science:goal-rails -->
-    <div class="gm-rail a"><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="General Health Support">General Health Support</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Ageing &amp; Longevity">Healthy Ageing &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button><button class="gm-chip" data-goal="Bone &amp; Joint Health">Bone &amp; Joint Health</button><button class="gm-chip" data-goal="Boost Energy">Boost Energy</button><button class="gm-chip" data-goal="Build Muscle">Build Muscle</button><button class="gm-chip" data-goal="Cognitive Health">Cognitive Health</button><button class="gm-chip" data-goal="Eye Health">Eye Health</button><button class="gm-chip" data-goal="Healthy Weight Gain">Healthy Weight Gain</button><button class="gm-chip" data-goal="General Health Support">General Health Support</button><button class="gm-chip" data-goal="Gut Health">Gut Health</button><button class="gm-chip" data-goal="Healthy Ageing &amp; Longevity">Healthy Ageing &amp; Longevity</button><button class="gm-chip" data-goal="Heart Health">Heart Health</button><button class="gm-chip" data-goal="Hormonal Balance">Hormonal Balance</button><button class="gm-chip" data-goal="Immunity">Immunity</button><button class="gm-chip" data-goal="Increase Endurance">Increase Endurance</button><button class="gm-chip" data-goal="Sexual Health">Sexual Health</button><button class="gm-chip" data-goal="Liver Health">Liver Health</button><button class="gm-chip" data-goal="Lose Weight">Lose Weight</button><button class="gm-chip" data-goal="Lung Health">Lung Health</button><button class="gm-chip" data-goal="Menopause">Menopause</button><button class="gm-chip" data-goal="Mood &amp; Emotions">Mood &amp; Emotions</button><button class="gm-chip" data-goal="Prostate Health">Prostate Health</button><button class="gm-chip" data-goal="Sleep">Sleep</button></div>
-    <div class="gm-rail b"><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#8217;s Fertility">Men&#8217;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button><button class="gm-chip" data-goal="Stress">Stress</button><button class="gm-chip" data-goal="Testosterone Health">Testosterone Health</button><button class="gm-chip" data-goal="Urinary Health">Urinary Health</button><button class="gm-chip" data-goal="Blood Sugar Support">Blood Sugar Support</button><button class="gm-chip" data-goal="Thyroid &amp; Metabolism Support">Thyroid &amp; Metabolism Support</button><button class="gm-chip" data-goal="Cycle Support">Cycle Support</button><button class="gm-chip" data-goal="Conception Support">Conception Support</button><button class="gm-chip" data-goal="Prenatal Support">Prenatal Support</button><button class="gm-chip" data-goal="Postnatal Support">Postnatal Support</button><button class="gm-chip" data-goal="Men&#8217;s Fertility">Men&#8217;s Fertility</button><button class="gm-chip" data-goal="Skin Health">Skin Health</button><button class="gm-chip" data-goal="Hair Health">Hair Health</button><button class="gm-chip" data-goal="Nail Health">Nail Health</button><button class="gm-chip" data-goal="Mass Gain">Mass Gain</button><button class="gm-chip" data-goal="Tone &amp; Definition">Tone &amp; Definition</button><button class="gm-chip" data-goal="Strength &amp; Power">Strength &amp; Power</button><button class="gm-chip" data-goal="Recovery &amp; Repair">Recovery &amp; Repair</button><button class="gm-chip" data-goal="Hydration &amp; Electrolytes">Hydration &amp; Electrolytes</button><button class="gm-chip" data-goal="Plant-Based Nutrition">Plant-Based Nutrition</button><button class="gm-chip" data-goal="Everyday Comfort">Everyday Comfort</button></div>
-<!-- /science:goal-rails -->
-  </div>
-  <div class="gm-panel" id="gm-panel"></div>
-</section>
-
-<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
-  <div class="wrap">
-    <span class="eyebrow">Get started</span>
-    <h2 class="h1" style="margin-top:18px">Put a quiz on your storefront this week.</h2>
-    <p class="lead">Try the live demo, or book 15 minutes with us.</p>
-    <div class="closer-ctas">
-      <a href="/try" class="btn btn-primary btn-lg">Try the live demo</a>
-      <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=faf8f2&primary_color=1a1a1a');">Book a call</a>
-    </div>
-    <div class="cta-alt" style="text-align:center;margin-top:16px">Not ready? <a href="/sample-report">See a sample report &rarr;</a></div>
-    <div class="closer-foot">Or email us at <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></div>
-  </div>
-</section>
+<script type="application/json" id="sci-data">{"verticals":{"health":{"display_name":"Blend Wellness Model","status":"live","counts":{"products_audited":{"value":223,"label":"products audited for safety and composition","basis":"rows in the engine's master product table","site_claim":"200+","agrees_with_site_claim":true},"products_activated":{"value":116,"label":"of those, cleared for recommendation","basis":"the master table's activation column"},"product_attributes":{"value":25,"label":"attributes recorded for every product in a brand's catalogue","basis":"fields on the catalogue product record. Of these, 18 drive matching, safety, ranking or plan structure and the rest are commerce and catalogue bookkeeping, so this is what is recorded rather than what is scored","site_claim":"25","agrees_with_site_claim":true},"safety_checks":{"value":17,"label":"safety checks every product passes","basis":"gate functions in the engine's safety chain. Sixteen remove a product and one adds a warning without removing anything","site_claim":"17","agrees_with_site_claim":true},"plan_checks":{"value":6,"label":"further checks that shape the plan","basis":"redundancy and diet-credit checks, which are not safety checks","site_claim":"6","agrees_with_site_claim":true},"claim_compliance_checks":{"value":3,"label":"claim compliance checks","basis":"checks that demote a product presented against a health claim it does not hold. Counted separately from the two figures above, neither of which includes them"},"advisory_notices":{"value":7,"label":"advisory notices the plan can carry","basis":"checks that annotate a plan without changing what is in it"},"nutrients":{"value":42,"label":"nutrients modelled and reported per person","basis":"the response contract's per-nutrient fields","site_claim":"42","agrees_with_site_claim":true},"nutrients_by_group":{"macros":5,"minerals":16,"nutrients":8,"vitamins":13},"goals":{"value":41,"label":"goals a customer can choose from","basis":"visible answers on the quiz's goal question"},"subgoals":{"value":252,"label":"specific concerns under those goals","basis":"answers across 40 subgoal questions"}},"calculations_per_customer":{"value":108460,"food_rows":1276,"nutrient_columns":85,"formula":"food rows x nutrient columns"},"product_attributes":{"recorded":25,"by_role":{"catalogue":2,"matching":9,"ranking":1,"commerce":5,"plan":1,"safety":7},"drive_a_recommendation":18},"safety_checks":[{"name":"Hard medication conflict","group":"medication conflicts","effect":"removes","does":"Removes products that cannot be taken alongside a medication the customer says they are on."},{"name":"Declared medication caution","group":"medication conflicts","effect":"warns","does":"Adds a warning to products whose own label cautions against a medication the customer is on, and removes nothing."},{"name":"Diagnosed condition conflict","group":"contraindications","effect":"removes","does":"Removes products that the product record says to avoid with a condition the customer has told us about."},{"name":"Pregnancy and breastfeeding safety","group":"contraindications","effect":"removes","does":"Removes products that are not safe in pregnancy or while breastfeeding."},{"name":"Prenatal audience only","group":"contraindications","effect":"removes","does":"Removes products meant only for people trying to conceive, pregnant or breastfeeding from everybody else's plan."},{"name":"Sex-specific products","group":"contraindications","effect":"removes","does":"Removes products formulated for one sex from the other sex's plan."},{"name":"Beta-carotene for smokers","group":"contraindications","effect":"removes","does":"Removes products that raise risk for current smokers, beta-carotene above all."},{"name":"Age band suitability","group":"contraindications","effect":"removes","does":"Removes products with no established requirement or dose for the customer's age and sex."},{"name":"Iron need check","group":"contraindications","effect":"removes","does":"Removes standalone iron from plans for people whose physiological need for it is low, because unneeded iron is not benign."},{"name":"Low body weight safety","group":"contraindications","effect":"removes","does":"Removes products that are unsafe or inappropriate at a very low body weight, and signposts support instead."},{"name":"Training-only products","group":"contraindications","effect":"removes","does":"Removes sport and training products from the plan of somebody who reports no structured exercise."},{"name":"Stimulants against sleep","group":"interactions","effect":"removes","does":"Removes caffeine-bearing products when the customer's goal is better sleep, or when they already sleep six hours or fewer."},{"name":"Total caffeine ceiling","group":"upper limits","effect":"removes","does":"Removes caffeine-bearing products once the total caffeine across the whole plan would pass the daily ceiling."},{"name":"No reference intake ceiling","group":"upper limits","effect":"removes","does":"Removes single-nutrient products for nutrients with no established reference intake, where no real shortfall can be shown."},{"name":"Tolerable upper limit","group":"upper limits","effect":"removes","does":"Removes any product whose serving would take the customer's total intake of a nutrient past its tolerable upper limit."},{"name":"Diet compatibility","group":"diet","effect":"removes","does":"Removes products that clash with the customer's diet, in both directions: incompatible ingredients, and vegan alternatives offered to somebody who is not vegan."},{"name":"Market ingredient legality","group":"diet","effect":"removes","does":"Removes products containing an ingredient that cannot legally be sold as a food supplement in the customer's market."}],"safety_check_counts_by_group":{"medication conflicts":2,"contraindications":9,"interactions":1,"upper limits":3,"diet":2},"plan_checks":[{"name":"One multivitamin only","group":"redundancy","effect":"removes","does":"Removes every multivitamin after the best-matching one."},{"name":"Multivitamin against standalone","group":"redundancy","effect":"removes","does":"Removes a single-nutrient product when a recommended multivitamin already supplies that nutrient."},{"name":"One per product family","group":"redundancy","effect":"removes","does":"Removes products from a family where taking more than one together adds nothing, keeping the best match."},{"name":"Duplicate active ingredient","group":"redundancy","effect":"removes","does":"Removes a product whose active ingredient is already covered by another product in the plan."},{"name":"Redundant complex","group":"redundancy","effect":"removes","does":"Removes a combination product whose contents are already covered by the single-nutrient products in the plan."},{"name":"Already met by diet","group":"need","effect":"removes","does":"Removes a product for a nutrient the customer's own food intake already supplies at or above their target."}],"also_in_the_chain":{"note":"Classified so the two published figures above can be shown to be complete rather than merely short. Neither the safety count nor the plan count includes these.","claim_compliance":[{"name":"Authorised claim required","group":"claim compliance","effect":"demotes","does":"Demotes botanical products when nothing in the set carries an authorised health claim for what the customer asked about."},{"name":"Goal claim authorisation","group":"claim compliance","effect":"demotes","does":"Demotes a product whose only reason to be in the plan is a claim that is not authorised."},{"name":"Symptom claim authorisation","group":"claim compliance","effect":"demotes","does":"Stops a product being presented against a specific symptom it holds no authorised claim for."}],"advisory_notices":[{"name":"Additive medication risk","group":"advisory","effect":"warns","does":"Adds a warning where a product and a medication carry an additive risk that is real but not absolute."},{"name":"Zinc and copper balance","group":"advisory","effect":"warns","does":"Adds a warning when zinc is recommended at a level that can deplete copper without paired copper."},{"name":"Missing bone cofactors","group":"advisory","effect":"warns","does":"Adds a note when vitamin D is recommended without the cofactors that help it work."},{"name":"No safe dose available","group":"advisory","effect":"warns","does":"Adds a note when a shortfall is found but the brand carries no product that could fill it at a safe dose."},{"name":"Expert supervision advised","group":"advisory","effect":"warns","does":"Marks products that should never be presented as a straightforward buy, whatever the customer's answers."},{"name":"Pregnancy referral note","group":"advisory","effect":"warns","does":"Marks products whose use in pregnancy is unestablished rather than unsafe, and refers the customer to a professional."},{"name":"No endorsement note","group":"advisory","effect":"warns","does":"Attaches the no-endorsement note to products that require one."}]},"recommendation_thresholds":{"default_shortfall_before_recommend":0.1,"reference_adult":"woman aged 31 to 50, non-smoker, lightly active, no dietary restriction","reference_market":"GB","note":"Shortfall is how far below target a nutrient must fall before a product is recommended for it. It sits on top of the upper limit, which refuses any dose that would breach a tolerable intake.","nutrients":[{"nutrient":"Protein","shortfall_before_recommend":0.05,"shortfall_pct":5,"strictness":"lenient","upper_limit":null,"upper_limit_unit":null,"upper_limit_note":"none established","target_reference_adult":null,"target_basis":"derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)"},{"nutrient":"Vitamin A","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":3000,"upper_limit_unit":"mcg","target_reference_adult":600},{"nutrient":"Vitamin C","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":2000,"upper_limit_unit":"mg","target_reference_adult":40},{"nutrient":"Vitamin D3","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":100,"upper_limit_unit":"mcg","target_reference_adult":10},{"nutrient":"Iron","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":40,"upper_limit_unit":"mg","target_reference_adult":14.8},{"nutrient":"Omega-3","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":null,"upper_limit_unit":"g EPA+DHA","upper_limit_note":"none established","target_reference_adult":0.25,"target_basis":"EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows"}]},"food_intake":{"summary":["Blend works out what you already get from food before it considers a supplement: your answers about meal pattern, portion size, how often you skip meals and how often you eat each food group are turned into an estimated daily plate in grams, and each food group's composition comes from a published food composition database.","That plate gives an estimated daily intake for every nutrient the model tracks, which is then set against your own personal target, so a nutrient your diet already covers reads as met rather than as a gap.","Where your food already supplies a nutrient at or above your own target, the supplement for it is removed from the plan instead of being recommended."],"quiz_inputs":{"What you eat":["How often do you eat meat and poultry?","What meats do you eat the most?","How often do you eat fish and seafood?","What fish and seafood do you eat the most?","How many eggs do you eat on average per week?","How often do you eat dairy products?","What dairy products do you eat the most?","How often do you eat fruit?","What fruits do you eat the most?","How often do you eat vegetables and legumes?","What vegetables and legumes do you eat the most?","How often do you eat grains and cereals?","What grains and cereals do you eat the most?","How often do you eat plant-based meat alternatives?","How often do you eat nuts and seeds?","How often do you eat sweets and desserts?","What sweets and desserts do you eat the most?","How often do you eat fast food and ready-made meals?","What fast food and ready-made products do you eat the most?","How many drinks other than water do you have on a typical day?","What beverages do you drink the most?","How many alcoholic drinks do you have per week?","What alcoholic drinks do you drink the most?"],"How much you eat":["What meals and snacks do you usually eat throughout the day?","What size are your usual portions?","How often do you skip meals?"],"What you leave out":["Do any of the following dietary preferences or restrictions apply to you?","No problem! Simply select the foods that you never include in your diet."],"Overall diet quality":["Let's discuss your weekly eating habits. Which description fits you best?"],"What bounds the daily energy":["What is your gender?","How old are you?","What is your height (cm)?","What is your weight (kg)?","Excluding sports or workouts, how active is your daily routine?","Which activities do you do regularly?","How many times per week?","Typical session length?","How intense?"]},"food_composition":{"name":"Frida, the Danish Food Composition Database","publisher":"DTU National Food Institute","version":"5.5, with the fatty-acid breakdown from 6.1","url":"https://frida.fooddata.dk/","doi":"10.11583/DTU.32312844.v1","licence":"CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), commercial reuse permitted WITH attribution","attribution":"Contains data from Frida (frida.fooddata.dk), DTU National Food Institute, licensed under CC BY 4.0","food_rows":1276,"nutrient_columns":85,"coverage_note":"Of 1276 food rows, 1218 matched the source's fatty-acid tables and 454 carry a measured value for both EPA and DHA. Where the source did not analyse the breakdown, the engine estimates the EPA and DHA share of total omega-3 by food group rather than treating the gap as zero.","rows_not_yet_re_sourced":76},"fortification":{"markets":["GB"],"why":"Fortification is national law rather than composition: the United Kingdom requires calcium, iron, thiamin and niacin in non-wholemeal wheat flour and Denmark requires none, while the composition table is Danish."},"credited_against_targets":{"how":"Every nutrient's gap is the customer's own target minus their estimated intake from food, so the diet is credited against the target before any product is considered.","already_met_by_diet":"A second check removes a product outright when the customer's food intake of that nutrient reaches their own displayed target. It uses the customer's own target rather than a fixed reference figure, so the plan can never recommend a product for a nutrient the report shows as met."},"sources":[{"name":"Frida, the Danish Food Composition Database, DTU National Food Institute","url":"https://frida.fooddata.dk/"},{"name":"McCance and Widdowson's Composition of Foods Integrated Dataset (CoFID), used for the United Kingdom fortification overlay","url":"https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid"},{"name":"EFSA Dietary Reference Values","url":"https://www.efsa.europa.eu/en/topics/topic/dietary-reference-values"},{"name":"Government Dietary Recommendations, Public Health England","url":"https://www.gov.uk/government/publications/the-eatwell-guide"}]},"countries":{"summary":"Three reference sets cover every market the engine runs today. The United Kingdom and the European Union each have their own; the United States and Canada share one, because the Dietary Reference Intakes are a joint set.","how_a_market_is_decided":"The customer's own country decides, and the brand's home market fills the gap when it is unknown. A country with no reference set of its own falls back to its region, and anything that resolves to nothing at all is judged against the United Kingdom.","what_is_not_per_country":["The shortfall a nutrient must show before a product is offered is one set of bands worldwide.","The tolerable upper limits are one set worldwide. The United Kingdom's own guidance on retinol, for one, is lower than the limit applied here.","Food composition is one table worldwide, with a fortification overlay for the United Kingdom only."],"default_when_nothing_resolves":"GB","reference_sets":[{"countries":["United Kingdom"],"authority":{"name":"SACN / COMA Reference Nutrient Intake","reference":"Government Dietary Recommendations, PHE / DH 2016. Reference Nutrient Intakes from Dietary Reference Values for Food Energy and Nutrients for the UK (1991); vitamin D from SACN Vitamin D and Health (2016).","licence":"Crown copyright, Open Government Licence v3.0"},"food_composition":"The same table for every market: Frida, the Danish Food Composition Database. There is no per-country food composition table. A fortification overlay is applied on top for this market, because fortification is national law rather than composition.","fortification_overlay":true,"ingredient_legality":{"rules_in_force":{"melatonin":["United Kingdom"]},"note":"Outright national bans on an ingredient in food supplements. Negative opinions, precautionary advice and claim restrictions are deliberately out of scope, because over-blocking would remove products that are legal to sell."},"nutrients":[{"nutrient":"Protein","target_reference_adult":null,"target_unit":null,"target_basis":"derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)","shortfall_before_recommend":0.05,"shortfall_pct":5,"strictness":"lenient","upper_limit":null,"upper_limit_note":"none established"},{"nutrient":"Vitamin A","target_reference_adult":600,"target_unit":"mcg","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":3000},{"nutrient":"Vitamin C","target_reference_adult":40,"target_unit":"mg","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":2000},{"nutrient":"Vitamin D3","target_reference_adult":10,"target_unit":"mcg","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":100},{"nutrient":"Iron","target_reference_adult":14.8,"target_unit":"mg","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":40},{"nutrient":"Omega-3","target_reference_adult":0.25,"target_unit":"g EPA+DHA","target_basis":"EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":null,"upper_limit_note":"none established"}]},{"countries":["Austria","Belgium","Bulgaria","Croatia","Cyprus","Czechia","Denmark","Estonia","Finland","France","Germany","Greece","Hungary","Ireland","Italy","Latvia","Lithuania","Luxembourg","Malta","Netherlands","Poland","Portugal","Romania","Slovakia","Slovenia","Spain","Sweden"],"authority":{"name":"EFSA Population Reference Intake / Adequate Intake","reference":"EFSA, Summary of Dietary Reference Values, version 4 (September 2017). PRIs and AIs, tables 5/7 (minerals) and 9/11 (vitamins). Bands: adults >= 18, and the published adolescent column, which is 15-17 for most nutrients but 11-17 for calcium, 12-17 for iron and 10-17 for copper and magnesium.","licence":"EFSA reproduction permitted with acknowledgement of source."},"food_composition":"The same table for every market: Frida, the Danish Food Composition Database. There is no per-country food composition table.","fortification_overlay":false,"ingredient_legality":{"rules_in_force":{"ashwagandha":["Denmark"]},"note":"Outright national bans on an ingredient in food supplements. Negative opinions, precautionary advice and claim restrictions are deliberately out of scope, because over-blocking would remove products that are legal to sell."},"nutrients":[{"nutrient":"Protein","target_reference_adult":null,"target_unit":null,"target_basis":"derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)","shortfall_before_recommend":0.05,"shortfall_pct":5,"strictness":"lenient","upper_limit":null,"upper_limit_note":"none established"},{"nutrient":"Vitamin A","target_reference_adult":650,"target_unit":"mcg","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":3000},{"nutrient":"Vitamin C","target_reference_adult":95,"target_unit":"mg","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":2000},{"nutrient":"Vitamin D3","target_reference_adult":15,"target_unit":"mcg","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":100},{"nutrient":"Iron","target_reference_adult":16,"target_unit":"mg","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":40},{"nutrient":"Omega-3","target_reference_adult":0.25,"target_unit":"g EPA+DHA","target_basis":"EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":null,"upper_limit_note":"none established"}]},{"countries":["United States","Canada"],"authority":{"name":"Dietary Reference Intakes, the joint United States and Canada set","reference":"Carried in the engine's shipped reference table, whose provenance in our data is the legacy master spreadsheet rather than a cited publication. Unlike the United Kingdom and European Union sets it has no source or licence recorded against it.","licence":null},"food_composition":"The same table for every market: Frida, the Danish Food Composition Database. There is no per-country food composition table.","fortification_overlay":false,"ingredient_legality":{"rules_in_force":{},"note":"Outright national bans on an ingredient in food supplements. Negative opinions, precautionary advice and claim restrictions are deliberately out of scope, because over-blocking would remove products that are legal to sell."},"nutrients":[{"nutrient":"Protein","target_reference_adult":null,"target_unit":null,"target_basis":"derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)","shortfall_before_recommend":0.05,"shortfall_pct":5,"strictness":"lenient","upper_limit":null,"upper_limit_note":"none established"},{"nutrient":"Vitamin A","target_reference_adult":700,"target_unit":"mcg","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":3000},{"nutrient":"Vitamin C","target_reference_adult":75,"target_unit":"mg","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":2000},{"nutrient":"Vitamin D3","target_reference_adult":15,"target_unit":"mcg","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":100},{"nutrient":"Iron","target_reference_adult":18,"target_unit":"mg","shortfall_before_recommend":0.4,"shortfall_pct":40,"strictness":"strict","upper_limit":40},{"nutrient":"Omega-3","target_reference_adult":0.25,"target_unit":"g EPA+DHA","target_basis":"EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows","shortfall_before_recommend":0.1,"shortfall_pct":10,"strictness":"lenient","upper_limit":null,"upper_limit_note":"none established"}]}],"food_composition_source":{"name":"Frida, the Danish Food Composition Database","publisher":"DTU National Food Institute","url":"https://frida.fooddata.dk/","licence":"CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), commercial reuse permitted WITH attribution","attribution":"Contains data from Frida (frida.fooddata.dk), DTU National Food Institute, licensed under CC BY 4.0"},"ingredient_legality_markets":["DK","GB"],"regions_a_brand_can_select":["EEA","EU","NORDIC","NORTH AMERICA","UK"]},"goals":[{"goal":"Bone & Joint Health","subgoals":["Joint stiffness or discomfort","Bone strength","Bone density with age","Cartilage and joint support","Reduced flexibility","Aches after activity","Bouncing back after a strain","None of the above."]},{"goal":"Boost Energy","subgoals":["Ongoing tiredness","Afternoon dips","Low daily stamina","Slow to bounce back after illness","Run-down","Caffeine reliance","None of the above."]},{"goal":"Build Muscle","subgoals":["Difficulty building muscle","Slow recovery","Low workout stamina","Plateau","Low pre-workout energy","None of the above."]},{"goal":"Cognitive Health","subgoals":["Difficulty concentrating","Forgetfulness or memory lapses","Reduced mental clarity","Brain fog","Afternoon mental fatigue","Slow recall under pressure","Focus and productivity","None of the above."]},{"goal":"Eye Health","subgoals":["Screen eye strain","Dry or tired eyes","Night-vision support","Maintaining vision with age","Light sensitivity","None of the above."]},{"goal":"Healthy Weight Gain","subgoals":["Struggle to gain weight","Low appetite","Feel like a fast metabolism","Gain fat not muscle","Low energy to train","None of the above."]},{"goal":"General Health Support","subgoals":[]},{"goal":"Gut Health","subgoals":["Occasional gas","Bloating","Indigestion","Heartburn or reflux","Constipation","Loose stools","Tummy cramping","Over-full after small meals","Irregular bowel habits","Discomfort after dairy","Discomfort after gluten or wheat","Sluggish on fatty meals","Occasional nausea","None of the above."]},{"goal":"Healthy Ageing & Longevity","subgoals":["Visible signs of ageing","Lower energy with age","Slower recovery","Everyday antioxidant support","Maintaining muscle","Skin or joint changes with age","None of the above."]},{"goal":"Heart Health","subgoals":["Support healthy cholesterol","Support healthy blood pressure","Cold hands and feet","Support healthy circulation","Occasional leg or ankle puffiness","Family history of heart concerns","Support healthy triglycerides","None of the above."]},{"goal":"Hormonal Balance","subgoals":["Premenstrual mood changes","Cycle-related bloating","Skin changes with cycle","Low energy with cycle","Irregular patterns","None of the above."]},{"goal":"Immunity","subgoals":["Frequent colds or sniffles","Seasonal sensitivities","Slow to bounce back","Run-down when busy or travelling","Frequent sore throats","None of the above."]},{"goal":"Increase Endurance","subgoals":["Low workout stamina","Cramps","Slow recovery","Electrolyte loss from sweating","None of the above."]},{"goal":"Sexual Health","subgoals":["Desire or libido","Stamina and staying power","Blood flow and vitality","Performance confidence","Arousal and sensitivity","Comfort and dryness","Overall vitality","None of the above."]},{"goal":"Liver Health","subgoals":["Heavy or sluggish after rich meals","Frequent social drinking","High pollution or chemical exposure","Poor tolerance of fatty foods","Looking for a reset","Lifestyle-related dull skin","Morning-after recovery","None of the above."]},{"goal":"Lose Weight","subgoals":["Sugar or carb cravings","Energy dips after meals","Hard to lose despite effort","Constant hunger or low fullness","Stubborn midsection","Late-night snacking","None of the above."]},{"goal":"Lung Health","subgoals":["Support healthy breathing","Seasonal or airborne sensitivity","Stamina and breathing during activity","Active-outdoor-lifestyle support","None of the above."]},{"goal":"Menopause","subgoals":["Hot flushes","Night sweats","Mood changes","Sleep disruption","Low energy","Changes in skin or hair","None of the above."]},{"goal":"Mood & Emotions","subgoals":["Low or flat mood","Irritability","Feeling overwhelmed","Nervousness or on edge","Emotional eating","None of the above."]},{"goal":"Prostate Health","subgoals":["Frequent urination","Night-time urination","Weaker flow","General prostate support","None of the above."]},{"goal":"Sleep","subgoals":["Trouble falling asleep","Waking during the night","Waking unrested","Short sleep","Racing mind at bedtime","Shift work","Jet lag","None of the above."]},{"goal":"Stress","subgoals":["Feeling overwhelmed","Trouble winding down","Everyday tension","Stress-related eating","Restlessness","None of the above."]},{"goal":"Testosterone Health","subgoals":["Low energy or drive","Reduced muscle tone","Low desire","Low stamina","Mood or motivation dips","None of the above."]},{"goal":"Urinary Health","subgoals":["Bladder comfort","Urinary tract comfort","Bladder control comfort","Kidney and fluid support","None of the above."]},{"goal":"Blood Sugar Support","subgoals":["Strong sugar or carb cravings","Energy crashes after meals","Afternoon slumps","Late-night snacking","Steady-energy goal","None of the above."]},{"goal":"Thyroid & Metabolism Support","subgoals":["Slow-metabolism feeling","Often feeling cold","Unexplained tiredness with weight changes","Low daily energy","Sluggish after meals","None of the above."]},{"goal":"Cycle Support","subgoals":["Irregular or missed periods","Heavy or uncomfortable periods","Premenstrual mood changes","Cycle bloating","Low energy around your period","None of the above."]},{"goal":"Conception Support","subgoals":["Trying to conceive","Preparing to try","Supporting reproductive health","None of the above."]},{"goal":"Prenatal Support","subgoals":["First trimester","Second trimester","Third trimester","Planning pregnancy nutrition","None of the above."]},{"goal":"Postnatal Support","subgoals":["Postnatal tiredness","Hair changes after birth","Breastfeeding nutrition","Rebuilding energy","None of the above."]},{"goal":"Men's Fertility","subgoals":["Trying to conceive","Preparing to try","Supporting reproductive health","None of the above."]},{"goal":"Skin Health","subgoals":["Blemish-prone skin","Dry skin","Dry, sensitive or irritated skin","Fine lines and wrinkles","Loss of firmness","Dull or uneven tone","Redness or sensitivity","None of the above."]},{"goal":"Hair Health","subgoals":["Hair thinning or shedding","Slow hair growth","Brittle hair","Split ends","Dull or lifeless hair","Scalp concerns","None of the above."]},{"goal":"Nail Health","subgoals":["Brittle or weak nails","Peeling or splitting nails","Slow nail growth","Ridges or discolouration","None of the above."]},{"goal":"Mass Gain","subgoals":["Difficulty gaining size","Low appetite for a surplus","Slow recovery","Strength plateau","None of the above."]},{"goal":"Tone & Definition","subgoals":["Struggle to lean out","Holding stubborn fat","Muscle definition","Recovery between sessions","None of the above."]},{"goal":"Strength & Power","subgoals":["Strength plateau","Low power output","Slow recovery","Pre-workout energy","None of the above."]},{"goal":"Recovery & Repair","subgoals":["Soreness after training","Slow recovery between sessions","Poor sleep after hard sessions","Muscle cramps","None of the above."]},{"goal":"Hydration & Electrolytes","subgoals":["Muscle cramps","After heavy sweating or exercise","Hot-climate or outdoor work","Post-workout","Dehydration headaches","Frequent travel or flying","None of the above."]},{"goal":"Plant-Based Nutrition","subgoals":["Following a vegan or vegetarian diet","Low energy on plant-based","Want complete daily nutrition","Concerned about common gaps","New to plant-based","None of the above."]},{"goal":"Everyday Comfort","subgoals":["Soreness after exercise","Everyday aches or stiffness","Bouncing back after intense activity","General muscle and joint comfort","None of the above."]}]},"beauty":{"display_name":"Beauty","status":"coming_soon"},"food":{"display_name":"Food","status":"coming_soon"},"fashion":{"display_name":"Fashion","status":"coming_soon"}},"trace":{"customer":{"name":"Isabel","age":"52 years","sex":"Woman","country":"United Kingdom","height":"165 cm","weight":"67 kg","diet":"Pescatarian","bmi_status":"Healthy Weight*","activity":"Lightly Active","condition":"Cardiovascular Diseases","medication":"Antihypertensives","goals":"Sleep, Heart Health, Bone & Joint Health","route":"full","health_score":"69","health_score_label":"Fair","health_score_note":"The health score is part of the real customer report, which is why it appears here."},"counts":{"scored":51,"passed_the_checks":30,"recommended":5}}}</script><!-- /science:body -->
 </main>
 <footer class="footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
@@ -2149,6 +1492,7 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
 })();
 </script>
 <script src="/scroll-cards.js"></script>
+<script src="/science.js"></script>
 <!-- Cookie consent banner -->
 <div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
   <div class="blend-cookie-banner-inner">
