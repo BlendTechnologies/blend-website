@@ -182,14 +182,47 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .quiz{grid-area:1/1/3/2;justify-self:start}
   .results{grid-area:2/1/4/2;justify-self:end}
 }
-@keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-/* `backwards`, not `both`, over a visible base: the from-keyframe still
-   hides the card through the 2s delay, and the end state is the base state
-   anyway — but when animations do not run at all, the card is simply there.
-   With `opacity:0` as the base it was not: the visual-diff harness disables
-   animation outright, so every baseline of this page was captured with the
-   plan card invisible and none of its design was ever regression-guarded. */
-.results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
+/* ---- The hero intro ---------------------------------------------------
+   One sequence, once a session: the quiz card arrives enlarged over the
+   whole visual, three answers pick themselves, the card shrinks into its
+   place, and the plan card rises behind it.
+
+   Every rule is scoped to .hero-intro on <html>, which the head adds
+   before the first paint and the controller removes at the end, so the
+   base state is the finished hero. With no script, on a second visit in
+   the session, or with animation disabled — which is how the visual-diff
+   harness captures this page — the hero is simply there. The plan card's
+   own entrance, which this replaces, carried the same lesson the hard
+   way: with `opacity:0` as its base, every baseline of this page was
+   captured with the card invisible and none of its design was guarded.
+
+   Transform and opacity only, the progress bar included: it advances on
+   scaleX rather than width, because width is layout. */
+.results{opacity:1}
+.qprog-fill{transform-origin:left center;transition:transform .5s cubic-bezier(.2,.7,.25,1)}
+.hero-intro .quiz{opacity:0;transform:scale(var(--hi-s,1));transform-origin:top left}
+.hero-intro .results{opacity:0;transform:translateY(24px)}
+.hero-intro .pc-track{animation-play-state:paused}
+.hero-intro .qprog-fill{transform:scaleX(var(--hi-prog,.4))}
+.hero-intro.hi-play .quiz{animation:hi-quiz 2650ms both}
+.hero-intro.hi-play .results{animation:hi-plan 2950ms both}
+/* 300ms in, held to 2000ms, then 650ms down. */
+@keyframes hi-quiz{
+  0%{opacity:0;transform:scale(var(--hi-s,1))}
+  11.32%{opacity:1;transform:scale(var(--hi-s,1))}
+  75.47%{opacity:1;transform:scale(var(--hi-s,1));animation-timing-function:cubic-bezier(.65,0,.35,1)}
+  100%{opacity:1;transform:scale(1)}
+}
+/* Held to 2450ms, then 500ms up, overlapping the end of the shrink. */
+@keyframes hi-plan{
+  0%{opacity:0;transform:translateY(24px)}
+  83.05%{opacity:0;transform:translateY(24px);animation-timing-function:cubic-bezier(.16,.84,.44,1)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.qopt.hi-press,.quiz-next.hi-press{animation:hi-press 240ms cubic-bezier(.2,.7,.25,1)}
+@keyframes hi-press{0%{transform:scale(1)}35%{transform:scale(.98)}100%{transform:scale(1)}}
+/* Skipped: the end state arrives with nothing still in flight. */
+.hi-skip .hero-visual,.hi-skip .hero-visual *{animation:none!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
 @media(max-width:1199px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -1628,6 +1661,22 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   .faq-split .faq-ask{margin-top:22px}
 }
 </style>
+<script>
+/* The hero intro's start state has to be on the document before the hero's
+   first paint, or the finished hero shows and then rewinds. This only
+   decides whether the sequence runs; the sequence itself is at the end of
+   the body. The failsafe is not decoration: every intro rule is scoped to
+   this class, so if the controller never runs the hero would stay hidden. */
+(function(){
+  var seen = false;
+  try { seen = sessionStorage.getItem('blend:hero-intro') === '1'; } catch (e) {}
+  if (seen) return;
+  try { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; } catch (e) {}
+  var h = document.documentElement;
+  h.classList.add('hero-intro');
+  setTimeout(function(){ h.classList.remove('hero-intro'); }, 5000);
+})();
+</script>
 </head>
 <body>
 <a href="#main" class="skip">Skip to content</a>
@@ -1887,24 +1936,106 @@ const toggle = document.getElementById('nav-toggle');
 const links = document.getElementById('nav-links');
 toggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
 links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
-/* Hero quiz: sequenced auto-selection choreography, aligned with the wellness card's product fade-in */
-(function() {
-  const opts = document.querySelectorAll('#quiz .qopt');
-  if (!opts.length) return;
-  const reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const delays = reduce ? [0, 0, 0] : [400, 1000, 1600];
-  opts.forEach((btn, i) => {
-    if (i >= delays.length) return;
-    const apply = () => {
-      btn.classList.add('active');
-      btn.setAttribute('aria-checked', 'true');
-    };
-    // Reduced motion meant "the same choreography with zero delay", and a
-    // zero delay is still a macrotask. Under load it lands after the paint,
-    // so the third option was sometimes ticked and sometimes not. Reduced
-    // motion should mean no choreography at all, so apply it synchronously.
-    if (reduce) apply(); else setTimeout(apply, delays[i]);
-  });
+/* ---- The hero intro ----------------------------------------------------
+   The sequence the CSS block above describes, driven from one clock so the
+   answer picks land with the card's own animation rather than near it.
+
+   The class on <html> is the switch: the head put the hero in its start
+   state before first paint, this plays it and takes it off at the end.
+   Anything that means the sequence should not run — reduced motion, a
+   second visit in the session — means the class is absent, and then this
+   only applies the answers. Synchronously: a zero delay is still a
+   macrotask, and under load it lands after the paint, which is how the
+   third option used to be ticked on some loads and not others. */
+(function () {
+  var html = document.documentElement;
+  var quiz = document.getElementById('quiz');
+  var results = document.querySelector('.hero-stage .results');
+  var opts = [].slice.call(document.querySelectorAll('#quiz .qopt'));
+  var next = document.querySelector('.quiz-next');
+  if (!quiz || opts.length < 3) return;
+
+  function pick(i) {
+    if (!opts[i]) return;
+    opts[i].classList.add('active');
+    opts[i].setAttribute('aria-checked', 'true');
+  }
+  function picked() { pick(0); pick(1); pick(2); }
+  if (!html.classList.contains('hero-intro')) { picked(); return; }
+
+  var timers = [];
+  function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+  function press(el) {
+    if (!el) return;
+    el.classList.add('hi-press');
+    at(300, function () { el.classList.remove('hi-press'); });
+  }
+  var PROG = ['.6', '.8', '1'];
+  function step(i) { pick(i); quiz.style.setProperty('--hi-prog', PROG[i]); press(opts[i]); }
+
+  function detach() {
+    window.removeEventListener('scroll', onSkip);
+    window.removeEventListener('keydown', onSkip);
+    window.removeEventListener('pointerdown', onSkip);
+  }
+  /* Scrolling, clicking or typing says the visitor is past it. The end
+     state has to arrive with nothing mid-flight, so the hero's own
+     animations and transitions are cut for the frame it takes to get
+     there - otherwise three answer borders fade in over 380ms after a
+     jump that was meant to be instant. */
+  function finish(skip) {
+    timers.forEach(clearTimeout);
+    timers = [];
+    detach();
+    if (skip) html.classList.add('hi-skip');
+    html.classList.remove('hero-intro', 'hi-play');
+    picked();
+    quiz.style.removeProperty('--hi-s');
+    quiz.style.removeProperty('--hi-prog');
+    [].forEach.call(document.querySelectorAll('.hi-press'), function (el) {
+      el.classList.remove('hi-press');
+    });
+    if (skip) requestAnimationFrame(function () { html.classList.remove('hi-skip'); });
+    try { sessionStorage.setItem('blend:hero-intro', '1'); } catch (e) {}
+  }
+  function onSkip() { finish(true); }
+
+  function play() {
+    /* The card grows from its own top-left corner to the far corner of
+       the plan card. One uniform scale cannot land both edges, because
+       the pair is wider than it is tall relative to a single card, so
+       this covers and the bottom runs past the plan card's: a stretched
+       scale(x, y) would make the type a different shape for a second and
+       a half, which is worse than reaching too far. Only where the two
+       cards overlap; the single-column layout picks its answers at size. */
+    if (results && window.matchMedia('(min-width:1200px)').matches) {
+      var q = quiz.getBoundingClientRect();
+      var r = results.getBoundingClientRect();
+      var s = Math.max((r.right - q.left) / q.width, (r.bottom - q.top) / q.height);
+      if (s > 1 && s < 3) quiz.style.setProperty('--hi-s', s.toFixed(4));
+    }
+    html.classList.add('hi-play');
+    window.addEventListener('scroll', onSkip, { passive: true });
+    window.addEventListener('keydown', onSkip);
+    window.addEventListener('pointerdown', onSkip);
+    at(500, function () { step(0); });
+    at(950, function () { step(1); });
+    at(1400, function () { step(2); });
+    at(1750, function () { press(next); });
+    at(2950, function () { finish(false); });
+  }
+
+  /* In view first. On this page it always is at load, but a deep link to
+     an anchor lands further down, and a sequence nobody saw has still
+     spent its once per session. */
+  var visual = document.querySelector('.hero-visual') || quiz;
+  if (!window.IntersectionObserver) { play(); return; }
+  var io = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) { io.disconnect(); play(); return; }
+    }
+  }, { threshold: 0.25 });
+  io.observe(visual);
 })();
 /* ---- FAQ accordion ------------------------------------------------------
    `name` on <details> gives one-open-at-a-time natively, and closing the open
