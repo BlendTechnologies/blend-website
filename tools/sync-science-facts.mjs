@@ -154,8 +154,14 @@ const row = (t, v, s, cls = '') =>
   (s ? `<span class="sci-row-s">${esc(s)}</span>` : '') + '</div>';
 
 /* Intake against her own target, so a bar means something. */
-const targetsStep = steps.find(s => s.per_nutrient && s.authority) || { per_nutrient: [] };
+const targetsStep = steps.find(s => s.per_nutrient && s.authority) || { per_nutrient: [], lines: [] };
 const targetOf = new Map(targetsStep.per_nutrient.map(t => [t.nutrient, t]));
+/* The macros have targets too, in the targets step's own lines rather
+   than its per-nutrient list, which is why they were showing as bare
+   figures with nothing to read them against. Matched on the first word,
+   so "Energy target" meets "Energy from that food". */
+const macroTarget = new Map((targetsStep.lines || []).map(l =>
+  [String(l.text).split(' ')[0].toLowerCase(), l]));
 
 function panelBody(s) {
   if (s.groups) {
@@ -180,8 +186,12 @@ function panelBody(s) {
     /* The macros and the modelled plate they come from. Dropped when this
        step was rewritten around the per-nutrient bars, which left the
        page showing micronutrients and no food. */
-    const macros = `<div class="sci-macros">` + (s.lines || []).map(l =>
-      `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div><div class="sci-macro-l">${esc(l.text)}</div></div>`).join('') + `</div>`;
+    const macros = `<div class="sci-macros">` + (s.lines || []).map(l => {
+      const t = macroTarget.get(String(l.text).split(' ')[0].toLowerCase());
+      return `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div>` +
+        `<div class="sci-macro-l">${esc(l.text)}</div>` +
+        (t ? `<div class="sci-macro-t">target ${esc(t.value)}</div>` : '') + `</div>`;
+    }).join('') + `</div>`;
     return macros + s.per_nutrient.map(x => {
       const t = targetOf.get(x.nutrient);
       const pct = t && t.target ? (x.intake_from_food || 0) / t.target : null;
@@ -196,7 +206,13 @@ function panelBody(s) {
   }
   if (s.per_nutrient && s.authority) {
     const a = s.authority;
-    return row(`Targets for ${a.market}`, a.name) +
+    const macros = (s.lines || []).length
+      ? `<div class="sci-macros">` + s.lines.map(l =>
+          `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div>` +
+          `<div class="sci-macro-l">${esc(l.text)}</div>` +
+          (l.basis ? `<div class="sci-macro-t">${esc(l.basis)}</div>` : '') + `</div>`).join('') + `</div>`
+      : '';
+    return macros + row(`Targets for ${a.market}`, a.name) +
       s.per_nutrient.map(x => row(x.nutrient, `${num(x.target)} ${x.unit || ''}`.trim())).join('');
   }
   if (s.ranking_order) {
