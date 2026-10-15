@@ -48,6 +48,7 @@ const esc = s => String(s)
 const num = n => Number(n).toLocaleString('en-GB');
 const pad = n => String(n).padStart(2, '0');
 const cap = s => String(s).charAt(0).toUpperCase() + String(s).slice(1);
+const sentence = s => { const t = cap(String(s).trim()); return /[.!?]$/.test(t) ? t : t + '.'; };
 
 const V = facts.verticals;
 const liveKey = Object.keys(V).find(k => V[k].status === 'live');
@@ -274,14 +275,14 @@ const safety = `<section class="sci-sec" id="safety">
     <div class="sci-head sci-in">
       <span class="eyebrow">Safety</span>
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
-      <p class="lead">${esc(h.counts.safety_checks.basis)}.</p>
+      <p class="lead">${esc(sentence(h.counts.safety_checks.basis))}</p>
     </div>
     <div class="sci-layers sci-in">
 ${layers}
     </div>
     <div class="sci-plan-checks sci-in">
       <h3>Plus ${num(h.counts.plan_checks.value)} plan checks</h3>
-      <p>${esc(h.counts.plan_checks.basis)}. They shape a sensible plan rather than a safe one, and are not safety checks.</p>
+      <p>${esc(sentence(h.counts.plan_checks.basis))} They shape a sensible plan rather than a safe one.</p>
       <ul>${h.plan_checks.map(p => `<li><b>${esc(p.name)}</b> &#8212; ${esc(p.does)}</li>`).join('')}</ul>
     </div>
   </div>
@@ -358,7 +359,7 @@ ${first.nutrients.map(ladder).join('\n')}
 </section>`;
 
 /* ---- 7. the closing card ---------------------------------------------------- */
-const cta = `<section class="sci-cta">
+const cta = `<section class="sci-cta sc-reveal" data-sc="reveal">
   <div class="wrap">
     <div class="sci-cta-card">
       <span class="eyebrow">The methodology</span>

@@ -12,6 +12,11 @@
    ============================================================ */
 (function () {
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* The start state belongs to the script, not the stylesheet. Hidden by
+     default, a section that the observer never reaches stays invisible —
+     and a full-page capture, which resizes rather than scrolls, reaches
+     none of them. The page was blank from the goals down. */
+  document.documentElement.classList.add('sci-js');
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
 
@@ -31,6 +36,12 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
     secs.forEach(function (s) { io.observe(s); });
+    /* Whatever happens, nothing stays hidden: a capture, a printed page or
+       an observer that never fires reveals everything after two seconds. */
+    setTimeout(function () {
+      secs.forEach(function (s) { s.classList.add('is-in'); });
+      io.disconnect();
+    }, 2000);
   })();
 
   /* ---- the figures count up, once, and again on a category change --- */

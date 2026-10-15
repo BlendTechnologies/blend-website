@@ -17,6 +17,23 @@
   --accent:#E7CFA3; --accent-dim:rgba(231,207,163,.14);
   --ok:#7FA86A; --warn:#D9A441; --bad:#C8614C;
   background:var(--bg); color:var(--fg);
+
+  /* The shared components — the hero, the buttons, the eyebrow — are
+     built for a light page and read --ink, --muted and the hairlines.
+     On black they drew black on black: the model's own name, the word
+     Live and the whole label of the ghost button were there in the
+     markup and invisible on the page. Remapping the tokens inside this
+     scope fixes every shared component at once, rather than restating
+     each one in a darker colour and missing the next. */
+  --ink:#EDE6DA; --ink-80:rgba(237,230,218,.8); --ink-60:rgba(237,230,218,.62);
+  --muted:#8E877C; --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.2);
+  --subtle:#1C1A17; --cream:#151412;
+}
+/* The closing card is beige, so it takes the light tokens back. */
+.sci .sci-cta-card{
+  --ink:#0A0A0A; --ink-80:rgba(10,10,10,.8); --ink-60:rgba(10,10,10,.6);
+  --muted:#6B6B6B; --line:#E3DDCC; --line-strong:#D1C9B2; --subtle:#F7F7F7; --cream:#FAF8F2;
+  color:var(--ink);
 }
 /* --fg-2 on --surface is 7.4:1 and --fg-3 is 4.6:1, both AA at
    body size; --fg-3 is never used below 13px. */
@@ -196,19 +213,26 @@
 .sci-dose-f{margin:0;font-size:12.5px;line-height:1.55;color:var(--fg-3)}
 
 /* ---- 7. the closing card ----------------------------------------------- */
-.sci-cta{padding:var(--sec,88px) 0}
-.sci-cta-card{max-width:1100px;margin:0 auto;background:var(--hero-beige,#F4EFE5);color:var(--ink,#0A0A0A);border-radius:28px;padding:72px 40px;text-align:center}
+/* The homepage's closing effect, inverted: the same inset and the same
+   corners rounding away as it arrives, in beige on a black page instead
+   of ink on a cream one. The fill is the component's ::before, so the
+   card itself carries no background. */
+.sci-cta{padding:var(--sec,88px) 0;color:#0A0A0A}
+.sci-cta.sc-reveal::before{background:var(--hero-beige,#F4EFE5)}
+.sci-cta > .wrap{position:relative;z-index:1}
+.sci-cta-card{max-width:1100px;margin:0 auto;padding:72px 40px;text-align:center}
 .sci-cta-card .eyebrow{color:#6B6B6B}
 .sci-cta-card h2{margin:14px auto 0;max-width:16ch;font-size:clamp(28px,3.4vw,42px);line-height:1.08;letter-spacing:-.022em;font-weight:600;color:#0A0A0A}
 .sci-cta-card p{margin:16px auto 0;max-width:46ch;font-size:17px;line-height:1.55;color:rgba(10,10,10,.8)}
 .sci-cta-ctas{margin-top:30px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 
 /* ---- motion ------------------------------------------------------------ */
-.sci-in{opacity:0;transform:translateY(14px)}
+/* Only a page with the script running starts anything hidden. */
+.sci-js .sci-sec:not(.is-in) .sci-in{opacity:0;transform:translateY(14px)}
 .sci-sec.is-in .sci-in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.25,1)}
 .sci-sec.is-in .sci-in:nth-child(2){transition-delay:.06s}
 .sci-sec.is-in .sci-in:nth-child(3){transition-delay:.12s}
-.sci-node{opacity:0;transform:translateY(10px)}
+.sci-js .sci-sec:not(.is-in) .sci-node{opacity:0;transform:translateY(10px)}
 .sci-sec.is-in .sci-node{opacity:1;transform:none;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.25,1)}
 .sci-sec.is-in .sci-node:nth-child(2){transition-delay:.08s}
 .sci-sec.is-in .sci-node:nth-child(3){transition-delay:.16s}
@@ -230,12 +254,13 @@
   .sci-funnel{grid-template-columns:minmax(0,1fr)}
   .sci-fstep{border-right:0;border-bottom:1px solid var(--hair)}
   .sci-fstep:last-child{border-bottom:0}
-  .sci-cta-card{padding:48px 22px;border-radius:20px}
+  .sci-cta-card{padding:48px 22px}
   .sci-row{grid-template-columns:minmax(0,1fr)}
   .sci-row-v{text-align:left}
 }
 @media (prefers-reduced-motion:reduce){
-  .sci-in,.sci-node{opacity:1;transform:none;transition:none}
+  .sci-js .sci-sec:not(.is-in) .sci-in,.sci-js .sci-sec:not(.is-in) .sci-node{opacity:1;transform:none}
+  .sci-sec .sci-in,.sci-sec .sci-node{transition:none}
   .sci-bar i{transition:none}
   .sci-mark{transition:none}
   .sci-layer-caret,.sci-tip{transition:none}

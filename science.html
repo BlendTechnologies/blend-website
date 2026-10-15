@@ -57,7 +57,6 @@ body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,u
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--gold);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;z-index:200}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
@@ -67,7 +66,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
-.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
+.btn-primary:hover{background:var(--gold-hover)}
+.btn-primary:active{background:var(--gold-active)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
 .btn-ghost:hover{border-color:var(--ink);background:var(--white)}
@@ -113,41 +113,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .nav-links a:last-child{border-bottom:0}
   .nav-login{display:none}
   .nav-toggle{display:inline-flex}
-  .nav-actions .btn{padding:8px 16px;font-size:14px}
-}
-.hero{padding:64px 0 96px;background:var(--cream);position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
-.hero-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:48px;align-items:center;padding:8px 0}
-.hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.hero-title{margin-top:14px}
-.hero-sub{margin-top:22px;max-width:520px}
-.hero-ctas{margin-top:32px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.hero-foot{margin-top:24px;font-size:14px;color:var(--muted);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
-.cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
-.cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
-.cta-alt a:hover{text-decoration-color:var(--gold-strong)}
-.hero-visual{position:relative;min-height:600px;padding-top:8px}
-.hero-stage{position:relative;width:100%;height:560px}
-.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
-.card-dark{background:var(--ink);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
-.quiz{position:absolute;top:0;left:0;width:61%;min-height:434px;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
-.quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
-.qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
-.qprog-fill{height:100%;width:40%;background:var(--ink);border-radius:999px}
-.quiz .qtitle{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;margin:0}
-.quiz .qopts{margin-top:16px;display:grid;gap:7px}
-.qopt{padding:12px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:500;cursor:default;transition:border-color .38s cubic-bezier(.2,.7,.25,1),background .38s cubic-bezier(.2,.7,.25,1);background:var(--white);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
-.qopt:hover{border-color:var(--line-strong)}
-.qopt.active{border-color:var(--ink);background:var(--cream)}
-.qopt-label{flex:1;min-width:0}
-
-
-.quiz-next{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--ink);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;}
-.quiz-next:hover{background:#1f1f1f}
-.quiz-prebuilt{display:none}
-.hero-arrow{display:none}
-.results{position:absolute;top:112px;right:0;width:61%;min-height:434px;padding:19px 18px 17px;z-index:3;min-width:0;}
+  .nav-actions .btn{padding:8px 16px;font-size:14px}}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* `backwards`, not `both`, over a visible base: the from-keyframe still
    hides the card through the 2s delay, and the end state is the base state
@@ -156,10 +122,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    animation outright, so every baseline of this page was captured with the
    plan card invisible and none of its design was ever regression-guarded. */
 .results{opacity:1;animation:card-in .55s cubic-bezier(.2,.7,.25,1) 2s backwards}
-@media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
 @media(max-width:960px){
-  .hero{padding:32px 0 56px}
-  .hero-grid{grid-template-columns:1fr;gap:40px}
   /* A grid item's automatic minimum is min-content, and `1fr` is really
      minmax(auto,1fr), so one wide descendant drags the whole track with it.
      .pc-track is width:600% — six slides side by side — and its min-content
@@ -168,32 +131,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
      card is position:absolute and contributes nothing, which is the only
      reason the desktop grid escaped it. The ≤760 deck block already carries
      this line for the same reason; it belongs to the whole stacked range. */
-  .hero-grid,.hero-copy,.hero-visual{min-width:0}
-  .hero-visual{min-height:auto;padding-top:0}
-  .hero-stage{height:auto;display:flex;flex-direction:column;gap:20px}
-  .quiz,.results{position:static;width:100%}
-}
+  .hero-grid,.hero-copy,.hero-visual{min-width:0}}
 :root{--sec:88px;--sec-tight:80px;--sec-join:40px}
 @media(max-width:760px){:root{--sec:72px;--sec-tight:72px;--sec-join:36px}}
-.section{padding:112px 0}
 /* Nine of twelve sections ran an identical 112px top and bottom while content
    filled only 54-76% of each. Emphasis needs contrast: with every section
    spaced the same, none of them reads as more important than the rest.
    Supporting sections (integrations, FAQ, roadmap) tighten; the sections
    carrying the argument keep 112. Alignment is untouched. */
 .section--tight{padding:80px 0}
-.section-head{max-width:680px;margin:0 auto 64px;text-align:center}
-.section-head .eyebrow{margin-bottom:16px;display:inline-block}
-.section-head .h2{margin-bottom:18px}
-.section-cream{background:var(--cream)}
-.section-subtle{background:var(--subtle)}
-@media(max-width:860px){.section{padding:80px 0}.section-head{margin-bottom:48px}}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
-.step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
 /* Muted amber-beige, not the full gold: six cards in a grid each wearing a
    bright outline on hover read as an alert, not as a pointer. */
 .step:hover,.step:focus-visible{border-color:#CFB68F;box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.step:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
 /* Flush to the card edge, clipped to the top corners by the card's own
    overflow. One fixed height so the six titles sit on the same line. */
 /* Flat cream, no gradient: the thumbnails are previews of a product whose
@@ -222,244 +171,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @keyframes t-real{0%,38%{opacity:0}54%,100%{opacity:1}}
 @keyframes t-pop{0%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
 @keyframes t-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-.t-type,.t-wipe{transform-box:fill-box;transform-origin:left}
-.t-press,.t-added,.t-dot{transform-box:fill-box;transform-origin:center}
-.t-caret,.t-ghost,.t-added{opacity:0}
-.t-draw{stroke-dasharray:1;stroke-dashoffset:0}
-.step:hover .t-type,.step:focus-visible .t-type{animation:t-type .8s steps(23,end) both}
-.step:hover .t-caret,.step:focus-visible .t-caret{animation:t-caret .8s steps(23,end) both}
-.step:hover .t-ghost,.step:focus-visible .t-ghost{animation:t-ghost .9s ease both}
-.step:hover .t-real,.step:focus-visible .t-real{animation:t-real .9s ease both}
 /* Each press waits for the thing it is pressing to have happened; --d carries
    that card's cue, set on the group itself. */
 .step:hover .t-press,.step:focus-visible .t-press{animation:t-press .42s cubic-bezier(.3,.8,.3,1) var(--d,.9s) both}
-.step:hover .t-added,.step:focus-visible .t-added{animation:t-pop .34s cubic-bezier(.2,.7,.25,1) .52s both}
-.step:hover .t-draw,.step:focus-visible .t-draw{animation:t-draw 1.05s cubic-bezier(.4,0,.25,1) both}
-.step:hover .t-wipe,.step:focus-visible .t-wipe{animation:t-type 1.05s cubic-bezier(.4,0,.25,1) both}
-.step:hover .t-dot,.step:focus-visible .t-dot{animation:t-pop .3s cubic-bezier(.2,.7,.25,1) .98s both}
-@media(prefers-reduced-motion:reduce){
-  .step:hover .t-type,.step:hover .t-caret,.step:hover .t-ghost,.step:hover .t-real,
-  .step:hover .t-press,.step:hover .t-added,.step:hover .t-draw,.step:hover .t-wipe,.step:hover .t-dot,
-  .step:focus-visible .t-type,.step:focus-visible .t-caret,.step:focus-visible .t-ghost,
-  .step:focus-visible .t-real,.step:focus-visible .t-press,.step:focus-visible .t-added,
-  .step:focus-visible .t-draw,.step:focus-visible .t-wipe,.step:focus-visible .t-dot{animation:none}
-}
-.step-body{padding:20px 22px 0;flex:1}
-.step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em;font-feature-settings:"tnum"}
-.step p{margin:0;font-size:14px;color:var(--ink-60);line-height:1.5}
 /* The row is laid out whether or not it is visible, so nothing shifts when
    it appears: only opacity changes. Touch has no hover, so there it is
    simply always on. */
 .step-cta{display:block;padding:8px 22px 14px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
-.step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
-@media(hover:none){.step-cta{opacity:1}}
-@media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
-@media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
-@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
-@media(max-width:520px){.steps{grid-template-columns:1fr}}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
 .soon{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;
   background:var(--gold-soft);color:var(--gold-active);font-size:11px;font-weight:600;
   letter-spacing:.04em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.split-card{padding:40px;border-radius:14px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.split-card.customers{background:var(--white);border:1px solid var(--line)}
-.split-card.brand{background:var(--ink);color:var(--white);border:1px solid transparent}
-.split-pill{display:inline-flex;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
-.split-card.brand .split-pill{color:rgba(255,255,255,.55)}
-.split-card h3{font-size:26px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:600}
-.split-bullets{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:8px}
-.split-bullets li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink-80)}
-.split-bullets li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:9px;flex-shrink:0}
-.split-card.brand .split-bullets li{color:rgba(255,255,255,.78)}
-.insight-pill{background:var(--subtle);color:var(--ink-80);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;white-space:nowrap;border:1px solid var(--line)}
-.insight-pill.warn{background:#FAEEEB;color:#8A2A1A;border-color:#F0D8D2}
-.report-card{margin-top:auto;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
-.report-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.report-card-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
-.report-card-pill{font-size:10px;color:var(--gold-strong);letter-spacing:.06em;text-transform:uppercase;font-weight:600;background:var(--gold-soft);padding:3px 8px;border-radius:999px}
-.report-products{display:grid;gap:7px}
-.rp-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--white);border:1px solid var(--line);border-radius:9px}
-.rp-swatch{width:30px;height:30px;border-radius:6px;background:var(--ink);display:grid;place-items:center;color:var(--white);font-size:9px;font-weight:700;flex-shrink:0;letter-spacing:.02em}
-.rp-info{flex:1;min-width:0}
-.rp-name{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.2}
-.rp-reason{font-size:11px;color:var(--muted);margin-top:1px}
-.rp-badge{flex-shrink:0;font-size:10px;font-weight:600;color:var(--gold-strong);background:var(--gold-soft);padding:2px 7px;border-radius:999px}
-.report-nutrients{background:var(--white);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
-.report-nut-title{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
-.report-nut-row{display:grid;grid-template-columns:88px 1fr 40px;align-items:center;gap:10px;margin-bottom:5px}
-.report-nut-row:last-child{margin-bottom:0}
-.report-nut-lab{font-size:12px;color:var(--ink);font-weight:500;letter-spacing:-.005em}
-.report-nut-track{height:5px;background:var(--line);border-radius:999px;overflow:hidden}
-.report-nut-fill{height:100%;border-radius:999px}
-.report-nut-val{font-size:11.5px;color:var(--muted);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
-.report-nutrients-full{padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-around}
-.report-nutrients-full .report-nut-row{margin-bottom:0;padding:4px 0}
-.routine{display:flex;flex-direction:column;gap:10px;flex:1}
-.routine-slot{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
-.routine-when{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;line-height:1;padding-left:14px}
-.routine-when::before{content:"";position:absolute;left:14px;top:13px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
-.routine-items{display:grid;gap:7px}
-.routine-item{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.routine-name{font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.routine-qty{font-size:11.5px;color:var(--muted);font-weight:400}
-.routine-tag{font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--gold-soft);color:var(--gold-strong);position:relative;top:-1px}
-.dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;color:var(--white);flex:1}
-.dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
-.dash-pill{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;font-weight:600;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:999px}
-.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.dash-tile{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.dash-tile svg{flex:0 0 auto;width:100%;max-width:88px;height:auto}
-.dash-tile-lab{font-size:10px;color:rgba(255,255,255,.65);font-weight:600;letter-spacing:.02em;text-align:center}
-.dash-bars{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px;flex:1;display:flex;flex-direction:column;justify-content:center}
-.dash-bars-title{font-size:11px;font-weight:700;color:var(--white);letter-spacing:.02em;margin-bottom:10px;display:block}
-.dash-bar{display:grid;grid-template-columns:86px 1fr 30px;align-items:center;gap:8px;margin-bottom:6px}
-.dash-bar:last-child{margin-bottom:0}
-.dash-bar-lab{font-size:10px;color:rgba(255,255,255,.7);font-weight:500}
-.dash-bar-track{height:6px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
-.dash-bar-fill{height:100%;background:var(--gold);border-radius:999px}
-.dash-bar-val{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;text-align:right;letter-spacing:.02em}
-@media(max-width:860px){.split{grid-template-columns:1fr}.split-card{min-height:auto}}
-.personas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.persona{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .18s ease}
-.persona:hover{border-color:var(--line-strong)}
-.persona-head{padding:20px 20px 12px;display:flex;align-items:center;gap:12px}
-.persona-score{width:48px;height:48px;border-radius:50%;background:conic-gradient(var(--ring,var(--green-soft)) 0 var(--pct,80%),var(--ring-rest,var(--gold-soft)) var(--pct,80%) 100%);display:grid;place-items:center;position:relative;flex-shrink:0}
-.persona-score::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--white)}
-.persona-score span{position:relative;z-index:1;font-weight:600;font-size:14px;font-feature-settings:"tnum"}
-.persona-head-copy{flex:1;min-width:0}
-.persona-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
-.persona-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
-.prow{position:relative}
-.pbadge{position:absolute;top:8px;right:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-strong);line-height:1.35}
-/* Goal marquee */
-.gm{padding:64px 0;background:var(--subtle);overflow:hidden}
-.gm .section-head{margin-bottom:30px}
-.gm-rails{display:grid;gap:8px;margin-bottom:28px;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
-.gm-rail{display:flex;gap:8px;width:max-content;will-change:transform}
-.gm-rail.a{animation:gm-l 68s linear infinite}
-.gm-rail.b{animation:gm-r 74s linear infinite}
-.gm:hover .gm-rail{animation-play-state:paused}
 @keyframes gm-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes gm-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.gm-chip{flex:0 0 auto;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:12px;font-weight:500;color:var(--ink-80);letter-spacing:-.005em;white-space:nowrap;cursor:pointer;font-family:inherit;transition:border-color .16s ease,color .16s ease,background .16s ease}
-.gm-chip:hover,.gm-chip.on{border-color:var(--gold);color:var(--gold-strong);background:var(--gold-soft)}
-.gm-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.gm-panel{max-width:680px;margin:0 auto;padding:0 32px;text-align:center;min-height:88px}
-.gm-panel-goal{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
-.gm-subs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.gm-sub{font-size:12px;padding:4px 12px;border-radius:999px;background:rgba(10,10,10,.045);border:0;color:var(--muted);font-weight:400}
-@media(max-width:860px){.gm{padding:64px 0}.gm-panel{padding:0 20px}.gm-chip{padding:12px 16px;font-size:14px}.gm-sub{padding:8px 12px;font-size:12px}
-  .gm-rails{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}}
-@media(prefers-reduced-motion:reduce){.gm-rail.a,.gm-rail.b{animation:none}}
-
-.personas-cta{margin-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.persona-body{padding:4px 20px 20px;display:flex;flex-direction:column;flex:1}
-.persona-insights{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:18px}
-.persona-list{display:grid;gap:8px}
-.prow{display:grid;grid-template-columns:32px 1fr;gap:8px;align-items:center;padding:8px 8px;background:var(--subtle);border-radius:8px}
-.pswatch{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;color:var(--white);font-weight:600;font-size:10px;letter-spacing:.02em}
-.pname{font-size:14px;font-weight:600;line-height:1.25}
-.preason{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
-@media(max-width:860px){.personas{grid-template-columns:1fr}}
-.science{position:relative;padding:112px 0;background:var(--ink);color:var(--white);overflow:hidden}
-.science .wrap{position:relative;z-index:1}
-.science-head{max-width:680px}
-.science-head .eyebrow{color:rgba(255,255,255,.6)}
-.science-head h2{margin-top:14px}
-.science-head .lead{color:var(--muted-on-dark);margin-top:18px}
-.science-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:64px}
-.sci-stat{padding:24px 20px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
-.sci-n{font-size:48px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
-.sci-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
-.sci-sub{margin-top:6px;font-size:14px;color:var(--muted-on-dark);line-height:1.5}
-.sci-note{grid-column:1/-1;margin:6px 0 2px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px}
-.sci-note p{margin:0;font-size:15px;line-height:1.6;color:var(--muted-on-dark)}
-.sci-note b{color:var(--white);font-weight:600}
-@media(max-width:860px){.sci-note{grid-template-columns:1fr;gap:14px}}
-.sci-method{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease,border-color .2s ease;margin-top:4px}
-.sci-method:hover{background:rgba(180,127,57,.15);border-color:var(--gold-soft)}
-.sci-method-left{display:flex;align-items:center;gap:16px}
-.sci-method-icon{width:44px;height:44px;border-radius:8px;background:rgba(180,127,57,.2);border:1px solid rgba(180,127,57,.4);display:grid;place-items:center;flex-shrink:0}
-.sci-method-copy .sci-method-label{font-size:16px;font-weight:600;color:var(--white);letter-spacing:-.01em}
-.sci-method-copy .sci-method-sub{font-size:14px;color:rgba(255,255,255,.6);margin-top:3px}
-.sci-method-arrow{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--gold);white-space:nowrap}
-.sci-method-arrow svg{transition:transform .2s ease}
-.sci-method:hover .sci-method-arrow svg{transform:translateX(4px)}
-@media(max-width:1100px){.science-stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:960px){.sci-method{flex-direction:column;align-items:flex-start;gap:16px}}
-@media(max-width:760px){.science-stats{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.science-stats{grid-template-columns:1fr}}
-.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:0 auto}
-.int{padding:32px 24px;text-align:center;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--line);border-radius:14px}
-.int-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
-.int-mark{height:32px;display:grid;place-items:center;margin-bottom:4px}
-.int-status{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.int.native .int-status{color:var(--gold-strong)}
-.int-more{font-size:14px;color:var(--muted);margin-top:22px;text-align:center;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6}
-.int-more a{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:0;font-weight:500}
-@media(max-width:640px){.int-grid{grid-template-columns:1fr}}
-.wl-section{padding:112px 0;background:var(--subtle)}
-@media(max-width:860px){.wl-section{padding:80px 0}}
-.wl-head{margin-bottom:56px}
-.wl-head .eyebrow{margin-bottom:14px;display:inline-block}
-.wl-head .h2{margin-bottom:16px;max-width:600px}
-.wl-head .lead{max-width:580px}
-.wl-body{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-@media(max-width:860px){.wl-body{grid-template-columns:1fr;gap:32px}}
-.wl-traits{display:grid;gap:0}
-.wl-trait{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
-.wl-trait:first-child{padding-top:0}
-.wl-trait:last-child{border-bottom:0;padding-bottom:0}
-.wl-trait-n{width:32px;height:32px;border-radius:8px;background:var(--gold-soft);border:1px solid var(--line-strong);display:grid;place-items:center;flex-shrink:0;transition:background .2s ease,border-color .2s ease}
-.wl-trait:hover .wl-trait-n{background:var(--ink);border-color:var(--ink)}
-.wl-trait:hover .wl-trait-n svg{stroke:var(--white)!important}
-.wl-trait-copy{flex:1;min-width:0;padding-top:2px}
-.wl-trait-label{font-size:14px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.2}
-.wl-trait-sub{font-size:14px;color:var(--muted);margin-top:3px;line-height:1.5}
-.wl-preview-wrap{position:sticky;top:calc(var(--nav-h) + 24px)}
-.wl-preview{border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;--p-bg:var(--ink);--p-accent:#B47F39;--p-accent-soft:rgba(180,127,57,.15);--p-accent-border:rgba(180,127,57,.5);--p-text:#ffffff;--p-text-dim:rgba(255,255,255,.55);--p-surface:rgba(255,255,255,.05);--p-border:rgba(255,255,255,.1);--p-font:"Inter","Inter var",sans-serif;--p-radius:10px;background:var(--p-bg);font-family:var(--p-font);transition:background .4s ease,color .4s ease;}
-.wl-preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.wl-preview-brand{display:flex;align-items:center;gap:9px}
-.wl-brand-logo{width:28px;height:28px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .4s ease}
-.wl-brand-logo svg,.wl-brand-logo img{width:18px;height:18px;display:block}
-.wl-preview-name{font-size:14px;font-weight:700;color:var(--p-text);letter-spacing:-.01em;transition:font-family .4s ease,color .4s ease;font-family:var(--p-font)}
-.wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--p-text-dim);background:var(--p-surface);padding:3px 8px;border-radius:999px;transition:color .4s ease,background .4s ease}
-.wl-quiz-content{display:flex;flex-direction:column;gap:12px;}
-.wl-qprog{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.wl-qprog-label{font-size:10.5px;color:var(--p-text-dim);font-weight:500;white-space:nowrap;transition:color .4s ease;font-family:var(--p-font)}
-.wl-qprog-bar{flex:1;height:2px;background:var(--p-border);border-radius:999px;overflow:hidden;transition:background .4s ease}
-.wl-qprog-fill{height:100%;width:60%;background:var(--p-accent);border-radius:999px;transition:background .4s ease}
-.wl-qtitle{font-size:16px;font-weight:600;color:var(--p-text);line-height:1.3;margin:0 0 12px;transition:color .4s ease,font-family .4s ease;font-family:var(--p-font)}
-.wl-qopts{display:grid;gap:4px}
-.wl-qopt{padding:8px 12px;border:1px solid var(--p-border);border-radius:var(--p-radius);font-size:12px;font-weight:500;color:var(--p-text-dim);background:transparent;display:flex;align-items:center;justify-content:space-between;transition:border-color .3s ease,background .3s ease,color .3s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font)}
-.wl-qopt.active{border-color:var(--p-accent);background:var(--p-accent-soft);color:var(--p-text)}
-.wl-qopt-check{width:16px;height:16px;border-radius:50%;border:1px solid var(--p-border);display:grid;place-items:center;transition:background .3s ease,border-color .3s ease}
-.wl-qopt.active .wl-qopt-check{background:var(--p-accent);border-color:var(--p-accent)}
-.wl-btn{display:inline-flex;align-self:flex-start;align-items:center;gap:4px;padding:8px 16px;background:var(--p-accent);color:#ffffff;border-radius:calc(var(--p-radius) - 2px);font-size:12px;font-weight:600;margin-top:2px;transition:background .4s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font);width:auto}
-.wl-tagline{font-size:12px;color:var(--p-text-dim);letter-spacing:.02em;transition:color .4s ease;font-family:var(--p-font)}
 /* Example switcher, sits BELOW the preview card, page-themed (not theme-scoped) so it stays visible regardless of which example is active */
 .wl-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px;padding:0 8px}
-.wl-ctrl{font-size:12px;font-weight:500;color:var(--ink-80);background:var(--white);border:1px solid var(--line);padding:8px 12px;border-radius:999px;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease;user-select:none}
-.wl-ctrl:hover{border-color:var(--line-strong);background:var(--cream);transform:translateY(-1px)}
-.wl-ctrl.active{background:var(--ink);border-color:var(--ink);color:var(--white)}
-.wl-ctrl-label{display:flex;align-items:center;gap:4px}
-.wl-ctrl-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;transition:background .3s ease}
-.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
-.tier{padding:32px 32px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:16px;position:relative;background:var(--white);border:1px solid var(--line);border-radius:16px}
-.tier.featured{background:#FBF7EE;border-color:var(--line-strong)}
-.tier.featured::before{content:"Most popular";position:absolute;top:20px;right:20px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--gold-strong);text-transform:uppercase}
-.tier-name{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
-.tier-price{font-size:40px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
-.tier-from{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px;vertical-align:baseline}
-.tier-per{font-size:14px;color:var(--muted);font-weight:400;margin-left:4px}
-.tier-vat{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
-.tier-custom{min-height:40px;display:flex;align-items:center}  /* 40, not 48: the price row on Starter and Pro is 40px, and the extra 8px
+/* 40, not 48: the price row on Starter and Pro is 40px, and the extra 8px
      here pushed Enterprise's blurb and feature list 9px below its neighbours.
      Three cards in a row that do not share a baseline read as a bug. */
 .tier-custom-label{font-size:16px;color:var(--ink-60);font-weight:500}
@@ -469,56 +198,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    cards share a baseline. stroke-width 2.5 keeps it at the same optical weight
    as a 600-weight numeral; 1.5 looked spindly beside one. */
 .tier-mark{display:flex;align-items:flex-end;gap:12px;height:40px}
-.tier-mark svg{width:38px;height:38px;flex:0 0 auto;color:var(--ink)}
-.tier-mark-note{font-size:14px;color:var(--muted);font-weight:400}
-.tier-blurb{font-size:14px;color:var(--ink-80);margin:0;min-height:44px;line-height:1.5}
-.tier-list{list-style:none;padding:0;margin:0;display:grid;grid-auto-rows:25px;gap:0}
-.tier-list li{display:flex;gap:8px;align-items:center;font-size:14px;line-height:1.5;color:var(--ink-80)}
-.tier-list li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23B47F39' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;margin-top:3px;flex-shrink:0}
-.tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
-.tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
-.tier-cta.dark{background:var(--ink);color:var(--white)}
-.tier-cta.dark:hover{background:#1f1f1f}
-.tier-cta.gold{background:var(--gold-strong);color:var(--white)}
-.tier-cta.gold:hover{background:var(--gold-hover)}.tier-cta.gold:active{background:var(--gold-active)}
-.tier-cta.outline{border:1px solid var(--line-strong);color:var(--ink);background:var(--white)}
-.tier-cta.outline:hover{border-color:var(--ink)}
-.tier-cta.is-loading{opacity:.7;cursor:wait;pointer-events:none}
-.pricing-controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
-.billing-toggle{display:inline-flex;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;position:relative}
-.billing-toggle button{padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted);background:transparent;transition:all .2s ease;cursor:pointer;position:relative;z-index:1}
-.billing-toggle button.active{color:var(--ink);background:var(--cream);border:1px solid var(--line-strong)}
-.billing-toggle button:not(.active):hover{color:var(--ink-80)}
-.billing-savings{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);padding:4px 8px;background:rgba(180,127,57,.12);color:var(--gold-strong);border-radius:8px;font-size:12px;font-weight:600;letter-spacing:.02em;white-space:nowrap;pointer-events:none}
-@media(max-width:560px){.billing-savings{position:static;transform:none;margin-top:8px;margin-left:0}}
-.tier-annual{display:block;font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
-.pricing-foot{text-align:center;margin-top:32px;font-size:14px;color:var(--muted)}
-.pricing-foot details{display:block;margin-left:0;margin-top:8px}  /* Its own line, not trailing the trial+VAT sentence. That sentence now runs
+/* Its own line, not trailing the trial+VAT sentence. That sentence now runs
      to two lines, and a toggle tacked onto the end of it read as part of the
      prose rather than as a control. */
 .pricing-foot summary{cursor:pointer;color:var(--ink);font-weight:500;border-bottom:1px solid var(--line);padding-bottom:0;display:inline;list-style:none}
-.pricing-foot summary::-webkit-details-marker{display:none}
-.pricing-foot details[open] summary{border-bottom-color:var(--ink)}
-.pricing-foot details p{margin-top:14px;color:var(--ink-80);max-width:560px;margin-left:auto;margin-right:auto;text-align:left;background:var(--white);padding:16px;border:1px solid var(--line);border-radius:8px;font-size:14px}
-@media(max-width:860px){.pricing{grid-template-columns:1fr}}
-.faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-item > summary{padding:20px 4px;font-size:16px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
-.faq-item > summary:hover{color:var(--gold-strong)}
-.faq-item > summary::-webkit-details-marker{display:none}
-.faq-item > summary::after{content:"";width:9px;height:9px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);transition:transform .25s ease,border-color .18s ease;flex-shrink:0;margin-top:9px;margin-right:4px}
-.faq-item > summary:hover::after{border-color:var(--gold-strong)}
-.faq-item[open] > summary::after{transform:rotate(-135deg);margin-top:13px}
-.faq-item[open] > summary{color:var(--ink)}
-.faq-item .faq-answer{padding:0 4px 24px;font-size:14px;color:var(--ink-80);line-height:1.7;max-width:680px}
-.faq-item .faq-answer p{margin:0 0 10px}
-.faq-item .faq-answer p:first-child{margin-top:-2px}
-.faq-item .faq-answer p:last-child{margin-bottom:0}
-.faq-item .faq-answer ul{padding-left:16px;margin:10px 0}
-.faq-item .faq-answer li{margin-bottom:6px;color:var(--ink-80)}
-.faq-item .faq-answer strong{color:var(--ink);font-weight:600}
-.faq-item .faq-answer a{color:var(--ink);border-bottom:1px solid var(--line-strong)}
-.faq-item .faq-answer a:hover{border-color:var(--ink)}
 /* ---- Who we work with -------------------------------------------------
    Not five equal tiles. Five equal tiles is the same grid of cards as the
    six steps directly above it, and it gave the one vertical that is live
@@ -530,60 +213,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    ground; the three that are not shipped yet stay neutral, so the band's
    hierarchy is the same information as its badges. */
 .vlead{background:linear-gradient(145deg,#FFFFFF 0%,#FBF8F1 58%,#F6EFE1 100%);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);display:grid;grid-template-columns:minmax(0,1fr) 210px;overflow:hidden}
-.vlead-copy{padding:34px 0 34px 32px;display:flex;flex-direction:column;align-items:flex-start}
-.vlead-shot{position:relative;margin:14px 14px 14px 24px;border-radius:14px;overflow:hidden}
-.vlead-shot img{width:100%;height:100%;object-fit:cover;display:block}
-.vlead-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#F6E6CB,#EBD5AF);color:var(--gold-active);margin-bottom:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
-.vlead-name{margin:14px 0 0;font-size:clamp(22px,2.4vw,28px);line-height:1.15;letter-spacing:-.02em;font-weight:600}
-.vlead-note{margin:12px 0 0;font-size:15px;line-height:1.6;color:var(--ink-60);max-width:46ch}
-.vlead-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:22px}
-.vlead-tags span{font-size:12.5px;font-weight:500;color:var(--gold-active);background:var(--gold-soft);border-radius:999px;padding:5px 12px}
-
-.vnext{display:flex;flex-direction:column;gap:8px}
-.vnext-cap{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-.vrow{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:13px 14px;flex:1;transition:border-color .18s ease,transform .18s ease}
-.vrow-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--subtle);color:var(--muted)}
-.vrow-name{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.005em}
-.vrow-note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.vrow-talk{background:var(--ink);border-color:var(--ink);color:var(--white)}
-.vrow-talk .vrow-icon{background:rgba(255,255,255,.1);color:var(--sand)}
-.vrow-talk .vrow-note{color:var(--muted-on-dark)}
-.vrow-talk .vbadge{background:rgba(255,255,255,.12);color:var(--white)}
-.vrow-talk:hover{transform:translateY(-2px)}
-.vrow:not(.vrow-talk):hover{border-color:var(--line-strong)}
-
-.vbadge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
-.vbadge-live{display:inline-flex;align-items:center;gap:7px;background:rgba(106,168,79,.14);color:#3F6B2E}
-.vbadge-soon{background:var(--subtle);color:var(--muted)}
 /* The one thing on this band that moves, because "live today" is the claim
    the band is making and a steady dot is how a status reads as current. */
 .vdot{width:7px;height:7px;border-radius:50%;background:var(--green-soft);animation:vpulse 2.4s ease-in-out infinite}
 @keyframes vpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.78)}}
-@media(prefers-reduced-motion:reduce){.vdot{animation:none}}
-
-@media(max-width:900px){
-  .vsplit{grid-template-columns:1fr;gap:16px}
-  .vlead{grid-template-columns:minmax(0,1fr) 170px}
-  .vlead-copy{padding:28px 0 28px 24px}
-  .vnext{gap:8px}
-}
-@media(max-width:560px){
-  .vlead{grid-template-columns:1fr;border-radius:14px}
-  .vlead-copy{padding:24px 20px 20px}
-  .vlead-shot{margin:0 20px 20px;height:150px}
-  .vlead-tags{padding-top:18px;gap:6px}
-  .vlead-tags span{font-size:12px;padding:4px 10px}
-  .vrow{grid-template-columns:34px minmax(0,1fr);row-gap:8px;padding:12px}
-  .vrow .vbadge{grid-column:2}
-  .vrow-icon{width:34px;height:34px}
-}
-.closer{padding:128px 0 72px;text-align:center;background:var(--cream);border-top:1px solid var(--line)}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(34px,4.6vw,56px)}
-.closer .lead{margin:0 auto 32px;max-width:520px}
-.closer .eyebrow{display:inline-block;margin-bottom:14px}
-.closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.closer-foot{margin-top:28px;font-size:14px;color:var(--muted)}
-.closer-foot a{color:var(--ink);border-bottom:1px solid var(--ink)}
 .footer{background:var(--ink);color:rgba(255,255,255,.72);padding:48px 0 32px}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -607,7 +240,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-trust-label{color:var(--gold);font-weight:600}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
- 
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
    Desktop is untouched. Tablet (761-860) swipes .personas and .pricing
@@ -681,12 +313,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .footer{padding:56px 0 24px}
   .footer-bottom{margin-top:40px}
 }
-
 html,body{max-width:100%;overflow-x:clip}
-
 @media(max-width:560px){.wrap{padding:0 20px}}
 @media(max-width:380px){.wrap{padding:0 16px}}
-
 /* ---- Tablet portrait (761-860): don't stretch ---------------------------
    Below 861 the desktop grid collapses everything to a single column, which on
    a 768-834 iPad meant ~685px-wide cards with the ESSENTIAL badge stranded at
@@ -736,7 +365,6 @@ html,body{max-width:100%;overflow-x:clip}
   .personas>:last-child,
   .pricing>:last-child{scroll-snap-align:end;margin-right:32px}
 }
-
 /* ---- Tablet (761-960): the hero goes two-up, not one-wide --------------
    Same complaint as the block above, same cause: below 961 the desktop grid
    collapses to one column, and a hero card then runs the full wrap width —
@@ -749,7 +377,6 @@ html,body{max-width:100%;overflow-x:clip}
   .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
   .quiz,.results{width:auto}
 }
-
 /* ---- Phone polish: hero density + card consistency ----------------------
    Follow-up to the stacking fix. Once the sections stacked correctly the
    remaining complaints were "hero looks jammed" and "cards a bit weird".
@@ -784,7 +411,6 @@ html,body{max-width:100%;overflow-x:clip}
   .routine-item .routine-tag{order:2}
   .routine-item .routine-qty{order:3}
 }
-
 /* ---- Phone: horizontal card decks ---------------------------------------
    Restores the swipe decks that shipped in 4e9ee16 and that I wrongly removed
    in #45, and fixes the two things that made them read as broken rather than
@@ -835,7 +461,6 @@ html,body{max-width:100%;overflow-x:clip}
   .pricing>:last-child{scroll-snap-align:end}
 
 }
-
 /* Deck affordance. Deliberately NOT media-gated: the dots only exist when the
    deck script builds them, and it builds them at any width where a deck really
    overflows (<=860). Gating the styling at 760 left the tablet decks with dots
@@ -849,23 +474,6 @@ html,body{max-width:100%;overflow-x:clip}
   margin-top:2px;
   padding:0;
 }
-.deck-dots button{
-  width:7px;height:7px;
-  padding:0;border:0;border-radius:999px;
-  background:var(--ink);
-  opacity:.18;
-  transition:opacity .2s ease,transform .2s ease;
-  cursor:pointer;
-}
-.deck-dots button[aria-current="true"]{opacity:.75;transform:scale(1.25)}
-/* the dot row is the visible target; the tap area around it stays 44px */
-.deck-dots button::before{
-  content:"";position:absolute;
-  width:32px;height:32px;
-  margin:-13px 0 0 -13px;
-}
-.deck-dots button{position:relative}
-
 /* Bleed has to equal the .wrap gutter at each step or the deck hangs off the
    edge. 561-760 keeps 32px; below that the gutter narrows and so does this. */
 @media (max-width:560px){
@@ -875,14 +483,6 @@ html,body{max-width:100%;overflow-x:clip}
     scroll-padding-left:20px;
   }
 }
-@media (max-width:380px){
-  .hero-stage,.split,.personas,.pricing{
-    margin-left:-16px;margin-right:-16px;
-    padding-left:16px;padding-right:16px;
-    scroll-padding-left:16px;
-  }
-}
-
 /* ---- Phone density pass --------------------------------------------------
    1. The two outcome cards ran 946px against an 844px viewport. The customers
       card is the taller of the two intrinsically (946 vs 810), and its "With
@@ -922,10 +522,6 @@ html,body{max-width:100%;overflow-x:clip}
   .sci-stat .sci-sub{font-size:12px;line-height:1.45}
   .science-stats{gap:12px}
 }
-@media (min-width:561px){
-  .report-card-pill .pill-narrow{display:none}
-}
-
 /* Trailing breathing room for the last card in each deck. Must pair a real
    margin (extends the scroll range) with scroll-padding-right (insets where
    end-snapping lands); either alone leaves the card flush. */
@@ -936,21 +532,6 @@ html,body{max-width:100%;overflow-x:clip}
   .personas>:last-child,
   .pricing>:last-child{margin-right:32px}
 }
-@media (max-width:560px){
-  .hero-stage,.split,.personas,.pricing{padding-right:0;scroll-padding-right:20px}
-  .hero-stage>:last-child,
-  .split>:last-child,
-  .personas>:last-child,
-  .pricing>:last-child{margin-right:20px}
-}
-@media (max-width:380px){
-  .hero-stage,.split,.personas,.pricing{padding-right:0;scroll-padding-right:16px}
-  .hero-stage>:last-child,
-  .split>:last-child,
-  .personas>:last-child,
-  .pricing>:last-child{margin-right:16px}
-}
-
 /* ---- Phone hero: one full screen, centred ------------------------------
    The hero copy now owns the entire first screen and the card deck starts
    below the fold, so nothing peeks. Previously 346px of the deck was visible
@@ -1051,10 +632,6 @@ html,body{max-width:100%;overflow-x:clip}
   0%,100%{transform:rotate(45deg) translate(0,0);opacity:.3}
   50%{transform:rotate(45deg) translate(3px,3px);opacity:.62}
 }
-@media (prefers-reduced-motion:reduce){
-  .hero .hero-copy::after{animation:none}
-}
-
 /* Short phones. At 320x568 the hero copy needed 620px against 499px of usable
    height, so "Built for trust" fell below the fold and the brief was not met.
    The overflow is not the copy itself but what a narrow screen does to it: the
@@ -1082,7 +659,6 @@ html,body{max-width:100%;overflow-x:clip}
      three small texts on screen at 568px tall. Nothing to override here. */
   .hero .hero-copy::after{display:none}
 }
-
 /* ---- Phone hero: subtle wash into the background ------------------------
    A warm tint at the top of the hero that resolves to flat --cream before the
    first screen ends, so the hero settles into the page background rather than
@@ -1168,15 +744,12 @@ html,body{max-width:100%;overflow-x:clip}
   }
   .hero{background:transparent;border-bottom:0}
 }
-
 @keyframes hero-wash{
   from{transform:translate3d(-7%,1%,0) scale(1.08)}
   to{transform:translate3d(7%,-4%,0) scale(1.20)}
 }
 @media (prefers-reduced-motion:reduce){
-  body::before{animation:none}
-}
-
+  body::before{animation:none}}
 /* ---- Phone: scoring model and FAQ compaction ----------------------------
    Scoring model. The section ran 1.54 screens: a 171px head, five 137px cards,
    a 153px methodology block and 112px of section padding. Target was one view,
@@ -1225,26 +798,19 @@ html,body{max-width:100%;overflow-x:clip}
 /* Breadcrumb and current-page nav state, previously only in the sub-page
    stylesheets. Here because the new pages clone this one. */
 .crumb{padding:20px 0 0;font-size:12px;color:var(--muted)}
-.crumb a{color:var(--muted);border-bottom:1px solid transparent}
-.crumb a:hover{color:var(--ink);border-bottom-color:var(--line-strong)}
-.crumb-sep{color:var(--line-strong);margin:0 8px}
 .nav-links a.active{color:var(--ink);font-weight:600}
-
 /* A visible link on every step box, not a plus that appears on hover. Touch
    has no hover, so a hover-only affordance tells half the audience nothing. */
 
 /* /how-it-works: one block per step. The step marker is the only new
    element; what sits under it are sections that used to be on the homepage. */
 .hw-hero{padding:56px 0 64px;background:var(--cream);border-bottom:1px solid var(--line)}
-.hw-title{margin-top:14px;max-width:820px}
-.hw-hero .lead{margin-top:18px;max-width:600px}
 /* ---- FAQ: four groups across two columns -----------------------------
    Fourteen questions in one column ran 900px of mostly whitespace and gave
    a reader no way in. Grouped, the same information is half the height and
    says what each part is about before it is opened. */
 @media(max-width:860px){
 }
-
 /* ---- Hero: the brand mark and the product deck -----------------------
    The quiz card carries the same B. mark the editor puts on a brand's own
    quiz, so the two surfaces read as the same product.
@@ -1257,21 +823,9 @@ html,body{max-width:100%;overflow-x:clip}
    `animation:none !important`, which reaches css and cannot reach a
    setInterval. Frozen, the deck sits on the first card. */
 .qprog{display:flex;align-items:center;gap:12px}
-.qprog .qprog-bar{flex:1}
 /* The real letterforms, lifted from the wordmark rather than set as text,
    so the dot is the brand's circle and not a full stop. */
 .qbrand{flex-shrink:0;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--white)}
-.qbrand-mark{width:16px;height:auto;display:block}
-/* The quiz card is the one that shipped; only its proportions changed.
-   The filled-circle tick came back with it. */
-.qopt-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;transition:background .38s cubic-bezier(.2,.7,.25,1),border-color .38s cubic-bezier(.2,.7,.25,1)}
-.qopt-check svg{width:9px;height:9px;opacity:0;transform:scale(.4);transition:opacity .3s cubic-bezier(.2,.7,.25,1),transform .3s cubic-bezier(.2,.7,.25,1)}
-.qopt.active .qopt-check{background:var(--ink);border-color:var(--ink)}
-.qopt.active .qopt-check svg{opacity:1;transform:scale(1)}
-.qopt.active .qopt-check svg path{stroke:var(--white)!important}
-.qopts{margin-top:18px;display:grid;gap:10px;flex:1;align-content:start}
-.qopt{min-height:50px}
-
 /* Three bands of the same card, spaced evenly: who it is for, the plan,
    and where you are in it. The photo is gone, which is what buys the room
    for a description, a reason and a timing line without crowding. */
@@ -1279,20 +833,10 @@ html,body{max-width:100%;overflow-x:clip}
    the quiz rather than beside it. The content is what it became; only the
    proportions went back. */
 .rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.rbrand{flex-shrink:0;color:var(--white)}
-.rbrand .qbrand-mark{width:17px}
-.rlabel{font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(231,207,163,.7)}
-.rtitle{margin-top:8px;font-size:18px;font-weight:600;line-height:1.1;letter-spacing:-.022em;color:#F5F3EF}
-.rprofile{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
-.rprofile span{font-size:9.5px;font-weight:500;color:#AAA69E;background:rgba(255,255,255,.035);
-  border:1px solid #30302D;border-radius:999px;padding:4px 10px;white-space:nowrap}
-
 /* The gap lives on the card, and the deck pulls back by the same amount, so
    two cards never touch mid-swipe and the resting card still lines up with
    the edges of the one it sits in. */
 .pc-deck{overflow:hidden;margin:15px -7px 0;border-radius:14px}
-.pc-track{display:flex;width:600%;animation:pc-swipe 30s cubic-bezier(.65,0,.35,1) infinite}
-.pc-slide{width:16.6667%;flex:0 0 16.6667%;display:flex}
 @keyframes pc-swipe{
   0%,15%{transform:translateX(0)}
   18%,33%{transform:translateX(-16.6667%)}
@@ -1301,70 +845,26 @@ html,body{max-width:100%;overflow-x:clip}
   72%,87%{transform:translateX(-66.6667%)}
   90%,100%{transform:translateX(-83.3334%)}
 }
-.pc>*{flex-shrink:0}
-.pc{flex:1;min-height:301px;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
-  background:#171717;border:1px solid #30302D;border-radius:13px;color:#F5F3EF}
-.pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
-  letter-spacing:.15em;text-transform:uppercase;color:#89867F}
 /* The shot squares up with the two lines beside it rather than setting its
    own height, so adding it cost the card nothing: badge + name already
    measured 37px. */
 .pc-head{display:flex;align-items:center;gap:10px}
-.pc-shot{flex:0 0 37px;width:37px;height:37px;border-radius:8px;overflow:hidden;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16)}
-.pc-shot img{display:block;width:100%;height:100%;object-fit:cover}
-.pc-headtext{min-width:0;flex:1}
-.pc-badge,.pc-name{display:block}
-.pc-name{margin-top:6px;font-size:17px;font-weight:600;letter-spacing:-.018em;line-height:1.2;color:#F5F3EF;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-tags{display:flex;align-items:center;gap:9px;margin-top:12px;overflow:hidden}
-.pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:#89867F;padding:4px 0;white-space:nowrap}
-.pc-tag.is-match{flex:0 0 auto}
-.pc-tag:not(.is-match){min-width:0;overflow:hidden;text-overflow:ellipsis}
-.pc-tag.is-match{color:rgba(231,207,163,.92);background:rgba(180,127,57,.18);
-  border:1px solid rgba(231,207,163,.2);border-radius:999px;padding:4px 10px}
-.pc-desc{margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#AAA69E;min-height:3em}
 /* two auto margins, so the free space splits evenly above the divider and
    above the button instead of piling up under a short reason. */
 .pc-rule{height:1px;background:#30302D;margin:auto 0 0}
-
 /* Why, When and Serving on one grid, so the values start at the same x even
    when the reason runs to two lines. */
 .pc-facts{display:grid;gap:8px;margin:13px 0 0;font-size:10.5px;line-height:1.45}
-.pc-fact{display:grid;grid-template-columns:42px minmax(0,1fr);gap:5px}
 /* side by side when the card can hold two of them, stacked when it cannot —
    auto-fit does that without a breakpoint, and at 320px "With meal" was
    wrapping onto a second line rather than giving up the pairing. */
 .pc-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:5px 10px}
-.pc-facts dt{font-weight:600;color:#89867F;white-space:nowrap}
-.pc-facts dd{margin:0;color:#AAA69E}
-.pc-fact-why dd{min-height:2.9em}
-.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.01em;
-  color:#F5F3EF;background:rgba(180,127,57,.78);border-radius:8px;padding:8px 14px}
-
-/* the one slide with no reason to clamp a description */
-.pc-gaps .pc-desc{min-height:0}
-.nb{margin-top:12px;display:grid;gap:9px}
 /* fixed tracks either side, so every bar starts and ends at the same x */
 .nb-row{display:grid;grid-template-columns:62px minmax(0,1fr) 30px;align-items:center;gap:10px;font-size:10.5px;line-height:1.3}
-.nb-n{color:#AAA69E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nb-bar{height:5px;border-radius:2.5px;background:#30302D;overflow:hidden}
-.nb-bar i{display:block;height:100%;border-radius:2.5px;background:#605E58}
-.nb-bar i.is-mid{background:var(--gold)}
-.nb-bar i.is-low{background:var(--red-soft)}
-.nb-v{text-align:right;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";color:#AAA69E;font-weight:500}
-.nb-v.is-mid{color:#C79256}
-.nb-v.is-low{color:#DE7259}
-
-@media(prefers-reduced-motion:reduce){.pc-track{animation:none !important}}
 @media(max-width:560px){
-  .pc{min-height:292px}
-  .rtitle{font-size:20px}
   /* the breakdown's description takes a second line at this width, and the
      card is nine pixels shorter; the rows give that back. */
-  .nb{gap:7px}
-}
-
+  .nb{gap:7px}}
 /* ---- The engine band -------------------------------------------------
    Three feeds of the same height: answers coming in, the catalogue being
    scored, the plan going out. Not three cards, because every other section
@@ -1382,8 +882,6 @@ html,body{max-width:100%;overflow-x:clip}
    The first version of this band used a setInterval and the harness caught
    it mid-capture. Frozen, every feed sits at its first frame. */
 .eng{display:grid;grid-template-columns:210px minmax(0,1fr) 272px;gap:0 26px;margin-top:56px;align-items:start}
-.eng-cap{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px}
-
 /* The two word feeds. Not a scroll: words appear and fade at staggered
    times, the same effect the catalogue grid uses, so all three bands read
    as one mechanism rather than two tickers either side of a chart.
@@ -1396,104 +894,46 @@ html,body{max-width:100%;overflow-x:clip}
 .eng-feed{height:240px;position:relative;overflow:hidden;
   -webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);
           mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
-.eng-track{display:flex;flex-direction:column;gap:11px;animation:eng-drift 44s linear infinite}
 @keyframes eng-drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
-.eng-word{white-space:nowrap;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.4);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
-.eng-word.is-key{color:var(--white);font-weight:600}
 /* Conditions and medications: the signals that rule products out, which is
    the half of the mechanism the grid's red cells are showing. */
 .eng-word.is-gate{color:#F97066}
-.eng-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.eng-name{font-style:normal;overflow:hidden;text-overflow:ellipsis}
-.eng-val{font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
-.eng-val.is-ok{color:#75E0A7}
-.eng-val.is-low{color:#F97066}
-.eng-badge{font-style:normal;font-size:9.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:2px 6px;white-space:nowrap}
 /* Each word fades out and back on its own clock while it travels, so
    the two effects run at once and neither has a rhythm to follow. */
 @keyframes eng-word{0%,24%{opacity:1}36%,54%{opacity:0}66%,100%{opacity:1}}
-
-/* the catalogue */
-.eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
-.eng-cell{display:block;border-radius:2px;background:rgba(180,127,57,var(--o))}
-.eng-cell.g{animation:eng-pick 9s linear infinite}
-.eng-cell.r{animation:eng-drop 9s linear infinite}
-.eng-cell.p{animation:eng-pulse 9s linear infinite}
 @keyframes eng-pick{0%,5%{background:rgba(180,127,57,var(--o))}8%,15%{background:#75E0A7}22%,100%{background:rgba(180,127,57,var(--o))}}
 @keyframes eng-drop{0%,5%{background:rgba(180,127,57,var(--o))}8%,15%{background:#B42318}24%,92%{background:rgba(180,127,57,.05)}100%{background:rgba(180,127,57,var(--o))}}
 @keyframes eng-pulse{0%,12%{background:rgba(180,127,57,var(--o))}18%,26%{background:rgba(180,127,57,.95)}36%,100%{background:rgba(180,127,57,var(--o))}}
-
 /* Figures, not stat boxes, so the band stays the one thing on this page
    that is not a grid of cards. */
 /* Four statements, not four figures. The numbers that used to sit here were
    the wellness model's, and this band has to describe how every algorithm
    works. They live on /science with the rest of the evidence. */
 .eng-figs{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px}
-.eng-fig{padding-top:20px;border-top:1px solid rgba(255,255,255,.2)}
-.eng-fig-t{margin:0;font-size:16px;font-weight:600;line-height:1.35;letter-spacing:-.01em;color:var(--white)}
-.eng-fig-s{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--muted-on-dark)}
-
 /* A row is as wide as its column, and at 373px the name and the figure fly
    to opposite edges with a hand's width of nothing between them. Capping
    the track keeps a plan row the same shape at every size. */
 .eng-plan .eng-track{max-width:300px}
-
 @media(max-width:1000px){
   /* Three bands abreast would leave the grid 236px for 24 columns, so the
      catalogue goes full width on top and the two feeds sit under it. */
   .eng{grid-template-columns:1fr 1fr;gap:34px 26px}
-  .eng-band:nth-child(2){grid-column:1/-1;order:-1}
   /* Stacked, the bands no longer need to match heights, so the grid sizes
      from its own column count and the cells come out square. */
-  .eng-grid{height:auto;aspect-ratio:24/10}
-  .eng-feed{height:208px}
-  .eng-figs{grid-template-columns:1fr 1fr;gap:28px}
-}
+  .eng-grid{height:auto;aspect-ratio:24/10}}
 @media(max-width:560px){
-  .eng{grid-template-columns:1fr;margin-top:40px;gap:26px}
   /* 24 columns on a 350px screen is a 11px cell, too small to read a gate
      firing. 16 across reflows the same 240 cells into 15 rows at twice the
      size, and the aspect ratio keeps them square. */
-  .eng-grid{grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(15,1fr);aspect-ratio:16/15;gap:3px}
-  .eng-feed{height:172px}
-  .eng-word{font-size:13px}
-  .eng-plan .eng-track{max-width:none}
-  .eng-figs{grid-template-columns:1fr;gap:24px;margin-top:40px}
-}
+  .eng-grid{grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(15,1fr);aspect-ratio:16/15;gap:3px}}
 @media(prefers-reduced-motion:reduce){
   /* Every feed holds its first frame, so the band is a complete picture
      rather than an empty one. */
-  .eng-track,.eng-word,.eng-cell{animation:none !important}
-}
-
+  .eng-track,.eng-word,.eng-cell{animation:none !important}}
 /* The homepage engine block: three ideas, no boxes. Every other band on that
    page is a grid of cards, so this one is deliberately not one. */
 .sci-points{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px}
-.sci-point{padding-top:22px;border-top:1px solid rgba(255,255,255,.2)}
-.sci-point h3{margin:0 0 10px;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--white)}
-.sci-point p{margin:0;font-size:15px;line-height:1.62;color:var(--muted-on-dark)}
-.science .sci-method{margin-top:48px}
-@media(max-width:860px){
-  .sci-points{grid-template-columns:1fr;gap:26px;margin-top:40px}
-  .sci-point{padding-top:18px}
-  .science .sci-method{margin-top:32px}
-}
 section[id^="step-"]{scroll-margin-top:var(--nav-h)}
-.hw-head{margin-bottom:48px}
-.hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-active)}
-.hw-n::before{content:"";width:24px;height:1px;background:var(--line-strong)}
-.hw-head .h2{margin-top:14px;max-width:760px}
-.hw-head .lead{margin-top:14px;max-width:720px}
-.hw-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.hw-col{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px 24px;box-shadow:var(--shadow-sm)}
-.hw-col h3{margin:0 0 8px;font-size:16px;font-weight:600;letter-spacing:-.01em}
-.hw-col p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-60)}
-@media(max-width:860px){
-  .hw-hero{padding:40px 0 48px}
-  .hw-head{margin-bottom:32px}
-  .hw-cols{grid-template-columns:1fr;gap:14px}
-  .hw-col{padding:22px 20px}
-}
 /* ======================================================================
    /science, rebuilt
    ----------------------------------------------------------------------
@@ -1507,117 +947,22 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    ====================================================================== */
 /* The hero is the shared PageHero: /page-hero.css. */
 .ph{--ph-figs:4}
-
-/* ---- sections -------------------------------------------------------- */
-.sx-sec{padding:var(--sec,88px) 0}
-.sx-sec--beige{background:var(--hero-beige)}
-.sx-head{max-width:720px;margin:0 auto 48px;text-align:center}
-.sx-head .eyebrow{display:inline-block;margin-bottom:14px}
-.sx-head .h2{margin-bottom:16px}
-.sx-head .lead{margin-left:auto;margin-right:auto;max-width:600px}
-
-/* ---- the worked example ---------------------------------------------- */
-.sx-who{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 auto 36px;max-width:820px}
-.sx-chip{font-size:12.5px;font-weight:500;color:var(--ink-80);background:var(--hero-beige);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
-.sx-chip b{font-weight:600;color:var(--ink)}
-
-.sx-funnel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:820px;margin:0 auto 40px}
-.sx-fstep{text-align:center;padding:20px 16px;border:1px solid var(--line);border-radius:14px;background:var(--white);position:relative}
-.sx-fstep + .sx-fstep::before{content:"";position:absolute;left:-13px;top:50%;width:14px;height:1px;background:var(--line-strong)}
-.sx-fn{font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
-.sx-flabel{margin-top:8px;font-size:13px;color:var(--ink-60);line-height:1.45}
-
 /* The six steps are tabs: one run, six views of it, and the whole trace is
    in the page rather than fetched, so it is there with scripting off too. */
 .sx-steps{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:0 auto 24px;max-width:900px}
-.sx-step{display:inline-flex;align-items:baseline;gap:8px;padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--white);font-size:13.5px;font-weight:500;color:var(--ink-80);cursor:pointer;font-family:inherit;transition:border-color .16s ease,background .16s ease,color .16s ease}
-.sx-step:hover{border-color:var(--line-strong)}
-.sx-step[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
-.sx-step:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sx-step-n{font-size:11.5px;font-weight:600;letter-spacing:.04em;opacity:.55;font-feature-settings:"tnum"}
-
-.sx-panel{max-width:900px;margin:0 auto;border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
-.sx-panel-head{padding:18px 24px;border-bottom:1px solid var(--line);background:var(--subtle);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.sx-panel-t{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sx-panel-c{font-size:12.5px;color:var(--ink-60);font-feature-settings:"tnum"}
-.sx-line{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;padding:14px 24px;border-bottom:1px solid var(--line);align-items:baseline}
-.sx-line:last-child{border-bottom:0}
-.sx-ltext{font-size:14.5px;color:var(--ink);line-height:1.45}
-.sx-lvalue{font-size:14px;font-weight:600;letter-spacing:-.005em;white-space:nowrap;font-feature-settings:"tnum";text-align:right}
-.sx-lsource{grid-column:1/-1;font-size:12.5px;color:var(--ink-60);line-height:1.5}
-.sx-foot{max-width:900px;margin:18px auto 0;font-size:13px;color:var(--ink-60);text-align:center;line-height:1.6}
-
 /* ---- the gates ------------------------------------------------------- */
 /* align-items:start, or the one-gate card is stretched to the height of
    the nine-gate card beside it and reads as mostly empty. */
 .sx-gates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto;align-items:start}
-.sx-gate{border:1px solid var(--line);border-radius:14px;background:var(--white);padding:22px 22px 20px}
-.sx-gate-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.sx-gate-name{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sx-gate-n{font-size:12px;font-weight:600;color:var(--gold-strong);background:var(--gold-soft);border-radius:999px;padding:3px 9px;font-feature-settings:"tnum"}
-.sx-gate ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.sx-gate li{font-size:13.5px;color:var(--ink-80);line-height:1.45;padding-left:16px;position:relative}
-.sx-gate li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:1px;background:var(--line-strong)}
-.sx-aside{border:1px solid var(--line-strong);border-radius:14px;padding:22px;background:transparent}
-.sx-aside h3{margin:0 0 8px;font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sx-aside p{margin:0;font-size:13.5px;color:var(--ink-80);line-height:1.6}
-.sx-aside-list{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
-.sx-aside-list span{font-size:12.5px;color:var(--ink-60);background:var(--subtle);border-radius:999px;padding:4px 11px}
-
-/* ---- thresholds ------------------------------------------------------ */
-.sx-tw{max-width:900px;margin:0 auto;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
-.sx-th{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
-.sx-th th{text-align:left;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:16px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
-.sx-th td{padding:15px 20px;border-bottom:1px solid var(--line);color:var(--ink-80);font-feature-settings:"tnum"}
-.sx-th tr:last-child td{border-bottom:0}
-.sx-th td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
-.sx-strict{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
-.sx-strict.is-strict{color:#8A4B2A;background:rgba(190,110,60,.12)}
-.sx-strict.is-lenient{color:#4A6B3A;background:rgba(94,142,62,.12)}
-.sx-prose{max-width:720px;margin:0 auto 40px}
-.sx-prose p{margin:0 0 14px;font-size:15px;line-height:1.65;color:var(--ink-80)}
-.sx-prose p:last-child{margin-bottom:0}
-.sx-prose b{color:var(--ink);font-weight:600}
-
-/* ---- sources --------------------------------------------------------- */
-.sx-src{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;max-width:1100px;margin:0 auto}
-.sx-card{display:block;border:1px solid var(--line);border-radius:14px;background:var(--white);padding:24px;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
-a.sx-card:hover{border-color:var(--line-strong);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.05)}
-.sx-card-role{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-strong)}
-.sx-card-n{margin-top:12px;font-size:22px;font-weight:600;letter-spacing:-.018em}
-.sx-card-f{margin-top:6px;font-size:13.5px;color:var(--ink-60);line-height:1.5}
-.sx-card-l{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--gold-strong);display:inline-flex;gap:4px;align-items:center}
-.sx-card-l::after{content:"\2197";transition:transform .2s ease}
-a.sx-card:hover .sx-card-l::after{transform:translate(2px,-2px)}
-@media (prefers-reduced-motion:reduce){a.sx-card,a.sx-card:hover,.sx-card-l::after{transition:none;transform:none}}
-
 /* ---- the goal map, on the new rhythm --------------------------------- */
 .gm.sx-gm{background:var(--white);padding:var(--sec,88px) 0}
-
-/* ---- the endcap ------------------------------------------------------ */
-.closer{padding:88px 0 72px;text-align:center;background:var(--hero-beige);border-top:0}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(28px,3.4vw,42px)}
-.closer .closer-foot{color:rgba(255,255,255,.6)}
-.closer .closer-foot a{color:var(--white);border-bottom-color:rgba(255,255,255,.4)}
 .footer{position:relative;overflow:hidden;background:var(--hero-beige);padding:48px 0 32px}
 .nav{--nav-bg:var(--hero-tint,var(--hero-beige))}
-
 /* ---- narrow ---------------------------------------------------------- */
 @media (max-width:980px){
   .sx-gates{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sx-src{grid-template-columns:1fr 1fr}
   .sx-src .sx-card:first-child{grid-column:1/-1}
-}
-@media (max-width:760px){
-  .sx-funnel{grid-template-columns:minmax(0,1fr);gap:10px}
-  .sx-fstep + .sx-fstep::before{left:50%;top:-11px;width:1px;height:12px}
-  .sx-gates,.sx-src{grid-template-columns:minmax(0,1fr)}
-  .sx-steps{gap:5px}
-  .sx-step{padding:8px 13px;font-size:13px}
-  .sx-line{padding:13px 18px}
-  .sx-panel-head{padding:16px 18px}
-  .sx-lvalue{text-align:left}
-  .sx-line{grid-template-columns:minmax(0,1fr)}
 }
 /* ---- the page's own ground, and the bar over it -----------------------
    The whole page is black, so the hero card is black on black and the bar
@@ -1755,7 +1100,7 @@ body{background:#0A0A0A}
     <div class="sci-head sci-in">
       <span class="eyebrow">Safety</span>
       <h2 class="h2">17 checks that can remove a product. None can be switched off.</h2>
-      <p class="lead">gate functions in the engine&#8217;s safety chain. Sixteen remove a product and one adds a warning without removing anything.</p>
+      <p class="lead">Gate functions in the engine&#8217;s safety chain. Sixteen remove a product and one adds a warning without removing anything.</p>
     </div>
     <div class="sci-layers sci-in">
       <div class="sci-layer">
@@ -1823,7 +1168,7 @@ body{background:#0A0A0A}
     </div>
     <div class="sci-plan-checks sci-in">
       <h3>Plus 6 plan checks</h3>
-      <p>redundancy and diet-credit checks, which are not safety checks. They shape a sensible plan rather than a safe one, and are not safety checks.</p>
+      <p>Redundancy and diet-credit checks, which are not safety checks. They shape a sensible plan rather than a safe one.</p>
       <ul><li><b>One multivitamin only</b> &#8212; Removes every multivitamin after the best-matching one.</li><li><b>Multivitamin against standalone</b> &#8212; Removes a single-nutrient product when a recommended multivitamin already supplies that nutrient.</li><li><b>One per product family</b> &#8212; Removes products from a family where taking more than one together adds nothing, keeping the best match.</li><li><b>Duplicate active ingredient</b> &#8212; Removes a product whose active ingredient is already covered by another product in the plan.</li><li><b>Redundant complex</b> &#8212; Removes a combination product whose contents are already covered by the single-nutrient products in the plan.</li><li><b>Already met by diet</b> &#8212; Removes a product for a nutrient the customer&#8217;s own food intake already supplies at or above their target.</li></ul>
     </div>
   </div>
@@ -1875,7 +1220,7 @@ body{background:#0A0A0A}
   </div>
 </section>
 
-<section class="sci-cta">
+<section class="sci-cta sc-reveal" data-sc="reveal">
   <div class="wrap">
     <div class="sci-cta-card">
       <span class="eyebrow">The methodology</span>
