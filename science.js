@@ -118,6 +118,54 @@
     });
   })();
 
+  /* ---- a product shows what is recorded about it ---------------------
+     The goal explorer's behaviour, on the goal explorer's markup: pointer,
+     keyboard focus and click all select, so the panel follows the reader
+     however they are moving through the row. */
+  (function products() {
+    var grid = $('[data-products]'), panel = $('[data-prod-detail]');
+    if (!grid || !panel) return;
+    var data = null;
+    try { data = JSON.parse($('#sci-data').textContent); } catch (e) { return; }
+    var live = Object.keys(data.verticals).filter(function (k) { return data.verticals[k].status === 'live'; })[0];
+    var items = ((data.verticals[live].products || {}).items) || [];
+    var map = {};
+    items.forEach(function (p) { map[p.name] = p.attributes; });
+
+    var btns = $$('.sci-goalname', grid);
+    var rows = $('.sci-prows', panel);
+    function show(btn) {
+      var attrs = map[btn.getAttribute('data-prod')];
+      if (!attrs) return;
+      btns.forEach(function (b) { b.setAttribute('aria-expanded', String(b === btn)); });
+      $('.sci-subs-t', panel).textContent = btn.getAttribute('data-prod');
+      rows.textContent = '';
+      attrs.forEach(function (a) {
+        var row = document.createElement('div');
+        row.className = 'sci-prow';
+        var dt = document.createElement('dt');
+        dt.textContent = a.label;
+        var dd = document.createElement('dd');
+        if (a.value) {
+          dd.textContent = a.value;
+        } else {
+          var none = document.createElement('span');
+          none.className = 'sci-prow-none';
+          none.textContent = 'None recorded';
+          dd.appendChild(none);
+        }
+        row.appendChild(dt);
+        row.appendChild(dd);
+        rows.appendChild(row);
+      });
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('mouseenter', function () { show(b); });
+      b.addEventListener('focus', function () { show(b); });
+      b.addEventListener('click', function () { show(b); });
+    });
+  })();
+
   /* ---- the run ------------------------------------------------------
      The reader drives: tabs and arrow keys, nothing on a timer. */
   (function run() {

@@ -104,6 +104,39 @@ const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
    to wrap three times at this type size ("attributes recorded for every
    product in a brand's catalogue"), and a label is not a claim. Every number
    on this page remains the engine's. */
+/* ---- 2a. the product database ------------------------------------------
+   What "25 attributes recorded" means, shown rather than claimed. Eight real
+   products from the master table, six of their recorded attributes, every
+   value read from the export. The selector and the detail area are the same
+   components as the goal explorer below it, so the two read as a pair: same
+   names-in-a-row control, same panel underneath, same reveal.
+
+   An attribute the table leaves empty says so. Writing "none" into a safety
+   field because it looks tidier would be inventing the one kind of fact this
+   page must not invent. */
+const prods = h.products;
+const firstProd = prods.items[0];
+const prodRows = pr => pr.attributes.map(a =>
+  `<div class="sci-prow"><dt>${esc(a.label)}</dt><dd>${a.value ? esc(a.value) : '<span class="sci-prow-none">None recorded</span>'}</dd></div>`).join('');
+
+const productsSec = `<section class="sci-sec" id="products">
+  <div class="wrap">
+    <div class="sci-head sci-in">
+      <span class="eyebrow">The product database</span>
+      <h2 class="h2"><span data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</span>+ products &#183; <span data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</span> attributes each</h2>
+      <p class="lead">Audited for safety and composition. Explore a product to see what the engine records.</p>
+    </div>
+    <div class="sci-goalgrid sci-in" data-products>
+${prods.items.map(pr => `      <button type="button" class="sci-goalname" data-prod="${esc(pr.name)}" aria-controls="sci-prod" aria-expanded="${pr === firstProd ? 'true' : 'false'}">${esc(pr.name)}</button>`).join('\n')}
+    </div>
+    <div class="sci-subs sci-prod sci-in" id="sci-prod" data-prod-detail aria-live="polite">
+      <div class="sci-subs-t">${esc(firstProd.name)}</div>
+      <dl class="sci-prows">${prodRows(firstProd)}</dl>
+      <p class="sci-prod-foot">${num(prods.attributes_shown)} of the ${num(prods.attributes_recorded)} attributes recorded for every product.</p>
+    </div>
+  </div>
+</section>`;
+
 /* One section, one claim. This one is the taxonomy: what a customer can ask
    for and how finely. The two product figures that used to open it moved to
    Safety, where the products themselves are the subject — they were a second,
@@ -114,6 +147,7 @@ const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
    ordinary section head, the same eyebrow / h2 / lead as Safety and Markets. */
 const covers = `<section class="sci-sec" id="covers">
   <div class="wrap">
+    <hr class="sci-divider sci-in">
     <div class="sci-head sci-in">
       <span class="eyebrow">What the engine covers</span>
       <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
@@ -326,11 +360,6 @@ const safety = `<section class="sci-sec" id="safety">
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
       <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended. Sixteen of the ${num(h.counts.safety_checks.value)} remove it outright; the last adds a warning instead. Nothing a customer should not take reaches their plan, and you can show which check stopped it.</p>
     </div>
-    <p class="sci-figs sci-in">
-      <span><span class="sci-figs-v"><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b><i aria-hidden="true">+</i></span> products audited for safety and composition</span>
-      <span class="sci-figs-sep" aria-hidden="true"></span>
-      <span><span class="sci-figs-v"><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b></span> attributes recorded for each product</span>
-    </p>
     <div class="sci-groups sci-in" data-groups>
 ${groupBtns}
 ${planBtn}
@@ -415,7 +444,7 @@ const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" i
 
 const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
 
-const body = [hero, covers, run, safety, markets, cta, data].join('\n\n');
+const body = [hero, productsSec, covers, run, safety, markets, cta, data].join('\n\n');
 
 /* ---- splice ------------------------------------------------------------------ */
 let page = readFileSync(PAGE, 'utf8');

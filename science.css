@@ -208,7 +208,7 @@
    end state is the resting state, so reduced motion and a
    capture with animation off both show the finished page.
    ============================================================ */
-.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-figs-v{
+.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-prow dd{
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
 /* ---- what the model covers --------------------------------------------- */
@@ -221,26 +221,32 @@
 .sci-sec.is-in .sci-goalname{opacity:1;transform:none;
   transition:opacity .4s ease,transform .4s cubic-bezier(.2,.7,.25,1);
   transition-delay:calc(var(--i,0) * 14ms)}
-/* ---- The product figures, in Safety -------------------------------------
-   They describe the products the checks below run on, which is why they live
-   here now rather than opening a section about goals. A quiet line, not a
-   pair of monuments: at 62px they were the largest thing on the page and said
-   less than the seventeen checks underneath them. */
-.sci-figs{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
-  max-width:860px;margin:26px auto 0;text-align:center;
-  font-size:15px;line-height:1.5;color:var(--ink-80)}
-/* The figure and its "+" are one unit, so the gap to the words is on the unit
-   and not on the number: with the margin on <b> it landed between 223 and the
-   plus. The plus stays outside the counting element — count-up rewrites that
-   element's text on every frame and would wipe it. */
-.sci-figs-v{display:inline-flex;align-items:baseline;margin-right:7px;vertical-align:-2px;
-  font-size:26px;line-height:1;font-weight:600;letter-spacing:-.02em;color:var(--gold)}
-.sci-figs-v b{font-weight:inherit;font-size:inherit;letter-spacing:inherit}
-.sci-figs-v i{font-style:normal;font-size:.6em;margin-left:.04em;opacity:.85}
-.sci-figs-sep{width:1px;height:22px;background:var(--line-strong)}
+/* ---- The product explorer ----------------------------------------------
+   It is the goal explorer's components, reused rather than restyled: the
+   selector carries .sci-goalgrid / .sci-goalname and the panel .sci-subs, so
+   the two sections match because they ARE the same thing, and a change to one
+   cannot leave the other behind. Only the detail rows are new.
+
+   Two columns with a rule between each pair, no card: a box round every
+   attribute turns six facts into six objects. */
+.sci-prows{max-width:680px;margin:20px auto 0;text-align:left}
+.sci-prow{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);gap:18px;
+  padding:12px 2px;border-top:1px solid var(--line)}
+.sci-prow:first-child{border-top:0}
+.sci-prow dt{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.sci-prow dd{margin:0;font-size:15px;line-height:1.5;color:var(--ink)}
+.sci-prow-none{color:var(--muted);font-style:italic}
+.sci-prod-foot{margin:18px 0 0;text-align:center;font-size:13px;color:var(--muted)}
+/* The panel reserves a height for the goal lists; the attribute rows set
+   their own, and a fixed minimum leaves a gap under the shorter products. */
+.sci-subs.sci-prod{min-height:0}
 @media (max-width:620px){
-  .sci-figs{gap:12px;margin-top:22px}
-  .sci-figs-sep{display:none}
+  .sci-prow{grid-template-columns:minmax(0,1fr);gap:2px;padding:11px 2px}
+  .sci-prow dt{font-size:13px}
+}
+
+/* ---- One divider between the two explorers ---------------------------- */
+.sci-divider{border:0;border-top:1px solid var(--line);max-width:720px;margin:0 auto 54px}
 }
 /* Stacked, the sign would be a stray character on its own line. */
 @media (max-width:620px){
