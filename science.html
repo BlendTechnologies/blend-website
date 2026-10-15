@@ -29,6 +29,7 @@
 </script>
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="/nav-mobile.css">
 <link rel="stylesheet" href="/scroll-cards.css">
 <link rel="stylesheet" href="/page-hero.css">
 <link rel="stylesheet" href="/science.css">
@@ -974,12 +975,14 @@ body{background:#151412}
    the stylesheet's and painted the ground around its card in --hero-beige.
    The card was dark and the strip beside it was not. */
 .footer{background:#151412}
+/* The bar is light on this page, and the toggle takes currentColor. */
+.nav{color:#EDE6DA}
 .nav .nav-links a{color:#B9B1A4}
 .nav .nav-links a:hover,.nav .nav-links a.active{color:#EDE6DA}
 .nav .nav-login{color:#B9B1A4}
 .nav .nav-login:hover{color:#EDE6DA}
 .nav .logo svg{filter:brightness(0) invert(1)}
-.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after,.nav-toggle span i{background:#EDE6DA}
+/* the icon takes the bar's own colour; see nav-mobile.css */
 .nav.scrolled{background:rgba(21,20,18,.86);border-bottom-color:rgba(255,255,255,.1)}
 @media(max-width:860px){.nav-links{background:rgba(10,10,10,.98);border-bottom-color:rgba(255,255,255,.1)}
   .nav-links a{border-bottom-color:rgba(255,255,255,.1)}
