@@ -1449,17 +1449,15 @@ html,body{max-width:100%;overflow-x:clip}
    of the header now measure the same as the main hero's. */
 .hw-top-eyebrow{display:block;font-size:12px;font-weight:500;letter-spacing:.08em;
   text-transform:uppercase;color:var(--muted)}
-.hw-top-title{margin:22px 0 0;font-size:58px;line-height:1.06;letter-spacing:-.025em;
-  font-weight:600;color:var(--ink)}
+.hw-top-title{margin:22px 0 0;font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;
+  font-weight:600;color:var(--ink);text-wrap:balance}
 .hw-price{margin:30px 0 0;font-size:20px;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
 .hw-price .hw-price-trial{color:var(--muted);font-weight:400}
 .hw-top-sub{margin:12px 0 0;font-size:17px;line-height:1.57;color:var(--ink-80)}
 .hw-top-ctas{margin:36px 0 0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
-@media(max-width:1279px){.hw-top-title{font-size:clamp(38px,4.4vw,58px)}}
 @media(max-width:760px){
   .hw-top{padding:52px 0}
-  .hw-top-title{font-size:38px;letter-spacing:-.022em}
   .hw-price{font-size:18px}
   .hw-top-sub{font-size:16px}
   .hw-top-ctas{flex-direction:column;align-items:center;gap:10px}

@@ -13,23 +13,14 @@
    the geometry are the homepage's; only the selectors are new.
    ============================================================ */
 :root{
-  --sc-inset:40px;--sc-round:36px;--sc-grow:.06;
-  /* Top edge, at every width. A centre origin grows the block both ways,
-     so on any viewport where the content is close to the block's height
-     it lifts the first line above the block and behind the header. */
-  --sc-origin:50% 0;
+  --sc-inset:40px;--sc-round:36px;
 }
 /* Smaller margins and a tighter corner on a phone: 40px either side of a
    375px screen is a fifth of the width, and the card stops reading as a
    full-bleed block that has pulled in. */
 @media (max-width:560px){
-  :root{--sc-inset:24px;--sc-round:24px;--sc-grow:.05}
+  :root{--sc-inset:24px;--sc-round:24px}
 }
-/* The grow halves below 1300: see the gutter note at the end of the file. */
-@media (max-width:1299px){
-  :root{--sc-grow:.03}
-}
-
 /* Defaults are the state each shape should hold with no JS at all, and
    the state reduced motion keeps: the hero already a card, every reveal
    already open. The handler never writes under reduced motion, so an
@@ -79,13 +70,16 @@
 @media (max-width:960px){ .sc-hero{padding:32px 0 56px} }
 @media (max-width:760px){ .sc-hero{padding:24px 0 48px} }
 @media (max-width:560px){ .sc-hero{align-content:start;padding-top:34px} }
-/* The content shrinks with its own card. The card's visible width goes
-   from the full viewport to the viewport less two insets, which at 1440
-   is 5.6%, so the content starts 6% over and settles at its design size
-   on the same progression - the block and what is inside it move as one
-   thing rather than the frame closing around fixed content. */
-.sc-hero > .wrap{position:relative;z-index:1;will-change:transform;transform-origin:var(--sc-origin);
-  transform:scale(calc(1 + (1 - var(--sc-p)) * var(--sc-grow)))}
+/* The content used to scale with the card: 6% over at rest, settling to
+   its design size as the card formed, so the block and its contents moved
+   as one thing. It cost more than it bought. A scaled layer rasterises
+   its glyphs and resamples them, so every hero's type rendered 6% larger
+   than its own spec and visibly softer than the identical component on a
+   page with no hero card - a 12px eyebrow on /science reading at 12.7px
+   and half a weight light beside the same 12px eyebrow on /use-cases.
+   Reported as "not using the right font", which is what it looks like.
+   The frame closes around fixed content now, and the type is the type. */
+.sc-hero > .wrap{position:relative;z-index:1}
 
 /* ---- A reveal: a card at 0, full bleed at 1 -------------------------
    The ink is a layer inside the block rather than the block's own
@@ -131,9 +125,10 @@
    width where the wrap's own centring already clears the card the gutter
    is left alone, so the desktop composition keeps its full width.
 
-   The hero needs a wider one and keeps it further up, because its content
-   is scaled as well: at --sc-grow the block is 6% over at rest, which
-   moves its edges out by 3% of its own width on top of the inset. */
+   The hero keeps a wider one further up than the reveals do. That began
+   as headroom for the content scale, which is gone; it stays because the
+   hero's inset is the deepest on the site and its first line is the one
+   that must not graze the card's corner. */
 @media (max-width:1263px){
   .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 20px)}
 }
