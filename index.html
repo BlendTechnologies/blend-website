@@ -183,9 +183,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .results{grid-area:2/1/4/2;justify-self:end}
 }
 /* ---- The hero intro ---------------------------------------------------
-   One sequence, once a session: the quiz card arrives enlarged over the
-   whole visual, three answers pick themselves, the card shrinks into its
-   place, and the plan card rises behind it.
+   One sequence, once a session: the quiz card arrives a little forward of
+   its place, three answers pick themselves, the card settles back, and
+   the plan card rises behind it. The step forward is small on purpose —
+   see HI_MAX in the controller for why an upscale cannot be both large
+   and sharp.
 
    Every rule is scoped to .hero-intro on <html>, which the head adds
    before the first paint and the controller removes at the end, so the
@@ -1970,6 +1972,7 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
     el.classList.add('hi-press');
     at(300, function () { el.classList.remove('hi-press'); });
   }
+  var HI_MAX = 1.08;
   var PROG = ['.6', '.8', '1'];
   function step(i) { pick(i); quiz.style.setProperty('--hi-prog', PROG[i]); press(opts[i]); }
 
@@ -2001,18 +2004,22 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
   function onSkip() { finish(true); }
 
   function play() {
-    /* The card grows from its own top-left corner to the far corner of
-       the plan card. One uniform scale cannot land both edges, because
-       the pair is wider than it is tall relative to a single card, so
-       this covers and the bottom runs past the plan card's: a stretched
-       scale(x, y) would make the type a different shape for a second and
-       a half, which is worse than reaching too far. Only where the two
-       cards overlap; the single-column layout picks its answers at size. */
+    /* The card steps forward from its own top-left and settles back.
+       It used to grow to the far corner of the plan card, 1.575 at 1440,
+       and that was wrong twice over: too big to read as one hero, and
+       blurred, because a browser rasterises a layer once and resamples it
+       for the rest of a transform animation. Which end it rasterises at
+       is not ours to choose and differs between engines, so an upscale of
+       any size is soft somewhere. HI_MAX keeps it small enough that the
+       softness is not the thing you notice; it is the one number to turn.
+       Only where the two cards overlap; the single-column layout picks
+       its answers at size. */
     if (results && window.matchMedia('(min-width:1200px)').matches) {
       var q = quiz.getBoundingClientRect();
       var r = results.getBoundingClientRect();
-      var s = Math.max((r.right - q.left) / q.width, (r.bottom - q.top) / q.height);
-      if (s > 1 && s < 3) quiz.style.setProperty('--hi-s', s.toFixed(4));
+      var cover = Math.max((r.right - q.left) / q.width, (r.bottom - q.top) / q.height);
+      var s = Math.min(Math.max(cover, 1), HI_MAX);
+      if (s > 1) quiz.style.setProperty('--hi-s', s.toFixed(4));
     }
     html.classList.add('hi-play');
     window.addEventListener('scroll', onSkip, { passive: true });
