@@ -91,8 +91,21 @@
      .nav-actions, not in the sheet, so showing it only crowds the bar
      next to the button — which is the opposite of the problem. */
 
-  /* Nothing scrolls behind an open sheet. */
-  body:has(.nav.open){overflow:hidden}
+  /* No scroll lock on the body, deliberately.
+     `body:has(.nav.open){overflow:hidden}` was here, and it broke the bar
+     it was meant to support: overflow on the body makes the body a scroll
+     container at scrollTop 0, and a sticky nav re-resolves against the
+     nearest scrolling ancestor — so opening the menu 1200px down stuck the
+     bar to the top of the *document*, 1200px above the viewport. The bar
+     and the sheet both left the screen on tap, and releasing the lock
+     returned the page to the top. Reported as "nav is not moving with
+     scroll, you need to scroll all the way up to get it again".
+
+     Nothing is needed in its place. The sheet carries overflow-y:auto and
+     overscroll-behavior:contain, so its own scrolling never chains to the
+     page, and it is positioned inside the sticky bar, so if the page does
+     move behind it the sheet travels with the bar and stays where the
+     reader left it. */
 }
 
 /* ---- the button -------------------------------------------------------
