@@ -55,28 +55,16 @@ const liveKey = Object.keys(V).find(k => V[k].status === 'live');
 if (!liveKey) { console.error('FAILED: no live vertical in the export'); process.exit(1); }
 const h = V[liveKey];
 
-/* ---- 1. hero ------------------------------------------------------------ */
-const segs = Object.entries(V).map(([key, v]) => {
+/* ---- 1. hero --------------------------------------------------------------
+   The same hero as every other inner page, on black: the index component
+   carries the verticals rather than steps, so it has no numbers. */
+const verts = Object.entries(V).map(([key, v]) => {
   const live = v.status === 'live';
-  return `<button type="button" role="tab" class="sci-seg-btn" data-vertical="${esc(key)}"` +
-    ` aria-selected="${live ? 'true' : 'false'}"${live ? '' : ' disabled'}>` +
-    `${esc(v.label || v.display_category || cap(key === 'health' ? 'Health and wellness' : key))}` +
-    (live ? '' : '<span class="sci-tip" role="tooltip">Coming soon</span>') + '</button>';
+  const label = key === 'health' ? 'Health and wellness' : cap(key);
+  return live
+    ? `<a class="ph-ix-item is-on" href="#run" data-vertical="${esc(key)}" aria-current="true"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">${esc(label)}</span></a>`
+    : `<span class="ph-ix-item is-off" data-vertical="${esc(key)}" tabindex="0" role="note"><span class="ph-ix-name">${esc(label)}</span><span class="sci-tip">Coming soon</span></span>`;
 }).join('');
-
-// A version is shown only where the export says one is publishable. This one
-// explains in _omitted_from_the_page why its deployment string is not.
-const version = h.published_version ? ` <span class="ph-dot" aria-hidden="true"></span> ${esc(h.published_version)}` : '';
-const meta = `<b>${esc(h.display_name)}</b>${version}` +
-  ` <span class="ph-dot" aria-hidden="true"></span> <span class="ph-live">Live</span>`;
-
-const FIGS = ['products_audited', 'product_attributes', 'safety_checks', 'nutrients'];
-const figs = FIGS.filter(k => h.counts[k]).map(k => {
-  const c = h.counts[k];
-  const shown = c.site_claim && /\+$/.test(c.site_claim) ? c.site_claim : num(c.value);
-  return `      <div class="ph-fig"><div class="ph-fig-n" data-count-to="${c.value}" data-count-text="${esc(shown)}">${esc(shown)}</div>` +
-    `<div class="ph-fig-label">${esc(cap(c.label.split(',')[0]))}</div></div>`;
-}).join('\n');
 
 const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
@@ -84,143 +72,115 @@ const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
       <span class="eyebrow">The science</span>
       <h1 class="h1">A scoring model you can audit, line by line.</h1>
       <p class="lead">One model per category. Every pick scored, safety-checked and explained.</p>
-      <div class="sci-seg" role="tablist" aria-label="Category">${segs}</div>
-      <p class="ph-meta">${meta}</p>
+      <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
       <div class="ph-ctas">
         <a href="#run" class="btn btn-primary btn-lg">See a real run</a>
         <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-ghost btn-lg">Request the methodology</a>
       </div>
     </div>
-    <div class="ph-figs" data-figs>
-${figs}
-    </div>
+    <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:${Object.keys(V).length}">${verts}</nav>
   </div>
-  <button type="button" class="sc-cue" data-sc-cue="#how" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>`;
 
-/* ---- 2. the pipeline ----------------------------------------------------- */
-const PIPE = [
-  ['Customer answers', 'Built around each customer', 'Answers shape every score, so the plan fits the person, not a segment.'],
-  ['Your full catalogue', 'Your entire catalogue', 'Every product is evaluated, not a shortlist.'],
-  ['Research data', 'Research behind the data', 'Every value traces to a published source.'],
-  ['Your rules', 'Your controls', 'Tune attributes, priorities and rules to your brand.'],
-  ['Safety checks', 'Safety beyond settings', 'No configuration can switch the checks off.'],
-  ['A reason', 'A methodology you can inspect', 'Request the full report.'],
+/* ---- 2. one real run -------------------------------------------------------
+   A short label for what was asked, so a value is never bare and the whole
+   quiz question is never printed. The map shortens; it states nothing. */
+const ASKED = [
+  [/dietary preferences|restrictions/i, 'Diet'],
+  [/fish and seafood/i, 'Fish'],
+  [/dairy/i, 'Dairy'],
+  [/vegetables and legumes/i, 'Vegetables'],
+  [/meals and snacks/i, 'Meals'],
+  [/usual portions/i, 'Portions'],
+  [/weekly eating habits/i, 'Eating habits'],
+  [/how active is your daily routine/i, 'Daily activity'],
+  [/smoke|nicotine/i, 'Smoking'],
+  [/hours do you sleep/i, 'Sleep'],
+  [/drinks other than water/i, 'Drinks a day'],
+  [/sun exposure/i, 'Sun exposure'],
+  [/alcoholic drinks/i, 'Alcohol a week'],
+  [/medical conditions/i, 'Conditions'],
+  [/prescription medications/i, 'Medication'],
+  [/pregnant or breastfeeding/i, 'Pregnancy'],
+  [/popular goals|which resonate/i, 'Goals'],
 ];
-const pipeline = `<section class="sci-sec" id="how">
-  <div class="wrap">
-    <div class="sci-head sci-in">
-      <span class="eyebrow">Every category</span>
-      <h2 class="h2">How every Blend model decides.</h2>
-    </div>
-    <div class="sci-flow sci-in" aria-hidden="true">${PIPE.map(p => `<span>${esc(p[0])}</span>`).join('')}</div>
-    <div class="sci-pipe">
-${PIPE.map(([stage, title, line], i) => `      <div class="sci-node"><div class="sci-node-n">${pad(i + 1)}</div><h3 class="sci-node-t">${esc(title)}</h3><p class="sci-node-p">${esc(line)}</p></div>`).join('\n')}
-    </div>
-  </div>
-</section>`;
+const asked = q => (ASKED.find(([re]) => re.test(q || '')) || [null, (q || '').replace(/\?$/, '')])[1];
 
-/* ---- 3. what the model covers -------------------------------------------- */
-const SIGNAL = s => s.trim().toLowerCase() !== 'none of the above.';
-const goals = h.goals.map(g => ({ goal: g.goal, subgoals: g.subgoals.filter(SIGNAL) }));
-const open = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
-const goalBtns = goals.map(g =>
-  `<button type="button" class="sci-goal" data-goal="${esc(g.goal)}" aria-expanded="${g === open ? 'true' : 'false'}" aria-controls="sci-subs">${esc(g.goal)}</button>`).join('');
-const covers = `<section class="sci-sec" id="covers">
-  <div class="wrap">
-    <div class="sci-head sci-in">
-      <span class="eyebrow">What the model covers</span>
-      <h2 class="h2">${num(h.counts.goals.value)} goals, ${num(h.counts.subgoals.value)} signals underneath.</h2>
-    </div>
-    <div class="sci-goals sci-in" data-goals>${goalBtns}</div>
-    <div class="sci-card sci-subs sci-in" id="sci-subs" data-subs>
-      <div class="sci-subs-t">${esc(open.goal)}</div>
-      <div class="sci-subs-list">${open.subgoals.map(s => `<span>${esc(s)}</span>`).join('')}</div>
-    </div>
-    <p class="sci-note sci-in">${esc(h.food_intake.summary[0])}</p>
-  </div>
-</section>`;
-
-/* ---- 4. one real run ------------------------------------------------------ */
 const c = trace.customer;
-const pgroup = (title, items) => items.length
-  ? `<div class="sci-pgroup"><h4>${esc(title)}</h4><div>${items.map(i => `<span class="sci-pchip">${esc(i)}</span>`).join('')}</div></div>` : '';
-const persona = `<div class="sci-card sci-persona sci-in">
-  <div class="sci-persona-n">${esc(c.name)}</div>
-  <div class="sci-persona-m">${esc(c.age)} <span aria-hidden="true">&#183;</span> ${esc(c.sex)} <span aria-hidden="true">&#183;</span> ${esc(c.country)}</div>
-  ${pgroup('Diet and lifestyle', [c.diet, c.activity].filter(Boolean))}
-  ${pgroup('Medical', [c.condition, c.medication].filter(Boolean))}
-  ${pgroup('Goals', String(c.goals || '').split(',').map(s => s.trim()).filter(Boolean))}
-</div>`;
-
 const steps = trace.steps;
+const stepName = n => /food already gives/i.test(n) ? 'Intake' : n;
+
 const tabs = steps.map((s, i) =>
-  `<button type="button" role="tab" class="sci-tab" id="sci-tab-${s.id}" aria-controls="sci-p-${s.id}" aria-selected="${i === 0 ? 'true' : 'false'}" tabindex="${i === 0 ? '0' : '-1'}"><span class="sci-tab-n" aria-hidden="true">${pad(i + 1)}</span>${esc(s.name)}</button>`).join('');
+  `<button type="button" role="tab" class="sci-tab" id="sci-tab-${s.id}" aria-controls="sci-p-${s.id}" aria-selected="${i === 0 ? 'true' : 'false'}" tabindex="${i === 0 ? '0' : '-1'}">${esc(stepName(s.name))}</button>`).join('');
+
+const fact = (label, value) =>
+  `<span class="sci-fact"><b>${esc(label)}</b>${esc(value)}</span>`;
 
 const row = (t, v, s, cls = '') =>
   `<div class="sci-row${cls}"><span class="sci-row-t">${esc(t)}</span>` +
   (v == null || v === '' ? '' : `<span class="sci-row-v">${esc(v)}</span>`) +
   (s ? `<span class="sci-row-s">${esc(s)}</span>` : '') + '</div>';
 
-const bar = (t, v, pct, tone, s) =>
-  `<div class="sci-row"><span class="sci-row-t">${esc(t)}</span><span class="sci-row-v">${esc(v)}</span>` +
-  `<div class="sci-bar ${tone}"><i style="--v:${Math.max(0, Math.min(1, pct)).toFixed(3)}"></i></div>` +
-  (s ? `<span class="sci-row-s">${esc(s)}</span>` : '') + '</div>';
+/* Intake against her own target, so a bar means something. */
+const targetsStep = steps.find(s => s.per_nutrient && s.authority) || { per_nutrient: [] };
+const targetOf = new Map(targetsStep.per_nutrient.map(t => [t.nutrient, t]));
 
 function panelBody(s) {
-  const note = s.note ? `<p class="sci-panel-note">${esc(s.note)}</p>` : '';
   if (s.groups) {
-    /* Chips in their groups, not rows: what she answered is the shape of
-       this step, and what each answer changes belongs under the group it
-       is in rather than beside every line. */
-    const chip = l => `<button type="button" class="sci-sig" data-changes="${esc((l.question ? l.question + ' ' : '') + (l.changes || ''))}">${esc(l.answer || l.text)}</button>`;
-    const g = s.groups.map(gr => `<div class="sci-siggroup"><h4>${esc(gr.group)}</h4>` +
-      `<div class="sci-sigs">${(gr.lines || []).map(chip).join('')}</div>` +
-      `<p class="sci-sigwhy" data-why>${esc(((gr.lines || [])[0] || {}).question || '')} ${esc(((gr.lines || [])[0] || {}).changes || '')}</p></div>`).join('');
+    const profile = `<div class="sci-siggroup"><h4>Profile</h4><div class="sci-facts">` +
+      [['Name', c.name], ['Age', c.age], ['Sex', c.sex], ['Height', c.height], ['Weight', c.weight], ['Country', c.country]]
+        .filter(([, v]) => v).map(([k, v]) => fact(k, v)).join('') + `</div></div>`;
+    const g = s.groups.map(gr => {
+      const lines = gr.lines || [];
+      return `<div class="sci-siggroup"><h4>${esc(gr.group)}</h4><div class="sci-facts">` +
+        lines.map(l => `<button type="button" class="sci-fact is-tap" data-changes="${esc(l.changes || '')}"><b>${esc(asked(l.question))}</b>${esc(l.answer || l.text)}</button>`).join('') +
+        `</div><p class="sci-sigwhy" data-why>${esc((lines[0] || {}).changes || '')}</p></div>`;
+    }).join('');
     const d = (s.derived || []).length
-      ? `<div class="sci-siggroup"><h4>Derived, not asked</h4><div class="sci-sigs">` +
-        s.derived.map(l => `<button type="button" class="sci-sig" data-changes="${esc(l.changes || '')}">${esc(l.text)}: ${esc(l.value)}</button>`).join('') +
+      ? `<div class="sci-siggroup"><h4>Derived, not asked</h4><div class="sci-facts">` +
+        s.derived.map(l => `<button type="button" class="sci-fact is-tap" data-changes="${esc(l.changes || '')}"><b>${esc(l.text)}</b>${esc(l.value)}</button>`).join('') +
         `</div><p class="sci-sigwhy" data-why>${esc((s.derived[0] || {}).changes || '')}</p></div>`
       : '';
-    return note + g + d;
+    return profile + g + d;
   }
   if (s.per_nutrient && s.already_met_by_diet) {
     const met = new Set(s.already_met_by_diet.nutrients_reading_as_met || []);
-    const lines = (s.lines || []).map(l => row(l.text, l.value, l.note)).join('');
-    const max = Math.max(...s.per_nutrient.map(n => n.intake_from_food || 0), 1);
-    const n = s.per_nutrient.slice(0, 8).map(x =>
-      bar(x.nutrient, `${num(Math.round(x.intake_from_food * 100) / 100)} ${x.unit || ''}`.trim(),
-        (x.intake_from_food || 0) / max, met.has(x.nutrient) ? 'is-ok' : '',
-        met.has(x.nutrient) ? 'Already met by diet' : (x.source || ''))).join('');
-    return note + lines + n;
+    return s.per_nutrient.map(x => {
+      const t = targetOf.get(x.nutrient);
+      const pct = t && t.target ? (x.intake_from_food || 0) / t.target : null;
+      const v = `${num(Math.round((x.intake_from_food || 0) * 10) / 10)} ${x.unit || ''}`.trim() +
+        (t ? ` of ${num(t.target)} ${t.unit || ''}`.trimEnd() : '');
+      return `<div class="sci-row"><span class="sci-row-t">${esc(x.nutrient)}` +
+        (met.has(x.nutrient) ? `<span class="sci-met">Already met by diet</span>` : '') +
+        `</span><span class="sci-row-v">${esc(v)}</span>` +
+        (pct != null ? `<div class="sci-bar ${met.has(x.nutrient) ? 'is-ok' : ''}"><i style="--v:${Math.max(.02, Math.min(1, pct)).toFixed(3)}"></i></div>` : '') +
+        `</div>`;
+    }).join('');
   }
   if (s.per_nutrient && s.authority) {
     const a = s.authority;
-    const head = row(`Targets for ${a.market}`, a.name, a.reference);
-    const n = s.per_nutrient.slice(0, 8).map(x => row(x.nutrient, `${num(x.target)} ${x.unit || ''}`.trim())).join('');
-    return note + head + n;
+    return row(`Targets for ${a.market}`, a.name) +
+      s.per_nutrient.map(x => row(x.nutrient, `${num(x.target)} ${x.unit || ''}`.trim())).join('');
   }
   if (s.ranking_order) {
     const hit = new Set((s.top_candidates || []).map(t => t.ranked_by));
     const ladder = `<div class="sci-ladder">` + s.ranking_order.map((t, i) =>
       `<div class="sci-tier${hit.has(t) ? ' is-hit' : ''}"><b>${pad(i + 1)}</b><span>${esc(t)}</span></div>`).join('') + `</div>`;
     const cand = (s.top_candidates || []).map(t =>
-      row(`${t.position}. ${t.product}`, t.ranked_by ? 'ranked here' : '', t.factors ? t.factors.join(' · ') : '')).join('');
-    return note + ladder + (cand ? `<div style="margin-top:18px">${cand}</div>` : '');
+      row(`${t.position}. ${t.product}`, '', t.factors ? t.factors.join(' · ') : '')).join('');
+    return ladder + (cand ? `<div class="sci-after">${cand}</div>` : '');
   }
   if (s.removed) {
-    const byCheck = s.removed_by_check || {};
-    const head = Object.entries(byCheck).map(([k, v]) => row(k, `${v} removed`)).join('');
-    const rows = s.removed.map(r => row(r.product, r.check, r.why, ' is-cut')).join('');
-    return note + head + `<div style="margin-top:18px">${rows}</div>`;
+    return s.removed.map(r => row(r.product, r.check, r.why, ' is-cut')).join('');
   }
   if (s.picks) {
-    return note + s.picks.map(p =>
+    return s.picks.map(p =>
       `<div class="sci-pick"><div class="sci-pick-n">${esc(p.position)}</div><div>` +
       `<div class="sci-pick-p">${esc(p.product)}<span class="sci-pick-tier">${esc(p.tier)}</span></div>` +
       `<p class="sci-pick-w">${esc(p.why)}</p></div></div>`).join('');
   }
-  return note + (s.lines || []).map(l => row(l.text, l.value, l.note || l.source)).join('');
+  return (s.lines || []).map(l => row(l.text, l.value, l.note || l.source)).join('');
 }
 
 const panels = steps.map((s, i) =>
@@ -238,144 +198,118 @@ const run = `<section class="sci-sec" id="run">
     <div class="sci-head sci-in">
       <span class="eyebrow">One real run</span>
       <h2 class="h2">Watch the engine decide for ${esc(c.name)}.</h2>
-      <p class="lead">${esc(trace.engine_order.confirmed)}</p>
+      <p class="lead">Every step below came out of a real run.</p>
     </div>
-    <div class="sci-run">
-      ${persona}
-      <div class="sci-card sci-stage sci-in" data-run>
-        <div class="sci-tabs" role="tablist" aria-label="The steps of one run">${tabs}</div>
+    <div class="sci-card sci-stage sci-in" data-run>
+      <div class="sci-tabs" role="tablist" aria-label="The steps of one run">${tabs}</div>
 ${panels}
-        ${funnel}
-      </div>
+      ${funnel}
     </div>
-    <p class="sci-note">A real run against the Blend demo catalogue.</p>
   </div>
 </section>`;
 
-/* ---- 5. safety checks ------------------------------------------------------ */
+/* ---- 3. safety ------------------------------------------------------------ */
 const firedNames = new Set(Object.keys((steps.find(s => s.removed_by_check) || {}).removed_by_check || {}));
-const groups = [...new Set(h.safety_checks.map(s => s.group))]
-  .map(g => ({ group: g, checks: h.safety_checks.filter(s => s.group === g) }))
+const groups = [...new Set(h.safety_checks.map(x => x.group))]
+  .map(g => ({ group: g, checks: h.safety_checks.filter(x => x.group === g) }))
   .sort((a, b) => b.checks.length - a.checks.length);
-const layers = groups.map((g, i) => `      <div class="sci-layer">
-        <button type="button" class="sci-layer-btn" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="sci-layer-${i}">
-          <span class="sci-layer-name">${esc(cap(g.group))}</span>
-          <span class="sci-layer-n">${g.checks.length}</span>
-          <span class="sci-layer-caret" aria-hidden="true"></span>
-        </button>
-        <div class="sci-layer-body" id="sci-layer-${i}"${i === 0 ? '' : ' hidden'}>
-${g.checks.map(ch => `          <div class="sci-check"><div class="sci-check-n">${esc(ch.name)}</div><p class="sci-check-d">${esc(ch.does)}</p>` +
-    (ch.effect === 'warns' ? `<span class="sci-check-warn">Warns, removes nothing</span>` : '') +
-    (firedNames.has(ch.name) ? `<span class="sci-check-run">In ${esc(c.name)}&#8217;s run</span>` : '') + `</div>`).join('\n')}
-        </div>
-      </div>`).join('\n');
+
+const groupBtns = groups.map((g, i) =>
+  `      <button type="button" class="sci-gbox" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="sci-g-${i}" data-group="${i}">` +
+  `<span class="sci-gbox-n">${g.checks.length}</span><span class="sci-gbox-name">${esc(cap(g.group))}</span></button>`).join('\n');
+
+const groupBodies = groups.map((g, i) =>
+  `      <div class="sci-glist" id="sci-g-${i}"${i === 0 ? '' : ' hidden'}>` +
+  g.checks.map(ch => `<div class="sci-check"><div class="sci-check-n">${esc(ch.name)}` +
+    (firedNames.has(ch.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
+    (ch.effect === 'warns' ? `<span class="sci-warn" role="note" tabindex="0"><span class="sci-tip">Warns, removes nothing</span></span>` : '') +
+    `</div><p class="sci-check-d">${esc(ch.does)}</p></div>`).join('') + `</div>`).join('\n');
 
 const safety = `<section class="sci-sec" id="safety">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">Safety</span>
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
-      <p class="lead">${esc(sentence(h.counts.safety_checks.basis))}</p>
+      <p class="lead">Sixteen remove a product; one adds a warning instead.</p>
     </div>
-    <div class="sci-layers sci-in">
-${layers}
+    <div class="sci-groups sci-in" data-groups>
+${groupBtns}
     </div>
-    <div class="sci-plan-checks sci-in">
-      <h3>Plus ${num(h.counts.plan_checks.value)} plan checks</h3>
-      <p>${esc(sentence(h.counts.plan_checks.basis))} They shape a sensible plan rather than a safe one.</p>
-      <ul>${h.plan_checks.map(p => `<li><b>${esc(p.name)}</b> &#8212; ${esc(p.does)}</li>`).join('')}</ul>
+${groupBodies}
+    <div class="sci-plan sci-in">
+      <button type="button" class="sci-plan-btn" aria-expanded="false" aria-controls="sci-plan-list">
+        <span>Plus ${num(h.counts.plan_checks.value)} plan checks</span><span class="sci-caret" aria-hidden="true"></span>
+      </button>
+      <div class="sci-glist" id="sci-plan-list" hidden>
+        ${h.plan_checks.map(x => `<div class="sci-check"><div class="sci-check-n">${esc(x.name)}</div><p class="sci-check-d">${esc(x.does)}</p></div>`).join('')}
+      </div>
     </div>
   </div>
 </section>`;
 
-/* ---- 6. countries ---------------------------------------------------------- */
+/* ---- 4. markets ------------------------------------------------------------ */
 const sets = h.countries.reference_sets;
+const setName = s => s.countries.length === 1 ? s.countries[0]
+  : (s.countries.includes('United States') ? 'United States / Canada' : 'European Union');
 const cbtns = sets.map((s, i) =>
-  `<button type="button" class="sci-cbtn" data-set="${i}" aria-pressed="${i === 0 ? 'true' : 'false'}">${esc(s.countries.length > 3 ? s.countries[0] + ' and ' + (s.countries.length - 1) + ' more' : s.countries.join(' / '))}</button>`).join('');
+  `<button type="button" class="sci-cbtn" data-set="${i}" aria-pressed="${i === 0 ? 'true' : 'false'}">${esc(setName(s))}</button>`).join('');
 
 function ladder(n) {
   const ul = n.upper_limit;
   const unit = n.upper_limit_unit || n.target_unit || '';
   const t = n.target_reference_adult;
   const head = `<div class="sci-dose-h"><span class="sci-dose-n">${esc(n.nutrient)}</span><span class="sci-dose-s is-${esc(n.strictness)}">${esc(n.strictness)}</span></div>`;
-  /* No target to place and no ceiling to hatch means no ladder: an empty
-     track reads as a broken one. Protein is computed per person, so it
-     says that instead. */
   if (t == null) {
-    return `      <div class="sci-card sci-dose" data-dose="${esc(n.nutrient)}">${head}
-        <p class="sci-dose-f">Target ${esc(n.target_basis || 'computed per person')}. ` +
-      `Recommended below ${num(Math.round((1 - (n.shortfall_before_recommend || 0)) * 100))}% of it.</p>
+    return `      <div class="sci-dose" data-dose="${esc(n.nutrient)}">${head}
+        <p class="sci-dose-f">Target ${esc(n.target_basis || 'computed per person')}.</p>
       </div>`;
   }
-  /* A little past the ceiling, so the zone beyond it is a band you can
-     see rather than a line on the right edge. */
   const span = ul ? ul * 1.18 : t * 2;
-  const below = t * (1 - (n.shortfall_before_recommend || 0));
   const pos = v => Math.max(0, Math.min(100, (v / span) * 100));
-  const never = ul ? `<div class="sci-never" style="left:${pos(ul)}%"><span class="sci-never-l">Never</span></div>` : '';
-  /* On a lenient nutrient the two markers sit within a tenth of each
-     other, so only one of them is labelled. The second is a tick, and
-     the line underneath says what it is: a label on each collided at
-     every width, whichever side of the track they were put. */
-  const edge = v => (v < 12 ? ' is-left' : v > 88 ? ' is-right' : '');
   const tp = pos(t);
-  const marks = `<div class="sci-mark is-target${edge(tp)}" style="left:${tp}%"><b>Target</b><i>${num(t)} ${esc(n.target_unit || unit)}</i></div>` +
-    `<div class="sci-mark is-below" style="left:${pos(below)}%" title="Recommend below"></div>`;
-  const foot = [
-    ul ? `Upper limit ${num(ul)} ${esc(unit)}` : (n.upper_limit_note ? cap(esc(n.upper_limit_note)) : ''),
-    `Recommended below ${num(Math.round((1 - (n.shortfall_before_recommend || 0)) * 100))}% of target`,
-  ].filter(Boolean).join('. ') + '.';
-  return `      <div class="sci-card sci-dose" data-dose="${esc(n.nutrient)}">${head}
-        <div class="sci-track">${never}${marks}</div>
-        <p class="sci-dose-f">${foot}</p>
+  const never = ul ? `<div class="sci-never" style="left:${pos(ul)}%"><span class="sci-never-l">Never</span></div>` : '';
+  const edge = tp < 12 ? ' is-left' : tp > 88 ? ' is-right' : '';
+  return `      <div class="sci-dose" data-dose="${esc(n.nutrient)}">${head}
+        <div class="sci-track">${never}<div class="sci-mark is-target${edge}" style="left:${tp}%"><i>${num(t)} ${esc(n.target_unit || unit)}</i></div></div>
+        <p class="sci-dose-f">${ul ? `Upper limit ${num(ul)} ${esc(unit)}.` : (n.upper_limit_note ? cap(esc(n.upper_limit_note)) + '.' : '')}</p>
       </div>`;
 }
 
 const first = sets[0];
-const authCard = s => `<div class="sci-card sci-auth" data-auth>
-      <div class="sci-auth-l">Reference targets</div>
-      <div class="sci-auth-n">${esc(s.authority.name)}</div>
-      <p class="sci-auth-r">${esc(s.authority.reference)}</p>
-      <p class="sci-auth-x">${esc(s.food_composition)}${typeof s.fortification_overlay === 'string' ? ' ' + esc(s.fortification_overlay) : ''}</p>
-    </div>`;
-
-const countries = `<section class="sci-sec" id="markets">
+const markets = `<section class="sci-sec" id="markets">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">Markets</span>
       <h2 class="h2">Targets follow the country you sell in.</h2>
-      <p class="lead">Reference targets, upper limits and which ingredients are allowed depend on the market. Blend applies the right authority for each country.</p>
+      <p class="lead">Reference targets follow the official authority for each market, and only ingredients permitted there are recommended.</p>
     </div>
     <div class="sci-countries sci-in">
       <div class="sci-csel" role="group" aria-label="Market">${cbtns}</div>
-      ${authCard(first)}
+      <p class="sci-auth" data-auth><b>${esc(first.authority.name)}</b> <span>${esc(first.authority.reference)}</span></p>
       <div class="sci-ladders" data-ladders>
 ${first.nutrients.map(ladder).join('\n')}
       </div>
-      <p class="sci-note">Shown for a ${esc(h.recommendation_thresholds.reference_adult)}. Every real target is computed for the person.</p>
-      <p class="sci-note">${esc(h.countries.what_is_not_per_country.join(' '))}</p>
+      <p class="sci-note">Shown for a woman aged 31 to 50. Every real target is computed for the person.</p>
     </div>
   </div>
 </section>`;
 
-/* ---- 7. the closing card ---------------------------------------------------- */
-const cta = `<section class="sci-cta sc-reveal" data-sc="reveal">
+/* ---- 5. the endcap --------------------------------------------------------- */
+const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
-    <div class="sci-cta-card">
-      <span class="eyebrow">The methodology</span>
-      <h2>Read the full methodology.</h2>
-      <p>See how answers, research and rules produce every recommendation.</p>
-      <div class="sci-cta-ctas">
-        <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-primary btn-lg">Request the methodology</a>
-        <a href="/try" class="btn btn-ghost btn-lg">Try the demo</a>
-      </div>
+    <span class="eyebrow">The methodology</span>
+    <h2 class="h1">Read the full methodology.</h2>
+    <p class="lead">See how answers, research and rules produce every recommendation.</p>
+    <div class="closer-ctas">
+      <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-primary btn-lg">Request the methodology</a>
+      <a href="/try" class="btn btn-ghost btn-lg">Try the demo</a>
     </div>
   </div>
 </section>`;
 
 const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
 
-const body = [hero, pipeline, covers, run, safety, countries, cta, data].join('\n\n');
+const body = [hero, run, safety, markets, cta, data].join('\n\n');
 
 /* ---- splice ------------------------------------------------------------------ */
 let page = readFileSync(PAGE, 'utf8');
@@ -384,10 +318,9 @@ const re = /(<!-- science:body -->\n?)[\s\S]*?(\n?<!-- \/science:body -->)/;
 if (!re.test(page)) { console.error('FAILED: science.html has no <!-- science:body --> region'); process.exit(1); }
 page = page.replace(re, (_, o, cl) => o + body + cl);
 
-const signals = goals.reduce((n, g) => n + g.subgoals.length, 0);
 const summary = `${liveKey} live, ${num(h.counts.products_audited.value)} products audited, ` +
-  `${h.counts.safety_checks.value} safety checks, ${goals.length} goals, ${signals} signals, ` +
-  `${steps.length} run steps, ${sets.length} reference sets`;
+  `${h.counts.safety_checks.value} safety checks, ${steps.length} run steps, ` +
+  `${sets.length} reference sets`;
 
 if (check) {
   if (page !== before) {

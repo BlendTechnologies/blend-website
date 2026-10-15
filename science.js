@@ -1,26 +1,20 @@
 /* ============================================================
    /science — the behaviour for the generated page
    ------------------------------------------------------------
-   Nothing here knows a figure: every number, name and line is
-   in the markup the generator wrote, or in the JSON it embedded
-   for the category selector to rebuild from.
-
-   One orchestrated motion per section, started once when the
-   section arrives. Every end state is the resting state, so a
-   reader with reduced motion, or a capture with animation off,
-   gets the finished page rather than an empty one.
+   Nothing here knows a figure: every number, name and line is in
+   the markup the generator wrote, or in the JSON it embedded for
+   the market switcher to repaint from.
    ============================================================ */
 (function () {
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  /* The start state belongs to the script, not the stylesheet. Hidden by
-     default, a section that the observer never reaches stays invisible —
-     and a full-page capture, which resizes rather than scrolls, reaches
-     none of them. The page was blank from the goals down. */
-  document.documentElement.classList.add('sci-js');
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
 
-  /* ---- one motion per section ------------------------------------- */
+  /* The start state belongs to the script. Hidden by default, a section
+     the observer never reaches stays invisible — and a full-page capture,
+     which resizes rather than scrolls, reaches none of them. */
+  document.documentElement.classList.add('sci-js');
+
   (function sections() {
     var secs = $$('.sci-sec');
     if (!secs.length) return;
@@ -34,108 +28,28 @@
         e.target.classList.add('is-in');
         io.unobserve(e.target);
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     secs.forEach(function (s) { io.observe(s); });
-    /* Whatever happens, nothing stays hidden: a capture, a printed page or
-       an observer that never fires reveals everything after two seconds. */
     setTimeout(function () {
       secs.forEach(function (s) { s.classList.add('is-in'); });
       io.disconnect();
     }, 2000);
   })();
 
-  /* ---- the figures count up, once, and again on a category change --- */
-  function countUp(el) {
-    var text = el.getAttribute('data-count-text') || el.getAttribute('data-count-to') || '';
-    /* Count to the number on the page, not the one behind it: where the
-       figure is published as a floor, "200+" counts to 200 and stops,
-       rather than running to 223 and snapping back. */
-    var to = parseFloat(String(text).replace(/[^0-9.]/g, ''));
-    if (!isFinite(to) || reduce) { el.textContent = text; return; }
-    var suffix = /\+$/.test(text) ? '+' : '';
-    var start = null, dur = 900;
-    function frame(t) {
-      if (start === null) start = t;
-      var p = Math.min(1, (t - start) / dur);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(to * eased).toLocaleString('en-GB') + suffix;
-      if (p < 1) requestAnimationFrame(frame); else el.textContent = text;
-    }
-    el.textContent = '0' + suffix;
-    requestAnimationFrame(frame);
-  }
-  (function figures() {
-    var strip = $('[data-figs]');
-    if (!strip) return;
-    var run = function () { $$('[data-count-to]', strip).forEach(countUp); };
-    if (reduce || !window.IntersectionObserver) return;
-    var io = new IntersectionObserver(function (es) {
-      if (!es.some(function (e) { return e.isIntersecting; })) return;
-      io.disconnect();
-      run();
-    }, { threshold: 0.4 });
-    io.observe(strip);
-    window.sciRecount = run;
-  })();
-
-  /* ---- the category selector ---------------------------------------
-     Only one vertical is live, so this guards rather than switches. The
-     data for every vertical is in the page, so turning one on in the
-     export is all it takes. */
-  (function categories() {
-    var btns = $$('.sci-seg-btn');
-    if (!btns.length) return;
-    btns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        if (b.disabled || b.getAttribute('aria-selected') === 'true') return;
-        btns.forEach(function (o) { o.setAttribute('aria-selected', String(o === b)); });
-        if (window.sciRecount) window.sciRecount();
-      });
-    });
-  })();
-
-  /* ---- the goal grid ------------------------------------------------ */
-  (function goals() {
-    var wrap = $('[data-goals]'), panel = $('[data-subs]');
-    if (!wrap || !panel) return;
-    var data = null;
-    try { data = JSON.parse($('#sci-data').textContent); } catch (e) { return; }
-    var live = Object.keys(data.verticals).filter(function (k) { return data.verticals[k].status === 'live'; })[0];
-    var goals = (data.verticals[live].goals || []).map(function (g) {
-      return { goal: g.goal, subgoals: g.subgoals.filter(function (s) { return s.trim().toLowerCase() !== 'none of the above.'; }) };
-    });
-    wrap.addEventListener('click', function (e) {
-      var btn = e.target.closest('.sci-goal');
-      if (!btn) return;
-      var g = goals.filter(function (x) { return x.goal === btn.getAttribute('data-goal'); })[0];
-      if (!g) return;
-      $$('.sci-goal', wrap).forEach(function (o) { o.setAttribute('aria-expanded', String(o === btn)); });
-      panel.innerHTML = '<div class="sci-subs-t"></div><div class="sci-subs-list"></div>';
-      $('.sci-subs-t', panel).textContent = g.goal;
-      var list = $('.sci-subs-list', panel);
-      g.subgoals.forEach(function (s) {
-        var el = document.createElement('span');
-        el.textContent = s;
-        list.appendChild(el);
-      });
-    });
-  })();
-
   /* ---- the run ------------------------------------------------------
-     Auto-advances once it is in view, pauses on hover, tap or focus, and
-     stops for good the moment a tab is chosen: past that point the
-     reader is driving. */
+     The reader drives: tabs and arrow keys, nothing on a timer. */
   (function run() {
     var stage = $('[data-run]');
     if (!stage) return;
     var tabs = $$('.sci-tab', stage);
     var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
     var funnel = $$('.sci-fstep', stage);
-    var timer = null, driving = false, at = 0;
-    var narrow = window.matchMedia('(max-width:760px)');
 
-    function show(i, focus) {
-      at = i;
+    /* `moved` guards the one that cost a bug: scrolling the strip on the
+       first paint scrolled the page with it, so arriving at /science from
+       the nav landed 1,600px down, on the run. Nothing scrolls until the
+       reader has chosen something. */
+    function show(i, moved, focus) {
       tabs.forEach(function (t, j) {
         var on = i === j;
         t.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -146,15 +60,12 @@
         f.classList.toggle('is-on', parseInt(f.getAttribute('data-at'), 10) <= i);
       });
       if (focus && tabs[i]) tabs[i].focus();
-      if (tabs[i]) tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
-    }
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function play() {
-      if (timer || driving || reduce || narrow.matches) return;
-      timer = setInterval(function () { show((at + 1) % tabs.length); }, 4000);
+      if (moved && tabs[i] && tabs[i].scrollIntoView) {
+        tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+      }
     }
     tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { driving = true; stop(); show(i); });
+      t.addEventListener('click', function () { show(i, true); });
       t.addEventListener('keydown', function (e) {
         var n = null;
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % tabs.length;
@@ -162,27 +73,18 @@
         else if (e.key === 'Home') n = 0;
         else if (e.key === 'End') n = tabs.length - 1;
         if (n === null) return;
-        e.preventDefault(); driving = true; stop(); show(n, true);
+        e.preventDefault();
+        show(n, true, true);
       });
     });
-    stage.addEventListener('mouseenter', stop);
-    stage.addEventListener('mouseleave', play);
-    stage.addEventListener('focusin', stop);
-    stage.addEventListener('touchstart', function () { driving = true; stop(); }, { passive: true });
-    show(0);
-    if (window.IntersectionObserver) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) play(); else stop(); });
-      }, { threshold: 0.3 });
-      io.observe(stage);
-    }
+    show(0, false);
   })();
 
   /* ---- signals: the line under a group follows the chip you are on --- */
   (function signals() {
     $$('.sci-siggroup').forEach(function (group) {
       var why = $('[data-why]', group);
-      var chips = $$('.sci-sig', group);
+      var chips = $$('.sci-fact.is-tap', group);
       if (!why || !chips.length) return;
       var base = why.textContent;
       function set(chip) {
@@ -198,22 +100,38 @@
     });
   })();
 
-  /* ---- the safety layers -------------------------------------------- */
-  (function layers() {
-    $$('.sci-layer-btn').forEach(function (btn) {
+  /* ---- safety: one group open at a time, listed under the grid ------- */
+  (function safety() {
+    var boxes = $$('.sci-gbox');
+    if (!boxes.length) return;
+    boxes.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        var body = document.getElementById(btn.getAttribute('aria-controls'));
-        if (body) body.hidden = open;
+        boxes.forEach(function (o) {
+          o.setAttribute('aria-expanded', 'false');
+          var body = document.getElementById(o.getAttribute('aria-controls'));
+          if (body) body.hidden = true;
+        });
+        if (open) return;
+        btn.setAttribute('aria-expanded', 'true');
+        var mine = document.getElementById(btn.getAttribute('aria-controls'));
+        if (mine) mine.hidden = false;
       });
     });
+    var plan = $('.sci-plan-btn');
+    if (plan) {
+      plan.addEventListener('click', function () {
+        var open = plan.getAttribute('aria-expanded') === 'true';
+        plan.setAttribute('aria-expanded', String(!open));
+        var body = document.getElementById(plan.getAttribute('aria-controls'));
+        if (body) body.hidden = open;
+      });
+    }
   })();
 
   /* ---- the market switcher ------------------------------------------
-     Only the reference targets move. The upper limits and the band a
-     nutrient has to fall below are one set worldwide, and the page says
-     so rather than animating a difference that is not there. */
+     Only the reference targets move: the upper limits are one set
+     worldwide, so their markers and the zone beyond them do not. */
   (function markets() {
     var sel = $('.sci-csel');
     if (!sel) return;
@@ -226,28 +144,27 @@
     function paint(i) {
       var s = sets[i];
       if (auth) {
-        $('.sci-auth-n', auth).textContent = s.authority.name;
-        $('.sci-auth-r', auth).textContent = s.authority.reference;
-        $('.sci-auth-x', auth).textContent = s.food_composition + (s.fortification_overlay ? ' ' + s.fortification_overlay : '');
+        $('b', auth).textContent = s.authority.name;
+        $('span', auth).textContent = s.authority.reference;
       }
       s.nutrients.forEach(function (n) {
-        var card = ladders && ladders.querySelector('[data-dose="' + (window.CSS && CSS.escape ? CSS.escape(n.nutrient) : n.nutrient) + '"]');
+        if (!ladders) return;
+        var card = null;
+        $$('[data-dose]', ladders).forEach(function (el) {
+          if (el.getAttribute('data-dose') === n.nutrient) card = el;
+        });
         if (!card) return;
-        var ul = n.upper_limit, t = n.target_reference_adult;
-        var span = ul || (t ? t * 2 : 1);
-        var pos = function (v) { return Math.max(0, Math.min(100, (v / span) * 100)); };
-        var target = card.querySelector('.sci-mark.is-target');
-        var below = card.querySelector('.sci-mark.is-below');
-        if (target && t != null) {
-          target.style.left = pos(t) + '%';
-          var val = target.querySelector('i');
-          if (val) val.textContent = Number(t).toLocaleString('en-GB') + ' ' + (n.target_unit || '');
-        }
-        if (below && t != null) below.style.left = pos(t * (1 - (n.shortfall_before_recommend || 0))) + '%';
-        var foot = card.querySelector('.sci-dose-f');
-        if (foot && ul) foot.textContent = 'Upper limit ' + Number(ul).toLocaleString('en-GB') + ' ' +
-          (n.upper_limit_unit || n.target_unit || '') + '. Recommended below ' +
-          Math.round((1 - (n.shortfall_before_recommend || 0)) * 100) + '% of target.';
+        var t = n.target_reference_adult, ul = n.upper_limit;
+        if (t == null) return;
+        var span = ul ? ul * 1.18 : t * 2;
+        var mark = $('.sci-mark', card);
+        if (!mark) return;
+        var pct = Math.max(0, Math.min(100, (t / span) * 100));
+        mark.style.left = pct + '%';
+        mark.classList.toggle('is-left', pct < 12);
+        mark.classList.toggle('is-right', pct > 88);
+        var val = $('i', mark);
+        if (val) val.textContent = Number(t).toLocaleString('en-GB') + ' ' + (n.target_unit || '');
       });
     }
     $$('.sci-cbtn', sel).forEach(function (btn, i) {
