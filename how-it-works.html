@@ -1442,7 +1442,17 @@ html,body{max-width:100%;overflow-x:clip}
    The shared PageHero: /page-hero.css. The tint is this page's, at the
    same lightness as the others so the ink and the brown keep the
    contrast they were measured at. The price line is the meta slot. */
-:root{--hero-tint:#EFE6D5;--ph-muted:#676767}
+:root{--ph-muted:#676767}
+/* ---- the page's ground ------------------------------------------------
+   One gradient on the body, white under the hero and beige by the end of
+   the page, so the fade runs the whole way down and the ink of the
+   closing card and the footer is cut out of beige rather than out of a
+   band that stops above them. The hero paints its own beige over the top
+   of it; the sections below are transparent so the gradient is what you
+   see. */
+body{background:linear-gradient(to bottom,var(--white) 0,var(--white) 38%,var(--hero-beige) 100%)}
+.closer,.footer{background:transparent}
+
 .ph{--ph-ix:6}
 .ph-meta .hw-price-trial{color:var(--ph-muted,var(--muted))}
 @media(max-width:760px){
@@ -1455,7 +1465,8 @@ html,body{max-width:100%;overflow-x:clip}
    White where the hero card leaves off, settling into beige by the last
    step. One element around all six, so it is one gradient rather than
    six, and nothing banding between them. */
-.hw-steps{background:linear-gradient(to bottom,var(--white) 0,var(--white) 6%,var(--cream) 100%)}
+/* The ground carries the fade now, so the steps sit on it. */
+.hw-steps{background:transparent}
 
 /* ---- One step ---------------------------------------------------------
    Text on one side, the screen on the other, sides swapping step to step.
