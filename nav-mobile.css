@@ -1,0 +1,121 @@
+/* ============================================================
+   The bar on a phone
+   ------------------------------------------------------------
+   The small-screen nav, shared. Every page carries its own copy
+   of the nav styles inline and they have drifted into nine
+   variants, so this sheet does not try to replace them: it
+   governs the one part that was weak everywhere — the sheet
+   that opens under the bar, and the button that opens it.
+
+   A linked sheet is parsed before a page's own <style>, so a
+   plain `.nav-links` here would lose every tie. Each selector
+   is qualified with `html` to carry one more point of
+   specificity than the inline rule it supersedes. That is
+   deliberate, and it is the whole reason this file can exist
+   without editing thirteen pages' worth of CSS.
+
+   Colour comes from the page: --nav-bg is the bar's own
+   background, already set per page to whatever the hero is, so
+   a dark page gets a dark sheet without this file knowing which
+   pages are dark.
+   ============================================================ */
+@media (max-width:860px){
+
+  /* A sheet, not a dropdown. It was a translucent panel ending
+     mid-screen with the hero legible straight through it. */
+  html .nav-links{
+    /* Absolute, not fixed. The bar carries a backdrop-filter, and a
+       filter makes its element the containing block for fixed
+       descendants — so a fixed sheet was being laid out inside a 68px
+       bar and came out 32px tall. Absolute against the sticky bar, with
+       the height stated, is what a sheet under a bar actually wants. */
+    position:absolute;
+    top:var(--nav-h);
+    left:0; right:0;
+    /* As tall as it needs to be, capped at the screen. A full-height
+       sheet for four links is two thirds empty, which reads as weak in a
+       different way; a solid panel that ends where the links end does
+       not. */
+    height:auto;
+    max-height:calc(100dvh - var(--nav-h));
+    border-bottom:1px solid var(--line);
+    box-shadow:0 18px 40px rgba(0,0,0,.28);
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    margin:0;
+    padding:8px 20px calc(24px + env(safe-area-inset-bottom,0px));
+    background:var(--nav-bg,#FAF8F2);
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    border-bottom:0;
+    box-shadow:none;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    /* Closed, it is out of the way for pointer and for the
+       reader: display:none would also do it, but opacity and a
+       transform give the open a direction to come from. */
+    opacity:0;
+    transform:translateY(-8px);
+    pointer-events:none;
+    visibility:hidden;
+    transition:opacity .18s ease,transform .22s cubic-bezier(.2,.7,.25,1),visibility 0s linear .22s;
+  }
+  html .nav.open .nav-links{
+    display:flex;
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+    visibility:visible;
+    transition:opacity .18s ease,transform .22s cubic-bezier(.2,.7,.25,1);
+  }
+
+  /* Rows worth hitting: 56px of target, type at reading size,
+     and one hairline between rather than a box around each. */
+  html .nav-links a{
+    display:flex;
+    align-items:center;
+    width:100%;
+    min-height:56px;
+    padding:14px 2px;
+    font-size:19px;
+    font-weight:500;
+    letter-spacing:-.01em;
+    border-bottom:1px solid var(--line);
+    border-radius:0;
+  }
+  html .nav-links a:last-child{border-bottom:0}
+  html .nav-links a.active{font-weight:600}
+
+  /* Log in stays out of the bar at this width, as it was: it lives in
+     .nav-actions, not in the sheet, so showing it only crowds the bar
+     next to the button — which is the opposite of the problem. */
+
+  /* Nothing scrolls behind an open sheet. */
+  body:has(.nav.open){overflow:hidden}
+}
+
+/* ---- the button -------------------------------------------------------
+   Two bars that become a cross. The third bar was doing no work that two
+   do not, and the middle one had to be faded out of the way to make the
+   cross anyway. Colour follows the bar's own text colour, so a dark page
+   needs to say nothing: on /science it was being set by hand, and the
+   hand set the container as well as the bars, which painted the icon as
+   a filled rectangle. */
+html .nav-toggle{width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center}
+html .nav-toggle span{position:relative;width:20px;height:12px;display:block;background:none}
+html .nav-toggle span::before,
+html .nav-toggle span::after{
+  content:"";position:absolute;left:0;right:0;height:2px;border-radius:2px;
+  background:currentColor;
+  transition:transform .22s cubic-bezier(.2,.7,.25,1),top .22s cubic-bezier(.2,.7,.25,1);
+}
+html .nav-toggle span::before{top:0}
+html .nav-toggle span::after{top:10px}
+html .nav-toggle span i{display:none}
+html .nav.open .nav-toggle span::before{top:5px;transform:rotate(45deg)}
+html .nav.open .nav-toggle span::after{top:5px;transform:rotate(-45deg)}
+
+@media (prefers-reduced-motion:reduce){
+  html .nav-links,html .nav-toggle span::before,html .nav-toggle span::after{transition:none}
+}
