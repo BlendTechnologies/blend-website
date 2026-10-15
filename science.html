@@ -970,6 +970,10 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    .sc-hero paints and what the nav reads. */
 :root{--hero-tint:#0A0A0A}
 body{background:#151412}
+/* The footer sits outside <main>, so the page's own .footer rule wins over
+   the stylesheet's and painted the ground around its card in --hero-beige.
+   The card was dark and the strip beside it was not. */
+.footer{background:#151412}
 .nav .nav-links a{color:#B9B1A4}
 .nav .nav-links a:hover,.nav .nav-links a.active{color:#EDE6DA}
 .nav .nav-login{color:#B9B1A4}
