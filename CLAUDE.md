@@ -48,8 +48,21 @@ Before this existed the strip claimed 30+ scored product attributes where
 the scorer reads 25, and the rails showed 37 of the engine's 41 goals under
 a heading promising every goal a customer can pick.
 
+## Agreement between pages
+
+The visual-diff suite compares each page against its own baseline, so
+anything that is wrong the same way in every capture of a page is
+invisible to it. The wordmark under /use-cases was missing its full stop
+on four pages, in the bar and the footer, for months.
+
+`node tools/check-wordmark.mjs` compares the wordmark drawing across
+every page and refuses when they disagree. Anything else that is supposed
+to be identical everywhere wants a check of the same shape rather than a
+baseline.
+
 ## Before merging
 
 - `node tools/check-prices.mjs`
 - `node tools/sync-science-facts.mjs --check`
+- `node tools/check-wordmark.mjs`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`
