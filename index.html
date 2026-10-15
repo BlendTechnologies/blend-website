@@ -183,10 +183,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .results{grid-area:2/1/4/2;justify-self:end}
 }
 /* ---- The hero intro ---------------------------------------------------
-   One sequence, once a session: the quiz card arrives as tall as the
-   finished pair — its own top edge to the bottom of the plan card —
-   three answers pick themselves, the card settles into its place, and
-   the plan card rises behind it.
+   One sequence, once a session: the quiz card arrives at the size of the
+   finished pair — its own top-left corner to the far corner of the plan
+   card — three answers pick themselves, the card settles into its place,
+   and the plan card rises behind it.
 
    Every rule is scoped to .hero-intro on <html>, which the head adds
    before the first paint and the controller removes at the end, so the
@@ -201,18 +201,33 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    scaleX rather than width, because width is layout. */
 .results{opacity:1}
 .qprog-fill{transform-origin:left center;transition:transform .5s cubic-bezier(.2,.7,.25,1)}
-.hero-intro .quiz{opacity:0;transform:scale(var(--hi-s,1));transform-origin:top left}
+.hero-intro .quiz{opacity:0}
+.hero-intro.hi-box .quiz{width:var(--hi-w);height:var(--hi-h)}
+/* The middle row is auto, so a taller quiz card grows it and pushes the
+   plan card down the page while the intro runs. Frozen at the sizes the
+   browser resolved before the card grew, the enlarged card overflows its
+   area instead and nothing underneath it moves. */
+.hero-intro.hi-box .hero-stage{grid-template-rows:var(--hi-rows)}
 .hero-intro .results{opacity:0;transform:translateY(24px)}
 .hero-intro .pc-track{animation-play-state:paused}
 .hero-intro .qprog-fill{transform:scaleX(var(--hi-prog,.4))}
-.hero-intro.hi-play .quiz{animation:hi-quiz 2650ms both}
+.hero-intro.hi-play .quiz{animation:hi-fade 2650ms both}
+.hero-intro.hi-play.hi-box .quiz{animation:hi-fade 2650ms both,hi-box 2650ms both}
 .hero-intro.hi-play .results{animation:hi-plan 2950ms both}
-/* 300ms in, held to 2000ms, then 650ms down. */
-@keyframes hi-quiz{
-  0%{opacity:0;transform:scale(var(--hi-s,1))}
-  11.32%{opacity:1;transform:scale(var(--hi-s,1))}
-  75.47%{opacity:1;transform:scale(var(--hi-s,1));animation-timing-function:cubic-bezier(.65,0,.35,1)}
-  100%{opacity:1;transform:scale(1)}
+/* 300ms in, held to 2000ms, then 650ms down.
+
+   The box is animated, not a transform of it. A transform rasterises the
+   card once and resamples it for every frame after, which is why the
+   enlarged card was soft however big the step was; laying the card out at
+   each size costs a reflow a frame and renders every glyph at its own
+   resolution. One card for 650ms, and it is the only way to be both this
+   exact and this sharp. It is also the only way to reach the pair's width
+   and its height at once: a uniform scale cannot, and a stretched one
+   would make the type a different shape on the way. */
+@keyframes hi-fade{0%{opacity:0}11.32%,100%{opacity:1}}
+@keyframes hi-box{
+  0%,75.47%{width:var(--hi-w);height:var(--hi-h);animation-timing-function:cubic-bezier(.65,0,.35,1)}
+  100%{width:var(--hi-w0);height:var(--hi-h0)}
 }
 /* Held to 2450ms, then 500ms up, overlapping the end of the shrink. */
 @keyframes hi-plan{
@@ -1989,10 +2004,12 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
     timers = [];
     detach();
     if (skip) html.classList.add('hi-skip');
-    html.classList.remove('hero-intro', 'hi-play');
+    html.classList.remove('hero-intro', 'hi-play', 'hi-box');
     picked();
-    quiz.style.removeProperty('--hi-s');
-    quiz.style.removeProperty('--hi-prog');
+    ['--hi-w', '--hi-h', '--hi-w0', '--hi-h0', '--hi-prog'].forEach(function (n) {
+      quiz.style.removeProperty(n);
+    });
+    if (quiz.parentElement) quiz.parentElement.style.removeProperty('--hi-rows');
     [].forEach.call(document.querySelectorAll('.hi-press'), function (el) {
       el.classList.remove('hi-press');
     });
@@ -2018,14 +2035,31 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
        the two cards overlap; the single-column layout picks its answers
        at size. */
     if (results && window.matchMedia('(min-width:1200px)').matches) {
-      /* offsetTop/offsetHeight, not getBoundingClientRect: both cards share
-         .hero-stage as their offset parent, and the layout box ignores
-         transforms. The plan card is already sitting 24px low in its start
-         state, and measuring its painted box made the card 1.32 instead of
-         1.26 — tall enough to reach where the plan card starts rather than
-         where it lands. */
-      var s = (results.offsetTop + results.offsetHeight - quiz.offsetTop) / quiz.offsetHeight;
-      if (s > 1 && s < 2) quiz.style.setProperty('--hi-s', s.toFixed(4));
+      /* The box the card starts in: its own top-left corner to the far
+         corner of the plan card, and the size it ends at.
+
+         offset*, not getBoundingClientRect: both cards share .hero-stage
+         as their offset parent, and the layout box ignores transforms.
+         The plan card sits 24px low in its own start state, and measuring
+         its painted box made the card tall enough to reach where the plan
+         card begins rather than where it lands. */
+      var w = results.offsetLeft + results.offsetWidth - quiz.offsetLeft;
+      var h = results.offsetTop + results.offsetHeight - quiz.offsetTop;
+      if (w > quiz.offsetWidth && h > quiz.offsetHeight) {
+        quiz.style.setProperty('--hi-w', w + 'px');
+        quiz.style.setProperty('--hi-h', h + 'px');
+        quiz.style.setProperty('--hi-w0', quiz.offsetWidth + 'px');
+        quiz.style.setProperty('--hi-h0', quiz.offsetHeight + 'px');
+        /* The rows as the browser resolved them, read before the card
+           grows and then frozen, rather than a guess at what they add up
+           to: the middle row is not the plan card's height, it is that
+           height less the row below it, and pinning the wrong value moved
+           the whole stage 31px up for the length of the intro. On the
+           stage, not the card — custom properties inherit downwards. */
+        var stage = quiz.parentElement;
+        if (stage) stage.style.setProperty('--hi-rows', getComputedStyle(stage).gridTemplateRows);
+        html.classList.add('hi-box');
+      }
     }
     html.classList.add('hi-play');
     window.addEventListener('scroll', onSkip, { passive: true });
