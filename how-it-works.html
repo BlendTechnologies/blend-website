@@ -1481,6 +1481,15 @@ body{background:linear-gradient(to bottom,var(--white) 0,var(--white) 38%,var(--
   gap:56px;align-items:center}
 .hw-step--flip .hw-step-text{order:2}
 .hw-step-text,.hw-vis{min-width:0}
+/* The two-up needs about 700px of content to hold a readable measure and
+   a legible screen beside it. Below that it had neither: at 375 the text
+   column was 126px — three words a line — and the screen was a 123px
+   thumbnail floating level with the middle of it. One column, text
+   first, every step the same way round. */
+@media(max-width:860px){
+  .hw-step-grid{grid-template-columns:minmax(0,1fr);gap:28px;align-items:start}
+  .hw-step--flip .hw-step-text{order:0}
+}
 
 /* The site has one overheading: 12px, 500, .08em, the secondary text
    colour. Every one on every page is that, this page included. */
@@ -1549,6 +1558,13 @@ body{background:linear-gradient(to bottom,var(--white) 0,var(--white) 38%,var(--
   transform-origin:50% 50%;will-change:transform}
 @media (prefers-reduced-motion:reduce){.hw-vis{transform:none}}
 
+@media(max-width:860px){
+  /* Full width now, so the padding that framed a half-column screen is
+     just inset, and the height cap that kept it beside the text is not
+     holding anything back. */
+  .hw-shot{padding:12px;border-radius:14px}
+  .hw-shot img{max-height:none}
+}
 @media(max-width:560px){
   .hw-step-text h2{font-size:25px}
   .hw-lead{font-size:15px}
