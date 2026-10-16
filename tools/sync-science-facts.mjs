@@ -56,31 +56,76 @@ if (!liveKey) { console.error('FAILED: no live vertical in the export'); process
 const h = V[liveKey];
 
 /* ---- 1. hero --------------------------------------------------------------
-   The same hero as every other inner page, on black: the index component
-   carries the verticals rather than steps, so it has no numbers. */
-const verts = Object.entries(V).map(([key, v]) => {
-  const live = v.status === 'live';
-  const label = key === 'health' ? 'Health and wellness' : cap(key);
-  return live
-    ? `<a class="ph-ix-item is-on" href="#run" data-vertical="${esc(key)}" aria-current="true"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">${esc(label)}</span></a>`
-    : `<span class="ph-ix-item is-off" data-vertical="${esc(key)}" tabindex="0" role="note"><span class="ph-ix-name">${esc(label)}</span><span class="sci-tip">Coming soon</span></span>`;
-}).join('');
+   Two columns: the page's own words on the left, the four categories as
+   cards on the right. The categories used to be a strip under the hero that
+   read as navigation; as cards they can say which one is live and which are
+   not, which the strip could only do in a tooltip.
 
-const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
+   Only Health and Wellness is a link, and it goes where it always went. The
+   other three are not controls: there is nothing behind them yet, and a card
+   that looks pressable would say there is. Their state is written on them
+   rather than hidden in a hover. */
+const VERT_META = {
+  health:  { label: 'Health &amp; Wellness', acc: 'var(--gold)',
+             icon: '<path d="M20.4 8.6a4.5 4.5 0 0 0-8.4-1.7 4.5 4.5 0 0 0-8.4 1.7c0 4.2 8.4 9.7 8.4 9.7s8.4-5.5 8.4-9.7Z"/>' },
+  beauty:  { label: 'Beauty', acc: '#D9A8B4',
+             icon: '<path d="M12 3.5s5.6 5.9 5.6 9.6a5.6 5.6 0 0 1-11.2 0C6.4 9.4 12 3.5 12 3.5Z"/>' },
+  food:    { label: 'Food', acc: '#A8C08A',
+             icon: '<path d="M3.5 11.5h17a8.5 8.5 0 0 1-17 0Z"/><path d="M9 7.5c0-1.6 1-2.2 1-3.5M13 7.5c0-1.6 1-2.2 1-3.5"/>' },
+  fashion: { label: 'Fashion', acc: '#A9B6D4',
+             icon: '<path d="M8.5 3.5 4 6l2 3.5 2-1v12h8v-12l2 1L20 6l-4.5-2.5a3.5 3.5 0 0 1-7 0Z"/>' },
+};
+const ORDER = ['health', 'beauty', 'food', 'fashion'];
+
+const vertCard = key => {
+  const v = V[key];
+  if (!v) return '';
+  const m = VERT_META[key];
+  const live = v.status === 'live';
+  const icon = `<span class="vc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${m.icon}</svg></span>`;
+  const body = `${icon}<span class="vc-name">${m.label}</span>` +
+    `<span class="vc-state">${live ? 'Available' : 'Coming soon'}</span>`;
+  return live
+    ? `<a class="vc is-live" href="#run" data-vertical="${esc(key)}" aria-current="true" style="--acc:${m.acc}">${body}</a>`
+    : `<div class="vc is-soon" data-vertical="${esc(key)}" style="--acc:${m.acc}">${body}</div>`;
+};
+const vertCards = ORDER.map(vertCard).join('\n        ');
+
+const hero = `<section class="ph ph--fill sc-hero sci-hero" data-sc="hero">
   <div class="wrap">
-    <div class="ph-inner">
-      <span class="eyebrow">The science</span>
-      <h1 class="h1">A scoring engine you can audit, line by line.</h1>
-      <p class="lead">One engine per vertical. Every pick scored, safety-checked and explained.</p>
-      <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
-      <div class="ph-ctas">
-        <a href="#run" class="btn btn-primary btn-lg">See a real run</a>
-        <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-ghost btn-lg">Request the methodology</a>
+    <div class="sci-hero-grid">
+      <div class="ph-inner sci-hero-copy">
+        <span class="eyebrow">The science</span>
+        <h1 class="h1">A scoring engine you can audit, line by line.</h1>
+        <p class="lead">One engine per vertical. Every pick scored, safety-checked and explained.</p>
+        <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
+        <div class="ph-ctas">
+          <a href="#run" class="btn btn-primary btn-lg">See a real run</a>
+          <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-ghost btn-lg">Request the methodology</a>
+        </div>
+      </div>
+      <div class="sci-verts" role="group" aria-label="Categories">
+        ${vertCards}
       </div>
     </div>
-    <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:${Object.keys(V).length}">${verts}</nav>
   </div>
-  <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</section>`;
+
+/* ---- 1b. what the engine does, in three lines -------------------------------
+   The only new copy on the page, and the only part of it that explains the
+   walkthrough in words rather than in motion. Deliberately short: no
+   formula, no threshold, no scoring rule. */
+const STEPS = [
+  ['Understand the customer', 'Their answers describe their goals, preferences and relevant health information.'],
+  ['Assess the catalogue', 'Blend scores products against their profile and applies safety checks.'],
+  ['Explain the recommendations', 'The customer receives a personalised plan with a reason for each recommendation.'],
+];
+const steps3 = `<section class="sci-sec sci-steps-sec" id="how">
+  <div class="wrap">
+    <ol class="sci-steps sci-in">
+${STEPS.map(([t, d], i) => `      <li><span class="ss-n">${pad(i + 1)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n')}
+    </ol>
+  </div>
 </section>`;
 
 /* ---- 2. what the engine covers ---------------------------------------------
@@ -121,19 +166,23 @@ const prodRows = pr => pr.attributes.map(a =>
 
 const productsSec = `<section class="sci-sec" id="products">
   <div class="wrap">
-    <div class="sci-head sci-in">
-      <span class="eyebrow">The product database</span>
-      <h2 class="h2"><span data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</span>+ products &#183; <span data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</span> attributes each</h2>
-      <p class="lead">Audited for safety and composition. Explore a product to see what the engine records.</p>
-    </div>
-    <div class="sci-goalgrid sci-in" data-products>
-${prods.items.map(pr => `      <button type="button" class="sci-goalname" data-prod="${esc(pr.name)}" aria-controls="sci-prod" aria-expanded="${pr === firstProd ? 'true' : 'false'}">${esc(pr.name)}</button>`).join('\n')}
-      <span class="sci-goalmore">+${num(prods.more_in_table)} more</span>
-    </div>
-    <div class="sci-subs sci-prod sci-in" id="sci-prod" data-prod-detail aria-live="polite">
-      <div class="sci-subs-t">${esc(firstProd.name)}</div>
-      <dl class="sci-prows">${prodRows(firstProd)}</dl>
-      <p class="sci-prod-foot">${num(prods.attributes_shown)} of the ${num(prods.attributes_recorded)} attributes recorded for every product.</p>
+    <div class="sci-alt">
+      <div class="sci-head sci-alt-intro sci-in">
+        <span class="eyebrow">The product database</span>
+        <h2 class="h2"><span data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</span>+ products &#183; <span data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</span> attributes each</h2>
+        <p class="lead">Audited for safety and composition. Explore a product to see what the engine records.</p>
+      </div>
+      <div class="sci-alt-panel">
+      <div class="sci-goalgrid sci-in" data-products>
+  ${prods.items.map(pr => `      <button type="button" class="sci-goalname" data-prod="${esc(pr.name)}" aria-controls="sci-prod" aria-expanded="${pr === firstProd ? 'true' : 'false'}">${esc(pr.name)}</button>`).join('\n')}
+        <span class="sci-goalmore">+${num(prods.more_in_table)} more</span>
+      </div>
+      <div class="sci-subs sci-prod sci-in" id="sci-prod" data-prod-detail aria-live="polite">
+        <div class="sci-subs-t">${esc(firstProd.name)}</div>
+        <dl class="sci-prows">${prodRows(firstProd)}</dl>
+        <p class="sci-prod-foot">${num(prods.attributes_shown)} of the ${num(prods.attributes_recorded)} attributes recorded for every product.</p>
+      </div>
+      </div>
     </div>
   </div>
 </section>`;
@@ -148,18 +197,21 @@ ${prods.items.map(pr => `      <button type="button" class="sci-goalname" data-p
    ordinary section head, the same eyebrow / h2 / lead as Safety and Markets. */
 const covers = `<section class="sci-sec" id="covers">
   <div class="wrap">
-    <hr class="sci-divider sci-in">
-    <div class="sci-head sci-in">
-      <span class="eyebrow">What the engine covers</span>
-      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
-      <p class="lead">Explore a goal to see the signals behind it.</p>
-    </div>
-    <div class="sci-goalgrid sci-in" data-goals>
-${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
-    </div>
-    <div class="sci-subs sci-in" id="sci-subs" data-subs aria-live="polite">
-      <div class="sci-subs-t">${esc(openGoal.goal)}</div>
-      <div class="sci-subs-list">${openGoal.subgoals.map(x => `<span>${esc(x)}</span>`).join('')}</div>
+    <div class="sci-alt is-flip">
+      <div class="sci-head sci-alt-intro sci-in">
+        <span class="eyebrow">What the engine covers</span>
+        <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
+        <p class="lead">Explore a goal to see the signals behind it.</p>
+      </div>
+      <div class="sci-alt-panel">
+      <div class="sci-goalgrid sci-in" data-goals>
+  ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
+      </div>
+      <div class="sci-subs sci-in" id="sci-subs" data-subs aria-live="polite">
+        <div class="sci-subs-t">${esc(openGoal.goal)}</div>
+        <div class="sci-subs-list">${openGoal.subgoals.map(x => `<span>${esc(x)}</span>`).join('')}</div>
+      </div>
+      </div>
     </div>
   </div>
 </section>`;
@@ -317,16 +369,20 @@ const exampleList = `      <div class="sci-glist" id="sci-examples">` +
 
 const safety = `<section class="sci-sec" id="safety">
   <div class="wrap">
-    <div class="sci-head sci-in">
-      <span class="eyebrow">Safety</span>
-      <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
-      <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
+    <div class="sci-alt">
+      <div class="sci-head sci-alt-intro sci-in">
+        <span class="eyebrow">Safety</span>
+        <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
+        <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
+      </div>
+      <div class="sci-alt-panel">
+      <div class="sci-groups sci-in">
+  ${groupTiles}
+      </div>
+  ${exampleList}
+      <p class="sci-prod-foot sci-in">${num(examples.length)} of the ${num(h.counts.safety_checks.value)} checks that can remove a product.</p>
+      </div>
     </div>
-    <div class="sci-groups sci-in">
-${groupTiles}
-    </div>
-${exampleList}
-    <p class="sci-prod-foot sci-in">${num(examples.length)} of the ${num(h.counts.safety_checks.value)} checks that can remove a product.</p>
   </div>
 </section>`;
 
@@ -373,19 +429,23 @@ function legalLine(s) {
 const first = sets[0];
 const markets = `<section class="sci-sec" id="markets">
   <div class="wrap">
-    <div class="sci-head sci-in">
-      <span class="eyebrow">Markets</span>
-      <h2 class="h2">Targets follow the country you sell in.</h2>
-      <p class="lead">Reference targets follow the official authority for each market, and an ingredient a country bans in supplements is never recommended there.</p>
-    </div>
-    <div class="sci-countries sci-in">
-      <div class="sci-csel" role="group" aria-label="Market">${cbtns}</div>
-      <p class="sci-auth" data-auth><b>${esc(first.authority.name)}</b> <span>${esc(first.authority.reference)}</span>
-        <span class="sci-legal" data-legal>${esc(legalLine(first))}</span></p>
-      <div class="sci-ladders" data-ladders>
-${first.nutrients.map(ladder).join('\n')}
+    <div class="sci-alt is-flip">
+      <div class="sci-head sci-alt-intro sci-in">
+        <span class="eyebrow">Markets</span>
+        <h2 class="h2">Targets follow the country you sell in.</h2>
+        <p class="lead">Reference targets follow the official authority for each market, and an ingredient a country bans in supplements is never recommended there.</p>
       </div>
-      <p class="sci-note"><span>Shown for a woman aged 31 to 50.</span><span>${num(first.nutrients.length)} of the ${num(h.countries.market_varying_nutrients)} nutrients whose reference value changes with the market.</span><span>Every real target is computed for the person, not read off this table.</span></p>
+      <div class="sci-alt-panel">
+      <div class="sci-countries sci-in">
+        <div class="sci-csel" role="group" aria-label="Market">${cbtns}</div>
+        <p class="sci-auth" data-auth><b>${esc(first.authority.name)}</b> <span>${esc(first.authority.reference)}</span>
+          <span class="sci-legal" data-legal>${esc(legalLine(first))}</span></p>
+        <div class="sci-ladders" data-ladders>
+  ${first.nutrients.map(ladder).join('\n')}
+        </div>
+        <p class="sci-note"><span>Shown for a woman aged 31 to 50.</span><span>${num(first.nutrients.length)} of the ${num(h.countries.market_varying_nutrients)} nutrients whose reference value changes with the market.</span><span>Every real target is computed for the person, not read off this table.</span></p>
+      </div>
+      </div>
     </div>
   </div>
 </section>`;
@@ -416,7 +476,7 @@ for (const key of Object.keys(PUBLIC_V)) {
 
 const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: PUBLIC_V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
 
-const body = [hero, productsSec, covers, run, safety, markets, cta, data].join('\n\n');
+const body = [hero, run, steps3, productsSec, covers, safety, markets, cta, data].join('\n\n');
 
 /* ---- splice ------------------------------------------------------------------ */
 let page = readFileSync(PAGE, 'utf8');
