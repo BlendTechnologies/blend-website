@@ -62,7 +62,7 @@
   --shadow-sm:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.24);
   --shadow-md:0 1px 3px rgba(0,0,0,.34),0 8px 24px rgba(0,0,0,.30);
   --shadow-lg:0 2px 6px rgba(0,0,0,.38),0 20px 40px rgba(0,0,0,.40);
-  --hover-surface:#2E2E34;--hover-border:#CFB68F;
+  --hover-surface:#2E2E34;--hover-border:#CFB68F;--sand-bright:#F4E4C8;
   --nav-h:68px;--content:1340px;
 }
 *{box-sizing:border-box}
@@ -386,7 +386,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* The row is laid out whether or not it is visible, so nothing shifts when
    it appears: only opacity changes. Touch has no hover, so there it is
    simply always on. */
-.step-cta{display:block;padding:8px 22px 14px;font-size:13px;font-weight:500;color:var(--gold-active);opacity:0;transition:opacity .18s ease}
+.step-cta{display:block;padding:8px 22px 14px;font-size:13px;font-weight:500;color:var(--sand);opacity:0;transition:opacity .18s ease}
 .step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
 @media(hover:none){.step-cta{opacity:1}}
 @media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
@@ -397,7 +397,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
 .soon{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;
-  background:var(--gold-soft);color:var(--gold-active);font-size:11px;font-weight:600;
+  background:var(--gold-soft);color:var(--sand);font-size:11px;font-weight:600;
   letter-spacing:.04em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .split-card{padding:40px;border-radius:14px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
@@ -627,11 +627,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
 .tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
 .tier-cta.dark{background:var(--deep);color:var(--white)}
-.tier-cta.dark:hover{background:#1f1f1f}
+.tier-cta.dark:hover{background:var(--hover-surface)}
 .tier-cta.gold{background:var(--gold-strong);color:var(--white)}
 .tier-cta.gold:hover{background:var(--gold-hover)}.tier-cta.gold:active{background:var(--gold-active)}
 .tier-cta.outline{border:1px solid var(--line-strong);color:var(--ink);background:var(--surface)}
-.tier-cta.outline:hover{border-color:var(--line-strong)}
+/* This used to set border-color to the value the base already carried, so
+   "Start free trial" and "Talk to us" did nothing at all when pointed at.
+   Same language as every other hover on the page: a step lighter, with
+   the border warming. */
+.tier-cta.outline:hover{background:var(--hover-surface);border-color:var(--sand)}
 .tier-cta.is-loading{opacity:.7;cursor:wait;pointer-events:none}
 .pricing-controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
 .billing-toggle{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;position:relative}
@@ -1323,7 +1327,7 @@ html,body{max-width:100%;overflow-x:clip}
 .faq-ask{margin-top:40px}
 .faq-ask-q{display:block;font-size:14px;color:var(--muted)}
 .faq-ask-a{display:inline-block;margin-top:6px;font-size:15px;font-weight:500;color:var(--sand)}
-.faq-ask-a:hover{color:var(--gold-active)}
+.faq-ask-a:hover{color:var(--sand-bright)}
 .faq-ask-a:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
 
 .faq-split .faq-list{max-width:none;margin:0}
@@ -1353,7 +1357,7 @@ html,body{max-width:100%;overflow-x:clip}
 .faq-more{border-top:0}
 .faq-toggle{display:inline-block;margin-top:18px;padding:12px 4px;font:inherit;font-size:14px;font-weight:500;
   color:var(--sand);background:none;border:0;cursor:pointer;transition:color .18s ease}
-.faq-toggle:hover{color:var(--gold-active)}
+.faq-toggle:hover{color:var(--sand-bright)}
 .faq-toggle:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
 
 @media(max-width:860px){
@@ -1600,7 +1604,7 @@ html,body{max-width:100%;overflow-x:clip}
 }
 section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 .hw-head{margin-bottom:48px}
-.hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-active)}
+.hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sand)}
 .hw-n::before{content:"";width:24px;height:1px;background:var(--line-strong)}
 .hw-head .h2{margin-top:14px;max-width:760px}
 .hw-head .lead{margin-top:14px;max-width:720px}
