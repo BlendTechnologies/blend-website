@@ -132,8 +132,16 @@
 .sci-check:last-child{border-bottom:0}
 .sci-check-n{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
 .sci-check-d{margin:3px 0 0;font-size:13px;line-height:1.55;color:var(--ink-80)}
+/* Two different markers, and they are not the same claim.
+   .sci-dot says this check FIRED in the run, and the only checks that carry
+   it are the ones that removed a product — it is keyed off the engine's
+   removed_by_check. So it takes --bad, the colour this page already uses for
+   a removal: the strike-through on a cut product and the NEVER zone past an
+   upper limit. It was gold, which is the page's accent rather than a meaning,
+   and read as "notable" when it means "this one stopped something".
+   .sci-warn stays amber: that check warns and removes nothing. */
 .sci-dot,.sci-warn{position:relative;width:8px;height:8px;border-radius:50%;display:inline-block;flex:0 0 auto}
-.sci-dot{background:var(--gold-strong)}
+.sci-dot{background:var(--bad)}
 .sci-warn{background:var(--warn)}
 /* The plan checks box: the same box as the safety groups, marked as a
    different kind of check. Dashed rather than solid, and the figure in the
