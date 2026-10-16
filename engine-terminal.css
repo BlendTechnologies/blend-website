@@ -16,7 +16,7 @@
    walkthrough simply runs once and stops.
    ============================================================ */
 .tm{
-  --t-ink:#EDE6DA; --t-dim:#8E877C; --t-line:rgba(255,255,255,.085);
+  --t-ink:#EDE6DA; --t-dim:#A8A196; --t-line:rgba(255,255,255,.085);
   --t-gold:#E7CFA3; --t-bad:#C8614C; --t-ok:#7FA86A; --t-raise:rgba(255,255,255,.03);
 }
 .tm{padding:0;overflow:hidden;background:#0D0C0B}

@@ -132,7 +132,10 @@
     var kids = logEl.children, len = kids.length;
     for (var k = 0; k < len; k++) {
       var d = len - 1 - k;                       /* 0 is the newest */
-      kids[k].style.opacity = d < 2 ? 1 : Math.max(0.16, 1 - d * 0.1);
+      /* The newest lines are the ones a reader actually reads, and the floor
+         was low enough that the older half of the log was barely there.
+         Three at full strength, and nothing below .34. */
+      kids[k].style.opacity = d < 3 ? 1 : Math.max(0.34, 1 - d * 0.08);
     }
   }
 
