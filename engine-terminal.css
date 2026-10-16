@@ -40,14 +40,27 @@
 
 /* the log gets the room; the matrix sits beside it */
 .tm-body{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:18px;padding:0 22px}
-/* The left column fills whatever the right one comes to, rather than holding
-   a number of its own. The log was a fixed 232px while the matrix sized
-   itself from its cells, so the log ran short and the bottom-left of the
-   terminal sat empty. Flex, not a height: when the matrix changes, the log
-   follows it. */
-.tm-logwrap{position:relative;min-width:0;display:flex;flex-direction:column}
+/* WHICH COLUMN DECIDES THE HEIGHT. The matrix does, and the log is a window
+   cut to fit it.
+
+   The log was a fixed 232px while the matrix sized itself from its cells, so
+   the log ran short and the bottom-left sat empty. Making the log flex:1
+   inside a column wrap did not fix that, it moved it: a flex item still
+   offers its max-content height to the grid row that is sizing itself, so
+   the log went on setting the row — now from its line count rather than from
+   a number. On the homepage that is 11 lines and came out near the matrix by
+   luck; on /science it is 22, the row went to 418 against a 243 matrix, and
+   the empty space reappeared on the right instead.
+
+   An absolutely positioned child contributes nothing to its parent's
+   intrinsic size. So all three panes come out of flow and the row is the
+   matrix column's height, whatever that is, with a floor for the case where
+   the matrix is small. The log fills it and clips from the top, which is
+   what the mask above the first line was always drawing. */
+.tm-logwrap{position:relative;min-width:0;min-height:210px}
+.tm-log,.tm-plan,.tm-persona{position:absolute;inset:0}
 .tm-log{display:flex;flex-direction:column;justify-content:flex-end;
-  flex:1;min-height:180px;overflow:hidden;
+  overflow:hidden;
   mask-image:linear-gradient(transparent,#000 22%);-webkit-mask-image:linear-gradient(transparent,#000 22%)}
 .tm-log[hidden]{display:none}
 .tm-line{display:flex;gap:10px;white-space:pre;line-height:19px;
@@ -68,7 +81,7 @@
 /* the plan the log resolves into — terminal output, not three cards.
    Boxed cards read as product UI pasted into a console; a numbered list
    under a header line reads as the thing the log just finished doing. */
-.tm-plan{flex:1;min-height:180px;display:flex;flex-direction:column;justify-content:center;gap:14px;
+.tm-plan{display:flex;flex-direction:column;justify-content:center;gap:14px;
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .tm-plan[hidden]{display:none}
 .tm-plan-h{display:flex;gap:14px;align-items:baseline;font-size:11px;letter-spacing:.08em;
@@ -125,7 +138,14 @@
 
 @media (max-width:860px){
   .tm-body{grid-template-columns:minmax(0,1fr);gap:14px}
-  .tm-log,.tm-plan,.tm-persona{flex:0 0 auto;height:196px}
+  /* Stacked, so there is no matrix beside it to take a height from, and
+     the pane carries its own. One number for every width below 860
+     rather than a second breakpoint: the tallest thing it ever holds is
+     the plan, which goes from 187 to 241 when its product lines wrap
+     somewhere under 560. The log fills whatever it is given and clips
+     from the top, and the plan and the persona centre in it, so the
+     slack at tablet widths shows as neither a gap nor a clip. */
+  .tm-logwrap{min-height:0;height:272px}
   .tm-mx{grid-template-columns:repeat(20,1fr);gap:2px}
   .tm-caption{min-height:92px;padding:16px 16px 12px}
   .tm-body{padding-left:16px;padding-right:16px}
@@ -146,7 +166,7 @@
 }
 
 /* The profile the answers are read into, shown before the log starts. */
-.tm-persona{display:flex;flex-direction:column;gap:12px;flex:1;min-height:180px;justify-content:center;
+.tm-persona{display:flex;flex-direction:column;gap:12px;justify-content:center;
   animation:tm-in .3s ease-out both}
 .tm-persona[hidden]{display:none}
 .tm-persona-h{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;
@@ -157,7 +177,7 @@
 .tm-persona dt{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--t-dim)}
 .tm-persona dd{margin:0;font-size:13.5px;line-height:1.4;color:var(--t-ink)}
 @media (max-width:860px){
-  .tm-persona{height:196px;gap:9px}
+  .tm-persona{gap:9px}
   .tm-persona dl{gap:7px 16px}
   .tm-persona dd{font-size:12.5px}
 }
