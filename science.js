@@ -58,19 +58,7 @@
     $$('.sci-goalgrid').forEach(function (grid) {
       $$('.sci-goalname', grid).forEach(function (el, i) { el.style.setProperty('--i', i); });
     });
-    $$('.sci-panel, .sci-ladder').forEach(function (panel) {
-      $$('.sci-row, .sci-pick, .sci-tier', panel).forEach(function (el, i) {
-        el.style.setProperty('--i', Math.min(i, 14));
-      });
-    });
   })();
-
-  /* Bars hold at zero until their step is actually looked at, so the draw
-     is something the reader sees rather than something that happened
-     while the panel was hidden. */
-  function drawBars(root) {
-    $$('.sci-bar', root).forEach(function (bar) { bar.classList.add('is-drawn'); });
-  }
 
   (function counters() {
     var targets = $$('[data-count]');
@@ -118,107 +106,56 @@
     });
   })();
 
-  /* ---- the run ------------------------------------------------------
-     The reader drives: tabs and arrow keys, nothing on a timer. */
-  (function run() {
-    var stage = $('[data-run]');
-    if (!stage) return;
-    var tabs = $$('.sci-tab', stage);
-    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-    var funnel = $$('.sci-fstep', stage);
+  /* ---- a product shows what is recorded about it ---------------------
+     The goal explorer's behaviour, on the goal explorer's markup: pointer,
+     keyboard focus and click all select, so the panel follows the reader
+     however they are moving through the row. */
+  (function products() {
+    var grid = $('[data-products]'), panel = $('[data-prod-detail]');
+    if (!grid || !panel) return;
+    var data = null;
+    try { data = JSON.parse($('#sci-data').textContent); } catch (e) { return; }
+    var live = Object.keys(data.verticals).filter(function (k) { return data.verticals[k].status === 'live'; })[0];
+    var items = ((data.verticals[live].products || {}).items) || [];
+    var map = {};
+    items.forEach(function (p) { map[p.name] = p.attributes; });
 
-    /* `moved` guards the one that cost a bug: scrolling the strip on the
-       first paint scrolled the page with it, so arriving at /science from
-       the nav landed 1,600px down, on the run. Nothing scrolls until the
-       reader has chosen something. */
-    function show(i, moved, focus) {
-      tabs.forEach(function (t, j) {
-        var on = i === j;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        if (panels[j]) panels[j].hidden = !on;
-      });
-      funnel.forEach(function (f) {
-        f.classList.toggle('is-on', parseInt(f.getAttribute('data-at'), 10) <= i);
-      });
-      if (panels[i]) drawBars(panels[i]);
-      if (focus && tabs[i]) tabs[i].focus();
-      if (moved && tabs[i] && tabs[i].scrollIntoView) {
-        tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
-      }
-    }
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { show(i, true); });
-      t.addEventListener('keydown', function (e) {
-        var n = null;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % tabs.length;
-        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === 'Home') n = 0;
-        else if (e.key === 'End') n = tabs.length - 1;
-        if (n === null) return;
-        e.preventDefault();
-        show(n, true, true);
-      });
-    });
-    show(0, false);
-    /* The first step is open from the start, so its bars draw when the
-       stage arrives rather than on load behind the fold. */
-    if (window.IntersectionObserver && !reduce) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); drawBars(stage); } });
-      }, { threshold: 0.2 });
-      io.observe(stage);
-    } else { drawBars(stage); }
-  })();
-
-  /* ---- signals: the line under a group follows the chip you are on --- */
-  (function signals() {
-    $$('.sci-siggroup').forEach(function (group) {
-      var why = $('[data-why]', group);
-      var chips = $$('.sci-fact.is-tap', group);
-      if (!why || !chips.length) return;
-      var base = why.textContent;
-      function set(chip) {
-        chips.forEach(function (c) { c.classList.toggle('is-on', c === chip); });
-        why.textContent = chip ? chip.getAttribute('data-changes') : base;
-      }
-      chips.forEach(function (c) {
-        c.addEventListener('mouseenter', function () { set(c); });
-        c.addEventListener('focus', function () { set(c); });
-        c.addEventListener('click', function () { set(c); });
-      });
-      group.addEventListener('mouseleave', function () { set(null); });
-    });
-  })();
-
-  /* ---- safety: one group open at a time, listed under the grid ------- */
-  (function safety() {
-    var boxes = $$('.sci-gbox');
-    if (!boxes.length) return;
-    boxes.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        boxes.forEach(function (o) {
-          o.setAttribute('aria-expanded', 'false');
-          var body = document.getElementById(o.getAttribute('aria-controls'));
-          if (body) body.hidden = true;
-        });
-        if (open) return;
-        btn.setAttribute('aria-expanded', 'true');
-        var mine = document.getElementById(btn.getAttribute('aria-controls'));
-        if (mine) mine.hidden = false;
-      });
-    });
-    var plan = $('.sci-plan-btn');
-    if (plan) {
-      plan.addEventListener('click', function () {
-        var open = plan.getAttribute('aria-expanded') === 'true';
-        plan.setAttribute('aria-expanded', String(!open));
-        var body = document.getElementById(plan.getAttribute('aria-controls'));
-        if (body) body.hidden = open;
+    var btns = $$('.sci-goalname', grid);
+    var rows = $('.sci-prows', panel);
+    function show(btn) {
+      var attrs = map[btn.getAttribute('data-prod')];
+      if (!attrs) return;
+      btns.forEach(function (b) { b.setAttribute('aria-expanded', String(b === btn)); });
+      $('.sci-subs-t', panel).textContent = btn.getAttribute('data-prod');
+      rows.textContent = '';
+      attrs.forEach(function (a) {
+        var row = document.createElement('div');
+        row.className = 'sci-prow';
+        var dt = document.createElement('dt');
+        dt.textContent = a.label;
+        var dd = document.createElement('dd');
+        if (a.value) {
+          dd.textContent = a.value;
+        } else {
+          var none = document.createElement('span');
+          none.className = 'sci-prow-none';
+          none.textContent = 'None recorded';
+          dd.appendChild(none);
+        }
+        row.appendChild(dt);
+        row.appendChild(dd);
+        rows.appendChild(row);
       });
     }
+    btns.forEach(function (b) {
+      b.addEventListener('mouseenter', function () { show(b); });
+      b.addEventListener('focus', function () { show(b); });
+      b.addEventListener('click', function () { show(b); });
+    });
   })();
+
+  /* The terminal lives in engine-terminal.js now: the homepage runs the same
+     component, so it cannot stay inside this page's script. */
 
   /* ---- the market switcher ------------------------------------------
      Only the reference targets move: the upper limits are one set

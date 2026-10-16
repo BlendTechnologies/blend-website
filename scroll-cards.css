@@ -105,6 +105,20 @@
     calc((1 - var(--sc-p)) * var(--sc-inset))
     round calc((1 - var(--sc-p)) * var(--sc-round))
           calc((1 - var(--sc-p)) * var(--sc-round)) 0 0)}
+/* The pair meets on a fractional pixel, and that showed as a pale hairline
+   across the full width between the CTA and the footer. Not a border and not
+   a gap — both measured zero. Two separately-composited layers whose shared
+   edge lands mid-pixel (a closer ending at y=465.55) each anti-alias against
+   whatever is behind them, and behind them is the page's light ground, so the
+   two halves do not add back up to solid ink.
+
+   One pixel of overlap removes the shared edge as a compositing boundary. It
+   cannot be done by extending either ::before, because .sc-reveal carries
+   overflow:hidden and clips its own layer back to the box; pulling the lower
+   half up by a pixel works from outside that. Two identical inks overlapping
+   by 1px is invisible in the card state as well as the full-bleed one. */
+.sc-reveal--top{margin-bottom:-1px}
+
 .sc-reveal--bottom::before{
   clip-path:inset(
     0

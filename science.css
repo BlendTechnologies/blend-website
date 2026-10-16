@@ -39,7 +39,12 @@
 .sci-head .eyebrow{display:inline-block;margin-bottom:14px}
 .sci-head .h2{margin-bottom:14px}
 .sci-head .lead{margin-left:auto;margin-right:auto;max-width:620px}
-.sci-note{max-width:760px;margin:22px auto 0;font-size:13px;line-height:1.6;color:var(--muted);text-align:center}
+/* Three statements, three centred lines, no emphasis on any of them: who the
+   table is drawn for, what it is a sample of, and that the sample is not the
+   thing the engine actually computes. A bolded figure in the middle made the
+   second line the headline, which is the one of the three that matters least. */
+.sci-note{max-width:760px;margin:22px auto 0;font-size:13px;line-height:1.7;color:var(--muted);text-align:center}
+.sci-note span{display:block}
 
 /* ---- the hero, inverted ------------------------------------------------ */
 .sci .ph{--ph-muted:#8E877C;background:#0A0A0A}
@@ -61,59 +66,6 @@
 
 [class*="sci-"]:hover > .sci-tip,[class*="sci-"]:focus-visible > .sci-tip{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ---- the run ----------------------------------------------------------- */
-.sci-stage{max-width:1000px;margin:0 auto;overflow:hidden}
-.sci-tabs{display:flex;gap:4px;padding:10px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
-.sci-tabs::-webkit-scrollbar{display:none}
-.sci-tab{flex:0 0 auto;padding:8px 14px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--ink-80);background:transparent;font-family:inherit;cursor:pointer;white-space:nowrap;transition:background .18s ease,color .18s ease}
-.sci-tab:hover{background:var(--subtle)}
-.sci-tab[aria-selected="true"]{background:var(--gold);color:#17140F;font-weight:600}
-.sci-tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-panel{padding:24px}
-.sci-panel:not([hidden]){animation:sci-panel-in .28s cubic-bezier(.2,.7,.25,1)}
-@keyframes sci-panel-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-.sci-siggroup + .sci-siggroup{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
-.sci-siggroup h4{margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.sci-facts{display:flex;flex-wrap:wrap;gap:6px}
-.sci-fact{display:inline-flex;align-items:baseline;gap:7px;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--raised-2);color:var(--ink);font-family:inherit;text-align:left}
-.sci-fact b{font-weight:600;color:var(--muted);font-size:11.5px;letter-spacing:.02em}
-.sci-fact.is-tap{cursor:pointer;transition:border-color .18s ease,background .18s ease}
-.sci-fact.is-tap:hover,.sci-fact.is-tap.is-on{border-color:var(--gold);background:var(--gold-soft)}
-.sci-fact:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-sigwhy{margin:10px 0 0;min-height:2.6em;font-size:13px;line-height:1.55;color:var(--muted)}
-
-.sci-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 20px;padding:11px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.sci-row:last-child{border-bottom:0}
-.sci-row-t{font-size:14px;line-height:1.45;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.sci-row-v{font-size:13px;font-weight:600;white-space:nowrap;font-feature-settings:"tnum";color:var(--ink-80)}
-.sci-row-s{grid-column:1/-1;font-size:12.5px;line-height:1.55;color:var(--muted)}
-.sci-row.is-cut .sci-row-t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--bad)}
-.sci-after{margin-top:16px}
-/* scaleX, so a bar keeps its width at any breakpoint instead of being
-   laid out from a percentage that collapses in a narrow grid cell. */
-.sci-bar{grid-column:1/-1;margin-top:7px;height:6px;border-radius:999px;background:var(--subtle);overflow:hidden}
-.sci-bar i{display:block;height:100%;border-radius:999px;background:var(--gold);transform:scaleX(var(--v,0));transform-origin:0 50%}
-.sci-bar.is-ok i{background:var(--ok)}
-.sci-met{font-size:11px;font-weight:600;color:var(--ok);background:rgba(127,168,106,.14);border-radius:999px;padding:2px 8px}
-.sci-ladder{display:grid;gap:7px}
-.sci-tier{display:grid;grid-template-columns:26px minmax(0,1fr);gap:12px;align-items:baseline;font-size:13.5px;color:var(--ink-80);line-height:1.5}
-.sci-tier b{color:var(--muted);font-size:11.5px;font-feature-settings:"tnum"}
-.sci-tier.is-hit{color:var(--ink)}
-.sci-tier.is-hit b{color:var(--gold-strong)}
-.sci-pick{display:grid;grid-template-columns:26px minmax(0,1fr);gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
-.sci-pick:last-child{border-bottom:0}
-.sci-pick-n{font-size:13px;font-weight:600;color:var(--gold-strong);font-feature-settings:"tnum"}
-.sci-pick-p{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sci-pick-tier{display:inline-block;margin-left:8px;font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gold-strong);background:var(--gold-soft);border-radius:999px;padding:3px 8px;vertical-align:2px}
-.sci-pick-w{margin:5px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
-.sci-funnel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);background:var(--raised-2)}
-.sci-fstep{padding:14px 16px;border-right:1px solid var(--line);text-align:center}
-.sci-fstep:last-child{border-right:0}
-.sci-fn{font-size:22px;font-weight:600;letter-spacing:-.02em;font-feature-settings:"tnum"}
-.sci-fstep.is-on .sci-fn{color:var(--gold-strong)}
-.sci-fl{margin-top:3px;font-size:12px;color:var(--muted)}
-
 /* ---- safety ------------------------------------------------------------- */
 .sci-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:900px;margin:0 auto}
 .sci-gbox{display:flex;align-items:center;gap:12px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--raised);font-family:inherit;color:inherit;cursor:pointer;text-align:left;transition:border-color .18s ease,background .18s ease}
@@ -127,14 +79,29 @@
 .sci-check:last-child{border-bottom:0}
 .sci-check-n{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
 .sci-check-d{margin:3px 0 0;font-size:13px;line-height:1.55;color:var(--ink-80)}
+/* Two different markers, and they are not the same claim.
+   .sci-dot says this check FIRED in the run, and the only checks that carry
+   it are the ones that removed a product — it is keyed off the engine's
+   removed_by_check. So it takes --bad, the colour this page already uses for
+   a removal: the strike-through on a cut product and the NEVER zone past an
+   upper limit. It was gold, which is the page's accent rather than a meaning,
+   and read as "notable" when it means "this one stopped something".
+   .sci-warn stays amber: that check warns and removes nothing. */
 .sci-dot,.sci-warn{position:relative;width:8px;height:8px;border-radius:50%;display:inline-block;flex:0 0 auto}
-.sci-dot{background:var(--gold-strong)}
+.sci-dot{background:var(--bad)}
 .sci-warn{background:var(--warn)}
-.sci-plan{max-width:900px;margin:28px auto 0}
-.sci-plan-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border:1px dashed var(--line-strong);border-radius:12px;background:transparent;font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer}
-.sci-plan-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-caret{width:9px;height:9px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg) translate(-2px,-2px);transition:transform .22s ease}
-.sci-plan-btn[aria-expanded="true"] .sci-caret{transform:rotate(225deg) translate(-2px,-2px)}
+/* The plan checks box: the same box as the safety groups, marked as a
+   different kind of check. Dashed rather than solid, and the figure in the
+   muted gold rather than the strong one — these shape a plan, they do not
+   stop an unsafe product, and the row should not imply they do. */
+/* The tiles are no longer controls: no pointer, no hover, no focus ring. */
+#sci-examples{margin-top:30px}
+.sci-gbox--static{cursor:default}
+.sci-gbox--static:hover{border-color:var(--line)}
+.sci-gbox--plan.sci-gbox--static:hover{border-color:var(--line)}
+.sci-gbox--plan{border-style:dashed}
+.sci-gbox--plan .sci-gbox-n{color:var(--gold)}
+.sci-gbox--plan[aria-expanded="true"]{border-style:solid}
 
 /* ---- markets ------------------------------------------------------------- */
 .sci-countries{max-width:1000px;margin:0 auto}
@@ -180,20 +147,12 @@
   .sci-ladders{grid-template-columns:minmax(0,1fr);gap:0}
 }
 @media (max-width:760px){
-  .sci-panel{padding:18px}
-  .sci-funnel{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .sci-fstep{padding:12px 6px}
-  .sci-fn{font-size:19px}
-  .sci-fl{font-size:11px}
-  .sci-row{grid-template-columns:minmax(0,1fr)}
-  .sci-row-v{text-align:left}
   .sci-glist{padding:4px 16px}
 }
 @media (prefers-reduced-motion:reduce){
   .sci-js .sci-sec:not(.is-in) .sci-in{opacity:1;transform:none}
   .sci-sec .sci-in{transition:none}
-  .sci-panel:not([hidden]){animation:none}
-  .sci-mark,.sci-caret,.sci-tip{transition:none}
+  .sci-mark,.sci-tip{transition:none}
 }
 
 /* ============================================================
@@ -206,7 +165,7 @@
    end state is the resting state, so reduced motion and a
    capture with animation off both show the finished page.
    ============================================================ */
-.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-figline b{
+.sci [data-count],.sci-gbox-n,.sci-mark i,.sci-prow dd{
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
 /* ---- what the model covers --------------------------------------------- */
@@ -219,36 +178,45 @@
 .sci-sec.is-in .sci-goalname{opacity:1;transform:none;
   transition:opacity .4s ease,transform .4s cubic-bezier(.2,.7,.25,1);
   transition-delay:calc(var(--i,0) * 14ms)}
-.sci-figline{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
-  max-width:860px;margin:26px auto 0;font-size:13.5px;line-height:1.5;color:var(--ink-80);text-align:center}
-.sci-figline b{font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--gold);margin-right:7px;vertical-align:-2px}
-.sci-sep{width:1px;height:22px;background:var(--line-strong)}
+/* ---- The product explorer ----------------------------------------------
+   It is the goal explorer's components, reused rather than restyled: the
+   selector carries .sci-goalgrid / .sci-goalname and the panel .sci-subs, so
+   the two sections match because they ARE the same thing, and a change to one
+   cannot leave the other behind. Only the detail rows are new.
 
-/* ---- corner ticks: a panel that carries a reading ----------------------- */
-.sci-stage,.sci-glist{position:relative}
-.sci-stage::before,.sci-stage::after{content:"";position:absolute;width:10px;height:10px;pointer-events:none;
-  border:1px solid var(--gold);opacity:.5}
-.sci-stage::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:3px 0 0 0}
-.sci-stage::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 3px 0}
+   Two columns with a rule between each pair, no card: a box round every
+   attribute turns six facts into six objects. */
+/* The tail of the selector row. A label, not a control: there is no fifth
+   panel for it to open, and something that looks pressable and is not is
+   worse than something that plainly is not. It takes the row's own metrics so
+   it sits on the same line as the names, and no separator after it. */
+.sci-goalmore{font-size:13px;line-height:1.6;padding:5px 14px;color:var(--muted);white-space:nowrap}
 
-/* ---- the sweep when a step is chosen ----------------------------------- */
-.sci-panel{position:relative}
-.sci-panel:not([hidden])::before{content:"";position:absolute;inset:0 0 auto;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7;
-  animation:sci-sweep .5s cubic-bezier(.3,0,.2,1) forwards;pointer-events:none}
-@keyframes sci-sweep{from{transform:scaleX(0);transform-origin:0 50%}to{transform:scaleX(1);transform-origin:0 50%;opacity:0}}
+.sci-prows{max-width:680px;margin:20px auto 0;text-align:left}
+.sci-prow{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);gap:18px;
+  padding:12px 2px;border-top:1px solid var(--line)}
+.sci-prow:first-child{border-top:0}
+.sci-prow dt{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.sci-prow dd{margin:0;font-size:15px;line-height:1.5;color:var(--ink)}
+.sci-prow-none{color:var(--muted);font-style:italic}
+.sci-prod-foot{margin:18px 0 0;text-align:center;font-size:13px;color:var(--muted)}
+/* The panel reserves a height for the goal lists; the attribute rows set
+   their own, and a fixed minimum leaves a gap under the shorter products. */
+.sci-subs.sci-prod{min-height:0}
+@media (max-width:620px){
+  .sci-prow{grid-template-columns:minmax(0,1fr);gap:2px;padding:11px 2px}
+  .sci-prow dt{font-size:13px}
+}
 
-/* ---- bars draw themselves once their step is open ---------------------- */
-.sci-bar i{transition:transform .8s cubic-bezier(.2,.7,.25,1)}
-.sci-bar.is-drawn i{transform:scaleX(var(--v,0))}
-.sci-js .sci-bar:not(.is-drawn) i{transform:scaleX(0)}
+/* ---- One divider between the two explorers ---------------------------- */
+.sci-divider{border:0;border-top:1px solid var(--line);max-width:720px;margin:0 auto 54px}
+}
+/* Stacked, the sign would be a stray character on its own line. */
+@media (max-width:620px){
+}
 
-/* ---- rows arrive in order ---------------------------------------------- */
-.sci-js .sci-sec:not(.is-in) .sci-row,.sci-js .sci-sec:not(.is-in) .sci-pick,
-.sci-js .sci-sec:not(.is-in) .sci-tier{opacity:0;transform:translateY(6px)}
-.sci-sec.is-in .sci-row,.sci-sec.is-in .sci-pick,.sci-sec.is-in .sci-tier{opacity:1;transform:none;
-  transition:opacity .35s ease,transform .35s cubic-bezier(.2,.7,.25,1);
-  transition-delay:calc(var(--i,0) * 22ms)}
+/* ---- corner ticks on a panel that carries a reading --------------------- */
+.sci-glist{position:relative}
 
 /* ---- the group boxes draw their rule ----------------------------------- */
 .sci-gbox{position:relative;overflow:hidden}
@@ -257,13 +225,8 @@
 .sci-gbox[aria-expanded="true"]::after{transform:scaleX(1)}
 
 @media (prefers-reduced-motion:reduce){
-  .sci-sec.is-in .sci-goalname,.sci-sec.is-in .sci-row,.sci-sec.is-in .sci-pick,.sci-sec.is-in .sci-tier{
-    transition:none;transition-delay:0s}
-  .sci-js .sci-sec:not(.is-in) .sci-goalname,.sci-js .sci-sec:not(.is-in) .sci-row,
-  .sci-js .sci-sec:not(.is-in) .sci-pick,.sci-js .sci-sec:not(.is-in) .sci-tier{opacity:1;transform:none}
-  .sci-panel:not([hidden])::before{animation:none;display:none}
-  .sci-bar i{transition:none}
-  .sci-js .sci-bar:not(.is-drawn) i{transform:scaleX(var(--v,0))}
+  .sci-sec.is-in .sci-goalname{transition:none;transition-delay:0s}
+  .sci-js .sci-sec:not(.is-in) .sci-goalname{opacity:1;transform:none}
   .sci-gbox::after{transition:none}
 }
 
@@ -274,7 +237,14 @@
    all drive it, so it is not hover-only on a phone. */
 .sci-goalname{background:transparent;border:0;font-family:inherit;cursor:pointer;
   transition:color .16s ease}
-.sci-goalname:hover,.sci-goalname[aria-expanded="true"]{color:var(--gold)}
+.sci-goalname:hover{color:var(--gold)}
+/* The open goal is the one whose signals are showing underneath, so it is
+   marked more firmly than a hover: gold, heavier, and carrying its own
+   underline. Colour alone at 13px in a wall of 41 names was findable only if
+   you already knew where to look. */
+.sci-goalname[aria-expanded="true"]{color:var(--gold);font-weight:600}
+.sci-goalname[aria-expanded="true"]::before{content:"";position:absolute;left:14px;right:14px;
+  bottom:-1px;height:1.5px;background:var(--gold);border-radius:2px}
 .sci-goalname:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .sci-subs{max-width:860px;margin:22px auto 0;min-height:112px;text-align:center}
 .sci-subs-t{font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--gold)}
@@ -295,14 +265,21 @@
 .sci .closer .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 .sci .closer .btn-primary{background:#8A6B34;color:#F7F2E8}
 
-/* ---- the plate behind the nutrients ------------------------------------- */
-.sci-macros{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px}
-.sci-macro{padding:14px 12px;border:1px solid var(--line);border-radius:10px;background:var(--raised-2);text-align:center}
-.sci-macro-v{font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--gold);font-variant-numeric:tabular-nums}
-.sci-macro-l{margin-top:4px;font-size:11.5px;line-height:1.35;color:var(--ink-60)}
 .sci-legal{display:block;margin-top:8px;font-size:12.5px;color:var(--ink-60)}
-@media (max-width:760px){.sci-macros{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.sci-macro-t{margin-top:5px;font-size:11px;line-height:1.4;color:var(--ink-60);
-  border-top:1px solid var(--line);padding-top:5px}
-.sci-sub-h{margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-60)}
+
+
+/* ---- what the engine does, in three lines -------------------------------
+   Under the walkthrough: the motion shows it, these say it. Three columns on
+   a wide screen, a sequence on a narrow one, no enclosing cards. */
+.sci-steps-sec{--sec:clamp(52px,5.5vw,76px)}
+.sci-steps{list-style:none;margin:0 auto;padding:0;max-width:1060px;display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,3.5vw,52px)}
+.sci-steps li{display:flex;flex-direction:column;gap:7px;padding-top:17px;
+  border-top:1px solid var(--line)}
+.ss-n{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
+  letter-spacing:.08em;color:var(--gold)}
+.sci-steps h3{margin:0;font-size:16px;font-weight:600;letter-spacing:-.012em;color:var(--ink)}
+.sci-steps p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
+@media (max-width:760px){
+  .sci-steps{grid-template-columns:minmax(0,1fr);gap:22px}
+}

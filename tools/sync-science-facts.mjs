@@ -2,7 +2,7 @@
 /**
  * Writes the whole of /science from the engine's own export.
  *
- * WHY THIS EXISTS. /science is the page that says the model can be audited,
+ * WHY THIS EXISTS. /science is the page that says the engine can be audited,
  * so it is the page that can least afford a figure nobody can reproduce. It
  * used to be typed by hand and it drifted: the strip claimed 30+ scored
  * attributes where the engine records 25, and the goal rails showed 37 of 41
@@ -70,8 +70,8 @@ const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
     <div class="ph-inner">
       <span class="eyebrow">The science</span>
-      <h1 class="h1">A scoring model you can audit, line by line.</h1>
-      <p class="lead">One model per category. Every pick scored, safety-checked and explained.</p>
+      <h1 class="h1">A scoring engine you can audit, line by line.</h1>
+      <p class="lead">One engine per vertical. Every pick scored, safety-checked and explained.</p>
       <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
       <div class="ph-ctas">
         <a href="#run" class="btn btn-primary btn-lg">See a real run</a>
@@ -83,9 +83,9 @@ const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
   <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>`;
 
-/* ---- 2. what the model covers ---------------------------------------------
+/* ---- 2. what the engine covers ---------------------------------------------
    The breadth of the category in one band: the counts, every goal by name,
-   and the two figures about a product, which belong with what the model
+   and the two figures about a product, which belong with what the engine
    knows rather than in a strip under the hero. */
 /* "None of the above." is a quiz option, not a signal, so it is the one
    thing dropped between the taxonomy and the page. */
@@ -93,11 +93,66 @@ const SIGNAL = x => x.trim().toLowerCase() !== 'none of the above.';
 const goals = h.goals.map(g => ({ goal: g.goal, subgoals: g.subgoals.filter(SIGNAL) }));
 const goalList = goals.map(g => g.goal);
 const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
-const covers = `<section class="sci-sec" id="covers">
+/* The two figures lead, because what the section is really claiming is the
+   breadth of what the engine knows about a product, and a figure buried in a
+   line under a taxonomy does not claim it. They sit either side of a quiet
+   multiplication sign, which is also how to read them: 223 products described
+   25 ways. Then a rule, then the taxonomy they feed.
+
+   The VALUES still come from the export and are never typed here. The two
+   short labels are written here on purpose: the export's own are long enough
+   to wrap three times at this type size ("attributes recorded for every
+   product in a brand's catalogue"), and a label is not a claim. Every number
+   on this page remains the engine's. */
+/* ---- 2a. the product database ------------------------------------------
+   What "25 attributes recorded" means, shown rather than claimed. Eight real
+   products from the master table, six of their recorded attributes, every
+   value read from the export. The selector and the detail area are the same
+   components as the goal explorer below it, so the two read as a pair: same
+   names-in-a-row control, same panel underneath, same reveal.
+
+   An attribute the table leaves empty says so. Writing "none" into a safety
+   field because it looks tidier would be inventing the one kind of fact this
+   page must not invent. */
+const prods = h.products;
+const firstProd = prods.items[0];
+const prodRows = pr => pr.attributes.map(a =>
+  `<div class="sci-prow"><dt>${esc(a.label)}</dt><dd>${a.value ? esc(a.value) : '<span class="sci-prow-none">None recorded</span>'}</dd></div>`).join('');
+
+const productsSec = `<section class="sci-sec" id="products">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">What the model covers</span>
-      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals, <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals underneath.</h2>
+      <span class="eyebrow">The product database</span>
+      <h2 class="h2"><span data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</span>+ products &#183; <span data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</span> attributes each</h2>
+      <p class="lead">Audited for safety and composition. Explore a product to see what the engine records.</p>
+    </div>
+    <div class="sci-goalgrid sci-in" data-products>
+${prods.items.map(pr => `      <button type="button" class="sci-goalname" data-prod="${esc(pr.name)}" aria-controls="sci-prod" aria-expanded="${pr === firstProd ? 'true' : 'false'}">${esc(pr.name)}</button>`).join('\n')}
+      <span class="sci-goalmore">+${num(prods.more_in_table)} more</span>
+    </div>
+    <div class="sci-subs sci-prod sci-in" id="sci-prod" data-prod-detail aria-live="polite">
+      <div class="sci-subs-t">${esc(firstProd.name)}</div>
+      <dl class="sci-prows">${prodRows(firstProd)}</dl>
+      <p class="sci-prod-foot">${num(prods.attributes_shown)} of the ${num(prods.attributes_recorded)} attributes recorded for every product.</p>
+    </div>
+  </div>
+</section>`;
+
+/* One section, one claim. This one is the taxonomy: what a customer can ask
+   for and how finely. The two product figures that used to open it moved to
+   Safety, where the products themselves are the subject — they were a second,
+   unrelated claim sharing a heading, and no amount of type scale was going to
+   make four numbers about two different things read as one statement.
+
+   With the figures gone it needs no bespoke heading stack: it is the page's
+   ordinary section head, the same eyebrow / h2 / lead as Safety and Markets. */
+const covers = `<section class="sci-sec" id="covers">
+  <div class="wrap">
+    <hr class="sci-divider sci-in">
+    <div class="sci-head sci-in">
+      <span class="eyebrow">What the engine covers</span>
+      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
+      <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
     <div class="sci-goalgrid sci-in" data-goals>
 ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
@@ -106,169 +161,128 @@ ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${
       <div class="sci-subs-t">${esc(openGoal.goal)}</div>
       <div class="sci-subs-list">${openGoal.subgoals.map(x => `<span>${esc(x)}</span>`).join('')}</div>
     </div>
-    <p class="sci-figline sci-in">
-      <span><b data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</b> ${esc(h.counts.products_audited.label)}</span>
-      <span class="sci-sep" aria-hidden="true"></span>
-      <span><b data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</b> ${esc(h.counts.product_attributes.label)}</span>
-    </p>
   </div>
 </section>`;
 
-/* ---- 3. one real run -------------------------------------------------------
-   A short label for what was asked, so a value is never bare and the whole
-   quiz question is never printed. The map shortens; it states nothing. */
-const ASKED = [
-  [/dietary preferences|restrictions/i, 'Diet'],
-  [/fish and seafood/i, 'Fish'],
-  [/dairy/i, 'Dairy'],
-  [/vegetables and legumes/i, 'Vegetables'],
-  [/meals and snacks/i, 'Meals'],
-  [/usual portions/i, 'Portions'],
-  [/weekly eating habits/i, 'Eating habits'],
-  [/how active is your daily routine/i, 'Daily activity'],
-  [/smoke|nicotine/i, 'Smoking'],
-  [/hours do you sleep/i, 'Sleep'],
-  [/drinks other than water/i, 'Drinks a day'],
-  [/sun exposure/i, 'Sun exposure'],
-  [/alcoholic drinks/i, 'Alcohol a week'],
-  [/medical conditions/i, 'Conditions'],
-  [/prescription medications/i, 'Medication'],
-  [/pregnant or breastfeeding/i, 'Pregnancy'],
-  [/popular goals|which resonate/i, 'Goals'],
-];
-const asked = q => (ASKED.find(([re]) => re.test(q || '')) || [null, (q || '').replace(/\?$/, '')])[1];
-
-const c = trace.customer;
+/* The replay is illustrative, but the safety dots are not: they mark the
+   checks that actually removed a product in the engine's exported run, and
+   that evidence is the reason the three examples are worth showing at all.
+   This is the only thing left on the page that reads the real trace. */
 const steps = trace.steps;
-const stepName = n => /food already gives/i.test(n) ? 'Intake' : n;
 
-const tabs = steps.map((s, i) =>
-  `<button type="button" role="tab" class="sci-tab" id="sci-tab-${s.id}" aria-controls="sci-p-${s.id}" aria-selected="${i === 0 ? 'true' : 'false'}" tabindex="${i === 0 ? '0' : '-1'}">${esc(stepName(s.name))}</button>`).join('');
+/* ---- 2b. what the engine does, in three lines -------------------------------
+   The only plain-language explanation on the page, and the only part that
+   describes the walkthrough in words rather than in motion. Deliberately
+   short: no formula, no threshold, no scoring rule. */
+const STEPS = [
+  ['Understand the customer', 'Their answers describe their goals, preferences and relevant health information.'],
+  ['Assess the catalogue', 'Blend scores products against their profile and applies safety checks.'],
+  ['Explain the recommendations', 'The customer receives a personalised plan with a reason for each recommendation.'],
+];
+const steps3 = `<section class="sci-sec sci-steps-sec" id="how">
+  <div class="wrap">
+    <ol class="sci-steps sci-in">
+${STEPS.map(([t, d], i) => `      <li><span class="ss-n">${pad(i + 1)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n')}
+    </ol>
+  </div>
+</section>`;
 
-const fact = (label, value) =>
-  `<span class="sci-fact"><b>${esc(label)}</b>${esc(value)}</span>`;
+/* ---- 3. the terminal -------------------------------------------------------
+   One dark terminal that runs for the whole walkthrough: a log scrolling up
+   the left, the catalogue as a pixel matrix on the right, a heading and one
+   sentence above them that hold still long enough to read, and seven stage
+   ticks. The terminal does not restart between stages; only what it is
+   printing changes.
 
-const row = (t, v, s, cls = '') =>
-  `<div class="sci-row${cls}"><span class="sci-row-t">${esc(t)}</span>` +
-  (v == null || v === '' ? '' : `<span class="sci-row-v">${esc(v)}</span>`) +
-  (s ? `<span class="sci-row-s">${esc(s)}</span>` : '') + '</div>';
+   PRESENTATION DATA ONLY. The log lines are generated in science.js from
+   small pools of illustrative text. No score, weight, threshold or mapping
+   appears in any of them: a product line carries an identifier and a status,
+   never the number behind the decision. The card says "Illustrative
+   simulation. Sample data." on its face.
 
-/* Intake against her own target, so a bar means something. */
-const targetsStep = steps.find(s => s.per_nutrient && s.authority) || { per_nutrient: [], lines: [] };
-const targetOf = new Map(targetsStep.per_nutrient.map(t => [t.nutrient, t]));
-/* The macros have targets too, in the targets step's own lines rather
-   than its per-nutrient list, which is why they were showing as bare
-   figures with nothing to read them against. Matched on the first word,
-   so "Energy target" meets "Energy from that food". */
-const macroTarget = new Map((targetsStep.lines || []).map(l =>
-  [String(l.text).split(' ')[0].toLowerCase(), l]));
+   The markup's resting state is the END of the run — the matrix already
+   carries its excluded and selected cells, the plan is already listed, and
+   the heading is stage seven. That is what a reader gets with no JavaScript,
+   under reduced motion, and in a frozen screenshot, and it is the same thing
+   "skip to the plan" gives them. science.js rewinds to stage one only when it
+   is allowed to animate. */
+const MX = 160;                      /* 16 x 10, sized so no row is clipped */
+const MX_CUT = [7, 19, 26, 41, 53, 68, 74, 88, 97, 111, 123, 134, 141, 150, 157];
+const MX_PICK = [34, 60, 92, 118, 129, 146];
+const PLAN = [
+  { n: 'Vitamin D3', why: 'Covers the largest gap between estimated intake and target.' },
+  { n: 'Magnesium Glycinate', why: 'Matches two stated goals, and nothing else in the plan carries it.' },
+  { n: 'Omega-3 (Algae Oil)', why: 'The form that suits this diet, where the fish-oil version does not.' },
+];
+const STAGE_NAMES = [
+  ['Reading the signals', 'Organising the customer&#8217;s answers into a personal profile.'],
+  ['Estimating intakes', 'Estimating nutritional intake from reported eating habits.'],
+  ['Determining targets', 'Selecting reference targets for this profile.'],
+  ['Calculating gaps', 'Comparing estimated intake with targets to identify possible gaps.'],
+  ['Scoring the catalogue', 'Assessing products against the customer&#8217;s profile, goals and gaps.'],
+  ['Applying safety checks', 'Removing unsuitable products, regardless of their match score.'],
+  ['Building the personalised plan', 'Selecting a complementary plan and explaining every recommendation.'],
+];
 
-function panelBody(s) {
-  if (s.groups) {
-    const profile = `<div class="sci-siggroup"><h4>Profile</h4><div class="sci-facts">` +
-      [['Name', c.name], ['Age', c.age], ['Sex', c.sex], ['Height', c.height], ['Weight', c.weight], ['Country', c.country]]
-        .filter(([, v]) => v).map(([k, v]) => fact(k, v)).join('') + `</div></div>`;
-    const g = s.groups.map(gr => {
-      const lines = gr.lines || [];
-      return `<div class="sci-siggroup"><h4>${esc(gr.group)}</h4><div class="sci-facts">` +
-        lines.map(l => `<button type="button" class="sci-fact is-tap" data-changes="${esc(l.changes || '')}"><b>${esc(asked(l.question))}</b>${esc(l.answer || l.text)}</button>`).join('') +
-        `</div><p class="sci-sigwhy" data-why>${esc((lines[0] || {}).changes || '')}</p></div>`;
-    }).join('');
-    const d = (s.derived || []).length
-      ? `<div class="sci-siggroup"><h4>Derived, not asked</h4><div class="sci-facts">` +
-        s.derived.map(l => `<button type="button" class="sci-fact is-tap" data-changes="${esc(l.changes || '')}"><b>${esc(l.text)}</b>${esc(l.value)}</button>`).join('') +
-        `</div><p class="sci-sigwhy" data-why>${esc((s.derived[0] || {}).changes || '')}</p></div>`
-      : '';
-    return profile + g + d;
-  }
-  if (s.per_nutrient && s.already_met_by_diet) {
-    const met = new Set(s.already_met_by_diet.nutrients_reading_as_met || []);
-    /* The macros and the modelled plate they come from. Dropped when this
-       step was rewritten around the per-nutrient bars, which left the
-       page showing micronutrients and no food. */
-    const macros = `<div class="sci-macros">` + (s.lines || []).map(l => {
-      const t = macroTarget.get(String(l.text).split(' ')[0].toLowerCase());
-      return `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div>` +
-        `<div class="sci-macro-l">${esc(l.text)}</div>` +
-        (t ? `<div class="sci-macro-t">target ${esc(t.value)}</div>` : '') + `</div>`;
-    }).join('') + `</div>`;
-    return macros + s.per_nutrient.map(x => {
-      const t = targetOf.get(x.nutrient);
-      const pct = t && t.target ? (x.intake_from_food || 0) / t.target : null;
-      const v = `${num(Math.round((x.intake_from_food || 0) * 10) / 10)} ${x.unit || ''}`.trim() +
-        (t ? ` of ${num(t.target)} ${t.unit || ''}`.trimEnd() : '');
-      return `<div class="sci-row"><span class="sci-row-t">${esc(x.nutrient)}` +
-        (met.has(x.nutrient) ? `<span class="sci-met">Already met by diet</span>` : '') +
-        `</span><span class="sci-row-v">${esc(v)}</span>` +
-        (pct != null ? `<div class="sci-bar ${met.has(x.nutrient) ? 'is-ok' : ''}"><i style="--v:${Math.max(.02, Math.min(1, pct)).toFixed(3)}"></i></div>` : '') +
-        `</div>`;
-    }).join('') +
-    /* The products her own food took off the list, with the reason the
-       engine gave. In the export and not on the page until now, which
-       left the diet credit as a label on a bar rather than something
-       with a consequence. */
-    ((s.already_met_by_diet.products_removed || []).length
-      ? `<div class="sci-after"><h4 class="sci-sub-h">Removed because her food already covers it</h4>` +
-        s.already_met_by_diet.products_removed.map(r =>
-          row(r.product, '', r.because, ' is-cut')).join('') + `</div>`
-      : '');
-  }
-  if (s.per_nutrient && s.authority) {
-    const a = s.authority;
-    const macros = (s.lines || []).length
-      ? `<div class="sci-macros">` + s.lines.map(l =>
-          `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div>` +
-          `<div class="sci-macro-l">${esc(l.text)}</div>` +
-          (l.basis ? `<div class="sci-macro-t">${esc(l.basis)}</div>` : '') + `</div>`).join('') + `</div>`
-      : '';
-    return macros + row(`Targets for ${a.market}`, a.name) +
-      s.per_nutrient.map(x => row(x.nutrient, `${num(x.target)} ${x.unit || ''}`.trim())).join('');
-  }
-  if (s.ranking_order) {
-    const hit = new Set((s.top_candidates || []).map(t => t.ranked_by));
-    const ladder = `<div class="sci-ladder">` + s.ranking_order.map((t, i) =>
-      `<div class="sci-tier${hit.has(t) ? ' is-hit' : ''}"><b>${pad(i + 1)}</b><span>${esc(t)}</span></div>`).join('') + `</div>`;
-    const cand = (s.top_candidates || []).map(t =>
-      row(`${t.position}. ${t.product}`, '', t.factors ? t.factors.join(' · ') : '')).join('');
-    return ladder + (cand ? `<div class="sci-after">${cand}</div>` : '');
-  }
-  if (s.removed) {
-    /* Four of the twenty are plan checks rather than safety checks, and
-       the engine's own `kind` says which, so the page does not present
-       them as the same thing. */
-    return s.removed.map(r => row(r.product,
-      r.check + (r.kind && r.kind !== 'safety check' ? ' · plan check' : ''), r.why, ' is-cut')).join('');
-  }
-  if (s.picks) {
-    return s.picks.map(p =>
-      `<div class="sci-pick"><div class="sci-pick-n">${esc(p.position)}</div><div>` +
-      `<div class="sci-pick-p">${esc(p.product)}<span class="sci-pick-tier">${esc(p.tier)}</span></div>` +
-      `<p class="sci-pick-w">${esc(p.why)}</p></div></div>`).join('');
-  }
-  return (s.lines || []).map(l => row(l.text, l.value, l.note || l.source)).join('');
-}
-
-const panels = steps.map((s, i) =>
-  `      <div class="sci-panel" role="tabpanel" id="sci-p-${s.id}" aria-labelledby="sci-tab-${s.id}" tabindex="0"${i === 0 ? '' : ' hidden'}>${panelBody(s)}</div>`).join('\n');
-
-const F = trace.counts;
-const funnel = `<div class="sci-funnel" data-funnel>
-      <div class="sci-fstep" data-at="0"><div class="sci-fn">${num(F.scored)}</div><div class="sci-fl">scored</div></div>
-      <div class="sci-fstep" data-at="${steps.findIndex(s => s.removed)}"><div class="sci-fn">${num(F.passed_the_checks)}</div><div class="sci-fl">passed the checks</div></div>
-      <div class="sci-fstep" data-at="${steps.findIndex(s => s.picks)}"><div class="sci-fn">${num(F.recommended)}</div><div class="sci-fl">recommended</div></div>
-    </div>`;
+/* The end state, by a rule rather than by chance, so the markup the page
+   ships and the state the handler lands on are the same picture. Assessed
+   cells keep a dim light, the excluded are red, the selected green. */
+const mxClass = i => MX_CUT.includes(i) ? 'is-cut'
+  : MX_PICK.includes(i) ? 'is-pick'
+  : (i * 7 + 3) % 10 < 6 ? 'is-on' : '';
+const cells = Array.from({ length: MX }, (_, i) =>
+  `<i class="${mxClass(i)}"></i>`).join('');
+const ticks = STAGE_NAMES.map(([n], i) =>
+  `<button type="button" class="tm-tick" data-goto="${i}" aria-label="${esc(n)}"${i === 6 ? ' aria-current="step"' : ''}></button>`).join('');
+const heads = STAGE_NAMES.map(([n, say], i) =>
+  `<span class="tm-head" data-head="${i}"${i === 6 ? '' : ' hidden'}><b>${n}</b>${say}</span>`).join('');
 
 const run = `<section class="sci-sec" id="run">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">One real run</span>
-      <h2 class="h2">Watch the engine decide for ${esc(c.name)}.</h2>
-      <p class="lead">Every step below came out of a real run.</p>
+      <span class="eyebrow">The engine, end to end</span>
+      <h2 class="h2">Watch it decide.</h2>
+      <p class="lead">Seven stages, from the first answer to a readable plan.</p>
     </div>
-    <div class="sci-card sci-stage sci-in" data-run>
-      <div class="sci-tabs" role="tablist" aria-label="The steps of one run">${tabs}</div>
-${panels}
-      ${funnel}
+    <div class="sci-card tm sci-in" data-term>
+      <div class="tm-top">
+        <span class="tm-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="tm-path">blend/engine &#8212; walkthrough</span>
+        <span class="tm-live" data-tm-state>idle</span>
+      </div>
+      <p class="tm-caption" aria-live="polite">${heads}</p>
+      <div class="tm-body">
+        <div class="tm-logwrap">
+          <div class="tm-persona" data-tm-persona hidden>
+            <span class="tm-persona-h">Customer profile</span>
+            <dl>
+              <div><dt>Age band</dt><dd>31&#8211;50</dd></div>
+              <div><dt>Market</dt><dd>United Kingdom</dd></div>
+              <div><dt>Diet</dt><dd>Vegetarian, no fish</dd></div>
+              <div><dt>Goals</dt><dd>Energy, sleep</dd></div>
+              <div><dt>Activity</dt><dd>Sedentary</dd></div>
+              <div><dt>Declared</dt><dd>Medication, not pregnant</dd></div>
+            </dl>
+          </div>
+          <div class="tm-log" data-tm-log role="log" aria-label="Processing log"></div>
+          <div class="tm-plan" data-tm-plan>
+            <div class="tm-plan-h"><span>PLAN</span><span>${num(PLAN.length)} selected</span></div>
+            <ol>
+${PLAN.map((x, i) => `              <li><span class="tm-pi">${pad(i + 1)}</span><span class="tm-pn">${esc(x.n)}</span><span class="tm-pw">${esc(x.why)}</span></li>`).join('\n')}
+            </ol>
+          </div>
+        </div>
+        <div class="tm-mxwrap">
+          <div class="tm-mx is-dim" data-tm-mx aria-hidden="true"><span class="tm-sweep" data-tm-sweep></span>${cells}</div>
+          <p class="tm-key"><span><i class="k-gold"></i>assessed</span><span><i class="k-cut"></i>excluded</span><span><i class="k-pick"></i>selected</span></p>
+        </div>
+      </div>
+      <div class="tm-ticks" role="group" aria-label="Stages">${ticks}</div>
+      <div class="tm-controls">
+        <button type="button" class="tm-btn" data-tm-toggle aria-label="Start the walkthrough">Run</button>
+        <button type="button" class="tm-btn" data-tm-replay>Restart</button>
+        <span class="tm-note">Illustrative simulation. Sample data.</span>
+      </div>
     </div>
   </div>
 </section>`;
@@ -279,38 +293,57 @@ const groups = [...new Set(h.safety_checks.map(x => x.group))]
   .map(g => ({ group: g, checks: h.safety_checks.filter(x => x.group === g) }))
   .sort((a, b) => b.checks.length - a.checks.length);
 
-const groupBtns = groups.map((g, i) =>
-  `      <button type="button" class="sci-gbox" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="sci-g-${i}" data-group="${i}">` +
-  `<span class="sci-gbox-n">${g.checks.length}</span><span class="sci-gbox-name">${esc(cap(g.group))}</span></button>`).join('\n');
+/* Counts and categories, not a catalogue of rules.
+   The seventeen checks used to be listed by name with the rule each applies,
+   which is a buildable specification: a competitor reads the page and
+   implements it. What a client needs is that the checks exist, how many there
+   are, what kinds, that none can be switched off, and evidence they fire on a
+   real customer — all of which survives here.
 
-const groupBodies = groups.map((g, i) =>
-  `      <div class="sci-glist" id="sci-g-${i}"${i === 0 ? '' : ' hidden'}>` +
-  g.checks.map(ch => `<div class="sci-check"><div class="sci-check-n">${esc(ch.name)}` +
-    (firedNames.has(ch.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
-    (ch.effect === 'warns' ? `<span class="sci-warn" role="note" tabindex="0"><span class="sci-tip">Warns, removes nothing</span></span>` : '') +
-    `</div><p class="sci-check-d">${esc(ch.does)}</p></div>`).join('') + `</div>`).join('\n');
+   Three are still named in full, chosen because they are the ones any serious
+   competitor has already thought of: pregnancy, a tolerable upper limit, a
+   hard medication conflict. The ones that are actually ours stay off the page,
+   and so do all six plan checks.
+
+   The tiles do not open. They were buttons over a list; with no list to open,
+   a thing that still looked pressable would be worse than one that plainly is
+   not. */
+const PUBLIC_CHECKS = [
+  'Pregnancy and breastfeeding safety',
+  'Tolerable upper limit',
+  'Hard medication conflict',
+];
+const allChecks = h.safety_checks.concat(h.plan_checks || []);
+const examples = PUBLIC_CHECKS.map(n => allChecks.find(c => c.name === n)).filter(Boolean);
+if (examples.length !== PUBLIC_CHECKS.length) {
+  console.error('FAILED: a named example check is no longer in the engine export:',
+    PUBLIC_CHECKS.filter(n => !allChecks.some(c => c.name === n)).join(', '));
+  process.exit(1);
+}
+
+const groupTiles = groups.map(g =>
+  `      <div class="sci-gbox sci-gbox--static"><span class="sci-gbox-n">${g.checks.length}</span>` +
+  `<span class="sci-gbox-name">${esc(cap(g.group))}</span></div>`).join('\n') +
+  `\n      <div class="sci-gbox sci-gbox--static sci-gbox--plan"><span class="sci-gbox-n">${num(h.counts.plan_checks.value)}</span>` +
+  `<span class="sci-gbox-name">Plan checks</span></div>`;
+
+const exampleList = `      <div class="sci-glist" id="sci-examples">` +
+  examples.map(ch => `<div class="sci-check"><div class="sci-check-n">${esc(ch.name)}` +
+    (firedNames.has(ch.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">Fired in a real run</span></span>` : '') +
+    `</div><p class="sci-check-d">${esc(ch.does)}</p></div>`).join('') + `</div>`;
 
 const safety = `<section class="sci-sec" id="safety">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">Safety</span>
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
-      <p class="lead">Sixteen remove a product; one adds a warning instead.</p>
+      <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
     </div>
-    <div class="sci-groups sci-in" data-groups>
-${groupBtns}
+    <div class="sci-groups sci-in">
+${groupTiles}
     </div>
-${groupBodies}
-    <div class="sci-plan sci-in">
-      <button type="button" class="sci-plan-btn" aria-expanded="false" aria-controls="sci-plan-list">
-        <span>Plus ${num(h.counts.plan_checks.value)} plan checks</span><span class="sci-caret" aria-hidden="true"></span>
-      </button>
-      <div class="sci-glist" id="sci-plan-list" hidden>
-        ${h.plan_checks.map(x => `<div class="sci-check"><div class="sci-check-n">${esc(x.name)}` +
-          (firedNames.has(x.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
-          `</div><p class="sci-check-d">${esc(x.does)}</p></div>`).join('')}
-      </div>
-    </div>
+${exampleList}
+    <p class="sci-prod-foot sci-in">${num(examples.length)} of the ${num(h.counts.safety_checks.value)} checks that can remove a product.</p>
   </div>
 </section>`;
 
@@ -369,7 +402,7 @@ const markets = `<section class="sci-sec" id="markets">
       <div class="sci-ladders" data-ladders>
 ${first.nutrients.map(ladder).join('\n')}
       </div>
-      <p class="sci-note">Shown for a woman aged 31 to 50. Every real target is computed for the person.</p>
+      <p class="sci-note"><span>Shown for a woman aged 31 to 50.</span><span>${num(first.nutrients.length)} of the ${num(h.countries.market_varying_nutrients)} nutrients whose reference value changes with the market.</span><span>Every real target is computed for the person, not read off this table.</span></p>
     </div>
   </div>
 </section>`;
@@ -387,9 +420,20 @@ const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" i
   </div>
 </section>`;
 
-const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
+/* What ships in the page is not what the engine exports. Hiding the check
+   list in the markup while shipping it in a JSON island would hide it from
+   nobody. The counts by group stay, because the tiles are drawn from them
+   and they are the claim; the per-check names and rules do not. */
+const PUBLIC_V = JSON.parse(JSON.stringify(V));
+for (const key of Object.keys(PUBLIC_V)) {
+  delete PUBLIC_V[key].safety_checks;
+  delete PUBLIC_V[key].plan_checks;
+  delete PUBLIC_V[key].also_in_the_chain;
+}
 
-const body = [hero, covers, run, safety, markets, cta, data].join('\n\n');
+const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: PUBLIC_V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
+
+const body = [hero, run, steps3, productsSec, covers, safety, markets, cta, data].join('\n\n');
 
 /* ---- splice ------------------------------------------------------------------ */
 let page = readFileSync(PAGE, 'utf8');

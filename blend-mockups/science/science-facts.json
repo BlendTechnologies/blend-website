@@ -95,6 +95,131 @@
         },
         "drive_a_recommendation": 18
       },
+      "products": {
+        "note": "Selected products from the master table, with six of the attributes recorded for every product. Values are read from the table as they stand; an empty field is shown empty.",
+        "attributes_shown": 6,
+        "attributes_recorded": 25,
+        "shown": 4,
+        "more_in_table": 219,
+        "items": [
+          {
+            "name": "Vitamin D3",
+            "attributes": [
+              {
+                "label": "Category",
+                "value": "Vitamin"
+              },
+              {
+                "label": "Serving form",
+                "value": "Softgel"
+              },
+              {
+                "label": "Recommended serving",
+                "value": "25 mcg"
+              },
+              {
+                "label": "Consumption timing",
+                "value": "With meal"
+              },
+              {
+                "label": "Goals matched",
+                "value": "Bone & Joint Health, Immunity, Healthy Ageing & Longevity, Mood & Emotions, Conception Support, Prenatal Support, Postnatal Support, Men's Fertility, Plant-Based Nutrition"
+              },
+              {
+                "label": "Not suitable for",
+                "value": "Vegan"
+              }
+            ]
+          },
+          {
+            "name": "Magnesium Glycinate",
+            "attributes": [
+              {
+                "label": "Category",
+                "value": "Mineral"
+              },
+              {
+                "label": "Serving form",
+                "value": "Capsule"
+              },
+              {
+                "label": "Recommended serving",
+                "value": "200 mg"
+              },
+              {
+                "label": "Consumption timing",
+                "value": "Before bed"
+              },
+              {
+                "label": "Goals matched",
+                "value": "Sleep, Stress, Mood & Emotions, Bone & Joint Health, Boost Energy, Cycle Support, Prenatal Support, Everyday Comfort, Recovery & Repair"
+              },
+              {
+                "label": "Not suitable for",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "name": "Omega-3 (Fish Oil)",
+            "attributes": [
+              {
+                "label": "Category",
+                "value": "Essential Fatty Acids"
+              },
+              {
+                "label": "Serving form",
+                "value": "Softgel"
+              },
+              {
+                "label": "Recommended serving",
+                "value": "1 g"
+              },
+              {
+                "label": "Consumption timing",
+                "value": "With meal"
+              },
+              {
+                "label": "Goals matched",
+                "value": "Heart Health, Cognitive Health, Bone & Joint Health, Mood & Emotions, Healthy Ageing & Longevity, Eye Health, Conception Support, Prenatal Support, Postnatal Support, Men's Fertility"
+              },
+              {
+                "label": "Not suitable for",
+                "value": "Vegan, Vegetarian"
+              }
+            ]
+          },
+          {
+            "name": "Creatine Monohydrate",
+            "attributes": [
+              {
+                "label": "Category",
+                "value": "Performance Enhancer"
+              },
+              {
+                "label": "Serving form",
+                "value": "Scoop"
+              },
+              {
+                "label": "Recommended serving",
+                "value": "5 g"
+              },
+              {
+                "label": "Consumption timing",
+                "value": "With meal"
+              },
+              {
+                "label": "Goals matched",
+                "value": "Build Muscle, Increase Endurance, Mass Gain, Tone & Definition, Strength & Power, Recovery & Repair"
+              },
+              {
+                "label": "Not suitable for",
+                "value": ""
+              }
+            ]
+          }
+        ]
+      },
       "safety_checks": [
         {
           "name": "Hard medication conflict",
@@ -318,15 +443,13 @@
         "note": "Shortfall is how far below target a nutrient must fall before a product is recommended for it. It sits on top of the upper limit, which refuses any dose that would breach a tolerable intake.",
         "nutrients": [
           {
-            "nutrient": "Protein",
-            "shortfall_before_recommend": 0.05,
-            "shortfall_pct": 5.0,
-            "strictness": "lenient",
-            "upper_limit": null,
-            "upper_limit_unit": null,
-            "upper_limit_note": "none established",
-            "target_reference_adult": null,
-            "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)"
+            "nutrient": "Calcium",
+            "shortfall_before_recommend": 0.25,
+            "shortfall_pct": 25.0,
+            "strictness": "strict",
+            "upper_limit": 2000,
+            "upper_limit_unit": "mg",
+            "target_reference_adult": 700.0
           },
           {
             "nutrient": "Vitamin A",
@@ -365,15 +488,13 @@
             "target_reference_adult": 14.8
           },
           {
-            "nutrient": "Omega-3",
-            "shortfall_before_recommend": 0.1,
-            "shortfall_pct": 10.0,
-            "strictness": "lenient",
-            "upper_limit": null,
-            "upper_limit_unit": "g EPA+DHA",
-            "upper_limit_note": "none established",
-            "target_reference_adult": 0.25,
-            "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows"
+            "nutrient": "Zinc",
+            "shortfall_before_recommend": 0.25,
+            "shortfall_pct": 25.0,
+            "strictness": "strict",
+            "upper_limit": 25,
+            "upper_limit_unit": "mg",
+            "target_reference_adult": 7.0
           }
         ]
       },
@@ -476,6 +597,8 @@
         ]
       },
       "countries": {
+        "market_varying_nutrients": 22,
+        "market_varying_note": "Nutrients with a per-market reference value in the overlays. The rest take the same target in every market.",
         "summary": "Three reference sets cover every market the engine runs today. The United Kingdom and the European Union each have their own; the United States and Canada share one, because the Dietary Reference Intakes are a joint set.",
         "how_a_market_is_decided": "The customer's own country decides, and the brand's home market fills the gap when it is unknown. A country with no reference set of its own falls back to its region, and anything that resolves to nothing at all is judged against the United Kingdom.",
         "what_is_not_per_country": [
@@ -506,15 +629,13 @@
             },
             "nutrients": [
               {
-                "nutrient": "Protein",
-                "target_reference_adult": null,
-                "target_unit": null,
-                "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)",
-                "shortfall_before_recommend": 0.05,
-                "shortfall_pct": 5.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Calcium",
+                "target_reference_adult": 700.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 2000
               },
               {
                 "nutrient": "Vitamin A",
@@ -553,15 +674,13 @@
                 "upper_limit": 40
               },
               {
-                "nutrient": "Omega-3",
-                "target_reference_adult": 0.25,
-                "target_unit": "g EPA+DHA",
-                "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows",
-                "shortfall_before_recommend": 0.1,
-                "shortfall_pct": 10.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Zinc",
+                "target_reference_adult": 7.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 25
               }
             ]
           },
@@ -612,15 +731,13 @@
             },
             "nutrients": [
               {
-                "nutrient": "Protein",
-                "target_reference_adult": null,
-                "target_unit": null,
-                "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)",
-                "shortfall_before_recommend": 0.05,
-                "shortfall_pct": 5.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Calcium",
+                "target_reference_adult": 950.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 2000
               },
               {
                 "nutrient": "Vitamin A",
@@ -659,15 +776,13 @@
                 "upper_limit": 40
               },
               {
-                "nutrient": "Omega-3",
-                "target_reference_adult": 0.25,
-                "target_unit": "g EPA+DHA",
-                "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows",
-                "shortfall_before_recommend": 0.1,
-                "shortfall_pct": 10.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Zinc",
+                "target_reference_adult": 9.3,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 25
               }
             ]
           },
@@ -678,8 +793,15 @@
             ],
             "authority": {
               "name": "Dietary Reference Intakes, the joint United States and Canada set",
-              "reference": "Carried in the engine's shipped reference table, whose provenance in our data is the legacy master spreadsheet rather than a cited publication. Unlike the United Kingdom and European Union sets it has no source or licence recorded against it.",
-              "licence": null
+              "reference": "Food and Nutrition Board, National Academies of Sciences, Engineering and Medicine. Recommended Dietary Allowances where established, Adequate Intakes otherwise, across the 1997 to 2011 reports with calcium and vitamin D updated in 2011 and potassium in 2019. Health Canada publishes the same joint set. Recommended intakes only: the upper limits are the engine's own.",
+              "adequate_intake_nutrients": [
+                "Manganese",
+                "Vitamin B5",
+                "Vitamin B7",
+                "Potassium"
+              ],
+              "verified": "Every value this market carries for the reference adult was cross-checked against the published DRI tables in October 2026, nutrient by nutrient.",
+              "licence": "No open licence. NASEM publications are United States copyright and Health Canada publishes the same set under Crown Copyright; the values themselves are facts and are not subject to copyright."
             },
             "food_composition": "The same table for every market: Frida, the Danish Food Composition Database. There is no per-country food composition table.",
             "fortification_overlay": false,
@@ -689,15 +811,13 @@
             },
             "nutrients": [
               {
-                "nutrient": "Protein",
-                "target_reference_adult": null,
-                "target_unit": null,
-                "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)",
-                "shortfall_before_recommend": 0.05,
-                "shortfall_pct": 5.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Calcium",
+                "target_reference_adult": 1000.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 2000
               },
               {
                 "nutrient": "Vitamin A",
@@ -736,15 +856,13 @@
                 "upper_limit": 40
               },
               {
-                "nutrient": "Omega-3",
-                "target_reference_adult": 0.25,
-                "target_unit": "g EPA+DHA",
-                "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows",
-                "shortfall_before_recommend": 0.1,
-                "shortfall_pct": 10.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Zinc",
+                "target_reference_adult": 8.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 25
               }
             ]
           }
