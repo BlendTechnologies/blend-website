@@ -66,59 +66,6 @@
 
 [class*="sci-"]:hover > .sci-tip,[class*="sci-"]:focus-visible > .sci-tip{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ---- the run ----------------------------------------------------------- */
-.sci-stage{max-width:1000px;margin:0 auto;overflow:hidden}
-.sci-tabs{display:flex;gap:4px;padding:10px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
-.sci-tabs::-webkit-scrollbar{display:none}
-.sci-tab{flex:0 0 auto;padding:8px 14px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--ink-80);background:transparent;font-family:inherit;cursor:pointer;white-space:nowrap;transition:background .18s ease,color .18s ease}
-.sci-tab:hover{background:var(--subtle)}
-.sci-tab[aria-selected="true"]{background:var(--gold);color:#17140F;font-weight:600}
-.sci-tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-panel{padding:24px}
-.sci-panel:not([hidden]){animation:sci-panel-in .28s cubic-bezier(.2,.7,.25,1)}
-@keyframes sci-panel-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-.sci-siggroup + .sci-siggroup{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
-.sci-siggroup h4{margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.sci-facts{display:flex;flex-wrap:wrap;gap:6px}
-.sci-fact{display:inline-flex;align-items:baseline;gap:7px;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--raised-2);color:var(--ink);font-family:inherit;text-align:left}
-.sci-fact b{font-weight:600;color:var(--muted);font-size:11.5px;letter-spacing:.02em}
-.sci-fact.is-tap{cursor:pointer;transition:border-color .18s ease,background .18s ease}
-.sci-fact.is-tap:hover,.sci-fact.is-tap.is-on{border-color:var(--gold);background:var(--gold-soft)}
-.sci-fact:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-sigwhy{margin:10px 0 0;min-height:2.6em;font-size:13px;line-height:1.55;color:var(--muted)}
-
-.sci-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 20px;padding:11px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.sci-row:last-child{border-bottom:0}
-.sci-row-t{font-size:14px;line-height:1.45;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.sci-row-v{font-size:13px;font-weight:600;white-space:nowrap;font-feature-settings:"tnum";color:var(--ink-80)}
-.sci-row-s{grid-column:1/-1;font-size:12.5px;line-height:1.55;color:var(--muted)}
-.sci-row.is-cut .sci-row-t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--bad)}
-.sci-after{margin-top:16px}
-/* scaleX, so a bar keeps its width at any breakpoint instead of being
-   laid out from a percentage that collapses in a narrow grid cell. */
-.sci-bar{grid-column:1/-1;margin-top:7px;height:6px;border-radius:999px;background:var(--subtle);overflow:hidden}
-.sci-bar i{display:block;height:100%;border-radius:999px;background:var(--gold);transform:scaleX(var(--v,0));transform-origin:0 50%}
-.sci-bar.is-ok i{background:var(--ok)}
-.sci-met{font-size:11px;font-weight:600;color:var(--ok);background:rgba(127,168,106,.14);border-radius:999px;padding:2px 8px}
-.sci-ladder{display:grid;gap:7px}
-.sci-tier{display:grid;grid-template-columns:26px minmax(0,1fr);gap:12px;align-items:baseline;font-size:13.5px;color:var(--ink-80);line-height:1.5}
-.sci-tier b{color:var(--muted);font-size:11.5px;font-feature-settings:"tnum"}
-.sci-tier.is-hit{color:var(--ink)}
-.sci-tier.is-hit b{color:var(--gold-strong)}
-.sci-pick{display:grid;grid-template-columns:26px minmax(0,1fr);gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
-.sci-pick:last-child{border-bottom:0}
-.sci-pick-n{font-size:13px;font-weight:600;color:var(--gold-strong);font-feature-settings:"tnum"}
-.sci-pick-p{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.sci-pick-tier{display:inline-block;margin-left:8px;font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gold-strong);background:var(--gold-soft);border-radius:999px;padding:3px 8px;vertical-align:2px}
-.sci-pick-w{margin:5px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
-.sci-funnel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);background:var(--raised-2)}
-.sci-fstep{padding:14px 16px;border-right:1px solid var(--line);text-align:center}
-.sci-fstep:last-child{border-right:0}
-.sci-fn{font-size:22px;font-weight:600;letter-spacing:-.02em;font-feature-settings:"tnum"}
-.sci-fstep.is-on .sci-fn{color:var(--gold-strong)}
-.sci-fl{margin-top:3px;font-size:12px;color:var(--muted)}
-
 /* ---- safety ------------------------------------------------------------- */
 .sci-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:900px;margin:0 auto}
 .sci-gbox{display:flex;align-items:center;gap:12px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--raised);font-family:inherit;color:inherit;cursor:pointer;text-align:left;transition:border-color .18s ease,background .18s ease}
@@ -200,19 +147,11 @@
   .sci-ladders{grid-template-columns:minmax(0,1fr);gap:0}
 }
 @media (max-width:760px){
-  .sci-panel{padding:18px}
-  .sci-funnel{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .sci-fstep{padding:12px 6px}
-  .sci-fn{font-size:19px}
-  .sci-fl{font-size:11px}
-  .sci-row{grid-template-columns:minmax(0,1fr)}
-  .sci-row-v{text-align:left}
   .sci-glist{padding:4px 16px}
 }
 @media (prefers-reduced-motion:reduce){
   .sci-js .sci-sec:not(.is-in) .sci-in{opacity:1;transform:none}
   .sci-sec .sci-in{transition:none}
-  .sci-panel:not([hidden]){animation:none}
   .sci-mark,.sci-tip{transition:none}
 }
 
@@ -226,7 +165,7 @@
    end state is the resting state, so reduced motion and a
    capture with animation off both show the finished page.
    ============================================================ */
-.sci [data-count],.sci-fn,.sci-gbox-n,.sci-row-v,.sci-mark i,.sci-prow dd{
+.sci [data-count],.sci-gbox-n,.sci-mark i,.sci-prow dd{
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
 /* ---- what the model covers --------------------------------------------- */
@@ -277,30 +216,11 @@
 }
 
 /* ---- corner ticks: a panel that carries a reading ----------------------- */
-.sci-stage,.sci-glist{position:relative}
-.sci-stage::before,.sci-stage::after{content:"";position:absolute;width:10px;height:10px;pointer-events:none;
+.rp,.sci-glist{position:relative}
+.rp::before,.rp::after{content:"";position:absolute;width:10px;height:10px;pointer-events:none;z-index:2;
   border:1px solid var(--gold);opacity:.5}
-.sci-stage::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:3px 0 0 0}
-.sci-stage::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 3px 0}
-
-/* ---- the sweep when a step is chosen ----------------------------------- */
-.sci-panel{position:relative}
-.sci-panel:not([hidden])::before{content:"";position:absolute;inset:0 0 auto;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7;
-  animation:sci-sweep .5s cubic-bezier(.3,0,.2,1) forwards;pointer-events:none}
-@keyframes sci-sweep{from{transform:scaleX(0);transform-origin:0 50%}to{transform:scaleX(1);transform-origin:0 50%;opacity:0}}
-
-/* ---- bars draw themselves once their step is open ---------------------- */
-.sci-bar i{transition:transform .8s cubic-bezier(.2,.7,.25,1)}
-.sci-bar.is-drawn i{transform:scaleX(var(--v,0))}
-.sci-js .sci-bar:not(.is-drawn) i{transform:scaleX(0)}
-
-/* ---- rows arrive in order ---------------------------------------------- */
-.sci-js .sci-sec:not(.is-in) .sci-row,.sci-js .sci-sec:not(.is-in) .sci-pick,
-.sci-js .sci-sec:not(.is-in) .sci-tier{opacity:0;transform:translateY(6px)}
-.sci-sec.is-in .sci-row,.sci-sec.is-in .sci-pick,.sci-sec.is-in .sci-tier{opacity:1;transform:none;
-  transition:opacity .35s ease,transform .35s cubic-bezier(.2,.7,.25,1);
-  transition-delay:calc(var(--i,0) * 22ms)}
+.rp::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:3px 0 0 0}
+.rp::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 3px 0}
 
 /* ---- the group boxes draw their rule ----------------------------------- */
 .sci-gbox{position:relative;overflow:hidden}
@@ -309,13 +229,8 @@
 .sci-gbox[aria-expanded="true"]::after{transform:scaleX(1)}
 
 @media (prefers-reduced-motion:reduce){
-  .sci-sec.is-in .sci-goalname,.sci-sec.is-in .sci-row,.sci-sec.is-in .sci-pick,.sci-sec.is-in .sci-tier{
-    transition:none;transition-delay:0s}
-  .sci-js .sci-sec:not(.is-in) .sci-goalname,.sci-js .sci-sec:not(.is-in) .sci-row,
-  .sci-js .sci-sec:not(.is-in) .sci-pick,.sci-js .sci-sec:not(.is-in) .sci-tier{opacity:1;transform:none}
-  .sci-panel:not([hidden])::before{animation:none;display:none}
-  .sci-bar i{transition:none}
-  .sci-js .sci-bar:not(.is-drawn) i{transform:scaleX(var(--v,0))}
+  .sci-sec.is-in .sci-goalname{transition:none;transition-delay:0s}
+  .sci-js .sci-sec:not(.is-in) .sci-goalname{opacity:1;transform:none}
   .sci-gbox::after{transition:none}
 }
 
@@ -354,14 +269,128 @@
 .sci .closer .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 .sci .closer .btn-primary{background:#8A6B34;color:#F7F2E8}
 
-/* ---- the plate behind the nutrients ------------------------------------- */
-.sci-macros{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px}
-.sci-macro{padding:14px 12px;border:1px solid var(--line);border-radius:10px;background:var(--raised-2);text-align:center}
-.sci-macro-v{font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--gold);font-variant-numeric:tabular-nums}
-.sci-macro-l{margin-top:4px;font-size:11.5px;line-height:1.35;color:var(--ink-60)}
 .sci-legal{display:block;margin-top:8px;font-size:12.5px;color:var(--ink-60)}
-@media (max-width:760px){.sci-macros{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.sci-macro-t{margin-top:5px;font-size:11px;line-height:1.4;color:var(--ink-60);
-  border-top:1px solid var(--line);padding-top:5px}
-.sci-sub-h{margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-60)}
+
+/* ============================================================
+   The replay
+   ------------------------------------------------------------
+   One card, seven stages, each with its own picture. All seven
+   are in the DOM and only the current one is shown, so the card
+   never reflows as it advances and the reader's eye can stay on
+   the caption.
+
+   Motion is CSS keyframes gated on .is-live, which the handler
+   puts on the stage it has just shown. The harness's
+   `animation:none` therefore reaches all of it, reduced motion
+   kills it at source, and each stage's resting state is its
+   finished frame rather than whatever the clock had reached.
+
+   It replaced a seven-tab reader that published the run's real
+   figures, targets, thresholds and the engine's own sentence of
+   reasoning for twenty removals. Nothing here is read from the
+   engine.
+   ============================================================ */
+.rp{padding:0;overflow:hidden}
+.rp-screen{position:relative;height:300px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(231,207,163,.035),transparent 60%)}
+.rp-stage{position:absolute;inset:0;display:grid;place-items:center;padding:26px 22px}
+.rp-stage[hidden]{display:none}
+
+/* 1. the signals, three columns of them going past */
+.rp-stream{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 18px;
+  width:100%;height:100%;overflow:hidden;
+  mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent);
+  -webkit-mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent)}
+.rp-col{display:flex;flex-direction:column;gap:9px;align-items:center}
+.rp-col span{font-size:12px;line-height:1.3;color:var(--muted);white-space:nowrap;opacity:.25}
+.is-live .rp-col{animation:rp-scroll 5.2s linear infinite}
+.is-live .rp-col span{animation:rp-flick 2.4s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes rp-scroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes rp-flick{0%,100%{opacity:.22}42%{opacity:1;color:var(--gold)}}
+
+/* 2. the plate filling */
+.rp-plate{display:flex;align-items:flex-end;justify-content:center;gap:14px;height:100%;padding-bottom:16px}
+.rp-food{display:flex;flex-direction:column;align-items:center;gap:9px;width:58px}
+.rp-food i{display:block;width:100%;height:var(--h);border-radius:8px 8px 3px 3px;
+  background:linear-gradient(180deg,var(--gold),rgba(231,207,163,.35));transform-origin:50% 100%}
+.rp-food span{font-size:11px;color:var(--muted)}
+.is-live .rp-food i{animation:rp-fill .7s cubic-bezier(.2,.8,.3,1) both;animation-delay:var(--d)}
+@keyframes rp-fill{from{transform:scaleY(.04);opacity:.4}to{transform:scaleY(1);opacity:1}}
+
+/* 3 and 4. a target lands on each track, then the fill arrives under it */
+.rp-track{display:flex;flex-direction:column;gap:13px;width:min(100%,460px)}
+.rp-trow{display:grid;grid-template-columns:minmax(0,96px) minmax(0,1fr);gap:14px;align-items:center}
+.rp-tn{font-size:12px;color:var(--muted);text-align:right}
+.rp-tl{position:relative;height:9px;border-radius:999px;background:rgba(255,255,255,.07)}
+.rp-tmark{position:absolute;top:-3px;right:22%;width:2px;height:15px;border-radius:2px;background:var(--ink)}
+.rp-tfill{position:absolute;inset:0 auto 0 0;border-radius:999px;width:46%;background:rgba(231,207,163,.42)}
+.is-gaps .is-met .rp-tfill{width:80%;background:rgba(127,168,106,.5)}
+.is-gaps .is-short .rp-tfill{background:var(--gold)}
+.is-gaps .is-met{opacity:.4}
+.is-live .rp-tmark{animation:rp-drop .5s cubic-bezier(.2,.8,.3,1) both;animation-delay:var(--d)}
+.is-live .rp-tfill{animation:rp-grow .65s cubic-bezier(.2,.8,.3,1) both;animation-delay:calc(var(--d) + .12s)}
+@keyframes rp-drop{from{transform:translateY(-14px);opacity:0}to{transform:none;opacity:1}}
+@keyframes rp-grow{from{transform:scaleX(0);transform-origin:0 50%}to{transform:scaleX(1);transform-origin:0 50%}}
+
+/* 5 and 6. the catalogue, lit and then cut */
+.rp-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:7px;width:min(100%,460px)}
+.rp-grid i{display:block;aspect-ratio:1;border-radius:3px;background:var(--gold);opacity:var(--o)}
+.is-live .rp-grid i{animation:rp-lit .5s ease both;animation-delay:var(--d)}
+@keyframes rp-lit{from{opacity:.05;transform:scale(.6)}to{opacity:var(--o);transform:none}}
+.is-safety i.is-cut{background:var(--bad);opacity:1}
+.is-live .is-safety i.is-cut{animation:rp-cut .45s ease both;animation-delay:calc(var(--d) + .5s)}
+@keyframes rp-cut{0%{background:var(--gold);transform:none}
+  50%{background:var(--bad);transform:scale(1.25)}
+  100%{background:var(--bad);transform:scale(.78);opacity:.85}}
+
+/* 7. the plan it settles into */
+.rp-plan{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;width:min(100%,500px)}
+.rp-plan li{display:flex;flex-direction:column;gap:3px;padding:12px 15px;border-radius:11px;
+  background:var(--raised-2);border:1px solid var(--line)}
+.rp-pn{font-size:14.5px;font-weight:600;color:var(--gold)}
+.rp-pw{font-size:13px;line-height:1.5;color:var(--ink-80)}
+.is-live .rp-plan li{animation:rp-settle .55s cubic-bezier(.2,.8,.3,1) both;animation-delay:var(--d)}
+@keyframes rp-settle{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* the caption, the ticks and the controls */
+.rp-caption{margin:0;padding:18px 22px 0;min-height:68px;text-align:center;
+  font-size:13.5px;line-height:1.55;color:var(--ink-80)}
+.rp-say[hidden]{display:none}
+.rp-say b{display:block;margin-bottom:3px;font-size:15px;font-weight:600;color:var(--ink)}
+.rp-bar{padding:14px 22px 0}
+.rp-ticks{display:flex;gap:6px}
+.rp-tick{flex:1 1 0;height:3px;border-radius:999px;background:rgba(255,255,255,.12);
+  border:0;padding:0;cursor:pointer;transition:background .25s ease}
+.rp-tick:hover{background:rgba(231,207,163,.45)}
+.rp-tick[aria-current="step"]{background:var(--gold)}
+.rp-tick.is-done{background:rgba(231,207,163,.5)}
+.rp-tick:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.rp-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:14px 22px 18px}
+.rp-btn{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:transparent;
+  min-height:34px;transition:border-color .18s ease,color .18s ease}
+.rp-btn:hover{border-color:var(--gold);color:var(--gold)}
+.rp-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.rp-btn--quiet{border-color:transparent;color:var(--muted)}
+.rp-note{margin-left:auto;font-size:11.5px;color:var(--muted)}
+
+@media (max-width:620px){
+  .rp-screen{height:250px}
+  .rp-stage{padding:18px 14px}
+  .rp-stream{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rp-plate{gap:9px}
+  .rp-food{width:44px}
+  .rp-trow{grid-template-columns:minmax(0,74px) minmax(0,1fr);gap:10px}
+  .rp-grid{grid-template-columns:repeat(9,1fr);gap:5px}
+  .rp-caption{min-height:86px;padding:16px 16px 0}
+  .rp-bar,.rp-controls{padding-left:16px;padding-right:16px}
+  .rp-note{margin-left:0;width:100%}
+}
+
+/* Nothing moves. The card shows the stage it would have ended on. */
+@media (prefers-reduced-motion:reduce){
+  .is-live .rp-col,.is-live .rp-col span,.is-live .rp-food i,.is-live .rp-tmark,
+  .is-live .rp-tfill,.is-live .rp-grid i,.is-live .is-safety i.is-cut,
+  .is-live .rp-plan li{animation:none}
+  .rp-tick{transition:none}
+}

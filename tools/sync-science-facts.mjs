@@ -164,164 +164,114 @@ ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${
   </div>
 </section>`;
 
-/* ---- 3. one real run -------------------------------------------------------
-   A short label for what was asked, so a value is never bare and the whole
-   quiz question is never printed. The map shortens; it states nothing. */
-const ASKED = [
-  [/dietary preferences|restrictions/i, 'Diet'],
-  [/fish and seafood/i, 'Fish'],
-  [/dairy/i, 'Dairy'],
-  [/vegetables and legumes/i, 'Vegetables'],
-  [/meals and snacks/i, 'Meals'],
-  [/usual portions/i, 'Portions'],
-  [/weekly eating habits/i, 'Eating habits'],
-  [/how active is your daily routine/i, 'Daily activity'],
-  [/smoke|nicotine/i, 'Smoking'],
-  [/hours do you sleep/i, 'Sleep'],
-  [/drinks other than water/i, 'Drinks a day'],
-  [/sun exposure/i, 'Sun exposure'],
-  [/alcoholic drinks/i, 'Alcohol a week'],
-  [/medical conditions/i, 'Conditions'],
-  [/prescription medications/i, 'Medication'],
-  [/pregnant or breastfeeding/i, 'Pregnancy'],
-  [/popular goals|which resonate/i, 'Goals'],
-];
-const asked = q => (ASKED.find(([re]) => re.test(q || '')) || [null, (q || '').replace(/\?$/, '')])[1];
-
-const c = trace.customer;
+/* The replay is illustrative, but the safety dots are not: they mark the
+   checks that actually removed a product in the engine's exported run, and
+   that evidence is the reason the three examples are worth showing at all.
+   This is the only thing left on the page that reads the real trace. */
 const steps = trace.steps;
-const stepName = n => /food already gives/i.test(n) ? 'Intake' : n;
 
-const tabs = steps.map((s, i) =>
-  `<button type="button" role="tab" class="sci-tab" id="sci-tab-${s.id}" aria-controls="sci-p-${s.id}" aria-selected="${i === 0 ? 'true' : 'false'}" tabindex="${i === 0 ? '0' : '-1'}">${esc(stepName(s.name))}</button>`).join('');
+/* ---- 3. the replay ---------------------------------------------------------
+   An illustrative walkthrough of what the engine does, in seven stages that
+   each LOOK different, rather than the seven-tab reader that was here before.
 
-const fact = (label, value) =>
-  `<span class="sci-fact"><b>${esc(label)}</b>${esc(value)}</span>`;
+   PRESENTATION DATA ONLY, and that is the point of the rewrite as much as the
+   motion is. The tabs published the run's real figures: her modelled intake
+   per nutrient, the targets, the shortfall thresholds, the engine's own
+   sentence of reasoning for each of twenty removals. That is the method, and
+   a page that prints the method is a specification. Nothing below is read
+   from the engine. The signal words are ordinary quiz vocabulary, the bars
+   carry no numbers, and the three products in the plan are ones this page
+   already names in the product explorer, with a reason that describes the
+   mechanism and makes no claim about an outcome.
 
-const row = (t, v, s, cls = '') =>
-  `<div class="sci-row${cls}"><span class="sci-row-t">${esc(t)}</span>` +
-  (v == null || v === '' ? '' : `<span class="sci-row-v">${esc(v)}</span>`) +
-  (s ? `<span class="sci-row-s">${esc(s)}</span>` : '') + '</div>';
+   The label says so on the face of it: "Illustrative replay. Sample data."
 
-/* Intake against her own target, so a bar means something. */
-const targetsStep = steps.find(s => s.per_nutrient && s.authority) || { per_nutrient: [], lines: [] };
-const targetOf = new Map(targetsStep.per_nutrient.map(t => [t.nutrient, t]));
-/* The macros have targets too, in the targets step's own lines rather
-   than its per-nutrient list, which is why they were showing as bare
-   figures with nothing to read them against. Matched on the first word,
-   so "Energy target" meets "Energy from that food". */
-const macroTarget = new Map((targetsStep.lines || []).map(l =>
-  [String(l.text).split(' ')[0].toLowerCase(), l]));
+   The resting state is the LAST stage, not the first. With no JavaScript,
+   with animations disabled, and under reduced motion, a reader sees the
+   finished plan — which is also what "skip to the plan" gives them, and what
+   the visual-diff harness captures. */
+const SIGNALS = [
+  'Goal: energy', 'Goal: sleep', 'Age band', 'Market: UK', 'Vegetarian',
+  'No fish', 'Dairy twice daily', 'Low sunlight', 'Sedentary week',
+  'Medication declared', 'Not pregnant', 'Coffee x3', 'Red meat weekly',
+  'Sleeps 6 hours', 'Stress reported', 'Resistance training', 'Leafy greens',
+  'Wholegrains daily', 'Skips breakfast', 'Oily fish rarely',
+];
+const PLATE = ['Grains', 'Dairy', 'Greens', 'Fruit', 'Legumes', 'Oils'];
+const GAPNUTS = [
+  { n: 'Vitamin D', short: true }, { n: 'Iron', short: true },
+  { n: 'Calcium', short: false }, { n: 'Magnesium', short: true },
+  { n: 'Vitamin C', short: false }, { n: 'Zinc', short: false },
+];
+const PLAN = [
+  { n: 'Vitamin D3', why: 'Covers the largest gap between her modelled intake and her target.' },
+  { n: 'Magnesium Glycinate', why: 'Matches two of her stated goals and nothing else in the plan carries it.' },
+  { n: 'Omega-3 (Algae Oil)', why: 'The form that fits her diet, where the fish-oil version does not.' },
+];
 
-function panelBody(s) {
-  if (s.groups) {
-    const profile = `<div class="sci-siggroup"><h4>Profile</h4><div class="sci-facts">` +
-      [['Name', c.name], ['Age', c.age], ['Sex', c.sex], ['Height', c.height], ['Weight', c.weight], ['Country', c.country]]
-        .filter(([, v]) => v).map(([k, v]) => fact(k, v)).join('') + `</div></div>`;
-    const g = s.groups.map(gr => {
-      const lines = gr.lines || [];
-      return `<div class="sci-siggroup"><h4>${esc(gr.group)}</h4><div class="sci-facts">` +
-        lines.map(l => `<button type="button" class="sci-fact is-tap" data-changes="${esc(l.changes || '')}"><b>${esc(asked(l.question))}</b>${esc(l.answer || l.text)}</button>`).join('') +
-        `</div><p class="sci-sigwhy" data-why>${esc((lines[0] || {}).changes || '')}</p></div>`;
-    }).join('');
-    const d = (s.derived || []).length
-      ? `<div class="sci-siggroup"><h4>Derived, not asked</h4><div class="sci-facts">` +
-        s.derived.map(l => `<button type="button" class="sci-fact is-tap" data-changes="${esc(l.changes || '')}"><b>${esc(l.text)}</b>${esc(l.value)}</button>`).join('') +
-        `</div><p class="sci-sigwhy" data-why>${esc((s.derived[0] || {}).changes || '')}</p></div>`
-      : '';
-    return profile + g + d;
-  }
-  if (s.per_nutrient && s.already_met_by_diet) {
-    const met = new Set(s.already_met_by_diet.nutrients_reading_as_met || []);
-    /* The macros and the modelled plate they come from. Dropped when this
-       step was rewritten around the per-nutrient bars, which left the
-       page showing micronutrients and no food. */
-    const macros = `<div class="sci-macros">` + (s.lines || []).map(l => {
-      const t = macroTarget.get(String(l.text).split(' ')[0].toLowerCase());
-      return `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div>` +
-        `<div class="sci-macro-l">${esc(l.text)}</div>` +
-        (t ? `<div class="sci-macro-t">target ${esc(t.value)}</div>` : '') + `</div>`;
-    }).join('') + `</div>`;
-    return macros + s.per_nutrient.map(x => {
-      const t = targetOf.get(x.nutrient);
-      const pct = t && t.target ? (x.intake_from_food || 0) / t.target : null;
-      const v = `${num(Math.round((x.intake_from_food || 0) * 10) / 10)} ${x.unit || ''}`.trim() +
-        (t ? ` of ${num(t.target)} ${t.unit || ''}`.trimEnd() : '');
-      return `<div class="sci-row"><span class="sci-row-t">${esc(x.nutrient)}` +
-        (met.has(x.nutrient) ? `<span class="sci-met">Already met by diet</span>` : '') +
-        `</span><span class="sci-row-v">${esc(v)}</span>` +
-        (pct != null ? `<div class="sci-bar ${met.has(x.nutrient) ? 'is-ok' : ''}"><i style="--v:${Math.max(.02, Math.min(1, pct)).toFixed(3)}"></i></div>` : '') +
-        `</div>`;
-    }).join('') +
-    /* The products her own food took off the list, with the reason the
-       engine gave. In the export and not on the page until now, which
-       left the diet credit as a label on a bar rather than something
-       with a consequence. */
-    ((s.already_met_by_diet.products_removed || []).length
-      ? `<div class="sci-after"><h4 class="sci-sub-h">Removed because her food already covers it</h4>` +
-        s.already_met_by_diet.products_removed.map(r =>
-          row(r.product, '', r.because, ' is-cut')).join('') + `</div>`
-      : '');
-  }
-  if (s.per_nutrient && s.authority) {
-    const a = s.authority;
-    const macros = (s.lines || []).length
-      ? `<div class="sci-macros">` + s.lines.map(l =>
-          `<div class="sci-macro"><div class="sci-macro-v">${esc(l.value)}</div>` +
-          `<div class="sci-macro-l">${esc(l.text)}</div>` +
-          (l.basis ? `<div class="sci-macro-t">${esc(l.basis)}</div>` : '') + `</div>`).join('') + `</div>`
-      : '';
-    return macros + row(`Targets for ${a.market}`, a.name) +
-      s.per_nutrient.map(x => row(x.nutrient, `${num(x.target)} ${x.unit || ''}`.trim())).join('');
-  }
-  if (s.ranking_order) {
-    const hit = new Set((s.top_candidates || []).map(t => t.ranked_by));
-    const ladder = `<div class="sci-ladder">` + s.ranking_order.map((t, i) =>
-      `<div class="sci-tier${hit.has(t) ? ' is-hit' : ''}"><b>${pad(i + 1)}</b><span>${esc(t)}</span></div>`).join('') + `</div>`;
-    const cand = (s.top_candidates || []).map(t =>
-      row(`${t.position}. ${t.product}`, '', t.factors ? t.factors.join(' · ') : '')).join('');
-    return ladder + (cand ? `<div class="sci-after">${cand}</div>` : '');
-  }
-  if (s.removed) {
-    /* The category, not the check and not its rule. What a reader needs here
-       is that twenty real products were removed and roughly why; the check's
-       name and the sentence of logic behind it are the engine's, and a page
-       that prints them is a specification somebody else can build from.
-       `kind` still separates a plan check from a safety check, because the
-       two are not the same claim. */
-    return s.removed.map(r => row(r.product,
-      cap(r.group) + (r.kind && r.kind !== 'safety check' ? ' · plan check' : ''), '', ' is-cut')).join('');
-  }
-  if (s.picks) {
-    return s.picks.map(p =>
-      `<div class="sci-pick"><div class="sci-pick-n">${esc(p.position)}</div><div>` +
-      `<div class="sci-pick-p">${esc(p.product)}<span class="sci-pick-tier">${esc(p.tier)}</span></div>` +
-      `<p class="sci-pick-w">${esc(p.why)}</p></div></div>`).join('');
-  }
-  return (s.lines || []).map(l => row(l.text, l.value, l.note || l.source)).join('');
-}
+const STAGES = [
+  { id: 'signals', n: 'Reading the signals',
+    say: 'Every answer she gave becomes a data point: her goals, her diet, her lifestyle, anything she takes.',
+    body: `<div class="rp-stream" aria-hidden="true">${[0, 1, 2].map(col =>
+      `<div class="rp-col">${SIGNALS.concat(SIGNALS).map((w, i) =>
+        `<span style="--d:${((i * 7 + col * 13) % 20) / 10}s">${esc(w)}</span>`).join('')}</div>`).join('')}</div>` },
 
-const panels = steps.map((s, i) =>
-  `      <div class="sci-panel" role="tabpanel" id="sci-p-${s.id}" aria-labelledby="sci-tab-${s.id}" tabindex="0"${i === 0 ? '' : ' hidden'}>${panelBody(s)}</div>`).join('\n');
+  { id: 'intake', n: 'Estimating intakes',
+    say: 'What her usual diet already supplies, modelled from the food she says she eats.',
+    body: `<div class="rp-plate" aria-hidden="true">${PLATE.map((f, i) =>
+      `<div class="rp-food" style="--d:${i * 0.12}s;--h:${38 + ((i * 29) % 52)}%"><i></i><span>${esc(f)}</span></div>`).join('')}</div>` },
 
-const F = trace.counts;
-const funnel = `<div class="sci-funnel" data-funnel>
-      <div class="sci-fstep" data-at="0"><div class="sci-fn">${num(F.scored)}</div><div class="sci-fl">scored</div></div>
-      <div class="sci-fstep" data-at="${steps.findIndex(s => s.removed)}"><div class="sci-fn">${num(F.passed_the_checks)}</div><div class="sci-fl">passed the checks</div></div>
-      <div class="sci-fstep" data-at="${steps.findIndex(s => s.picks)}"><div class="sci-fn">${num(F.recommended)}</div><div class="sci-fl">recommended</div></div>
-    </div>`;
+  { id: 'targets', n: 'Determining targets',
+    say: 'What someone of her age, sex and market should be getting, assembled per nutrient.',
+    body: `<div class="rp-track" aria-hidden="true">${GAPNUTS.map((g, i) =>
+      `<div class="rp-trow" style="--d:${i * 0.1}s"><span class="rp-tn">${esc(g.n)}</span><span class="rp-tl"><i class="rp-tmark"></i></span></div>`).join('')}</div>` },
+
+  { id: 'gaps', n: 'Calculating gaps',
+    say: 'Her intake set against those targets. What is already covered drops away; what is short stays.',
+    body: `<div class="rp-track is-gaps" aria-hidden="true">${GAPNUTS.map((g, i) =>
+      `<div class="rp-trow${g.short ? ' is-short' : ' is-met'}" style="--d:${i * 0.1}s"><span class="rp-tn">${esc(g.n)}</span><span class="rp-tl"><i class="rp-tfill"></i><i class="rp-tmark"></i></span></div>`).join('')}</div>` },
+
+  { id: 'score', n: 'Scoring the catalogue',
+    say: 'Every product in the catalogue measured against her profile, her goals and the gaps that are left.',
+    body: `<div class="rp-grid" aria-hidden="true">${Array.from({ length: 72 }, (_, i) =>
+      `<i style="--d:${((i * 11) % 36) / 40}s;--o:${0.12 + ((i * 17) % 80) / 100}"></i>`).join('')}</div>` },
+
+  { id: 'safety', n: 'Applying safety checks',
+    say: 'Anything she should not take is removed here, before she ever sees it. None of these checks can be switched off.',
+    body: `<div class="rp-grid is-safety" aria-hidden="true">${Array.from({ length: 72 }, (_, i) =>
+      `<i class="${[4, 9, 17, 23, 31, 38, 44, 52, 59, 66].includes(i) ? 'is-cut' : ''}" style="--d:${((i * 11) % 36) / 40}s;--o:${0.12 + ((i * 17) % 80) / 100}"></i>`).join('')}</div>` },
+
+  { id: 'plan', n: 'Building the plan',
+    say: 'What is left is ordered into a short plan, and each pick carries the reason it is there.',
+    body: `<ul class="rp-plan">${PLAN.map((x, i) =>
+      `<li style="--d:${i * 0.14}s"><span class="rp-pn">${esc(x.n)}</span><span class="rp-pw">${esc(x.why)}</span></li>`).join('')}</ul>` },
+];
+
+const stageEls = STAGES.map((st, i) => `      <div class="rp-stage" data-stage="${i}" id="rp-s-${i}"${i === STAGES.length - 1 ? '' : ' hidden'}>${st.body}</div>`).join('\n');
+const stageTicks = STAGES.map((st, i) =>
+  `<button type="button" class="rp-tick" data-goto="${i}" aria-label="${esc(st.n)}"${i === STAGES.length - 1 ? ' aria-current="step"' : ''}></button>`).join('');
+const stageSay = STAGES.map((st, i) =>
+  `<span class="rp-say" data-say="${i}"${i === STAGES.length - 1 ? '' : ' hidden'}><b>${esc(st.n)}</b>${esc(st.say)}</span>`).join('');
 
 const run = `<section class="sci-sec" id="run">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">One real run</span>
-      <h2 class="h2">Watch the engine decide for ${esc(c.name)}.</h2>
-      <p class="lead">Every step below came out of a real run.</p>
+      <span class="eyebrow">The engine, end to end</span>
+      <h2 class="h2">Watch it decide.</h2>
+      <p class="lead">Seven stages, from her first answer to a plan she can read.</p>
     </div>
-    <div class="sci-card sci-stage sci-in" data-run>
-      <div class="sci-tabs" role="tablist" aria-label="The steps of one run">${tabs}</div>
-${panels}
-      ${funnel}
+    <div class="sci-card rp sci-in" data-replay>
+      <div class="rp-screen">
+${stageEls}
+      </div>
+      <p class="rp-caption" aria-live="polite">${stageSay}</p>
+      <div class="rp-bar"><div class="rp-ticks" role="group" aria-label="Stages">${stageTicks}</div></div>
+      <div class="rp-controls">
+        <button type="button" class="rp-btn" data-rp-toggle aria-label="Play the replay">Play</button>
+        <button type="button" class="rp-btn" data-rp-replay>Replay</button>
+        <button type="button" class="rp-btn rp-btn--quiet" data-rp-end>Skip to the plan</button>
+        <span class="rp-note">Illustrative replay. Sample data.</span>
+      </div>
     </div>
   </div>
 </section>`;
@@ -368,7 +318,7 @@ const groupTiles = groups.map(g =>
 
 const exampleList = `      <div class="sci-glist" id="sci-examples">` +
   examples.map(ch => `<div class="sci-check"><div class="sci-check-n">${esc(ch.name)}` +
-    (firedNames.has(ch.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
+    (firedNames.has(ch.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">Fired in a real run</span></span>` : '') +
     `</div><p class="sci-check-d">${esc(ch.does)}</p></div>`).join('') + `</div>`;
 
 const safety = `<section class="sci-sec" id="safety">

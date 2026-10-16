@@ -58,19 +58,7 @@
     $$('.sci-goalgrid').forEach(function (grid) {
       $$('.sci-goalname', grid).forEach(function (el, i) { el.style.setProperty('--i', i); });
     });
-    $$('.sci-panel, .sci-ladder').forEach(function (panel) {
-      $$('.sci-row, .sci-pick, .sci-tier', panel).forEach(function (el, i) {
-        el.style.setProperty('--i', Math.min(i, 14));
-      });
-    });
   })();
-
-  /* Bars hold at zero until their step is actually looked at, so the draw
-     is something the reader sees rather than something that happened
-     while the panel was hidden. */
-  function drawBars(root) {
-    $$('.sci-bar', root).forEach(function (bar) { bar.classList.add('is-drawn'); });
-  }
 
   (function counters() {
     var targets = $$('[data-count]');
@@ -166,82 +154,85 @@
     });
   })();
 
-  /* ---- the run ------------------------------------------------------
-     The reader drives: tabs and arrow keys, nothing on a timer. */
-  (function run() {
-    var stage = $('[data-run]');
-    if (!stage) return;
-    var tabs = $$('.sci-tab', stage);
-    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-    var funnel = $$('.sci-fstep', stage);
+  /* ---- the replay ----------------------------------------------------
+     Seven stages, once through, ending on the plan. The reader drives it:
+     play and pause, replay, skip to the end, or jump to any stage from the
+     ticks. Nothing is on a loop.
 
-    /* `moved` guards the one that cost a bug: scrolling the strip on the
-       first paint scrolled the page with it, so arriving at /science from
-       the nav landed 1,600px down, on the run. Nothing scrolls until the
-       reader has chosen something. */
-    function show(i, moved, focus) {
-      tabs.forEach(function (t, j) {
-        var on = i === j;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        if (panels[j]) panels[j].hidden = !on;
+     The DOM's resting state is the LAST stage, so with no JavaScript, with
+     reduced motion, or in a frozen screenshot, what is on screen is the
+     finished plan rather than an empty first frame. This handler only ever
+     rewinds and plays when it is allowed to. */
+  (function replay() {
+    var card = $('[data-replay]');
+    if (!card) return;
+
+    var stages = $$('.rp-stage', card);
+    var says = $$('.rp-say', card);
+    var ticks = $$('.rp-tick', card);
+    var toggle = $('[data-rp-toggle]', card);
+    var last = stages.length - 1;
+    var HOLD = 3400;                       /* long enough to read the caption */
+    var at = last, timer = null, playing = false;
+
+    function show(i, live) {
+      at = i;
+      stages.forEach(function (el, k) {
+        el.hidden = k !== i;
+        el.classList.toggle('is-live', live && k === i);
       });
-      funnel.forEach(function (f) {
-        f.classList.toggle('is-on', parseInt(f.getAttribute('data-at'), 10) <= i);
+      says.forEach(function (el, k) { el.hidden = k !== i; });
+      ticks.forEach(function (t, k) {
+        if (k === i) { t.setAttribute('aria-current', 'step'); } else { t.removeAttribute('aria-current'); }
+        t.classList.toggle('is-done', k < i);
       });
-      if (panels[i]) drawBars(panels[i]);
-      if (focus && tabs[i]) tabs[i].focus();
-      if (moved && tabs[i] && tabs[i].scrollIntoView) {
-        tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
-      }
     }
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { show(i, true); });
-      t.addEventListener('keydown', function (e) {
-        var n = null;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % tabs.length;
-        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === 'Home') n = 0;
-        else if (e.key === 'End') n = tabs.length - 1;
-        if (n === null) return;
-        e.preventDefault();
-        show(n, true, true);
-      });
-    });
-    show(0, false);
-    /* The first step is open from the start, so its bars draw when the
-       stage arrives rather than on load behind the fold. */
-    if (window.IntersectionObserver && !reduce) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); drawBars(stage); } });
-      }, { threshold: 0.2 });
-      io.observe(stage);
-    } else { drawBars(stage); }
-  })();
 
-  /* ---- signals: the line under a group follows the chip you are on --- */
-  (function signals() {
-    $$('.sci-siggroup').forEach(function (group) {
-      var why = $('[data-why]', group);
-      var chips = $$('.sci-fact.is-tap', group);
-      if (!why || !chips.length) return;
-      var base = why.textContent;
-      function set(chip) {
-        chips.forEach(function (c) { c.classList.toggle('is-on', c === chip); });
-        why.textContent = chip ? chip.getAttribute('data-changes') : base;
-      }
-      chips.forEach(function (c) {
-        c.addEventListener('mouseenter', function () { set(c); });
-        c.addEventListener('focus', function () { set(c); });
-        c.addEventListener('click', function () { set(c); });
-      });
-      group.addEventListener('mouseleave', function () { set(null); });
-    });
-  })();
+    function stop() {
+      clearTimeout(timer);
+      timer = null;
+      playing = false;
+      stages.forEach(function (el) { el.classList.remove('is-live'); });
+      toggle.textContent = 'Play';
+      toggle.setAttribute('aria-label', 'Play the replay');
+    }
 
-  /* The safety tiles used to open a list of every check. The page shows
-     counts, categories and three named examples now, so there is nothing to
-     toggle and no handler here. */
+    function step() {
+      if (at >= last) { stop(); return; }
+      show(at + 1, true);
+      if (at < last) { timer = setTimeout(step, HOLD); } else { stop(); }
+    }
+
+    function play() {
+      if (reduce) { show(last, false); return; }
+      if (at >= last) { show(0, true); } else { show(at, true); }
+      playing = true;
+      toggle.textContent = 'Pause';
+      toggle.setAttribute('aria-label', 'Pause the replay');
+      clearTimeout(timer);
+      timer = setTimeout(step, HOLD);
+    }
+
+    toggle.addEventListener('click', function () { if (playing) { stop(); } else { play(); } });
+    $('[data-rp-replay]', card).addEventListener('click', function () { stop(); show(0, false); play(); });
+    $('[data-rp-end]', card).addEventListener('click', function () { stop(); show(last, false); });
+    ticks.forEach(function (t, k) {
+      t.addEventListener('click', function () { stop(); show(k, !reduce); });
+    });
+
+    /* Starts itself once, when it is actually on screen and the reader has
+       not asked for less motion. */
+    if (reduce || !window.IntersectionObserver) { show(last, false); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        show(0, false);
+        play();
+      });
+    }, { threshold: 0.45 });
+    io.observe(card);
+  })();
 
   /* ---- the market switcher ------------------------------------------
      Only the reference targets move: the upper limits are one set
