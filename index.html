@@ -50,18 +50,19 @@
      and these two keep only their text role. */
   --ink:#F3F1ED;--ink-80:rgba(243,241,237,.80);--ink-60:rgba(243,241,237,.58);
   --white:#ffffff;
-  --ground:#1B1B1E;--ground-2:#1B1B1E;--surface:#232327;--deep:#1B1B1E;
-  --cream:#1B1B1E;--subtle:#1B1B1E;
+  --ground:#26262A;--ground-2:#26262A;--surface:#1C1C20;--deep:#0E0E10;
+  --cream:#26262A;--subtle:#26262A;
   --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--gold-soft:#F0E2CC;
   --sand:#E7CFA3;--sand-soft:#F5E7C9;
   --muted:rgba(243,241,237,.56);--muted-on-dark:rgba(255,255,255,.72);
   --line:rgba(255,255,255,.10);--line-strong:rgba(255,255,255,.20);
   --red-soft:#D8614A;--green-soft:#6AA84F;
-  --hero-beige:#1B1B1E;--hero-tint:#1B1B1E;
+  --hero-beige:#0E0E10;--hero-tint:#0E0E10;
   --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;
   --shadow-sm:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.24);
   --shadow-md:0 1px 3px rgba(0,0,0,.34),0 8px 24px rgba(0,0,0,.30);
   --shadow-lg:0 2px 6px rgba(0,0,0,.38),0 20px 40px rgba(0,0,0,.40);
+  --hover-surface:#232328;--hover-border:#CFB68F;
   --nav-h:68px;--content:1340px;
 }
 *{box-sizing:border-box}
@@ -98,7 +99,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,rgba(250,248,242,.82));backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);transition:border-color .2s ease,background-color .2s ease;border-bottom:1px solid transparent;}
 /* Scrolled, the card has inset and what is behind the bar is the white
    page, not the hero. */
-.nav.scrolled{background:rgba(27,27,30,.86)}
+.nav.scrolled{background:rgba(14,14,16,.88)}
 /* This page opens on the hero card, so the bar is its beige until the
    page moves. */
 .nav{--nav-bg:var(--hero-beige)}
@@ -151,7 +152,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    the height of the pair; see the composition block below. */
 .hero-stage{position:relative;width:100%}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
-.card-dark{background:var(--deep);border:0;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
+/* The same hairline the quiz card carries. Without it the plan card had
+   nothing but a shadow holding it off the hero, and on a dark page a
+   shadow is almost nothing. */
+.card-dark{background:var(--deep);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);color:var(--white)}
 .quiz{width:63.5%;display:flex;flex-direction:column;padding:24px 26px 22px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);}
 .quiz .qprog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
@@ -326,7 +330,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    has reached nearly cream by the time the grid arrives, so white would
    have left the preview with no edge on either side of it. The mockups
    inside were drawn for this ground and go back to it unchanged. */
-.step-thumb{display:block;height:132px;background:#1B1B1E;border-bottom:1px solid var(--line)}
+.step-thumb{display:block;height:132px;background:#121214;border-bottom:1px solid var(--line)}
 /* Inherit Inter from the page: the labels inside are the product's own, and
    they should be set the way the product sets them. The interiors never take
    a click — the whole card is the link. */
@@ -795,7 +799,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot{margin-top:28px;font-size:14px;color:rgba(255,255,255,.62)}
 .closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
 .closer-foot a:hover{border-bottom-color:var(--white)}
-.footer{position:relative;overflow:hidden;background:var(--ground);color:rgba(255,255,255,.72);padding:48px 0 32px}
+.footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:48px 0 32px}
 @media (max-width:760px){.footer{padding:76px 0 28px}}
 .footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
@@ -1644,6 +1648,35 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    override is on the pseudo-element rather than the token, which would hand
    near-black to anything inside it that draws text. */
 .sc-reveal::before{background:var(--deep)}
+
+/* ---- one hover for clickable boxes ---------------------------------------
+   They had four treatments between them: a border change, a background
+   change, a gold wash, and a lift with a shadow. Pointing at two boxes on
+   the same page should not produce two different effects, so there is one
+   here: the surface lifts a step, the border warms to the muted amber-beige
+   the step cards already used, and nothing moves that the grid laid out. */
+.step,.sci-method,.wl-ctrl,a.vrow{
+  transition:background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease}
+.step:hover,.step:focus-visible,
+.sci-method:hover,.sci-method:focus-visible,
+.wl-ctrl:hover,.wl-ctrl:focus-visible,
+a.vrow:hover,a.vrow:focus-visible{
+  background:var(--hover-surface);border-color:var(--hover-border);
+  transform:translateY(-2px);box-shadow:var(--shadow-md)}
+
+/* ---- no wash around the hero ---------------------------------------------
+   scroll-cards.css gives .sc-hero its own background of rgba(10,10,10,.07),
+   which is the hairline ring: the fill sits a pixel inside it and the ring
+   shows in the gap. On a light page that is a whisper. On this one it is a
+   7% black wash over the whole margin around the card, and where the section
+   ends the pure ground resumes — a visible band straight across the page.
+
+   The card does not need the ring here: a near-black card on a lighter grey
+   ground has an edge already. */
+.sc-hero{background:transparent}
+/* The footer is the lower half of the closing card: its ink comes from the
+   component's own layer, and the element keeps the page ground so the reveal
+   has something to open onto. Same as every other page that pairs them. */
 </style>
 <script>
 /* The hero intro's start state has to be on the document before the hero's
