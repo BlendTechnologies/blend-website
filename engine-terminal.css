@@ -24,7 +24,8 @@
   border-bottom:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.015)}
 .tm-dots{display:flex;gap:5px}
 .tm-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.14)}
-.tm-path{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:var(--t-dim)}
+.tm-path{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:var(--t-dim);
+  min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tm-live{margin-left:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--t-dim);
   display:inline-flex;align-items:center;gap:6px}
@@ -193,10 +194,20 @@
 
 /* A restart control that is an icon, for pages that carry no transport bar.
    Same target size as a button; it just does not say its name. */
-.tm-icon{display:inline-grid;place-items:center;width:30px;height:30px;margin-left:10px;
+/* flex:0 0 auto is the whole fix for "the reset icon goes weird on a phone".
+   It is a flex item in .tm-top with a width but no shrink guard, so once the
+   path text stopped fitting the row took the space back out of the icon: 15px
+   wide at 390 and 2px at 320, which renders as a sliver of a circle with no
+   glyph in it. The path truncates now instead, and the icon never moves.
+
+   The ::after is a 44px hit area over a 30px control. The circle is sized to
+   sit in a 30px-tall bar; the thumb target does not have to be. */
+.tm-icon{position:relative;display:inline-grid;place-items:center;flex:0 0 auto;
+  width:30px;height:30px;margin-left:10px;
   border-radius:50%;border:1px solid var(--t-line);background:transparent;
   color:var(--t-dim);cursor:pointer;padding:0;
   transition:color .18s ease,border-color .18s ease,transform .3s ease}
+.tm-icon::after{content:"";position:absolute;inset:-7px;border-radius:50%}
 .tm-icon svg{width:15px;height:15px;display:block}
 .tm-icon:hover{color:var(--t-gold);border-color:var(--t-gold)}
 .tm-icon:active svg{transform:rotate(-180deg);transition:transform .3s ease}
