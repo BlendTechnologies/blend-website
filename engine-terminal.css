@@ -40,9 +40,14 @@
 
 /* the log gets the room; the matrix sits beside it */
 .tm-body{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:18px;padding:0 22px}
-.tm-logwrap{position:relative;min-width:0}
+/* The left column fills whatever the right one comes to, rather than holding
+   a number of its own. The log was a fixed 232px while the matrix sized
+   itself from its cells, so the log ran short and the bottom-left of the
+   terminal sat empty. Flex, not a height: when the matrix changes, the log
+   follows it. */
+.tm-logwrap{position:relative;min-width:0;display:flex;flex-direction:column}
 .tm-log{display:flex;flex-direction:column;justify-content:flex-end;
-  height:232px;overflow:hidden;
+  flex:1;min-height:180px;overflow:hidden;
   mask-image:linear-gradient(transparent,#000 22%);-webkit-mask-image:linear-gradient(transparent,#000 22%)}
 .tm-log[hidden]{display:none}
 .tm-line{display:flex;gap:10px;white-space:pre;line-height:19px;
@@ -63,7 +68,7 @@
 /* the plan the log resolves into — terminal output, not three cards.
    Boxed cards read as product UI pasted into a console; a numbered list
    under a header line reads as the thing the log just finished doing. */
-.tm-plan{height:232px;display:flex;flex-direction:column;justify-content:center;gap:14px;
+.tm-plan{flex:1;min-height:180px;display:flex;flex-direction:column;justify-content:center;gap:14px;
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .tm-plan[hidden]{display:none}
 .tm-plan-h{display:flex;gap:14px;align-items:baseline;font-size:11px;letter-spacing:.08em;
@@ -120,7 +125,7 @@
 
 @media (max-width:860px){
   .tm-body{grid-template-columns:minmax(0,1fr);gap:14px}
-  .tm-log,.tm-plan,.tm-persona{height:196px}
+  .tm-log,.tm-plan,.tm-persona{flex:0 0 auto;height:196px}
   .tm-mx{grid-template-columns:repeat(20,1fr);gap:2px}
   .tm-caption{min-height:92px;padding:16px 16px 12px}
   .tm-body{padding-left:16px;padding-right:16px}
@@ -141,7 +146,7 @@
 }
 
 /* The profile the answers are read into, shown before the log starts. */
-.tm-persona{display:flex;flex-direction:column;gap:12px;height:232px;justify-content:center;
+.tm-persona{display:flex;flex-direction:column;gap:12px;flex:1;min-height:180px;justify-content:center;
   animation:tm-in .3s ease-out both}
 .tm-persona[hidden]{display:none}
 .tm-persona-h{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;
