@@ -793,7 +793,14 @@
             ],
             "authority": {
               "name": "Dietary Reference Intakes, the joint United States and Canada set",
-              "reference": "Food and Nutrition Board, National Academies of Sciences, Engineering and Medicine, formerly the Institute of Medicine. Recommended Dietary Allowances where one is established, Adequate Intakes otherwise: manganese, pantothenic acid, biotin and potassium are Adequate Intakes and the rest are RDAs. Across the 1997 to 2011 reports, with calcium and vitamin D as updated in 2011 and potassium in 2019. Health Canada publishes the same joint set. Every value this market carries for the reference adult was cross-checked against those tables in October 2026. Recommended intakes only: the engine's upper limits are its own and several are stricter than the DRI tolerable upper intake levels.",
+              "reference": "Food and Nutrition Board, National Academies of Sciences, Engineering and Medicine. Recommended Dietary Allowances where established, Adequate Intakes otherwise, across the 1997 to 2011 reports with calcium and vitamin D updated in 2011 and potassium in 2019. Health Canada publishes the same joint set. Recommended intakes only: the upper limits are the engine's own.",
+              "adequate_intake_nutrients": [
+                "Manganese",
+                "Vitamin B5",
+                "Vitamin B7",
+                "Potassium"
+              ],
+              "verified": "Every value this market carries for the reference adult was cross-checked against the published DRI tables in October 2026, nutrient by nutrient.",
               "licence": "No open licence. NASEM publications are United States copyright and Health Canada publishes the same set under Crown Copyright; the values themselves are facts and are not subject to copyright."
             },
             "food_composition": "The same table for every market: Frida, the Danish Food Composition Database. There is no per-country food composition table.",

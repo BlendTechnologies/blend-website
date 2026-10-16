@@ -39,7 +39,12 @@
 .sci-head .eyebrow{display:inline-block;margin-bottom:14px}
 .sci-head .h2{margin-bottom:14px}
 .sci-head .lead{margin-left:auto;margin-right:auto;max-width:620px}
-.sci-note{max-width:760px;margin:22px auto 0;font-size:13px;line-height:1.6;color:var(--muted);text-align:center}
+/* Three statements, three centred lines, no emphasis on any of them: who the
+   table is drawn for, what it is a sample of, and that the sample is not the
+   thing the engine actually computes. A bolded figure in the middle made the
+   second line the headline, which is the one of the three that matters least. */
+.sci-note{max-width:760px;margin:22px auto 0;font-size:13px;line-height:1.7;color:var(--muted);text-align:center}
+.sci-note span{display:block}
 
 /* ---- the hero, inverted ------------------------------------------------ */
 .sci .ph{--ph-muted:#8E877C;background:#0A0A0A}
@@ -135,11 +140,10 @@
    muted gold rather than the strong one — these shape a plan, they do not
    stop an unsafe product, and the row should not imply they do. */
 /* The tiles are no longer controls: no pointer, no hover, no focus ring. */
+#sci-examples{margin-top:30px}
 .sci-gbox--static{cursor:default}
 .sci-gbox--static:hover{border-color:var(--line)}
 .sci-gbox--plan.sci-gbox--static:hover{border-color:var(--line)}
-.sci-ex-label{margin:30px 0 14px;text-align:center;font-size:12px;font-weight:600;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .sci-gbox--plan{border-style:dashed}
 .sci-gbox--plan .sci-gbox-n{color:var(--gold)}
 .sci-gbox--plan[aria-expanded="true"]{border-style:solid}

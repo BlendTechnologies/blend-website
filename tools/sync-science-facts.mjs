@@ -381,8 +381,8 @@ const safety = `<section class="sci-sec" id="safety">
     <div class="sci-groups sci-in">
 ${groupTiles}
     </div>
-    <p class="sci-ex-label sci-in">Three of the ${num(h.counts.safety_checks.value)}, as examples</p>
 ${exampleList}
+    <p class="sci-prod-foot sci-in">${num(examples.length)} of the ${num(h.counts.safety_checks.value)} checks that can remove a product.</p>
   </div>
 </section>`;
 
@@ -441,7 +441,7 @@ const markets = `<section class="sci-sec" id="markets">
       <div class="sci-ladders" data-ladders>
 ${first.nutrients.map(ladder).join('\n')}
       </div>
-      <p class="sci-note">Shown for a woman aged 31 to 50. These are <b>${num(first.nutrients.length)} of the ${num(h.countries.market_varying_nutrients)}</b> nutrients whose reference value changes with the market. Every real target is computed for the person, not read off this table.</p>
+      <p class="sci-note"><span>Shown for a woman aged 31 to 50.</span><span>${num(first.nutrients.length)} of the ${num(h.countries.market_varying_nutrients)} nutrients whose reference value changes with the market.</span><span>Every real target is computed for the person, not read off this table.</span></p>
     </div>
   </div>
 </section>`;
