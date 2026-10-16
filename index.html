@@ -50,7 +50,7 @@
      and these two keep only their text role. */
   --ink:#F3F1ED;--ink-80:rgba(243,241,237,.84);--ink-60:rgba(243,241,237,.70);
   --white:#ffffff;
-  --ground:#1E1E21;--ground-2:#1E1E21;--surface:#26262A;--deep:#0E0E10;
+  --ground:#1E1E21;--ground-2:#1E1E21;--surface:#2C2C34;--surface-2:#36363F;--deep:#0E0E10;
   --cream:#1E1E21;--subtle:#1E1E21;
   --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--gold-soft:#F0E2CC;
   --sand:#E7CFA3;--sand-soft:#F5E7C9;
@@ -62,7 +62,17 @@
   --shadow-sm:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.24);
   --shadow-md:0 1px 3px rgba(0,0,0,.34),0 8px 24px rgba(0,0,0,.30);
   --shadow-lg:0 2px 6px rgba(0,0,0,.38),0 20px 40px rgba(0,0,0,.40);
-  --hover-surface:#2E2E34;--hover-border:#CFB68F;--sand-bright:#F4E4C8;
+  /* ONE SURFACE PER CARD. A card used to carry three cues at once — a
+     fill barely above the ground, an outline, and a black shadow that on
+     a near-black page is a smear rather than a lift. Three weak signals
+     read as grey-on-grey clutter, and six of them in a grid read as
+     repetition. So the fill does the work and the other two go: the card
+     is lighter than the ground by enough to see, and all that is left of
+     the border is one lit pixel along the top edge — the same light that
+     makes the surface lighter, landing on its leading edge.
+     An outline now means something: featured, hovered, or focused. */
+  --edge:inset 0 1px 0 rgba(255,255,255,.06);
+  --hover-surface:#36363F;--hover-border:#CFB68F;--sand-bright:#F4E4C8;
   --nav-h:68px;--content:1340px;
 }
 *{box-sizing:border-box}
@@ -151,7 +161,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* No height here. The plan card's own content and its own padding set
    the height of the pair; see the composition block below. */
 .hero-stage{position:relative;width:100%}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
+.card{background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--edge)}
 /* The same hairline the quiz card carries. Without it the plan card had
    nothing but a shadow holding it off the hero, and on a dark page a
    shadow is almost nothing. */
@@ -320,10 +330,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section-cream + .section-cream{padding-top:var(--sec-join)}
 @media(max-width:860px){.section-head{margin-bottom:48px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
-.step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
+.step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--surface);border:1px solid transparent;border-radius:14px;box-shadow:var(--edge);transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
 /* Muted amber-beige, not the full gold: six cards in a grid each wearing a
    bright outline on hover read as an alert, not as a pointer. */
-.step:hover,.step:focus-visible{border-color:#CFB68F;box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.step:hover,.step:focus-visible{background:var(--surface-2);border-color:#CFB68F;box-shadow:var(--edge),var(--shadow-md);transform:translateY(-2px)}
 .step:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
 /* Flush to the card edge, clipped to the top corners by the card's own
    overflow. One fixed height so the six titles sit on the same line. */
@@ -335,7 +345,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    has reached nearly cream by the time the grid arrives, so white would
    have left the preview with no edge on either side of it. The mockups
    inside were drawn for this ground and go back to it unchanged. */
-.step-thumb{display:block;height:132px;background:var(--deep);border-bottom:1px solid var(--line)}
+.step-thumb{display:block;height:132px;background:transparent}
 /* Inherit Inter from the page: the labels inside are the product's own, and
    they should be set the way the product sets them. The interiors never take
    a click — the whole card is the link. */
@@ -592,13 +602,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .wl-ctrl-label{display:flex;align-items:center;gap:4px}
 .wl-ctrl-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;transition:background .3s ease}
 .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
-.tier{padding:32px 32px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:16px;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.tier{padding:32px 32px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:16px;position:relative;background:var(--surface);border:1px solid transparent;border-radius:16px;box-shadow:var(--edge)}
 /* A warm tint, not a bright panel: #FBF7EE was a cream wash on a white page
    and reads as a lit box on a charcoal one. Same idea, same gold. */
 /* Same surface as the other two. The brown wash read as muddy beside the
    cooler greys; a gold border, badge and button say "featured" without
    tinting the card. */
-.tier.featured{background:var(--surface);border-color:rgba(231,207,163,.55)}
+.tier.featured{background:var(--surface-2);border-color:rgba(231,207,163,.7);box-shadow:var(--edge),var(--shadow-md)}
 .tier.featured::before{content:"Most popular";position:absolute;top:20px;right:20px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--sand);text-transform:uppercase}
 .tier-name{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
 .tier-price{font-size:40px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
@@ -630,7 +640,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-cta.dark:hover{background:var(--hover-surface)}
 .tier-cta.gold{background:var(--gold-strong);color:var(--white)}
 .tier-cta.gold:hover{background:var(--gold-hover)}.tier-cta.gold:active{background:var(--gold-active)}
-.tier-cta.outline{border:1px solid var(--line-strong);color:var(--ink);background:var(--surface)}
+.tier-cta.outline{border:1px solid var(--line-strong);color:var(--ink);background:transparent}
 /* This used to set border-color to the value the base already carried, so
    "Start free trial" and "Talk to us" did nothing at all when pointed at.
    Same language as every other hover on the page: a step lighter, with
@@ -740,21 +750,23 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media (prefers-reduced-motion:reduce){.vlead-cta span{transition:none}}
 .vnext{display:flex;flex-direction:column;gap:8px}
 .vnext-cap{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-.vrow{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;flex:1;transition:border-color .18s ease,transform .18s ease}
-.vrow-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--ground-2);color:var(--muted)}
+.vrow{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;background:transparent;border:1px solid transparent;border-bottom-color:var(--line);border-radius:0;padding:13px 2px;flex:1;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.vrow-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,.06);color:var(--muted)}
 .vrow-name{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.005em}
 .vrow-note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.vrow-talk{background:var(--deep);border-color:var(--line-strong);color:var(--white)}
+.vrow-talk{background:var(--surface);border-color:transparent;border-radius:12px;padding:13px 14px;color:var(--ink);box-shadow:var(--edge)}
 .vrow-talk .vrow-icon{background:rgba(255,255,255,.1);color:var(--sand)}
 .vrow-talk .vrow-note{color:var(--muted-on-dark)}
 .vrow-talk .vbadge{background:rgba(255,255,255,.12);color:var(--white)}
 .vrow-talk{cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
-.vrow-talk:hover,.vrow-talk:focus-visible{transform:translateY(-2px);border-color:var(--gold);box-shadow:var(--shadow-md)}
-.vrow:not(.vrow-talk):hover{border-color:var(--line-strong)}
+.vrow-talk:hover,.vrow-talk:focus-visible{transform:translateY(-2px);background:var(--surface-2);border-color:var(--sand);box-shadow:var(--edge),var(--shadow-md)}
+.vrow:not(.vrow-talk):hover{background:var(--surface);border-radius:10px;border-bottom-color:transparent}
+/* no rule immediately above the one row that is still a card */
+.vrow:not(.vrow-talk):last-of-type,.vrow:not(.vrow-talk):has(+ .vrow-talk){border-bottom-color:transparent}
 
 .vbadge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 .vbadge-live{display:inline-flex;align-items:center;gap:7px;background:rgba(106,168,79,.14);color:#3F6B2E}
-.vbadge-soon{background:var(--ground-2);color:var(--muted)}
+.vbadge-soon{background:rgba(255,255,255,.07);color:var(--muted)}
 /* The one thing on this band that moves, because "live today" is the claim
    the band is making and a steady dot is how a status reads as current. */
 .vdot{width:7px;height:7px;border-radius:50%;background:var(--green-soft);animation:vpulse 2.4s ease-in-out infinite}
