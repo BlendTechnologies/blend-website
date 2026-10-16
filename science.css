@@ -52,6 +52,14 @@
 .sci .sc-cue{border-color:rgba(255,255,255,.22);color:#B9B1A4}
 /* The index carries categories, not steps, so it has no numbers and only
    the live one is a link. */
+.sci-verts{--ph-ix:4}
+.sci-verts .ph-ix-item{cursor:default}
+.sci-verts .is-on{cursor:pointer}
+.sci-verts .is-on .ph-ix-line{transform:scaleX(1);background:var(--gold-active)}
+.sci-verts .is-on .ph-ix-name{color:#EDE6DA}
+.sci-verts .is-off{position:relative;color:#6F6A62}
+.sci-verts .is-off .ph-ix-name{color:#6F6A62}
+.sci-verts .is-off:focus-visible{outline:2px solid #E7CFA3;outline-offset:3px;border-radius:4px}
 
 /* A tooltip, shared by the categories, the run marker and the warning. */
 .sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:var(--gold);color:#17140F;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
@@ -201,6 +209,7 @@
 }
 
 /* ---- One divider between the two explorers ---------------------------- */
+.sci-divider{border:0;border-top:1px solid var(--line);max-width:720px;margin:0 auto 54px}
 }
 /* Stacked, the sign would be a stray character on its own line. */
 @media (max-width:620px){
@@ -418,163 +427,3 @@
   .tm-persona dd{font-size:12.5px}
 }
 @media (prefers-reduced-motion:reduce){.tm-persona{animation:none}}
-
-/* ============================================================
-   The page's layout
-   ------------------------------------------------------------
-   A two-column hero, the walkthrough, three lines of plain
-   English, then the detail in alternating two-column sections.
-
-   One grid does the alternating: the intro is always FIRST in
-   the DOM, and .is-flip moves it to the second column on wide
-   screens. That way the stacked order on a phone is intro then
-   panel for every section without a second rule, and nothing
-   depends on source order matching visual order.
-   ============================================================ */
-.sci-hero{--sec:0}
-/* Not a full screen. The hero's job here is to say what the page is and
-   let the walkthrough start; it was holding the whole viewport to do it. */
-.sci .sci-hero.sc-hero{min-height:0;padding:clamp(48px,6vw,78px) 0 clamp(52px,6vw,84px)}
-.sci-hero-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);
-  gap:clamp(28px,5vw,64px);align-items:center}
-/* .ph-inner centres everything for the other pages' heroes: text-align on the
-   block, auto side margins on the headline and lead, and flex centring inside
-   .ph-meta and .ph-ctas. Ranging this column left means undoing all three —
-   text-align alone left the headline and lead sitting in the middle of their
-   own column, which is the kind of thing that reads as a bug rather than as
-   a choice. */
-.sci-hero-copy{text-align:left;align-items:flex-start;max-width:none;margin:0}
-.sci-hero-copy .ph-ctas,.sci-hero-copy .ph-meta{justify-content:flex-start}
-.sci-hero-copy .h1,.sci-hero-copy .lead{margin-left:0;margin-right:0}
-/* A size that lets the written break be the break. At the shared h1 size the
-   column ran out mid-phrase and the <br> only added a third line. */
-.sci-hero-copy .h1{margin-bottom:14px;font-size:clamp(32px,3.6vw,47px);line-height:1.1}
-/* Wide enough for the headline to break where it is told to rather than
-   where the column runs out. */
-.sci-hero-copy .lead{max-width:34ch}
-
-/* the four categories */
-.sci-verts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.vc{display:flex;flex-direction:column;align-items:flex-start;gap:9px;
-  padding:20px 18px;border-radius:14px;border:1px solid var(--line);
-  background:var(--raised);text-decoration:none;min-height:132px;
-  transition:border-color .18s ease,transform .18s ease,background .18s ease}
-.vc-ico{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;
-  color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent)}
-.vc-ico svg{width:19px;height:19px}
-.vc-name{font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
-.vc-state{margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--muted)}
-/* Live: the only one that is a link, and it says so with its accent. */
-.vc.is-live{border-color:color-mix(in srgb,var(--acc) 42%,var(--line));
-  background:linear-gradient(180deg,color-mix(in srgb,var(--acc) 8%,transparent),transparent)}
-.vc.is-live .vc-state{color:var(--acc)}
-.vc.is-live:hover{border-color:var(--acc);transform:translateY(-2px)}
-.vc.is-live:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
-/* Coming soon: not a control, and not styled as one. */
-.vc.is-soon{cursor:default;opacity:.72}
-.vc.is-soon .vc-ico{opacity:.75}
-
-/* three lines of plain English under the walkthrough */
-.sci-steps-sec{--sec:clamp(44px,5vw,64px)}
-.sci-steps{list-style:none;margin:0;padding:0;display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3.5vw,46px)}
-.sci-steps li{display:flex;flex-direction:column;gap:7px}
-.ss-n{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
-  letter-spacing:.08em;color:var(--gold)}
-.sci-steps h3{margin:0;font-size:16px;font-weight:600;letter-spacing:-.012em;color:var(--ink)}
-.sci-steps p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
-
-/* the alternating detail sections */
-.sci-alt{display:grid;grid-template-columns:minmax(0,40fr) minmax(0,60fr);
-  gap:clamp(26px,4vw,56px);align-items:start}
-.sci-alt-intro{max-width:none;margin:0;text-align:left;position:sticky;top:calc(var(--nav-h) + 28px)}
-.sci-alt-panel{min-width:0}
-/* Flipped: the panel takes the first column and the intro the second, with
-   its text ranged right so the two columns meet in the middle. The DOM order
-   does not change, so the phone still gets the intro first. */
-/* Flipped, the wide column has to move too: placing the intro in column 2
-   without swapping the track sizes handed the INTRO the 60% and squeezed the
-   panel into 40, which is the opposite of the point. */
-.sci-alt.is-flip{grid-template-columns:minmax(0,60fr) minmax(0,40fr)}
-.sci-alt.is-flip .sci-alt-intro{grid-column:2;text-align:right}
-.sci-alt.is-flip .sci-alt-panel{grid-column:1;grid-row:1}
-/* The panels' own contents were centred for a full-width section. */
-.sci-alt-panel .sci-goalgrid,.sci-alt-panel .sci-groups,
-.sci-alt-panel .sci-ladders,.sci-alt-panel .sci-stats{margin-left:0;margin-right:0;max-width:none}
-.sci-alt-panel .sci-subs{max-width:none}
-
-@media (max-width:1024px){
-  .sci-hero-grid{grid-template-columns:minmax(0,1fr);gap:34px}
-  .sci-verts{max-width:520px}
-  .sci-alt{grid-template-columns:minmax(0,1fr);gap:26px}
-  .sci-alt-intro{position:static}
-  /* Intro first on every section, whichever side it sat on. */
-  .sci-alt.is-flip .sci-alt-intro{grid-column:1;text-align:left}
-  .sci-alt.is-flip .sci-alt-panel{grid-column:1;grid-row:auto}
-}
-@media (max-width:760px){
-  .sci-steps{grid-template-columns:minmax(0,1fr);gap:24px}
-}
-@media (max-width:480px){
-  .sci-verts{grid-template-columns:minmax(0,1fr)}
-  .vc{min-height:0;flex-direction:row;align-items:center;gap:13px;padding:14px 15px}
-  .vc-state{margin-top:0;margin-left:auto}
-}
-
-/* ---- the alternating sections, in detail --------------------------------
-   Two things the panels carried over from being full-width bands: a heading
-   scaled for a 760px centred column, which overran a 40% one, and contents
-   centred on the page, which in a column reads as a cloud rather than a
-   block. Both are placement, so both belong here rather than in the
-   components. */
-.sci-alt-intro .h2{font-size:clamp(25px,2.5vw,34px);line-height:1.15}
-.sci-alt-intro .lead{font-size:15px}
-.sci-alt-panel .sci-goalgrid{justify-content:flex-start}
-.sci-alt-panel .sci-subs{text-align:left;min-height:0;margin-top:20px;
-  padding-top:18px;border-top:1px solid var(--line)}
-.sci-alt-panel .sci-subs-list{justify-content:flex-start}
-.sci-alt-panel .sci-prod-foot,.sci-alt-panel .sci-note{text-align:left}
-.sci-alt-panel .sci-note span{display:block}
-.sci-alt-panel .sci-prows{margin-left:0;margin-right:0}
-/* A flipped intro ranges right, so its own rule under it should too. */
-.sci-alt.is-flip .sci-alt-intro .ph-meta{justify-content:flex-end}
-@media (max-width:1024px){
-  .sci-alt-intro .h2{font-size:clamp(25px,4.6vw,32px)}
-  .sci-alt.is-flip .sci-alt-intro .ph-meta{justify-content:flex-start}
-}
-
-/* ---- the four panels are surfaces, not loose rows ------------------------
-   Without a container the product table and the goal list were hairlines
-   floating on the page background: nothing said where a section began or
-   ended, and four of them in a row read as one long undifferentiated scroll.
-   The same near-black surface as the terminal, so the page has one kind of
-   panel rather than two.
-
-   The intro centres against the panel rather than sticking to the top. A
-   short intro beside a 600px panel left a void the height of a phone screen,
-   and sticky only helps while you are moving. */
-.sci-alt{align-items:center}
-.sci-alt-intro{position:static}
-.sci-alt-panel{background:#0D0C0B;border:1px solid rgba(255,255,255,.07);
-  border-radius:18px;padding:clamp(20px,2.4vw,30px)}
-/* The panel supplies the frame now, so its contents stop drawing their own
-   outer rules. */
-.sci-alt-panel .sci-goalgrid{border-top:0;border-bottom:0;padding-top:0}
-.sci-alt-panel .sci-glist{border:0;background:transparent;padding-left:0;padding-right:0}
-.sci-alt-panel .sci-countries{margin-top:0}
-
-/* ---- rhythm --------------------------------------------------------------
-   Everything was tight against everything else while the columns carried
-   voids. More air between sections, more inside the hero, and the three
-   lines of plain English given room of their own instead of being pinned
-   under the terminal. */
-.sci-sec{--sec:clamp(70px,7vw,104px)}
-.sci .sci-hero.sc-hero{padding:clamp(64px,7.5vw,104px) 0 clamp(72px,8vw,112px)}
-.sci-hero-grid{gap:clamp(34px,6vw,84px)}
-.sci-steps-sec{--sec:clamp(56px,6vw,84px)}
-.sci-steps{gap:clamp(24px,4vw,56px)}
-.sci-steps li{padding-top:18px;border-top:1px solid var(--line)}
-@media (max-width:1024px){
-  .sci-alt{align-items:start}
-}
