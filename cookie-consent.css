@@ -9,7 +9,7 @@
   left: 0;
   right: 0;
   z-index: 9999;
-  background: rgba(250, 248, 242, 0.98);
+  background: rgba(20, 20, 23, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--line, #E3DDCC);
@@ -42,7 +42,7 @@
 .blend-cookie-banner-title {
   font-size: 15px;
   font-weight: 600;
-  color: var(--ink, #0A0A0A);
+  color: var(--ink, #F3F1ED);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -50,20 +50,20 @@
 .blend-cookie-banner-text {
   font-size: 13.5px;
   line-height: 1.5;
-  color: var(--ink-80, rgba(10, 10, 10, 0.8));
+  color: var(--ink-80, rgba(243, 241, 237, 0.84));
   margin: 0;
 }
 
 .blend-cookie-banner-text a {
   /* --gold on the cream banner is 3.3:1; --gold-strong is 4.6:1 and clears
      the WCAG AA 4.5:1 floor for this 13.5px link text. */
-  color: var(--gold-strong, #96682B);
+  color: var(--sand, #E7CFA3);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .blend-cookie-banner-text a:hover {
-  color: var(--gold-hover, #7F5824);
+  color: var(--sand-bright, #F4E4C8);
 }
 
 .blend-cookie-banner-actions {
@@ -96,12 +96,12 @@
      .btn-primary across the site already uses. */
   background: var(--gold-strong, #96682B);
   color: #ffffff;
-  border-color: var(--gold-strong, #96682B);
+  border-color: var(--sand, #E7CFA3);
 }
 
 .blend-cookie-banner-btn-accept:hover {
   background: var(--gold-hover, #7F5824);
-  border-color: var(--gold-hover, #7F5824);
+  border-color: var(--sand-bright, #F4E4C8);
 }
 
 .blend-cookie-banner-btn-accept:focus-visible {
@@ -111,12 +111,12 @@
 
 .blend-cookie-banner-btn-reject {
   background: transparent;
-  color: var(--ink, #0A0A0A);
+  color: var(--ink, #F3F1ED);
   border: 1px solid var(--line-strong, #D1C9B2);
 }
 
 .blend-cookie-banner-btn-reject:hover {
-  border-color: var(--ink, #0A0A0A);
+  border-color: var(--ink, #F3F1ED);
   background: var(--white, #ffffff);
 }
 
