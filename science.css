@@ -12,17 +12,20 @@
    so a page without it, or a capture that never scrolls, shows
    everything.
    ============================================================ */
-/* One dark page: pure black at the ends, a shade up in the middle so the
-   hero and the endcap read as the edges of it rather than three bands.
-   Every colour below clears AA on both: the lightest secondary is 5.18:1
-   on the body and 5.57:1 on the hero. */
+/* One dark page, on the site's ground rather than a warm one of its own.
+   This page went dark months before the rest and picked #151412 with a
+   warm raised scale to match; once every page was charcoal that read as
+   a different site, so the surfaces now come from theme.css and only the
+   things this page genuinely means differently stay here.
+
+   The gold is the exception that stays: #B47F39 is the brand on white and
+   is too dark to carry a figure on charcoal, so this page uses --sand,
+   which is the same brand gold lifted for a dark ground. */
 .sci{
-  --bg:#151412; --raised:#1C1A17; --raised-2:#232019;
-  --ink:#EDE6DA; --ink-80:#B9B1A4; --ink-60:#8E877C;
-  --muted:#8E877C; --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.2);
-  --subtle:#1C1A17; --white:#EDE6DA;
+  --bg:var(--ground); --raised:var(--surface); --raised-2:#30303A;
+  --subtle:var(--surface);
   --gold:#E7CFA3; --gold-strong:#E7CFA3; --gold-soft:rgba(231,207,163,.14); --gold-active:#E7CFA3;
-  --ok:#7FA86A; --warn:#D9A441; --bad:#C8614C;
+  --ok:#8FBE74; --warn:#E3B457; --bad:#E8826B;
   background:var(--bg); color:var(--ink);
   /* A faint rule grid, the paper this is drawn on. */
   background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
@@ -47,7 +50,7 @@
 .sci-note span{display:block}
 
 /* ---- the hero, inverted ------------------------------------------------ */
-.sci .ph{--ph-muted:#8E877C;background:#0A0A0A}
+.sci .ph{--ph-muted:var(--muted);background:var(--deep)}
 .sci .ph .h1,.sci .ph .lead{color:var(--ink)}
 .sci .sc-cue{border-color:rgba(255,255,255,.22);color:#B9B1A4}
 /* The index carries categories, not steps, so it has no numbers and only
@@ -133,7 +136,7 @@
 .closer .lead{margin:0 auto 30px;max-width:520px}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.footer{position:relative;overflow:hidden;background:#151412;padding:48px 0 32px}
+.footer{position:relative;overflow:hidden;background:transparent;padding:48px 0 32px}
 
 /* ---- motion -------------------------------------------------------------- */
 .sci-js .sci-sec:not(.is-in) .sci-in{opacity:0;transform:translateY(14px)}
@@ -257,7 +260,7 @@
    .sc-reveal paints var(--ink) and writes in var(--white), and this page
    remaps both for a dark surface — so inside .sci the card came out beige
    with invisible text. The endcap takes the real values back. */
-.sci .closer,.sci .footer{--ink:#0A0A0A;--white:#ffffff;--muted-on-dark:rgba(255,255,255,.72)}
+.sci .closer,.sci .footer{--white:#ffffff;--muted-on-dark:rgba(255,255,255,.72)}
 .sci .closer .h1,.sci .closer .lead,.sci .closer .eyebrow{color:var(--white)}
 .sci .closer .lead{color:rgba(255,255,255,.72)}
 .sci .closer .eyebrow{color:var(--sand,#E7CFA3)}

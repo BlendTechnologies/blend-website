@@ -13,7 +13,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#FAF8F2">
+<meta name="theme-color" content="#1E1E21">
 <link rel="canonical" href="https://www.blend-technologies.com/try">
 <meta property="og:image" content="https://www.blend-technologies.com/og.png">
 <link rel="preconnect" href="https://rsms.me/">
@@ -21,17 +21,7 @@
 <link rel="stylesheet" href="/scroll-cards.css">
 <link rel="stylesheet" href="/nav-mobile.css">
 <style>
-:root{
-  --ink:#0A0A0A;--ink-80:rgba(10,10,10,.80);--ink-60:rgba(10,10,10,.60);
-  --cream:#FAF8F2;--cream-2:#F1EDE0;--subtle:#F7F7F7;
-  --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;--gold-soft:#F0E2CC;
-  --muted:#6B6B6B;--line:#E3DDCC;--line-strong:#D1C9B2;--white:#ffffff;
-  --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;
-  --shadow-sm:0 1px 2px rgba(0,0,0,.03),0 2px 8px rgba(0,0,0,.03);
-  --shadow-md:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
-  --shadow-lg:0 2px 6px rgba(0,0,0,.05),0 20px 40px rgba(0,0,0,.08);
-  --nav-h:68px;--content:1200px;
-}
+:root{--content:1200px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
@@ -39,7 +29,7 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 img,svg{display:block;max-width:100%}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
@@ -51,7 +41,7 @@ img,svg{display:block;max-width:100%}
 .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
-.btn-ghost:hover{border-color:var(--ink);background:var(--white)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
 .btn-ghost:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 /* 12px of side padding on a 93px label left "Try it yourself" all but
    touching both ends of its own pill. The ≤860 rule below already carried
@@ -59,11 +49,11 @@ img,svg{display:block;max-width:100%}
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
 /* Nav */
-.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,242,.85);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg,var(--deep));backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease}
 .nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--nav-h);gap:24px}
 .logo{display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start}
-.logo svg{display:block;height:26px;width:auto}
+.logo svg{display:block;height:26px;width:auto;filter:brightness(0) invert(1)}
 .nav-links{display:flex;align-items:center;gap:32px;justify-self:center}
 .nav-links a{font-size:14px;color:var(--ink-80);font-weight:500;padding:12px 0;letter-spacing:-.005em}
 .nav-links a:hover{color:var(--ink)}
@@ -94,15 +84,15 @@ img,svg{display:block;max-width:100%}
 .footer .logo svg{filter:brightness(0) invert(1)}
 /* Embed */
 .try-embed-section{padding:24px 0 112px;background:var(--cream)}
-.try-embed-frame{position:relative;max-width:100%;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);height:80vh}
+.try-embed-frame{position:relative;max-width:100%;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);height:80vh}
 .try-embed-frame iframe{width:100%;height:100%;border:0;display:block}
 /* Fullscreen state, strip frame chrome and fill viewport */
 .try-embed-frame:fullscreen,
-.try-embed-frame:-webkit-full-screen{border:0;border-radius:0;box-shadow:none;height:100vh;max-width:none;width:100vw;background:var(--white)}
+.try-embed-frame:-webkit-full-screen{border:0;border-radius:0;box-shadow:none;height:100vh;max-width:none;width:100vw;background:var(--surface)}
 .try-embed-frame:fullscreen iframe,
 .try-embed-frame:-webkit-full-screen iframe{height:100vh}
 /* Pseudo-fullscreen fallback for iOS Safari (where the Fullscreen API only works on <video>) and anywhere requestFullscreen is unavailable */
-.try-embed-frame.is-pseudo-fs{position:fixed;inset:0;margin:0;width:100vw;height:100vh;height:100dvh;max-width:none;border:0;border-radius:0;box-shadow:none;z-index:9999;background:var(--white)}
+.try-embed-frame.is-pseudo-fs{position:fixed;inset:0;margin:0;width:100vw;height:100vh;height:100dvh;max-width:none;border:0;border-radius:0;box-shadow:none;z-index:9999;background:var(--surface)}
 .try-embed-frame.is-pseudo-fs iframe{height:100%}
 body.is-fs-locked{overflow:hidden;touch-action:none}
 /* Fullscreen toggle button */
@@ -150,6 +140,7 @@ body.is-fs-locked{overflow:hidden;touch-action:none}
 html,body{max-width:100%;overflow-x:clip}
 </style>
 <link rel="stylesheet" href="cookie-consent.css">
+  <link rel="stylesheet" href="/theme.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Try the live quiz demo | Blend","url":"https://www.blend-technologies.com/try","description":"Take the Blend quiz yourself. The same embed you would drop on your store, running the live personalisation engine on a sample catalogue.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Try the demo","item":"https://www.blend-technologies.com/try"}]}}</script>
 </head>
 <body>
@@ -187,7 +178,7 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="try-embed-foot">
       This is the same embed you'd drop on your site, one line of code.
     </div>
-    <div class="try-embed-alt" style="margin-top:10px;text-align:center;font-size:14px;color:var(--ink-60);letter-spacing:-.005em">Not ready? <a href="/sample-report" style="color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500">See a sample report &rarr;</a></div>
+    <div class="try-embed-alt" style="margin-top:10px;text-align:center;font-size:14px;color:var(--ink-60);letter-spacing:-.005em">Not ready? <a href="/sample-report" style="color:var(--sand);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500">See a sample report &rarr;</a></div>
   </div>
 </section>
 <section class="after sc-reveal sc-reveal--top" data-sc="endcap">

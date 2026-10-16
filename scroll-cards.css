@@ -52,7 +52,7 @@
   min-height:calc(100vh - var(--nav-h));
   min-height:calc(100svh - var(--nav-h));
   padding:40px 0 56px;
-  background:rgba(10,10,10,.07);
+  background:transparent;
   clip-path:inset(
     calc(var(--sc-p) * var(--sc-inset)) calc(var(--sc-p) * var(--sc-inset))
     calc(var(--sc-p) * var(--sc-inset)) calc(var(--sc-p) * var(--sc-inset))
@@ -87,7 +87,7 @@
    it, and what belongs either side of a reveal is the ground it sits on.
    The block keeps that ground; the layer carries the ink. */
 .sc-reveal{position:relative;overflow:hidden}
-.sc-reveal::before{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);
+.sc-reveal::before{content:"";position:absolute;inset:0;z-index:0;background:var(--deep);
   clip-path:inset(
     calc((1 - var(--sc-p)) * var(--sc-inset)) calc((1 - var(--sc-p)) * var(--sc-inset))
     calc((1 - var(--sc-p)) * var(--sc-inset)) calc((1 - var(--sc-p)) * var(--sc-inset))

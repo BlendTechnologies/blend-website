@@ -1,0 +1,90 @@
+/* ============================================================
+   The palette. One file, every page.
+
+   Before this, all thirteen pages carried their own copy of the
+   token block inside their inline <style>. They had already
+   drifted — some had --cream-2, some did not, some had three
+   shadows and some two — and a theme change meant thirteen
+   edits that had to agree. The site went dark one page at a
+   time for exactly that reason.
+
+   Each page now links this LAST, after the other stylesheets,
+   and keeps only the tokens that are genuinely its own in its
+   inline :root — --content, because the homepage is wider than
+   the rest, and anything page-specific.
+
+   ---- The rules this encodes -------------------------------
+
+   GROUND is the lightest surface on the page. Cards are cut
+   INTO it at --surface; the hero, the nav and the endcap are
+   deeper wells at --deep. Two levels, deliberately: flattening
+   them to one colour takes the contrast out of a dark page
+   entirely. surfaces.spec.mjs asserts all of it by value.
+
+   TEXT keeps --ink/--ink-80/--ink-60 as a text ramp only. On
+   the light site --ink did two jobs — body text AND the fill of
+   the dark reveal cards — and --white likewise was text on
+   those cards AND the surface of every card. That works out on
+   a light page and does not survive inverting, so the surface
+   roles moved to --ground/--surface/--deep and these two keep
+   only their text role.
+
+   GOLD does not move. The ramp is byte for byte what it was on
+   the light site, because it is the brand, not a theme colour.
+   It does run DARKER as it goes (#B47F39 down to #6D491C),
+   which is right on white and backwards here, so hovers climb
+   it rather than descending: see --hover-* below.
+
+   SHADOWS are much heavier than the light site's 3-5% blacks.
+   A 4% black shadow on charcoal is not a soft lift, it is
+   nothing at all. These are still only a separation cue — the
+   border and the tone step do most of the work.
+   ============================================================ */
+
+:root{
+  /* text, three weights */
+  --ink:#F3F1ED;--ink-80:rgba(243,241,237,.84);--ink-60:rgba(243,241,237,.70);--ink-40:rgba(243,241,237,.52);
+  --muted:rgba(243,241,237,.68);--muted-on-dark:rgba(255,255,255,.72);
+  --white:#ffffff;
+
+  /* surfaces: ground, cards cut into it, deeper wells */
+  /* A box is near-black, the same near-black as the nav, the hero and the
+     endcap. The ground is the only lighter surface on the page, so every
+     container reads as cut into it rather than floating above it.
+     --surface-up is the exception that proves it: a card sitting ON a
+     near-black well (the quiz on the homepage hero) has to go the other
+     way, because there is no room left below. Same rule, other direction.
+     --surface-2 is the lift for a featured box. */
+  --ground:#1E1E21;--ground-2:#1E1E21;--deep:#0E0E10;
+  --surface:#0E0E10;--surface-2:#17171B;--surface-up:#26262A;
+  /* the light site's ground names, kept so existing rules resolve */
+  --cream:#1E1E21;--cream-2:#1E1E21;--subtle:#1E1E21;
+  --hero-beige:#0E0E10;--hero-tint:#0E0E10;
+
+  /* the brand, unchanged */
+  --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;
+  /* The pale cream wash behind badges and icon tiles. #F0E2CC was a light
+     island on a charcoal page; as a translucent sand it is the same idea
+     on whatever it sits on. It is only ever a fill, a border or an
+     underline, never a text colour, so this is safe to move. */
+  --gold-soft:rgba(231,207,163,.14);
+  --sand:#E7CFA3;--sand-soft:#F5E7C9;--sand-bright:#F4E4C8;
+
+  /* lines are white alpha, not a beige hex: they have to sit on
+     the ground, on a card and on a near-black well */
+  --line:rgba(255,255,255,.10);--line-strong:rgba(255,255,255,.20);
+
+  /* both lifted for a dark ground: #D8614A reads 4.2:1 on charcoal */
+  --red-soft:#E8826B;--green-soft:#7FBF62;
+
+  /* hover climbs the ramp instead of descending it */
+  --hover-surface:#2E2E34;--hover-border:#CFB68F;
+
+  --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;
+
+  --shadow-sm:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.24);
+  --shadow-md:0 1px 3px rgba(0,0,0,.34),0 8px 24px rgba(0,0,0,.30);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.38),0 20px 40px rgba(0,0,0,.40);
+
+  --nav-h:68px;
+}
