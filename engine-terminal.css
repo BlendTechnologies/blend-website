@@ -165,3 +165,15 @@
 .tm::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:3px 0 0 0}
 .tm::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 3px 0}
 
+
+/* A restart control that is an icon, for pages that carry no transport bar.
+   Same target size as a button; it just does not say its name. */
+.tm-icon{display:inline-grid;place-items:center;width:30px;height:30px;margin-left:10px;
+  border-radius:50%;border:1px solid var(--t-line);background:transparent;
+  color:var(--t-dim);cursor:pointer;padding:0;
+  transition:color .18s ease,border-color .18s ease,transform .3s ease}
+.tm-icon svg{width:15px;height:15px;display:block}
+.tm-icon:hover{color:var(--t-gold);border-color:var(--t-gold)}
+.tm-icon:active svg{transform:rotate(-180deg);transition:transform .3s ease}
+.tm-icon:focus-visible{outline:2px solid var(--t-gold);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.tm-icon,.tm-icon:active svg{transition:none}}

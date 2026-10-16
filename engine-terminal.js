@@ -96,6 +96,7 @@
 
   var PERSONA = 1500;
   var at = LAST, timer = null, lineTimer = null, personaTimer = null, playing = false, n = 0, cut = 0;
+  var userTook = false;
 
   /* Sampling at random repeated itself — "breakfast skipped" twice inside
      ten lines reads as noise rather than as a profile being read. Each pool
@@ -279,31 +280,42 @@
   }
 
   if (toggle) {
-    toggle.addEventListener('click', function () { if (playing) { stop(); } else { play(); } });
+    toggle.addEventListener('click', function () { userTook = true; if (playing) { stop(); } else { play(); } });
   }
-  var replayBtn = $('[data-tm-replay]', card);
+  var replayBtn = $('[data-tm-replay]', card) || $('[data-tm-restart]', card);
   if (replayBtn) {
     replayBtn.addEventListener('click', function () {
-      stop(); logEl.textContent = ''; show(0, false); play();
+      userTook = false; stop(); logEl.textContent = ''; show(0, false); play();
     });
   }
   ticks.forEach(function (t, k) {
     t.addEventListener('click', function () {
-      stop(); logEl.textContent = ''; show(k, false);
+      userTook = true; stop(); logEl.textContent = ''; show(k, false);
       if (!reduce && k !== LAST) { for (var i = 0; i < 10; i++) { line(k); } }
     });
   });
 
+  /* It runs while it is on screen and stops the moment it is not: a log
+     printing eight lines a second into a card nobody is looking at is work
+     for no one, and coming back to a finished plan says less than coming
+     back to it starting over. Leaving resets it; returning starts it again.
+
+     Unless the reader has taken hold of it. Anyone who has pressed pause,
+     stepped to a stage or restarted has said what they want on screen, and
+     scrolling past should not overrule them. */
   if (reduce || !window.IntersectionObserver) { show(LAST, false); return; }
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      io.disconnect();
-      logEl.textContent = '';
-      show(0, false);
-      play();
+      if (e.isIntersecting) {
+        if (userTook || playing) return;
+        logEl.textContent = '';
+        show(0, false);
+        play();
+      } else {
+        stop();
+      }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.35 });
   io.observe(card);
 })();
 })();
