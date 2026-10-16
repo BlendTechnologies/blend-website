@@ -170,6 +170,23 @@ ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${
    This is the only thing left on the page that reads the real trace. */
 const steps = trace.steps;
 
+/* ---- 2b. what the engine does, in three lines -------------------------------
+   The only plain-language explanation on the page, and the only part that
+   describes the walkthrough in words rather than in motion. Deliberately
+   short: no formula, no threshold, no scoring rule. */
+const STEPS = [
+  ['Understand the customer', 'Their answers describe their goals, preferences and relevant health information.'],
+  ['Assess the catalogue', 'Blend scores products against their profile and applies safety checks.'],
+  ['Explain the recommendations', 'The customer receives a personalised plan with a reason for each recommendation.'],
+];
+const steps3 = `<section class="sci-sec sci-steps-sec" id="how">
+  <div class="wrap">
+    <ol class="sci-steps sci-in">
+${STEPS.map(([t, d], i) => `      <li><span class="ss-n">${pad(i + 1)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n')}
+    </ol>
+  </div>
+</section>`;
+
 /* ---- 3. the terminal -------------------------------------------------------
    One dark terminal that runs for the whole walkthrough: a log scrolling up
    the left, the catalogue as a pixel matrix on the right, a heading and one
@@ -416,7 +433,7 @@ for (const key of Object.keys(PUBLIC_V)) {
 
 const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: PUBLIC_V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
 
-const body = [hero, productsSec, covers, run, safety, markets, cta, data].join('\n\n');
+const body = [hero, run, steps3, productsSec, covers, safety, markets, cta, data].join('\n\n');
 
 /* ---- splice ------------------------------------------------------------------ */
 let page = readFileSync(PAGE, 'utf8');

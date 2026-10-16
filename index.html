@@ -35,6 +35,7 @@
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="/nav-mobile.css">
 <link rel="stylesheet" href="/scroll-cards.css">
+<link rel="stylesheet" href="/engine-terminal.css">
 <link rel="stylesheet" href="cookie-consent.css">
 <style>
 /* ============================================================
@@ -1480,27 +1481,16 @@ html,body{max-width:100%;overflow-x:clip}
 /* Says what the picture is. The animation illustrates the shape of the
    flow; it is not a live calculation, and one vertical is not the
    platform. */
-.eng-example{margin:56px 0 0;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--white)}
-.eng-example + .eng{margin-top:14px}
 /* The outer columns were 210 and 272, sized when they held a one-word
    label. They now hold a caption as well, and 210px put the first one on
    three lines where the brief asks for two, so the two sides match. */
-.eng{display:grid;grid-template-columns:272px minmax(0,1fr) 272px;gap:0 26px;margin-top:40px;align-items:start}
 /* The two chevrons that sat in the column gaps are gone. They were there to
    say the three bands read as one sentence; the captions now carry that on
    their own, and at full strength they no longer need a connector drawn
    between them. */
-.eng-band{position:relative;min-width:0}
 /* Label and caption sit under the stage they belong to. Flex order rather
    than a DOM reorder, so the label still comes first for a screen reader
    and the animation it describes is still the thing above it on screen. */
-.eng-band{display:flex;flex-direction:column}
-.eng-band > .eng-feed,.eng-band > .eng-grid{order:1}
-.eng-cap{order:2;display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin:22px 0 7px}
-/* The caption lives inside its own .eng-band, so it inherits that band's
-   grid column and lines up with the animation under it at every width,
-   including stacked on a phone. No second row of columns to keep in sync. */
-.eng-sub{order:3;margin:0;font-size:13px;line-height:1.5;color:var(--white)}
 /* The labels and captions do not cycle. They used to fade between a lit
    stage and two dimmed ones, which meant two thirds of the section's only
    plain-language explanation was always half legible. The three stages are
@@ -1515,36 +1505,12 @@ html,body{max-width:100%;overflow-x:clip}
    first word of each row carries .on, which is its base opacity, so a
    frozen frame shows one word per row rather than an empty box. That is
    what the visual-diff spec sees, and what a reduced-motion visitor gets. */
-.eng-feed{height:240px;position:relative;overflow:hidden;
-  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);
-          mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
-.eng-track{display:flex;flex-direction:column;gap:11px;animation:eng-drift 44s linear infinite}
-@keyframes eng-drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
-@keyframes eng-drift-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.eng-word{white-space:nowrap;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.4);opacity:1;animation-name:eng-word;animation-timing-function:linear;animation-iteration-count:infinite}
-.eng-word.is-key{color:var(--white);font-weight:600}
 /* Conditions and medications: the signals that rule products out, which is
    the half of the mechanism the grid's red cells are showing. */
-.eng-word.is-gate{color:#F97066}
-.eng-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.eng-name{font-style:normal;overflow:hidden;text-overflow:ellipsis}
-.eng-val{font-style:normal;font-feature-settings:"tnum";color:var(--gold)}
-.eng-val.is-ok{color:#75E0A7}
-.eng-val.is-low{color:#F97066}
-.eng-badge{font-style:normal;font-size:9.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:2px 6px;white-space:nowrap}
 /* Each word fades out and back on its own clock while it travels, so
    the two effects run at once and neither has a rhythm to follow. */
-@keyframes eng-word{0%,24%{opacity:1}36%,54%{opacity:0}66%,100%{opacity:1}}
 
 /* the catalogue */
-.eng-grid{height:240px;display:grid;grid-template-columns:repeat(24,1fr);grid-template-rows:repeat(10,1fr);gap:4px}
-.eng-cell{display:block;border-radius:2px;background:rgba(180,127,57,var(--o))}
-.eng-cell.g{animation:eng-pick 9s linear infinite}
-.eng-cell.r{animation:eng-drop 9s linear infinite}
-.eng-cell.p{animation:eng-pulse 9s linear infinite}
-@keyframes eng-pick{0%,5%{background:rgba(180,127,57,var(--o))}8%,15%{background:#75E0A7}22%,100%{background:rgba(180,127,57,var(--o))}}
-@keyframes eng-drop{0%,5%{background:rgba(180,127,57,var(--o))}8%,15%{background:#B42318}24%,92%{background:rgba(180,127,57,.05)}100%{background:rgba(180,127,57,var(--o))}}
-@keyframes eng-pulse{0%,12%{background:rgba(180,127,57,var(--o))}18%,26%{background:rgba(180,127,57,.95)}36%,100%{background:rgba(180,127,57,var(--o))}}
 
 /* Figures, not stat boxes, so the band stays the one thing on this page
    that is not a grid of cards. */
@@ -1553,15 +1519,10 @@ html,body{max-width:100%;overflow-x:clip}
    works. They live on /science with the rest of the evidence. */
 /* Six, so three across and two rows. Four columns would have left the last
    row half empty. */
-.eng-figs{display:grid;grid-template-columns:repeat(3,1fr);gap:32px 32px;margin-top:64px}
-.eng-fig{padding-top:20px;border-top:1px solid rgba(255,255,255,.2)}
-.eng-fig-t{margin:0;font-size:16px;font-weight:600;line-height:1.35;letter-spacing:-.01em;color:var(--white)}
-.eng-fig-s{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--muted-on-dark)}
 
 /* A row is as wide as its column, and at 373px the name and the figure fly
    to opposite edges with a hand's width of nothing between them. Capping
    the track keeps a plan row the same shape at every size. */
-.eng-plan .eng-track{max-width:300px}
 
 /* 1100, not 1000: three bands abreast leave the catalogue column about
    300px at 1024, which is a 9px cell against 19px at 1440 - the same
@@ -1573,25 +1534,14 @@ html,body{max-width:100%;overflow-x:clip}
      each label and caption now sitting under its own animation the
      sequence read catalogue, its caption, then two feeds and their
      captions: the story out of order and split across a column break. */
-  .eng{grid-template-columns:minmax(0,1fr);gap:34px 0}
-  .eng-band:nth-child(2){grid-column:auto;order:0}
   /* Stacked, the bands no longer need to match heights, so the grid sizes
      from its own column count and the cells come out square. */
-  .eng-grid{height:auto;aspect-ratio:24/10}
   /* Stacked, a feed has the whole width and no height to spare, so it
      rolls sideways instead of down: same list, same loop, one axis over.
      As a column it was a tall sparse box with four words showing. */
-  .eng-feed{height:46px;display:flex;align-items:center;
-    -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
-            mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
-  .eng-track{flex-direction:row;align-items:center;gap:22px;animation-name:eng-drift-x}
   /* The per-word fade reads as depth in a column and as a hole in a strip:
      a word going transparent mid-roll leaves a gap in the line. The roll
      carries the motion on its own here. */
-  .eng-word{animation-name:none;opacity:1}
-  .eng-row{width:auto;justify-content:flex-start;gap:8px}
-  .eng-plan .eng-track{max-width:none}
-  .eng-figs{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(max-width:560px){
   /* The <=1100 rule above lifts the catalogue to the top, which is right for
@@ -1599,26 +1549,18 @@ html,body{max-width:100%;overflow-x:clip}
      before the answer that drives it. Source order is the story - signals
      read, catalogue scored, the plan - so restore it here, and flatten the
      grid so none of the three costs a screen. */
-  .eng-band:nth-child(2){order:0}
   /* Fewer boxes, the same size. 24 columns inside 303px of phone made an
      8.8px cell against 19.5px on desktop, which is what turned the
      catalogue into a texture. 11 columns puts it back to 24px, and the
      cells past the seventh row simply do not render. */
-  .eng-grid{grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(7,1fr);aspect-ratio:11/7;gap:4px}
-  .eng-cell:nth-child(n+78){display:none}
-  .eng-example{margin-top:36px}
   /* minmax(0,1fr), not 1fr. A grid item's automatic minimum is min-content,
      and the feed's track is now a single row of 52 nowrap words, so a plain
      1fr column resolved to the width of that row and took the catalogue's
      cells with it: 570px each. */
-  .eng{grid-template-columns:minmax(0,1fr);margin-top:40px;gap:26px}
-  .eng-word{font-size:13px}
-  .eng-figs{grid-template-columns:1fr;gap:24px;margin-top:40px}
 }
 @media(prefers-reduced-motion:reduce){
   /* Every feed holds its first frame, so the band is a complete picture
      rather than an empty one. */
-  .eng-track,.eng-word,.eng-cell{animation:none !important}
 }
 
 /* The homepage engine block: three ideas, no boxes. Every other band on that
@@ -1664,6 +1606,23 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   .science-head{text-align:center}
   .faq-split .faq-intro{text-align:center}
   .faq-split .faq-ask{margin-top:22px}
+}
+
+/* ---- the engine walkthrough ---------------------------------------------
+   The homepage runs the same component /science does, from
+   engine-terminal.css and engine-terminal.js, with no controls: it plays
+   once when it comes into view and stops on the plan. What used to be here
+   was three hand-built bands of drifting words and a cell grid, which said
+   the same thing in a language nothing else on the site spoke.
+
+   Only placement belongs here. The component brings its own palette, which
+   is what lets it sit in this dark card on an otherwise light page. */
+.eng-term{margin-top:46px;border:1px solid rgba(255,255,255,.08);border-radius:18px}
+.eng-term-note{margin:0;padding:12px 22px 18px;text-align:right;
+  font-size:11.5px;color:#8E877C}
+@media(max-width:860px){
+  .eng-term{margin-top:32px}
+  .eng-term-note{padding:10px 16px 16px;text-align:left}
 }
 </style>
 <script>
@@ -1787,23 +1746,38 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 <section class="science sc-reveal" data-sc="reveal" id="science">
   <div class="wrap">
     <div class="science-head"><span class="eyebrow">The engine</span><h2 class="h2">Every answer shapes the recommendation.</h2><p class="lead">Customer answers, research-backed product data, and your brand&#8217;s priorities come together in one recommendation engine.</p></div>
-    <p class="eng-example">Example: health &amp; wellness</p>
-    <div class="eng">
-      <div class="eng-band">
-        <span class="eng-cap">Signals read</span>
-        <p class="eng-sub">Each answer becomes a data point: goals, diet, lifestyle, medication and more.</p>
-        <div class="eng-feed" aria-hidden="true"><div class="eng-track"><span class="eng-word" style="animation-duration:11.74s;animation-delay:-0.74s">No sport</span><span class="eng-word" style="animation-duration:5.77s;animation-delay:-5.08s">Smokes sometimes</span><span class="eng-word" style="animation-duration:10.0s;animation-delay:-7.78s">Red meat daily</span><span class="eng-word" style="animation-duration:7.95s;animation-delay:-4.7s">Moderate sun</span><span class="eng-word" style="animation-duration:6.96s;animation-delay:-1.63s">Skips meals sometimes</span><span class="eng-word is-key" style="animation-duration:7.71s;animation-delay:-0.04s">Support healthy cholesterol</span><span class="eng-word" style="animation-duration:6.14s;animation-delay:-4.02s">Lightly active</span><span class="eng-word" style="animation-duration:8.55s;animation-delay:-4.71s">Alcohol sometimes</span><span class="eng-word" style="animation-duration:12.49s;animation-delay:-1.04s">Sleeps 6–7 hours</span><span class="eng-word" style="animation-duration:7.4s;animation-delay:-5.61s">95 kg · 178 cm</span><span class="eng-word is-key" style="animation-duration:9.35s;animation-delay:-0.28s">Blood Sugar Support</span><span class="eng-word" style="animation-duration:9.72s;animation-delay:-1.05s">Man, 45</span><span class="eng-word" style="animation-duration:6.31s;animation-delay:-1.84s">Balanced diet</span><span class="eng-word" style="animation-duration:6.0s;animation-delay:-0.1s">Eggs 6–10 a week</span><span class="eng-word is-gate" style="animation-duration:10.64s;animation-delay:-2.27s">Cardiovascular disease</span><span class="eng-word" style="animation-duration:12.45s;animation-delay:-0.65s">Vegetables daily</span><span class="eng-word" style="animation-duration:8.32s;animation-delay:-5.9s">Black</span><span class="eng-word" style="animation-duration:8.65s;animation-delay:-4.9s">7 glasses of water</span><span class="eng-word is-gate" style="animation-duration:6.99s;animation-delay:-4.72s">Antihypertensives</span><span class="eng-word is-key" style="animation-duration:8.03s;animation-delay:-2.5s">Heart health</span><span class="eng-word" style="animation-duration:5.61s;animation-delay:-2.3s">No dietary restrictions</span><span class="eng-word" style="animation-duration:12.42s;animation-delay:-1.67s">Average portions</span><span class="eng-word is-key" style="animation-duration:10.8s;animation-delay:-0.12s">Lose Weight</span><span class="eng-word is-key" style="animation-duration:8.99s;animation-delay:-4.38s">Build Muscle</span><span class="eng-word" style="animation-duration:10.62s;animation-delay:-2.0s">Fish rarely</span><span class="eng-word" style="animation-duration:9.32s;animation-delay:-9.18s">Four meals a day</span><span class="eng-word" style="animation-duration:11.27s;animation-delay:-4.72s">No sport</span><span class="eng-word" style="animation-duration:8.38s;animation-delay:-3.31s">Smokes sometimes</span><span class="eng-word" style="animation-duration:12.93s;animation-delay:-0.01s">Red meat daily</span><span class="eng-word" style="animation-duration:11.98s;animation-delay:-11.68s">Moderate sun</span><span class="eng-word" style="animation-duration:9.95s;animation-delay:-9.93s">Skips meals sometimes</span><span class="eng-word is-key" style="animation-duration:5.65s;animation-delay:-1.06s">Support healthy cholesterol</span><span class="eng-word" style="animation-duration:12.97s;animation-delay:-7.81s">Lightly active</span><span class="eng-word" style="animation-duration:9.83s;animation-delay:-0.41s">Alcohol sometimes</span><span class="eng-word" style="animation-duration:6.6s;animation-delay:-2.91s">Sleeps 6–7 hours</span><span class="eng-word" style="animation-duration:5.57s;animation-delay:-3.4s">95 kg · 178 cm</span><span class="eng-word is-key" style="animation-duration:11.73s;animation-delay:-4.53s">Blood Sugar Support</span><span class="eng-word" style="animation-duration:6.06s;animation-delay:-1.26s">Man, 45</span><span class="eng-word" style="animation-duration:10.27s;animation-delay:-0.16s">Balanced diet</span><span class="eng-word" style="animation-duration:8.27s;animation-delay:-5.15s">Eggs 6–10 a week</span><span class="eng-word is-gate" style="animation-duration:6.45s;animation-delay:-3.79s">Cardiovascular disease</span><span class="eng-word" style="animation-duration:11.74s;animation-delay:-1.59s">Vegetables daily</span><span class="eng-word" style="animation-duration:8.4s;animation-delay:-5.27s">Black</span><span class="eng-word" style="animation-duration:7.83s;animation-delay:-1.79s">7 glasses of water</span><span class="eng-word is-gate" style="animation-duration:10.08s;animation-delay:-7.31s">Antihypertensives</span><span class="eng-word is-key" style="animation-duration:6.69s;animation-delay:-4.21s">Heart health</span><span class="eng-word" style="animation-duration:9.65s;animation-delay:-6.63s">No dietary restrictions</span><span class="eng-word" style="animation-duration:8.41s;animation-delay:-4.06s">Average portions</span><span class="eng-word is-key" style="animation-duration:6.09s;animation-delay:-0.29s">Lose Weight</span><span class="eng-word is-key" style="animation-duration:6.32s;animation-delay:-3.24s">Build Muscle</span><span class="eng-word" style="animation-duration:7.41s;animation-delay:-5.48s">Fish rarely</span><span class="eng-word" style="animation-duration:8.44s;animation-delay:-3.55s">Four meals a day</span></div></div>
+    <div class="eng-term tm" data-term>
+      <div class="tm-top">
+        <span class="tm-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="tm-path">blend/engine &#8212; example: health &amp; wellness</span>
+        <span class="tm-live" data-tm-state>idle</span>
       </div>
-      <div class="eng-band">
-        <span class="eng-cap">Catalogue scored</span>
-        <p class="eng-sub">Every product scored against that profile, your rules and the research, behind non-negotiable safety checks.</p>
-        <div class="eng-grid" aria-hidden="true"><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.1;animation-delay:1.34s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.48;animation-delay:2.92s"></i><i class="eng-cell p" style="--o:0.06;animation-delay:3.64s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell r" style="--o:0.6;animation-delay:3.69s"></i><i class="eng-cell g" style="--o:0.9;animation-delay:0.44s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.06;animation-delay:0.86s"></i><i class="eng-cell p" style="--o:0.08;animation-delay:6.83s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.74;animation-delay:5.13s"></i><i class="eng-cell p" style="--o:0.28;animation-delay:4.18s"></i><i class="eng-cell g" style="--o:0.08;animation-delay:7.74s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell g" style="--o:0.74;animation-delay:0.05s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.48;animation-delay:6.5s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.14;animation-delay:3.5s"></i><i class="eng-cell p" style="--o:0.74;animation-delay:7.36s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell r" style="--o:0.48;animation-delay:8.88s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell g" style="--o:0.6;animation-delay:0.91s"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell p" style="--o:0.36;animation-delay:5.78s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell p" style="--o:0.48;animation-delay:0.66s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell g" style="--o:0.08;animation-delay:1.45s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell p" style="--o:0.2;animation-delay:5.57s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell p" style="--o:0.28;animation-delay:2.21s"></i><i class="eng-cell g" style="--o:0.48;animation-delay:6.94s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.28;animation-delay:5.35s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.6;animation-delay:6.42s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell r" style="--o:0.48;animation-delay:0.9s"></i><i class="eng-cell r" style="--o:0.2;animation-delay:8.41s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell r" style="--o:0.6;animation-delay:7.13s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell r" style="--o:0.28;animation-delay:2.89s"></i><i class="eng-cell p" style="--o:0.36;animation-delay:4.28s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell p" style="--o:0.36;animation-delay:8.02s"></i><i class="eng-cell g" style="--o:0.2;animation-delay:4.67s"></i><i class="eng-cell g" style="--o:0.08;animation-delay:3.65s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.28;animation-delay:8.22s"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell r" style="--o:0.9;animation-delay:6.48s"></i><i class="eng-cell p" style="--o:0.74;animation-delay:0.3s"></i><i class="eng-cell p" style="--o:0.9;animation-delay:2.75s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell p" style="--o:0.36;animation-delay:3.68s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell g" style="--o:0.2;animation-delay:2.74s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.6;animation-delay:3.93s"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.1;animation-delay:4.51s"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell p" style="--o:0.6;animation-delay:4.48s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell p" style="--o:0.28;animation-delay:0.07s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell r" style="--o:0.48;animation-delay:3.68s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell r" style="--o:0.1;animation-delay:6.81s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell p" style="--o:0.9;animation-delay:2.22s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.2;animation-delay:4.49s"></i><i class="eng-cell p" style="--o:0.14;animation-delay:0.54s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell g" style="--o:0.1;animation-delay:7.92s"></i><i class="eng-cell p" style="--o:0.6;animation-delay:5.87s"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell p" style="--o:0.28;animation-delay:3.73s"></i><i class="eng-cell r" style="--o:0.36;animation-delay:4.84s"></i><i class="eng-cell p" style="--o:0.14;animation-delay:3.59s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell g" style="--o:0.1;animation-delay:6.75s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell g" style="--o:0.06;animation-delay:1.52s"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell p" style="--o:0.9;animation-delay:0.35s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell r" style="--o:0.1;animation-delay:1.48s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.36;animation-delay:5.97s"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell p" style="--o:0.14;animation-delay:4.19s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell p" style="--o:0.14;animation-delay:2.3s"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell p" style="--o:0.1;animation-delay:8.62s"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell r" style="--o:0.06;animation-delay:5.22s"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell p" style="--o:0.36;animation-delay:0.73s"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell p" style="--o:0.2;animation-delay:4.43s"></i><i class="eng-cell" style="--o:0.14"></i><i class="eng-cell" style="--o:0.48"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.08"></i><i class="eng-cell" style="--o:0.6"></i><i class="eng-cell" style="--o:0.74"></i><i class="eng-cell" style="--o:0.36"></i><i class="eng-cell" style="--o:0.2"></i><i class="eng-cell p" style="--o:0.2;animation-delay:6.3s"></i><i class="eng-cell" style="--o:0.06"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.1"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.9"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell p" style="--o:0.74;animation-delay:8.99s"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.28"></i><i class="eng-cell" style="--o:0.36"></i></div>
+      <p class="tm-caption" aria-live="polite"><span class="tm-head" data-head="0" hidden><b>Reading the signals</b>Organising the customer&#8217;s answers into a personal profile.</span><span class="tm-head" data-head="1" hidden><b>Estimating intakes</b>Estimating nutritional intake from reported eating habits.</span><span class="tm-head" data-head="2" hidden><b>Determining targets</b>Selecting reference targets for this profile.</span><span class="tm-head" data-head="3" hidden><b>Calculating gaps</b>Comparing estimated intake with targets to identify possible gaps.</span><span class="tm-head" data-head="4" hidden><b>Scoring the catalogue</b>Assessing products against the customer&#8217;s profile, goals and gaps.</span><span class="tm-head" data-head="5" hidden><b>Applying safety checks</b>Removing unsuitable products, regardless of their match score.</span><span class="tm-head" data-head="6"><b>Building the personalised plan</b>Selecting a complementary plan and explaining every recommendation.</span></p>
+      <div class="tm-body">
+        <div class="tm-logwrap">
+          <div class="tm-persona" data-tm-persona hidden>
+            <span class="tm-persona-h">Customer profile</span>
+            <dl>
+              <div><dt>Age band</dt><dd>31&#8211;50</dd></div>
+              <div><dt>Market</dt><dd>United Kingdom</dd></div>
+              <div><dt>Diet</dt><dd>Vegetarian, no fish</dd></div>
+              <div><dt>Goals</dt><dd>Energy, sleep</dd></div>
+              <div><dt>Activity</dt><dd>Sedentary</dd></div>
+              <div><dt>Declared</dt><dd>Medication, not pregnant</dd></div>
+            </dl>
+          </div>
+          <div class="tm-log" data-tm-log role="log" aria-label="Processing log"></div>
+          <div class="tm-plan" data-tm-plan>
+            <div class="tm-plan-h"><span>PLAN</span><span>3 selected</span></div>
+            <ol><li><span class="tm-pi">01</span><span class="tm-pn">Vitamin D3</span><span class="tm-pw">Covers the largest gap between estimated intake and target.</span></li><li><span class="tm-pi">02</span><span class="tm-pn">Magnesium Glycinate</span><span class="tm-pw">Matches two stated goals, and nothing else in the plan carries it.</span></li><li><span class="tm-pi">03</span><span class="tm-pn">Omega-3 (Algae Oil)</span><span class="tm-pw">The form that suits this diet, where the fish-oil version does not.</span></li></ol>
+          </div>
+        </div>
+        <div class="tm-mxwrap">
+          <div class="tm-mx is-dim" data-tm-mx aria-hidden="true"><span class="tm-sweep" data-tm-sweep></span><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-cut"></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-cut"></i><i class="is-on"></i><i></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-pick"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-cut"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i></i><i class="is-pick"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i class="is-cut"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i class="is-cut"></i><i></i><i class="is-on"></i><i class="is-on"></i><i class="is-pick"></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i class="is-pick"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-cut"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-pick"></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-pick"></i><i class="is-on"></i><i></i><i></i><i class="is-cut"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-on"></i><i></i><i class="is-on"></i><i class="is-cut"></i><i></i><i></i></div>
+          <p class="tm-key"><span><i class="k-gold"></i>assessed</span><span><i class="k-cut"></i>excluded</span><span><i class="k-pick"></i>selected</span></p>
+        </div>
       </div>
-      <div class="eng-band">
-        <span class="eng-cap">The plan</span>
-        <p class="eng-sub">A short plan your customer can trust, with the reason behind every pick.</p>
-        <div class="eng-feed" aria-hidden="true"><div class="eng-track"><span class="eng-word eng-row" style="animation-duration:8.85s;animation-delay:-1.51s"><i class="eng-name">Vitamin E</i><i class="eng-val">74%</i></span><span class="eng-word eng-row" style="animation-duration:8.75s;animation-delay:-3.57s"><i class="eng-name">Potassium</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:11.45s;animation-delay:-6.44s"><i class="eng-name">Magnesium</i><i class="eng-val">79%</i></span><span class="eng-word eng-row" style="animation-duration:6.97s;animation-delay:-4.7s"><i class="eng-name">Calcium</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:7.74s;animation-delay:-3.96s"><i class="eng-name">Copper</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row is-key" style="animation-duration:7.15s;animation-delay:-2.94s"><i class="eng-name">Vitamin C</i><i class="eng-badge">Recommended</i></span><span class="eng-word eng-row" style="animation-duration:11.4s;animation-delay:-5.88s"><i class="eng-name">Iron</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row is-key" style="animation-duration:11.14s;animation-delay:-8.43s"><i class="eng-name">Coenzyme Q10</i><i class="eng-badge">Recommended</i></span><span class="eng-word eng-row" style="animation-duration:9.9s;animation-delay:-6.39s"><i class="eng-name">Sodium</i><i class="eng-val is-low">154%</i></span><span class="eng-word eng-row" style="animation-duration:8.48s;animation-delay:-5.24s"><i class="eng-name">Vitamin C</i><i class="eng-val">68%</i></span><span class="eng-word eng-row" style="animation-duration:11.33s;animation-delay:-1.12s"><i class="eng-name">Vitamin D3</i><i class="eng-val is-low">44%</i></span><span class="eng-word eng-row" style="animation-duration:12.53s;animation-delay:-4.6s"><i class="eng-name">Carbohydrate</i><i class="eng-val">93%</i></span><span class="eng-word eng-row is-key" style="animation-duration:6.54s;animation-delay:-0.98s"><i class="eng-name">Omega-3 (Fish Oil)</i><i class="eng-badge">Essential</i></span><span class="eng-word eng-row" style="animation-duration:8.06s;animation-delay:-0.56s"><i class="eng-name">Zinc</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:8.48s;animation-delay:-3.52s"><i class="eng-name">Fibre</i><i class="eng-val">63%</i></span><span class="eng-word eng-row" style="animation-duration:10.42s;animation-delay:-4.86s"><i class="eng-name">Iodine</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:12.51s;animation-delay:-8.25s"><i class="eng-name">Selenium</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:7.91s;animation-delay:-6.92s"><i class="eng-name">Vitamin K2</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:10.74s;animation-delay:-10.39s"><i class="eng-name">Water</i><i class="eng-val is-low">35%</i></span><span class="eng-word eng-row" style="animation-duration:11.01s;animation-delay:-10.63s"><i class="eng-name">Folate</i><i class="eng-val">81%</i></span><span class="eng-word eng-row is-key" style="animation-duration:7.04s;animation-delay:-1.96s"><i class="eng-name">Vitamin D3</i><i class="eng-badge">Essential</i></span><span class="eng-word eng-row" style="animation-duration:12.79s;animation-delay:-0.28s"><i class="eng-name">Vitamin B12</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:12.43s;animation-delay:-11.32s"><i class="eng-name">Vitamin E</i><i class="eng-val">74%</i></span><span class="eng-word eng-row" style="animation-duration:6.52s;animation-delay:-0.98s"><i class="eng-name">Potassium</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:12.37s;animation-delay:-11.87s"><i class="eng-name">Magnesium</i><i class="eng-val">79%</i></span><span class="eng-word eng-row" style="animation-duration:12.02s;animation-delay:-8.71s"><i class="eng-name">Calcium</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:11.2s;animation-delay:-3.45s"><i class="eng-name">Copper</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row is-key" style="animation-duration:5.56s;animation-delay:-3.49s"><i class="eng-name">Vitamin C</i><i class="eng-badge">Recommended</i></span><span class="eng-word eng-row" style="animation-duration:12.12s;animation-delay:-11.5s"><i class="eng-name">Iron</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row is-key" style="animation-duration:9.36s;animation-delay:-0.08s"><i class="eng-name">Coenzyme Q10</i><i class="eng-badge">Recommended</i></span><span class="eng-word eng-row" style="animation-duration:6.81s;animation-delay:-3.06s"><i class="eng-name">Sodium</i><i class="eng-val is-low">154%</i></span><span class="eng-word eng-row" style="animation-duration:7.23s;animation-delay:-0.2s"><i class="eng-name">Vitamin C</i><i class="eng-val">68%</i></span><span class="eng-word eng-row" style="animation-duration:6.95s;animation-delay:-3.47s"><i class="eng-name">Vitamin D3</i><i class="eng-val is-low">44%</i></span><span class="eng-word eng-row" style="animation-duration:6.45s;animation-delay:-0.73s"><i class="eng-name">Carbohydrate</i><i class="eng-val">93%</i></span><span class="eng-word eng-row is-key" style="animation-duration:6.74s;animation-delay:-0.23s"><i class="eng-name">Omega-3 (Fish Oil)</i><i class="eng-badge">Essential</i></span><span class="eng-word eng-row" style="animation-duration:11.38s;animation-delay:-9.85s"><i class="eng-name">Zinc</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:7.01s;animation-delay:-4.44s"><i class="eng-name">Fibre</i><i class="eng-val">63%</i></span><span class="eng-word eng-row" style="animation-duration:12.07s;animation-delay:-2.94s"><i class="eng-name">Iodine</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:8.0s;animation-delay:-7.05s"><i class="eng-name">Selenium</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:11.21s;animation-delay:-6.96s"><i class="eng-name">Vitamin K2</i><i class="eng-val is-ok">100%</i></span><span class="eng-word eng-row" style="animation-duration:11.45s;animation-delay:-6.56s"><i class="eng-name">Water</i><i class="eng-val is-low">35%</i></span><span class="eng-word eng-row" style="animation-duration:7.86s;animation-delay:-5.39s"><i class="eng-name">Folate</i><i class="eng-val">81%</i></span><span class="eng-word eng-row is-key" style="animation-duration:11.38s;animation-delay:-0.63s"><i class="eng-name">Vitamin D3</i><i class="eng-badge">Essential</i></span><span class="eng-word eng-row" style="animation-duration:7.92s;animation-delay:-2.33s"><i class="eng-name">Vitamin B12</i><i class="eng-val is-ok">100%</i></span></div></div>
-      </div>
+      <p class="eng-term-note">Illustrative simulation. Sample data.</p>
     </div>
     <a href="/science" class="sci-method">
       <div class="sci-method-left"><div class="sci-method-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B47F39" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div><div class="sci-method-copy"><div class="sci-method-label">The recommendation engine</div><div class="sci-method-sub">Learn more about how a score is built, what gates it, and where the numbers come from.</div></div></div>
@@ -2475,6 +2449,7 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
 </div>
 
 <script src="/scroll-cards.js"></script>
+<script src="/engine-terminal.js"></script>
 <script src="cookie-consent.js">
 </script>
 
