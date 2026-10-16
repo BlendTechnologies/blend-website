@@ -239,25 +239,9 @@
     });
   })();
 
-  /* ---- safety: one group open at a time, listed under the grid ------- */
-  (function safety() {
-    var boxes = $$('.sci-gbox');
-    if (!boxes.length) return;
-    boxes.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        boxes.forEach(function (o) {
-          o.setAttribute('aria-expanded', 'false');
-          var body = document.getElementById(o.getAttribute('aria-controls'));
-          if (body) body.hidden = true;
-        });
-        if (open) return;
-        btn.setAttribute('aria-expanded', 'true');
-        var mine = document.getElementById(btn.getAttribute('aria-controls'));
-        if (mine) mine.hidden = false;
-      });
-    });
-  })();
+  /* The safety tiles used to open a list of every check. The page shows
+     counts, categories and three named examples now, so there is nothing to
+     toggle and no handler here. */
 
   /* ---- the market switcher ------------------------------------------
      Only the reference targets move: the upper limits are one set

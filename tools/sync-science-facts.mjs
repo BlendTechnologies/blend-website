@@ -283,11 +283,14 @@ function panelBody(s) {
     return ladder + (cand ? `<div class="sci-after">${cand}</div>` : '');
   }
   if (s.removed) {
-    /* Four of the twenty are plan checks rather than safety checks, and
-       the engine's own `kind` says which, so the page does not present
-       them as the same thing. */
+    /* The category, not the check and not its rule. What a reader needs here
+       is that twenty real products were removed and roughly why; the check's
+       name and the sentence of logic behind it are the engine's, and a page
+       that prints them is a specification somebody else can build from.
+       `kind` still separates a plan check from a safety check, because the
+       two are not the same claim. */
     return s.removed.map(r => row(r.product,
-      r.check + (r.kind && r.kind !== 'safety check' ? ' · plan check' : ''), r.why, ' is-cut')).join('');
+      cap(r.group) + (r.kind && r.kind !== 'safety check' ? ' · plan check' : ''), '', ' is-cut')).join('');
   }
   if (s.picks) {
     return s.picks.map(p =>
@@ -329,30 +332,44 @@ const groups = [...new Set(h.safety_checks.map(x => x.group))]
   .map(g => ({ group: g, checks: h.safety_checks.filter(x => x.group === g) }))
   .sort((a, b) => b.checks.length - a.checks.length);
 
-const groupBtns = groups.map((g, i) =>
-  `      <button type="button" class="sci-gbox" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="sci-g-${i}" data-group="${i}">` +
-  `<span class="sci-gbox-n">${g.checks.length}</span><span class="sci-gbox-name">${esc(cap(g.group))}</span></button>`).join('\n');
+/* Counts and categories, not a catalogue of rules.
+   The seventeen checks used to be listed by name with the rule each applies,
+   which is a buildable specification: a competitor reads the page and
+   implements it. What a client needs is that the checks exist, how many there
+   are, what kinds, that none can be switched off, and evidence they fire on a
+   real customer — all of which survives here.
 
-const groupBodies = groups.map((g, i) =>
-  `      <div class="sci-glist" id="sci-g-${i}"${i === 0 ? '' : ' hidden'}>` +
-  g.checks.map(ch => `<div class="sci-check"><div class="sci-check-n">${esc(ch.name)}` +
+   Three are still named in full, chosen because they are the ones any serious
+   competitor has already thought of: pregnancy, a tolerable upper limit, a
+   hard medication conflict. The ones that are actually ours stay off the page,
+   and so do all six plan checks.
+
+   The tiles do not open. They were buttons over a list; with no list to open,
+   a thing that still looked pressable would be worse than one that plainly is
+   not. */
+const PUBLIC_CHECKS = [
+  'Pregnancy and breastfeeding safety',
+  'Tolerable upper limit',
+  'Hard medication conflict',
+];
+const allChecks = h.safety_checks.concat(h.plan_checks || []);
+const examples = PUBLIC_CHECKS.map(n => allChecks.find(c => c.name === n)).filter(Boolean);
+if (examples.length !== PUBLIC_CHECKS.length) {
+  console.error('FAILED: a named example check is no longer in the engine export:',
+    PUBLIC_CHECKS.filter(n => !allChecks.some(c => c.name === n)).join(', '));
+  process.exit(1);
+}
+
+const groupTiles = groups.map(g =>
+  `      <div class="sci-gbox sci-gbox--static"><span class="sci-gbox-n">${g.checks.length}</span>` +
+  `<span class="sci-gbox-name">${esc(cap(g.group))}</span></div>`).join('\n') +
+  `\n      <div class="sci-gbox sci-gbox--static sci-gbox--plan"><span class="sci-gbox-n">${num(h.counts.plan_checks.value)}</span>` +
+  `<span class="sci-gbox-name">Plan checks</span></div>`;
+
+const exampleList = `      <div class="sci-glist" id="sci-examples">` +
+  examples.map(ch => `<div class="sci-check"><div class="sci-check-n">${esc(ch.name)}` +
     (firedNames.has(ch.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
-    (ch.effect === 'warns' ? `<span class="sci-warn" role="note" tabindex="0"><span class="sci-tip">Warns, removes nothing</span></span>` : '') +
-    `</div><p class="sci-check-d">${esc(ch.does)}</p></div>`).join('') + `</div>`).join('\n');
-
-/* The plan checks are a box in the same row, not a disclosure underneath it.
-   They are a different KIND of check — they shape a plan rather than remove
-   an unsafe product — so the box is marked as its own thing, but it sits with
-   the others because that is where a reader looks for "what else is checked".
-   It joins the same one-open-at-a-time behaviour by carrying the same class
-   and its own aria-controls; the separate handler it used to need is gone. */
-const planBtn = `      <button type="button" class="sci-gbox sci-gbox--plan" aria-expanded="false" aria-controls="sci-plan-list" data-group="plan">` +
-  `<span class="sci-gbox-n">${num(h.counts.plan_checks.value)}</span><span class="sci-gbox-name">Plan checks</span></button>`;
-
-const planBody = `      <div class="sci-glist" id="sci-plan-list" hidden>` +
-  h.plan_checks.map(x => `<div class="sci-check"><div class="sci-check-n">${esc(x.name)}` +
-    (firedNames.has(x.name) ? `<span class="sci-dot" role="note" tabindex="0"><span class="sci-tip">In ${esc(c.name)}&#8217;s run</span></span>` : '') +
-    `</div><p class="sci-check-d">${esc(x.does)}</p></div>`).join('') + `</div>`;
+    `</div><p class="sci-check-d">${esc(ch.does)}</p></div>`).join('') + `</div>`;
 
 const safety = `<section class="sci-sec" id="safety">
   <div class="wrap">
@@ -361,12 +378,11 @@ const safety = `<section class="sci-sec" id="safety">
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
       <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
     </div>
-    <div class="sci-groups sci-in" data-groups>
-${groupBtns}
-${planBtn}
+    <div class="sci-groups sci-in">
+${groupTiles}
     </div>
-${groupBodies}
-${planBody}
+    <p class="sci-ex-label sci-in">Three of the ${num(h.counts.safety_checks.value)}, as examples</p>
+${exampleList}
   </div>
 </section>`;
 
@@ -425,7 +441,7 @@ const markets = `<section class="sci-sec" id="markets">
       <div class="sci-ladders" data-ladders>
 ${first.nutrients.map(ladder).join('\n')}
       </div>
-      <p class="sci-note">Shown for a woman aged 31 to 50. These are <b>${num(first.nutrients.length)} of the ${num(h.counts.nutrients.value)}</b> nutrients the engine models; <b>${num(h.countries.market_varying_nutrients)}</b> have targets that change with the market. Every real target is computed for the person, not read off this table.</p>
+      <p class="sci-note">Shown for a woman aged 31 to 50. These are <b>${num(first.nutrients.length)} of the ${num(h.countries.market_varying_nutrients)}</b> nutrients whose reference value changes with the market. Every real target is computed for the person, not read off this table.</p>
     </div>
   </div>
 </section>`;
@@ -443,7 +459,18 @@ const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" i
   </div>
 </section>`;
 
-const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
+/* What ships in the page is not what the engine exports. Hiding the check
+   list in the markup while shipping it in a JSON island would hide it from
+   nobody. The counts by group stay, because the tiles are drawn from them
+   and they are the claim; the per-check names and rules do not. */
+const PUBLIC_V = JSON.parse(JSON.stringify(V));
+for (const key of Object.keys(PUBLIC_V)) {
+  delete PUBLIC_V[key].safety_checks;
+  delete PUBLIC_V[key].plan_checks;
+  delete PUBLIC_V[key].also_in_the_chain;
+}
+
+const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: PUBLIC_V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
 
 const body = [hero, productsSec, covers, run, safety, markets, cta, data].join('\n\n');
 

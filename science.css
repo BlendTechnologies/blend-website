@@ -134,6 +134,12 @@
    different kind of check. Dashed rather than solid, and the figure in the
    muted gold rather than the strong one — these shape a plan, they do not
    stop an unsafe product, and the row should not imply they do. */
+/* The tiles are no longer controls: no pointer, no hover, no focus ring. */
+.sci-gbox--static{cursor:default}
+.sci-gbox--static:hover{border-color:var(--line)}
+.sci-gbox--plan.sci-gbox--static:hover{border-color:var(--line)}
+.sci-ex-label{margin:30px 0 14px;text-align:center;font-size:12px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .sci-gbox--plan{border-style:dashed}
 .sci-gbox--plan .sci-gbox-n{color:var(--gold)}
 .sci-gbox--plan[aria-expanded="true"]{border-style:solid}
