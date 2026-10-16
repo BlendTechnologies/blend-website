@@ -443,15 +443,13 @@
         "note": "Shortfall is how far below target a nutrient must fall before a product is recommended for it. It sits on top of the upper limit, which refuses any dose that would breach a tolerable intake.",
         "nutrients": [
           {
-            "nutrient": "Protein",
-            "shortfall_before_recommend": 0.05,
-            "shortfall_pct": 5.0,
-            "strictness": "lenient",
-            "upper_limit": null,
-            "upper_limit_unit": null,
-            "upper_limit_note": "none established",
-            "target_reference_adult": null,
-            "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)"
+            "nutrient": "Calcium",
+            "shortfall_before_recommend": 0.25,
+            "shortfall_pct": 25.0,
+            "strictness": "strict",
+            "upper_limit": 2000,
+            "upper_limit_unit": "mg",
+            "target_reference_adult": 700.0
           },
           {
             "nutrient": "Vitamin A",
@@ -490,15 +488,13 @@
             "target_reference_adult": 14.8
           },
           {
-            "nutrient": "Omega-3",
-            "shortfall_before_recommend": 0.1,
-            "shortfall_pct": 10.0,
-            "strictness": "lenient",
-            "upper_limit": null,
-            "upper_limit_unit": "g EPA+DHA",
-            "upper_limit_note": "none established",
-            "target_reference_adult": 0.25,
-            "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows"
+            "nutrient": "Zinc",
+            "shortfall_before_recommend": 0.25,
+            "shortfall_pct": 25.0,
+            "strictness": "strict",
+            "upper_limit": 25,
+            "upper_limit_unit": "mg",
+            "target_reference_adult": 7.0
           }
         ]
       },
@@ -633,15 +629,13 @@
             },
             "nutrients": [
               {
-                "nutrient": "Protein",
-                "target_reference_adult": null,
-                "target_unit": null,
-                "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)",
-                "shortfall_before_recommend": 0.05,
-                "shortfall_pct": 5.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Calcium",
+                "target_reference_adult": 700.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 2000
               },
               {
                 "nutrient": "Vitamin A",
@@ -680,15 +674,13 @@
                 "upper_limit": 40
               },
               {
-                "nutrient": "Omega-3",
-                "target_reference_adult": 0.25,
-                "target_unit": "g EPA+DHA",
-                "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows",
-                "shortfall_before_recommend": 0.1,
-                "shortfall_pct": 10.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Zinc",
+                "target_reference_adult": 7.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 25
               }
             ]
           },
@@ -739,15 +731,13 @@
             },
             "nutrients": [
               {
-                "nutrient": "Protein",
-                "target_reference_adult": null,
-                "target_unit": null,
-                "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)",
-                "shortfall_before_recommend": 0.05,
-                "shortfall_pct": 5.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Calcium",
+                "target_reference_adult": 950.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 2000
               },
               {
                 "nutrient": "Vitamin A",
@@ -786,15 +776,13 @@
                 "upper_limit": 40
               },
               {
-                "nutrient": "Omega-3",
-                "target_reference_adult": 0.25,
-                "target_unit": "g EPA+DHA",
-                "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows",
-                "shortfall_before_recommend": 0.1,
-                "shortfall_pct": 10.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Zinc",
+                "target_reference_adult": 9.3,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 25
               }
             ]
           },
@@ -805,8 +793,8 @@
             ],
             "authority": {
               "name": "Dietary Reference Intakes, the joint United States and Canada set",
-              "reference": "Carried in the engine's shipped reference table, whose provenance in our data is the legacy master spreadsheet rather than a cited publication. Unlike the United Kingdom and European Union sets it has no source or licence recorded against it.",
-              "licence": null
+              "reference": "Food and Nutrition Board, National Academies of Sciences, Engineering and Medicine, formerly the Institute of Medicine. Recommended Dietary Allowances where one is established, Adequate Intakes otherwise: manganese, pantothenic acid, biotin and potassium are Adequate Intakes and the rest are RDAs. Across the 1997 to 2011 reports, with calcium and vitamin D as updated in 2011 and potassium in 2019. Health Canada publishes the same joint set. Every value this market carries for the reference adult was cross-checked against those tables in October 2026. Recommended intakes only: the engine's upper limits are its own and several are stricter than the DRI tolerable upper intake levels.",
+              "licence": "No open licence. NASEM publications are United States copyright and Health Canada publishes the same set under Crown Copyright; the values themselves are facts and are not subject to copyright."
             },
             "food_composition": "The same table for every market: Frida, the Danish Food Composition Database. There is no per-country food composition table.",
             "fortification_overlay": false,
@@ -816,15 +804,13 @@
             },
             "nutrients": [
               {
-                "nutrient": "Protein",
-                "target_reference_adult": null,
-                "target_unit": null,
-                "target_basis": "derived per person from body weight, activity and goal (EFSA PRI 0.83 g/kg baseline)",
-                "shortfall_before_recommend": 0.05,
-                "shortfall_pct": 5.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Calcium",
+                "target_reference_adult": 1000.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 2000
               },
               {
                 "nutrient": "Vitamin A",
@@ -863,15 +849,13 @@
                 "upper_limit": 40
               },
               {
-                "nutrient": "Omega-3",
-                "target_reference_adult": 0.25,
-                "target_unit": "g EPA+DHA",
-                "target_basis": "EFSA adequate intake for EPA and DHA, 250 mg/day, the same figure the customer's report shows",
-                "shortfall_before_recommend": 0.1,
-                "shortfall_pct": 10.0,
-                "strictness": "lenient",
-                "upper_limit": null,
-                "upper_limit_note": "none established"
+                "nutrient": "Zinc",
+                "target_reference_adult": 8.0,
+                "target_unit": "mg",
+                "shortfall_before_recommend": 0.25,
+                "shortfall_pct": 25.0,
+                "strictness": "strict",
+                "upper_limit": 25
               }
             ]
           }
