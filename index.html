@@ -296,7 +296,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* White where the hero's card leaves off, settling into the beige that the
    rest of the page sits on. A plain background, not a scroll effect: it is
    the page changing colour, not something animating. */
-#how{background:linear-gradient(to bottom,var(--surface) 0,var(--surface) 9%,var(--ground) 100%)}
+/* Flat, not a gradient. This ran from --surface at the top to --ground at
+   the bottom, which on a light page was a soft transition and on this one
+   is a visible step: the section starts darker than the body it butts
+   against, and the join lands right under the hero. One ground means one
+   ground. */
+#how{background:var(--ground)}
 .section-subtle{background:var(--ground-2)}
 /* A colour change divides the space either side of it: you never see the
    sum, only 120 of black and then 120 of cream, so both sections keep their
