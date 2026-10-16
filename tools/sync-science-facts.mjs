@@ -170,107 +170,101 @@ ${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${
    This is the only thing left on the page that reads the real trace. */
 const steps = trace.steps;
 
-/* ---- 3. the replay ---------------------------------------------------------
-   An illustrative walkthrough of what the engine does, in seven stages that
-   each LOOK different, rather than the seven-tab reader that was here before.
+/* ---- 3. the terminal -------------------------------------------------------
+   One dark terminal that runs for the whole walkthrough: a log scrolling up
+   the left, the catalogue as a pixel matrix on the right, a heading and one
+   sentence above them that hold still long enough to read, and seven stage
+   ticks. The terminal does not restart between stages; only what it is
+   printing changes.
 
-   PRESENTATION DATA ONLY, and that is the point of the rewrite as much as the
-   motion is. The tabs published the run's real figures: her modelled intake
-   per nutrient, the targets, the shortfall thresholds, the engine's own
-   sentence of reasoning for each of twenty removals. That is the method, and
-   a page that prints the method is a specification. Nothing below is read
-   from the engine. The signal words are ordinary quiz vocabulary, the bars
-   carry no numbers, and the three products in the plan are ones this page
-   already names in the product explorer, with a reason that describes the
-   mechanism and makes no claim about an outcome.
+   PRESENTATION DATA ONLY. The log lines are generated in science.js from
+   small pools of illustrative text. No score, weight, threshold or mapping
+   appears in any of them: a product line carries an identifier and a status,
+   never the number behind the decision. The card says "Illustrative
+   simulation. Sample data." on its face.
 
-   The label says so on the face of it: "Illustrative replay. Sample data."
-
-   The resting state is the LAST stage, not the first. With no JavaScript,
-   with animations disabled, and under reduced motion, a reader sees the
-   finished plan — which is also what "skip to the plan" gives them, and what
-   the visual-diff harness captures. */
-const SIGNALS = [
-  'Goal: energy', 'Goal: sleep', 'Age band', 'Market: UK', 'Vegetarian',
-  'No fish', 'Dairy twice daily', 'Low sunlight', 'Sedentary week',
-  'Medication declared', 'Not pregnant', 'Coffee x3', 'Red meat weekly',
-  'Sleeps 6 hours', 'Stress reported', 'Resistance training', 'Leafy greens',
-  'Wholegrains daily', 'Skips breakfast', 'Oily fish rarely',
-];
-const PLATE = ['Grains', 'Dairy', 'Greens', 'Fruit', 'Legumes', 'Oils'];
-const GAPNUTS = [
-  { n: 'Vitamin D', short: true }, { n: 'Iron', short: true },
-  { n: 'Calcium', short: false }, { n: 'Magnesium', short: true },
-  { n: 'Vitamin C', short: false }, { n: 'Zinc', short: false },
-];
+   The markup's resting state is the END of the run — the matrix already
+   carries its excluded and selected cells, the plan is already listed, and
+   the heading is stage seven. That is what a reader gets with no JavaScript,
+   under reduced motion, and in a frozen screenshot, and it is the same thing
+   "skip to the plan" gives them. science.js rewinds to stage one only when it
+   is allowed to animate. */
+const MX = 160;                      /* 16 x 10, sized so no row is clipped */
+const MX_CUT = [7, 19, 26, 41, 53, 68, 74, 88, 97, 111, 123, 134, 141, 150, 157];
+const MX_PICK = [34, 60, 92, 118, 129, 146];
 const PLAN = [
-  { n: 'Vitamin D3', why: 'Covers the largest gap between her modelled intake and her target.' },
-  { n: 'Magnesium Glycinate', why: 'Matches two of her stated goals and nothing else in the plan carries it.' },
-  { n: 'Omega-3 (Algae Oil)', why: 'The form that fits her diet, where the fish-oil version does not.' },
+  { n: 'Vitamin D3', why: 'Covers the largest gap between estimated intake and target.' },
+  { n: 'Magnesium Glycinate', why: 'Matches two stated goals, and nothing else in the plan carries it.' },
+  { n: 'Omega-3 (Algae Oil)', why: 'The form that suits this diet, where the fish-oil version does not.' },
+];
+const STAGE_NAMES = [
+  ['Reading the signals', 'Organising the customer&#8217;s answers into a personal profile.'],
+  ['Estimating intakes', 'Estimating nutritional intake from reported eating habits.'],
+  ['Determining targets', 'Selecting reference targets for this profile.'],
+  ['Calculating gaps', 'Comparing estimated intake with targets to identify possible gaps.'],
+  ['Scoring the catalogue', 'Assessing products against the customer&#8217;s profile, goals and gaps.'],
+  ['Applying safety checks', 'Removing unsuitable products, regardless of their match score.'],
+  ['Building the personalised plan', 'Selecting a complementary plan and explaining every recommendation.'],
 ];
 
-const STAGES = [
-  { id: 'signals', n: 'Reading the signals',
-    say: 'Every answer she gave becomes a data point: her goals, her diet, her lifestyle, anything she takes.',
-    body: `<div class="rp-stream" aria-hidden="true">${[0, 1, 2].map(col =>
-      `<div class="rp-col">${SIGNALS.concat(SIGNALS).map((w, i) =>
-        `<span style="--d:${((i * 7 + col * 13) % 20) / 10}s">${esc(w)}</span>`).join('')}</div>`).join('')}</div>` },
-
-  { id: 'intake', n: 'Estimating intakes',
-    say: 'What her usual diet already supplies, modelled from the food she says she eats.',
-    body: `<div class="rp-plate" aria-hidden="true">${PLATE.map((f, i) =>
-      `<div class="rp-food" style="--d:${i * 0.12}s;--h:${38 + ((i * 29) % 52)}%"><i></i><span>${esc(f)}</span></div>`).join('')}</div>` },
-
-  { id: 'targets', n: 'Determining targets',
-    say: 'What someone of her age, sex and market should be getting, assembled per nutrient.',
-    body: `<div class="rp-track" aria-hidden="true">${GAPNUTS.map((g, i) =>
-      `<div class="rp-trow" style="--d:${i * 0.1}s"><span class="rp-tn">${esc(g.n)}</span><span class="rp-tl"><i class="rp-tmark"></i></span></div>`).join('')}</div>` },
-
-  { id: 'gaps', n: 'Calculating gaps',
-    say: 'Her intake set against those targets. What is already covered drops away; what is short stays.',
-    body: `<div class="rp-track is-gaps" aria-hidden="true">${GAPNUTS.map((g, i) =>
-      `<div class="rp-trow${g.short ? ' is-short' : ' is-met'}" style="--d:${i * 0.1}s"><span class="rp-tn">${esc(g.n)}</span><span class="rp-tl"><i class="rp-tfill"></i><i class="rp-tmark"></i></span></div>`).join('')}</div>` },
-
-  { id: 'score', n: 'Scoring the catalogue',
-    say: 'Every product in the catalogue measured against her profile, her goals and the gaps that are left.',
-    body: `<div class="rp-grid" aria-hidden="true">${Array.from({ length: 72 }, (_, i) =>
-      `<i style="--d:${((i * 11) % 36) / 40}s;--o:${0.12 + ((i * 17) % 80) / 100}"></i>`).join('')}</div>` },
-
-  { id: 'safety', n: 'Applying safety checks',
-    say: 'Anything she should not take is removed here, before she ever sees it. None of these checks can be switched off.',
-    body: `<div class="rp-grid is-safety" aria-hidden="true">${Array.from({ length: 72 }, (_, i) =>
-      `<i class="${[4, 9, 17, 23, 31, 38, 44, 52, 59, 66].includes(i) ? 'is-cut' : ''}" style="--d:${((i * 11) % 36) / 40}s;--o:${0.12 + ((i * 17) % 80) / 100}"></i>`).join('')}</div>` },
-
-  { id: 'plan', n: 'Building the plan',
-    say: 'What is left is ordered into a short plan, and each pick carries the reason it is there.',
-    body: `<ul class="rp-plan">${PLAN.map((x, i) =>
-      `<li style="--d:${i * 0.14}s"><span class="rp-pn">${esc(x.n)}</span><span class="rp-pw">${esc(x.why)}</span></li>`).join('')}</ul>` },
-];
-
-const stageEls = STAGES.map((st, i) => `      <div class="rp-stage" data-stage="${i}" id="rp-s-${i}"${i === STAGES.length - 1 ? '' : ' hidden'}>${st.body}</div>`).join('\n');
-const stageTicks = STAGES.map((st, i) =>
-  `<button type="button" class="rp-tick" data-goto="${i}" aria-label="${esc(st.n)}"${i === STAGES.length - 1 ? ' aria-current="step"' : ''}></button>`).join('');
-const stageSay = STAGES.map((st, i) =>
-  `<span class="rp-say" data-say="${i}"${i === STAGES.length - 1 ? '' : ' hidden'}><b>${esc(st.n)}</b>${esc(st.say)}</span>`).join('');
+/* The end state, by a rule rather than by chance, so the markup the page
+   ships and the state the handler lands on are the same picture. Assessed
+   cells keep a dim light, the excluded are red, the selected green. */
+const mxClass = i => MX_CUT.includes(i) ? 'is-cut'
+  : MX_PICK.includes(i) ? 'is-pick'
+  : (i * 7 + 3) % 10 < 6 ? 'is-on' : '';
+const cells = Array.from({ length: MX }, (_, i) =>
+  `<i class="${mxClass(i)}"></i>`).join('');
+const ticks = STAGE_NAMES.map(([n], i) =>
+  `<button type="button" class="tm-tick" data-goto="${i}" aria-label="${esc(n)}"${i === 6 ? ' aria-current="step"' : ''}></button>`).join('');
+const heads = STAGE_NAMES.map(([n, say], i) =>
+  `<span class="tm-head" data-head="${i}"${i === 6 ? '' : ' hidden'}><b>${n}</b>${say}</span>`).join('');
 
 const run = `<section class="sci-sec" id="run">
   <div class="wrap">
     <div class="sci-head sci-in">
       <span class="eyebrow">The engine, end to end</span>
       <h2 class="h2">Watch it decide.</h2>
-      <p class="lead">Seven stages, from her first answer to a plan she can read.</p>
+      <p class="lead">Seven stages, from the first answer to a readable plan.</p>
     </div>
-    <div class="sci-card rp sci-in" data-replay>
-      <div class="rp-screen">
-${stageEls}
+    <div class="sci-card tm sci-in" data-term>
+      <div class="tm-top">
+        <span class="tm-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="tm-path">blend/engine &#8212; walkthrough</span>
+        <span class="tm-live" data-tm-state>idle</span>
       </div>
-      <p class="rp-caption" aria-live="polite">${stageSay}</p>
-      <div class="rp-bar"><div class="rp-ticks" role="group" aria-label="Stages">${stageTicks}</div></div>
-      <div class="rp-controls">
-        <button type="button" class="rp-btn" data-rp-toggle aria-label="Play the replay">Play</button>
-        <button type="button" class="rp-btn" data-rp-replay>Replay</button>
-        <button type="button" class="rp-btn rp-btn--quiet" data-rp-end>Skip to the plan</button>
-        <span class="rp-note">Illustrative replay. Sample data.</span>
+      <p class="tm-caption" aria-live="polite">${heads}</p>
+      <div class="tm-body">
+        <div class="tm-logwrap">
+          <div class="tm-persona" data-tm-persona hidden>
+            <span class="tm-persona-h">Customer profile</span>
+            <dl>
+              <div><dt>Age band</dt><dd>31&#8211;50</dd></div>
+              <div><dt>Market</dt><dd>United Kingdom</dd></div>
+              <div><dt>Diet</dt><dd>Vegetarian, no fish</dd></div>
+              <div><dt>Goals</dt><dd>Energy, sleep</dd></div>
+              <div><dt>Activity</dt><dd>Sedentary</dd></div>
+              <div><dt>Declared</dt><dd>Medication, not pregnant</dd></div>
+            </dl>
+          </div>
+          <div class="tm-log" data-tm-log role="log" aria-label="Processing log"></div>
+          <div class="tm-plan" data-tm-plan>
+            <div class="tm-plan-h"><span>PLAN</span><span>${num(PLAN.length)} selected</span></div>
+            <ol>
+${PLAN.map((x, i) => `              <li><span class="tm-pi">${pad(i + 1)}</span><span class="tm-pn">${esc(x.n)}</span><span class="tm-pw">${esc(x.why)}</span></li>`).join('\n')}
+            </ol>
+          </div>
+        </div>
+        <div class="tm-mxwrap">
+          <div class="tm-mx is-dim" data-tm-mx aria-hidden="true"><span class="tm-sweep" data-tm-sweep></span>${cells}</div>
+          <p class="tm-key"><span><i class="k-gold"></i>assessed</span><span><i class="k-cut"></i>excluded</span><span><i class="k-pick"></i>selected</span></p>
+        </div>
+      </div>
+      <div class="tm-ticks" role="group" aria-label="Stages">${ticks}</div>
+      <div class="tm-controls">
+        <button type="button" class="tm-btn" data-tm-toggle aria-label="Start the walkthrough">Run</button>
+        <button type="button" class="tm-btn" data-tm-replay>Restart</button>
+        <span class="tm-note">Illustrative simulation. Sample data.</span>
       </div>
     </div>
   </div>
