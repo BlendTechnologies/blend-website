@@ -229,6 +229,12 @@
 
    Two columns with a rule between each pair, no card: a box round every
    attribute turns six facts into six objects. */
+/* The tail of the selector row. A label, not a control: there is no fifth
+   panel for it to open, and something that looks pressable and is not is
+   worse than something that plainly is not. It takes the row's own metrics so
+   it sits on the same line as the names, and no separator after it. */
+.sci-goalmore{font-size:13px;line-height:1.6;padding:5px 14px;color:var(--muted);white-space:nowrap}
+
 .sci-prows{max-width:680px;margin:20px auto 0;text-align:left}
 .sci-prow{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);gap:18px;
   padding:12px 2px;border-top:1px solid var(--line)}

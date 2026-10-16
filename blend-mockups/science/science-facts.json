@@ -99,6 +99,8 @@
         "note": "Selected products from the master table, with six of the attributes recorded for every product. Values are read from the table as they stand; an empty field is shown empty.",
         "attributes_shown": 6,
         "attributes_recorded": 25,
+        "shown": 4,
+        "more_in_table": 219,
         "items": [
           {
             "name": "Vitamin D3",
@@ -188,64 +190,6 @@
             ]
           },
           {
-            "name": "Collagen Peptides (Type I & III)",
-            "attributes": [
-              {
-                "label": "Category",
-                "value": "Collagen"
-              },
-              {
-                "label": "Serving form",
-                "value": "Scoop"
-              },
-              {
-                "label": "Recommended serving",
-                "value": "10 g"
-              },
-              {
-                "label": "Consumption timing",
-                "value": "Morning"
-              },
-              {
-                "label": "Goals matched",
-                "value": "Bone & Joint Health, Skin Health"
-              },
-              {
-                "label": "Not suitable for",
-                "value": "Vegan, Vegetarian, Pescatarian"
-              }
-            ]
-          },
-          {
-            "name": "Ashwagandha KSM-66",
-            "attributes": [
-              {
-                "label": "Category",
-                "value": "Adaptogen"
-              },
-              {
-                "label": "Serving form",
-                "value": "Capsule"
-              },
-              {
-                "label": "Recommended serving",
-                "value": "600 mg"
-              },
-              {
-                "label": "Consumption timing",
-                "value": "With meal"
-              },
-              {
-                "label": "Goals matched",
-                "value": "Stress, Sleep, Mood & Emotions"
-              },
-              {
-                "label": "Not suitable for",
-                "value": ""
-              }
-            ]
-          },
-          {
             "name": "Creatine Monohydrate",
             "attributes": [
               {
@@ -271,64 +215,6 @@
               {
                 "label": "Not suitable for",
                 "value": ""
-              }
-            ]
-          },
-          {
-            "name": "Probiotics",
-            "attributes": [
-              {
-                "label": "Category",
-                "value": "Digestive Support"
-              },
-              {
-                "label": "Serving form",
-                "value": "Capsule"
-              },
-              {
-                "label": "Recommended serving",
-                "value": "10 billion CFU"
-              },
-              {
-                "label": "Consumption timing",
-                "value": "With meal"
-              },
-              {
-                "label": "Goals matched",
-                "value": "Gut Health"
-              },
-              {
-                "label": "Not suitable for",
-                "value": "Vegan"
-              }
-            ]
-          },
-          {
-            "name": "Whey Protein Isolate",
-            "attributes": [
-              {
-                "label": "Category",
-                "value": "Protein"
-              },
-              {
-                "label": "Serving form",
-                "value": "Scoop"
-              },
-              {
-                "label": "Recommended serving",
-                "value": "25 g"
-              },
-              {
-                "label": "Consumption timing",
-                "value": "After activity"
-              },
-              {
-                "label": "Goals matched",
-                "value": "Build Muscle, Healthy Weight Gain, Healthy Ageing & Longevity, Mass Gain, Tone & Definition, Strength & Power, Recovery & Repair"
-              },
-              {
-                "label": "Not suitable for",
-                "value": "Vegan, Lactose Free, Paleo, Whey free"
               }
             ]
           }

@@ -128,6 +128,7 @@ const productsSec = `<section class="sci-sec" id="products">
     </div>
     <div class="sci-goalgrid sci-in" data-products>
 ${prods.items.map(pr => `      <button type="button" class="sci-goalname" data-prod="${esc(pr.name)}" aria-controls="sci-prod" aria-expanded="${pr === firstProd ? 'true' : 'false'}">${esc(pr.name)}</button>`).join('\n')}
+      <span class="sci-goalmore">+${num(prods.more_in_table)} more</span>
     </div>
     <div class="sci-subs sci-prod sci-in" id="sci-prod" data-prod-detail aria-live="polite">
       <div class="sci-subs-t">${esc(firstProd.name)}</div>
