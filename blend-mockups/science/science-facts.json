@@ -601,6 +601,8 @@
         ]
       },
       "countries": {
+        "market_varying_nutrients": 22,
+        "market_varying_note": "Nutrients with a per-market reference value in the overlays. The rest take the same target in every market.",
         "summary": "Three reference sets cover every market the engine runs today. The United Kingdom and the European Union each have their own; the United States and Canada share one, because the Dietary Reference Intakes are a joint set.",
         "how_a_market_is_decided": "The customer's own country decides, and the brand's home market fills the gap when it is unknown. A country with no reference set of its own falls back to its region, and anything that resolves to nothing at all is judged against the United Kingdom.",
         "what_is_not_per_country": [

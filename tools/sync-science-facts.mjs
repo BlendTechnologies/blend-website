@@ -359,7 +359,7 @@ const safety = `<section class="sci-sec" id="safety">
     <div class="sci-head sci-in">
       <span class="eyebrow">Safety</span>
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
-      <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended. Sixteen of the ${num(h.counts.safety_checks.value)} remove it outright; the last adds a warning instead. Nothing a customer should not take reaches their plan, and you can show which check stopped it.</p>
+      <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
     </div>
     <div class="sci-groups sci-in" data-groups>
 ${groupBtns}
@@ -425,7 +425,7 @@ const markets = `<section class="sci-sec" id="markets">
       <div class="sci-ladders" data-ladders>
 ${first.nutrients.map(ladder).join('\n')}
       </div>
-      <p class="sci-note">Shown for a woman aged 31 to 50. These are <b>${num(first.nutrients.length)} of the ${num(h.counts.nutrients.value)}</b> nutrients the engine models and reports for every customer. Every real target is computed for the person, not read off this table.</p>
+      <p class="sci-note">Shown for a woman aged 31 to 50. These are <b>${num(first.nutrients.length)} of the ${num(h.counts.nutrients.value)}</b> nutrients the engine models; <b>${num(h.countries.market_varying_nutrients)}</b> have targets that change with the market. Every real target is computed for the person, not read off this table.</p>
     </div>
   </div>
 </section>`;
