@@ -826,7 +826,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
 .footer-news input::placeholder{color:rgba(255,255,255,.4)}
 .footer-news input:focus{border-color:rgba(255,255,255,.5)}
-.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;min-height:42px;transition:background .15s ease}
+.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;min-height:42px;border:1px solid var(--line-strong)}
 .footer-news button:hover{background:rgba(255,255,255,.85)}
 .footer-col h5{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 16px;font-weight:500}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
@@ -1689,6 +1689,29 @@ a.vrow:hover,a.vrow:focus-visible{
 /* The footer is the lower half of the closing card: its ink comes from the
    component's own layer, and the element keeps the page ground so the reveal
    has something to open onto. Same as every other page that pairs them. */
+
+/* ---- every button reacts the same way ------------------------------------
+   There were four different answers to "what happens when I point at this":
+   Book a call changed its background and nothing else, Explore use cases took
+   a WHITE border, Start free trial a pale gold one, and Subscribe filled with
+   near-white. Three of those were left over from the light palette, where a
+   button could afford to go brighter than its page.
+
+   Two kinds of button, two behaviours, no exceptions:
+     secondary  -> a step lighter, border warms to the pale gold
+     filled     -> the gold brightens
+
+   The brand ramp runs DARKER as it goes (#B47F39 to #6D491C), which is right
+   on white and backwards here, so the filled hover climbs it rather than
+   descending: --gold-strong at rest, --gold on hover. */
+.btn-ghost,.tier-cta.outline,.tier-cta.dark,.vlead-cta,.footer-news button{
+  transition:background .18s ease,border-color .18s ease,color .18s ease}
+.btn-ghost:hover,.tier-cta.outline:hover,.tier-cta.dark:hover,
+.vlead-cta:hover,.footer-news button:hover{
+  background:var(--hover-surface);border-color:var(--sand);color:var(--ink)}
+
+.btn-primary:hover,.tier-cta.gold:hover{background:var(--gold)}
+.btn-primary:active,.tier-cta.gold:active{background:var(--gold-strong)}
 </style>
 <script>
 /* The hero intro's start state has to be on the document before the hero's
