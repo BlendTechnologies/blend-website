@@ -211,11 +211,18 @@
         }
       });
     } else {
-      // No consent or rejected, show banner with explanation
+      /* No consent, or rejected. Accepting here loads the embedded widget,
+         which then shows Calendly's OWN cookie banner — two prompts to book
+         one call. So the prompt also offers the two ways round it: Calendly
+         in its own tab, where its banner is its own business, and email,
+         which needs no consent from anybody. Reported by a reviewer who got
+         through it but had to be told twice about cookies to do so. */
       window.blendPendingCalendlyUrl = calendlyUrl;
       showBanner(
-        'To book a demo, we need to load Calendly\'s scheduling widget, which sets cookies. ' +
-        'You can accept just for this session or reject to continue browsing without booking.'
+        'To book a demo here, we need to load Calendly\'s scheduling widget, which sets cookies. ' +
+        'You can accept just for this session, or skip it: ' +
+        '<a href="' + calendlyUrl + '" target="_blank" rel="noopener">open the calendar in a new tab</a>' +
+        ' or email <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a>.'
       );
     }
 

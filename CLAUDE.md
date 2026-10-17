@@ -65,4 +65,29 @@ baseline.
 - `node tools/check-prices.mjs`
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
+- `node tools/check-product-facts.mjs`
+- `python3 ../../tools/check_british_english.py`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`
+
+All but the last now also run in CI on every PR (`.github/workflows/checks.yml`).
+They used to be this list alone, and the site drifted anyway: it claimed "30+
+product attributes" about *scoring* while `/science` said 25, and an outside
+reviewer found it before we did. A list of commands is not a gate.
+
+## Figures the engine owns
+
+`PRODUCT_FACTS.md` in the workspace is canonical, and CLAUDE.md there says no
+lane publishes a figure externally unless it appears in it. This repository is
+its own git repository and cannot see that file, so the governed figures are
+vendored in `product-facts.json` exactly the way `pricing.json` vendors prices.
+
+- `node tools/sync-product-facts.mjs` regenerates the vendored copy from a full
+  workspace checkout.
+- `node tools/check-product-facts.mjs` compares the site's prose AND its JSON-LD
+  against it, and — whenever the markdown is reachable — checks the vendored
+  copy has not gone stale.
+
+It binds a *claim* to a figure rather than matching numbers. 31 and 21 are real
+(columns in `supplements_db.json`, `apply_*` functions in `safety.py`); they are
+answers to a different question than "what does the engine score". A sentence
+about scoring takes the scorer's number.

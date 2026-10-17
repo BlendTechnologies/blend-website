@@ -1,0 +1,14 @@
+{
+  "_source": "PRODUCT_FACTS.md in the Blend-OS workspace. Regenerate with `node tools/sync-product-facts.mjs` from a full checkout; never edit by hand.",
+  "_why": "The website is its own repository and PRODUCT_FACTS.md is not in it, so the governed figures are vendored here the same way pricing.json vendors prices. check-product-facts.mjs compares the site against this file, and additionally against PRODUCT_FACTS.md itself whenever that file is reachable.",
+  "facts": {
+    "Product attributes the scorer reads": {
+      "value": 25,
+      "why": "Fields on the `ClientProduct` dataclass. This is the number to use whenever the claim is about what is *scored*. The 31 above is the width of the data file and is a different claim."
+    },
+    "Safety gates that run on a recommendation": {
+      "value": 17,
+      "why": "Gate functions in `v1_layers/safety.py` that belong to a safety group: contraindications 9, upper limits 3, medication conflicts 2, diet 2, interactions 1."
+    }
+  }
+}
