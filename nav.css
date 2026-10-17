@@ -35,6 +35,16 @@
    visible of the differences — the logo moved as you navigated. */
 :root{ --nav-w:1340px }
 
+/* Pages set `[id]{scroll-margin-top:...}` so an anchor clears the sticky
+   bar — and [id] is broad enough to catch the bar itself. #nav, #nav-links
+   and #nav-toggle are not anchor targets, and a scroll-margin on a STICKY
+   element makes FOCUSING it scroll the page: tabbing to the menu button
+   moved /use-cases by 84px. Fixed once in #104, in that page's own CSS,
+   and deleted again when the nav styling was consolidated here — caught
+   by nav-sheet.spec.mjs, which measured the same 84. It lives with the
+   bar now, so it covers every page rather than the one that reported it. */
+.nav,.nav *{scroll-margin-top:0}
+
 .nav{
   position:sticky;top:0;z-index:50;
   background:var(--nav-bg,var(--deep));
