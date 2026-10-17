@@ -75,5 +75,44 @@ if (odd.length) {
   process.exit(1);
 }
 
+/* ---- The B. mark ---------------------------------------------------------
+   A second, smaller logo: the B and its full stop, used on the quiz chip and
+   the plan card. It is the same two glyphs as the wordmark, recomposed, and
+   favicon.svg is the one the brand actually ships.
+
+   The inline copies had the stop at translate(1300 0) against the favicon's
+   1324.52 — 24.52 units tight, which at chip size is a dot visibly crowding
+   the B. Reported as "you're using the wrong B. icon". The wordmark check
+   above could not see it: this is not the wordmark.
+
+   Geometry, not markup: the inline marks carry their own viewBox and class,
+   and only the drawing has to agree. */
+const mark = readFileSync(join(ROOT, "favicon.svg"), 'utf8');
+const stopAt = mark.match(/translate\(([\d.]+) 0\)/);
+if (!stopAt) {
+  console.error('FAILED: favicon.svg has no stop transform. It is the reference for the B. mark.');
+  process.exit(1);
+}
+const CANON_STOP = stopAt[1];
+
+const badMarks = [];
+for (const file of pages(ROOT)) {
+  const html = readFileSync(file, 'utf8');
+  for (const m of html.matchAll(/<svg[^>]*class="[^"]*brand-mark[^"]*"[\s\S]*?<\/svg>/g)) {
+    const t = m[0].match(/translate\(([\d.]+) 0\)/g) || [];
+    const stop = t.map(x => x.match(/[\d.]+/)[0]).find(v => v !== '0');
+    if (stop !== CANON_STOP) {
+      badMarks.push(`${relative(ROOT, file)}: stop at translate(${stop} 0), favicon.svg has ${CANON_STOP}`);
+    }
+  }
+}
+if (badMarks.length) {
+  console.error(`FAILED: ${badMarks.length} B. mark(s) do not match favicon.svg:`);
+  for (const b of badMarks) console.error('  ' + b);
+  console.error('  favicon.svg is the reference. Copy its <g class="mark"> contents.');
+  process.exit(1);
+}
+
 const files = new Set(found.map(f => f.file)).size;
-console.log(`PASSED: ${found.length} wordmarks across ${files} pages are the same ${canonPaths}-path drawing.`);
+console.log(`PASSED: ${found.length} wordmarks across ${files} pages are the same ${canonPaths}-path drawing,`
+  + ` and every B. mark matches favicon.svg.`);
