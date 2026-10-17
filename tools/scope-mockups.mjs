@@ -49,7 +49,51 @@ const lines = css.split('\n');
 const kept = [];
 let dropped = 0;
 
-for (const line of lines) {
+/* A selector list can span lines, and the export's preflight always does:
+       h1,
+       h2,
+       ...
+       h6 {
+   Scoping line by line reached only the line carrying the `{`, so five of
+   those six stayed global. /sample-report was the first page to link this
+   stylesheet and it underlined every nav link on it and stripped the list
+   markers — the leak had simply never had a page to show up on.
+
+   So selector lines are buffered until the `{` arrives and the whole
+   prelude is scoped at once. */
+/* A selector list can span lines, and the export's preflight always does:
+       h1,
+       h2,
+       ...
+       h6 {
+   The loop below scopes a line only when it carries the `{`, so five of
+   those six stayed global. /sample-report was the first page ever to link
+   this stylesheet, and it underlined every nav link on the page and
+   stripped its list markers — the leak simply had nowhere to show before.
+
+   So selector continuation lines are joined onto their rule first, and the
+   loop sees whole preludes. Depth matters: a trailing comma inside a rule
+   body is a multi-part value, not a selector list. */
+function joinSelectorLines(src) {
+  const out = [];
+  let depth = 0, buf = '';
+  for (const raw of src) {
+    const t = raw.trim();
+    if (!t) continue;
+    if (depth === 0 && !t.startsWith('@') && !t.startsWith('/*') && t.endsWith(',')) {
+      buf += t + ' ';
+      continue;
+    }
+    out.push(buf + t);
+    buf = '';
+    depth += (t.match(/\{/g) || []).length - (t.match(/\}/g) || []).length;
+    if (depth < 0) depth = 0;
+  }
+  if (buf) out.push(buf);
+  return out;
+}
+
+for (const line of joinSelectorLines(lines)) {
   const t = line.trim();
   if (!t) continue;
   if (t.startsWith('@font-face')) { dropped++; continue; }   // src is /_next/*, 404 here
