@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="/theme.css">
   <link rel="stylesheet" href="/blend-mockups/mockups.css">
 <style>
-  :root{--bg:var(--ground);--track:rgba(255,255,255,.12);--accent:var(--gold);--accent-soft:var(--gold-soft);--green:var(--green-soft)}
+  :root{--content:1200px;--bg:var(--ground);--track:rgba(255,255,255,.12);--accent:var(--gold);--accent-soft:var(--gold-soft);--green:var(--green-soft)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;
     background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -99,7 +99,8 @@ html,body{max-width:100%;overflow-x:clip}
   .report-intro p{margin:0;font-size:16px;line-height:1.6;color:var(--ink-80)}
 
   .themebar{display:flex;align-items:center;justify-content:space-between;gap:18px;
-    flex-wrap:wrap;margin:0 auto 18px;padding:14px 18px;max-width:1040px;
+    flex-wrap:wrap;margin:0 auto 18px;padding:14px 18px;
+    max-width:calc(1040px + var(--report-pad)*2);
     background:var(--surface);border-radius:14px;font-size:14px;color:var(--ink-80)}
   .themebar b{color:var(--ink);font-weight:600}
   .swatches{display:flex;gap:8px;flex-wrap:wrap}
@@ -110,19 +111,43 @@ html,body{max-width:100%;overflow-x:clip}
   .swatch[aria-pressed="true"]{border-color:var(--sand);box-shadow:0 0 0 2px var(--gold-soft)}
   .swatch:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-  /* The report is a document: it keeps its own light surface on the dark
-     page, the way a sheet of paper would, and the brand palette repaints
-     it rather than the page around it. */
-  .report-frame{max-width:1040px;margin:0 auto;border-radius:16px;overflow:hidden;
+  /* The report is a document: it keeps its own light surface on the page,
+     the way a sheet of paper would, and the brand palette repaints it
+     rather than the page around it.
+
+     IT NEEDS ITS OWN MARGIN. The export is the report's CONTENT at its
+     design width — 1040, per blend-mockups/manifest.json — with no
+     container around it: measured in the page, the first product card's
+     left border sits at x=0 of the frame and the last one's right border
+     at the far edge, so the frame's radius and overflow:hidden were
+     clipping both. A document whose contents run off all four sides reads
+     as a screenshot zoomed to fill, not as a page. In the app that margin
+     comes from the screen the report is on; here the frame supplies it.
+
+     The frame GROWS by the padding rather than squeezing the report into
+     it, so the content still renders at exactly 1040 and nothing inside is
+     scaled or reflowed. .wrap gives 1136 at --content:1200, and
+     1040 + 2x48 is 1136. */
+  .report-frame{max-width:calc(1040px + var(--report-pad)*2);margin:0 auto;
+    padding:var(--report-pad);border-radius:16px;overflow:hidden;
+    /* The margin has to be paper, not page, or the report sits in a second
+       frame of a different colour. --quiz-bg is the fragment's own
+       background token, set as an inline style on its root where
+       inheritance cannot reach it, so the palette script sets it here too. */
+    background:rgb(var(--quiz-bg,250 248 242));
     box-shadow:var(--shadow-lg)}
 
   .report-foot{max-width:720px;margin:26px auto 0;text-align:center;
     font-size:14px;color:var(--muted)}
   .report-foot a{color:var(--sand);text-decoration:underline;text-underline-offset:3px}
+  :root{--report-pad:48px}
+  @media(max-width:1000px){ :root{--report-pad:32px} }
   @media(max-width:640px){
+    :root{--report-pad:20px}
     .report-intro{margin-top:24px}
     .themebar{justify-content:center;text-align:center}
   }
+  @media(max-width:420px){ :root{--report-pad:14px} }
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sample wellness report | Blend","url":"https://www.blend-technologies.com/sample-report","description":"Three example customers, one catalogue, three different plans. Real output from the Blend personalisation engine.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Sample report","item":"https://www.blend-technologies.com/sample-report"}]}}</script>
 </head>
 <body>
@@ -220,6 +245,10 @@ html,body{max-width:100%;overflow-x:clip}
   var root = document.querySelector('#report > [style*="--quiz-"]') ||
              document.querySelector('#report [style*="--quiz-"]');
   var bar  = document.getElementById('swatches');
+  /* The frame's padding is the report's own paper, so it repaints with it.
+     The tokens live as an inline style on the fragment's root, which is a
+     CHILD of the frame, so inheritance cannot carry them outwards. */
+  var frame = document.getElementById('report');
   if (!root || !bar) return;
   var MAP = { bg:'--quiz-bg', text:'--quiz-text', accent:'--quiz-accent',
               cardbg:'--quiz-card-bg', cardtext:'--quiz-card-text',
@@ -227,7 +256,9 @@ html,body{max-width:100%;overflow-x:clip}
   function apply(btn){
     Object.keys(MAP).forEach(function(k){
       var v = btn.dataset[k];
-      if (v) root.style.setProperty(MAP[k], v);
+      if (!v) return;
+      root.style.setProperty(MAP[k], v);
+      if (frame) frame.style.setProperty(MAP[k], v);
     });
     root.style.setProperty('--quiz-buttons', btn.dataset.accent);
     bar.querySelectorAll('.swatch').forEach(function(b){

@@ -60,6 +60,14 @@ every page and refuses when they disagree. Anything else that is supposed
 to be identical everywhere wants a check of the same shape rather than a
 baseline.
 
+`node tools/check-css-shape.mjs` guards a different invariant: not "do the
+copies agree" but "does this file mean what it says". /try's embed opened
+flush against the nav on 2026-10-18 because the nav consolidation had left
+`.footer` behind with no block, and a selector with no `{}` joins the next
+prelude — `.try-embed-section` had quietly become `.footer .try-embed-section`
+and matched nothing. Valid CSS, no warning, and invisible to a per-page
+baseline, which only knows what the page has looked like since.
+
 `node tools/check-nav.mjs` is that check for the bar, and it was needed:
 on 2026-10-17 there were **seven distinct nav markups across thirteen
 pages** — the logo pointed at four different places, the demo link was
@@ -79,6 +87,7 @@ would point at the page you are on.
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`
+- `node tools/check-css-shape.mjs`
 - `node tools/check-product-facts.mjs`
 - `python3 ../../tools/check_british_english.py`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`

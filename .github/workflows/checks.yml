@@ -35,6 +35,11 @@ jobs:
       - name: The nav is one component everywhere
         run: node tools/check-nav.mjs
 
+      # /try's embed lost its padding to a selector that had joined the one
+      # above it. Valid CSS, matching nothing, invisible to a baseline.
+      - name: CSS parses as the rules it looks like
+        run: node tools/check-css-shape.mjs
+
       # Reads product-facts.json, which is vendored from the workspace's
       # PRODUCT_FACTS.md. The markdown is not in this repository, so the
       # checker says so and compares against the vendored copy.

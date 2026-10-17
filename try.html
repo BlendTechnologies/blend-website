@@ -49,12 +49,16 @@ img,svg{display:block;max-width:100%}
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
 .btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
-/* Nav */
-@media(max-width:860px){
-  }
-/* Footer logo, white tint */
-.footer /* Embed */
-.try-embed-section{padding:24px 0 112px;background:var(--cream)}
+/* Embed.
+   The embed opens the page now that the intro above it is gone, so this
+   top padding is the page's whole opening rhythm.
+
+   It read 24px here and measured 0 in the browser, because the nav
+   consolidation left `.footer` behind with no block of its own: a selector
+   with no `{}` does not disappear, it joins the NEXT prelude, and this rule
+   had silently become `.footer .try-embed-section`, which matches nothing.
+   tools/check-css-shape.mjs refuses that shape now. */
+.try-embed-section{padding:56px 0 112px;background:var(--cream)}
 .try-embed-frame{position:relative;max-width:100%;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);height:80vh}
 .try-embed-frame iframe{width:100%;height:100%;border:0;display:block}
 /* Fullscreen state, strip frame chrome and fill viewport */
@@ -102,7 +106,7 @@ body.is-fs-locked{overflow:hidden;touch-action:none}
   .footer-brand{grid-column:1/-1}
   @media(max-width:560px){ }
   .try-embed-frame{height:85vh;max-width:100%;border-radius:0;box-shadow:var(--shadow-lg)}
-  .try-embed-section{padding:0}
+  .try-embed-section{padding:24px 0 0}
   .fs-btn{top:10px;right:10px}
 }
 
