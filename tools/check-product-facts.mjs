@@ -55,7 +55,7 @@ function canonical() {
     const live = new Map();
     for (const line of md.split('\n')) {
       const m = line.match(/^\|\s*([^|]+?)\s*\|\s*\*\*([\d,]+)\*\*\s*\|/);
-      if (m) live.set(m[1].trim(), Number(m[2].replace(/,/g, '')));
+      if (m) live.set(m[1].trim().replace(/^\*\*|\*\*$/g, ''), Number(m[2].replace(/,/g, '')));
     }
     const drift = [];
     for (const [name, value] of out) {
@@ -86,6 +86,20 @@ const CLAIMS = [
     find: /(\d+)\+?\s*(?:scored\s+)?product attributes/gi,
     note: 'the 31-column width of supplements_db.json is a claim about the DATA; '
         + 'a sentence about scoring takes the scorer\'s number',
+  },
+  {
+    fact: 'Maximum signals per user (ceiling)',
+    what: 'a claim about how much a customer can tell the quiz',
+    find: /up to (\d+)\s*personalised inputs/gi,
+    note: 'PRODUCT_FACTS carries the approved phrasing for this one, and notes '
+        + 'that a "47 signals" figure in circulation is not reproducible',
+  },
+  {
+    fact: 'Guaranteed signals per user (floor)',
+    what: 'a claim about what every customer is asked',
+    find: /(\d+)\s*(?:questions|are)\s*always asked/gi,
+    note: '"20+ user signals" is false: a customer who answers only the '
+        + 'always-shown questions gives 16',
   },
   {
     fact: 'Safety gates that run on a recommendation',

@@ -129,6 +129,15 @@ body.is-fs-locked{overflow:hidden;touch-action:none}
 @media(max-width:860px){
   .footer-grid{grid-template-columns:1fr 1fr;gap:8px}
   .footer-brand{grid-column:1/-1}
+  .try-intro{max-width:720px;margin:0 auto 26px;text-align:center}
+  .try-intro h1{margin:0 0 12px;font-size:clamp(26px,3.2vw,38px);line-height:1.12;
+    letter-spacing:-.025em;font-weight:600;color:var(--ink)}
+  .try-intro-lead{margin:0;font-size:16px;line-height:1.6;color:var(--ink-80)}
+  .try-intro-alt{margin:14px 0 0;font-size:14px;color:var(--muted)}
+  .try-intro-alt a{color:var(--sand);text-decoration:underline;
+    text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
+  .try-intro-alt a:hover{text-decoration-color:var(--sand)}
+  @media(max-width:560px){ .try-intro{margin-bottom:20px} .try-intro-lead{font-size:15px} }
   .try-embed-frame{height:85vh;max-width:100%;border-radius:0;box-shadow:var(--shadow-lg)}
   .try-embed-section{padding:0}
   .fs-btn{top:10px;right:10px}
@@ -164,7 +173,18 @@ html,body{max-width:100%;overflow-x:clip}
 <main id="main">
 <section class="try-embed-section">
   <div class="wrap">
-    <h1 class="sr-only">Try the Blend quiz: a live personalised product recommendation demo</h1>
+    <!-- The page used to open straight into the iframe with its only heading
+         hidden from sight: no statement of what this is, how much it asks or
+         what comes out. Flagged in the 2026-10-17 review. There is no
+         measured completion TIME anywhere — PRODUCT_FACTS carries no such
+         figure, and the "3-minute quiz" line elsewhere on the site is not
+         substantiated — so this says what IS measured: how many questions
+         are always asked, and the ceiling. -->
+    <div class="try-intro">
+      <h1>Try the quiz yourself.</h1>
+      <p class="try-intro-lead">16 questions are always asked and the rest unlock from your answers, up to 64 personalised inputs in all. At the end you get the report a customer gets: products matched to what you said, the reason behind each one, and an estimate of where your nutrition sits against your own targets.</p>
+      <p class="try-intro-alt">Rather not answer anything? <a href="/sample-report">See a finished report for a fictional customer &rarr;</a></p>
+    </div>
     <div class="try-embed-frame" id="quizEmbed">
       <button type="button" class="fs-btn" id="fsBtn" aria-label="View fullscreen">
         <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
@@ -176,7 +196,6 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="try-embed-foot">
       This is the same embed you'd drop on your site, one line of code.
     </div>
-    <div class="try-embed-alt" style="margin-top:10px;text-align:center;font-size:14px;color:var(--ink-60);letter-spacing:-.005em">Not ready? <a href="/sample-report" style="color:var(--sand);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500">See a sample report &rarr;</a></div>
   </div>
 </section>
 <section class="after sc-reveal sc-reveal--top" data-sc="endcap">

@@ -354,11 +354,24 @@ const setName = s => s.countries.length === 1 ? s.countries[0]
 const cbtns = sets.map((s, i) =>
   `<button type="button" class="sci-cbtn" data-set="${i}" aria-pressed="${i === 0 ? 'true' : 'false'}">${esc(setName(s))}</button>`).join('');
 
+/* The export calls these "strict" and "lenient", which is the engine's own
+   vocabulary and means nothing on a page a buyer reads — flagged in the
+   2026-10-17 review alongside the NEVER zone. What they actually describe
+   is how far below target a nutrient has to fall before the engine will
+   offer anything for it, so that is what the label says.
+
+   The threshold itself stays unpublished: it is tuning, and the same review
+   asked that proprietary rules stay private. */
+const STRICTNESS_LABEL = {
+  strict:  'needs a clear shortfall',
+  lenient: 'acts on a small shortfall',
+};
+
 function ladder(n) {
   const ul = n.upper_limit;
   const unit = n.upper_limit_unit || n.target_unit || '';
   const t = n.target_reference_adult;
-  const head = `<div class="sci-dose-h"><span class="sci-dose-n">${esc(n.nutrient)}</span><span class="sci-dose-s is-${esc(n.strictness)}">${esc(n.strictness)}</span></div>`;
+  const head = `<div class="sci-dose-h"><span class="sci-dose-n">${esc(n.nutrient)}</span><span class="sci-dose-s is-${esc(n.strictness)}">${esc(STRICTNESS_LABEL[n.strictness] || n.strictness)}</span></div>`;
   if (t == null) {
     return `      <div class="sci-dose" data-dose="${esc(n.nutrient)}">${head}
         <p class="sci-dose-f">Target ${esc(n.target_basis || 'computed per person')}.</p>
@@ -367,7 +380,9 @@ function ladder(n) {
   const span = ul ? ul * 1.18 : t * 2;
   const pos = v => Math.max(0, Math.min(100, (v / span) * 100));
   const tp = pos(t);
-  const never = ul ? `<div class="sci-never" style="left:${pos(ul)}%"><span class="sci-never-l">Never</span></div>` : '';
+  /* "Never" alone read as a system state. It is the zone past the tolerable
+     upper limit, so it says so. */
+  const never = ul ? `<div class="sci-never" style="left:${pos(ul)}%"><span class="sci-never-l">Above the limit</span></div>` : '';
   const edge = tp < 12 ? ' is-left' : tp > 88 ? ' is-right' : '';
   return `      <div class="sci-dose" data-dose="${esc(n.nutrient)}">${head}
         <div class="sci-track">${never}<div class="sci-mark is-target${edge}" style="left:${tp}%"><i>${num(t)} ${esc(n.target_unit || unit)}</i></div></div>
@@ -425,10 +440,29 @@ const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" i
    nobody. The counts by group stay, because the tiles are drawn from them
    and they are the claim; the per-check names and rules do not. */
 const PUBLIC_V = JSON.parse(JSON.stringify(V));
+
+/* The shortfall thresholds are tuning: how far below target each nutrient
+   has to fall before the engine offers anything for it. The ladders render
+   from `strictness`, the target and the upper limit, and never from these,
+   so nothing on the page needs them — they were only ever in the island
+   because the export carries them. The 2026-10-17 review asked that the
+   page explain its labels without publishing the rules behind them, and a
+   per-nutrient threshold table is the most copyable thing on it. */
+function dropThresholds(rows) {
+  for (const n of rows || []) {
+    delete n.shortfall_before_recommend;
+    delete n.shortfall_pct;
+  }
+}
+
 for (const key of Object.keys(PUBLIC_V)) {
   delete PUBLIC_V[key].safety_checks;
   delete PUBLIC_V[key].plan_checks;
   delete PUBLIC_V[key].also_in_the_chain;
+
+  dropThresholds(PUBLIC_V[key].recommendation_thresholds?.nutrients);
+  delete PUBLIC_V[key].recommendation_thresholds?.default_shortfall_before_recommend;
+  for (const set of PUBLIC_V[key].countries?.reference_sets || []) dropThresholds(set.nutrients);
 }
 
 const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: PUBLIC_V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
