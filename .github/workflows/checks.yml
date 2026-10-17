@@ -1,0 +1,39 @@
+# Every check in CLAUDE.md's "Before merging" list, on every PR.
+#
+# These checks all existed and were all run by hand, which is how the site
+# ended up claiming "30+ product attributes" about scoring while /science
+# said 25 — an outside reviewer found it before anybody here did. A list of
+# commands in a markdown file is not a gate.
+#
+# The visual-diff suite is NOT here: its baselines live in the Blend-OS
+# workspace, not in this repository, so it stays a workspace check.
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Prices match the homepage
+        run: node tools/check-prices.mjs
+
+      - name: Science figures match the engine export
+        run: node tools/sync-science-facts.mjs --check
+
+      - name: The wordmark is one drawing everywhere
+        run: node tools/check-wordmark.mjs
+
+      # Reads product-facts.json, which is vendored from the workspace's
+      # PRODUCT_FACTS.md. The markdown is not in this repository, so the
+      # checker says so and compares against the vendored copy.
+      - name: Governed figures match PRODUCT_FACTS
+        run: node tools/check-product-facts.mjs
