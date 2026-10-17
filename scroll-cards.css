@@ -48,9 +48,20 @@
    element's own box shadow away with its edge, so a real one would mean
    animating inset and border-radius on an unclipped box - the
    layout-triggering animation this whole thing exists to avoid. */
+/* Height is a token because the homepage means something different by it.
+   A full viewport is right there — the hero holds the product preview and
+   fills it, 616px of content in 832px of hero. On /how-it-works and
+   /use-cases the same rule gave 379px of content in the same 832px: 453px
+   of nothing, with the next section starting one pixel below the fold.
+   Flagged in the 2026-10-17 review as "almost an entire desktop screen on
+   a heading, a description and buttons".
+
+   So the default is shorter and the homepage opts back in. Both floors are
+   still generous enough that the card has room to form. */
+:root{--sc-hero-min:calc(72vh - var(--nav-h))}
+@supports (height:100svh){ :root{--sc-hero-min:calc(72svh - var(--nav-h))} }
 .sc-hero{position:relative;display:grid;align-content:safe center;overflow:hidden;
-  min-height:calc(100vh - var(--nav-h));
-  min-height:calc(100svh - var(--nav-h));
+  min-height:var(--sc-hero-min);
   padding:40px 0 56px;
   background:transparent;
   clip-path:inset(

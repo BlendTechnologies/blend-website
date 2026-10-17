@@ -23,7 +23,7 @@ const md = readFileSync(join(site, '..', '..', 'PRODUCT_FACTS.md'), 'utf8');
 const rows = new Map();
 for (const line of md.split('\n')) {
   const m = line.match(/^\|\s*([^|]+?)\s*\|\s*\*\*([\d,]+)\*\*\s*\|\s*(.*?)\s*\|?\s*$/);
-  if (m) rows.set(m[1].trim(), { value: Number(m[2].replace(/,/g, '')), why: m[3].slice(0, 200) });
+  if (m) rows.set(m[1].trim().replace(/^\*\*|\*\*$/g, ''), { value: Number(m[2].replace(/,/g, '')), why: m[3].slice(0, 200) });
 }
 
 const facts = {};

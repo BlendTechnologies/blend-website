@@ -267,6 +267,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    the 80px inside the card is the card's own room, not a gap. The hero
    reads the same: its card edge sits ~115px above the next heading.
    Tablet and phone keep the values they already had. */
+/* The homepage hero holds the product preview and fills a full viewport;
+   the shared default is shorter for the pages whose hero is only type. */
+:root{--sc-hero-min:calc(100vh - var(--nav-h))}
+@supports (height:100svh){ :root{--sc-hero-min:calc(100svh - var(--nav-h))} }
 :root{--sec:72px;--sec-tight:62px;--sec-join:30px}
 @media(max-width:860px){:root{--sec-join:44px}}
 @media(max-width:760px){:root{--sec:58px;--sec-tight:54px;--sec-join:28px}}

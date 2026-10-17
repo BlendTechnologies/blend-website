@@ -9,6 +9,14 @@
     "Safety gates that run on a recommendation": {
       "value": 17,
       "why": "Gate functions in `v1_layers/safety.py` that belong to a safety group: contraindications 9, upper limits 3, medication conflicts 2, diet 2, interactions 1."
+    },
+    "Guaranteed signals per user (floor)": {
+      "value": 16,
+      "why": "Always-shown ∩ consumed ∩ is-a-signal. Excludes consent, email, name, unit preference"
+    },
+    "Maximum signals per user (ceiling)": {
+      "value": 64,
+      "why": "The 68 consumed, minus name, unit preference, and the 2 imperial duplicates"
     }
   }
 }
