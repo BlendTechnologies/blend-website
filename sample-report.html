@@ -109,6 +109,32 @@
   .nextbtn{display:inline-block;background:var(--accent);color:#fff;border:none;
     border-radius:8px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer}
   .nextbtn:hover{filter:brightness(.95)}
+  /* The two optional sections. Quiet on purpose: the report above them is
+     the argument, and these are for a reader who wants to audit it. */
+  .more{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+  .more-h{font-size:14px;color:var(--muted);margin-bottom:14px}
+  .more-row{display:flex;gap:10px;flex-wrap:wrap}
+  .more-btn{font:inherit;font-size:14px;font-weight:500;cursor:pointer;
+    padding:11px 18px;min-height:44px;border-radius:10px;
+    background:transparent;border:1px solid var(--line-strong);color:var(--ink);
+    transition:background .18s ease,border-color .18s ease}
+  .more-btn:hover{background:var(--hover-surface);border-color:var(--sand)}
+  .more-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  /* Groups, so eleven cards read as a plan rather than a wall. */
+  .pgroup{margin-top:34px}
+  .pgroup:first-child{margin-top:0}
+  .pgroup-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px;
+    padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .pgroup-h h3{margin:0;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+  .pgroup-h span{font-size:13px;color:var(--muted)}
+  .pgroup-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  /* The reason the engine made this pick. It is the argument, so it sits
+     above the generic description rather than under it. */
+  .pwhy{margin:10px 0 0;font-size:13px;line-height:1.55;color:var(--ink-80, var(--ink))}
+  .pwhy span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+  .pcard.is-key{border-color:var(--accent)}
+  @media(max-width:560px){ .pgroup-grid{grid-template-columns:1fr} }
 
   /* Step 1, hero (matches the site's cream + subtle gold-glow style) */
   .hero{background:var(--surface);border:1px solid var(--track);border-radius:14px;
@@ -213,7 +239,10 @@
   .catnote{border:1px solid var(--ink);border-left:5px solid var(--accent);
     border-radius:8px;background:var(--surface);padding:12px 16px;font-size:14px;
     margin-bottom:18px}
-  .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:16px}
+  /* The container holds GROUPS now; each group runs its own grid, so this
+     is a plain block. It was a grid of cards until the plan was grouped
+     by the goals the customer picked. */
+  .pgrid{display:block}
   .pcard{border:1px solid var(--ink);border-radius:14px;background:var(--surface);
     padding:12px;display:flex;flex-direction:column}
   .pphoto{position:relative;border-radius:8px;overflow:hidden;background:#0d0d0d;
@@ -229,9 +258,10 @@
   .ptags .pill{font-size:12px;padding:2px 9px}
   .pcard .goldbtn{margin-top:auto}
   @media(max-width:640px){
-    .pgrid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+    .pgrid{display:block}
+    .pgroup-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px}
-    .pgrid::-webkit-scrollbar{display:none}
+    .pgroup-grid::-webkit-scrollbar{display:none}
     .slide{flex:0 0 82%;scroll-snap-align:start}
   }
   .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
@@ -303,47 +333,7 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="stepdot" id="sd3"><b>3</b> Her wellness report</div>
   </div>
 
-  <section class="step on" id="step1">
-    <div class="hero">
-      <div class="eyebrow">The Blend engine</div>
-      <h2>Personalisation,<br>computed. Not guessed.</h2>
-      <div class="herolead">No persona buckets. No decision trees. The engine calculates each customer's actual nutritional needs, the way a nutritionist would, and matches them to the right products in a catalogue.</div>
-      <div class="statgrid">
-        <div class="stat"><div class="statnum">200+</div>
-          <div class="statlabel">Products catalogued</div>
-          <div class="statsub">Every SKU in the client's catalogue is scored per customer, no shortlist, no shortcuts.</div></div>
-        <div class="stat"><div class="statnum">1,200+</div>
-          <div class="statlabel">Foods indexed</div>
-          <div class="statsub">Nutrient values from published food-composition science, used to model each customer's intake.</div></div>
-        <div class="stat"><div class="statnum">30+</div>
-          <div class="statlabel">Attributes per product</div>
-          <div class="statsub">Ingredients, dosing, evidence, contraindications, synergies, all scored.</div></div>
-        <div class="stat"><div class="statnum">42</div>
-          <div class="statlabel">Nutrients personalised per person</div>
-          <div class="statsub">Each carries a personalised target + intake estimate, drawn from a reference database of 83 tracked per food.</div></div>
-        <div class="stat"><div class="statnum">140,000+</div>
-          <div class="statlabel">Nutritional data points indexed</div>
-          <div class="statsub">The food-nutrient matrix behind every macro and every gap in this report.</div></div>
-        <div class="stat"><div class="statnum">0</div>
-          <div class="statlabel">Persona buckets</div>
-          <div class="statsub">This report is for one person. It exists nowhere else, no templates, no segments.</div></div>
-      </div>
-      <button class="nextbtn" onclick="goStep(2)">See it in action →</button>
-    </div>
-  </section>
-
-  <section class="step" id="step2">
-    <div class="persona-tabs" id="persona-tabs"></div>
-    <div class="panel">
-      <h2>Meet <span data-bind="display_name">Emma</span></h2>
-      <div class="persona-subline" data-bind="one_line_summary">34, vegetarian, wants energy, gut health + better sleep</div>
-      <div class="lead">This customer took the 3-minute quiz. Below is everything they answered. The engine combines it with one more input: the store's product catalogue.</div>
-      <div class="atable" id="atable"></div>
-      <button class="nextbtn" onclick="goStep(3)">Discover <span data-bind="pronoun_poss">her</span> results →</button>
-    </div>
-  </section>
-
-  <section class="step" id="step3">
+  <section class="step on" id="step3">
   <div class="top">
     <div>
       <div class="wp-header">
@@ -407,6 +397,58 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
   </section>
+
+  <!-- The report IS the page. These two were steps 1 and 2 of a wizard in
+       front of it: a reader had to scroll an engine pitch and a customer
+       profile before seeing the artefact that makes the argument. They are
+       still here, below, for anyone who wants them. -->
+  <div class="more" id="more">
+    <div class="more-h">Want to see how this was produced?</div>
+    <div class="more-row">
+      <button type="button" class="more-btn" onclick="showMore('step2')">See this customer&rsquo;s answers</button>
+      <button type="button" class="more-btn" onclick="showMore('step1')">How the engine works</button>
+    </div>
+  </div>
+
+<section class="step" id="step2">
+    <div class="persona-tabs" id="persona-tabs"></div>
+    <div class="panel">
+      <h2>Meet <span data-bind="display_name">Emma</span></h2>
+      <div class="persona-subline" data-bind="one_line_summary">34, vegetarian, wants energy, gut health + better sleep</div>
+      <div class="lead">This customer took the 3-minute quiz. Below is everything they answered. The engine combines it with one more input: the store's product catalogue.</div>
+      <div class="atable" id="atable"></div>
+      <button class="nextbtn" onclick="document.getElementById('step3').scrollIntoView({behavior:'smooth',block:'start'})">Back to the report &uarr;</button>
+    </div>
+  </section>
+<section class="step" id="step1">
+    <div class="hero">
+      <div class="eyebrow">The Blend engine</div>
+      <h2>Personalisation,<br>computed. Not guessed.</h2>
+      <div class="herolead">No persona buckets. No decision trees. The engine calculates each customer's actual nutritional needs, the way a nutritionist would, and matches them to the right products in a catalogue.</div>
+      <div class="statgrid">
+        <div class="stat"><div class="statnum">200+</div>
+          <div class="statlabel">Products catalogued</div>
+          <div class="statsub">Every SKU in the client's catalogue is scored per customer, no shortlist, no shortcuts.</div></div>
+        <div class="stat"><div class="statnum">1,200+</div>
+          <div class="statlabel">Foods indexed</div>
+          <div class="statsub">Nutrient values from published food-composition science, used to model each customer's intake.</div></div>
+        <div class="stat"><div class="statnum">30+</div>
+          <div class="statlabel">Attributes per product</div>
+          <div class="statsub">Ingredients, dosing, evidence, contraindications, synergies, all scored.</div></div>
+        <div class="stat"><div class="statnum">42</div>
+          <div class="statlabel">Nutrients personalised per person</div>
+          <div class="statsub">Each carries a personalised target + intake estimate, drawn from a reference database of 83 tracked per food.</div></div>
+        <div class="stat"><div class="statnum">140,000+</div>
+          <div class="statlabel">Nutritional data points indexed</div>
+          <div class="statsub">The food-nutrient matrix behind every macro and every gap in this report.</div></div>
+        <div class="stat"><div class="statnum">0</div>
+          <div class="statlabel">Persona buckets</div>
+          <div class="statsub">This report is for one person. It exists nowhere else, no templates, no segments.</div></div>
+      </div>
+      <button class="nextbtn" onclick="document.getElementById('step3').scrollIntoView({behavior:'smooth',block:'start'})">Back to the report &uarr;</button>
+    </div>
+  </section>
+
 </div>
 <script>
 /**
@@ -504,14 +546,17 @@ function revealAnswers(){
   settle(document.getElementById('step2'), 38*rows.length + 700);
 }
 
-function goStep(n) {
-  for (let i = 1; i <= 3; i++) {
-    document.getElementById('step' + i).classList.toggle('on', i <= n);
-    document.getElementById('sd' + i).classList.toggle('on', i <= n);
-  }
-  document.getElementById('step' + n).scrollIntoView({behavior: 'smooth', block: 'start'});
-  if (n >= 2) revealAnswers();
+/* The report is open on load; these two reveal below it and stay open. */
+function showMore(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('on');
+  if (id === 'step2') revealAnswers();
+  if (id === 'step1') revealStats();
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+/* Kept: the in-page buttons inside those two sections still call it. */
+function goStep(n) { showMore('step' + n); }
 function setTheme(bg, surface, ink, muted, accent, soft, track) {
   const r = document.documentElement.style;
   r.setProperty('--bg', bg); r.setProperty('--surface', surface);
@@ -1387,18 +1432,145 @@ function renderPersona(id) {
     `).join('')}
   `).join('');
 
-  // Products
-  document.getElementById('pgrid').innerHTML = p.products.map((prod, i) => `
-    <div class="pcard slide">
+  // Products, grouped by what the customer asked for, each with its reason
+  document.getElementById('pgrid').innerHTML = renderGroups(p);
+}
+
+/* ---- the personalised "why", derived rather than written -----------------
+   A reviewer's note on 2026-10-17: the cards showed generic descriptions,
+   timing and goal labels, so eleven products read as a list rather than as
+   a plan. The engine's whole argument is that each pick has a reason.
+
+   Nothing here is authored per product. A reason is composed from this
+   customer's OWN data — the goals they picked, the answers they gave and
+   the gaps already shown in the breakdown below — so it stays true when the
+   personas are regenerated, and it cannot claim more than the page already
+   shows. Nutrient lines say "estimated intake", because that is what the
+   engine computes from a food-frequency questionnaire. */
+
+/* Which quiz answer explains a product, when a nutrient gap does not. */
+const SIGNAL_FOR_TAG = {
+  'Sleep':             { key: 'Sleep',            say: v => `you sleep ${v.toLowerCase()}` },
+  'Stress':            { key: 'Sleep',            say: v => `you sleep ${v.toLowerCase()}` },
+  'Increase Endurance':{ key: 'Structured sport', say: v => /yes/i.test(v) ? 'you train regularly' : null },
+  'Build Muscle':      { key: 'Structured sport', say: v => /yes/i.test(v) ? 'you train regularly' : null },
+  'Gut Health':        { key: 'Eating pattern',   say: v => `your eating pattern is "${v.toLowerCase()}"` },
+};
+
+/* Rows where a LOW number is the good outcome. Reading these as shortfalls
+   produced "your estimated trans fat at 0% of your target" on a card, which
+   is both ungrammatical and the opposite of true. */
+const NOT_A_SHORTFALL = new Set([
+  'Trans Fat', 'Saturated Fat', 'Polyunsaturated Fat', 'Monounsaturated Fat',
+  'Cholesterol', 'Free Sugars', 'Sugars', 'Salt', 'Sodium',
+]);
+
+function shortfalls(p) {
+  return Object.values(p.breakdown || {}).flat()
+    .filter(r => (r.status === 'bad' || r.status === 'warn') && !NOT_A_SHORTFALL.has(r.name));
+}
+
+function gapFor(prod, p) {
+  const rows = shortfalls(p);
+  const name = prod.name.toLowerCase();
+  const direct = rows.find(r => name.includes(r.name.toLowerCase()));
+  if (direct) return [direct];
+  if (/multivitamin/.test(name)) return rows.slice().sort((a, b) => a.pct - b.pct).slice(0, 2);
+  return [];
+}
+
+/* The group heading already says which goal this is under, so the card does
+   not repeat it. What belongs here is what makes THIS pick different from
+   the one beside it: the answer or the gap that triggered it, and whatever
+   else it covers. Three sleep products otherwise carry one identical line. */
+function reasonFor(prod, p) {
+  const out = [];
+  const gaps = gapFor(prod, p);
+
+  if (gaps.length) {
+    const list = gaps.map(r => `${r.name} intake is ${r.pct}%`);
+    const joined = list.length === 1 ? list[0] : list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1];
+    out.push(`Your estimated ${joined} of your target.`);
+  } else {
+    const tag = prod.tags.find(t => SIGNAL_FOR_TAG[t]);
+    const sig = tag && SIGNAL_FOR_TAG[tag];
+    const val = sig && (p.quiz_answers || {})[sig.key];
+    const said = val && sig.say(val);
+    if (said) out.push(`You told us ${said}.`);
+  }
+
+  /* A dietary restriction is a reason in its own right, and it is the only
+     thing explaining the one Essential in a plan of eleven. Stated as the
+     answer given, not as an inference about what it causes. */
+  const diet = (p.quiz_answers || {})['Dietary restriction'];
+  if (!out.length && diet && !/^(none|no)\b/i.test(diet)) {
+    out.push(`You told us you eat a ${diet.toLowerCase()} diet.`);
+  }
+
+  /* Two at most, and in the catalogue's own casing. Three put "Testosterone
+     Health" on a 34-year-old woman's ashwagandha card — a product tag, not
+     a statement about her, but it reads as one and it is the sort of thing
+     that undoes the precision the rest of the page is arguing for. */
+  const also = prod.tags.filter(t => !(p.goal_pills || []).includes(t)).slice(0, 2);
+  if (also.length) {
+    out.push(`Also covers ${also.join(' and ')}.`);
+  }
+  /* Last resort rather than a blank card: name the goal it answers. It
+     repeats the group heading, which is why it is last and not first. */
+  if (!out.length) {
+    const g = (p.goal_pills || []).find(x => prod.tags.includes(x));
+    if (g) out.push(`Picked for your ${g} goal.`);
+  }
+  return out.join(' ');
+}
+
+/* ---- grouping ------------------------------------------------------------
+   Eleven cards in one grid is a wall. The customer picked three goals, so
+   the plan is shown under those, in the order they picked them, with the
+   products that answer no goal in particular first as foundations. A
+   product that answers two goals is listed under the first one, not twice.
+
+   The badges do not do this job: ten of Emma's eleven are "Recommended". */
+function renderGroups(p) {
+  const goals = p.goal_pills || [];
+  const used = new Set();
+  const groups = [];
+
+  const foundation = p.products.filter(x => x.badge === 'Essential'
+    || !goals.some(g => x.tags.includes(g)));
+  foundation.forEach(x => used.add(x.name));
+  if (foundation.length) groups.push({ title: 'Foundations', note: 'The base of the plan, whatever you picked.', items: foundation });
+
+  goals.forEach(g => {
+    const items = p.products.filter(x => !used.has(x.name) && x.tags.includes(g));
+    items.forEach(x => used.add(x.name));
+    if (items.length) groups.push({ title: g, note: `You picked this goal.`, items });
+  });
+
+  const rest = p.products.filter(x => !used.has(x.name));
+  if (rest.length) groups.push({ title: 'Also worth considering', note: '', items: rest });
+
+  return groups.map(grp => `
+    <section class="pgroup">
+      <div class="pgroup-h"><h3>${esc(grp.title)}</h3>${grp.note ? `<span>${esc(grp.note)}</span>` : ''}</div>
+      <div class="pgroup-grid">${grp.items.map(prod => card(prod, p)).join('')}</div>
+    </section>
+  `).join('');
+}
+
+function card(prod, p) {
+  const why = reasonFor(prod, p);
+  return `
+    <div class="pcard slide${prod.badge === 'Essential' ? ' is-key' : ''}">
       <div class="pphoto"><span class="pbadge">${esc(prod.badge)}</span>
         <img src="${PRODUCT_IMGS[0]}" alt="${esc(prod.name)}" loading="lazy"></div>
       <h3>${esc(prod.name)}</h3>
+      ${why ? `<p class="pwhy"><span>Why this</span>${esc(why)}</p>` : ''}
       <p class="pdesc">${esc(prod.description.split(/(?<=\.)\s+/)[0].replace(/\s*\b\d+(?:\.\d+)?\s*(?:mg|g|mcg|µg|IU|kcal|ml)\b/gi, '').replace(/\s{2,}/g, ' ').trim())}</p>
       <div class="pserv">- ${esc(prod.serving.replace(/\s*\([^)]*\)/g, ''))}</div>
       <div class="ptags">${prod.tags.map(t => `<span class="pill">${esc(t)}</span>`).join('')}</div>
       <a class="goldbtn" href="https://www.blend-technologies.com/product-example" target="_blank">View Product</a>
-    </div>
-  `).join('');
+    </div>`;
 }
 
 function initPersonaTabs() {
@@ -1413,10 +1585,8 @@ function initPersonaTabs() {
 
 initPersonaTabs();
 renderPersona('emma');
-/* Step 1 is visible on load, so its reveal runs immediately rather than
-   waiting on a scroll trigger. Step 2's runs from goStep and from a persona
-   swap. */
-revealStats();
+/* Both of these start closed: the report is what loads. Their reveals run
+   from showMore() when a reader opens them, not on load into a hidden box. */
 
 </script>
 </body></html>
