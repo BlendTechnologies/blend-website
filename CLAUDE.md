@@ -60,11 +60,25 @@ every page and refuses when they disagree. Anything else that is supposed
 to be identical everywhere wants a check of the same shape rather than a
 baseline.
 
+`node tools/check-nav.mjs` is that check for the bar, and it was needed:
+on 2026-10-17 there were **seven distinct nav markups across thirteen
+pages** — the logo pointed at four different places, the demo link was
+`/try` on six pages and `try.html` on five, and the button said "Try the
+demo" on two and "Try it yourself" on ten. Reported by the founder as
+"nav is different in every page".
+
+Two differences are sanctioned and normalised away by the check: the
+active-page marker, and `#pricing` on the homepage (an anchor already on
+the page) against `/#pricing` elsewhere. `/try` is the one whole-page
+exception — its nav carries "Book a call", because a demo button there
+would point at the page you are on.
+
 ## Before merging
 
 - `node tools/check-prices.mjs`
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
+- `node tools/check-nav.mjs`
 - `node tools/check-product-facts.mjs`
 - `python3 ../../tools/check_british_english.py`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`
