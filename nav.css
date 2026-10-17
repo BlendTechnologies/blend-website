@@ -43,7 +43,11 @@
    and deleted again when the nav styling was consolidated here — caught
    by nav-sheet.spec.mjs, which measured the same 84. It lives with the
    bar now, so it covers every page rather than the one that reported it. */
-.nav,.nav *{scroll-margin-top:0}
+/* Specificity, not source order: `[id]` is (0,1,0) and so is `.nav *`, and
+   nav.css loads BEFORE each page's inline <style>, so the page's rule won
+   on order and the 84px jump came back a second time. `.nav [id]` is
+   (0,2,0) and targets exactly the elements `[id]` would reach in here. */
+.nav[id],.nav [id],.nav,.nav *{scroll-margin-top:0}
 
 .nav{
   position:sticky;top:0;z-index:50;
