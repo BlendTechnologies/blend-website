@@ -112,9 +112,7 @@
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
-*,
-::before,
-.bm-root ::after {
+.bm-root, .bm-root *, .bm-root ::before, .bm-root ::after {
 box-sizing: border-box;
 /* 1 */
 border-width: 0;
@@ -124,8 +122,7 @@ border-style: solid;
 border-color: #e5e7eb;
 /* 2 */
 }
-::before,
-.bm-root ::after {
+.bm-root ::before, .bm-root ::after {
 --tw-content: '';
 }
 /*
@@ -137,7 +134,6 @@ border-color: #e5e7eb;
 6. Use the user's configured `sans` font-variation-settings by default.
 7. Disable tap highlights on iOS
 */
-html,
 .bm-root {
 line-height: 1.5;
 /* 1 */
@@ -190,12 +186,7 @@ text-decoration: underline dotted;
 /*
 Remove the default font size and weight for headings.
 */
-h1,
-h2,
-h3,
-h4,
-h5,
-.bm-root h6 {
+.bm-root h1, .bm-root h2, .bm-root h3, .bm-root h4, .bm-root h5, .bm-root h6 {
 font-size: inherit;
 font-weight: inherit;
 }
@@ -209,8 +200,7 @@ text-decoration: inherit;
 /*
 Add the correct font weight in Edge and Safari.
 */
-b,
-.bm-root strong {
+.bm-root b, .bm-root strong {
 font-weight: bolder;
 }
 /*
@@ -219,10 +209,7 @@ font-weight: bolder;
 3. Use the user's configured `mono` font-variation-settings by default.
 4. Correct the odd `em` font sizing in all browsers.
 */
-code,
-kbd,
-samp,
-.bm-root pre {
+.bm-root code, .bm-root kbd, .bm-root samp, .bm-root pre {
 font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 /* 1 */
 font-feature-settings: normal;
@@ -241,8 +228,7 @@ font-size: 80%;
 /*
 Prevent `sub` and `sup` elements from affecting the line height in all browsers.
 */
-sub,
-.bm-root sup {
+.bm-root sub, .bm-root sup {
 font-size: 75%;
 line-height: 0;
 position: relative;
@@ -272,11 +258,7 @@ border-collapse: collapse;
 2. Remove the margin in Firefox and Safari.
 3. Remove default padding in all browsers.
 */
-button,
-input,
-optgroup,
-select,
-.bm-root textarea {
+.bm-root button, .bm-root input, .bm-root optgroup, .bm-root select, .bm-root textarea {
 font-family: inherit;
 /* 1 */
 font-feature-settings: inherit;
@@ -301,18 +283,14 @@ padding: 0;
 /*
 Remove the inheritance of text transform in Edge and Firefox.
 */
-button,
-.bm-root select {
+.bm-root button, .bm-root select {
 text-transform: none;
 }
 /*
 1. Correct the inability to style clickable types in iOS and Safari.
 2. Remove default button styles.
 */
-button,
-input:where([type='button']),
-input:where([type='reset']),
-.bm-root input:where([type='submit']) {
+.bm-root button, .bm-root input:where([type='button']), .bm-root input:where([type='reset']), .bm-root input:where([type='submit']) {
 -webkit-appearance: button;
 /* 1 */
 background-color: transparent;
@@ -341,8 +319,7 @@ vertical-align: baseline;
 /*
 Correct the cursor style of increment and decrement buttons in Safari.
 */
-::-webkit-inner-spin-button,
-.bm-root ::-webkit-outer-spin-button {
+.bm-root ::-webkit-inner-spin-button, .bm-root ::-webkit-outer-spin-button {
 height: auto;
 }
 /*
@@ -380,19 +357,7 @@ display: list-item;
 /*
 Removes the default spacing and border for appropriate elements.
 */
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-.bm-root pre {
+.bm-root blockquote, .bm-root dl, .bm-root dd, .bm-root h1, .bm-root h2, .bm-root h3, .bm-root h4, .bm-root h5, .bm-root h6, .bm-root hr, .bm-root figure, .bm-root p, .bm-root pre {
 margin: 0;
 }
 .bm-root fieldset {
@@ -402,9 +367,7 @@ padding: 0;
 .bm-root legend {
 padding: 0;
 }
-ol,
-ul,
-.bm-root menu {
+.bm-root ol, .bm-root ul, .bm-root menu {
 list-style: none;
 margin: 0;
 padding: 0;
@@ -431,8 +394,7 @@ opacity: 1;
 color: #9ca3af;
 /* 2 */
 }
-input::placeholder,
-.bm-root textarea::placeholder {
+.bm-root input::placeholder, .bm-root textarea::placeholder {
 opacity: 1;
 /* 1 */
 color: #9ca3af;
@@ -441,8 +403,7 @@ color: #9ca3af;
 /*
 Set the default cursor for buttons.
 */
-button,
-.bm-root [role="button"] {
+.bm-root button, .bm-root [role="button"] {
 cursor: pointer;
 }
 /*
@@ -456,14 +417,7 @@ cursor: default;
 2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
 This can trigger a poorly considered lint error in some tools but is included by design.
 */
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-.bm-root object {
+.bm-root img, .bm-root svg, .bm-root video, .bm-root canvas, .bm-root audio, .bm-root iframe, .bm-root embed, .bm-root object {
 display: block;
 /* 1 */
 vertical-align: middle;
@@ -472,8 +426,7 @@ vertical-align: middle;
 /*
 Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
 */
-img,
-.bm-root video {
+.bm-root img, .bm-root video {
 max-width: 100%;
 height: auto;
 }
@@ -1330,12 +1283,10 @@ transition-duration: 200ms;
 * background/foreground colour so there is nothing left for an unstyled
 * default to fill in.
 *
-* 2026-08-13 IA-redesign pass, task brief item 6: "Dark mode, opt-in only,
-* never the default." The staff-app palette (`app.*`/`accent`/`onAccent`/
+* 2026-08-13 IA-redesign pass, task brief item 6: "Dark mode, opt-in only, * never the default." The staff-app palette (`app.*`/`accent`/`onAccent`/
 * `success`/`warning` in tailwind.config.ts) now resolves through these CSS
 * custom properties instead of fixed hex literals, so every existing call
-* site (`bg-app-bg`, `text-app-ink`, ...) gets dark-mode support for free,
-* without a single component being touched. `prefers-color-scheme` is
+* site (`bg-app-bg`, `text-app-ink`, ...) gets dark-mode support for free, * without a single component being touched. `prefers-color-scheme` is
 * deliberately NOT read anywhere here -- the brief is explicit that dark
 * mode is opt-in, never inferred from the OS, so only an explicit `.dark`
 * class (set server-side from `lib/ui/theme-cookie.ts`'s cookie, see
@@ -1680,8 +1631,7 @@ animation: blend-fade-in-up 220ms ease-out backwards;
 *
 * Enter-only, keyed on the question id: the slide that is leaving is gone
 * from the DOM before the next one mounts, so there is nothing to animate
-* out. That is deliberate. A cross-fade needs both slides present at once,
-* which means holding the answered question on screen while the next one
+* out. That is deliberate. A cross-fade needs both slides present at once, * which means holding the answered question on screen while the next one
 * arrives -- and on a phone that reads as lag, not polish.
 *
 * `slide` and `lift` move a short distance. Anything longer looks like a
@@ -1813,11 +1763,9 @@ animation: quiz-slide-lift 300ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 *
 * A native select draws its own chrome: the platform picks the height, the
 * inner padding and the arrow. So the shared `select` token in
-* lib/ui/styles.ts, which already carried the same border, radius,
-* background and height as `input`, still rendered as a grey operating
+* lib/ui/styles.ts, which already carried the same border, radius, * background and height as `input`, still rendered as a grey operating
 * system control next to app-styled text boxes. The founder saw it on the
-* Settings page, 2026-09-06: "In all dropdowns in the entire webapp,
-* please give them the same format as input boxes."
+* Settings page, 2026-09-06: "In all dropdowns in the entire webapp, * please give them the same format as input boxes."
 *
 * `appearance: none` hands the shape back to us and the arrow is drawn
 * here as a background SVG. The customer-facing quiz solved this months
@@ -1834,8 +1782,7 @@ animation: quiz-slide-lift 300ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 * token so the two cannot drift: an arrow with no room is the defect this
 * replaces.
 */
-select,
-.bm-root .app-select {
+.bm-root select, .bm-root .app-select {
 -moz-appearance: none;
 appearance: none;
 -webkit-appearance: none;
@@ -1847,16 +1794,14 @@ padding-right: 2.25rem;
 }
 /* A disabled select must not look clickable. Matches the `disabled:`
 treatment the button and input tokens already carry. */
-select:disabled,
-.bm-root .app-select:disabled {
+.bm-root select:disabled, .bm-root .app-select:disabled {
 cursor: not-allowed;
 opacity: 0.6;
 }
 /* One dashboard page can use the full width.
 The editor's three panes inside the 72rem container leave a preview too
 narrow to judge a customer's screen by, and an App Router child layout
-cannot remove a parent's wrapper. `:has()` lets the CHILD declare it,
-which keeps the routing knowledge in the route rather than in the
+cannot remove a parent's wrapper. `:has()` lets the CHILD declare it, which keeps the routing knowledge in the route rather than in the
 layout. Every page without the attribute is unaffected. */
 .bm-root .dash-page:has([data-fullbleed]) {
 max-width: none;
@@ -2121,8 +2066,7 @@ align-items: center;
 inherited from the wrapper: a custom property's `var()`s are substituted
 where the declaration sits, so one copy written up there would reach
 every dot already frozen at the THUMB's ratio. */
-.quiz-range-fill,
-.bm-root .quiz-range-dot {
+.bm-root .quiz-range-fill, .bm-root .quiz-range-dot {
 --quiz-range-pos: calc(
 (var(--quiz-range-thumb) / 2) + (var(--quiz-range-ratio) * (100% - var(--quiz-range-thumb)))
 );
