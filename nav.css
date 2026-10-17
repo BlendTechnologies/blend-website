@@ -35,15 +35,39 @@
    visible of the differences — the logo moved as you navigated. */
 :root{ --nav-w:1340px }
 
+/* LIGHT is the default, because most of the site is light now. The bar
+   only goes dark while a dark hero is still under it, and comes back the
+   moment that hero shrinks or scrolls away — which is also the moment the
+   content behind the bar becomes the warm grey page. */
+/* Pages set `[id]{scroll-margin-top:...}` so an anchor clears the sticky
+   bar — and [id] is broad enough to catch the bar itself. #nav, #nav-links
+   and #nav-toggle are not anchor targets, and a scroll-margin on a STICKY
+   element makes FOCUSING it scroll the page: tabbing to the menu button
+   moved /use-cases by 84px. Fixed in #104 in that page's own CSS and lost
+   again when the nav styling was consolidated here.
+
+   Specificity, not source order: `[id]` is (0,1,0) and so is `.nav *`, and
+   this file loads BEFORE each page's inline <style>. `.nav [id]` is (0,2,0)
+   and reaches exactly what `[id]` reaches inside the bar. */
+.nav[id],.nav [id],.nav,.nav *{scroll-margin-top:0}
+
 .nav{
   position:sticky;top:0;z-index:50;
-  background:var(--nav-bg,var(--deep));
+  background:rgba(238,234,227,.88);
   backdrop-filter:saturate(180%) blur(20px);
   -webkit-backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:1px solid transparent;
-  transition:border-color .2s ease,background-color .2s ease;
+  border-bottom:1px solid var(--line);
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease;
 }
-.nav.scrolled{ background:rgba(14,14,16,.88); border-bottom-color:var(--line) }
+/* `:has` rather than a class the page has to remember to set: the bar is
+   dark exactly when there is a dark hero to be dark against, and pages
+   without one (/use-cases, /try, the legal pages) are light from the top
+   with no per-page opt-in. .scrolled is still JS, and still means "the
+   hero is no longer what is behind me". */
+body:has(.sc-hero) .nav:not(.scrolled){
+  background:var(--deep);
+  border-bottom-color:transparent;
+}
 
 /* Scoped past the page's own .wrap, which sets --content and is
    what made the bar three different widths. */
@@ -58,8 +82,10 @@
 }
 
 .nav .logo{ display:inline-flex;align-items:center;min-height:44px;padding:4px 0;justify-self:start }
-/* The wordmark ships as fill="#000000" in the markup on every page. */
-.nav .logo svg{ display:block;height:26px;width:auto;filter:brightness(0) invert(1) }
+/* The wordmark ships as fill="#000000" in the markup on every page, which
+   is what the light bar wants. It is inverted only while the bar is dark. */
+.nav .logo svg{ display:block;height:26px;width:auto;transition:filter .2s ease }
+body:has(.sc-hero) .nav:not(.scrolled) .logo svg{ filter:brightness(0) invert(1) }
 
 .nav-links{ display:flex;align-items:center;gap:32px;justify-self:center }
 .nav-links a{ font-size:14px;color:var(--ink-80);font-weight:500;padding:12px 0;letter-spacing:-.005em }

@@ -5,86 +5,146 @@
    token block inside their inline <style>. They had already
    drifted — some had --cream-2, some did not, some had three
    shadows and some two — and a theme change meant thirteen
-   edits that had to agree. The site went dark one page at a
-   time for exactly that reason.
+   edits that had to agree.
 
-   Each page now links this LAST, after the other stylesheets,
-   and keeps only the tokens that are genuinely its own in its
+   Each page links this LAST, after the other stylesheets, and
+   keeps only the tokens that are genuinely its own in its
    inline :root — --content, because the homepage is wider than
    the rest, and anything page-specific.
 
-   ---- The rules this encodes -------------------------------
+   ---- Theme B: a light page with dark islands on it ----------
 
-   GROUND is the lightest surface on the page. Cards are cut
-   INTO it at --surface; the hero, the nav and the endcap are
-   deeper wells at --deep. Two levels, deliberately: flattening
-   them to one colour takes the contrast out of a dark page
-   entirely. surfaces.spec.mjs asserts all of it by value.
+   The site is a warm grey page carrying a few black blocks.
 
-   TEXT keeps --ink/--ink-80/--ink-60 as a text ramp only. On
-   the light site --ink did two jobs — body text AND the fill of
-   the dark reveal cards — and --white likewise was text on
-   those cards AND the surface of every card. That works out on
-   a light page and does not survive inverting, so the surface
-   roles moved to --ground/--surface/--deep and these two keep
-   only their text role.
+   GROUND is #EEEAE3, warm grey, top to bottom. CARDS sit ON it
+   at #FFFFFF: elevation goes UP here. That is the opposite of
+   the dark theme this replaced, where the ground was the
+   lightest surface and every box was cut down into it, and it
+   is why --surface is white rather than a shade of the ground.
 
-   GOLD does not move. The ramp is byte for byte what it was on
-   the light site, because it is the brand, not a theme colour.
-   It does run DARKER as it goes (#B47F39 down to #6D491C),
-   which is right on white and backwards here, so hovers climb
-   it rather than descending: see --hover-* below.
+   DARK ISLANDS are the exception, and they are a scope rather
+   than a set of per-page overrides: `.theme-dark` on a
+   container redefines the same tokens to their near-black
+   values, so everything inside it — cards, lines, muted text,
+   shadows — follows without knowing where it is. They are:
 
-   SHADOWS are much heavier than the light site's 3-5% blacks.
-   A 4% black shadow on charcoal is not a soft lift, it is
-   nothing at all. These are still only a separation cue — the
-   border and the tone step do most of the work.
+     - the hero on every page, which now insets a black card
+       onto the warm grey page as it shrinks
+     - the homepage Engine band and /science's algorithm
+       sections
+     - the closing CTA and the footer, which still flow into
+       each other as one block
+
+   Inside an island the direction flips back: a card is LIGHTER
+   than the island it sits on (#17171B on #0E0E10), because
+   there is nowhere further down to go.
+
+   `.theme-dark` also sets `color` on the container itself.
+   Redefining --ink is not enough: text colour is inherited as a
+   computed value from body, so a heading inside the scope would
+   keep the page's dark ink and vanish against the island.
+
+   TEXT is #1A1916 and its alphas. GOLD does not move — it is
+   the brand, not a theme colour — but its hover and active now
+   descend the ramp again (darker), which is the right direction
+   on a light ground and the reverse of what the dark theme
+   needed.
+
+   The two SEMANTIC colours are not the values the brief named:
+   #C4513B and #3E8A4F read 3.82 and 3.54 against the ground,
+   both under AA. Darkened along their own hue to the first
+   shade that clears 4.5 on the ground AND on white, since they
+   appear on both.
+
+   Worth knowing and deliberately not changed: --gold itself is
+   2.90 against the ground, so it is a FILL colour here, not a
+   text colour. --gold-strong is 4.06, still short of AA. Gold
+   text on the light ground should use --gold-hover (5.27) or
+   darker.
    ============================================================ */
 
 :root{
-  /* text, three weights */
-  --ink:#F3F1ED;--ink-80:rgba(243,241,237,.84);--ink-60:rgba(243,241,237,.70);--ink-40:rgba(243,241,237,.52);
-  --muted:rgba(243,241,237,.68);--muted-on-dark:rgba(255,255,255,.72);
+  /* text */
+  --ink:#1A1916;--ink-80:rgba(26,25,22,.84);--ink-60:rgba(26,25,22,.68);--ink-40:rgba(26,25,22,.52);
+  --muted:rgba(26,25,22,.66);--muted-on-dark:rgba(255,255,255,.72);
   --white:#ffffff;
 
-  /* surfaces: ground, cards cut into it, deeper wells */
-  /* A box is near-black, the same near-black as the nav, the hero and the
-     endcap. The ground is the only lighter surface on the page, so every
-     container reads as cut into it rather than floating above it.
-     --surface-up is the exception that proves it: a card sitting ON a
-     near-black well (the quiz on the homepage hero) has to go the other
-     way, because there is no room left below. Same rule, other direction.
-     --surface-2 is the lift for a featured box. */
-  --ground:#1E1E21;--ground-2:#1E1E21;--deep:#0E0E10;
-  --surface:#0E0E10;--surface-2:#17171B;--surface-up:#26262A;
-  /* the light site's ground names, kept so existing rules resolve */
-  --cream:#1E1E21;--cream-2:#1E1E21;--subtle:#1E1E21;
+  /* surfaces: the ground, and cards raised off it */
+  --ground:#EEEAE3;--ground-2:#EEEAE3;--deep:#0E0E10;
+  /* The page's ground, and NOT redefined inside .theme-dark. A reveal
+     block keeps the ground it sits on as its own background while a
+     clipped layer carries the ink, so that the card can inset out of
+     something. With --ground it went dark with its own contents and the
+     band painted near-black edge to edge, card and surround alike. */
+  --page:#EEEAE3;
+  --surface:#FFFFFF;--surface-2:#F7F5F0;--surface-up:#FFFFFF;
+  /* the same ground under its older names, so existing rules resolve */
+  --cream:#EEEAE3;--cream-2:#EEEAE3;--subtle:#EEEAE3;
   --hero-beige:#0E0E10;--hero-tint:#0E0E10;
 
   /* the brand, unchanged */
   --gold:#B47F39;--gold-strong:#96682B;--gold-hover:#7F5824;--gold-active:#6D491C;
-  /* The pale cream wash behind badges and icon tiles. #F0E2CC was a light
-     island on a charcoal page; as a translucent sand it is the same idea
-     on whatever it sits on. It is only ever a fill, a border or an
-     underline, never a text colour, so this is safe to move. */
-  --gold-soft:rgba(231,207,163,.14);
+  --gold-soft:rgba(180,127,57,.12);
   --sand:#E7CFA3;--sand-soft:#F5E7C9;--sand-bright:#F4E4C8;
+  /* Gold as TEXT, which is the one gold role that has to move with the
+     theme. --sand is the ramp lifted for a dark ground and reads 1.3:1
+     on this one; the dark end reads 5.27. Borders, fills and washes keep
+     using --sand and --gold directly, because those do not need to. */
+  --gold-text:var(--gold-hover);
 
-  /* lines are white alpha, not a beige hex: they have to sit on
-     the ground, on a card and on a near-black well */
-  --line:rgba(255,255,255,.10);--line-strong:rgba(255,255,255,.20);
+  --line:rgba(26,25,22,.10);--line-strong:rgba(26,25,22,.20);
 
-  /* both lifted for a dark ground: #D8614A reads 4.2:1 on charcoal */
-  --red-soft:#E8826B;--green-soft:#7FBF62;
+  /* darkened from #C4513B and #3E8A4F, which read 3.82 and 3.54 on the
+     ground. These clear 4.5 on the ground and on white. */
+  --red-soft:#B14935;--green-soft:#367744;
 
-  /* hover climbs the ramp instead of descending it */
-  --hover-surface:#2E2E34;--hover-border:#CFB68F;
+  --hover-surface:#F7F5F0;--hover-border:#B47F39;
 
   --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;
+
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
+  --shadow-md:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.06),0 20px 40px rgba(0,0,0,.08);
+
+  --nav-h:68px;
+}
+
+/* ---- Dark islands -------------------------------------------------------
+   Everything a light-theme rule reads, redefined. A component inside the
+   scope needs no knowledge of where it is: --surface is still "a card",
+   --line is still "a hairline", they just resolve to the island's values.
+
+   `color` is set on the container because --ink alone does not reach the
+   text. Colour inherits as a computed value, so a heading in here would
+   still carry the page's #1A1916 from body and disappear. */
+.theme-dark,
+/* The bar while a dark hero is still underneath it. Same tokens, so the
+   links, the login and the hamburger all follow without a second set of
+   rules; nav.css paints the background and handles the transition. */
+body:has(.sc-hero) .nav:not(.scrolled){
+  color:var(--ink);
+
+  --ink:#F3F1ED;--ink-80:rgba(243,241,237,.84);--ink-60:rgba(243,241,237,.70);--ink-40:rgba(243,241,237,.52);
+  --muted:rgba(243,241,237,.68);
+
+  /* The island itself is --deep; a card on it goes UP, because there is
+     nowhere further down. --surface-2 is the lift for a featured box. */
+  --ground:#0E0E10;--ground-2:#0E0E10;
+  --surface:#17171B;--surface-2:#1F1F23;--surface-up:#26262A;
+  --cream:#0E0E10;--cream-2:#0E0E10;--subtle:#0E0E10;
+
+  --line:rgba(255,255,255,.10);--line-strong:rgba(255,255,255,.20);
+
+  /* lifted for a near-black ground, as the dark theme had them */
+  --red-soft:#E8826B;--green-soft:#7FBF62;
+  --gold-soft:rgba(231,207,163,.14);
+
+  --gold-text:var(--sand);
+
+  /* hover climbs the ramp in here, the opposite of the light page */
+  --hover-surface:#26262A;--hover-border:#CFB68F;
 
   --shadow-sm:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.24);
   --shadow-md:0 1px 3px rgba(0,0,0,.34),0 8px 24px rgba(0,0,0,.30);
   --shadow-lg:0 2px 6px rgba(0,0,0,.38),0 20px 40px rgba(0,0,0,.40);
-
-  --nav-h:68px;
 }

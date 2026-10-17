@@ -66,7 +66,7 @@ const verts = Object.entries(V).map(([key, v]) => {
     : `<span class="ph-ix-item is-off" data-vertical="${esc(key)}" tabindex="0" role="note"><span class="ph-ix-name">${esc(label)}</span><span class="sci-tip">Coming soon</span></span>`;
 }).join('');
 
-const hero = `<section class="ph ph--fill sc-hero" data-sc="hero">
+const hero = `<section class="theme-dark ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
     <div class="ph-inner">
       <span class="eyebrow">The science</span>
@@ -423,7 +423,7 @@ ${first.nutrients.map(ladder).join('\n')}
 </section>`;
 
 /* ---- 5. the endcap --------------------------------------------------------- */
-const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
+const cta = `<section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
     <span class="eyebrow">The methodology</span>
     <h2 class="h1">Read the full methodology.</h2>
@@ -435,7 +435,13 @@ const cta = `<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" i
   </div>
 </section>`;
 
-/* What ships in the page is not what the engine exports. Hiding the check
+/* The hero and the closing CTA carry `theme-dark` because they are dark
+   islands on a light page, and they are written HERE rather than in the
+   page: this region is regenerated, so an edit made in science.html is
+   reverted the next time anyone runs this. That happened once already
+   while the theme was being switched over.
+
+   What ships in the page is not what the engine exports. Hiding the check
    list in the markup while shipping it in a JSON island would hide it from
    nobody. The counts by group stay, because the tiles are drawn from them
    and they are the claim; the per-check names and rules do not. */

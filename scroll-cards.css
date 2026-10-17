@@ -179,7 +179,7 @@
 .sc-reveal .h1,
 .sc-reveal .h2{color:var(--white)}
 .sc-reveal .lead{color:var(--muted-on-dark)}
-.sc-reveal .eyebrow{color:var(--sand)}
+.sc-reveal .eyebrow{color:var(--gold-text)}
 .sc-reveal .btn-ghost{color:var(--white);border-color:rgba(255,255,255,.34);background:transparent}
 .sc-reveal .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
 
