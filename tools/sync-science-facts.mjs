@@ -182,7 +182,7 @@ const STEPS = [
 const steps3 = `<section class="sci-sec sci-steps-sec" id="how">
   <div class="wrap">
     <ol class="sci-steps sci-in">
-${STEPS.map(([t, d], i) => `      <li><span class="ss-n">${pad(i + 1)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n')}
+${STEPS.map(([t, d], i) => `      <li><h3>${pad(i + 1)}. ${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n')}
     </ol>
   </div>
 </section>`;
