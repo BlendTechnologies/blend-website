@@ -32,6 +32,9 @@ jobs:
       - name: The wordmark is one drawing everywhere
         run: node tools/check-wordmark.mjs
 
+      - name: The nav is one component everywhere
+        run: node tools/check-nav.mjs
+
       # Reads product-facts.json, which is vendored from the workspace's
       # PRODUCT_FACTS.md. The markdown is not in this repository, so the
       # checker says so and compares against the vendored copy.
