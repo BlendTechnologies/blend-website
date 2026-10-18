@@ -100,7 +100,7 @@ html,body{max-width:100%;overflow-x:clip}
 
   .themebar{display:flex;align-items:center;justify-content:space-between;gap:18px;
     flex-wrap:wrap;margin:0 auto 18px;padding:14px 18px;
-    max-width:calc(1040px + var(--report-pad)*2);
+    max-width:1040px;
     background:var(--surface);border-radius:14px;font-size:14px;color:var(--ink-80)}
   .themebar b{color:var(--ink);font-weight:600}
   .swatches{display:flex;gap:8px;flex-wrap:wrap}
@@ -115,20 +115,24 @@ html,body{max-width:100%;overflow-x:clip}
      the way a sheet of paper would, and the brand palette repaints it
      rather than the page around it.
 
-     IT NEEDS ITS OWN MARGIN. The export is the report's CONTENT at its
-     design width — 1040, per blend-mockups/manifest.json — with no
-     container around it: measured in the page, the first product card's
-     left border sits at x=0 of the frame and the last one's right border
-     at the far edge, so the frame's radius and overflow:hidden were
-     clipping both. A document whose contents run off all four sides reads
-     as a screenshot zoomed to fill, not as a page. In the app that margin
-     comes from the screen the report is on; here the frame supplies it.
+     IT NEEDS ITS OWN MARGIN, and the margin is the app's, not one this
+     repo chose. The export is the report's CONTENT only — measured in the
+     page, the first product card's left border sat at x=0 of the frame and
+     the last one's right border at the far edge, so the frame's radius and
+     overflow:hidden were clipping both, and a document whose contents run
+     off all four sides reads as a screenshot zoomed to fill.
 
-     The frame GROWS by the padding rather than squeezing the report into
-     it, so the content still renders at exactly 1040 and nothing inside is
-     scaled or reflowed. .wrap gives 1136 at --content:1200, and
-     1040 + 2x48 is 1136. */
-  .report-frame{max-width:calc(1040px + var(--report-pad)*2);margin:0 auto;
+     The container that supplies it in the app is one line of
+     app/quiz/[embedKey]/results/[submissionId]/page.tsx:
+
+         max-w-[1040px] ... p-8
+
+     1040 INCLUDING the padding, border-box, so 32px of margin and 976 of
+     content. That is what a customer who finishes the demo quiz sees, so
+     it is what this frame is. (blend-mockups/manifest.json's designWidth
+     1040 is the width the export was CAPTURED at, which is the content
+     width, not the container's.) */
+  .report-frame{max-width:1040px;margin:0 auto;
     padding:var(--report-pad);border-radius:16px;overflow:hidden;
     /* The margin has to be paper, not page, or the report sits in a second
        frame of a different colour. --quiz-bg is the fragment's own
@@ -140,8 +144,7 @@ html,body{max-width:100%;overflow-x:clip}
   .report-foot{max-width:720px;margin:26px auto 0;text-align:center;
     font-size:14px;color:var(--muted)}
   .report-foot a{color:var(--sand);text-decoration:underline;text-underline-offset:3px}
-  :root{--report-pad:48px}
-  @media(max-width:1000px){ :root{--report-pad:32px} }
+  :root{--report-pad:32px}
   @media(max-width:640px){
     :root{--report-pad:20px}
     .report-intro{margin-top:24px}
@@ -195,9 +198,11 @@ html,body{max-width:100%;overflow-x:clip}
   </div>
 
   <div class="themebar">
-    <div><b>Try a palette.</b> The report can carry its own colours, or follow the ones your quiz uses.</div>
+    <div><b>Try a palette.</b> This opens on the demo quiz's own colours. A report can follow the quiz like this, or carry a set of its own.</div>
     <div class="swatches" id="swatches">
-        <button type="button" class="swatch" title="Blend" aria-label="Blend palette" style="background:linear-gradient(135deg,#B47F39 50%,#FAF8F2 50%)" data-bg="250 248 242" data-text="64 59 52" data-accent="150 104 42" data-cardbg="255 255 255" data-cardtext="0 0 0" data-cardborder="217 217 217" data-inputbg="255 255 255" data-inputtext="41 37 31" data-inputborder="197 188 175" data-buttonstext="255 255 255"><span>Blend</span></button>
+        <!-- demo-theme:start -->
+        <button type="button" class="swatch" title="Demo" aria-label="The demo quiz's own palette" style="background:linear-gradient(135deg,rgb(150 104 42) 50%,rgb(250 248 242) 50%)" data-bg="250 248 242" data-text="64 59 52" data-accent="150 104 42" data-cardbg="255 255 255" data-cardtext="0 0 0" data-cardborder="217 217 217" data-inputbg="250 248 242" data-inputtext="41 37 31" data-inputborder="197 188 175" data-buttonstext="255 255 255"><span>Demo</span></button>
+        <!-- demo-theme:end -->
         <button type="button" class="swatch" title="Noir" aria-label="Noir palette" style="background:linear-gradient(135deg,#D9A55A 50%,#0C0C0E 50%)" data-bg="12 12 14" data-text="245 242 234" data-accent="217 165 90" data-cardbg="23 23 26" data-cardtext="245 242 234" data-cardborder="42 42 46" data-inputbg="23 23 26" data-inputtext="237 233 225" data-inputborder="68 68 74" data-buttonstext="12 12 14"><span>Noir</span></button>
         <button type="button" class="swatch" title="Ocean" aria-label="Ocean palette" style="background:linear-gradient(135deg,#2E6E8E 50%,#F4F8FA 50%)" data-bg="244 248 250" data-text="16 34 46" data-accent="46 110 142" data-cardbg="255 255 255" data-cardtext="16 34 46" data-cardborder="220 234 242" data-inputbg="255 255 255" data-inputtext="16 34 46" data-inputborder="176 203 218" data-buttonstext="255 255 255"><span>Ocean</span></button>
         <button type="button" class="swatch" title="Forest" aria-label="Forest palette" style="background:linear-gradient(135deg,#3E7A4C 50%,#F5F8F4 50%)" data-bg="245 248 244" data-text="20 40 26" data-accent="62 122 76" data-cardbg="255 255 255" data-cardtext="20 40 26" data-cardborder="216 232 219" data-inputbg="255 255 255" data-inputtext="20 40 26" data-inputborder="176 206 183" data-buttonstext="255 255 255"><span>Forest</span></button>

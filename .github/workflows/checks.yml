@@ -35,6 +35,12 @@ jobs:
       - name: The nav is one component everywhere
         run: node tools/check-nav.mjs
 
+      # /sample-report opens on the LIVE demo quiz's palette, vendored the
+      # way pricing.json vendors prices. Offline mismatch fails; a live
+      # repaint is a warning, since the brand can move a colour any time.
+      - name: The sample report wears the demo quiz's theme
+        run: node tools/sync-demo-theme.mjs --check
+
       # /try's embed lost its padding to a selector that had joined the one
       # above it. Valid CSS, matching nothing, invisible to a baseline.
       - name: CSS parses as the rules it looks like
