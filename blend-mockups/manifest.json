@@ -4,7 +4,7 @@
     "file": "wellness-report-full.html",
     "png": "wellness-report-full.png",
     "designWidth": 1040,
-    "aspectRatio": 0.341,
+    "aspectRatio": 0.314,
     "reveals": 0,
     "description": "The full wellness report as it renders today: the opening band, the plan, the safety notices under it, retake, and the full breakdown."
   },
@@ -13,7 +13,7 @@
     "file": "recommend-explained.html",
     "png": "recommend-explained.png",
     "designWidth": 1040,
-    "aspectRatio": 0.905,
+    "aspectRatio": 0.74,
     "reveals": 0,
     "description": "The plan itself, with the reason, the timing and the serving under every product."
   },
