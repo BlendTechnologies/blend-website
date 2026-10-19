@@ -145,34 +145,68 @@ html,body{max-width:100%;overflow-x:clip}
      The two together are the whole trick. */
   .report-split{display:grid;grid-template-columns:minmax(0,1fr) 576px;
     gap:24px;max-width:1040px;margin:0 auto;align-items:start}
-  .report-aside{min-width:0;display:grid;gap:18px;align-content:start}
+  /* A size container for the cards inside it: the detail rows below go two
+     across or one depending on how wide this column actually is, which is
+     not a function of the window alone. */
+  .report-aside{min-width:0;display:grid;gap:18px;align-content:start;
+    container-type:inline-size}
   @media(max-width:1000px){
     .report-split{grid-template-columns:minmax(0,1fr)}
   }
+
+  /* ---- the two cards share a rhythm ----------------------------------
+     They are read as a pair — what the product is, then what this one
+     customer put into it — so the heading size, the section labels, the
+     padding and the radius are the same in both, and only the ground
+     changes. Set here once rather than twice. */
+  .pitch,.answers{border-radius:16px;padding:24px}
+  .pitch h2,.answers-head h2{margin:0 0 8px;font-size:19px;font-weight:600;
+    letter-spacing:-.02em;line-height:1.25}
+
+  /* The small label over a block, with a rule running out to the edge.
+     Six of these across two cards is what gives the column its structure;
+     without them the left side is 1,100px of undifferentiated text beside
+     a document that has headings of its own. */
+  /* --muted, not --ink-40: measured over the card's white, --ink-40 is
+     3.57:1 and these are 10.5px. --muted is 5.64 and looks the same at a
+     glance. Small text is exactly where a token picked by eye goes wrong. */
+  .pf-label{display:flex;align-items:center;gap:10px;margin:0;
+    font-size:10.5px;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted)}
+  .pf-label::after{content:"";flex:1;height:1px;background:var(--line)}
 
   /* ---- the pitch, a dark island -------------------------------------
      Dark because it is the one box on the page that is us talking. The
      answers below it and the report beside it are both the product's own
      words, and they are both white; a reader can tell at a glance which is
      which. .theme-dark redefines every token the components inside read,
-     so nothing in here needs to know where it is (theme.css). */
-  .pitch{background:var(--deep);border-radius:14px;padding:22px 24px}
-  .pitch h2{margin:0 0 8px;font-size:17px;font-weight:600;letter-spacing:-.015em}
-  .pitch-lead{margin:0 0 16px;font-size:14px;line-height:1.6;color:var(--ink-80)}
-  .pitch-list{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:11px}
-  .pitch-list li{position:relative;padding-left:22px;font-size:13px;
-    line-height:1.55;color:var(--muted)}
+     so nothing in here needs to know where it is (theme.css).
+
+     The inset hairline is what stops it reading as a hole cut in the page:
+     a flat near-black rectangle on a warm ground has no edge of its own,
+     and the report beside it has a shadow and a border. */
+  .pitch{background:var(--deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+  .pitch-lead{margin:0 0 20px;font-size:14.5px;line-height:1.62;color:var(--ink-80)}
+
+  /* Six claims, hairline-separated. The site's own idiom for a feature
+     list is .tier-list on the homepage — a gold tick and a line of text —
+     and four of these carry a clause as well as a label, so they need the
+     rules that list does not. The rhythm is the point: a reader skims the
+     bold half and stops at the one that matters to them. */
+  .pitch-list{list-style:none;margin:0;padding:0}
+  .pitch-list li{position:relative;padding:11px 0 11px 24px;
+    border-top:1px solid var(--line);font-size:13.5px;line-height:1.55;
+    color:var(--muted)}
+  .pitch-list li:first-child{border-top:0;padding-top:0}
   .pitch-list b{color:var(--ink);font-weight:600}
-  /* A tick drawn in CSS rather than a glyph: the glyph renders at a
-     different weight on every platform and sat on the baseline, not beside
-     the first line of a two-line item. */
-  .pitch-list li::before{content:"";position:absolute;left:2px;top:6px;
+  /* A tick drawn in CSS rather than the homepage's data-URI one: that
+     file has #B47F39 baked into it, and on this ground the gold that
+     reads is --sand. A custom property cannot cross into a data URI, so
+     the shape is borders instead. */
+  .pitch-list li::before{content:"";position:absolute;left:2px;top:16px;
     width:9px;height:5px;border-left:1.5px solid var(--sand);
     border-bottom:1.5px solid var(--sand);transform:rotate(-45deg)}
-  .pitch-note{margin:0 0 16px;padding-top:14px;border-top:1px solid var(--line);
-    font-size:12.5px;line-height:1.55;color:var(--ink-60)}
-  .pitch-note a{color:var(--gold-text);text-decoration:underline;text-underline-offset:3px}
-  .pitch-cta{display:flex;flex-wrap:wrap;gap:8px}
+  .pitch-list li:first-child::before{top:5px}
 
   /* ---- the answers, designed rather than dumped ---------------------
      43 rows in quiz order was a wall, and quiz order put consent, a name
@@ -184,40 +218,54 @@ html,body{max-width:100%;overflow-x:clip}
      The shape is built in api/_demo-summary.mjs from the same submission
      the report renders, so it cannot drift from it, and
      tools/check-demo-report.mjs refuses when the vendored fallback does. */
-  .answers{padding:22px 24px;background:var(--surface);
-    border:1px solid var(--line);border-radius:14px}
-  .answers-head h2{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.015em}
-  .answers-byline{margin:0 0 2px;font-size:13.5px;color:var(--ink-80);font-weight:500}
+  .answers{background:var(--surface);border:1px solid var(--line)}
+  .answers-byline{margin:0 0 3px;font-size:14px;color:var(--ink);font-weight:500}
   .answers-sub{margin:0;font-size:12.5px;color:var(--muted)}
 
-  .pf{display:grid;gap:16px;margin-top:18px}
-  .pf-block{display:grid;gap:8px}
-  .pf-label{margin:0;font-size:10.5px;font-weight:600;letter-spacing:.09em;
-    text-transform:uppercase;color:var(--ink-40)}
-  /* Goals are what the customer asked for, so they are the only thing on
-     the panel wearing the accent. The flags below are what they reported,
-     which is a different kind of fact and reads plainer. */
-  .pf-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .pf{display:grid;gap:18px;margin-top:20px}
+  .pf-block{display:grid;gap:10px}
+
+  /* TWO KINDS OF CHIP, because these are two kinds of fact. Goals are what
+     the customer ASKED for and the plan is ordered by them, so they carry
+     the accent. What they reported is what the customer TOLD us, and it
+     reads plainer.
+
+     Both are pills because the report itself draws its "Your profile" and
+     "What you told us matters" rows as pills — the panel speaks the
+     product's own visual language, so a reader can see the left column
+     arriving in the right one. */
+  .pf-chips,.pf-tags{list-style:none;margin:0;padding:0;
+    display:flex;flex-wrap:wrap;gap:6px}
   .pf-chips li{font-size:12.5px;font-weight:600;line-height:1;padding:7px 11px;
     border-radius:999px;background:var(--gold-soft);color:var(--gold-text);
     border:1px solid rgba(180,127,57,.22)}
-  .pf-flags{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-  .pf-flags li{position:relative;padding-left:14px;font-size:13px;color:var(--ink-80)}
-  .pf-flags li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;
-    border-radius:50%;background:var(--line-strong)}
-  /* Label and value, not two columns of equal weight: the label is ours
-     and the value is the brand's own option text. */
-  .pf-rows{margin:0;display:grid}
-  .pf-rows > div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;
-    padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
+  .pf-tags li{font-size:12.5px;line-height:1;padding:7px 10px;border-radius:999px;
+    background:var(--surface-2);color:var(--ink-80);border:1px solid var(--line)}
+
+  /* Label and value, two across. Not two columns of equal weight: the
+     label is ours and the value is the brand's own option text. Two across
+     rather than one because eight stacked rows push the disclosure off the
+     bottom of a 900px window, and these are the detail layer — a reader
+     scans them, they do not read them in order. */
+  /* A CONTAINER QUERY, because the constraint is the CARD's width and not
+     the window's. The aside is 440 above 1072px of viewport, full width
+     below 1000, and anything between 345 and 440 in the 71px band in the
+     middle — so a viewport breakpoint would have to name three ranges to
+     describe one thing. Two across needs about 400px of card: below that a
+     value gets 86px and "Lightly Active" is 88. */
+  .pf-rows{margin:0;display:grid;grid-template-columns:minmax(0,1fr);
+    column-gap:18px}
+  @container (min-width:400px){
+    .pf-rows{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  .pf-rows > div{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;
+    padding:8px 0;border-top:1px solid var(--line);align-items:baseline}
   .pf-rows > div:first-child{border-top:0;padding-top:0}
+  @container (min-width:400px){
+    .pf-rows > div:nth-child(2){border-top:0;padding-top:0}
+  }
   .pf-rows dt{font-size:12.5px;color:var(--muted);min-width:0}
   .pf-rows dd{margin:0;font-size:13px;color:var(--ink);font-weight:500;min-width:0}
-  /* The intake rows are four short pairs and read better across than down;
-     they are the ones that explain an algae omega-3 and a B12. */
-  .pf-rows--wide{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px}
-  .pf-rows--wide > div{grid-template-columns:52px minmax(0,1fr);gap:8px}
-  .pf-rows--wide > div:nth-child(2){border-top:0;padding-top:0}
 
   /* The full transcript, behind a disclosure. Nothing is hidden from a
      reader who wants it; it is just not the first thing they meet.
@@ -229,22 +277,20 @@ html,body{max-width:100%;overflow-x:clip}
      beats it. So the line above silently un-hid the transcript: the button
      said "See all 43 answers" with all 43 already under it, and the aside
      measured 3,374px against the report's 802. Specificity, not
-     !important — this is the element's own rule, not a global override. */
+     !important — this is the element's own rule, not a global override.
+     tools/check-css-shape.mjs refuses a page that loses this. */
   .answers-all[hidden]{display:none}
   .answers-all > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
     gap:14px;padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
   .answers-all dt{font-size:12.5px;color:var(--muted);min-width:0}
   .answers-all dd{margin:0;font-size:12.5px;color:var(--ink-80);min-width:0}
-  .answers-more{margin-top:16px;background:none;border:0;padding:6px 0;cursor:pointer;
+  .answers-more{margin-top:18px;background:none;border:0;padding:6px 0;cursor:pointer;
     font:inherit;font-size:13px;font-weight:600;color:var(--gold-text);
     text-decoration:underline;text-underline-offset:3px;min-height:36px}
   .answers-more:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
   @media(max-width:760px){
-    .pitch,.answers{padding:18px 16px}
-    .pf-rows--wide{grid-template-columns:minmax(0,1fr)}
-    .pf-rows--wide > div{grid-template-columns:76px minmax(0,1fr)}
-    .pf-rows--wide > div:nth-child(2){border-top:1px solid var(--line);padding-top:7px}
+    .pitch,.answers{padding:20px 18px}
   }
   /* THE REPORT AT HALF SIZE, with a way to read it properly.
      The frame holds a viewport; the iframe inside it is twice the
@@ -430,18 +476,22 @@ html,body{max-width:100%;overflow-x:clip}
   <div class="report-split">
     <div class="report-aside">
 
-      <!-- Us talking, and the only box on the page that is. The two figures
-           in it are governed: PRODUCT_FACTS.md owns them and
+      <!-- Us talking, and the only box on the page that is. Two of the
+           figures in it are governed: PRODUCT_FACTS.md owns them and
            tools/check-product-facts.mjs binds the CLAIM to the figure, so a
            sentence about what the engine scores cannot quietly take the
            data file's wider number. That is not hypothetical — the homepage
            FAQ said "more than 30 product attributes" for months while
-           /science said 25, and an outside reviewer found it first. -->
+           /science said 25, and an outside reviewer found it first.
+
+           The editor and analytics lines are not invented either: they are
+           what /how-it-works already states the dashboard does, narrowed to
+           one line each. A sixth claim nobody can show is worse than five. -->
       <section class="pitch theme-dark">
         <h2>What Blend does</h2>
-        <p class="pitch-lead">A quiz on your site, and a plan like this one for
-          every customer who finishes it — built from your own catalogue, in
-          your own colours.</p>
+        <p class="pitch-lead">Build your quiz and embed it on your site. Every
+          customer who finishes it gets a plan like this one — their own needs
+          matched to your catalogue, in your own colours.</p>
         <ul class="pitch-list">
           <li><b>Every pick carries its reason.</b> A figure from that
             customer's own answers, not “others also bought”.</li>
@@ -451,14 +501,11 @@ html,body{max-width:100%;overflow-x:clip}
             pregnancy, medications, upper limits, diet.</li>
           <li><b>Live in an afternoon.</b> One embed code, and your catalogue
             as a spreadsheet.</li>
+          <li><b>A quiz editor.</b> Questions, branding and which sections
+            show, changed from your dashboard rather than by pasting code.</li>
+          <li><b>Analytics.</b> Completion, drop-off by question, click-through,
+            and which products your customers actually ask for.</li>
         </ul>
-        <p class="pitch-note">What you are looking at is a real result from
-          <a href="/try">the demo quiz</a>, rendered by the product itself —
-          not a picture of it. Change the quiz and this page changes with it.</p>
-        <div class="pitch-cta">
-          <a class="btn btn-primary btn-sm" href="/try">Try the demo</a>
-          <a class="btn btn-ghost btn-sm" href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39" target="_blank" rel="noopener">Book a call</a>
-        </div>
       </section>
 
       <!-- Drawn from /api/demo-answers, which reads the SAME submission the
@@ -634,9 +681,12 @@ html,body{max-width:100%;overflow-x:clip}
     return ul;
   }
 
-  function bullets(items){
+  /* Outlined pills, not the gold ones the goals wear: these are what the
+     customer TOLD us, not what they asked for, and the report draws the
+     same distinction in its own two chip rows. */
+  function tags(items){
     if (!items || !items.length) return null;
-    var ul = el('ul', 'pf-flags');
+    var ul = el('ul', 'pf-tags');
     items.forEach(function(t){ ul.appendChild(el('li', null, t)); });
     return ul;
   }
@@ -689,9 +739,9 @@ html,body{max-width:100%;overflow-x:clip}
          the order the report's own sections follow. */
       [
         block('Goals', chips(p.goals)),
-        block('What they reported', bullets(p.flags)),
+        block('What they reported', tags(p.flags)),
         block('Day to day', pairs(p.day)),
-        block('How often they eat', pairs(p.intake, 'pf-rows--wide'))
+        block('How often they eat', pairs(p.intake))
       ].forEach(function(b){ if (b) pf.appendChild(b); });
 
       var frag = document.createDocumentFragment();
