@@ -128,20 +128,40 @@ for (const f of files) {
 console.log(`css: ${lines.length} lines in, ${kept.length} out, ${dropped} @font-face dropped`);
 console.log(`copied ${copied} file(s) from ${SRC}`);
 
-// The page inlines the fragments, so a new export has to be re-pasted into
-// it as well. Markers, not a template: the page is hand-written HTML and
-// this only replaces what is between them.
-const PAGE = new URL('../how-it-works.html', import.meta.url).pathname;
-let page = await readFile(PAGE, 'utf8');
+// The pages inline the fragments, so a new export has to be re-pasted into
+// them as well. Markers, not a template: the pages are hand-written HTML
+// and this only replaces what is between them.
+//
+// EVERY page, not one named here. This was hardcoded to how-it-works.html,
+// and when /sample-report started carrying `mockup:wellness-report-full`
+// the script went on reporting success while that page kept the old
+// fragment. A corrected export reached the repository and not the page
+// that shows it, which is the one failure this script exists to prevent.
+const pages = (await readdir(new URL('..', import.meta.url).pathname, { recursive: true }))
+  .filter(f => f.endsWith('.html') && !f.startsWith('blend-mockups/') && !f.startsWith('node_modules/'));
+
 let inlined = 0;
-for (const f of files) {
-  if (!f.endsWith('.html')) continue;
-  const id = basename(f, '.html');
-  const marker = new RegExp(`(<!-- mockup:${id} -->)[\\s\\S]*?(<!-- /mockup -->)`);
-  if (!marker.test(page)) continue;
-  const body = (await readFile(join(SRC, f), 'utf8')).trim();
-  page = page.replace(marker, `$1\n${body}\n$2`);
-  inlined++;
+const touched = [];
+for (const rel of pages) {
+  const path = new URL(`../${rel}`, import.meta.url).pathname;
+  let page = await readFile(path, 'utf8');
+  let hits = 0;
+  for (const f of files) {
+    if (!f.endsWith('.html')) continue;
+    const id = basename(f, '.html');
+    // Two closing forms are in use: `<!-- /mockup -->` and the id-bearing
+    // `<!-- /mockup:<id> -->` that /sample-report writes. Accepting only
+    // the first is half of why this script had quietly stopped re-inlining
+    // anything; the other half was the hardcoded page above.
+    const marker = new RegExp(`(<!-- mockup:${id} -->)[\\s\\S]*?(<!-- /mockup(?::${id})? -->)`);
+    if (!marker.test(page)) continue;
+    const body = (await readFile(join(SRC, f), 'utf8')).trim();
+    page = page.replace(marker, `$1\n${body}\n$2`);
+    hits++;
+  }
+  if (!hits) continue;
+  await writeFile(path, page);
+  inlined += hits;
+  touched.push(`${rel} (${hits})`);
 }
-await writeFile(PAGE, page);
-console.log(`re-inlined ${inlined} fragment(s) into how-it-works.html`);
+console.log(`re-inlined ${inlined} fragment(s) into ${touched.length} page(s): ${touched.join(', ') || 'none'}`);
