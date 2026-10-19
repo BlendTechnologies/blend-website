@@ -169,8 +169,8 @@ html,body{max-width:100%;overflow-x:clip}
   /* --muted, not --ink-40: measured over the card's white, --ink-40 is
      3.57:1 and these are 10.5px. --muted is 5.64 and looks the same at a
      glance. Small text is exactly where a token picked by eye goes wrong. */
-  .pf-label{display:flex;align-items:center;gap:10px;margin:0;
-    font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  .pf-label{display:flex;align-items:center;gap:8px;margin:0;
+    font-size:10px;font-weight:600;letter-spacing:.09em;
     text-transform:uppercase;color:var(--muted)}
   .pf-label::after{content:"";flex:1;height:1px;background:var(--line)}
 
@@ -273,69 +273,59 @@ html,body{max-width:100%;overflow-x:clip}
      The shape is built in api/_demo-summary.mjs from the same submission
      the report renders, so it cannot drift from it, and
      tools/check-demo-report.mjs refuses when the vendored fallback does. */
-  /* A RECORD, not a text block. One customer's file: a tinted header with
-     who they are, the body, and a footer that opens the transcript. The
-     bands are what stop four stacked small-caps labels in a 360px column
-     reading as one undifferentiated list, and they say what the card IS
-     before a reader has read a word of it.
+  /* ONE SURFACE. This had a cream header band and a cream footer band for
+     about an hour, and they were wrong: --cream IS the page, so the header
+     text read as sitting OUTSIDE a white rectangle rather than on top of a
+     card, and the three slabs did not line up. The idea was that bands
+     would stop four stacked small-caps labels reading as one
+     undifferentiated list. Hierarchy does that; background slabs just add
+     edges.
 
-     overflow:hidden so the bands clip to the radius; the padding lives on
-     the bands rather than the card for the same reason. */
-  .answers{background:var(--surface);border:1px solid var(--line);
-    padding:0;overflow:hidden}
-  /* --cream, not --surface-2. --surface-2 is one step off white and the
-     band was invisible at a glance, which is the whole job of a band. The
-     page's own ground reads as the card being notched rather than tinted,
-     and it is a colour the palette already owns. */
-  .answers-head{padding:18px 22px;background:var(--cream);
+     So: one white card, one padding, and the structure comes from type
+     size, weight and hairlines. */
+  .answers{background:var(--surface);border:1px solid var(--line);padding:22px}
+  .answers-head{padding:0 0 14px;margin:0 0 16px;
     border-bottom:1px solid var(--line)}
-  .answers-body{padding:20px 22px}
-  .answers-byline{margin:0 0 3px;font-size:13.5px;color:var(--ink);font-weight:500}
-  .answers-sub{margin:0;font-size:12px;color:var(--muted)}
+  .answers-body{padding:0}
+  .answers-byline{margin:0 0 2px;font-size:13px;color:var(--ink-80);font-weight:500}
+  .answers-sub{margin:0;font-size:11.5px;line-height:1.45;color:var(--muted)}
 
-  .pf{display:grid;gap:18px}
-  .pf-block{display:grid;gap:10px}
+  .pf{display:grid;gap:16px}
+  .pf-block{display:grid;gap:8px}
 
-  /* TWO KINDS OF CHIP, because these are two kinds of fact. Goals are what
-     the customer ASKED for and the plan is ordered by them, so they carry
-     the accent. What they reported is what the customer TOLD us, and it
-     reads plainer.
-
-     Both are pills because the report itself draws its "Your profile" and
-     "What you told us matters" rows as pills — the panel speaks the
-     product's own visual language, so a reader can see the left column
-     arriving in the right one. */
-  .pf-chips,.pf-tags{list-style:none;margin:0;padding:0;
-    display:flex;flex-wrap:wrap;gap:6px}
-  .pf-chips li{font-size:12px;font-weight:600;line-height:1;padding:6.5px 10px;
+  /* GOALS ARE CHIPS, WHAT THEY REPORTED IS A LIST. Both were pills, and
+     five pills of sentence-length text wrapped to three rows of bubbles
+     that dominated the card. Goals are three short words and the thing the
+     plan is ordered by, so they keep the accent and the pill; the reported
+     symptoms are five short sentences, which is list material. */
+  .pf-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px}
+  .pf-chips li{font-size:11.5px;font-weight:600;line-height:1;padding:5.5px 9px;
     border-radius:999px;background:var(--gold-soft);color:var(--gold-text);
     border:1px solid rgba(180,127,57,.22)}
-  .pf-tags li{font-size:12px;line-height:1;padding:6.5px 10px;border-radius:999px;
-    background:var(--surface-2);color:var(--ink-80);border:1px solid var(--line)}
+  .pf-tags{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+  .pf-tags li{position:relative;padding-left:13px;font-size:12.5px;
+    line-height:1.4;color:var(--ink-80)}
+  .pf-tags li::before{content:"";position:absolute;left:1px;top:6px;
+    width:4px;height:4px;border-radius:50%;background:var(--gold)}
 
   /* Label and value, two across. Not two columns of equal weight: the
-     label is ours and the value is the brand's own option text. Two across
-     rather than one because eight stacked rows push the disclosure off the
-     bottom of a 900px window, and these are the detail layer — a reader
-     scans them, they do not read them in order. */
-  /* A CONTAINER QUERY, because the constraint is the CARD's width and not
-     the window's. The aside is 440 above 1072px of viewport, full width
-     below 1000, and anything between 345 and 440 in the 71px band in the
-     middle — so a viewport breakpoint would have to name three ranges to
-     describe one thing. Two across needs about 400px of card: below that a
-     value gets 86px and "Lightly Active" is 88. */
-  .pf-rows{margin:0;display:grid;grid-template-columns:minmax(0,1fr)}
-  @container (min-width:300px){
-    .pf-rows{grid-template-columns:repeat(2,minmax(0,1fr))}
-  }
-  .pf-rows{column-gap:16px}
-  .pf-rows > div{display:grid;grid-template-columns:46px minmax(0,1fr);gap:8px;
-    padding:8px 0;border-top:1px solid var(--line);align-items:baseline}
+     label is ours and the value is the brand's own option text.
+
+     A CONTAINER QUERY, because the constraint is the CARD's width and not
+     the window's. The aside is 360 beside the report and full width below
+     1000, so a viewport breakpoint would have to name both to describe one
+     thing. 300 is where two columns still leave the longest value
+     ("Lightly Active", 84px at this size) a line of its own. */
+  .pf-rows{margin:0;display:grid;grid-template-columns:minmax(0,1fr);
+    column-gap:14px}
+  .pf-rows > div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;
+    padding:6px 0;border-top:1px solid var(--line);align-items:baseline}
   .pf-rows > div:first-child{border-top:0;padding-top:0}
   @container (min-width:300px){
+    .pf-rows{grid-template-columns:repeat(2,minmax(0,1fr))}
     .pf-rows > div:nth-child(2){border-top:0;padding-top:0}
   }
-  .pf-rows dt{font-size:12px;color:var(--muted);min-width:0}
+  .pf-rows dt{font-size:11.5px;color:var(--muted);min-width:0}
   .pf-rows dd{margin:0;font-size:12.5px;color:var(--ink);font-weight:500;min-width:0}
 
   /* The full transcript, behind a disclosure. Nothing is hidden from a
@@ -355,17 +345,17 @@ html,body{max-width:100%;overflow-x:clip}
     gap:14px;padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
   .answers-all dt{font-size:12.5px;color:var(--muted);min-width:0}
   .answers-all dd{margin:0;font-size:12.5px;color:var(--ink-80);min-width:0}
-  .answers-foot{border-top:1px solid var(--line);background:var(--cream)}
+  .answers-foot{margin-top:18px;padding-top:4px;border-top:1px solid var(--line)}
   /* The whole band is the target, not four underlined words in the middle
      of it: this is the one control on the card and a 44px row is what a
      thumb expects. */
   .answers-more{display:flex;width:100%;align-items:center;justify-content:space-between;
-    gap:10px;background:none;border:0;padding:14px 22px;cursor:pointer;
+    gap:10px;background:none;border:0;padding:10px 0;cursor:pointer;
     font:inherit;font-size:12.5px;font-weight:600;color:var(--gold-text);
-    text-align:left;min-height:46px}
+    text-align:left;min-height:40px}
   .answers-more[hidden]{display:none}
-  .answers-more:hover{background:var(--hover-surface)}
-  .answers-more:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+  .answers-more:hover{color:var(--gold)}
+  .answers-more:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
   /* A chevron in borders rather than a glyph: it has to rotate, and it has
      to be the same weight as the tick in the band above it. */
   .answers-more::after{content:"";width:7px;height:7px;flex:0 0 auto;
@@ -389,9 +379,7 @@ html,body{max-width:100%;overflow-x:clip}
   @media(max-width:760px){
     .pitch{padding:20px 18px}
     .pitch-lead{font-size:16px}
-    .answers-head{padding:16px 18px}
-    .answers-body{padding:18px}
-    .answers-more{padding:14px 18px}
+    .answers{padding:18px}
   }
   /* THE REPORT AT HALF SIZE, with a way to read it properly.
      The frame holds a viewport; the iframe inside it is twice the
