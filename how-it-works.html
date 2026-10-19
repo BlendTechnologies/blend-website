@@ -1463,6 +1463,11 @@ body{background:var(--ground)}
    first, every step the same way round. */
 @media(max-width:860px){
   .hw-step-grid{grid-template-columns:minmax(0,1fr);gap:28px;align-items:start}
+  /* and the flipped ones, which carry their own track sizes at (0,2,0).
+     A media query adds no specificity, so the one-column rule above lost
+     to them at every width and the flipped steps kept a 60/40 two-up on a
+     phone — a 255px placeholder beside the text. */
+  .hw-step--flip .hw-step-grid{grid-template-columns:minmax(0,1fr)}
   .hw-step--flip .hw-step-text{order:0}
 }
 

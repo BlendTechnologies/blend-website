@@ -170,30 +170,61 @@ html,body{max-width:100%;overflow-x:clip}
   .livebar b{color:var(--ink);font-weight:600}
   .livebar a{color:var(--gold-text);text-decoration:underline;text-underline-offset:3px}
 
-  /* THE REPORT SCROLLS INSIDE THE PAPER, and that is a decision, not a
-     default. The obvious alternative is a frame as tall as the document,
-     and the product has a protocol for exactly that: the report posts
-     {source:"blend-report", type:"frame:height"} on every resize
-     (components/report/embed-auto-height.tsx), built for brands embedding
-     it on their own site.
+  /* THE REPORT AT HALF SIZE, with a way to read it properly.
+     The frame holds a viewport; the iframe inside it is twice the
+     viewport's size and scaled to a half, so the report lays out at a
+     desktop width and draws at 50%. You see roughly four times as much of
+     the document as before in the same box — the shape of the whole thing,
+     the sections, where the plan ends and the breakdown begins — and the
+     button opens it full size when you want to read it.
 
-     Measured: it does not arrive. The same component on the QUIZ posts
-     `frame:height` 560 within a second, and the results page in the same
-     frame posts only `cart:ping` and never a height — so the protocol and
-     this browser are both fine and the results page's copy of it is not
-     running. Raised with the webapp lane.
+     Scaling the iframe rather than zooming inside it is the only way: the
+     document is cross-origin, so nothing on this page can reach in and set
+     a zoom on it.
 
-     A fixed height would be the other way round, and worse: this report is
-     3054px at 1040 wide and half as tall again on a phone, and the whole
-     point of embedding the live demo is that its length changes when the
-     demo does. Too short clips the end of a document; too tall ends the
-     page on a field of blank paper. A scroll handles any length, and the
-     foot carries a link for anyone who would rather have the whole thing
-     in a tab of its own. */
-  .report-frame iframe{display:block;width:100%;border:0;background:transparent;
-    height:clamp(560px,82vh,1180px)}
+     The product posts its own height for embedders
+     ({source:"blend-report", type:"frame:height"}), and measured against
+     the deployed app it does not arrive for the results page — the same
+     component on the quiz posts within a second. So the viewport sets a
+     height and the report scrolls inside it. Raised with the webapp lane. */
+  .report-viewport{position:relative;overflow:hidden;
+    height:clamp(560px,82vh,1180px);border-radius:8px}
+  .report-viewport iframe{position:absolute;top:0;left:0;display:block;border:0;
+    width:200%;height:200%;transform:scale(.5);transform-origin:0 0;
+    background:transparent}
 
-  .report-frame{max-width:none;margin:0;
+  /* Full size, for reading. Both paths: the Fullscreen API where it works,
+     and the fixed-position fallback for iOS Safari, which only grants it to
+     <video>. Either way the scale comes off — the point of opening it is to
+     read it. */
+  .report-frame:fullscreen,
+  .report-frame:-webkit-full-screen,
+  .report-frame.is-pseudo-fs{max-width:none;width:100vw;height:100vh;height:100dvh;
+    margin:0;padding:0;border-radius:0;box-shadow:none}
+  .report-frame.is-pseudo-fs{position:fixed;inset:0;z-index:9999}
+  .report-frame:fullscreen .report-viewport,
+  .report-frame:-webkit-full-screen .report-viewport,
+  .report-frame.is-pseudo-fs .report-viewport{height:100%;border-radius:0}
+  .report-frame:fullscreen iframe,
+  .report-frame:-webkit-full-screen iframe,
+  .report-frame.is-pseudo-fs iframe{width:100%;height:100%;transform:none}
+  body.is-fs-locked{overflow:hidden;touch-action:none}
+
+  .fs-btn{position:absolute;top:14px;right:14px;z-index:5;display:inline-flex;
+    align-items:center;gap:4px;background:rgba(10,10,10,.78);color:#fff;border:0;
+    border-radius:8px;padding:8px 12px;font:inherit;font-size:12px;font-weight:600;
+    letter-spacing:-.005em;line-height:1;cursor:pointer;opacity:.92;
+    backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);
+    transition:background .15s ease,opacity .15s ease}
+  .fs-btn:hover{background:#0A0A0A;opacity:1}
+  .fs-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .fs-btn svg{width:13px;height:13px;display:block}
+  @media(max-width:560px){.fs-btn span.fs-label{display:none}.fs-btn{padding:9px}}
+
+  /* positioned, because the fullscreen button is absolute inside it and
+     was otherwise resolving against whatever ancestor happened to be
+     positioned — it landed outside the frame and could not be clicked. */
+  .report-frame{position:relative;max-width:none;margin:0;
     padding:var(--report-pad);border-radius:16px;overflow:hidden;
     /* The margin has to be paper, not page, or the report sits in a second
        frame of a different colour. --quiz-bg is the fragment's own
@@ -311,9 +342,16 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
 
     <div class="report-frame" id="report">
-      <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
-              src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <button type="button" class="fs-btn" id="fsBtn" aria-label="View fullscreen">
+        <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <svg id="fsIconExit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+        <span class="fs-label" id="fsLabel">Fullscreen</span>
+      </button>
+      <div class="report-viewport">
+        <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
+                src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
   </div>
 
@@ -339,6 +377,61 @@ html,body{max-width:100%;overflow-x:clip}
     nav.classList.remove('open');
     toggle.setAttribute('aria-expanded','false');
   }));
+})();
+
+/* Full size, for reading.
+   The Fullscreen API where it works, a fixed-position fallback where it
+   does not — iOS Safari grants fullscreen only to <video>. Lifted from
+   /try, which embeds the quiz the same way, rather than written twice. */
+(function(){
+  var wrap = document.getElementById('report');
+  var btn = document.getElementById('fsBtn');
+  var lbl = document.getElementById('fsLabel');
+  var iconExpand = document.getElementById('fsIconExpand');
+  var iconExit = document.getElementById('fsIconExit');
+  if (!wrap || !btn) return;
+
+  var pseudoFs = false;
+  var isApiFs = function(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); };
+  var isOn = function(){ return isApiFs() || pseudoFs; };
+
+  var sync = function(){
+    var on = isOn();
+    lbl.textContent = on ? 'Exit fullscreen' : 'Fullscreen';
+    btn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'View fullscreen');
+    iconExpand.style.display = on ? 'none' : 'block';
+    iconExit.style.display = on ? 'block' : 'none';
+  };
+  var enterPseudo = function(){
+    pseudoFs = true;
+    wrap.classList.add('is-pseudo-fs');
+    document.body.classList.add('is-fs-locked');
+    sync();
+  };
+  var exitPseudo = function(){
+    pseudoFs = false;
+    wrap.classList.remove('is-pseudo-fs');
+    document.body.classList.remove('is-fs-locked');
+    sync();
+  };
+
+  btn.addEventListener('click', function(){
+    if (isOn()) {
+      if (pseudoFs) { exitPseudo(); return; }
+      try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
+      return;
+    }
+    var req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
+    if (req) {
+      try { req.call(wrap); return; } catch (e) { /* fall through */ }
+    }
+    enterPseudo();
+  });
+
+  document.addEventListener('fullscreenchange', sync);
+  document.addEventListener('webkitfullscreenchange', sync);
+  /* Hardware Esc exits the fallback too, which the API would do for us. */
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && pseudoFs) exitPseudo(); });
 })();
 
 /* The answers that produced the report below them.
