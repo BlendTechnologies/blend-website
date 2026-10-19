@@ -89,111 +89,367 @@ html,body{max-width:100%;overflow-x:clip}
      the way a sheet of paper would, and the brand palette repaints it
      rather than the page around it.
 
-     IT NEEDS ITS OWN MARGIN, and the margin is the app's, not one this
-     repo chose. The export is the report's CONTENT only — measured in the
-     page, the first product card's left border sat at x=0 of the frame and
-     the last one's right border at the far edge, so the frame's radius and
-     overflow:hidden were clipping both, and a document whose contents run
-     off all four sides reads as a screenshot zoomed to fill.
+     THE MARGIN IS THE APP'S NOW, NOT THIS FILE'S, which is why there is so
+     little of it here. When the frame held an EXPORT of the report, the
+     export was the content only: measured in the page, the first product
+     card's left border sat at x=0 of the frame and the last one's right
+     border at the far edge, so the radius and overflow:hidden clipped
+     both, and a document whose contents run off all four sides reads as a
+     screenshot zoomed to fill. 32px was the fix, taken from the app's own
+     container.
 
-     The container that supplies it in the app is one line of
-     app/quiz/[embedKey]/results/[submissionId]/page.tsx:
+     The frame holds the LIVE page now, and that page brings the container
+     with it:
 
+         app/quiz/[embedKey]/results/[submissionId]/page.tsx
          max-w-[1040px] ... p-8
 
-     1040 INCLUDING the padding, border-box, so 32px of margin and 976 of
-     content. That is what a customer who finishes the demo quiz sees, so
-     it is what this frame is. (blend-mockups/manifest.json's designWidth
-     1040 is the width the export was CAPTURED at, which is the content
-     width, not the container's.) */
-  /* The inputs, above the output. A reader cannot judge "your omega 3 is
-     at 8% of your target" without knowing the person never eats fish, so
-     the page stops being a set of assertions and becomes an argument.
-     Two columns because 43 rows in one are a wall; one on a phone because
-     two are 90px wide. */
+     32px inside the iframe, drawn at half scale, so the report already
+     arrives with 16px of visible margin of its own. Ours was stacked on
+     top of it and the result was a small document in a large box.
+
+     12, not 10, and not 32: 12 is the floor the design hook asks of any
+     bordered box, and here it buys nothing away. 540 of frame less 24 of
+     padding is a 516 viewport, so the iframe lays out at 1032 — under the
+     container's 1040 max, so it still fills rather than centring, and over
+     the 1024 where the macros go from two columns to four. One value at
+     every width, because 6px on a phone was under that floor and a phone
+     is where a clipped corner shows most. */
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
     overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-  /* HALF AND HALF: the answers on the left, the report they produced on
-     the right. Stacked, a reader finished one before starting the other,
-     and had to carry "vegetarian, never eats fish" in their head down a
-     3,000px plan. The report is a document you skim, so half the width
-     costs it little and the pairing is worth more than the inches.
+  /* THE PITCH FULL WIDTH, THEN ONE EXAMPLE ROW UNDER IT.
+     ------------------------------------------------------------------
+     The founder's shape, and it buys something the two-column version
+     could not: the row below is now nothing but one customer's answers
+     beside the report they produced, so a SECOND example is a second copy
+     of that row and a reader compares them down the page. While the pitch
+     sat in the left column there was no row to copy.
 
-     `start`, not `stretch`: the aside is short and the report is tall, and
-     a 1,100px white panel holding four lines of summary is worse than a
-     short one. The report sticks while the aside scrolls past it. */
-  .report-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:24px;max-width:1040px;margin:0 auto;align-items:start}
-  .report-aside{min-width:0;position:sticky;top:calc(var(--nav-h) + 18px)}
+     40/60, not half and half: the answers are a summary and the report is
+     a document, and the document needs the inches.
+
+     WHY 938 AND NOT 1040, AND WHY THE SCROLLBAR IS IN THE SUM. The iframe
+     lays out at twice the viewport it sits in and draws at a half, and the
+     report's macro grid is `grid-cols-2 lg:grid-cols-4` with Tailwind's lg
+     at 1024px. So the iframe has to lay out over 1024 or the preview shows
+     a tablet layout shrunk, which is not what the fullscreen button opens.
+
+     IT HAS TO CLEAR 1024 WITH A SCROLLBAR TAKEN OFF IT. The report scrolls
+     inside the frame, so a platform with classic scrollbars spends ~15px
+     of the iframe's own layout width on one, and a media query inside the
+     document measures what is left. At 1032 that is 1017, and the founder
+     saw two columns of macros in a browser while this file had been
+     verified at four by a Playwright capture, where scrollbars are overlay
+     and cost nothing. Measuring the wrong viewport is the whole bug.
+
+     524 of viewport is 1048 of iframe, 1033 after a scrollbar: over 1024
+     either way, and under the app container's own max-w-[1040px] when the
+     scrollbar is there, so the report fills rather than centring. 548 of
+     frame is 524 once its 12 of padding comes off; 548 is 60% of 914, and
+     914 plus the 24 gap is 938.
+
+     The pitch band keeps the same 938 so the page has one measure. */
+  .pitch,.report-split{max-width:938px;margin-left:auto;margin-right:auto}
+  .pitch{margin-bottom:24px}
+  .report-split{display:grid;grid-template-columns:minmax(0,40fr) minmax(0,60fr);
+    gap:24px;align-items:start}
+  /* A size container for the card inside it: the detail rows go two across
+     or one depending on how wide this column actually is, which is not a
+     function of the window alone. */
+  .report-aside{min-width:0;container-type:inline-size}
   @media(max-width:1000px){
     .report-split{grid-template-columns:minmax(0,1fr)}
-    /* sticky in a single column pins the answers over the report */
-    .report-aside{position:static}
   }
 
-  .answers{margin:0 0 0;padding:22px 24px;
-    background:var(--surface);border:1px solid var(--line);border-radius:14px}
-  .answers-head h2{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.015em}
-  /* The sentence the panel leads with. The list is in quiz order and quiz
-     order is demographics first, so the twelve rows a reader saw under the
-     cap were consent, a name, an age and a unit choice — everything that
-     produced a recommendation sat below them. */
-  .answers-summary{margin:0 0 10px;font-size:15px;line-height:1.55;color:var(--ink)}
-  .answers-summary:empty{display:none}
-  .answers-sub{margin:0 0 16px;font-size:13px;color:var(--muted)}
-  /* one column: the aside is half the page now, and two 220px columns of
-     question-and-answer wrapped every other row onto three lines */
-  .answers-grid{display:grid;grid-template-columns:minmax(0,1fr);margin:0}
-  .answers-grid > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  /* ---- the two cards share a rhythm ----------------------------------
+     They are read as a pair — what the product is, then what this one
+     customer put into it — so the heading size, the section labels, the
+     padding and the radius are the same in both, and only the ground
+     changes. Set here once rather than twice. */
+  .pitch{border-radius:16px;padding:26px 28px}
+  .answers{border-radius:16px;padding:24px}
+  .answers-head h2{margin:0 0 8px;font-size:18px;font-weight:600;
+    letter-spacing:-.02em;line-height:1.25}
+
+  /* A SECTION HEADING IN THE REPORT'S OWN VOICE. This was a 10px grey
+     uppercase label with a rule running out beside it, and set next to the
+     live report it read as a wireframe: the report titles its sections
+     "Your profile" and "Your macros" in dark 13.5px with a hairline UNDER
+     the whole row. Same thing here, so the two halves of the page are
+     plainly the same product. */
+  .pf-label{margin:0 0 10px;padding-bottom:7px;
+    border-bottom:1px solid var(--line);
+    font-size:13.5px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+
+  /* ---- the pitch, a dark island -------------------------------------
+     Dark because it is the one box on the page that is us talking. The
+     answers below it and the report beside it are both the product's own
+     words, and they are both white; a reader can tell at a glance which is
+     which. .theme-dark redefines every token the components inside read,
+     so nothing in here needs to know where it is (theme.css).
+
+     The inset hairline is what stops it reading as a hole cut in the page:
+     a flat near-black rectangle on a warm ground has no edge of its own,
+     and the report beside it has a shadow and a border. */
+  /* THREE COLUMNS: the pitch, then two of business outcomes. The headline
+     carries the band, so the left column is sized for it and the two
+     benefit columns split what is left evenly. Equal columns, equal gaps,
+     and the same rhythm inside both, because six benefits that do not line
+     up read as two lists rather than one set. */
+  .pitch{background:var(--deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
+    display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
+    gap:30px 32px;align-items:start}
+
+  /* The column stretches to the band's height and the call to action sits
+     at the bottom of it; the 1fr row is what holds the copy up against the
+     headline instead of floating it in the middle. */
+  .pitch-say{display:grid;gap:18px;align-self:stretch;
+    grid-template-rows:auto auto 1fr auto}
+  .pitch-mark{display:block}
+  /* SIGNIFICANTLY more prominent, per the brief, and the one piece of type
+     on the page allowed to be this size. clamp so a 300px column on a
+     laptop and a 650px one on a phone do not both get 28px. */
+  .pitch-head{margin:0;font-size:clamp(24px,2.1vw,29px);line-height:1.15;
+    font-weight:600;letter-spacing:-.025em;color:var(--ink)}
+  .pitch-copy{display:grid;gap:12px;align-content:start}
+  .pitch-lead{margin:0;font-size:14px;line-height:1.55;color:var(--ink-80)}
+  /* The three short sentences are the objection handler, so they read as an
+     aside to the promise above rather than as more of it. */
+  .pitch-sub{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+  .pitch-cta{align-self:end}
+  .pitch-cta .btn{gap:10px}
+  .btn-arrow{font-size:15px;line-height:1;transition:transform .18s ease}
+  .pitch-cta .btn:hover .btn-arrow{transform:translateX(3px)}
+  @media(prefers-reduced-motion:reduce){
+    .btn-arrow,.pitch-cta .btn:hover .btn-arrow{transition:none;transform:none}
+  }
+
+  /* Six benefits, three to a column, divided by the same hairline and lit
+     by the same tick.
+
+     ONE GRID, NOT TWO LISTS. Two separate <ul>s each spaced themselves, so
+     the second benefit in the left column and the second in the right
+     started at different heights whenever their copy ran to a different
+     number of lines, and six benefits that do not line up read as two
+     lists rather than one set. Column flow over three auto rows gives each
+     ROW the height of its taller item, so both columns step together.
+
+     That makes the first item of each COLUMN nth-child(3n+1) rather than
+     :first-child, which is what the divider and the tick hang off. */
+  .pitch-list{list-style:none;margin:0;padding:0;align-self:stretch;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:repeat(3,auto);grid-auto-flow:column;column-gap:32px}
+  .pitch-list li{position:relative;padding:14px 0 14px 24px;
+    border-top:1px solid var(--line)}
+  .pitch-list li:nth-child(3n+1){border-top:0;padding-top:0}
+  .pitch-list b{display:block;font-size:13.5px;font-weight:600;line-height:1.35;
+    color:var(--ink);letter-spacing:-.01em}
+  .pitch-list span{display:block;margin-top:5px;font-size:12.5px;line-height:1.5;
+    color:var(--muted)}
+  /* A tick drawn in CSS rather than the homepage's data-URI one: that file
+     has #B47F39 baked into it, and on this ground the gold that reads is
+     --sand. A custom property cannot cross into a data URI, so the shape
+     is borders instead. */
+  .pitch-list li::before{content:"";position:absolute;left:1px;top:19px;
+    width:9px;height:5px;border-left:1.5px solid var(--sand);
+    border-bottom:1.5px solid var(--sand);transform:rotate(-45deg)}
+  .pitch-list li:nth-child(3n+1)::before{top:5px}
+
+  /* ---- the answers, designed rather than dumped ---------------------
+     43 rows in quiz order was a wall, and quiz order put consent, a name
+     and a unit choice at the top of it: everything that produced a
+     recommendation was below the fold of the cap. So the panel draws a
+     shape — who, goals, what they flagged, how they live, what they eat —
+     and the full 43 are a disclosure underneath.
+
+     The shape is built in api/_demo-summary.mjs from the same submission
+     the report renders, so it cannot drift from it, and
+     tools/check-demo-report.mjs refuses when the vendored fallback does. */
+  /* ONE SURFACE. This had a cream header band and a cream footer band for
+     about an hour, and they were wrong: --cream IS the page, so the header
+     text read as sitting OUTSIDE a white rectangle rather than on a card,
+     and the three slabs did not line up. Background slabs do not make
+     hierarchy; type and hairlines do. */
+  .answers{background:var(--surface);border:1px solid var(--line);padding:22px}
+  .answers-head{padding:0 0 16px;margin:0 0 18px;
+    border-bottom:1px solid var(--line)}
+  .answers-body{padding:0}
+  .answers-byline{margin:0 0 2px;font-size:13px;color:var(--ink-80);font-weight:500}
+  .answers-sub{margin:0;font-size:11.5px;line-height:1.45;color:var(--muted)}
+
+  .pf{display:grid;gap:18px}
+  .pf-block{display:grid}
+
+  /* PILLS AND TILES, WHICH IS WHAT THE REPORT IS MADE OF.
+     ------------------------------------------------------------------
+     Set beside the live report this panel read as a wireframe, and the
+     reason was vocabulary rather than spacing. The report draws "Your
+     profile" and "What you told us matters" as small outlined pills, and
+     every macro as a bordered tile with a tiny uppercase label over a
+     value. It is dense, contained and finished. This was rules and loose
+     text on white.
+
+     So the panel borrows both components. That is not decoration: the
+     page's whole argument is that the left column produced the right one,
+     and it lands harder when a reader can see the same parts in both.
+
+     Pills small, like the report's. They were 12px with 10px of side
+     padding and five sentence-length ones wrapped into three rows of
+     bubbles that dominated the card. */
+  .pf-chips,.pf-tags{list-style:none;margin:0;padding:0;
+    display:flex;flex-wrap:wrap;gap:5px}
+  .pf-chips li,.pf-tags li{font-size:11px;line-height:1.3;padding:4.5px 9px;
+    border-radius:999px;border:1px solid var(--line)}
+  /* Goals carry the accent: they are what the customer ASKED for and the
+     plan is ordered by them. What they reported is what the customer TOLD
+     us, which is a different kind of fact and reads plainer. */
+  .pf-chips li{font-weight:600;background:var(--gold-soft);color:var(--gold-text);
+    border-color:rgba(180,127,57,.22)}
+  .pf-tags li{background:var(--surface-2);color:var(--ink-80)}
+
+  /* The macro tile, at this scale. Tiny uppercase label over the value,
+     bordered, on the lifted surface.
+
+     TWO ACROSS FOR BOTH GROUPS. Four across for the food frequency was
+     right for "Never" and "Daily" and wrong for "1-5 eggs", which wrapped
+     in a 74px tile; and two groups on different grids read as two
+     different components rather than one. */
+  .pf-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0}
+  .pf-tiles > div{border:1px solid var(--line);border-radius:8px;
+    padding:8px 10px;background:var(--surface-2);min-width:0}
+  .pf-tiles dt{font-size:9px;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .pf-tiles dd{margin:3px 0 0;font-size:12.5px;font-weight:600;color:var(--ink);
+    line-height:1.25;min-width:0}
+
+  /* The full transcript, behind a disclosure. Nothing is hidden from a
+     reader who wants it; it is just not the first thing they meet.
+     Not a <details>: the panel ships `hidden` and is revealed by script
+     once the data is in hand, and a <details> would render its summary
+     with nothing behind it in the meantime. */
+  .answers-all{margin:0;display:grid;grid-template-columns:minmax(0,1fr)}
+  /* `hidden` is display:none in the UA sheet, and ANY author display rule
+     beats it. So the line above silently un-hid the transcript: the button
+     said "See all 43 answers" with all 43 already under it, and the aside
+     measured 3,374px against the report's 802. Specificity, not
+     !important — this is the element's own rule, not a global override.
+     tools/check-css-shape.mjs refuses a page that loses this. */
+  .answers-all[hidden]{display:none}
+  .answers-all > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
     gap:14px;padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
-  .answers-grid dt{font-size:13px;color:var(--muted);min-width:0}
-  .answers-grid dd{margin:0;font-size:13px;color:var(--ink);font-weight:500;min-width:0}
-  /* 43 rows is a wall, and the report underneath is the point. Capped with
-     a fade, and the button opens it. Not a <details>: the open state wants
-     to differ by width, and `open` is an attribute rather than a style. */
-  .answers-grid.is-capped{max-height:300px;overflow:hidden;
-    -webkit-mask-image:linear-gradient(#000 70%,transparent);
-    mask-image:linear-gradient(#000 70%,transparent)}
-  .answers-more{margin-top:14px;background:none;border:0;padding:6px 0;cursor:pointer;
-    font:inherit;font-size:13px;font-weight:600;color:var(--gold-text);
-    text-decoration:underline;text-underline-offset:3px;min-height:36px}
+  .answers-all dt{font-size:12.5px;color:var(--muted);min-width:0}
+  .answers-all dd{margin:0;font-size:12.5px;color:var(--ink-80);min-width:0}
+  .answers-foot{margin-top:18px;padding-top:4px;border-top:1px solid var(--line)}
+  /* The whole band is the target, not four underlined words in the middle
+     of it: this is the one control on the card and a 44px row is what a
+     thumb expects. */
+  .answers-more{display:flex;width:100%;align-items:center;justify-content:space-between;
+    gap:10px;background:none;border:0;padding:10px 0;cursor:pointer;
+    font:inherit;font-size:12.5px;font-weight:600;color:var(--gold-text);
+    text-align:left;min-height:40px}
+  .answers-more[hidden]{display:none}
+  .answers-more:hover{color:var(--gold)}
   .answers-more:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
-  @media(max-width:760px){
-    .answers{padding:18px 16px}
-    .answers-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  /* A chevron in borders rather than a glyph: it has to rotate, and it has
+     to be the same weight as the tick in the band above it. */
+  .answers-more::after{content:"";width:7px;height:7px;flex:0 0 auto;
+    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+    transform:translateY(-2px) rotate(45deg);transition:transform .18s ease}
+  .answers-more[aria-expanded="true"]::after{transform:translateY(1px) rotate(225deg)}
+  .answers-all{margin-top:18px}
+
+  /* Two columns of benefits under the pitch below 1000, one of each below
+     660. 300 of headline beside two 250px columns needs about 900 of card,
+     and a phone has 307. */
+  @media(max-width:1000px){
+    .pitch{grid-template-columns:minmax(0,1fr);gap:26px}
+    .pitch-say{grid-template-rows:none;gap:16px}
+    .pitch-cta{align-self:start}
   }
+  /* One column of six: the flow goes back to rows, so the only item
+     without a rule over it is the first one. */
+  @media(max-width:660px){
+    .pitch-list{grid-template-columns:minmax(0,1fr);grid-template-rows:none;
+      grid-auto-flow:row}
+    .pitch-list li:nth-child(3n+1){border-top:1px solid var(--line);padding-top:14px}
+    .pitch-list li:nth-child(3n+1)::before{top:19px}
+    .pitch-list li:first-child{border-top:0;padding-top:0}
+    .pitch-list li:first-child::before{top:5px}
+  }
+  @media(max-width:760px){
+    .pitch{padding:22px 18px}
+    .answers{padding:18px}
+    .pf-tiles > div{padding:8px}
+  }
+  /* THE REPORT AT HALF SIZE, with a way to read it properly.
+     The frame holds a viewport; the iframe inside it is twice the
+     viewport's size and scaled to a half, so the report lays out at a
+     desktop width and draws at 50%. You see roughly four times as much of
+     the document as before in the same box — the shape of the whole thing,
+     the sections, where the plan ends and the breakdown begins — and the
+     button opens it full size when you want to read it.
 
-  .livebar{max-width:1040px;margin:0 auto 18px;padding:14px 18px;
-    border:1.5px dashed var(--accent);border-radius:14px;background:var(--accent-soft);
-    font-size:14px;color:var(--ink-80);text-align:center}
-  .livebar b{color:var(--ink);font-weight:600}
-  .livebar a{color:var(--gold-text);text-decoration:underline;text-underline-offset:3px}
+     Scaling the iframe rather than zooming inside it is the only way: the
+     document is cross-origin, so nothing on this page can reach in and set
+     a zoom on it.
 
-  /* THE REPORT SCROLLS INSIDE THE PAPER, and that is a decision, not a
-     default. The obvious alternative is a frame as tall as the document,
-     and the product has a protocol for exactly that: the report posts
-     {source:"blend-report", type:"frame:height"} on every resize
-     (components/report/embed-auto-height.tsx), built for brands embedding
-     it on their own site.
+     The product posts its own height for embedders
+     ({source:"blend-report", type:"frame:height"}), and measured against
+     the deployed app it does not arrive for the results page — the same
+     component on the quiz posts within a second. So the viewport sets a
+     height and the report scrolls inside it. Raised with the webapp lane. */
+  /* Sized to fit between the nav and the bottom of the window, because a
+     sticky box taller than its scrollport is just a box that stops early:
+     100vh, less the nav, less the 18px it sticks below it, less 18 of air
+     underneath, less the frame's own 2x32 of padding. The floor is for a
+     short window; the ceiling stops a tall one turning this into a wall. */
+  .report-viewport{position:relative;overflow:hidden;
+    height:clamp(460px,calc(100vh - var(--nav-h) - 104px),1180px);
+    border-radius:8px}
+  .report-viewport iframe{position:absolute;top:0;left:0;display:block;border:0;
+    width:200%;height:200%;transform:scale(.5);transform-origin:0 0;
+    background:transparent}
 
-     Measured: it does not arrive. The same component on the QUIZ posts
-     `frame:height` 560 within a second, and the results page in the same
-     frame posts only `cart:ping` and never a height — so the protocol and
-     this browser are both fine and the results page's copy of it is not
-     running. Raised with the webapp lane.
+  /* Full size, for reading. Both paths: the Fullscreen API where it works,
+     and the fixed-position fallback for iOS Safari, which only grants it to
+     <video>. Either way the scale comes off — the point of opening it is to
+     read it. */
+  .report-frame:fullscreen,
+  .report-frame:-webkit-full-screen,
+  .report-frame.is-pseudo-fs{max-width:none;width:100vw;height:100vh;height:100dvh;
+    margin:0;padding:0;border-radius:0;box-shadow:none}
+  .report-frame.is-pseudo-fs{position:fixed;inset:0;z-index:9999}
+  .report-frame:fullscreen .report-viewport,
+  .report-frame:-webkit-full-screen .report-viewport,
+  .report-frame.is-pseudo-fs .report-viewport{height:100%;border-radius:0}
+  .report-frame:fullscreen iframe,
+  .report-frame:-webkit-full-screen iframe,
+  .report-frame.is-pseudo-fs iframe{width:100%;height:100%;transform:none}
+  body.is-fs-locked{overflow:hidden;touch-action:none}
 
-     A fixed height would be the other way round, and worse: this report is
-     3054px at 1040 wide and half as tall again on a phone, and the whole
-     point of embedding the live demo is that its length changes when the
-     demo does. Too short clips the end of a document; too tall ends the
-     page on a field of blank paper. A scroll handles any length, and the
-     foot carries a link for anyone who would rather have the whole thing
-     in a tab of its own. */
-  .report-frame iframe{display:block;width:100%;border:0;background:transparent;
-    height:clamp(560px,82vh,1180px)}
+  .fs-btn{position:absolute;top:14px;right:14px;z-index:5;display:inline-flex;
+    align-items:center;gap:4px;background:rgba(10,10,10,.78);color:#fff;border:0;
+    border-radius:8px;padding:8px 12px;font:inherit;font-size:12px;font-weight:600;
+    letter-spacing:-.005em;line-height:1;cursor:pointer;opacity:.92;
+    backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);
+    transition:background .15s ease,opacity .15s ease}
+  .fs-btn:hover{background:#0A0A0A;opacity:1}
+  .fs-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .fs-btn svg{width:13px;height:13px;display:block}
+  @media(max-width:560px){.fs-btn span.fs-label{display:none}.fs-btn{padding:9px}}
 
-  .report-frame{max-width:none;margin:0;
+  /* Sticky, so the report travels down beside the taller left column
+     rather than ending 400px above it; see .report-split for why this is
+     the box that can. It is also what POSITIONS the frame, which it has to
+     be: the fullscreen button is absolute inside it and was otherwise
+     resolving against whatever ancestor happened to be positioned — it
+     landed outside the frame and could not be clicked. Sticky establishes
+     a containing block exactly as relative does, so one declaration does
+     both jobs and there is no second `position` further up the file to
+     shadow this one. */
+  .report-frame{position:sticky;top:calc(var(--nav-h) + 18px);
+    max-width:none;margin:0;
     padding:var(--report-pad);border-radius:16px;overflow:hidden;
     /* The margin has to be paper, not page, or the report sits in a second
        frame of a different colour. --quiz-bg is the fragment's own
@@ -205,11 +461,16 @@ html,body{max-width:100%;overflow-x:clip}
   .report-foot{max-width:720px;margin:26px auto 0;text-align:center;
     font-size:14px;color:var(--muted)}
   .report-foot a{color:var(--sand);text-decoration:underline;text-underline-offset:3px}
-  :root{--report-pad:32px}
-  @media(max-width:640px){
-    :root{--report-pad:20px}
-      }
-  @media(max-width:420px){ :root{--report-pad:14px} }
+  /* One column puts the frame in a grid row of its own, so its area is its
+     own height and there is nowhere to travel. Off rather than relying on
+     that to stay true — and it has to come after the rule above, which is
+     why it is down here and not in the layout block. */
+  /* `top` as well as `position`: relative HONOURS an offset, so dropping
+     sticky on its own left the frame shifted 86px down its own row and
+     opened a gap under the answers on every phone. */
+  @media(max-width:1000px){ .report-frame{position:relative;top:auto} }
+
+  :root{--report-pad:12px}
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sample wellness report | Blend","url":"https://www.blend-technologies.com/sample-report","description":"The report a customer receives at the end of a Blend quiz, with the reason behind every pick and the safety notices that apply to them. Yours to configure.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Sample report","item":"https://www.blend-technologies.com/sample-report"}]}}</script>
 </head>
 <body>
@@ -284,36 +545,128 @@ html,body{max-width:100%;overflow-x:clip}
        refuses when it stops being a live report. It will: a results link is
        good for RESULTS_LINK_TTL_DAYS = 90 (lib/quiz/results-expiry.ts), so
        this one dies on its own, silently, without that check. -->
-  <div class="livebar">
-    <div><b>This is the live demo.</b> A real result from the quiz on <a href="/try">the demo page</a>, rendered by the product. Change the quiz and this changes with it.</div>
-  </div>
 
-  <!-- Filled from /api/demo-answers, which reads the SAME submission the
-       iframe below renders. Empty and hidden until it is: a sample report
-       with no answer list is the page as it was, a broken one is not. -->
-  <!-- The inputs beside the output, not above it. The report is a long
-       document and the answers are what make it legible; stacked, a reader
-       finished one before starting the other and had to carry "vegetarian,
-       never eats fish" in their head down a 3,000px plan. Side by side they
-       are read together, which is the argument this page exists to make.
-       Stacks below 1000, answers first. -->
+  <!-- THE PITCH FULL WIDTH, THEN THE EXAMPLE UNDER IT.
+       The founder's shape, and it buys something the two-column version
+       could not: the left column below is now nothing but one customer's
+       answers beside the report they produced, so a SECOND example is a
+       second copy of that row and a reader can compare them down the page.
+       While the pitch sat in the left column there was no row to copy.
+
+       40/60 rather than half and half. The answers are a summary and the
+       report is a document; the document needs the inches. -->
+  <!-- THE BENEFITS BAND. Three columns: the pitch, then two columns of
+       business outcomes. Written to the founder's brief of 2026-10-19,
+       verbatim.
+
+       ONE THING ON THE RECORD. "Convert more visitors into customers" and
+       "Increase average order value" are outcome claims, and
+       CONTENT_STATE.md forbids them by name: "Any AOV, retention,
+       conversion percentage, or client count | Zero clients, and the
+       website deliberately publishes no outcome metrics." That was raised
+       and the founder specified this copy directly afterwards, so it ships
+       as written. Neither line carries a figure, which is the part that
+       would be unsupportable; they are claims about what the product is
+       for. If the rule is meant to stand, this band is where it bites.
+
+       SAME SIX-PATH WORDMARK as the bar and the footer, in a light fill.
+       tools/check-wordmark.mjs compares the markup inside every wordmark on
+       the site and normalises the fill away, so a redrawn or five-path copy
+       here would be refused. That is the bug it exists for: /use-cases
+       carried a copy missing the full stop, in the bar and the footer, for
+       months. -->
+  <section class="pitch theme-dark">
+    <h2 class="sr-only">What Blend does</h2>
+    <div class="pitch-say">
+      <svg class="pitch-mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="30" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#F3F1ED"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg>
+      <p class="pitch-head">Turn customer needs into more sales.</p>
+      <div class="pitch-copy">
+        <p class="pitch-lead">Build a personalised shopping experience that
+          helps every customer find the right products, increases
+          conversions, and drives bigger baskets.</p>
+        <p class="pitch-sub">No coding. No complicated setup. Just smarter
+          selling.</p>
+      </div>
+      <div class="pitch-cta">
+        <a class="btn btn-primary" href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39"
+           target="_blank" rel="noopener">Book a demo <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+
+    <ul class="pitch-list">
+      <li><b>Convert more visitors into customers.</b>
+        <span>Help shoppers find exactly what they need instead of leaving
+          overwhelmed by choice.</span></li>
+      <li><b>Increase average order value.</b>
+        <span>Recommend complementary products based on each customer's
+          individual needs.</span></li>
+      <li><b>Personalisation backed by science.</b>
+        <span>Go beyond generic quizzes with intelligent recommendations
+          built on nutritional science and real customer data.</span></li>
+      <li><b>Launch in an afternoon.</b>
+        <span>Connect your Shopify store, customise your quiz, and go live
+          with a simple embed.</span></li>
+      <li><b>Your brand. Your experience.</b>
+        <span>Fully customise the questions, design, recommendations, and
+          customer journey. No code required.</span></li>
+      <li><b>Turn customer insights into growth.</b>
+        <span>Discover what your customers want, where they drop off, and
+          which products drive engagement.</span></li>
+    </ul>
+  </section>
+
+  <!-- ONE EXAMPLE: the answers a customer gave, beside the report they
+       produced. Nobody can judge "your omega-3 intake is 8% of your
+       target" without knowing the person never eats fish, so the left is
+       what makes the right legible.
+
+       Copy this whole block to add a second example. It needs a second
+       live submission against a differently branded demo quiz, its own
+       answers payload, and its own row in check-demo-report.mjs, because
+       every results link expires 90 days after it is taken. -->
   <div class="report-split">
     <div class="report-aside">
+      <!-- Drawn from /api/demo-answers, which reads the SAME submission the
+           iframe renders, falling back to demo-answers.json where the edge
+           function cannot run. Ships `hidden` and appears once the data is
+           in hand: a sample report with no answer panel is the page as it
+           was, a broken one is not.
+
+           It used to print all 43 rows in quiz order, and quiz order is
+           demographics first — so the rows a reader saw were consent, a
+           name, a gender and a unit choice, and everything that produced a
+           recommendation was below the fold of the cap. The shape below is
+           built in api/_demo-summary.mjs; the 43 are still here, behind the
+           button. -->
       <section class="answers" id="answers" hidden>
         <div class="answers-head">
-          <h2>The answers behind this report</h2>
-          <p class="answers-summary" id="answersSummary"></p>
-          <p class="answers-sub">Every one of them, as given. <span id="answersCount"></span></p>
+          <h2 id="answersTitle">What this customer told the quiz</h2>
+          <p class="answers-byline" id="answersByline"></p>
+          <p class="answers-sub">The same submission the report was built from.
+            <span id="answersCount"></span></p>
         </div>
-        <dl class="answers-grid" id="answersGrid"></dl>
-        <button type="button" class="answers-more" id="answersMore" hidden></button>
+        <div class="answers-body">
+          <div class="pf" id="answersProfile"></div>
+          <dl class="answers-all" id="answersGrid" hidden></dl>
+        </div>
+        <div class="answers-foot">
+          <button type="button" class="answers-more" id="answersMore" hidden
+                  aria-controls="answersGrid" aria-expanded="false"></button>
+        </div>
       </section>
     </div>
 
     <div class="report-frame" id="report">
-      <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
-              src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <button type="button" class="fs-btn" id="fsBtn" aria-label="View fullscreen">
+        <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <svg id="fsIconExit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+        <span class="fs-label" id="fsLabel">Fullscreen</span>
+      </button>
+      <div class="report-viewport">
+        <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
+                src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
   </div>
 
@@ -341,45 +694,202 @@ html,body{max-width:100%;overflow-x:clip}
   }));
 })();
 
-/* The answers that produced the report below them.
+/* Full size, for reading.
+   The Fullscreen API where it works, a fixed-position fallback where it
+   does not — iOS Safari grants fullscreen only to <video>. Lifted from
+   /try, which embeds the quiz the same way, rather than written twice. */
+(function(){
+  var wrap = document.getElementById('report');
+  var btn = document.getElementById('fsBtn');
+  var lbl = document.getElementById('fsLabel');
+  var iconExpand = document.getElementById('fsIconExpand');
+  var iconExit = document.getElementById('fsIconExit');
+  if (!wrap || !btn) return;
+
+  var pseudoFs = false;
+  var isApiFs = function(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); };
+  var isOn = function(){ return isApiFs() || pseudoFs; };
+
+  var sync = function(){
+    var on = isOn();
+    lbl.textContent = on ? 'Exit fullscreen' : 'Fullscreen';
+    btn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'View fullscreen');
+    iconExpand.style.display = on ? 'none' : 'block';
+    iconExit.style.display = on ? 'block' : 'none';
+  };
+  var enterPseudo = function(){
+    if (isApiFs()) return;
+    pseudoFs = true;
+    wrap.classList.add('is-pseudo-fs');
+    document.body.classList.add('is-fs-locked');
+    sync();
+  };
+  var exitPseudo = function(){
+    pseudoFs = false;
+    wrap.classList.remove('is-pseudo-fs');
+    document.body.classList.remove('is-fs-locked');
+    sync();
+  };
+
+  btn.addEventListener('click', function(){
+    if (isOn()) {
+      if (pseudoFs) { exitPseudo(); return; }
+      try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
+      return;
+    }
+    /* requestFullscreen REJECTS A PROMISE; it does not throw. The try/catch
+       around it caught nothing, and the `return` ran before the rejection
+       arrived — so wherever the API says no, the button did nothing at all
+       and the fallback that exists for exactly that case never ran. Seen
+       here: the browser pane refuses the request, and three clicks changed
+       nothing on the page.
+
+       A permissions policy is the common way to be told no, and the iframe
+       inside this frame is cross-origin, so "the API exists" and "the API
+       will work" are different questions. The webkit spelling answers
+       neither — it returns undefined — so that path asks the document
+       afterwards instead. */
+    var req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
+    if (!req) { enterPseudo(); return; }
+
+    var p = null;
+    try { p = req.call(wrap); } catch (e) { enterPseudo(); return; }
+
+    if (p && typeof p.catch === 'function') p.catch(function(){ enterPseudo(); });
+    else setTimeout(function(){ if (!isApiFs()) enterPseudo(); }, 120);
+  });
+
+  document.addEventListener('fullscreenchange', sync);
+  document.addEventListener('webkitfullscreenchange', sync);
+  /* Hardware Esc exits the fallback too, which the API would do for us. */
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && pseudoFs) exitPseudo(); });
+})();
+
+/* The answers that produced the report beside them.
    Progressive enhancement on purpose: the section ships `hidden` and only
    appears once the data is in hand, so a failing proxy, a blocked request
    or no JavaScript leaves the page exactly as it would have been. */
 (function(){
   var sec = document.getElementById('answers');
+  var pf = document.getElementById('answersProfile');
   var grid = document.getElementById('answersGrid');
-  var count = document.getElementById('answersCount');
-  if (!sec || !grid) return;
+  if (!sec || !pf || !grid) return;
 
+  /* textContent everywhere below, never innerHTML: every string here is a
+     brand's own quiz copy coming back over the wire, and this page has no
+     business executing it. */
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  /** A labelled block, or nothing at all when there is nothing in it.
+      Every row of the profile is best-effort (api/_demo-summary.mjs drops
+      a question it cannot find rather than printing it empty), so the
+      panel has to be built to come up short without looking broken. */
+  function block(label, body){
+    if (!body) return null;
+    var b = el('div', 'pf-block');
+    b.appendChild(el('h3', 'pf-label', label));
+    b.appendChild(body);
+    return b;
+  }
+
+  function chips(items){
+    if (!items || !items.length) return null;
+    var ul = el('ul', 'pf-chips');
+    items.forEach(function(t){ ul.appendChild(el('li', null, t)); });
+    return ul;
+  }
+
+  /* Outlined pills, not the gold ones the goals wear: these are what the
+     customer TOLD us, not what they asked for, and the report draws the
+     same distinction in its own two pill rows. */
+  function tags(items){
+    if (!items || !items.length) return null;
+    var ul = el('ul', 'pf-tags');
+    items.forEach(function(t){ ul.appendChild(el('li', null, t)); });
+    return ul;
+  }
+
+  /* The report's macro tile: a tiny uppercase label over the value, in a
+     bordered box. `cls` picks how many across. */
+  function tiles(rows, cls){
+    if (!rows || !rows.length) return null;
+    var dl = el('dl', 'pf-tiles' + (cls ? ' ' + cls : ''));
+    rows.forEach(function(r){
+      var w = el('div');
+      w.appendChild(el('dt', null, r.k));
+      w.appendChild(el('dd', null, r.v));
+      dl.appendChild(w);
+    });
+    return dl;
+  }
+
+  /* The proxy is a Vercel edge function, so it does not exist under a
+     plain static server: every local preview, and every capture the
+     visual-diff suite takes, saw this panel hidden — which is how it came
+     to be reported twice as missing when it had been live the whole time.
+     demo-answers.json is the same payload vendored by
+     tools/sync-demo-answers.mjs, and tools/check-demo-report.mjs refuses
+     when it stops matching the live submission, so the fallback cannot
+     quietly become a second, wrong copy. That is exactly what went wrong
+     with the report fragment this page used to inline. */
   fetch('/api/demo-answers', { headers: { accept: 'application/json' } })
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .catch(function(){
+      return fetch('/demo-answers.json', { headers: { accept: 'application/json' } })
+        .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); });
+    })
     .then(function(d){
       if (!d || !Array.isArray(d.answers) || !d.answers.length) return;
+      var p = d.profile || {};
+
+      if (p.name) {
+        document.getElementById('answersTitle').textContent =
+          'What ' + p.name + ' told the quiz';
+      }
+      if (p.identity && p.identity.length) {
+        document.getElementById('answersByline').textContent =
+          p.identity.join(' · ');
+      }
+      var count = document.getElementById('answersCount');
+      if (count) count.textContent = d.count + ' answers.';
+
+      /* Goals first: they are what the customer asked for, and the plan is
+         ordered by them. Then what they reported, then how they live, then
+         what they eat — which is the order the engine reads them in and
+         the order the report's own sections follow. */
+      [
+        block('Goals', chips(p.goals)),
+        block('What they reported', tags(p.flags)),
+        block('Day to day', tiles(p.day)),
+        block('How often they eat', tiles(p.intake))
+      ].forEach(function(b){ if (b) pf.appendChild(b); });
+
       var frag = document.createDocumentFragment();
       d.answers.forEach(function(row){
-        var wrap = document.createElement('div');
-        var dt = document.createElement('dt');
-        var dd = document.createElement('dd');
-        /* textContent, not innerHTML: these strings are a brand's own quiz
-           copy coming back over the wire, and this page has no business
-           executing them. */
-        dt.textContent = row.q;
-        dd.textContent = row.a;
-        wrap.appendChild(dt); wrap.appendChild(dd);
+        var wrap = el('div');
+        wrap.appendChild(el('dt', null, row.q));
+        wrap.appendChild(el('dd', null, row.a));
         frag.appendChild(wrap);
       });
       grid.appendChild(frag);
-      var sum = document.getElementById('answersSummary');
-      if (sum && d.summary) sum.textContent = d.summary;
-      if (count) count.textContent = d.count + ' questions answered.';
+
       sec.hidden = false;
 
+      /* Nothing is withheld from a reader who wants it; the transcript is
+         just not the first thing they meet. */
       var more = document.getElementById('answersMore');
-      if (more && grid.scrollHeight > 320) {
+      if (more) {
         var open = false;
         var sync = function(){
-          grid.classList.toggle('is-capped', !open);
-          more.textContent = open ? 'Show fewer' : 'Show all ' + d.count + ' answers';
+          grid.hidden = !open;
+          more.textContent = open
+            ? 'Hide the full transcript'
+            : 'See all ' + d.count + ' answers';
           more.setAttribute('aria-expanded', String(open));
         };
         more.hidden = false;

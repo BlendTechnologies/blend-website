@@ -144,6 +144,16 @@ for (const file of pages(site)) {
   const html = readFileSync(file, 'utf8');
   // tags out, entities back, so "25&nbsp;product attributes" still matches
   const text = html
+    /* HTML COMMENTS OUT FIRST. A comment is not something a reader can be
+       misled by, and this check is about what the site SAYS. It fired on
+       2026-10-19 on a comment in sample-report.html that recounted the
+       incident this whole file exists for — "the homepage FAQ said 'more
+       than 30 product attributes' for months" — which is a true sentence
+       about history sitting in a page's source. A guard that refuses the
+       documentation of the bug it was written for teaches people to stop
+       writing the documentation. Copy that is commented OUT is not
+       published either, and is meant to pass. */
+    .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style)(?![^>]*application\/ld\+json)[^>]*>[\s\S]*?<\/\1>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/g, ' ')

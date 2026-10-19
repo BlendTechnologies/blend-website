@@ -1336,7 +1336,16 @@ html,body{max-width:100%;overflow-x:clip}
 .faq-toggle:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
 
 @media(max-width:860px){
+  /* Centred from where the split STACKS, not from 560. The intro column
+     exists to sit beside the accordion; once it is above it, left-aligned
+     is just a column that lost its partner. It was centred at 560 and
+     left-aligned at 747, which is where the founder saw it. */
   .faq-split{grid-template-columns:1fr;gap:30px}
+  .faq-split .faq-intro{text-align:center}
+  /* and the sub's BOX with it: max-width:30ch and margin:20px 0 0 left a
+     284px paragraph pinned to the left of a 683px column, its own text
+     centred inside it and visibly off-centre under a heading that was not. */
+  .faq-split .faq-sub{margin-inline:auto}
   .faq-ask{margin-top:24px}
   .faq-split .faq-item > summary{padding:20px 4px;gap:24px;font-size:15px}
   .faq-split .faq-item .faq-answer{padding:0 30px 22px 4px}
@@ -1615,7 +1624,6 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    column exists to sit next to the accordion, and on a phone it does not. */
 @media (max-width:560px){
   .science-head{text-align:center}
-  .faq-split .faq-intro{text-align:center}
   .faq-split .faq-ask{margin-top:22px}
 }
 
@@ -1829,7 +1837,7 @@ a.vrow:hover,a.vrow:focus-visible{
     <div class="eng-term tm" data-term>
       <div class="tm-top">
         <span class="tm-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="tm-path">blend/engine &#8212; example: health &amp; wellness</span>
+        <span class="tm-path">blend/engine: health &amp; wellness example</span>
         <span class="tm-live" data-tm-state>idle</span>
         <button type="button" class="tm-icon" data-tm-restart aria-label="Restart the walkthrough" title="Restart">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

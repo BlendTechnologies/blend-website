@@ -1,0 +1,258 @@
+{
+  "count": 43,
+  "summary": "Alex, 34 — Vegetarian, Lightly Active. Limited sun, 5–6 hours' sleep. Trouble falling asleep, Racing mind at bedtime, Afternoon dips, Caffeine reliance, Trouble winding down. Goals: Sleep, Boost Energy, Stress.",
+  "profile": {
+    "name": "Alex",
+    "identity": [
+      "Woman",
+      "34",
+      "170 cm",
+      "68 kg"
+    ],
+    "goals": [
+      "Sleep",
+      "Boost Energy",
+      "Stress"
+    ],
+    "flags": [
+      "Trouble falling asleep",
+      "Racing mind at bedtime",
+      "Afternoon dips",
+      "Caffeine reliance",
+      "Trouble winding down"
+    ],
+    "day": [
+      {
+        "k": "Diet",
+        "v": "Vegetarian"
+      },
+      {
+        "k": "Sleep",
+        "v": "5–6 hours"
+      },
+      {
+        "k": "Sun",
+        "v": "Limited"
+      },
+      {
+        "k": "Activity",
+        "v": "Lightly Active"
+      }
+    ],
+    "intake": [
+      {
+        "k": "Meat",
+        "v": "Never"
+      },
+      {
+        "k": "Fish",
+        "v": "Never"
+      },
+      {
+        "k": "Eggs",
+        "v": "1–5 eggs"
+      },
+      {
+        "k": "Dairy",
+        "v": "Daily"
+      }
+    ]
+  },
+  "answers": [
+    {
+      "q": "Notice & Acknowledgment",
+      "a": "I explicitly consent to my health data being processed to generate my personalised…",
+      "parts": [
+        "I explicitly consent to my health data being processed to generate my personalised…",
+        "I have read and accept the Privacy Policy"
+      ]
+    },
+    {
+      "q": "What is your first name?",
+      "a": "Alex"
+    },
+    {
+      "q": "What is your gender?",
+      "a": "Woman"
+    },
+    {
+      "q": "How old are you?",
+      "a": "34"
+    },
+    {
+      "q": "What is your height and weight?",
+      "a": "Metric"
+    },
+    {
+      "q": "What is your height (cm)?",
+      "a": "170"
+    },
+    {
+      "q": "What is your weight (kg)?",
+      "a": "68"
+    },
+    {
+      "q": "What is your ethnicity?",
+      "a": "Prefer not to say"
+    },
+    {
+      "q": "Are you currently pregnant or breastfeeding?",
+      "a": "No"
+    },
+    {
+      "q": "Do you have any diagnosed medical conditions?",
+      "a": "No"
+    },
+    {
+      "q": "Are you currently taking any prescription medications?",
+      "a": "No"
+    },
+    {
+      "q": "Here are some popular goals. Which resonate with you?",
+      "a": "Sleep, Boost Energy, Stress",
+      "parts": [
+        "Sleep",
+        "Boost Energy",
+        "Stress"
+      ]
+    },
+    {
+      "q": "Are you currently experiencing any of the following sleep issues?",
+      "a": "Trouble falling asleep, Racing mind at bedtime",
+      "parts": [
+        "Trouble falling asleep",
+        "Racing mind at bedtime"
+      ]
+    },
+    {
+      "q": "What best describes your energy?",
+      "a": "Afternoon dips, Caffeine reliance",
+      "parts": [
+        "Afternoon dips",
+        "Caffeine reliance"
+      ]
+    },
+    {
+      "q": "How does stress show up for you?",
+      "a": "Trouble winding down"
+    },
+    {
+      "q": "Do you currently smoke or use nicotine products?",
+      "a": "No"
+    },
+    {
+      "q": "How much sun exposure do you usually get?",
+      "a": "Limited"
+    },
+    {
+      "q": "On an average night, how many hours do you sleep?",
+      "a": "5–6"
+    },
+    {
+      "q": "Excluding sports or workouts, how active is your daily routine?",
+      "a": "Lightly Active"
+    },
+    {
+      "q": "Do you engage in any structured physical activities or sports?",
+      "a": "Yes"
+    },
+    {
+      "q": "Which activities do you do regularly?",
+      "a": "Mind-Body Wellness"
+    },
+    {
+      "q": "How many times per week?",
+      "a": "2"
+    },
+    {
+      "q": "Typical session length?",
+      "a": "30–60 min"
+    },
+    {
+      "q": "How intense?",
+      "a": "Moderate"
+    },
+    {
+      "q": "Let's discuss your weekly eating habits. Which description fits you best?",
+      "a": "Balanced diet with occasional processed or sugary foods"
+    },
+    {
+      "q": "Do any of the following dietary preferences or restrictions apply to you?",
+      "a": "Vegetarian"
+    },
+    {
+      "q": "What meals and snacks do you usually eat throughout the day?",
+      "a": "Breakfast, Lunch, Dinner, Afternoon Snack",
+      "parts": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Afternoon Snack"
+      ]
+    },
+    {
+      "q": "How often do you skip meals?",
+      "a": "Sometimes"
+    },
+    {
+      "q": "What size are your usual portions?",
+      "a": "Average"
+    },
+    {
+      "q": "Short on time?",
+      "a": "I want to maximise personalisation"
+    },
+    {
+      "q": "How often do you eat meat and poultry?",
+      "a": "Never"
+    },
+    {
+      "q": "How often do you eat fish and seafood?",
+      "a": "Never"
+    },
+    {
+      "q": "How many eggs do you eat on average per week?",
+      "a": "1–5 eggs"
+    },
+    {
+      "q": "How often do you eat dairy products?",
+      "a": "Daily"
+    },
+    {
+      "q": "How often do you eat fruit?",
+      "a": "Daily"
+    },
+    {
+      "q": "How often do you eat vegetables and legumes?",
+      "a": "Daily"
+    },
+    {
+      "q": "How often do you eat grains and cereals?",
+      "a": "Daily"
+    },
+    {
+      "q": "How often do you eat plant-based meat alternatives?",
+      "a": "Sometimes"
+    },
+    {
+      "q": "How often do you eat nuts and seeds?",
+      "a": "Sometimes"
+    },
+    {
+      "q": "How often do you eat sweets and desserts?",
+      "a": "Rarely"
+    },
+    {
+      "q": "How often do you eat fast food and ready-made meals?",
+      "a": "Rarely"
+    },
+    {
+      "q": "How many drinks other than water do you have on a typical day?",
+      "a": "2 to 3 a day"
+    },
+    {
+      "q": "How many alcoholic drinks do you have per week?",
+      "a": "None"
+    }
+  ]
+}

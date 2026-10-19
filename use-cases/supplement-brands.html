@@ -42,6 +42,11 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0}
 .h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
+/* A search term is a thing being named, not a word being written, so it is
+   marked up as one. That is also what stops check_british_english from
+   correcting somebody's actual search query into a spelling nobody types.
+   It should read as the quoted term it is, not as a code snippet. */
+code{font:inherit;background:none;padding:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
@@ -141,30 +146,8 @@ html,body{max-width:100%;overflow-x:clip}
      phone with the shared list between them, because "both" only reads as
      "both" when it sits between the two. */
   .tc{display:grid;grid-template-columns:1fr minmax(180px,.72fr) 1fr;gap:18px;align-items:start;margin-top:8px}
-  .tc-col,.tc-mid{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 20px}
-  .tc-mid{background:transparent;border-style:dashed}
-  .tc-who b{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
-  .tc-who span{display:block;margin-top:4px;font-size:13px;line-height:1.5;color:var(--muted)}
-  .tc-goals{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 16px}
-  .tc-goals span{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;
-    background:var(--gold-soft);color:var(--gold-text)}
-  .tc-list,.tc-shared{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-  .tc-list li,.tc-shared li{font-size:14px;line-height:1.45;color:var(--ink-80);
-    padding-left:16px;position:relative}
-  .tc-list li::before,.tc-shared li::before{content:"";position:absolute;left:0;top:7px;
-    width:6px;height:6px;border-radius:50%;background:var(--sand)}
-  .tc-list em{display:block;font-style:normal;font-size:12.5px;color:var(--muted);margin-top:1px}
-  .tc-mid-l{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:14px;text-align:center}
-  .tc-shared li::before{background:var(--muted)}
-  .tc-why{margin-top:22px;max-width:760px}
-  .tc-why p{margin:0 0 10px;font-size:14.5px;line-height:1.65;color:var(--ink-80)}
-  .tc-why b{color:var(--ink);font-weight:600}
-  .tc-foot{font-size:13.5px;color:var(--muted)}
-  .tc-foot a{color:var(--gold-text);text-decoration:underline;text-underline-offset:3px}
   @media(max-width:860px){
     .tc{grid-template-columns:1fr;gap:14px}
-    .tc-mid{order:3}
   }
 </style>
 </head>
@@ -251,7 +234,7 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="section-head">
       <span class="eyebrow">The demand is already there</span>
       <h2 class="h2">Your customers are already searching for this.</h2>
-      <p class="lead">Across the US, UK, Canada and Australia, tens of thousands of people a month search for personalised supplements. Six separate terms run around 5,000 searches each, including "personalized vitamins" and "custom vitamins".</p>
+      <p class="lead">Across the US, UK, Canada and Australia, tens of thousands of people a month search for personalised supplements. Six separate terms run around 5,000 searches each, including &#8220;<code>personalized vitamins</code>&#8221; and &#8220;<code>custom vitamins</code>&#8221;.</p>
       <p class="lead">Those people want a product built around one person. A static catalogue answers with a bestseller list. A quiz answers with a plan.</p>
     </div>
   </div>
@@ -284,67 +267,6 @@ html,body{max-width:100%;overflow-x:clip}
         <h3>Safety layer on every pick</h3>
         <p>Interaction checks, medication conflicts, upper-limit gating against tolerable intakes, synergy pairing. Every flagged limit traceable to a source rule.</p>
       </article>
-    </div>
-  </div>
-</section>
-
-<!-- Two customers, one catalogue. The 2026-10-17 review: these pages lean on
-     "deterministic scoring", "attributes" and "decision trees" — the vocabulary
-     of the thing rather than the thing. This shows it instead, and it
-     communicates personalisation without publishing a single rule.
-
-     Both people and both plans are the ones already on /sample-report, run
-     against the same 40-product sample catalogue, so this is not an
-     illustration drawn for the page. The differences below are what the
-     engine actually returned for them. -->
-<section class="section section-cream" id="two-customers">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Same catalogue, two people</span>
-      <h2 class="h2">One shelf. Two different plans.</h2>
-      <p class="lead">Emma and Marcus answered the same quiz and were scored against the same forty products. Four picks they share. Ten they do not.</p>
-    </div>
-
-    <div class="tc">
-      <div class="tc-col">
-        <div class="tc-who"><b>Emma, 34</b><span>Vegetarian &middot; lightly active &middot; sleeps 5&ndash;6 hours</span></div>
-        <div class="tc-goals"><span>Boost Energy</span><span>Gut Health</span><span>Sleep</span></div>
-        <ul class="tc-list">
-          <li>Omega-3 <em>as algae oil, not fish</em></li>
-          <li>Melatonin</li>
-          <li>Ashwagandha</li>
-          <li>Digestive Enzyme Complex</li>
-          <li>L-Glutamine</li>
-          <li>Prebiotic Complex</li>
-          <li>Multivitamin</li>
-        </ul>
-      </div>
-
-      <div class="tc-mid" aria-hidden="true">
-        <span class="tc-mid-l">Both</span>
-        <ul class="tc-shared">
-          <li>Creatine Monohydrate</li>
-          <li>Electrolyte Complex</li>
-          <li>Cordyceps</li>
-          <li>L-Theanine</li>
-        </ul>
-      </div>
-
-      <div class="tc-col">
-        <div class="tc-who"><b>Marcus, 42</b><span>Omnivore &middot; trains 5&ndash;6&times; a week &middot; sleeps 7&ndash;8 hours</span></div>
-        <div class="tc-goals"><span>Build Muscle</span><span>Increase Endurance</span><span>Cognitive Health</span></div>
-        <ul class="tc-list">
-          <li>Pre-Workout Complex</li>
-          <li>Green Tea Extract</li>
-          <li>Vitamin D3</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="tc-why">
-      <p><b>Why they differ.</b> Emma eats no fish, so her omega-3 is the algae form and the fish-oil product on the same shelf is never offered to her. She picked Sleep and told us she gets five to six hours, so melatonin and ashwagandha appear; Marcus sleeps seven to eight and did not pick it, so they do not. She picked Gut Health; he did not. He trains five or six times a week, which is what puts a pre-workout in his plan and not in hers.</p>
-      <p><b>Why four are the same.</b> Both train, so both get creatine and electrolytes. Nothing was duplicated to pad either plan &mdash; the overlap is the overlap.</p>
-      <p class="tc-foot">Both plans in full, with the reason attached to every pick, are on the <a href="/sample-report">sample report</a>.</p>
     </div>
   </div>
 </section>

@@ -32,6 +32,26 @@
    Comments are replaced by a line break rather than removed, so a comment
    sitting BETWEEN two selectors splits them instead of welding them into
    one line that would read as legitimate.
+
+   ----------------------------------------------------------------------
+   SECOND INVARIANT, same shape: `hidden` means hidden.
+
+   On 2026-10-19 /sample-report's transcript shipped open. The page had
+
+       <dl class="answers-all" id="answersGrid" hidden>
+       .answers-all{margin:0;display:grid;...}
+
+   and all 43 rows were on screen under a button offering to show them.
+   `hidden` is `display:none` in the UA stylesheet, which ANY author
+   `display` beats — so a rule written for the visible state silently
+   un-hides the element, and script that sets `.hidden = true` to close it
+   does nothing a reader can see.
+
+   It is invisible to a per-page baseline for the usual reason: the page has
+   looked like that since the baseline was taken. So: an element that
+   carries `hidden` in the markup, or that the page's own script toggles,
+   may not be the subject of an author `display` rule unless a `[hidden]`
+   rule puts it back.
 */
 
 import { readFileSync, readdirSync } from 'node:fs';
@@ -86,6 +106,79 @@ for (const file of files(site)) {
   }
 }
 
+/* ---- hidden means hidden -----------------------------------------------
+   Deliberately narrow. It looks only at an element's OWN class or id rule
+   (`.foo{...}`, `#foo{...}`), because that is the rule somebody writes next
+   to markup they just gave a `hidden` attribute, and a general answer needs
+   a selector engine. A descendant rule that sets display on a hidden
+   element is a real but rarer way to lose, and not worth a parser here. */
+const DISPLAY = /(^|;)\s*display\s*:/;
+const unhidden = [];
+
+for (const file of files(site).filter(f => f.endsWith('.html'))) {
+  const text = readFileSync(file, 'utf8');
+  const name = relative(site, file);
+
+  /* Elements the page hides: `hidden` in the markup, or `x.hidden = ` in
+     its script. Both are the same mistake waiting to happen. */
+  const toggled = new Set();
+  for (const m of text.matchAll(/<[a-z][^>]*\shidden(?=[\s>])[^>]*>/gi)) {
+    const tag = m[0];
+    const id = (tag.match(/\sid="([^"]+)"/) || [])[1];
+    if (id) toggled.add('#' + id);
+    const cls = (tag.match(/\sclass="([^"]+)"/) || [])[1];
+    if (cls) for (const c of cls.trim().split(/\s+/)) toggled.add('.' + c);
+  }
+  for (const m of text.matchAll(/getElementById\(['"]([^'"]+)['"]\)/g)) {
+    if (new RegExp(`\\b${m[1]}\\.hidden\\s*=`).test(text)) toggled.add('#' + m[1]);
+  }
+  if (!toggled.size) continue;
+
+  for (const sheet of [...text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map(m => m[1])) {
+    const css = sheet.replace(/\/\*[\s\S]*?\*\//g, '\n');
+
+    /* Every rule as { selector, body }, flat — nested at-rule bodies are
+       walked too, since a media query's rules bite exactly the same. */
+    const rules = [];
+    const re = /([^{}]+)\{([^{}]*)\}/g;
+    for (let m; (m = re.exec(css));) rules.push({ sel: m[1].trim(), body: m[2] });
+
+    const escapes = new Set();
+    for (const r of rules) {
+      if (!/display\s*:\s*none/.test(r.body)) continue;
+      for (const part of r.sel.split(',')) {
+        const t = part.trim();
+        if (t === '[hidden]') { escapes.add('*'); continue; }
+        const m = t.match(/^([.#][A-Za-z0-9_-]+)\[hidden\]$/);
+        if (m) escapes.add(m[1]);
+      }
+    }
+    if (escapes.has('*')) continue;
+
+    for (const r of rules) {
+      if (!DISPLAY.test(';' + r.body)) continue;
+      for (const part of r.sel.split(',')) {
+        const t = part.trim();
+        if (!/^[.#][A-Za-z0-9_-]+$/.test(t)) continue;   // own rule only
+        if (!toggled.has(t) || escapes.has(t)) continue;
+        unhidden.push({ name, sel: t, body: r.body.trim().slice(0, 70) });
+      }
+    }
+  }
+}
+
+if (unhidden.length) {
+  console.error(`FAILED: ${unhidden.length} element(s) the page hides that CSS un-hides.\n`);
+  for (const u of unhidden) {
+    console.error(`  ${u.name}`);
+    console.error(`    ${u.sel}{${u.body}}`);
+    console.error(`    This element carries \`hidden\`, and \`hidden\` is display:none in the`);
+    console.error(`    UA sheet — any author display beats it, so it is never actually hidden.`);
+    console.error(`    Add \`${u.sel}[hidden]{display:none}\`.\n`);
+  }
+  process.exit(1);
+}
+
 if (bad.length) {
   console.error(`FAILED: ${bad.length} selector(s) that do not parse as written.\n`);
   for (const b of bad) {
@@ -98,4 +191,5 @@ if (bad.length) {
   process.exit(1);
 }
 
-console.log('PASSED: every selector parses as the rule it looks like.');
+console.log('PASSED: every selector parses as the rule it looks like, '
+  + 'and nothing the page hides is un-hidden by a display rule.');

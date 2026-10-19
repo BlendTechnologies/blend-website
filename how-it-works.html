@@ -1448,7 +1448,13 @@ body{background:var(--ground)}
 
    The frame is 16:9 and empty until a <video> or an <img> goes into the
    <figure>. Nothing else has to change when one does. */
+/* `order` moves the ITEM, not the track. The columns are 1fr then 60% in
+   DOM order and the text comes first in the DOM, so sending the text to
+   slot two on a flipped step handed it the 60% and left the picture with
+   the 40%: measured on the live page, the picture was 666px on an even
+   step and 384px on a flipped one. The sizes have to swap with it. */
 .hw-step--flip .hw-step-text{order:2}
+.hw-step--flip .hw-step-grid{grid-template-columns:minmax(0,60%) minmax(0,1fr)}
 .hw-step-text,.hw-vis{min-width:0}
 /* The two-up needs about 700px of content to hold a readable measure and
    a legible screen beside it. Below that it had neither: at 375 the text
@@ -1457,6 +1463,11 @@ body{background:var(--ground)}
    first, every step the same way round. */
 @media(max-width:860px){
   .hw-step-grid{grid-template-columns:minmax(0,1fr);gap:28px;align-items:start}
+  /* and the flipped ones, which carry their own track sizes at (0,2,0).
+     A media query adds no specificity, so the one-column rule above lost
+     to them at every width and the flipped steps kept a 60/40 two-up on a
+     phone — a 255px placeholder beside the text. */
+  .hw-step--flip .hw-step-grid{grid-template-columns:minmax(0,1fr)}
   .hw-step--flip .hw-step-text{order:0}
 }
 

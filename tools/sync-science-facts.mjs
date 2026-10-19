@@ -247,7 +247,7 @@ const run = `<section class="sci-sec" id="run">
     <div class="sci-card tm sci-in" data-term>
       <div class="tm-top">
         <span class="tm-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="tm-path">blend/engine &#8212; walkthrough</span>
+        <span class="tm-path">blend/engine: walkthrough</span>
         <span class="tm-live" data-tm-state>idle</span>
       </div>
       <p class="tm-caption" aria-live="polite">${heads}</p>
