@@ -42,6 +42,11 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0}
 .h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
+/* A search term is a thing being named, not a word being written, so it is
+   marked up as one. That is also what stops check_british_english from
+   correcting somebody's actual search query into a spelling nobody types.
+   It should read as the quoted term it is, not as a code snippet. */
+code{font:inherit;background:none;padding:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
@@ -251,7 +256,7 @@ html,body{max-width:100%;overflow-x:clip}
     <div class="section-head">
       <span class="eyebrow">The demand is already there</span>
       <h2 class="h2">Your customers are already searching for this.</h2>
-      <p class="lead">Across the US, UK, Canada and Australia, tens of thousands of people a month search for personalised supplements. Six separate terms run around 5,000 searches each, including "personalized vitamins" and "custom vitamins".</p>
+      <p class="lead">Across the US, UK, Canada and Australia, tens of thousands of people a month search for personalised supplements. Six separate terms run around 5,000 searches each, including &#8220;<code>personalized vitamins</code>&#8221; and &#8220;<code>custom vitamins</code>&#8221;.</p>
       <p class="lead">Those people want a product built around one person. A static catalogue answers with a bestseller list. A quiz answers with a plan.</p>
     </div>
   </div>

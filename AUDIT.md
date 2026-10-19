@@ -77,7 +77,7 @@ Reasoning: removing the hub takes a click out of the path to three pages that al
 
 ## 4. Positioning readiness
 
-**The goal:** leader in personalized quizzes as a category, supplements as the first vertical.
+**The goal:** leader in personalised quizzes as a category, supplements as the first vertical.
 
 **What already works.** The roadmap section is a real asset and does more than most sites manage. It states Health LIVE, Beauty Q4 2026, Food Q2 2027, Fashion under exploration, and closes with "Your vertical? Talk to us about your catalog." That frames supplements as a starting point rather than the whole business, and it does so without claiming anything untrue.
 
