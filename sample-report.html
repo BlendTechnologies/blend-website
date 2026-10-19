@@ -129,18 +129,28 @@ html,body{max-width:100%;overflow-x:clip}
      40/60, not half and half: the answers are a summary and the report is
      a document, and the document needs the inches.
 
-     WHY 924 AND NOT 1040. The iframe lays out at twice the viewport it
-     sits in and draws at a half, and the app's own container is
-     `max-w-[1040px] p-8`. Land the iframe ON 1040 and the container fills
-     it exactly, so the only margin inside the frame is the app's own 32px
-     drawn at 16. Land it at 1180 and the container centres itself with 70
-     of gutter each side, which is 35 more of visible nothing than the
-     padding this page was just asked to remove. 520 of viewport is 1040;
-     540 of frame is 520 once its 10 of padding comes off; 540 is 60% of
-     900, and 900 plus the 24 gap is 924.
+     WHY 938 AND NOT 1040, AND WHY THE SCROLLBAR IS IN THE SUM. The iframe
+     lays out at twice the viewport it sits in and draws at a half, and the
+     report's macro grid is `grid-cols-2 lg:grid-cols-4` with Tailwind's lg
+     at 1024px. So the iframe has to lay out over 1024 or the preview shows
+     a tablet layout shrunk, which is not what the fullscreen button opens.
 
-     The pitch band keeps the same 924 so the page has one measure. */
-  .pitch,.report-split{max-width:924px;margin-left:auto;margin-right:auto}
+     IT HAS TO CLEAR 1024 WITH A SCROLLBAR TAKEN OFF IT. The report scrolls
+     inside the frame, so a platform with classic scrollbars spends ~15px
+     of the iframe's own layout width on one, and a media query inside the
+     document measures what is left. At 1032 that is 1017, and the founder
+     saw two columns of macros in a browser while this file had been
+     verified at four by a Playwright capture, where scrollbars are overlay
+     and cost nothing. Measuring the wrong viewport is the whole bug.
+
+     524 of viewport is 1048 of iframe, 1033 after a scrollbar: over 1024
+     either way, and under the app container's own max-w-[1040px] when the
+     scrollbar is there, so the report fills rather than centring. 548 of
+     frame is 524 once its 12 of padding comes off; 548 is 60% of 914, and
+     914 plus the 24 gap is 938.
+
+     The pitch band keeps the same 938 so the page has one measure. */
+  .pitch,.report-split{max-width:938px;margin-left:auto;margin-right:auto}
   .pitch{margin-bottom:24px}
   .report-split{display:grid;grid-template-columns:minmax(0,40fr) minmax(0,60fr);
     gap:24px;align-items:start}
@@ -162,17 +172,15 @@ html,body{max-width:100%;overflow-x:clip}
   .answers-head h2{margin:0 0 8px;font-size:18px;font-weight:600;
     letter-spacing:-.02em;line-height:1.25}
 
-  /* The small label over a block, with a rule running out to the edge.
-     Six of these across two cards is what gives the column its structure;
-     without them the left side is 1,100px of undifferentiated text beside
-     a document that has headings of its own. */
-  /* --muted, not --ink-40: measured over the card's white, --ink-40 is
-     3.57:1 and these are 10.5px. --muted is 5.64 and looks the same at a
-     glance. Small text is exactly where a token picked by eye goes wrong. */
-  .pf-label{display:flex;align-items:center;gap:8px;margin:0;
-    font-size:10px;font-weight:600;letter-spacing:.09em;
-    text-transform:uppercase;color:var(--muted)}
-  .pf-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  /* A SECTION HEADING IN THE REPORT'S OWN VOICE. This was a 10px grey
+     uppercase label with a rule running out beside it, and set next to the
+     live report it read as a wireframe: the report titles its sections
+     "Your profile" and "Your macros" in dark 13.5px with a hairline UNDER
+     the whole row. Same thing here, so the two halves of the page are
+     plainly the same product. */
+  .pf-label{margin:0 0 10px;padding-bottom:7px;
+    border-bottom:1px solid var(--line);
+    font-size:13.5px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
 
   /* ---- the pitch, a dark island -------------------------------------
      Dark because it is the one box on the page that is us talking. The
@@ -184,84 +192,69 @@ html,body{max-width:100%;overflow-x:clip}
      The inset hairline is what stops it reading as a hole cut in the page:
      a flat near-black rectangle on a warm ground has no edge of its own,
      and the report beside it has a shadow and a border. */
-  /* Us on the left, the claims on the right in two columns. Six claims in
-     one column across 900px would be six very wide, very thin lines; the
-     band is only worth its width if something fills it. */
-  /* 260, not 340. The claims are what a reader is weighing and they were
-     reading four and five lines deep in 224px columns while the left side
-     had room to spare; 80px off the left puts 46 on each claim column and
-     takes most of a line off every one of them. The band measured 412 tall
-     before and the lead is unchanged. */
+  /* THREE COLUMNS: the pitch, then two of business outcomes. The headline
+     carries the band, so the left column is sized for it and the two
+     benefit columns split what is left evenly. Equal columns, equal gaps,
+     and the same rhythm inside both, because six benefits that do not line
+     up read as two lists rather than one set. */
   .pitch{background:var(--deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
-    display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);
-    gap:26px 36px;align-items:start}
-  /* The column STRETCHES to the band's height and the call to action sits
-     at the bottom of it. The lead at 13.5 left a third of the left side
-     empty under the button while the claims filled the right, which read
-     as a box with a hole in it; bigger type closed most of that and this
-     closes the rest without inflating anything further. The logo and the
-     lead stay together at the top, which is what the 1fr row is for. */
-  .pitch-say{display:grid;gap:20px;align-self:stretch;
-    grid-template-rows:auto auto 1fr}
-  .pitch-cta{align-self:end}
-  /* The wordmark opens the card, so it is the thing a reader's eye lands
-     on first and it sets the left margin everything under it hangs from. */
+    display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
+    gap:30px 32px;align-items:start}
+
+  /* The column stretches to the band's height and the call to action sits
+     at the bottom of it; the 1fr row is what holds the copy up against the
+     headline instead of floating it in the middle. */
+  .pitch-say{display:grid;gap:18px;align-self:stretch;
+    grid-template-rows:auto auto 1fr auto}
   .pitch-mark{display:block}
-  /* The lead is the biggest type on the page, and it should be: it is the
-     one sentence a reader arriving from an email actually has to take in.
-     At 13.5 it left a third of the left column empty under the button
-     while the claims filled the right, which read as a box with a hole in
-     it. --ink, not --ink-80: at this size the dimmed value looks grey
-     rather than quiet. */
-  .pitch-lead{margin:0;font-size:18px;line-height:1.5;color:var(--ink);
-    letter-spacing:-.01em}
+  /* SIGNIFICANTLY more prominent, per the brief, and the one piece of type
+     on the page allowed to be this size. clamp so a 300px column on a
+     laptop and a 650px one on a phone do not both get 28px. */
+  .pitch-head{margin:0;font-size:clamp(24px,2.1vw,29px);line-height:1.15;
+    font-weight:600;letter-spacing:-.025em;color:var(--ink)}
+  .pitch-copy{display:grid;gap:12px;align-content:start}
+  .pitch-lead{margin:0;font-size:14px;line-height:1.55;color:var(--ink-80)}
+  /* The three short sentences are the objection handler, so they read as an
+     aside to the promise above rather than as more of it. */
+  .pitch-sub{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+  .pitch-cta{align-self:end}
+  .pitch-cta .btn{gap:10px}
+  .btn-arrow{font-size:15px;line-height:1;transition:transform .18s ease}
+  .pitch-cta .btn:hover .btn-arrow{transform:translateX(3px)}
+  @media(prefers-reduced-motion:reduce){
+    .btn-arrow,.pitch-cta .btn:hover .btn-arrow{transition:none;transform:none}
+  }
 
-  /* Six claims, hairline-separated, each a headline over its own small
-     line. The site's own idiom for a feature list is .tier-list on the
-     homepage — a gold tick and one line of text — and it needs neither
-     rules nor a second tier because its items are three words. These are
-     six claims a reader is meant to weigh, so each gets a line it can be
-     skimmed by and a line that backs it up.
+  /* Six benefits, three to a column, divided by the same hairline and lit
+     by the same tick.
 
-     Two sizes and two colours do the work: the headline is what you read
-     going down the list, the small line is there when one of them stops
-     you. */
-  .pitch-list{list-style:none;margin:0;padding:0;display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
-  .pitch-list li{position:relative;padding:12px 0 12px 22px;
+     ONE GRID, NOT TWO LISTS. Two separate <ul>s each spaced themselves, so
+     the second benefit in the left column and the second in the right
+     started at different heights whenever their copy ran to a different
+     number of lines, and six benefits that do not line up read as two
+     lists rather than one set. Column flow over three auto rows gives each
+     ROW the height of its taller item, so both columns step together.
+
+     That makes the first item of each COLUMN nth-child(3n+1) rather than
+     :first-child, which is what the divider and the tick hang off. */
+  .pitch-list{list-style:none;margin:0;padding:0;align-self:stretch;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:repeat(3,auto);grid-auto-flow:column;column-gap:32px}
+  .pitch-list li{position:relative;padding:14px 0 14px 24px;
     border-top:1px solid var(--line)}
-  /* The first item of EACH column loses its rule, which is why this is
-     nth-child(-n+2) and not :first-child: in a two-column grid the second
-     item is the top of the right-hand column. */
-  .pitch-list li:nth-child(-n+2){border-top:0;padding-top:0}
-  .pitch-list li:nth-child(-n+2)::before{top:5px}
-  .pitch-list b{display:block;font-size:13px;font-weight:600;line-height:1.4;
-    color:var(--ink);letter-spacing:-.005em}
-  .pitch-list span{display:block;margin-top:3px;font-size:12px;line-height:1.5;
+  .pitch-list li:nth-child(3n+1){border-top:0;padding-top:0}
+  .pitch-list b{display:block;font-size:13.5px;font-weight:600;line-height:1.35;
+    color:var(--ink);letter-spacing:-.01em}
+  .pitch-list span{display:block;margin-top:5px;font-size:12.5px;line-height:1.5;
     color:var(--muted)}
-  /* A tick drawn in CSS rather than the homepage's data-URI one: that
-     file has #B47F39 baked into it, and on this ground the gold that
-     reads is --sand. A custom property cannot cross into a data URI, so
-     the shape is borders instead. */
-  .pitch-list li::before{content:"";position:absolute;left:1px;top:17px;
-    width:8px;height:4.5px;border-left:1.5px solid var(--sand);
+  /* A tick drawn in CSS rather than the homepage's data-URI one: that file
+     has #B47F39 baked into it, and on this ground the gold that reads is
+     --sand. A custom property cannot cross into a data URI, so the shape
+     is borders instead. */
+  .pitch-list li::before{content:"";position:absolute;left:1px;top:19px;
+    width:9px;height:5px;border-left:1.5px solid var(--sand);
     border-bottom:1.5px solid var(--sand);transform:rotate(-45deg)}
-
-
-  /* The one call to action in the left column, closing the card it
-     belongs to. Measured on this ground: white on --gold-strong is 4.87:1,
-     and the fill against --deep is 3.96:1 — past AA for the label and past
-     3:1 for the control's own edge. --gold would have been 3.48 and fails.
-
-     A PLAIN LINK IN A NEW TAB, not the blendBookDemo() popup the other
-     pages use. That helper lives in cookie-consent.js, which this page
-     does not load, and it exists to gate Calendly's embedded widget behind
-     consent. Opening the calendar in its own tab is the escape the banner
-     itself offers when consent is declined — nothing third-party loads
-     here, and Calendly's cookies are Calendly's business in Calendly's
-     tab. See the note in the markup: five pages are missing that script
-     and that is worth fixing on its own, not by wiring a popup to a gate
-     that is not there. */
+  .pitch-list li:nth-child(3n+1)::before{top:5px}
 
   /* ---- the answers, designed rather than dumped ---------------------
      43 rows in quiz order was a wall, and quiz order put consent, a name
@@ -275,58 +268,60 @@ html,body{max-width:100%;overflow-x:clip}
      tools/check-demo-report.mjs refuses when the vendored fallback does. */
   /* ONE SURFACE. This had a cream header band and a cream footer band for
      about an hour, and they were wrong: --cream IS the page, so the header
-     text read as sitting OUTSIDE a white rectangle rather than on top of a
-     card, and the three slabs did not line up. The idea was that bands
-     would stop four stacked small-caps labels reading as one
-     undifferentiated list. Hierarchy does that; background slabs just add
-     edges.
-
-     So: one white card, one padding, and the structure comes from type
-     size, weight and hairlines. */
+     text read as sitting OUTSIDE a white rectangle rather than on a card,
+     and the three slabs did not line up. Background slabs do not make
+     hierarchy; type and hairlines do. */
   .answers{background:var(--surface);border:1px solid var(--line);padding:22px}
-  .answers-head{padding:0 0 14px;margin:0 0 16px;
+  .answers-head{padding:0 0 16px;margin:0 0 18px;
     border-bottom:1px solid var(--line)}
   .answers-body{padding:0}
   .answers-byline{margin:0 0 2px;font-size:13px;color:var(--ink-80);font-weight:500}
   .answers-sub{margin:0;font-size:11.5px;line-height:1.45;color:var(--muted)}
 
-  .pf{display:grid;gap:16px}
-  .pf-block{display:grid;gap:8px}
+  .pf{display:grid;gap:18px}
+  .pf-block{display:grid}
 
-  /* GOALS ARE CHIPS, WHAT THEY REPORTED IS A LIST. Both were pills, and
-     five pills of sentence-length text wrapped to three rows of bubbles
-     that dominated the card. Goals are three short words and the thing the
-     plan is ordered by, so they keep the accent and the pill; the reported
-     symptoms are five short sentences, which is list material. */
-  .pf-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px}
-  .pf-chips li{font-size:11.5px;font-weight:600;line-height:1;padding:5.5px 9px;
-    border-radius:999px;background:var(--gold-soft);color:var(--gold-text);
-    border:1px solid rgba(180,127,57,.22)}
-  .pf-tags{list-style:none;margin:0;padding:0;display:grid;gap:5px}
-  .pf-tags li{position:relative;padding-left:13px;font-size:12.5px;
-    line-height:1.4;color:var(--ink-80)}
-  .pf-tags li::before{content:"";position:absolute;left:1px;top:6px;
-    width:4px;height:4px;border-radius:50%;background:var(--gold)}
+  /* PILLS AND TILES, WHICH IS WHAT THE REPORT IS MADE OF.
+     ------------------------------------------------------------------
+     Set beside the live report this panel read as a wireframe, and the
+     reason was vocabulary rather than spacing. The report draws "Your
+     profile" and "What you told us matters" as small outlined pills, and
+     every macro as a bordered tile with a tiny uppercase label over a
+     value. It is dense, contained and finished. This was rules and loose
+     text on white.
 
-  /* Label and value, two across. Not two columns of equal weight: the
-     label is ours and the value is the brand's own option text.
+     So the panel borrows both components. That is not decoration: the
+     page's whole argument is that the left column produced the right one,
+     and it lands harder when a reader can see the same parts in both.
 
-     A CONTAINER QUERY, because the constraint is the CARD's width and not
-     the window's. The aside is 360 beside the report and full width below
-     1000, so a viewport breakpoint would have to name both to describe one
-     thing. 300 is where two columns still leave the longest value
-     ("Lightly Active", 84px at this size) a line of its own. */
-  .pf-rows{margin:0;display:grid;grid-template-columns:minmax(0,1fr);
-    column-gap:14px}
-  .pf-rows > div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;
-    padding:6px 0;border-top:1px solid var(--line);align-items:baseline}
-  .pf-rows > div:first-child{border-top:0;padding-top:0}
-  @container (min-width:300px){
-    .pf-rows{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .pf-rows > div:nth-child(2){border-top:0;padding-top:0}
-  }
-  .pf-rows dt{font-size:11.5px;color:var(--muted);min-width:0}
-  .pf-rows dd{margin:0;font-size:12.5px;color:var(--ink);font-weight:500;min-width:0}
+     Pills small, like the report's. They were 12px with 10px of side
+     padding and five sentence-length ones wrapped into three rows of
+     bubbles that dominated the card. */
+  .pf-chips,.pf-tags{list-style:none;margin:0;padding:0;
+    display:flex;flex-wrap:wrap;gap:5px}
+  .pf-chips li,.pf-tags li{font-size:11px;line-height:1.3;padding:4.5px 9px;
+    border-radius:999px;border:1px solid var(--line)}
+  /* Goals carry the accent: they are what the customer ASKED for and the
+     plan is ordered by them. What they reported is what the customer TOLD
+     us, which is a different kind of fact and reads plainer. */
+  .pf-chips li{font-weight:600;background:var(--gold-soft);color:var(--gold-text);
+    border-color:rgba(180,127,57,.22)}
+  .pf-tags li{background:var(--surface-2);color:var(--ink-80)}
+
+  /* The macro tile, at this scale. Tiny uppercase label over the value,
+     bordered, on the lifted surface.
+
+     TWO ACROSS FOR BOTH GROUPS. Four across for the food frequency was
+     right for "Never" and "Daily" and wrong for "1-5 eggs", which wrapped
+     in a 74px tile; and two groups on different grids read as two
+     different components rather than one. */
+  .pf-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0}
+  .pf-tiles > div{border:1px solid var(--line);border-radius:8px;
+    padding:8px 10px;background:var(--surface-2);min-width:0}
+  .pf-tiles dt{font-size:9px;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .pf-tiles dd{margin:3px 0 0;font-size:12.5px;font-weight:600;color:var(--ink);
+    line-height:1.25;min-width:0}
 
   /* The full transcript, behind a disclosure. Nothing is hidden from a
      reader who wants it; it is just not the first thing they meet.
@@ -364,22 +359,28 @@ html,body{max-width:100%;overflow-x:clip}
   .answers-more[aria-expanded="true"]::after{transform:translateY(1px) rotate(225deg)}
   .answers-all{margin-top:18px}
 
-  /* One column for the band below 860: 290 of text beside two claim
-     columns needs about 760 of card, and there is not that much left. */
-  @media(max-width:900px){
-    .pitch{grid-template-columns:minmax(0,1fr);gap:22px}
+  /* Two columns of benefits under the pitch below 1000, one of each below
+     660. 300 of headline beside two 250px columns needs about 900 of card,
+     and a phone has 307. */
+  @media(max-width:1000px){
+    .pitch{grid-template-columns:minmax(0,1fr);gap:26px}
+    .pitch-say{grid-template-rows:none;gap:16px}
+    .pitch-cta{align-self:start}
   }
-  @media(max-width:620px){
-    .pitch-list{grid-template-columns:minmax(0,1fr);column-gap:0}
-    .pitch-list li:nth-child(2){border-top:1px solid var(--line);padding-top:12px}
-    .pitch-list li:nth-child(2)::before{top:17px}
+  /* One column of six: the flow goes back to rows, so the only item
+     without a rule over it is the first one. */
+  @media(max-width:660px){
+    .pitch-list{grid-template-columns:minmax(0,1fr);grid-template-rows:none;
+      grid-auto-flow:row}
+    .pitch-list li:nth-child(3n+1){border-top:1px solid var(--line);padding-top:14px}
+    .pitch-list li:nth-child(3n+1)::before{top:19px}
     .pitch-list li:first-child{border-top:0;padding-top:0}
     .pitch-list li:first-child::before{top:5px}
   }
   @media(max-width:760px){
-    .pitch{padding:20px 18px}
-    .pitch-lead{font-size:16px}
+    .pitch{padding:22px 18px}
     .answers{padding:18px}
+    .pf-tiles > div{padding:8px}
   }
   /* THE REPORT AT HALF SIZE, with a way to read it properly.
      The frame holds a viewport; the iframe inside it is twice the
@@ -554,64 +555,63 @@ html,body{max-width:100%;overflow-x:clip}
 
        40/60 rather than half and half. The answers are a summary and the
        report is a document; the document needs the inches. -->
-  <!-- Us talking, and the only box on the page that is. The wordmark opens
-       it instead of a heading: the card is the brand introducing itself to
-       somebody who arrived from an email and may not know whose page this
-       is. The <h2> stays, unseen, because a logo is not a heading; the
-       document outline and the page's landmarks still need one, and /try
-       shipped with no h1 at all when its intro came out on the 17th.
+  <!-- THE BENEFITS BAND. Three columns: the pitch, then two columns of
+       business outcomes. Written to the founder's brief of 2026-10-19,
+       verbatim.
 
-       SAME SIX-PATH DRAWING as the bar and the footer, in a light fill.
+       ONE THING ON THE RECORD. "Convert more visitors into customers" and
+       "Increase average order value" are outcome claims, and
+       CONTENT_STATE.md forbids them by name: "Any AOV, retention,
+       conversion percentage, or client count | Zero clients, and the
+       website deliberately publishes no outcome metrics." That was raised
+       and the founder specified this copy directly afterwards, so it ships
+       as written. Neither line carries a figure, which is the part that
+       would be unsupportable; they are claims about what the product is
+       for. If the rule is meant to stand, this band is where it bites.
+
+       SAME SIX-PATH WORDMARK as the bar and the footer, in a light fill.
        tools/check-wordmark.mjs compares the markup inside every wordmark on
        the site and normalises the fill away, so a redrawn or five-path copy
        here would be refused. That is the bug it exists for: /use-cases
        carried a copy missing the full stop, in the bar and the footer, for
-       months.
-
-       TWO OF THE FIGURES ARE GOVERNED. PRODUCT_FACTS.md owns them and
-       tools/check-product-facts.mjs binds the CLAIM to the figure, so a
-       sentence about what the engine scores cannot quietly take the data
-       file's wider number. The homepage FAQ said "more than 30 product
-       attributes" for months while /science said 25.
-
-       NO SOURCE IS NAMED in "Built on science", deliberately.
-       CONTENT_STATE.md carries a citation policy dated 2026-07-29: do not
-       cite EFSA or NIH in public copy for now, because the engine
-       references EFSA, the defensible smoker figure is American and the UK
-       number is different again. "Published reference intakes" is the claim
-       that survives it. -->
+       months. -->
   <section class="pitch theme-dark">
     <h2 class="sr-only">What Blend does</h2>
     <div class="pitch-say">
       <svg class="pitch-mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="30" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#F3F1ED"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg>
-      <p class="pitch-lead">Build your quiz in your own colours and words.
-        Embed it on your site. Match your customer needs to products in your
-        catalogue with data-backed recommendations.</p>
+      <p class="pitch-head">Turn customer needs into more sales.</p>
+      <div class="pitch-copy">
+        <p class="pitch-lead">Build a personalised shopping experience that
+          helps every customer find the right products, increases
+          conversions, and drives bigger baskets.</p>
+        <p class="pitch-sub">No coding. No complicated setup. Just smarter
+          selling.</p>
+      </div>
       <div class="pitch-cta">
-        <a class="btn btn-primary btn-sm"
-           href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39"
-           target="_blank" rel="noopener">Book a call</a>
+        <a class="btn btn-primary" href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39"
+           target="_blank" rel="noopener">Book a demo <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
+
     <ul class="pitch-list">
-      <li><b>Data-backed personalisation.</b>
-        <span>What they already eat, what they need, and the gap between.
-          Your catalogue scored against it on 25 product attributes.</span></li>
-      <li><b>Live in an afternoon.</b>
-        <span>Type your Shopify address, customise from a template, embed one
-          line of HTML.</span></li>
-      <li><b>The right product each time.</b>
-        <span>Every recommendation carries the reason it was made, by your
-          rules and our data.</span></li>
-      <li><b>Fully editable quiz.</b>
-        <span>Questions, branding and which sections show, changed from your
-          dashboard. No code.</span></li>
-      <li><b>Built on science.</b>
-        <span>Published reference intakes, 17 safety gates, and a run you can
-          audit stage by stage.</span></li>
-      <li><b>Analytics you own.</b>
-        <span>Who finishes, where the rest stop, what gets clicked, and what
-          they keep asking for.</span></li>
+      <li><b>Convert more visitors into customers.</b>
+        <span>Help shoppers find exactly what they need instead of leaving
+          overwhelmed by choice.</span></li>
+      <li><b>Increase average order value.</b>
+        <span>Recommend complementary products based on each customer's
+          individual needs.</span></li>
+      <li><b>Personalisation backed by science.</b>
+        <span>Go beyond generic quizzes with intelligent recommendations
+          built on nutritional science and real customer data.</span></li>
+      <li><b>Launch in an afternoon.</b>
+        <span>Connect your Shopify store, customise your quiz, and go live
+          with a simple embed.</span></li>
+      <li><b>Your brand. Your experience.</b>
+        <span>Fully customise the questions, design, recommendations, and
+          customer journey. No code required.</span></li>
+      <li><b>Turn customer insights into growth.</b>
+        <span>Discover what your customers want, where they drop off, and
+          which products drive engagement.</span></li>
     </ul>
   </section>
 
@@ -806,7 +806,7 @@ html,body{max-width:100%;overflow-x:clip}
 
   /* Outlined pills, not the gold ones the goals wear: these are what the
      customer TOLD us, not what they asked for, and the report draws the
-     same distinction in its own two chip rows. */
+     same distinction in its own two pill rows. */
   function tags(items){
     if (!items || !items.length) return null;
     var ul = el('ul', 'pf-tags');
@@ -814,9 +814,11 @@ html,body{max-width:100%;overflow-x:clip}
     return ul;
   }
 
-  function pairs(rows, cls){
+  /* The report's macro tile: a tiny uppercase label over the value, in a
+     bordered box. `cls` picks how many across. */
+  function tiles(rows, cls){
     if (!rows || !rows.length) return null;
-    var dl = el('dl', 'pf-rows' + (cls ? ' ' + cls : ''));
+    var dl = el('dl', 'pf-tiles' + (cls ? ' ' + cls : ''));
     rows.forEach(function(r){
       var w = el('div');
       w.appendChild(el('dt', null, r.k));
@@ -863,8 +865,8 @@ html,body{max-width:100%;overflow-x:clip}
       [
         block('Goals', chips(p.goals)),
         block('What they reported', tags(p.flags)),
-        block('Day to day', pairs(p.day)),
-        block('How often they eat', pairs(p.intake))
+        block('Day to day', tiles(p.day)),
+        block('How often they eat', tiles(p.intake))
       ].forEach(function(b){ if (b) pf.appendChild(b); });
 
       var frag = document.createDocumentFragment();
