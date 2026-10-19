@@ -2336,9 +2336,18 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
         }
       }
 
-      // Update checkout CTA href with current cycle
+      /* Update checkout CTA href with current cycle.
+         `annual`, NOT `yearly`. This page calls it yearly and pricing.json
+         calls it yearly, but /api/checkout validates against
+         CHECKOUT_CYCLES = ["monthly", "annual"] and rejects anything else.
+         Every yearly checkout was 307ing to /pricing?error=unknown_plan,
+         which vercel.json rewrites to "/", so a customer who picked annual
+         billing was dropped back at the top of the homepage with no card
+         taken and nothing said. Live, and nobody could see it: the link
+         returns a 200 at the end of the redirect chain. */
       if (ctaEl && tierName !== 'enterprise') {
-        ctaEl.href = `https://app.blend-technologies.com/api/checkout?plan=${tierName}&cycle=${cycle}`;
+        const checkoutCycle = cycle === 'yearly' ? 'annual' : cycle;
+        ctaEl.href = `https://app.blend-technologies.com/api/checkout?plan=${tierName}&cycle=${checkoutCycle}`;
       }
     });
   }

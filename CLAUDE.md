@@ -128,6 +128,19 @@ prelude — `.try-embed-section` had quietly become `.footer .try-embed-section`
 and matched nothing. Valid CSS, no warning, and invisible to a per-page
 baseline, which only knows what the page has looked like since.
 
+`node tools/check-checkout.mjs` is the one that protects revenue. On
+2026-10-19 every YEARLY checkout on the pricing page was broken and had
+been for as long as anyone could tell: the toggle emits `cycle=yearly`,
+the app validates against `["monthly", "annual"]`, and the rejection 307s
+to `/pricing?error=unknown_plan`, which vercel.json rewrites to `/`. A
+customer choosing annual billing was returned to the top of the homepage
+with no card taken and nothing said. Every check passed through all of it,
+because the link is in the HTML, it looks right, and the end of the
+redirect chain is a 200. The check FOLLOWS each link the page can emit and
+passes only when it lands on Stripe. `check-prices.mjs` grew the same
+instinct: it read only the homepage's tier attributes, so `$299` in a
+sentence on /use-cases/compare was invisible to it.
+
 `node tools/check-dashes.mjs` is the same shape again, for punctuation.
 The founder's note on 2026-10-19 was "NO HYPHENS NEVER", and a count
 settled what it meant: the whole site carried exactly ONE em dash in
@@ -155,6 +168,7 @@ would point at the page you are on.
 ## Before merging
 
 - `node tools/check-prices.mjs`
+- `node tools/check-checkout.mjs`
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`

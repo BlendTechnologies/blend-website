@@ -114,6 +114,39 @@ body.is-fs-locked{overflow:hidden;touch-action:none}
 @media(max-width:380px){.wrap{padding:0 16px}}
 
 html,body{max-width:100%;overflow-x:clip}
+  /* A LOADER WHILE THE EMBED ARRIVES.
+     The quiz and the report are a separate deployment, cross-origin, and
+     they take a second or more on a cold cache. Until now that second was
+     a blank rectangle the size of the page, which reads as broken rather
+     than as loading.
+
+     Built on the frame, not inside the iframe: nothing here can reach into
+     a cross-origin document, and `load` on the element is the only signal
+     this side gets. It fires for a 404 too, so this says "we are waiting",
+     never "it worked".
+
+     The iframe starts transparent and fades in, so a reader never sees the
+     spinner and the content at once. Both sit in the same box, so neither
+     moves when the swap happens. */
+  /* Flex, not grid. Two children in an auto-row grid get the free space
+     distributed INTO the rows, so the spinner sat near the top of a 728px
+     box and its label near the bottom, 200px apart and reading as two
+     unrelated things. */
+  .embed-loading{position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:12px;
+    background:rgb(var(--quiz-bg,250 248 242));border-radius:inherit;
+    transition:opacity .25s ease;z-index:2}
+  .embed-loading[hidden]{display:none}
+  .embed-spinner{width:26px;height:26px;border-radius:50%;
+    border:2px solid var(--line-strong);border-top-color:var(--gold);
+    animation:embed-spin .8s linear infinite}
+  .embed-note{font-size:12.5px;color:var(--muted)}
+  @keyframes embed-spin{to{transform:rotate(360deg)}}
+  /* Reduced motion gets the message without the movement. A spinner is
+     decoration; the sentence is the information. */
+  @media(prefers-reduced-motion:reduce){
+    .embed-spinner{animation:none;border-top-color:var(--line-strong)}
+  }
 </style>
 <link rel="stylesheet" href="cookie-consent.css">
   <link rel="stylesheet" href="/theme.css">
@@ -153,7 +186,46 @@ html,body{max-width:100%;overflow-x:clip}
         <svg id="fsIconExit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
         <span class="fs-label" id="fsLabel">Fullscreen</span>
       </button>
+      <div class="embed-loading" id="embedLoading"><span class="embed-spinner" aria-hidden="true"></span><span class="embed-note">Loading the live demo…</span></div>
       <iframe src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526" title="Blend live quiz" loading="lazy" allowfullscreen allow="fullscreen"></iframe>
+<script>
+/* Hide the loader once the embed has arrived.
+   `load` on the element is the only signal this side gets for a
+   cross-origin document, and it fires for an error page too, so this only
+   ever means "stopped waiting", never "it worked".
+
+   RIGHT HERE, NOT AT THE END OF THE BODY. A frame served from cache can
+   fire `load` before a script further down the page has run, and then the
+   listener never hears it and the spinner sits on top of a perfectly good
+   quiz. `complete` is not readable across an origin, so the defence is
+   position: the parser reaches this immediately after the iframe, long
+   before any network can answer.
+
+   It also has to be its own <script>. The first attempt appended this to a
+   <script src="cookie-consent.js">, and a script element with a src ignores
+   its inline content entirely, without a word in the console.
+
+   The 4s fallback is for the case that beats both: an embed that never
+   announces itself at all. A reader should be allowed to look at whatever
+   is there rather than at a spinner forever. */
+(function(){
+  var veil = document.getElementById('embedLoading');
+  var frame = veil && veil.parentElement.querySelector('iframe');
+  if (!veil || !frame) return;
+  var box = veil.parentElement;
+  box.classList.add('is-embed-loading');
+  var done = false;
+  function reveal(){
+    if (done) return;
+    done = true;
+    box.classList.remove('is-embed-loading');
+    veil.style.opacity = '0';
+    setTimeout(function(){ veil.hidden = true; }, 260);
+  }
+  frame.addEventListener('load', reveal);
+  setTimeout(reveal, 4000);
+})();
+</script>
     </div>
     <div class="try-embed-foot">
       This is the same embed you'd drop on your site, one line of code.
@@ -298,7 +370,10 @@ links.querySelectorAll('a').forEach(a => {
   </div>
 </div>
 <script src="/scroll-cards.js"></script>
-<script src="cookie-consent.js"></script>
+<script src="cookie-consent.js">
+
+</script>
+
 
 </body>
 </html>
