@@ -281,7 +281,12 @@ html,body{max-width:100%;overflow-x:clip}
     border-bottom:1px solid var(--line)}
   .answers-body{padding:0}
   .answers-byline{margin:0 0 2px;font-size:13px;color:var(--ink-80);font-weight:500}
-  .answers-sub{margin:0;font-size:11.5px;line-height:1.45;color:var(--muted)}
+  /* 12.5px, not 11.5. This is the only running PROSE on the card, as
+     against the labels and pills around it, and 11.5 is small for a
+     sentence somebody is meant to read rather than scan. The tile labels
+     stay at 9 and the pills at 11 because neither is body text: they are
+     the report's own scale, which this card borrows on purpose. */
+  .answers-sub{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
 
   .pf{display:grid;gap:18px}
   .pf-block{display:grid}
