@@ -34,7 +34,7 @@
   a{color:inherit;text-decoration:none}
 
   /* Buttons, same system as blend-technologies.com */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
   .btn-primary{background:var(--gold-strong);color:var(--white)}
   .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
   .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -72,8 +72,8 @@
      the stylesheet than the real one and beat .btn-sm on equal specificity,
      so the nav CTA on this page alone rendered inline-block at 12px with no
      min-height: 119.5x42.6 against 128.8x38 on the other twelve. */
-  .cta .btn{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;
-    font-size:12px;font-weight:600}
+  .cta .btn{display:inline-block;padding:12px 20px;border-radius:999px;text-decoration:none;
+    font-size:12px;font-weight:500}
 
 @media(max-width:560px){.wrap{padding:28px 20px 56px}}
 @media(max-width:380px){.wrap{padding:24px 16px 48px}}
@@ -169,7 +169,7 @@ html,body{max-width:100%;overflow-x:clip}
      changes. Set here once rather than twice. */
   .pitch{border-radius:16px;padding:26px 28px}
   .answers{border-radius:16px;padding:24px}
-  .answers-head h2{margin:0 0 8px;font-size:18px;font-weight:600;
+  .answers-head h2{margin:0 0 8px;font-size:18px;font-weight:500;
     letter-spacing:-.02em;line-height:1.25}
 
   /* A SECTION HEADING IN THE REPORT'S OWN VOICE. This was a 10px grey
@@ -180,7 +180,7 @@ html,body{max-width:100%;overflow-x:clip}
      plainly the same product. */
   .pf-label{margin:0 0 10px;padding-bottom:7px;
     border-bottom:1px solid var(--line);
-    font-size:13.5px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+    font-size:13.5px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
 
   /* ---- the pitch, a dark island -------------------------------------
      Dark because it is the one box on the page that is us talking. The
@@ -216,7 +216,7 @@ html,body{max-width:100%;overflow-x:clip}
      on the page allowed to be this size. clamp so a 300px column on a
      laptop and a 650px one on a phone do not both get 28px. */
   .pitch-head{margin:0;font-size:clamp(24px,2.1vw,29px);line-height:1.15;
-    font-weight:600;letter-spacing:-.025em;color:var(--ink)}
+    font-weight:500;letter-spacing:-.025em;color:var(--ink)}
   .pitch-copy{display:grid;gap:12px;align-content:start}
   .pitch-lead{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
   /* The three short sentences are the objection handler, so they read as an
@@ -251,7 +251,7 @@ html,body{max-width:100%;overflow-x:clip}
   /* A notch down, and the padding with it: the brief was a slightly shorter
      box, and type alone would have left the rhythm loose around smaller
      words. */
-  .pitch-list b{display:block;font-size:12.5px;font-weight:600;line-height:1.35;
+  .pitch-list b{display:block;font-size:12.5px;font-weight:500;line-height:1.35;
     color:var(--ink);letter-spacing:-.01em}
   .pitch-list span{display:block;margin-top:4px;font-size:11.5px;line-height:1.5;
     color:var(--muted)}
@@ -317,7 +317,7 @@ html,body{max-width:100%;overflow-x:clip}
   /* Goals carry the accent: they are what the customer ASKED for and the
      plan is ordered by them. What they reported is what the customer TOLD
      us, which is a different kind of fact and reads plainer. */
-  .pf-chips li{font-weight:600;background:var(--gold-soft);color:var(--gold-text);
+  .pf-chips li{font-weight:500;background:var(--gold-soft);color:var(--gold-text);
     border-color:rgba(180,127,57,.22)}
   .pf-tags li{background:var(--surface-2);color:var(--ink-80)}
 
@@ -331,9 +331,9 @@ html,body{max-width:100%;overflow-x:clip}
   .pf-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0}
   .pf-tiles > div{border:1px solid var(--line);border-radius:8px;
     padding:8px 10px;background:var(--surface-2);min-width:0}
-  .pf-tiles dt{font-size:9px;font-weight:600;letter-spacing:.08em;
+  .pf-tiles dt{font-size:9px;font-weight:500;letter-spacing:.08em;
     text-transform:uppercase;color:var(--muted);white-space:nowrap}
-  .pf-tiles dd{margin:3px 0 0;font-size:12.5px;font-weight:600;color:var(--ink);
+  .pf-tiles dd{margin:3px 0 0;font-size:12.5px;font-weight:500;color:var(--ink);
     line-height:1.25;min-width:0}
 
   /* The full transcript, behind a disclosure. Nothing is hidden from a
@@ -359,7 +359,7 @@ html,body{max-width:100%;overflow-x:clip}
      thumb expects. */
   .answers-more{display:flex;width:100%;align-items:center;justify-content:space-between;
     gap:10px;background:none;border:0;padding:10px 0;cursor:pointer;
-    font:inherit;font-size:12.5px;font-weight:600;color:var(--gold-text);
+    font:inherit;font-size:12.5px;font-weight:500;color:var(--gold-text);
     text-align:left;min-height:40px}
   .answers-more[hidden]{display:none}
   .answers-more:hover{color:var(--gold)}
@@ -443,7 +443,7 @@ html,body{max-width:100%;overflow-x:clip}
 
   .fs-btn{position:absolute;top:14px;right:14px;z-index:5;display:inline-flex;
     align-items:center;gap:4px;background:rgba(10,10,10,.78);color:#fff;border:0;
-    border-radius:8px;padding:8px 12px;font:inherit;font-size:12px;font-weight:600;
+    border-radius:999px;padding:8px 12px;font:inherit;font-size:12px;font-weight:500;
     letter-spacing:-.005em;line-height:1;cursor:pointer;opacity:.92;
     backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);
     transition:background .15s ease,opacity .15s ease}

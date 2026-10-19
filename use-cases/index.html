@@ -35,13 +35,13 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--ground);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}.skip:focus{left:16px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:200}.skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0;text-wrap:balance}
-.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0;text-wrap:balance}
+.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
+.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0;text-wrap:balance}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
 /* 12px of side padding on a 93px label left "Try it yourself" all but
@@ -97,9 +97,9 @@ body{background:var(--ground)}
 .case-card-icon.shopify svg{color:#5E8E3E}
 /* Two of the three titles are one line and one is two, so without a floor
    the three paragraphs start at three different heights. */
-.case-card h3{font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink);min-height:2.5em}
+.case-card h3{font-size:20px;font-weight:500;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink);min-height:2.5em}
 .case-card p{font-size:14px;color:var(--ink-80);line-height:1.6;margin:0 0 24px;flex:1}
-.case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:600;letter-spacing:-.005em}
+.case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:500;letter-spacing:-.005em}
 .case-card-cta::after{content:"\2192";transition:transform .2s ease}
 .case-card:hover .case-card-cta::after{transform:translateX(3px)}
 
@@ -116,11 +116,11 @@ body{background:var(--ground)}
 .aud-head .lead{margin-left:auto;margin-right:auto;max-width:560px}
 .aud-list{max-width:1100px;margin:0 auto;padding:0;border-top:1px solid var(--line)}
 .aud-row{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) minmax(0,240px);gap:16px 36px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
-.aud-row dt{margin:0;font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;color:var(--ink)}
+.aud-row dt{margin:0;font-size:20px;font-weight:500;letter-spacing:-.015em;line-height:1.25;color:var(--ink)}
 .aud-row dd{margin:0}
 .aud-row .aud-go{text-align:right}
 .aud-row dd p{margin:0;font-size:15px;line-height:1.6;color:var(--ink-80)}
-.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:600;letter-spacing:-.005em;line-height:1.6}
+.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:500;letter-spacing:-.005em;line-height:1.6}
 .aud-link::after{content:"\2192";transition:transform .2s ease}
 .aud-link:hover::after{transform:translateX(3px)}
 @media (prefers-reduced-motion:reduce){.aud-link::after{transition:none}}

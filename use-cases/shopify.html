@@ -36,13 +36,13 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}.skip:focus{left:16px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:200}.skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0}
-.h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0}
+.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0}
+.h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
 /* 12px of side padding on a 93px label left "Try it yourself" all but
@@ -69,22 +69,22 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .hero-foot{margin-top:24px;display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px}
 .hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--line-strong);align-self:center}
 /* Shopify storefront mockup */
-.store-mock{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);overflow:hidden;max-width:520px;margin-left:auto}
+.store-mock{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:none;overflow:hidden;max-width:520px;margin-left:auto}
 .store-bar{display:flex;align-items:center;gap:4px;padding:8px 12px;background:#F5F4F0;border-bottom:1px solid var(--line)}
 .store-bar .b-dot{width:9px;height:9px;border-radius:50%;background:#E0DCC8}
 .store-url{margin-left:14px;font-size:12px;color:var(--muted);font-weight:500;background:var(--surface);padding:4px 12px;border-radius:8px;border:1px solid var(--line);min-width:180px}
 .store-header{padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:var(--surface)}
-.store-brand{font-size:14px;font-weight:700;letter-spacing:.06em;color:var(--ink)}
+.store-brand{font-size:14px;font-weight:600;letter-spacing:.06em;color:var(--ink)}
 .store-nav{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--ink-80)}
-.store-cart{background:var(--deep);color:var(--white);padding:4px 8px;border-radius:14px;font-size:12px;font-weight:600}
+.store-cart{background:var(--deep);color:var(--white);padding:4px 8px;border-radius:14px;font-size:12px;font-weight:500}
 .store-quiz{padding:24px 20px 20px;background:linear-gradient(180deg,var(--cream-2) 0%,var(--cream) 100%)}
-.store-quiz-eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px}
+.store-quiz-eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px}
 .store-quiz-eyebrow::before{content:"";width:6px;height:6px;background:#95BF47;border-radius:50%}
 .store-quiz-prog{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .store-quiz-prog-l{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap}
 .store-quiz-bar{flex:1;height:3px;background:var(--line);border-radius:14px;overflow:hidden}
 .store-quiz-bar-fill{height:100%;width:40%;background:var(--deep);border-radius:99px}
-.store-quiz h4{font-size:14px;margin:0 0 14px;color:var(--ink);font-weight:600;letter-spacing:-.005em;line-height:1.3}
+.store-quiz h4{font-size:14px;margin:0 0 14px;color:var(--ink);font-weight:500;letter-spacing:-.005em;line-height:1.3}
 .store-quiz-opt{display:flex;align-items:center;justify-content:space-between;padding:12px 12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:12px;color:var(--ink-80);transition:border-color .2s}
 .store-quiz-opt.active{border-color:var(--ink);background:var(--surface);color:var(--ink);font-weight:500}
 .store-quiz-opt-check{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line-strong);background:var(--surface);flex-shrink:0}
@@ -92,7 +92,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 /* --deep, not --surface-up: this button sits on the WHITE store mock, so
      it goes dark. --surface-up was right while the page was dark and the
      mock with it; it is #FFFFFF now, which was white on white. */
-  .store-quiz-next{margin-top:14px;display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:var(--deep);color:var(--white);border-radius:8px;font-size:12px;font-weight:600}
+  .store-quiz-next{margin-top:14px;display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:var(--deep);color:var(--white);border-radius:8px;font-size:12px;font-weight:500}
 @media(max-width:860px){.hero{padding:32px 0 64px}.hero-grid{grid-template-columns:1fr;text-align:center;gap:32px}.hero-sub{margin:22px auto 0}.hero-ctas,.hero-foot{justify-content:center}.store-mock{margin:0 auto}}
 /* Sections */
 .section{padding:96px 0}.section-cream{background:var(--cream)}.section-subtle{background:var(--subtle)}
@@ -102,34 +102,34 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .why-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px}
 .why-card-icon{width:36px;height:36px;border-radius:8px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
 .why-card-icon svg{width:18px;height:18px;color:var(--gold-strong)}
-.why-card h3{font-size:16px;line-height:1.3;letter-spacing:-.015em;font-weight:600;margin:0 0 8px}
+.why-card h3{font-size:16px;line-height:1.3;letter-spacing:-.015em;font-weight:500;margin:0 0 8px}
 .why-card p{font-size:14px;line-height:1.6;color:var(--ink-80);margin:0}
 @media(max-width:660px){.why-grid{grid-template-columns:1fr}}
 /* Wellness report visual */
 .report-section{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
-.report-text h3{font-size:24px;line-height:1.2;letter-spacing:-.015em;font-weight:600;margin:0 0 14px;color:var(--ink)}
+.report-text h3{font-size:24px;line-height:1.2;letter-spacing:-.015em;font-weight:500;margin:0 0 14px;color:var(--ink)}
 .report-text p{font-size:15.5px;line-height:1.65;color:var(--ink-80);margin:0 0 18px}
 .report-text ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .report-text li{display:grid;grid-template-columns:18px 1fr;gap:12px;align-items:start;font-size:14.5px;color:var(--ink-80);line-height:1.5}
 .report-text li::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--gold-soft);position:relative;margin-top:5px}
-.report-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 24px 22px;box-shadow:0 8px 24px rgba(0,0,0,.04),0 2px 6px rgba(0,0,0,.03)}
+.report-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 24px 22px;box-shadow:none}
 .report-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.report-card-title{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
-.report-card-pill{font-size:10px;color:var(--gold-strong);background:var(--gold-soft);padding:3px 8px;border-radius:99px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.report-card-title{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:-.005em}
+.report-card-pill{font-size:10px;color:var(--gold-strong);background:var(--gold-soft);padding:3px 8px;border-radius:99px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
 .report-products{display:grid;gap:8px;margin-bottom:20px}
 .rp-row{display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;padding:9px 12px;background:var(--subtle);border-radius:8px}
-.rp-swatch{width:32px;height:32px;border-radius:7px;background:#2A2A2A;color:var(--white);font-size:10.5px;font-weight:700;display:grid;place-items:center;letter-spacing:.01em}
-.rp-name{font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:-.005em;line-height:1.2;margin:0}
+.rp-swatch{width:32px;height:32px;border-radius:7px;background:#2A2A2A;color:var(--white);font-size:10.5px;font-weight:600;display:grid;place-items:center;letter-spacing:.01em}
+.rp-name{font-size:12.5px;font-weight:500;color:var(--ink);letter-spacing:-.005em;line-height:1.2;margin:0}
 .rp-reason{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.3}
-.rp-badge{font-size:10.5px;color:var(--muted);font-weight:600;background:var(--surface);border:1px solid var(--line);padding:3px 8px;border-radius:99px}
+.rp-badge{font-size:10.5px;color:var(--muted);font-weight:500;background:var(--surface);border:1px solid var(--line);padding:3px 8px;border-radius:99px}
 .report-nutrients{padding-top:14px;border-top:1px solid var(--line)}
-.report-nut-title{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px}
+.report-nut-title{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:500;margin-bottom:10px}
 .report-nut-row{display:grid;grid-template-columns:64px 1fr 38px;align-items:center;gap:10px;margin-bottom:6px}
 .report-nut-row:last-child{margin-bottom:0}
 .report-nut-lab{font-size:11.5px;color:var(--ink-80);font-weight:500}
 .report-nut-track{height:5px;background:var(--cream);border-radius:99px;overflow:hidden}
 .report-nut-fill{height:100%;border-radius:99px}
-.report-nut-val{font-size:10.5px;font-weight:700;font-feature-settings:"tnum";text-align:right;letter-spacing:.01em}
+.report-nut-val{font-size:10.5px;font-weight:600;font-feature-settings:"tnum";text-align:right;letter-spacing:.01em}
 @media(max-width:860px){.report-section{grid-template-columns:1fr;gap:32px}}
 /* FAQ */
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
@@ -145,7 +145,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .faq-item .faq-answer p{margin:0}
 /* Closer */
 .closer{padding:96px 0 112px;background:var(--cream-2);text-align:center;border-top:1px solid var(--line)}
-.closer h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0 auto 14px;max-width:640px}
+.closer h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0 auto 14px;max-width:640px}
 .closer p{margin:0 auto 28px;max-width:520px;color:var(--ink-80);font-size:16px;line-height:1.55}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}

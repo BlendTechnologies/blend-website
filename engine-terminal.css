@@ -37,7 +37,7 @@
 .tm-caption{margin:0;padding:20px 22px 16px;text-align:center;min-height:74px;
   font-size:13.5px;line-height:1.55;color:var(--t-ink)}
 .tm-head[hidden]{display:none}
-.tm-head b{display:block;margin-bottom:4px;font-size:17px;font-weight:600;letter-spacing:-.012em;color:var(--t-ink)}
+.tm-head b{display:block;margin-bottom:4px;font-size:17px;font-weight:500;letter-spacing:-.012em;color:var(--t-ink)}
 
 /* the log gets the room; the matrix sits beside it */
 .tm-body{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:18px;padding:0 22px}
@@ -95,7 +95,7 @@
 .tm-plan li:nth-child(2){animation-delay:.09s}
 .tm-plan li:nth-child(3){animation-delay:.18s}
 .tm-pi{grid-row:1/3;font-size:12px;color:var(--t-dim);padding-top:2px}
-.tm-pn{font-size:13.5px;font-weight:600;color:var(--t-ok)}
+.tm-pn{font-size:13.5px;font-weight:500;color:var(--t-ok)}
 .tm-pw{font-family:"Inter","Inter var",system-ui,sans-serif;font-size:12.5px;line-height:1.45;color:var(--t-ink)}
 
 /* the catalogue */
@@ -134,7 +134,7 @@
 .tm-tick.is-done{background:rgba(231,207,163,.5)}
 .tm-tick:focus-visible{outline:2px solid var(--t-gold);outline-offset:3px}
 .tm-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:14px 22px 18px}
-.tm-btn{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--t-ink);cursor:pointer;
+.tm-btn{font-family:inherit;font-size:12.5px;font-weight:500;color:var(--t-ink);cursor:pointer;
   padding:7px 14px;border-radius:999px;border:1px solid var(--t-line);background:transparent;
   min-height:34px;transition:border-color .18s ease,color .18s ease}
 .tm-btn:hover{border-color:var(--t-gold);color:var(--t-gold)}

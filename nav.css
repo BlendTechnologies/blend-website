@@ -90,7 +90,7 @@ body:has(.sc-hero) .nav:not(.scrolled) .logo svg{ filter:brightness(0) invert(1)
 .nav-links{ display:flex;align-items:center;gap:32px;justify-self:center }
 .nav-links a{ font-size:14px;color:var(--ink-80);font-weight:500;padding:12px 0;letter-spacing:-.005em }
 .nav-links a:hover{ color:var(--ink) }
-.nav-links a.active{ color:var(--ink);font-weight:600 }
+.nav-links a.active{ color:var(--ink);font-weight:500 }
 .nav-links a:focus-visible{ outline:2px solid var(--ink);outline-offset:2px;border-radius:4px }
 
 .nav-actions{ display:flex;align-items:center;gap:8px;justify-self:end }
