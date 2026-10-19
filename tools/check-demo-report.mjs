@@ -117,6 +117,23 @@ try {
       : r.value;
     if (v) answers.push({ q: q.questionText, a: String(v) });
   }
+  /* demo-answers.json is what the page falls back to where the edge
+     function cannot run — a local preview, and every visual-diff capture.
+     A vendored copy of live data is exactly what went wrong with the
+     report fragment, so it is checked rather than trusted. */
+  const vendored = JSON.parse(readFileSync(join(site, 'demo-answers.json'), 'utf8'));
+  const live = { count: answers.length, summary: sentence(pick(answers).got),
+                 answers: answers.map(a => ({ q: a.q, a: a.a })) };
+  const trim = v => v.length > 84 ? v.slice(0, 83).replace(/[ ,;]+$/, '') + '\u2026' : v;
+  live.answers = live.answers.map(a => ({ q: a.q, a: trim(a.a) }));
+  if (JSON.stringify(live) !== JSON.stringify({ count: vendored.count, summary: vendored.summary, answers: vendored.answers })) {
+    console.error('FAILED: demo-answers.json no longer matches the live submission.');
+    console.error(`  vendored: ${vendored.count} answers, "${(vendored.summary || '').slice(0, 60)}..."`);
+    console.error(`  live:     ${live.count} answers, "${live.summary.slice(0, 60)}..."`);
+    console.error('\nRegenerate it, or the local preview and every screenshot show stale answers.');
+    process.exit(1);
+  }
+
   const { got, missing } = pick(answers);
   if (missing.length) {
     console.error(`FAILED: the summary has lost ${missing.length} of its fields: ${missing.join(', ')}.`);

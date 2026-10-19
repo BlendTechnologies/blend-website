@@ -123,7 +123,16 @@ html,body{max-width:100%;overflow-x:clip}
      `start`, not `stretch`: the aside is short and the report is tall, and
      a 1,100px white panel holding four lines of summary is worse than a
      short one. The report sticks while the aside scrolls past it. */
-  .report-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  /* The report column is sized so the preview shows the DESKTOP report,
+     not a narrow one shrunk. The iframe lays out at twice the viewport it
+     sits in and draws at a half, and the app turns the macros from two
+     columns to four at 1024px — so the viewport has to be 512 or the
+     preview is a tablet layout at 50%, which is not what full screen
+     shows. 576 of frame minus 2x32 of padding is exactly 512.
+
+     Fixed rather than a fraction for the same reason: at 50/50 the column
+     followed the page and the layout inside it changed with the window. */
+  .report-split{display:grid;grid-template-columns:minmax(0,1fr) 576px;
     gap:24px;max-width:1040px;margin:0 auto;align-items:start}
   .report-aside{min-width:0;position:sticky;top:calc(var(--nav-h) + 18px)}
   @media(max-width:1000px){
@@ -444,8 +453,19 @@ html,body{max-width:100%;overflow-x:clip}
   var count = document.getElementById('answersCount');
   if (!sec || !grid) return;
 
+  /* The proxy is a Vercel edge function, so it does not exist under a
+     plain static server: every local preview, and every capture the
+     visual-diff suite takes, saw this panel hidden. demo-answers.json is
+     the same payload vendored, and tools/check-demo-report.mjs refuses
+     when it stops matching the live submission — so the fallback cannot
+     quietly become a second, wrong copy, which is the whole reason the
+     report fragment was thrown out in the first place. */
   fetch('/api/demo-answers', { headers: { accept: 'application/json' } })
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .catch(function(){
+      return fetch('/demo-answers.json', { headers: { accept: 'application/json' } })
+        .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); });
+    })
     .then(function(d){
       if (!d || !Array.isArray(d.answers) || !d.answers.length) return;
       var frag = document.createDocumentFragment();
