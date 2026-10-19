@@ -160,7 +160,7 @@ html,body{max-width:100%;overflow-x:clip}
      padding and the radius are the same in both, and only the ground
      changes. Set here once rather than twice. */
   .pitch,.answers{border-radius:16px;padding:24px}
-  .pitch h2,.answers-head h2{margin:0 0 8px;font-size:19px;font-weight:600;
+  .answers-head h2{margin:0 0 8px;font-size:18px;font-weight:600;
     letter-spacing:-.02em;line-height:1.25}
 
   /* The small label over a block, with a rule running out to the edge.
@@ -186,25 +186,35 @@ html,body{max-width:100%;overflow-x:clip}
      a flat near-black rectangle on a warm ground has no edge of its own,
      and the report beside it has a shadow and a border. */
   .pitch{background:var(--deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
-  .pitch-lead{margin:0 0 20px;font-size:14.5px;line-height:1.62;color:var(--ink-80)}
+  /* The wordmark opens the card, so it is the thing a reader's eye lands
+     on first and it sets the left margin everything under it hangs from. */
+  .pitch-mark{display:block;margin:0 0 14px}
+  .pitch-lead{margin:0 0 18px;font-size:13.5px;line-height:1.6;color:var(--ink-80)}
 
-  /* Six claims, hairline-separated. The site's own idiom for a feature
-     list is .tier-list on the homepage — a gold tick and a line of text —
-     and four of these carry a clause as well as a label, so they need the
-     rules that list does not. The rhythm is the point: a reader skims the
-     bold half and stops at the one that matters to them. */
+  /* Six claims, hairline-separated, each a headline over its own small
+     line. The site's own idiom for a feature list is .tier-list on the
+     homepage — a gold tick and one line of text — and it needs neither
+     rules nor a second tier because its items are three words. These are
+     six claims a reader is meant to weigh, so each gets a line it can be
+     skimmed by and a line that backs it up.
+
+     Two sizes and two colours do the work: the headline is what you read
+     going down the list, the small line is there when one of them stops
+     you. */
   .pitch-list{list-style:none;margin:0;padding:0}
-  .pitch-list li{position:relative;padding:11px 0 11px 24px;
-    border-top:1px solid var(--line);font-size:13.5px;line-height:1.55;
-    color:var(--muted)}
+  .pitch-list li{position:relative;padding:12px 0 12px 22px;
+    border-top:1px solid var(--line)}
   .pitch-list li:first-child{border-top:0;padding-top:0}
-  .pitch-list b{color:var(--ink);font-weight:600}
+  .pitch-list b{display:block;font-size:13px;font-weight:600;line-height:1.4;
+    color:var(--ink);letter-spacing:-.005em}
+  .pitch-list span{display:block;margin-top:3px;font-size:12px;line-height:1.5;
+    color:var(--muted)}
   /* A tick drawn in CSS rather than the homepage's data-URI one: that
      file has #B47F39 baked into it, and on this ground the gold that
      reads is --sand. A custom property cannot cross into a data URI, so
      the shape is borders instead. */
-  .pitch-list li::before{content:"";position:absolute;left:2px;top:16px;
-    width:9px;height:5px;border-left:1.5px solid var(--sand);
+  .pitch-list li::before{content:"";position:absolute;left:1px;top:17px;
+    width:8px;height:4.5px;border-left:1.5px solid var(--sand);
     border-bottom:1.5px solid var(--sand);transform:rotate(-45deg)}
   .pitch-list li:first-child::before{top:5px}
 
@@ -235,8 +245,8 @@ html,body{max-width:100%;overflow-x:clip}
      the report renders, so it cannot drift from it, and
      tools/check-demo-report.mjs refuses when the vendored fallback does. */
   .answers{background:var(--surface);border:1px solid var(--line)}
-  .answers-byline{margin:0 0 3px;font-size:14px;color:var(--ink);font-weight:500}
-  .answers-sub{margin:0;font-size:12.5px;color:var(--muted)}
+  .answers-byline{margin:0 0 3px;font-size:13.5px;color:var(--ink);font-weight:500}
+  .answers-sub{margin:0;font-size:12px;color:var(--muted)}
 
   .pf{display:grid;gap:18px;margin-top:20px}
   .pf-block{display:grid;gap:10px}
@@ -252,10 +262,10 @@ html,body{max-width:100%;overflow-x:clip}
      arriving in the right one. */
   .pf-chips,.pf-tags{list-style:none;margin:0;padding:0;
     display:flex;flex-wrap:wrap;gap:6px}
-  .pf-chips li{font-size:12.5px;font-weight:600;line-height:1;padding:7px 11px;
+  .pf-chips li{font-size:12px;font-weight:600;line-height:1;padding:6.5px 10px;
     border-radius:999px;background:var(--gold-soft);color:var(--gold-text);
     border:1px solid rgba(180,127,57,.22)}
-  .pf-tags li{font-size:12.5px;line-height:1;padding:7px 10px;border-radius:999px;
+  .pf-tags li{font-size:12px;line-height:1;padding:6.5px 10px;border-radius:999px;
     background:var(--surface-2);color:var(--ink-80);border:1px solid var(--line)}
 
   /* Label and value, two across. Not two columns of equal weight: the
@@ -280,8 +290,8 @@ html,body{max-width:100%;overflow-x:clip}
   @container (min-width:400px){
     .pf-rows > div:nth-child(2){border-top:0;padding-top:0}
   }
-  .pf-rows dt{font-size:12.5px;color:var(--muted);min-width:0}
-  .pf-rows dd{margin:0;font-size:13px;color:var(--ink);font-weight:500;min-width:0}
+  .pf-rows dt{font-size:12px;color:var(--muted);min-width:0}
+  .pf-rows dd{margin:0;font-size:12.5px;color:var(--ink);font-weight:500;min-width:0}
 
   /* The full transcript, behind a disclosure. Nothing is hidden from a
      reader who wants it; it is just not the first thing they meet.
@@ -492,35 +502,57 @@ html,body{max-width:100%;overflow-x:clip}
   <div class="report-split">
     <div class="report-aside">
 
-      <!-- Us talking, and the only box on the page that is. Two of the
-           figures in it are governed: PRODUCT_FACTS.md owns them and
+      <!-- Us talking, and the only box on the page that is. The wordmark
+           opens it instead of a heading: the card is the brand introducing
+           itself to somebody who arrived from an email and may not know
+           whose page this is. The <h2> stays, unseen, because a logo is not
+           a heading — the document outline and the page's landmarks still
+           need one, and /try shipped with no h1 at all when its intro came
+           out on the 17th.
+
+           SAME SIX-PATH DRAWING as the bar and the footer, in a light fill.
+           tools/check-wordmark.mjs compares the markup inside every
+           wordmark on the site and normalises the fill away, so a redrawn
+           or five-path copy here would be refused — which is the bug it was
+           written for: /use-cases carried a copy missing the full stop, in
+           the bar and the footer, for months.
+
+           TWO OF THE FIGURES ARE GOVERNED. PRODUCT_FACTS.md owns them and
            tools/check-product-facts.mjs binds the CLAIM to the figure, so a
            sentence about what the engine scores cannot quietly take the
-           data file's wider number. That is not hypothetical — the homepage
-           FAQ said "more than 30 product attributes" for months while
-           /science said 25, and an outside reviewer found it first.
+           data file's wider number. The homepage FAQ said "more than 30
+           product attributes" for months while /science said 25.
 
-           The editor and analytics lines are not invented either: they are
-           what /how-it-works already states the dashboard does, narrowed to
-           one line each. A sixth claim nobody can show is worse than five. -->
+           NO SOURCE IS NAMED in "Built on science", deliberately.
+           CONTENT_STATE.md carries a citation policy dated 2026-07-29: do
+           not cite EFSA or NIH in public copy for now, because the engine
+           references EFSA, the defensible smoker figure is American and the
+           UK number is different again. "Published reference intakes" is
+           the claim that survives it. -->
       <section class="pitch theme-dark">
-        <h2>What Blend does</h2>
-        <p class="pitch-lead">Build your quiz and embed it on your site. Every
-          customer who finishes it gets a plan like this one — their own needs
-          matched to your catalogue, in your own colours.</p>
+        <h2 class="sr-only">What Blend does</h2>
+        <svg class="pitch-mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="22" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#F3F1ED"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg>
+        <p class="pitch-lead">Build your quiz in your own colours and embed it
+          on your site. Match your customer needs to products in your
+          catalogue with data-backed recommendations.</p>
         <ul class="pitch-list">
-          <li><b>Every pick carries its reason.</b> A figure from that
-            customer's own answers, not “others also bought”.</li>
-          <li><b>25 product attributes</b> scored against their intake, their
-            goals and the gaps between the two.</li>
-          <li><b>17 safety gates</b> run before anything is recommended:
-            pregnancy, medications, upper limits, diet.</li>
-          <li><b>Live in an afternoon.</b> One embed code, and your catalogue
-            as a spreadsheet.</li>
-          <li><b>A quiz editor.</b> Questions, branding and which sections
-            show, changed from your dashboard rather than by pasting code.</li>
-          <li><b>Analytics.</b> Completion, drop-off by question, click-through,
-            and which products your customers actually ask for.</li>
+          <li><b>Data-backed personalisation.</b>
+            <span>25 product attributes scored against that customer's own
+              intake, their goals, and the gaps between the two.</span></li>
+          <li><b>The right product, first time.</b>
+            <span>Every pick carries the reason it was made, in their own
+              numbers — not “others also bought”.</span></li>
+          <li><b>Built on science.</b>
+            <span>Published reference intakes, 17 safety gates, and a scoring
+              run you can audit stage by stage.</span></li>
+          <li><b>Live in an afternoon.</b>
+            <span>One embed code, and your catalogue as a spreadsheet.</span></li>
+          <li><b>Fully editable quiz.</b>
+            <span>Questions, branding and which sections show, changed from
+              your dashboard rather than by pasting code.</span></li>
+          <li><b>First-party analytics.</b>
+            <span>Completion, drop-off by question, click-through, and which
+              products your customers actually ask for.</span></li>
         </ul>
         <div class="pitch-cta">
           <a class="btn btn-primary btn-sm"
