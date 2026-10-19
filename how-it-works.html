@@ -1431,33 +1431,23 @@ body{background:var(--ground)}
    than the one the homepage puts between its sections. */
 .hw-step{padding:64px 0}
 @media(max-width:760px){.hw-step{padding:52px 0}}
-.hw-step-grid{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,56fr);
+.hw-step-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,60%);
   gap:56px;align-items:center}
-/* THE PICTURE SLOT IS EMPTY, waiting for a GIF or a video of the product
-   actually doing the thing. Until one is in it, a step is its text: an
-   empty 56% column beside a 44% one reads as a page that failed to load,
-   and six stills of six different screens read as six unrelated cards,
-   which is what they were.
+/* THE PICTURE SLOT IS HELD OPEN, waiting for a GIF or a video of the
+   product actually doing the thing. It held six screenshots of six
+   different screens at six aspect ratios, which read as six unrelated
+   cards rather than one sequence.
 
-   Driven by `:empty` rather than a class, so putting a <video> back into
-   the <figure> restores the two-up on its own, with nothing else to
-   remember. That is also why the figures are written with nothing at all
-   between their tags — a newline is a text node and `:empty` would stop
-   matching. The 16:9 frame on .hw-shot is kept for the same reason: it is
-   the shape the video goes into. */
-/* `:empty` on its own is universal; `:has()` is not quite (Firefox got it
-   in 121). Without `:has()` the layout stays two-up with an empty right
-   column, which is worse than this page but not broken — and this line
-   makes sure the empty card itself never draws either way. */
-.hw-shot:empty{display:none}
-.hw-step-grid:has(.hw-shot:empty){grid-template-columns:minmax(0,1fr)}
-.hw-vis:has(.hw-shot:empty){display:none}
-/* and the text takes a measure rather than the whole 1136px it inherits.
-   Left-aligned at full width it ran 147 characters a line, about twice
-   what anybody reads comfortably, and it still looked like something was
-   missing to the right of it. Centred and capped, it reads as a decision.
-   Goes away with the rest of this block when a video lands in the slot. */
-.hw-step-grid:has(.hw-shot:empty) .hw-step-text{max-width:600px;margin-inline:auto}
+   The picture is 60% of the row, not 60fr of what is left after the gap,
+   so it measures 60% on a ruler: at 1136 that is 682, and the text takes
+   the 398 that remain. A screen recording of an interface needs the room,
+   and a step's text is a lead and a paragraph. Below 760
+   it stacks full width UNDER the text, which is where the flipped steps
+   put it too — the alternation is a desktop rhythm and on a phone it
+   would read as inconsistency.
+
+   The frame is 16:9 and empty until a <video> or an <img> goes into the
+   <figure>. Nothing else has to change when one does. */
 .hw-step--flip .hw-step-text{order:2}
 .hw-step-text,.hw-vis{min-width:0}
 /* The two-up needs about 700px of content to hold a readable measure and
@@ -1518,6 +1508,14 @@ body{background:var(--ground)}
    The real fix is exports shaped for this, which is the webapp lane's. */
 .hw-shot{margin:0;padding:18px;border-radius:16px;background:var(--surface);
   border:1px solid var(--line);box-shadow:var(--shadow-md)}
+/* The EMPTY slot has to hold the shape itself: aspect-ratio lives on the
+   picture, and with no picture the figure collapsed to its own padding —
+   a 388x25 pill. Exactly 16:9 and no inset, so the placeholder is the
+   frame rather than a frame around nothing, and quieter than a filled
+   card: a white card with a shadow and no content in it reads as an image
+   that failed, which is the one thing a placeholder must not do. */
+.hw-shot:empty{aspect-ratio:16/9;padding:0;background:var(--surface-2);
+  border-style:dashed;border-color:var(--line-strong);box-shadow:none}
 .hw-shot img{display:block;width:100%;height:auto;aspect-ratio:16/9;
   object-fit:cover;object-position:50% 0;border-radius:8px}
 .hw-cap{margin:10px 2px 0;font-size:12px;color:var(--muted)}
