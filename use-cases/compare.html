@@ -103,6 +103,9 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .check-mark{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--gold-soft);position:relative;vertical-align:middle}
 .check-mark::after{content:"";position:absolute;left:5px;top:3px;width:5px;height:9px;border-right:2px solid var(--gold-strong);border-bottom:2px solid var(--gold-strong);transform:rotate(45deg)}
 .cross-mark{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--subtle);position:relative;vertical-align:middle}
+/* Some rows are things a tag-based tool commonly DOES offer. Marking all
+   eleven with a cross makes the seven that are real easier to disbelieve. */
+.varies-mark{display:inline-block;font-size:12.5px;color:var(--muted);vertical-align:middle}
 .cross-mark::before,.cross-mark::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:2px;background:var(--muted);transform:translate(-50%,-50%) rotate(45deg)}
 .cross-mark::after{transform:translate(-50%,-50%) rotate(-45deg)}
 @media(max-width:640px){.compare-row{grid-template-columns:1fr;gap:8px;text-align:left}.compare-row.head{display:none}.compare-row .blend::before{content:"Blend: ";font-weight:500;color:var(--muted)}.compare-row .other::before{content:"Others: ";font-weight:500;color:var(--muted)}.compare-row .blend,.compare-row .other{text-align:left}}
@@ -169,7 +172,7 @@ html,body{max-width:100%;overflow-x:clip}
       <div class="hero-text">
         <span class="hero-eyebrow">Use case, software comparison</span>
         <h1 class="h1 hero-title">Blend vs tag-based quiz tools.</h1>
-        <p class="lead hero-sub">Most quiz tools are persona-based decision trees that any e-commerce category could use. Blend is real personalisation software, built specifically for supplement and OTC health brands: a scoring engine, a safety layer, and analytics that understand your category.</p>
+        <p class="lead hero-sub">Traditional quiz builders typically rely on predefined rules and product tags. Blend adds nutritional analysis, product-level scoring and explainable recommendations, built specifically for supplement and OTC health brands.</p>
         <div class="hero-ctas">
           <a href="/#pricing" class="btn btn-primary btn-lg">Start free trial</a>
           <a href="/try" class="btn btn-ghost btn-lg">Try it yourself</a>
@@ -222,9 +225,9 @@ html,body{max-width:100%;overflow-x:clip}
       <div class="compare-row"><div class="feature">Ingredient interaction safety checks</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="cross-mark"></span></div></div>
       <div class="compare-row"><div class="feature">Upper-limit gating against tolerable intakes</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="cross-mark"></span></div></div>
       <div class="compare-row"><div class="feature">Reasons cite nutrient gaps and safety checks</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="cross-mark"></span></div></div>
-      <div class="compare-row"><div class="feature">Shopify catalogue read straight from the store</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="cross-mark"></span></div></div>
-      <div class="compare-row"><div class="feature">One editor for screens and brand, with per-screen overrides</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="cross-mark"></span></div></div>
-      <div class="compare-row"><div class="feature">Goals offered and report emphasis follow the business type</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="cross-mark"></span></div></div>
+      <div class="compare-row"><div class="feature">Shopify catalogue read straight from the store</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="varies-mark">Varies</span></div></div>
+      <div class="compare-row"><div class="feature">One editor for screens and brand, with per-screen overrides</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="varies-mark">Varies</span></div></div>
+      <div class="compare-row"><div class="feature">Goals offered and report emphasis follow the business type</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="varies-mark">Varies</span></div></div>
       <div class="compare-row"><div class="feature">White-label embed</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="check-mark"></span></div></div>
       <div class="compare-row"><div class="feature">Medication conflict screening</div><div class="blend"><span class="check-mark"></span></div><div class="other"><span class="cross-mark"></span></div></div>
     </div>
@@ -246,13 +249,13 @@ html,body{max-width:100%;overflow-x:clip}
       </article>
       <article class="switch-card">
         <div class="switch-card-num">02</div>
-        <h3>Trust converts</h3>
-        <p>Customers who understand <strong>why</strong> a product was picked convert at higher rates than customers shown a black-box "you got this." Blend ships every recommendation with the specific reasons that produced it, nutrient gaps closed, goals matched, safety checks passed. Visible reasoning builds the trust that closes the sale.</p>
+        <h3>Give customers a reason to trust every recommendation</h3>
+        <p>A customer who can see <strong>why</strong> a product was picked can judge it for themselves, instead of being asked to take a black-box "you got this" on faith. Blend ships every recommendation with the specific reasons that produced it, nutrient gaps closed, goals matched, safety checks passed. Visible reasoning builds the trust that closes the sale.</p>
       </article>
       <article class="switch-card">
         <div class="switch-card-num">03</div>
-        <h3>Defensible for regulated categories</h3>
-        <p>Supplements with structure-function claims, OTC products, and regulated markets all share the same requirement: when a customer, a lawyer, or a regulator asks <strong>how</strong> a recommendation was made, you can show the maths. Deterministic scoring + traceable signals + source-rule references = a defensible recommendation, not a marketing pitch.</p>
+        <h3>Traceable for regulated categories</h3>
+        <p>Supplements with structure-function claims, OTC products and regulated markets share one requirement: when somebody asks <strong>how</strong> a recommendation was made, you can show the working. Every recommendation is traceable to the customer and product information used to generate it, down to the source rule behind each safety check.</p>
       </article>
     </div>
   </div>
@@ -262,10 +265,10 @@ html,body{max-width:100%;overflow-x:clip}
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Frequently asked questions</span><h2 class="h2">Buyer questions.</h2></div>
     <div class="faq-list">
-      <details class="faq-item"><summary>How is Blend different from other quiz tools?</summary><div class="faq-answer"><p>General quiz tools match products to multiple-choice answers using tags or point accumulators. Blend runs deterministic scoring across every product in your catalogue, factoring in ingredient interactions, upper-limit safety, synergies, and nutrient gaps inferred from a food-frequency questionnaire. Same input always produces the same output, auditable, defensible, and shippable in regulated categories. Every recommendation carries the reasons that produced it.</p></div></details>
+      <details class="faq-item"><summary>How is Blend different from other quiz tools?</summary><div class="faq-answer"><p>General quiz tools match products to multiple-choice answers using tags or point accumulators. Blend runs deterministic scoring across every product in your catalogue, factoring in ingredient interactions, upper-limit safety, synergies, and nutrient gaps inferred from a food-frequency questionnaire. Same input always produces the same output, and every recommendation is traceable to the information that produced it. Every recommendation carries the reasons that produced it.</p></div></details>
       <details class="faq-item"><summary>Can I migrate from another quiz tool?</summary><div class="faq-answer"><p>Yes. Most brands switch over in days, not weeks. We map your existing quiz logic into Blend's scoring engine, ingest your catalogue, and you keep your existing embed slot.</p></div></details>
       <details class="faq-item"><summary>What integrations does Blend support?</summary><div class="faq-answer"><p>Native Shopify catalogue sync, CSV upload, and manual upload for any other source today. WooCommerce, BigCommerce, and other platforms are on the roadmap.</p></div></details>
-      <details class="faq-item"><summary>What does it cost?</summary><div class="faq-answer"><p>15-day free trial. Starter from $49/month, Pro from $299/month, Enterprise from $599/month. <a href="/#pricing" style="color:var(--ink);border-bottom:1px solid var(--line-strong)">See full pricing &rarr;</a> <a href="/sample-report">See a real report &rarr;</a></p></div></details>
+      <details class="faq-item"><summary>What does it cost?</summary><div class="faq-answer"><p>15-day free trial on every plan. Starter from $49/month, Pro from $189/month, Enterprise is custom priced. <a href="/#pricing" style="color:var(--ink);border-bottom:1px solid var(--line-strong)">See full pricing &rarr;</a> <a href="/sample-report">See a real report &rarr;</a></p></div></details>
     </div>
   </div>
 </section>
