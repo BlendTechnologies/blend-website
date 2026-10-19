@@ -93,13 +93,13 @@ body{background:var(--ground)}
 .case-card:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
 .case-card-icon{width:48px;height:48px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex-shrink:0}
 .case-card-icon.shopify{background:rgba(149,191,71,.18)}
-.case-card-icon svg{width:22px;height:22px;color:var(--sand)}
+.case-card-icon svg{width:22px;height:22px;color:var(--gold-text)}
 .case-card-icon.shopify svg{color:#5E8E3E}
 /* Two of the three titles are one line and one is two, so without a floor
    the three paragraphs start at three different heights. */
 .case-card h3{font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink);min-height:2.5em}
 .case-card p{font-size:14px;color:var(--ink-80);line-height:1.6;margin:0 0 24px;flex:1}
-.case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--sand);font-size:14px;font-weight:600;letter-spacing:-.005em}
+.case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:600;letter-spacing:-.005em}
 .case-card-cta::after{content:"\2192";transition:transform .2s ease}
 .case-card:hover .case-card-cta::after{transform:translateX(3px)}
 
@@ -120,7 +120,7 @@ body{background:var(--ground)}
 .aud-row dd{margin:0}
 .aud-row .aud-go{text-align:right}
 .aud-row dd p{margin:0;font-size:15px;line-height:1.6;color:var(--ink-80)}
-.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--sand);font-size:14px;font-weight:600;letter-spacing:-.005em;line-height:1.6}
+.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:600;letter-spacing:-.005em;line-height:1.6}
 .aud-link::after{content:"\2192";transition:transform .2s ease}
 .aud-link:hover::after{transform:translateX(3px)}
 @media (prefers-reduced-motion:reduce){.aud-link::after{transition:none}}
@@ -142,7 +142,7 @@ body{background:var(--ground)}
 .cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
 .cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
 .closer .cta-alt{color:rgba(255,255,255,.62)}
-.closer .cta-alt a{color:var(--sand);text-decoration-color:rgba(231,207,163,.45)}
+.closer .cta-alt a{color:var(--gold-text);text-decoration-color:rgba(231,207,163,.45)}
 .closer .cta-alt a:hover{text-decoration-color:var(--sand)}
 /* The dark is the reveal, not the footer, so the two read as one card. */
 .footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:48px 0 32px}
@@ -322,7 +322,7 @@ html,body{max-width:100%;overflow-x:clip}
   </div>
 </section>
 
-<section class="closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
+<section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
     <span class="eyebrow">Get started</span>
     <h2 class="h2">Not sure which fits? Start a trial.</h2>
@@ -337,7 +337,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 </main>
 
-<footer class="footer sc-reveal sc-reveal--bottom" data-sc="endcap">
+<footer class="theme-dark footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">

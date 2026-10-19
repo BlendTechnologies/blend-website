@@ -29,6 +29,12 @@
    --muted is 4.65:1 on /science's tint and 4.30 and 4.46 on the two
    others, so the pages that tint darker pass a darker grey in rather
    than everyone losing AA for one shared value. */
+/* --ph-muted is declared on :root as var(--muted), and a custom property
+   inherits the value it was SUBSTITUTED to, not the var() reference. So
+   inside a dark hero it kept the light page's muted and the eyebrow and
+   the meta line went dark on near-black. Redeclared where the scope
+   changes, which is the only place it can be re-resolved. */
+.theme-dark .ph,.theme-dark.ph{--ph-muted:var(--muted)}
 .ph .eyebrow{display:inline-block;margin-bottom:16px;color:var(--ph-muted,var(--muted))}
 .ph .h1{max-width:17ch;margin:0 auto}
 .ph .lead{margin:20px auto 0;max-width:640px}

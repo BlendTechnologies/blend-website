@@ -14,10 +14,12 @@
    deliberate, and it is the whole reason this file can exist
    without editing thirteen pages' worth of CSS.
 
-   Colour comes from the page: --nav-bg is the bar's own
-   background, already set per page to whatever the hero is, so
-   a dark page gets a dark sheet without this file knowing which
-   pages are dark.
+   Colour comes from the bar's own scope. --nav-bg was set per
+   page and no page sets it since the palette moved to
+   theme.css, so the sheet took the fallback and would have been
+   near-black on a light site. --ground resolves inside whatever
+   scope the bar is in: the page's warm grey normally, and the
+   island's near-black while a dark hero is still underneath.
    ============================================================ */
 @media (max-width:860px){
 
@@ -45,7 +47,7 @@
     gap:0;
     margin:0;
     padding:8px 20px calc(24px + env(safe-area-inset-bottom,0px));
-    background:var(--nav-bg,var(--deep));
+    background:var(--ground);
     backdrop-filter:none;
     -webkit-backdrop-filter:none;
     border-bottom:0;

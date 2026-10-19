@@ -48,6 +48,23 @@ Before this existed the strip claimed 30+ scored product attributes where
 the scorer reads 25, and the rails showed 37 of the engine's 41 goals under
 a heading promising every goal a customer can pick.
 
+## The sample report
+
+`/sample-report` shows the webapp's real report fragment, and it is framed
+and themed to be **the demo quiz's report** — the same quiz `/try` embeds.
+
+- The frame is the app's own container, not a width chosen here:
+  `app/quiz/[embedKey]/results/[submissionId]/page.tsx` wraps the report in
+  `max-w-[1040px] ... p-8`, so 1040 including 32px of padding and 976 of
+  content. `manifest.json`'s `designWidth: 1040` is the width the export was
+  captured at, which is the content width, not the container's.
+- The palette it opens on is the live demo's, vendored in `demo-theme.json`.
+  `node tools/sync-demo-theme.mjs` fetches it and rewrites the first swatch
+  between `demo-theme:*` markers; `--check` refuses when the page and the
+  vendored copy disagree, and warns when the live demo has moved on.
+- The expand control opens a `<dialog>` the export already carries. The
+  export holds both states of every product; only `showModal()` was missing.
+
 ## Agreement between pages
 
 The visual-diff suite compares each page against its own baseline, so
@@ -59,6 +76,14 @@ on four pages, in the bar and the footer, for months.
 every page and refuses when they disagree. Anything else that is supposed
 to be identical everywhere wants a check of the same shape rather than a
 baseline.
+
+`node tools/check-css-shape.mjs` guards a different invariant: not "do the
+copies agree" but "does this file mean what it says". /try's embed opened
+flush against the nav on 2026-10-18 because the nav consolidation had left
+`.footer` behind with no block, and a selector with no `{}` joins the next
+prelude — `.try-embed-section` had quietly become `.footer .try-embed-section`
+and matched nothing. Valid CSS, no warning, and invisible to a per-page
+baseline, which only knows what the page has looked like since.
 
 `node tools/check-nav.mjs` is that check for the bar, and it was needed:
 on 2026-10-17 there were **seven distinct nav markups across thirteen
@@ -79,6 +104,8 @@ would point at the page you are on.
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`
+- `node tools/sync-demo-theme.mjs --check`
+- `node tools/check-css-shape.mjs`
 - `node tools/check-product-facts.mjs`
 - `python3 ../../tools/check_british_english.py`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`

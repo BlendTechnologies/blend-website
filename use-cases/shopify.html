@@ -39,7 +39,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}.skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(38px,5.2vw,60px);line-height:1.05;letter-spacing:-.025em;font-weight:600;margin:0}
+.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0}
 .h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
@@ -78,7 +78,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .store-nav{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--ink-80)}
 .store-cart{background:var(--deep);color:var(--white);padding:4px 8px;border-radius:14px;font-size:12px;font-weight:600}
 .store-quiz{padding:24px 20px 20px;background:linear-gradient(180deg,var(--cream-2) 0%,var(--cream) 100%)}
-.store-quiz-eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sand);margin-bottom:14px}
+.store-quiz-eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px}
 .store-quiz-eyebrow::before{content:"";width:6px;height:6px;background:#95BF47;border-radius:50%}
 .store-quiz-prog{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .store-quiz-prog-l{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap}
@@ -89,7 +89,10 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .store-quiz-opt.active{border-color:var(--ink);background:var(--surface);color:var(--ink);font-weight:500}
 .store-quiz-opt-check{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line-strong);background:var(--surface);flex-shrink:0}
 .store-quiz-opt.active .store-quiz-opt-check{border-color:var(--gold);background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 14 14'%3E%3Cpath d='M3 7l3 3 5-6' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/8px no-repeat}
-.store-quiz-next{margin-top:14px;display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:var(--surface-up);color:var(--white);border-radius:8px;font-size:12px;font-weight:600}
+/* --deep, not --surface-up: this button sits on the WHITE store mock, so
+     it goes dark. --surface-up was right while the page was dark and the
+     mock with it; it is #FFFFFF now, which was white on white. */
+  .store-quiz-next{margin-top:14px;display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:var(--deep);color:var(--white);border-radius:8px;font-size:12px;font-weight:600}
 @media(max-width:860px){.hero{padding:32px 0 64px}.hero-grid{grid-template-columns:1fr;text-align:center;gap:32px}.hero-sub{margin:22px auto 0}.hero-ctas,.hero-foot{justify-content:center}.store-mock{margin:0 auto}}
 /* Sections */
 .section{padding:96px 0}.section-cream{background:var(--cream)}.section-subtle{background:var(--subtle)}
@@ -326,7 +329,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 </main>
 
-<footer class="footer">
+<footer class="theme-dark footer">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
