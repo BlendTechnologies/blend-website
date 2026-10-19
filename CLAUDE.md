@@ -128,6 +128,17 @@ prelude — `.try-embed-section` had quietly become `.footer .try-embed-section`
 and matched nothing. Valid CSS, no warning, and invisible to a per-page
 baseline, which only knows what the page has looked like since.
 
+`node tools/check-dashes.mjs` is the same shape again, for punctuation.
+The founder's note on 2026-10-19 was "NO HYPHENS NEVER", and a count
+settled what it meant: the whole site carried exactly ONE em dash in
+visible copy, on the page written that day, and every other page carried
+zero. Twelve of thirteen already obeyed a rule nothing enforced. It reads
+entities too, which is how it found the two the raw count missed, both
+written `&#8212;` in the engine terminal's header on /index and /science
+(the second lives in `sync-science-facts.mjs`, since that block is
+generated). The en dash stays legal: it is the range character, and the
+demo's own quiz answers arrive carrying it.
+
 `node tools/check-nav.mjs` is that check for the bar, and it was needed:
 on 2026-10-17 there were **seven distinct nav markups across thirteen
 pages** — the logo pointed at four different places, the demo link was
@@ -149,6 +160,7 @@ would point at the page you are on.
 - `node tools/check-nav.mjs`
 - `node tools/check-demo-report.mjs`  (and `sync-demo-answers.mjs` when it refuses)
 - `node tools/check-css-shape.mjs`
+- `node tools/check-dashes.mjs`
 - `node tools/check-product-facts.mjs`
 - `python3 ../../tools/check_british_english.py`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`
