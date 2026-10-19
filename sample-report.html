@@ -208,6 +208,22 @@ html,body{max-width:100%;overflow-x:clip}
     border-bottom:1.5px solid var(--sand);transform:rotate(-45deg)}
   .pitch-list li:first-child::before{top:5px}
 
+  /* The one call to action in the left column, closing the card it
+     belongs to. Measured on this ground: white on --gold-strong is 4.87:1,
+     and the fill against --deep is 3.96:1 — past AA for the label and past
+     3:1 for the control's own edge. --gold would have been 3.48 and fails.
+
+     A PLAIN LINK IN A NEW TAB, not the blendBookDemo() popup the other
+     pages use. That helper lives in cookie-consent.js, which this page
+     does not load, and it exists to gate Calendly's embedded widget behind
+     consent. Opening the calendar in its own tab is the escape the banner
+     itself offers when consent is declined — nothing third-party loads
+     here, and Calendly's cookies are Calendly's business in Calendly's
+     tab. See the note in the markup: five pages are missing that script
+     and that is worth fixing on its own, not by wiring a popup to a gate
+     that is not there. */
+  .pitch-cta{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+
   /* ---- the answers, designed rather than dumped ---------------------
      43 rows in quiz order was a wall, and quiz order put consent, a name
      and a unit choice at the top of it: everything that produced a
@@ -506,6 +522,11 @@ html,body{max-width:100%;overflow-x:clip}
           <li><b>Analytics.</b> Completion, drop-off by question, click-through,
             and which products your customers actually ask for.</li>
         </ul>
+        <div class="pitch-cta">
+          <a class="btn btn-primary btn-sm"
+             href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39"
+             target="_blank" rel="noopener">Book a call</a>
+        </div>
       </section>
 
       <!-- Drawn from /api/demo-answers, which reads the SAME submission the
