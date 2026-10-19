@@ -50,20 +50,34 @@ a heading promising every goal a customer can pick.
 
 ## The sample report
 
-`/sample-report` shows the webapp's real report fragment, and it is framed
-and themed to be **the demo quiz's report** — the same quiz `/try` embeds.
+`/sample-report` **is** the demo. It embeds a real submission against the
+same quiz `/try` runs, so changing that quiz — its questions, its report
+sections, their order, the layout, the colours — changes this page with no
+work here at all.
 
-- The frame is the app's own container, not a width chosen here:
-  `app/quiz/[embedKey]/results/[submissionId]/page.tsx` wraps the report in
-  `max-w-[1040px] ... p-8`, so 1040 including 32px of padding and 976 of
-  content. `manifest.json`'s `designWidth: 1040` is the width the export was
-  captured at, which is the content width, not the container's.
-- The palette it opens on is the live demo's, vendored in `demo-theme.json`.
-  `node tools/sync-demo-theme.mjs` fetches it and rewrites the first swatch
-  between `demo-theme:*` markers; `--check` refuses when the page and the
-  vendored copy disagree, and warns when the live demo has moved on.
-- The expand control opens a `<dialog>` the export already carries. The
-  export holds both states of every product; only `showModal()` was missing.
+It was an inlined export of the report component rendered against a
+fixture, and the fixture drifted: every percentage on a product card
+disagreed with the breakdown underneath it, for months, and nothing in this
+repository could have noticed.
+
+- The URL lives in `demo-report.json` and in the `#reportFrame` iframe.
+  `node tools/check-demo-report.mjs` refuses when the two disagree or when
+  the embedded URL has stopped being a report.
+- **A results link is good for 90 days** (`RESULTS_LINK_TTL_DAYS`,
+  `lib/quiz/results-expiry.ts`), checked before the recommendation is ever
+  fetched. On day 91 the page becomes one line of grey text and every other
+  check still passes — the page returns 200, the iframe loads, and the
+  screenshot suite cannot see inside a cross-origin frame. The checker warns
+  21 days out and fails after. Replacing it means taking the demo quiz
+  again and putting the new URL in both places.
+- The height comes from the report itself. It posts
+  `{source:"blend-report", type:"frame:height"}` on every resize
+  (`components/report/embed-auto-height.tsx`), built for brands embedding
+  the report on their own site; the page listens for that and checks the
+  origin. There is a tall fallback height for the message that never comes.
+- The palette swatches are gone with the fragment. A `--quiz-*` custom
+  property cannot cross an origin, so there was nothing left for them to
+  repaint. The live report wears the demo brand's own colours.
 
 ## Agreement between pages
 
@@ -104,7 +118,7 @@ would point at the page you are on.
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`
-- `node tools/sync-demo-theme.mjs --check`
+- `node tools/check-demo-report.mjs`
 - `node tools/check-css-shape.mjs`
 - `node tools/check-product-facts.mjs`
 - `python3 ../../tools/check_british_english.py`
