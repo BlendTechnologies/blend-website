@@ -51,7 +51,20 @@ const submitted = new Date(doc.submittedAt);
 const expires = new Date(submitted.getTime() + doc.ttlDays * 86400000);
 const daysLeft = Math.floor((expires - Date.now()) / 86400000);
 
-if (daysLeft < 0) {
+/* THE DEADLINE IS GONE, SO THE CALENDAR IS NO LONGER THE AUTHORITY.
+   This submission is exempt from the 90-day TTL by
+   NEVER_EXPIRING_SUBMISSION_IDS in apps/webapp/lib/quiz/results-expiry.ts:
+   it is a fictional customer on a sample catalogue, deliberately published,
+   so the TTL has nothing to protect here.
+
+   What replaces the date arithmetic is the fetch below, which is a better
+   check and always was. Arithmetic says what SHOULD happen on day 91; the
+   fetch says what the app actually served. If the exemption is ever
+   reverted, re-deployed without that file, or the id is edited, the page
+   starts answering "This results link has expired." and the fetch refuses
+   on the next run. A date in a JSON file could not have noticed any of
+   those. */
+if (!doc.neverExpires && daysLeft < 0) {
   console.error(`FAILED: this results link expired ${-daysLeft} day(s) ago `
     + `(${doc.ttlDays}-day TTL from ${doc.submittedAt}).`);
   console.error('Take the demo quiz again and put the new URL in demo-report.json and the iframe.');
@@ -164,11 +177,23 @@ try {
   console.log(`  (summary not checked: ${e.message})`);
 }
 
-if (daysLeft <= doc.warnWithinDays) {
+if (doc.neverExpires) {
+  /* Past day 90 the fetch above is the ONLY thing standing between this page
+     and a line of grey text, so say out loud when it could not run. */
+  if (daysLeft < 0 && !live) {
+    console.error(`FAILED: this link is ${-daysLeft} day(s) past the ${doc.ttlDays}-day TTL `
+      + 'and is exempt from it, but the demo result could not be reached to prove the');
+    console.error('exemption is still deployed. Re-run with a network, or check');
+    console.error('apps/webapp/lib/quiz/results-expiry.ts.');
+    process.exit(1);
+  }
+} else if (daysLeft <= doc.warnWithinDays) {
   console.log(`WARNING: this results link expires in ${daysLeft} day(s), on ${expires.toISOString().slice(0, 10)}.`);
   console.log('Take the demo quiz again and replace the URL before it does.');
 }
 
 console.log(`PASSED: /sample-report embeds a live demo result`
   + `${live ? '' : ' (not reached, offline check only)'}`
-  + `, ${daysLeft} day(s) before its link expires.`);
+  + `${doc.neverExpires
+      ? ', exempt from the 90-day TTL'
+      : `, ${daysLeft} day(s) before its link expires`}.`);
