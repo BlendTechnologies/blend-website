@@ -26,7 +26,6 @@
 <link rel="stylesheet" href="/nav.css">
   <link rel="stylesheet" href="/nav-mobile.css">
   <link rel="stylesheet" href="/theme.css">
-  <link rel="stylesheet" href="/blend-mockups/mockups.css">
 <style>
   :root{--content:1200px;--bg:var(--ground);--track:rgba(255,255,255,.12);--accent:var(--gold);--accent-soft:var(--gold-soft);--green:var(--green-soft)}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -82,12 +81,8 @@
 html,body{max-width:100%;overflow-x:clip}
 
   /* ---- The page around the exported report -------------------------
-     Everything inside .bm-root is the webapp's own markup and its own
-     scoped Tailwind build. This styles only what surrounds it. */
-  .report-intro{max-width:720px;margin:34px auto 22px;text-align:center}
-  .report-intro h1{margin:0 0 12px;font-size:clamp(36px,4.6vw,58px);line-height:1.06;
-    letter-spacing:-.025em;font-weight:600;color:var(--ink)}
-  .report-intro p{margin:0;font-size:16px;line-height:1.6;color:var(--ink-80)}
+     The report is a live cross-origin document since #120, so none of
+     this reaches inside it. It styles the page around the frame. */
 
 
   /* The report is a document: it keeps its own light surface on the page,
@@ -116,12 +111,40 @@ html,body{max-width:100%;overflow-x:clip}
      the page stops being a set of assertions and becomes an argument.
      Two columns because 43 rows in one are a wall; one on a phone because
      two are 90px wide. */
-  .answers{max-width:1040px;margin:0 auto 18px;padding:22px 24px;
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* HALF AND HALF: the answers on the left, the report they produced on
+     the right. Stacked, a reader finished one before starting the other,
+     and had to carry "vegetarian, never eats fish" in their head down a
+     3,000px plan. The report is a document you skim, so half the width
+     costs it little and the pairing is worth more than the inches.
+
+     `start`, not `stretch`: the aside is short and the report is tall, and
+     a 1,100px white panel holding four lines of summary is worse than a
+     short one. The report sticks while the aside scrolls past it. */
+  .report-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:24px;max-width:1040px;margin:0 auto;align-items:start}
+  .report-aside{min-width:0;position:sticky;top:calc(var(--nav-h) + 18px)}
+  @media(max-width:1000px){
+    .report-split{grid-template-columns:minmax(0,1fr)}
+    /* sticky in a single column pins the answers over the report */
+    .report-aside{position:static}
+  }
+
+  .answers{margin:0 0 0;padding:22px 24px;
     background:var(--surface);border:1px solid var(--line);border-radius:14px}
   .answers-head h2{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.015em}
-  .answers-head p{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
-  .answers-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:0 36px;margin:0}
+  /* The sentence the panel leads with. The list is in quiz order and quiz
+     order is demographics first, so the twelve rows a reader saw under the
+     cap were consent, a name, an age and a unit choice — everything that
+     produced a recommendation sat below them. */
+  .answers-summary{margin:0 0 10px;font-size:15px;line-height:1.55;color:var(--ink)}
+  .answers-summary:empty{display:none}
+  .answers-sub{margin:0 0 16px;font-size:13px;color:var(--muted)}
+  /* one column: the aside is half the page now, and two 220px columns of
+     question-and-answer wrapped every other row onto three lines */
+  .answers-grid{display:grid;grid-template-columns:minmax(0,1fr);margin:0}
   .answers-grid > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
     gap:14px;padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
   .answers-grid dt{font-size:13px;color:var(--muted);min-width:0}
@@ -170,7 +193,7 @@ html,body{max-width:100%;overflow-x:clip}
   .report-frame iframe{display:block;width:100%;border:0;background:transparent;
     height:clamp(560px,82vh,1180px)}
 
-  .report-frame{max-width:1040px;margin:0 auto;
+  .report-frame{max-width:none;margin:0;
     padding:var(--report-pad);border-radius:16px;overflow:hidden;
     /* The margin has to be paper, not page, or the report sits in a second
        frame of a different colour. --quiz-bg is the fragment's own
@@ -185,8 +208,7 @@ html,body{max-width:100%;overflow-x:clip}
   :root{--report-pad:32px}
   @media(max-width:640px){
     :root{--report-pad:20px}
-    .report-intro{margin-top:24px}
-    }
+      }
   @media(max-width:420px){ :root{--report-pad:14px} }
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sample wellness report | Blend","url":"https://www.blend-technologies.com/sample-report","description":"The report a customer receives at the end of a Blend quiz, with the reason behind every pick and the safety notices that apply to them. Yours to configure.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Sample report","item":"https://www.blend-technologies.com/sample-report"}]}}</script>
 </head>
@@ -236,10 +258,13 @@ html,body{max-width:100%;overflow-x:clip}
        brought in by tools/scope-mockups.mjs. Do not edit it here; ask the
        webapp lane for a new export. The markers are what that script
        re-inlines into. -->
-  <div class="report-intro">
-    <h1>The report your customer receives.</h1>
-    <p>You decide which sections appear and in what order, whether the products lay out as a grid or swipe, and what each product button does. The wording and the colours are yours too. The safety notices are the exception: product warnings, upper-limit flags and the clinician referral have no switch, by design.</p>
-  </div>
+  <!-- The page's only heading, and it is not drawn. The intro that carried
+       it was removed on the founder's instruction; the page opens on the
+       answers and the report, which is what it is for. The heading stays
+       for the document outline and the tab's accessible name — /try shipped
+       with no h1 at all when its intro came out on the 17th, and that is
+       not a mistake worth making twice. -->
+  <h1 class="sr-only">A sample wellness report from the Blend demo quiz</h1>
 
   <!-- The LIVE demo result, not a copy of one.
        This page used to inline an export of the report component rendered
@@ -266,19 +291,30 @@ html,body{max-width:100%;overflow-x:clip}
   <!-- Filled from /api/demo-answers, which reads the SAME submission the
        iframe below renders. Empty and hidden until it is: a sample report
        with no answer list is the page as it was, a broken one is not. -->
-  <section class="answers" id="answers" hidden>
-    <div class="answers-head">
-      <h2>The answers behind this report</h2>
-      <p>Every one of them, as given. <span id="answersCount"></span></p>
+  <!-- The inputs beside the output, not above it. The report is a long
+       document and the answers are what make it legible; stacked, a reader
+       finished one before starting the other and had to carry "vegetarian,
+       never eats fish" in their head down a 3,000px plan. Side by side they
+       are read together, which is the argument this page exists to make.
+       Stacks below 1000, answers first. -->
+  <div class="report-split">
+    <div class="report-aside">
+      <section class="answers" id="answers" hidden>
+        <div class="answers-head">
+          <h2>The answers behind this report</h2>
+          <p class="answers-summary" id="answersSummary"></p>
+          <p class="answers-sub">Every one of them, as given. <span id="answersCount"></span></p>
+        </div>
+        <dl class="answers-grid" id="answersGrid"></dl>
+        <button type="button" class="answers-more" id="answersMore" hidden></button>
+      </section>
     </div>
-    <dl class="answers-grid" id="answersGrid"></dl>
-    <button type="button" class="answers-more" id="answersMore" hidden></button>
-  </section>
 
-  <div class="report-frame" id="report">
-    <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
-            src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="report-frame" id="report">
+      <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
+              src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
   </div>
 
   <div class="report-foot">
@@ -333,6 +369,8 @@ html,body{max-width:100%;overflow-x:clip}
         frag.appendChild(wrap);
       });
       grid.appendChild(frag);
+      var sum = document.getElementById('answersSummary');
+      if (sum && d.summary) sum.textContent = d.summary;
       if (count) count.textContent = d.count + ' questions answered.';
       sec.hidden = false;
 
