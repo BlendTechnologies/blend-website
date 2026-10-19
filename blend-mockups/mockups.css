@@ -623,8 +623,8 @@ height: 1.75rem;
 .bm-root .h-8 {
 height: 2rem;
 }
-.bm-root .h-\[42rem\] {
-height: 42rem;
+.bm-root .h-\[32rem\] {
+height: 32rem;
 }
 .bm-root .h-\[5px\] {
 height: 5px;
@@ -2316,8 +2316,8 @@ width: 46%;
 .bm-root .sm\:w-auto {
 width: auto;
 }
-.bm-root .sm\:max-w-\[20rem\] {
-max-width: 20rem;
+.bm-root .sm\:max-w-\[18rem\] {
+max-width: 18rem;
 }
 .bm-root .sm\:max-w-\[25\%\] {
 max-width: 25%;
@@ -2328,8 +2328,8 @@ flex-shrink: 1;
 .bm-root .sm\:snap-none {
 scroll-snap-type: none;
 }
-.bm-root .sm\:auto-rows-\[42rem\] {
-grid-auto-rows: 42rem;
+.bm-root .sm\:auto-rows-\[32rem\] {
+grid-auto-rows: 32rem;
 }
 .bm-root .sm\:grid-cols-2 {
 grid-template-columns: repeat(2, minmax(0, 1fr));
