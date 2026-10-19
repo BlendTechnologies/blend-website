@@ -4,7 +4,7 @@
     "file": "wellness-report-full.html",
     "png": "wellness-report-full.png",
     "designWidth": 1040,
-    "aspectRatio": 0.348,
+    "aspectRatio": 0.341,
     "reveals": 0,
     "description": "The full wellness report as it renders today: the opening band, the plan, the safety notices under it, retake, and the full breakdown."
   },
@@ -22,7 +22,7 @@
     "file": "recommend-scored.html",
     "png": "recommend-scored.png",
     "designWidth": 1040,
-    "aspectRatio": 1.2,
+    "aspectRatio": 1.12,
     "reveals": 0,
     "description": "Your macros and your full nutrient breakdown: the numbers the plan is built from."
   }

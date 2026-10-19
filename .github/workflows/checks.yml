@@ -35,11 +35,11 @@ jobs:
       - name: The nav is one component everywhere
         run: node tools/check-nav.mjs
 
-      # /sample-report opens on the LIVE demo quiz's palette, vendored the
-      # way pricing.json vendors prices. Offline mismatch fails; a live
-      # repaint is a warning, since the brand can move a colour any time.
-      - name: The sample report wears the demo quiz's theme
-        run: node tools/sync-demo-theme.mjs --check
+      # /sample-report embeds a LIVE result from the demo quiz, and a
+      # results link is good for 90 days. Without this the page becomes one
+      # line of grey text on day 91 and every other check still passes.
+      - name: The sample report is still a live demo result
+        run: node tools/check-demo-report.mjs
 
       # /try's embed lost its padding to a selector that had joined the one
       # above it. Valid CSS, matching nothing, invisible to a baseline.
