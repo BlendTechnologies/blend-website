@@ -111,6 +111,36 @@ html,body{max-width:100%;overflow-x:clip}
      it is what this frame is. (blend-mockups/manifest.json's designWidth
      1040 is the width the export was CAPTURED at, which is the content
      width, not the container's.) */
+  /* The inputs, above the output. A reader cannot judge "your omega 3 is
+     at 8% of your target" without knowing the person never eats fish, so
+     the page stops being a set of assertions and becomes an argument.
+     Two columns because 43 rows in one are a wall; one on a phone because
+     two are 90px wide. */
+  .answers{max-width:1040px;margin:0 auto 18px;padding:22px 24px;
+    background:var(--surface);border:1px solid var(--line);border-radius:14px}
+  .answers-head h2{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.015em}
+  .answers-head p{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+  .answers-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:0 36px;margin:0}
+  .answers-grid > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+    gap:14px;padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
+  .answers-grid dt{font-size:13px;color:var(--muted);min-width:0}
+  .answers-grid dd{margin:0;font-size:13px;color:var(--ink);font-weight:500;min-width:0}
+  /* 43 rows is a wall, and the report underneath is the point. Capped with
+     a fade, and the button opens it. Not a <details>: the open state wants
+     to differ by width, and `open` is an attribute rather than a style. */
+  .answers-grid.is-capped{max-height:300px;overflow:hidden;
+    -webkit-mask-image:linear-gradient(#000 70%,transparent);
+    mask-image:linear-gradient(#000 70%,transparent)}
+  .answers-more{margin-top:14px;background:none;border:0;padding:6px 0;cursor:pointer;
+    font:inherit;font-size:13px;font-weight:600;color:var(--gold-text);
+    text-decoration:underline;text-underline-offset:3px;min-height:36px}
+  .answers-more:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  @media(max-width:760px){
+    .answers{padding:18px 16px}
+    .answers-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  }
+
   .livebar{max-width:1040px;margin:0 auto 18px;padding:14px 18px;
     border:1.5px dashed var(--accent);border-radius:14px;background:var(--accent-soft);
     font-size:14px;color:var(--ink-80);text-align:center}
@@ -233,6 +263,18 @@ html,body{max-width:100%;overflow-x:clip}
     <div><b>This is the live demo.</b> A real result from the quiz on <a href="/try">the demo page</a>, rendered by the product. Change the quiz and this changes with it.</div>
   </div>
 
+  <!-- Filled from /api/demo-answers, which reads the SAME submission the
+       iframe below renders. Empty and hidden until it is: a sample report
+       with no answer list is the page as it was, a broken one is not. -->
+  <section class="answers" id="answers" hidden>
+    <div class="answers-head">
+      <h2>The answers behind this report</h2>
+      <p>Every one of them, as given. <span id="answersCount"></span></p>
+    </div>
+    <dl class="answers-grid" id="answersGrid"></dl>
+    <button type="button" class="answers-more" id="answersMore" hidden></button>
+  </section>
+
   <div class="report-frame" id="report">
     <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
             src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
@@ -261,6 +303,53 @@ html,body{max-width:100%;overflow-x:clip}
     nav.classList.remove('open');
     toggle.setAttribute('aria-expanded','false');
   }));
+})();
+
+/* The answers that produced the report below them.
+   Progressive enhancement on purpose: the section ships `hidden` and only
+   appears once the data is in hand, so a failing proxy, a blocked request
+   or no JavaScript leaves the page exactly as it would have been. */
+(function(){
+  var sec = document.getElementById('answers');
+  var grid = document.getElementById('answersGrid');
+  var count = document.getElementById('answersCount');
+  if (!sec || !grid) return;
+
+  fetch('/api/demo-answers', { headers: { accept: 'application/json' } })
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(d){
+      if (!d || !Array.isArray(d.answers) || !d.answers.length) return;
+      var frag = document.createDocumentFragment();
+      d.answers.forEach(function(row){
+        var wrap = document.createElement('div');
+        var dt = document.createElement('dt');
+        var dd = document.createElement('dd');
+        /* textContent, not innerHTML: these strings are a brand's own quiz
+           copy coming back over the wire, and this page has no business
+           executing them. */
+        dt.textContent = row.q;
+        dd.textContent = row.a;
+        wrap.appendChild(dt); wrap.appendChild(dd);
+        frag.appendChild(wrap);
+      });
+      grid.appendChild(frag);
+      if (count) count.textContent = d.count + ' questions answered.';
+      sec.hidden = false;
+
+      var more = document.getElementById('answersMore');
+      if (more && grid.scrollHeight > 320) {
+        var open = false;
+        var sync = function(){
+          grid.classList.toggle('is-capped', !open);
+          more.textContent = open ? 'Show fewer' : 'Show all ' + d.count + ' answers';
+          more.setAttribute('aria-expanded', String(open));
+        };
+        more.hidden = false;
+        more.addEventListener('click', function(){ open = !open; sync(); });
+        sync();
+      }
+    })
+    .catch(function(){ /* the report still stands on its own */ });
 })();
 
 /* The expand control, the palette swatches and the height listener all
