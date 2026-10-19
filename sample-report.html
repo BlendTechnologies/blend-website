@@ -187,9 +187,14 @@ html,body{max-width:100%;overflow-x:clip}
   /* Us on the left, the claims on the right in two columns. Six claims in
      one column across 900px would be six very wide, very thin lines; the
      band is only worth its width if something fills it. */
+  /* 260, not 340. The claims are what a reader is weighing and they were
+     reading four and five lines deep in 224px columns while the left side
+     had room to spare; 80px off the left puts 46 on each claim column and
+     takes most of a line off every one of them. The band measured 412 tall
+     before and the lead is unchanged. */
   .pitch{background:var(--deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
-    display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);
-    gap:28px 44px;align-items:start}
+    display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);
+    gap:26px 36px;align-items:start}
   /* The column STRETCHES to the band's height and the call to action sits
      at the bottom of it. The lead at 13.5 left a third of the left side
      empty under the button while the claims filled the right, which read
@@ -222,7 +227,7 @@ html,body{max-width:100%;overflow-x:clip}
      going down the list, the small line is there when one of them stops
      you. */
   .pitch-list{list-style:none;margin:0;padding:0;display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));column-gap:36px}
+    grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
   .pitch-list li{position:relative;padding:12px 0 12px 22px;
     border-top:1px solid var(--line)}
   /* The first item of EACH column loses its rule, which is why this is
@@ -602,24 +607,23 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
     <ul class="pitch-list">
       <li><b>Data-backed personalisation.</b>
-        <span>What each customer already gets from food, what they need, and
-          the shortfall between. Your catalogue is scored against it on 25
-          product attributes.</span></li>
+        <span>What they already eat, what they need, and the gap between.
+          Your catalogue scored against it on 25 product attributes.</span></li>
       <li><b>Live in an afternoon.</b>
-        <span>Upload your catalogue as a spreadsheet, shape the quiz, paste
-          one line of code where you want it.</span></li>
+        <span>Type your Shopify address, customise from a template, embed one
+          line of HTML.</span></li>
       <li><b>The right product each time.</b>
         <span>Every recommendation carries the reason it was made, by your
           rules and our data.</span></li>
       <li><b>Fully editable quiz.</b>
         <span>Questions, branding and which sections show, changed from your
-          dashboard rather than by pasting code.</span></li>
+          dashboard. No code.</span></li>
       <li><b>Built on science.</b>
-        <span>Published reference intakes, 17 safety gates, and a scoring run
-          you can audit stage by stage.</span></li>
+        <span>Published reference intakes, 17 safety gates, and a run you can
+          audit stage by stage.</span></li>
       <li><b>Analytics you own.</b>
-        <span>How many finish, where the rest stop, what gets clicked, and
-          which products your customers keep asking for.</span></li>
+        <span>Who finishes, where the rest stop, what gets clicked, and what
+          they keep asking for.</span></li>
     </ul>
   </section>
 
