@@ -34,6 +34,21 @@
     position:absolute;
     top:var(--nav-h);
     left:0; right:0;
+    /* `left:0; right:0` is not enough, and the symptom was the one this
+       whole block was written to fix: the sheet ended mid-screen with the
+       hero legible either side of it.
+
+       .nav-links is a GRID ITEM of .nav-inner, and nav.css gives it
+       `justify-self:center` to put the links in the middle of the bar on a
+       desktop. That alignment still applies once it is absolutely
+       positioned — it aligns the box inside its static-position rectangle
+       instead of letting the offsets stretch it — so the sheet came out
+       160px wide on a 390px screen, centred, painted in exactly the page's
+       own colour so its edges were invisible.
+
+       Measured on the live site: left 115, right 275, width 160. With
+       `justify-self:stretch`: left 0, width 390. */
+    justify-self:stretch;
     /* As tall as it needs to be, capped at the screen. A full-height
        sheet for four links is two thirds empty, which reads as weak in a
        different way; a solid panel that ends where the links end does

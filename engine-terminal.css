@@ -122,8 +122,13 @@
 .k-pick{background:var(--t-ok)}
 
 .tm-ticks{display:flex;gap:6px;padding:18px 22px 0}
-.tm-tick{flex:1 1 0;height:3px;border-radius:999px;background:rgba(255,255,255,.12);
+/* 3px tall and clickable. The bar is the right SIZE — it is a progress
+   tick — but it was also the whole TARGET, and 40x3 is a control you
+   cannot hit with a thumb. The overlay gives it a 23px row to be tapped
+   in and leaves the drawing untouched, the way .tm-icon already does. */
+.tm-tick{position:relative;flex:1 1 0;height:3px;border-radius:999px;background:rgba(255,255,255,.12);
   border:0;padding:0;cursor:pointer;transition:background .25s ease}
+.tm-tick::after{content:"";position:absolute;inset:-10px 0}
 .tm-tick:hover{background:rgba(231,207,163,.45)}
 .tm-tick[aria-current="step"]{background:var(--t-gold)}
 .tm-tick.is-done{background:rgba(231,207,163,.5)}

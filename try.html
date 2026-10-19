@@ -140,6 +140,13 @@ html,body{max-width:100%;overflow-x:clip}
 <main id="main">
 <section class="try-embed-section">
   <div class="wrap">
+    <!-- The page's only heading. The intro block that carried it was removed
+         on 2026-10-17 and nothing replaced it, so /try shipped with no h1 at
+         all — measured on the live site, document.querySelectorAll('h1')
+         returned nothing. The embed is the page and wants no title above it,
+         so the heading is there for the document outline and for a screen
+         reader arriving at a page whose content is all inside an iframe. -->
+    <h1 class="sr-only">Try the Blend quiz</h1>
     <div class="try-embed-frame" id="quizEmbed">
       <button type="button" class="fs-btn" id="fsBtn" aria-label="View fullscreen">
         <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
