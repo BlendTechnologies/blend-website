@@ -1995,7 +1995,20 @@ a.vrow:hover,a.vrow:focus-visible{
 // in-page anchor links produce. Handles Stripe Checkout's cancel_url
 // (https://blend-technologies.com/pricing) cleanly.
 if (location.pathname === '/pricing') {
-  history.replaceState(null, '', '/#pricing');
+  /* KEEP THE QUERY. This used to normalise to a bare '/#pricing', which
+     threw away the search string, and the checkout error handler further
+     down this file reads window.location.search to decide what to say. So
+     every failed checkout landed here, had its reason deleted by this line
+     a few hundred milliseconds before anything could read it, and showed
+     the customer the pricing section with no explanation at all. The
+     messages for all three codes were already written and had never once
+     been seen.
+
+     That silence is how a broken annual checkout survived: the only thing
+     that could have reported it was disarmed by the line meant to tidy the
+     URL after it. The error handler strips the query itself, once it has
+     been read. */
+  history.replaceState(null, '', '/' + location.search + '#pricing');
   const target = document.getElementById('pricing');
   if (target) target.scrollIntoView();
 }
@@ -2228,14 +2241,29 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
       plan_unavailable: 'That plan is not on sale right now. Please choose another below.',
       unavailable:      'Checkout is temporarily unavailable. Please try again in a minute.'
     };
-    if (ERROR_MESSAGES[error]) {
+    /* A code we do not recognise still gets a sentence. The app owns this
+       vocabulary and lives in another repository, so it can add a fourth
+       code without this file hearing about it, and the failure mode of
+       saying nothing is the one that hid a broken annual checkout for
+       months. tools/check-checkout-errors.mjs in the workspace compares
+       the two, which is the real fix; this is what happens in the window
+       before somebody runs it. */
+    const FALLBACK = 'We could not start checkout just now. Please choose a plan below, '
+      + 'or email contact@blend-technologies.com and we will set it up for you.';
+    if (error) {
       const pricingSection = document.getElementById('pricing');
       if (pricingSection) {
         const msg = document.createElement('div');
         msg.style.cssText = 'background:#FEF5F1;border:1px solid #D8614A;color:#A8422F;padding:12px 20px;border-radius:8px;margin:0 auto 24px;max-width:600px;font-size:13.5px;text-align:center;';
-        msg.textContent = ERROR_MESSAGES[error];
+        msg.textContent = Object.prototype.hasOwnProperty.call(ERROR_MESSAGES, error)
+          ? ERROR_MESSAGES[error]
+          : FALLBACK;
         pricingSection.querySelector('.wrap').insertBefore(msg, pricingSection.querySelector('.pricing-controls'));
-        window.history.replaceState({}, '', window.location.pathname);
+        /* Query gone now it has been read, so a reload does not re-accuse
+           the customer of a failure they have already seen. The hash stays:
+           without it this jumps the reader back to the top of the page,
+           away from the plans the message just told them to choose from. */
+        window.history.replaceState({}, '', window.location.pathname + '#pricing');
       }
     }
   } catch (_) {}
