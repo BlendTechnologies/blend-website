@@ -24,7 +24,7 @@
    It resolves answer ids to their option text here rather than in the
    page, because that needs the quiz definition, which is the 150KB. */
 
-import { pick, sentence } from './_demo-summary.mjs';
+import { buildPayload } from './_demo-summary.mjs';
 
 export const config = { runtime: 'edge' };
 
@@ -50,48 +50,12 @@ export default async function handler() {
     return json({ error: 'upstream', detail: String(e.message || e) }, 502, 60);
   }
 
-  const questions = payload?.definition?.questions ?? [];
-  const responses = payload?.responses ?? {};
-
-  const answers = [];
-  for (const q of [...questions].sort((a, b) => (a.questionOrder ?? 0) - (b.questionOrder ?? 0))) {
-    const r = responses[q.stableQuestionId];
-    if (!r) continue;
-
-    let value;
-    if (r.kind === 'choice') {
-      const text = new Map((q.answers ?? []).map(a => [a.stableAnswerId, a.optionText]));
-      value = (r.answerIds ?? []).map(id => text.get(id) ?? id).join(', ');
-    } else {
-      /* Everything that is not a choice carries its own shape; the ones
-         this quiz uses are { value }. Anything else is stringified rather
-         than dropped, so a new question type shows up as something odd
-         rather than as a silently missing row. */
-      value = r.value ?? Object.entries(r)
-        .filter(([k]) => k !== 'kind')
-        .map(([, v]) => v)
-        .join(', ');
-    }
-    if (!value) continue;
-    /* The consent row is 140 characters and swamped the panel on a phone.
-       A cap rather than a special case: the next long answer a brand writes
-       is handled the same way, and the page is a summary of the answers,
-       not a transcript. */
-    value = String(value);
-    if (value.length > 84) value = value.slice(0, 83).replace(/[ ,;]+$/, '') + '\u2026';
-    answers.push({ q: q.questionText, a: value });
-  }
-
-  /* The sentence that leads the panel. `missing` travels with it so the
-     page can tell "this demo has no sun question" from "the proxy is
-     having a bad day", and so check-demo-report.mjs can fail on it. */
-  const { got, missing } = pick(answers);
-  return json({
-    count: answers.length,
-    summary: sentence(got),
-    missing,
-    answers,
-  }, 200, 3600);
+  /* The whole shape comes from api/_demo-summary.mjs, which the vendoring
+     script and the drift checker also call. The loop that resolved answer
+     ids and the sentence that leads the panel used to live here and be
+     half-repeated in the checker; one of the two copies did not sort by
+     questionOrder. */
+  return json(buildPayload(payload), 200, 3600);
 }
 
 function json(body, status, maxAge) {

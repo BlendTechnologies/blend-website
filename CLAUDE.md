@@ -70,6 +70,30 @@ repository could have noticed.
   screenshot suite cannot see inside a cross-origin frame. The checker warns
   21 days out and fails after. Replacing it means taking the demo quiz
   again and putting the new URL in both places.
+- **The page is two columns**: what Blend is and what this customer told it
+  on the left, the report those two produced on the right at half size.
+  The report column is a FIXED 576px, not a fraction, so the iframe lays
+  out at exactly 1024 and draws at exactly 0.5 — the app turns its macro
+  grid from two columns to four at 1024, so a column that follows the
+  window shows a tablet layout shrunk instead of the desktop one the
+  fullscreen button opens.
+- **The answers panel is a shape, not a list.** `api/_demo-summary.mjs`
+  builds who, goals, what they reported, how they live and what they eat
+  from the live submission; the full 43 rows sit behind a disclosure. It
+  printed all 43 in quiz order until 2026-10-19, and quiz order is
+  demographics first, so the rows a reader saw were consent, a name and a
+  unit choice while everything that produced a recommendation was below
+  the fold.
+- The panel is served by `/api/demo-answers`, a Vercel edge function, which
+  does not exist under a static server — so every local preview and every
+  visual-diff capture saw it hidden, and it was reported twice as missing
+  while being live the whole time. `demo-answers.json` is the same payload
+  vendored; `node tools/sync-demo-answers.mjs` writes it and
+  `check-demo-report.mjs` refuses when it drifts from the live submission.
+  Never edit it by hand. The sync also refuses to vendor a SMALLER panel
+  than the one on disk without `--accept-smaller`, because a matcher that
+  stopped fitting the quiz and a quiz that stopped asking look identical,
+  and the drift check cannot tell them apart once both sides agree.
 - The height comes from the report itself. It posts
   `{source:"blend-report", type:"frame:height"}` on every resize
   (`components/report/embed-auto-height.tsx`), built for brands embedding
@@ -92,7 +116,12 @@ to be identical everywhere wants a check of the same shape rather than a
 baseline.
 
 `node tools/check-css-shape.mjs` guards a different invariant: not "do the
-copies agree" but "does this file mean what it says". /try's embed opened
+copies agree" but "does this file mean what it says". It carries two rules.
+The second: an element the page hides with `hidden` may not be the subject
+of an author `display` rule, because `hidden` is `display:none` in the UA
+sheet and any author `display` beats it. /sample-report's transcript shipped
+open on 2026-10-19 for exactly that — `.answers-all{display:grid}` under a
+button offering to show it. The first: /try's embed opened
 flush against the nav on 2026-10-18 because the nav consolidation had left
 `.footer` behind with no block, and a selector with no `{}` joins the next
 prelude — `.try-embed-section` had quietly become `.footer .try-embed-section`
@@ -118,7 +147,7 @@ would point at the page you are on.
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`
-- `node tools/check-demo-report.mjs`
+- `node tools/check-demo-report.mjs`  (and `sync-demo-answers.mjs` when it refuses)
 - `node tools/check-css-shape.mjs`
 - `node tools/check-product-facts.mjs`
 - `python3 ../../tools/check_british_english.py`

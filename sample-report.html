@@ -106,24 +106,19 @@ html,body{max-width:100%;overflow-x:clip}
      it is what this frame is. (blend-mockups/manifest.json's designWidth
      1040 is the width the export was CAPTURED at, which is the content
      width, not the container's.) */
-  /* The inputs, above the output. A reader cannot judge "your omega 3 is
-     at 8% of your target" without knowing the person never eats fish, so
-     the page stops being a set of assertions and becomes an argument.
-     Two columns because 43 rows in one are a wall; one on a phone because
-     two are 90px wide. */
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
     overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-  /* HALF AND HALF: the answers on the left, the report they produced on
-     the right. Stacked, a reader finished one before starting the other,
-     and had to carry "vegetarian, never eats fish" in their head down a
-     3,000px plan. The report is a document you skim, so half the width
-     costs it little and the pairing is worth more than the inches.
+  /* TWO COLUMNS. Left: what Blend is, then what this customer told it.
+     Right: the report those two produced, at half size.
+     ------------------------------------------------------------------
+     The founder's shape, and it is the right one. The page arrives by cold
+     outreach, so a reader lands here knowing nothing: the first box says
+     what they are looking at, the second says who the person is, and the
+     third is the result. Read top-left to right, it is an argument rather
+     than three assertions.
 
-     `start`, not `stretch`: the aside is short and the report is tall, and
-     a 1,100px white panel holding four lines of summary is worse than a
-     short one. The report sticks while the aside scrolls past it. */
-  /* The report column is sized so the preview shows the DESKTOP report,
+     The report column is sized so the preview shows the DESKTOP report,
      not a narrow one shrunk. The iframe lays out at twice the viewport it
      sits in and draws at a half, and the app turns the macros from two
      columns to four at 1024px — so the viewport has to be 512 or the
@@ -131,54 +126,126 @@ html,body{max-width:100%;overflow-x:clip}
      shows. 576 of frame minus 2x32 of padding is exactly 512.
 
      Fixed rather than a fraction for the same reason: at 50/50 the column
-     followed the page and the layout inside it changed with the window. */
+     followed the page and the layout inside it changed with the window.
+
+     `start`, not `stretch`: measured, the aside is 1,200px and the report
+     802, and a 1,200px frame holding an 800px document is a frame with
+     400px of nothing at the bottom of it.
+
+     WHICH LEAVES THE REPORT ENDING FIRST, so it travels instead. The ASIDE
+     used to be the sticky one, which worked while it held a single capped
+     list; with two boxes it is taller than the viewport, and a sticky box
+     taller than its scrollport does not stick, it stops at the wrong
+     moment. The report is the opposite case — shorter than the viewport by
+     construction, see the height below — so it is the one that can.
+
+     A sticky grid item travels inside its GRID AREA, and the area is as
+     tall as the row, which is the aside. `align-items:start` is what makes
+     that work: it keeps the box at its own height inside the taller area.
+     The two together are the whole trick. */
   .report-split{display:grid;grid-template-columns:minmax(0,1fr) 576px;
     gap:24px;max-width:1040px;margin:0 auto;align-items:start}
-  .report-aside{min-width:0;position:sticky;top:calc(var(--nav-h) + 18px)}
+  .report-aside{min-width:0;display:grid;gap:18px;align-content:start}
   @media(max-width:1000px){
     .report-split{grid-template-columns:minmax(0,1fr)}
-    /* sticky in a single column pins the answers over the report */
-    .report-aside{position:static}
   }
 
-  .answers{margin:0 0 0;padding:22px 24px;
-    background:var(--surface);border:1px solid var(--line);border-radius:14px}
+  /* ---- the pitch, a dark island -------------------------------------
+     Dark because it is the one box on the page that is us talking. The
+     answers below it and the report beside it are both the product's own
+     words, and they are both white; a reader can tell at a glance which is
+     which. .theme-dark redefines every token the components inside read,
+     so nothing in here needs to know where it is (theme.css). */
+  .pitch{background:var(--deep);border-radius:14px;padding:22px 24px}
+  .pitch h2{margin:0 0 8px;font-size:17px;font-weight:600;letter-spacing:-.015em}
+  .pitch-lead{margin:0 0 16px;font-size:14px;line-height:1.6;color:var(--ink-80)}
+  .pitch-list{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:11px}
+  .pitch-list li{position:relative;padding-left:22px;font-size:13px;
+    line-height:1.55;color:var(--muted)}
+  .pitch-list b{color:var(--ink);font-weight:600}
+  /* A tick drawn in CSS rather than a glyph: the glyph renders at a
+     different weight on every platform and sat on the baseline, not beside
+     the first line of a two-line item. */
+  .pitch-list li::before{content:"";position:absolute;left:2px;top:6px;
+    width:9px;height:5px;border-left:1.5px solid var(--sand);
+    border-bottom:1.5px solid var(--sand);transform:rotate(-45deg)}
+  .pitch-note{margin:0 0 16px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:12.5px;line-height:1.55;color:var(--ink-60)}
+  .pitch-note a{color:var(--gold-text);text-decoration:underline;text-underline-offset:3px}
+  .pitch-cta{display:flex;flex-wrap:wrap;gap:8px}
+
+  /* ---- the answers, designed rather than dumped ---------------------
+     43 rows in quiz order was a wall, and quiz order put consent, a name
+     and a unit choice at the top of it: everything that produced a
+     recommendation was below the fold of the cap. So the panel draws a
+     shape — who, goals, what they flagged, how they live, what they eat —
+     and the full 43 are a disclosure underneath.
+
+     The shape is built in api/_demo-summary.mjs from the same submission
+     the report renders, so it cannot drift from it, and
+     tools/check-demo-report.mjs refuses when the vendored fallback does. */
+  .answers{padding:22px 24px;background:var(--surface);
+    border:1px solid var(--line);border-radius:14px}
   .answers-head h2{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.015em}
-  /* The sentence the panel leads with. The list is in quiz order and quiz
-     order is demographics first, so the twelve rows a reader saw under the
-     cap were consent, a name, an age and a unit choice — everything that
-     produced a recommendation sat below them. */
-  .answers-summary{margin:0 0 10px;font-size:15px;line-height:1.55;color:var(--ink)}
-  .answers-summary:empty{display:none}
-  .answers-sub{margin:0 0 16px;font-size:13px;color:var(--muted)}
-  /* one column: the aside is half the page now, and two 220px columns of
-     question-and-answer wrapped every other row onto three lines */
-  .answers-grid{display:grid;grid-template-columns:minmax(0,1fr);margin:0}
-  .answers-grid > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  .answers-byline{margin:0 0 2px;font-size:13.5px;color:var(--ink-80);font-weight:500}
+  .answers-sub{margin:0;font-size:12.5px;color:var(--muted)}
+
+  .pf{display:grid;gap:16px;margin-top:18px}
+  .pf-block{display:grid;gap:8px}
+  .pf-label{margin:0;font-size:10.5px;font-weight:600;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink-40)}
+  /* Goals are what the customer asked for, so they are the only thing on
+     the panel wearing the accent. The flags below are what they reported,
+     which is a different kind of fact and reads plainer. */
+  .pf-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .pf-chips li{font-size:12.5px;font-weight:600;line-height:1;padding:7px 11px;
+    border-radius:999px;background:var(--gold-soft);color:var(--gold-text);
+    border:1px solid rgba(180,127,57,.22)}
+  .pf-flags{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .pf-flags li{position:relative;padding-left:14px;font-size:13px;color:var(--ink-80)}
+  .pf-flags li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;
+    border-radius:50%;background:var(--line-strong)}
+  /* Label and value, not two columns of equal weight: the label is ours
+     and the value is the brand's own option text. */
+  .pf-rows{margin:0;display:grid}
+  .pf-rows > div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;
+    padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
+  .pf-rows > div:first-child{border-top:0;padding-top:0}
+  .pf-rows dt{font-size:12.5px;color:var(--muted);min-width:0}
+  .pf-rows dd{margin:0;font-size:13px;color:var(--ink);font-weight:500;min-width:0}
+  /* The intake rows are four short pairs and read better across than down;
+     they are the ones that explain an algae omega-3 and a B12. */
+  .pf-rows--wide{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px}
+  .pf-rows--wide > div{grid-template-columns:52px minmax(0,1fr);gap:8px}
+  .pf-rows--wide > div:nth-child(2){border-top:0;padding-top:0}
+
+  /* The full transcript, behind a disclosure. Nothing is hidden from a
+     reader who wants it; it is just not the first thing they meet.
+     Not a <details>: the panel ships `hidden` and is revealed by script
+     once the data is in hand, and a <details> would render its summary
+     with nothing behind it in the meantime. */
+  .answers-all{margin:0;display:grid;grid-template-columns:minmax(0,1fr)}
+  /* `hidden` is display:none in the UA sheet, and ANY author display rule
+     beats it. So the line above silently un-hid the transcript: the button
+     said "See all 43 answers" with all 43 already under it, and the aside
+     measured 3,374px against the report's 802. Specificity, not
+     !important — this is the element's own rule, not a global override. */
+  .answers-all[hidden]{display:none}
+  .answers-all > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
     gap:14px;padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
-  .answers-grid dt{font-size:13px;color:var(--muted);min-width:0}
-  .answers-grid dd{margin:0;font-size:13px;color:var(--ink);font-weight:500;min-width:0}
-  /* 43 rows is a wall, and the report underneath is the point. Capped with
-     a fade, and the button opens it. Not a <details>: the open state wants
-     to differ by width, and `open` is an attribute rather than a style. */
-  .answers-grid.is-capped{max-height:300px;overflow:hidden;
-    -webkit-mask-image:linear-gradient(#000 70%,transparent);
-    mask-image:linear-gradient(#000 70%,transparent)}
-  .answers-more{margin-top:14px;background:none;border:0;padding:6px 0;cursor:pointer;
+  .answers-all dt{font-size:12.5px;color:var(--muted);min-width:0}
+  .answers-all dd{margin:0;font-size:12.5px;color:var(--ink-80);min-width:0}
+  .answers-more{margin-top:16px;background:none;border:0;padding:6px 0;cursor:pointer;
     font:inherit;font-size:13px;font-weight:600;color:var(--gold-text);
     text-decoration:underline;text-underline-offset:3px;min-height:36px}
   .answers-more:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
   @media(max-width:760px){
-    .answers{padding:18px 16px}
-    .answers-grid{grid-template-columns:minmax(0,1fr);gap:0}
+    .pitch,.answers{padding:18px 16px}
+    .pf-rows--wide{grid-template-columns:minmax(0,1fr)}
+    .pf-rows--wide > div{grid-template-columns:76px minmax(0,1fr)}
+    .pf-rows--wide > div:nth-child(2){border-top:1px solid var(--line);padding-top:7px}
   }
-
-  .livebar{max-width:1040px;margin:0 auto 18px;padding:14px 18px;
-    border:1.5px dashed var(--accent);border-radius:14px;background:var(--accent-soft);
-    font-size:14px;color:var(--ink-80);text-align:center}
-  .livebar b{color:var(--ink);font-weight:600}
-  .livebar a{color:var(--gold-text);text-decoration:underline;text-underline-offset:3px}
-
   /* THE REPORT AT HALF SIZE, with a way to read it properly.
      The frame holds a viewport; the iframe inside it is twice the
      viewport's size and scaled to a half, so the report lays out at a
@@ -196,8 +263,14 @@ html,body{max-width:100%;overflow-x:clip}
      the deployed app it does not arrive for the results page — the same
      component on the quiz posts within a second. So the viewport sets a
      height and the report scrolls inside it. Raised with the webapp lane. */
+  /* Sized to fit between the nav and the bottom of the window, because a
+     sticky box taller than its scrollport is just a box that stops early:
+     100vh, less the nav, less the 18px it sticks below it, less 18 of air
+     underneath, less the frame's own 2x32 of padding. The floor is for a
+     short window; the ceiling stops a tall one turning this into a wall. */
   .report-viewport{position:relative;overflow:hidden;
-    height:clamp(560px,82vh,1180px);border-radius:8px}
+    height:clamp(460px,calc(100vh - var(--nav-h) - 104px),1180px);
+    border-radius:8px}
   .report-viewport iframe{position:absolute;top:0;left:0;display:block;border:0;
     width:200%;height:200%;transform:scale(.5);transform-origin:0 0;
     background:transparent}
@@ -230,10 +303,17 @@ html,body{max-width:100%;overflow-x:clip}
   .fs-btn svg{width:13px;height:13px;display:block}
   @media(max-width:560px){.fs-btn span.fs-label{display:none}.fs-btn{padding:9px}}
 
-  /* positioned, because the fullscreen button is absolute inside it and
-     was otherwise resolving against whatever ancestor happened to be
-     positioned — it landed outside the frame and could not be clicked. */
-  .report-frame{position:relative;max-width:none;margin:0;
+  /* Sticky, so the report travels down beside the taller left column
+     rather than ending 400px above it; see .report-split for why this is
+     the box that can. It is also what POSITIONS the frame, which it has to
+     be: the fullscreen button is absolute inside it and was otherwise
+     resolving against whatever ancestor happened to be positioned — it
+     landed outside the frame and could not be clicked. Sticky establishes
+     a containing block exactly as relative does, so one declaration does
+     both jobs and there is no second `position` further up the file to
+     shadow this one. */
+  .report-frame{position:sticky;top:calc(var(--nav-h) + 18px);
+    max-width:none;margin:0;
     padding:var(--report-pad);border-radius:16px;overflow:hidden;
     /* The margin has to be paper, not page, or the report sits in a second
        frame of a different colour. --quiz-bg is the fragment's own
@@ -245,6 +325,15 @@ html,body{max-width:100%;overflow-x:clip}
   .report-foot{max-width:720px;margin:26px auto 0;text-align:center;
     font-size:14px;color:var(--muted)}
   .report-foot a{color:var(--sand);text-decoration:underline;text-underline-offset:3px}
+  /* One column puts the frame in a grid row of its own, so its area is its
+     own height and there is nowhere to travel. Off rather than relying on
+     that to stay true — and it has to come after the rule above, which is
+     why it is down here and not in the layout block. */
+  /* `top` as well as `position`: relative HONOURS an offset, so dropping
+     sticky on its own left the frame shifted 86px down its own row and
+     opened a gap under the answers on every phone. */
+  @media(max-width:1000px){ .report-frame{position:relative;top:auto} }
+
   :root{--report-pad:32px}
   @media(max-width:640px){
     :root{--report-pad:20px}
@@ -324,32 +413,79 @@ html,body{max-width:100%;overflow-x:clip}
        refuses when it stops being a live report. It will: a results link is
        good for RESULTS_LINK_TTL_DAYS = 90 (lib/quiz/results-expiry.ts), so
        this one dies on its own, silently, without that check. -->
-  <div class="livebar">
-    <div><b>This is the live demo.</b> A real result from the quiz on <a href="/try">the demo page</a>, rendered by the product. Change the quiz and this changes with it.</div>
-  </div>
 
-  <!-- Filled from /api/demo-answers, which reads the SAME submission the
-       iframe below renders. Empty and hidden until it is: a sample report
-       with no answer list is the page as it was, a broken one is not. -->
-  <!-- The inputs beside the output, not above it. The report is a long
-       document and the answers are what make it legible; stacked, a reader
-       finished one before starting the other and had to carry "vegetarian,
-       never eats fish" in their head down a 3,000px plan. Side by side they
-       are read together, which is the argument this page exists to make.
-       Stacks below 1000, answers first. -->
+  <!-- Two columns, the founder's shape. Left: what Blend is, then what this
+       customer told it. Right: what the two produced.
+
+       The page arrives by cold outreach, so a reader lands here knowing
+       nothing — and the report on its own is a set of assertions. Nobody
+       can judge "your omega-3 intake is 8% of your target" without knowing
+       the person never eats fish. The left column is what makes the right
+       one legible, which is the argument this page exists to make.
+
+       A full-width bar above the columns used to carry the live-demo claim.
+       It is the pitch box's closing line now: two message boxes stacked on
+       top of each other both talking about the same thing read as a page
+       that does not trust itself. Stacks below 1000, in this order. -->
   <div class="report-split">
     <div class="report-aside">
+
+      <!-- Us talking, and the only box on the page that is. The two figures
+           in it are governed: PRODUCT_FACTS.md owns them and
+           tools/check-product-facts.mjs binds the CLAIM to the figure, so a
+           sentence about what the engine scores cannot quietly take the
+           data file's wider number. That is not hypothetical — the homepage
+           FAQ said "more than 30 product attributes" for months while
+           /science said 25, and an outside reviewer found it first. -->
+      <section class="pitch theme-dark">
+        <h2>What Blend does</h2>
+        <p class="pitch-lead">A quiz on your site, and a plan like this one for
+          every customer who finishes it — built from your own catalogue, in
+          your own colours.</p>
+        <ul class="pitch-list">
+          <li><b>Every pick carries its reason.</b> A figure from that
+            customer's own answers, not “others also bought”.</li>
+          <li><b>25 product attributes</b> scored against their intake, their
+            goals and the gaps between the two.</li>
+          <li><b>17 safety gates</b> run before anything is recommended:
+            pregnancy, medications, upper limits, diet.</li>
+          <li><b>Live in an afternoon.</b> One embed code, and your catalogue
+            as a spreadsheet.</li>
+        </ul>
+        <p class="pitch-note">What you are looking at is a real result from
+          <a href="/try">the demo quiz</a>, rendered by the product itself —
+          not a picture of it. Change the quiz and this page changes with it.</p>
+        <div class="pitch-cta">
+          <a class="btn btn-primary btn-sm" href="/try">Try the demo</a>
+          <a class="btn btn-ghost btn-sm" href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39" target="_blank" rel="noopener">Book a call</a>
+        </div>
+      </section>
+
+      <!-- Drawn from /api/demo-answers, which reads the SAME submission the
+           iframe renders, falling back to demo-answers.json where the edge
+           function cannot run. Ships `hidden` and appears once the data is
+           in hand: a sample report with no answer panel is the page as it
+           was, a broken one is not.
+
+           It used to print all 43 rows in quiz order, and quiz order is
+           demographics first — so the rows a reader saw were consent, a
+           name, a gender and a unit choice, and everything that produced a
+           recommendation was below the fold of the cap. The shape below is
+           built in api/_demo-summary.mjs; the 43 are still here, behind the
+           button. -->
       <section class="answers" id="answers" hidden>
         <div class="answers-head">
-          <h2>The answers behind this report</h2>
-          <p class="answers-summary" id="answersSummary"></p>
-          <p class="answers-sub">Every one of them, as given. <span id="answersCount"></span></p>
+          <h2 id="answersTitle">What this customer told the quiz</h2>
+          <p class="answers-byline" id="answersByline"></p>
+          <p class="answers-sub">The same submission the report was built from.
+            <span id="answersCount"></span></p>
         </div>
-        <dl class="answers-grid" id="answersGrid"></dl>
-        <button type="button" class="answers-more" id="answersMore" hidden></button>
+        <div class="pf" id="answersProfile"></div>
+        <dl class="answers-all" id="answersGrid" hidden></dl>
+        <button type="button" class="answers-more" id="answersMore" hidden
+                aria-controls="answersGrid" aria-expanded="false"></button>
       </section>
     </div>
-
     <div class="report-frame" id="report">
       <button type="button" class="fs-btn" id="fsBtn" aria-label="View fullscreen">
         <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
@@ -412,6 +548,7 @@ html,body{max-width:100%;overflow-x:clip}
     iconExit.style.display = on ? 'block' : 'none';
   };
   var enterPseudo = function(){
+    if (isApiFs()) return;
     pseudoFs = true;
     wrap.classList.add('is-pseudo-fs');
     document.body.classList.add('is-fs-locked');
@@ -430,11 +567,26 @@ html,body{max-width:100%;overflow-x:clip}
       try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
       return;
     }
+    /* requestFullscreen REJECTS A PROMISE; it does not throw. The try/catch
+       around it caught nothing, and the `return` ran before the rejection
+       arrived — so wherever the API says no, the button did nothing at all
+       and the fallback that exists for exactly that case never ran. Seen
+       here: the browser pane refuses the request, and three clicks changed
+       nothing on the page.
+
+       A permissions policy is the common way to be told no, and the iframe
+       inside this frame is cross-origin, so "the API exists" and "the API
+       will work" are different questions. The webkit spelling answers
+       neither — it returns undefined — so that path asks the document
+       afterwards instead. */
     var req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
-    if (req) {
-      try { req.call(wrap); return; } catch (e) { /* fall through */ }
-    }
-    enterPseudo();
+    if (!req) { enterPseudo(); return; }
+
+    var p = null;
+    try { p = req.call(wrap); } catch (e) { enterPseudo(); return; }
+
+    if (p && typeof p.catch === 'function') p.catch(function(){ enterPseudo(); });
+    else setTimeout(function(){ if (!isApiFs()) enterPseudo(); }, 120);
   });
 
   document.addEventListener('fullscreenchange', sync);
@@ -443,23 +595,73 @@ html,body{max-width:100%;overflow-x:clip}
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && pseudoFs) exitPseudo(); });
 })();
 
-/* The answers that produced the report below them.
+/* The answers that produced the report beside them.
    Progressive enhancement on purpose: the section ships `hidden` and only
    appears once the data is in hand, so a failing proxy, a blocked request
    or no JavaScript leaves the page exactly as it would have been. */
 (function(){
   var sec = document.getElementById('answers');
+  var pf = document.getElementById('answersProfile');
   var grid = document.getElementById('answersGrid');
-  var count = document.getElementById('answersCount');
-  if (!sec || !grid) return;
+  if (!sec || !pf || !grid) return;
+
+  /* textContent everywhere below, never innerHTML: every string here is a
+     brand's own quiz copy coming back over the wire, and this page has no
+     business executing it. */
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  /** A labelled block, or nothing at all when there is nothing in it.
+      Every row of the profile is best-effort (api/_demo-summary.mjs drops
+      a question it cannot find rather than printing it empty), so the
+      panel has to be built to come up short without looking broken. */
+  function block(label, body){
+    if (!body) return null;
+    var b = el('div', 'pf-block');
+    b.appendChild(el('h3', 'pf-label', label));
+    b.appendChild(body);
+    return b;
+  }
+
+  function chips(items){
+    if (!items || !items.length) return null;
+    var ul = el('ul', 'pf-chips');
+    items.forEach(function(t){ ul.appendChild(el('li', null, t)); });
+    return ul;
+  }
+
+  function bullets(items){
+    if (!items || !items.length) return null;
+    var ul = el('ul', 'pf-flags');
+    items.forEach(function(t){ ul.appendChild(el('li', null, t)); });
+    return ul;
+  }
+
+  function pairs(rows, cls){
+    if (!rows || !rows.length) return null;
+    var dl = el('dl', 'pf-rows' + (cls ? ' ' + cls : ''));
+    rows.forEach(function(r){
+      var w = el('div');
+      w.appendChild(el('dt', null, r.k));
+      w.appendChild(el('dd', null, r.v));
+      dl.appendChild(w);
+    });
+    return dl;
+  }
 
   /* The proxy is a Vercel edge function, so it does not exist under a
      plain static server: every local preview, and every capture the
-     visual-diff suite takes, saw this panel hidden. demo-answers.json is
-     the same payload vendored, and tools/check-demo-report.mjs refuses
-     when it stops matching the live submission — so the fallback cannot
-     quietly become a second, wrong copy, which is the whole reason the
-     report fragment was thrown out in the first place. */
+     visual-diff suite takes, saw this panel hidden — which is how it came
+     to be reported twice as missing when it had been live the whole time.
+     demo-answers.json is the same payload vendored by
+     tools/sync-demo-answers.mjs, and tools/check-demo-report.mjs refuses
+     when it stops matching the live submission, so the fallback cannot
+     quietly become a second, wrong copy. That is exactly what went wrong
+     with the report fragment this page used to inline. */
   fetch('/api/demo-answers', { headers: { accept: 'application/json' } })
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
     .catch(function(){
@@ -468,31 +670,51 @@ html,body{max-width:100%;overflow-x:clip}
     })
     .then(function(d){
       if (!d || !Array.isArray(d.answers) || !d.answers.length) return;
+      var p = d.profile || {};
+
+      if (p.name) {
+        document.getElementById('answersTitle').textContent =
+          'What ' + p.name + ' told the quiz';
+      }
+      if (p.identity && p.identity.length) {
+        document.getElementById('answersByline').textContent =
+          p.identity.join(' · ');
+      }
+      var count = document.getElementById('answersCount');
+      if (count) count.textContent = d.count + ' answers.';
+
+      /* Goals first: they are what the customer asked for, and the plan is
+         ordered by them. Then what they reported, then how they live, then
+         what they eat — which is the order the engine reads them in and
+         the order the report's own sections follow. */
+      [
+        block('Goals', chips(p.goals)),
+        block('What they reported', bullets(p.flags)),
+        block('Day to day', pairs(p.day)),
+        block('How often they eat', pairs(p.intake, 'pf-rows--wide'))
+      ].forEach(function(b){ if (b) pf.appendChild(b); });
+
       var frag = document.createDocumentFragment();
       d.answers.forEach(function(row){
-        var wrap = document.createElement('div');
-        var dt = document.createElement('dt');
-        var dd = document.createElement('dd');
-        /* textContent, not innerHTML: these strings are a brand's own quiz
-           copy coming back over the wire, and this page has no business
-           executing them. */
-        dt.textContent = row.q;
-        dd.textContent = row.a;
-        wrap.appendChild(dt); wrap.appendChild(dd);
+        var wrap = el('div');
+        wrap.appendChild(el('dt', null, row.q));
+        wrap.appendChild(el('dd', null, row.a));
         frag.appendChild(wrap);
       });
       grid.appendChild(frag);
-      var sum = document.getElementById('answersSummary');
-      if (sum && d.summary) sum.textContent = d.summary;
-      if (count) count.textContent = d.count + ' questions answered.';
+
       sec.hidden = false;
 
+      /* Nothing is withheld from a reader who wants it; the transcript is
+         just not the first thing they meet. */
       var more = document.getElementById('answersMore');
-      if (more && grid.scrollHeight > 320) {
+      if (more) {
         var open = false;
         var sync = function(){
-          grid.classList.toggle('is-capped', !open);
-          more.textContent = open ? 'Show fewer' : 'Show all ' + d.count + ' answers';
+          grid.hidden = !open;
+          more.textContent = open
+            ? 'Hide the full transcript'
+            : 'See all ' + d.count + ' answers';
           more.setAttribute('aria-expanded', String(open));
         };
         more.hidden = false;
