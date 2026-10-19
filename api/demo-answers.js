@@ -24,6 +24,8 @@
    It resolves answer ids to their option text here rather than in the
    page, because that needs the quiz definition, which is the 150KB. */
 
+import { pick, sentence } from './_demo-summary.mjs';
+
 export const config = { runtime: 'edge' };
 
 const APP = 'https://app.blend-technologies.com';
@@ -80,7 +82,16 @@ export default async function handler() {
     answers.push({ q: q.questionText, a: value });
   }
 
-  return json({ count: answers.length, answers }, 200, 3600);
+  /* The sentence that leads the panel. `missing` travels with it so the
+     page can tell "this demo has no sun question" from "the proxy is
+     having a bad day", and so check-demo-report.mjs can fail on it. */
+  const { got, missing } = pick(answers);
+  return json({
+    count: answers.length,
+    summary: sentence(got),
+    missing,
+    answers,
+  }, 200, 3600);
 }
 
 function json(body, status, maxAge) {

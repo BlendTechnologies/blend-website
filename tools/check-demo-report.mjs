@@ -24,6 +24,7 @@
    do; the fetch is best-effort and a network failure is reported, not
    fatal. An EXPIRED link, once seen, is fatal. */
 
+import { pick, sentence } from '../api/_demo-summary.mjs';
 import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -93,6 +94,39 @@ try {
   live = true;
 } catch (e) {
   console.log(`  (could not reach the demo result: ${e.message})`);
+}
+
+/* The sentence that leads the answers panel is built from named questions
+   (api/_demo-summary.mjs), because the stable ids are opaque. A brand
+   renaming one costs the sentence a clause, silently — the panel would
+   just read shorter and nobody would know which fact went missing. So the
+   same matchers run here against the live submission. */
+try {
+  const key = (doc.url.match(/\/quiz\/([^/]+)\//) || [])[1];
+  const sub = (doc.url.match(/\/results\/([^/?#]+)/) || [])[1];
+  const res = await fetch(`https://app.blend-technologies.com/api/embed/${key}/submissions/${sub}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const payload = await res.json();
+  const answers = [];
+  for (const q of payload?.definition?.questions ?? []) {
+    const r = (payload.responses ?? {})[q.stableQuestionId];
+    if (!r) continue;
+    const text = new Map((q.answers ?? []).map(a => [a.stableAnswerId, a.optionText]));
+    const v = r.kind === 'choice'
+      ? (r.answerIds ?? []).map(id => text.get(id) ?? id).join(', ')
+      : r.value;
+    if (v) answers.push({ q: q.questionText, a: String(v) });
+  }
+  const { got, missing } = pick(answers);
+  if (missing.length) {
+    console.error(`FAILED: the summary has lost ${missing.length} of its fields: ${missing.join(', ')}.`);
+    console.error('A question in the demo quiz was renamed, or dropped. Either update the');
+    console.error('matchers in api/_demo-summary.mjs or accept the shorter sentence there.');
+    process.exit(1);
+  }
+  console.log(`  summary: ${sentence(got)}`);
+} catch (e) {
+  console.log(`  (summary not checked: ${e.message})`);
 }
 
 if (daysLeft <= doc.warnWithinDays) {
