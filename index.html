@@ -1043,6 +1043,12 @@ html,body{max-width:100%;overflow-x:clip}
   padding:0;
 }
 .deck-dots button{
+  /* 7px is the DOT, not the target. It was both, and a 7x7 control is below
+     every touch guideline there is — on the one layout where these exist at
+     all, which is the phone. The overlay below makes the target 27px and
+     leaves the dot exactly 7px: padding plus background-clip would have
+     squared it off, since the 999px radius is measured on the border box. */
+  position:relative;
   width:7px;height:7px;
   padding:0;border:0;border-radius:999px;
   background:var(--deep);
@@ -1050,6 +1056,7 @@ html,body{max-width:100%;overflow-x:clip}
   transition:opacity .2s ease,transform .2s ease;
   cursor:pointer;
 }
+.deck-dots button::after{content:"";position:absolute;inset:-10px}
 .deck-dots button[aria-current="true"]{opacity:.75;transform:scale(1.25)}
 /* The named variant is the same component reading as tabs: a plan name is
    the affordance, so the dot itself goes away and the label does the work. */
