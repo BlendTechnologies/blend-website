@@ -106,9 +106,15 @@ html,body{max-width:100%;overflow-x:clip}
 
      32px inside the iframe, drawn at half scale, so the report already
      arrives with 16px of visible margin of its own. Ours was stacked on
-     top of it and the result was a small document in a large box. 10
-     leaves the corners clear of the content without paying for the app's
-     margin twice. */
+     top of it and the result was a small document in a large box.
+
+     12, not 10, and not 32: 12 is the floor the design hook asks of any
+     bordered box, and here it buys nothing away. 540 of frame less 24 of
+     padding is a 516 viewport, so the iframe lays out at 1032 — under the
+     container's 1040 max, so it still fills rather than centring, and over
+     the 1024 where the macros go from two columns to four. One value at
+     every width, because 6px on a phone was under that floor and a phone
+     is where a clipped corner shows most. */
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
     overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
@@ -423,11 +429,7 @@ html,body{max-width:100%;overflow-x:clip}
      opened a gap under the answers on every phone. */
   @media(max-width:1000px){ .report-frame{position:relative;top:auto} }
 
-  :root{--report-pad:10px}
-  @media(max-width:640px){
-    :root{--report-pad:8px}
-      }
-  @media(max-width:420px){ :root{--report-pad:6px} }
+  :root{--report-pad:12px}
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sample wellness report | Blend","url":"https://www.blend-technologies.com/sample-report","description":"The report a customer receives at the end of a Blend quiz, with the reason behind every pick and the safety notices that apply to them. Yours to configure.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Sample report","item":"https://www.blend-technologies.com/sample-report"}]}}</script>
 </head>
 <body>
