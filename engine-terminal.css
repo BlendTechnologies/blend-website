@@ -153,6 +153,9 @@
      slack at tablet widths shows as neither a gap nor a clip. */
   .tm-logwrap{min-height:0;height:272px}
   .tm-mx{grid-template-columns:repeat(20,1fr);gap:2px}
+  /* Stacked, the matrix had the whole card's width and drew 160 cells as
+     squares of ~38px at a tablet: a wall. It keeps a phone's size. */
+  .tm-mxwrap{width:100%;max-width:460px;margin:0 auto}
   .tm-caption{min-height:92px;padding:16px 16px 12px}
   .tm-body{padding-left:16px;padding-right:16px}
   .tm-ticks,.tm-controls{padding-left:16px;padding-right:16px}
