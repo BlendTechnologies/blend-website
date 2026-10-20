@@ -53,7 +53,11 @@
 
 .nav{
   position:sticky;top:0;z-index:50;
-  background:rgba(238,234,227,.88);
+  /* follows --ground, which went from cream to white on 2026-10-20.
+     Hardcoded here because the bar needs the alpha, and a token cannot
+     carry one. The surfaces spec caught this: /try read a cream nav on a
+     white page. */
+  background:rgba(255,255,255,.88);
   backdrop-filter:saturate(180%) blur(20px);
   -webkit-backdrop-filter:saturate(180%) blur(20px);
   border-bottom:1px solid var(--line);
@@ -64,8 +68,23 @@
    without one (/use-cases, /try, the legal pages) are light from the top
    with no per-page opt-in. .scrolled is still JS, and still means "the
    hero is no longer what is behind me". */
+/* THE BAR SITS ON THE HERO, not above it. superpower.com's is fixed,
+   rgba(0,0,0,0), with no backdrop-filter, and the hero runs up behind it.
+   Ours was a solid --deep bar in the flow, so the page opened with a black
+   strip in one near-black above a hero in another, and the join between
+   them read as a seam across the full width.
+
+   Transparent only while the hero is still behind it: .scrolled is set by
+   the page's own observer and hands the bar back its light treatment, which
+   is what keeps the links legible over the cream sections below. */
+/* On :root, not body: --sc-hero-min is declared on :root and a var() inside
+   a custom property resolves where it is declared, so setting this on body
+   reached the hero's padding but left its min-height 68px short. */
+:root:has(.sc-hero){--nav-overlay:var(--nav-h)}
+body:has(.sc-hero) .nav{position:fixed;left:0;right:0;top:0}
 body:has(.sc-hero) .nav:not(.scrolled){
-  background:var(--deep);
+  background:transparent;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border-bottom-color:transparent;
 }
 
@@ -88,14 +107,14 @@ body:has(.sc-hero) .nav:not(.scrolled){
 body:has(.sc-hero) .nav:not(.scrolled) .logo svg{ filter:brightness(0) invert(1) }
 
 .nav-links{ display:flex;align-items:center;gap:32px;justify-self:center }
-.nav-links a{ font-size:14px;color:var(--ink-80);font-weight:500;padding:12px 0;letter-spacing:-.005em }
+.nav-links a{ font-size:13px;color:var(--ink-80);font-weight:400;padding:12px 0;letter-spacing:-.005em }
 .nav-links a:hover{ color:var(--ink) }
-.nav-links a.active{ color:var(--ink);font-weight:600 }
+.nav-links a.active{ color:var(--ink);font-weight:400 }
 .nav-links a:focus-visible{ outline:2px solid var(--ink);outline-offset:2px;border-radius:4px }
 
 .nav-actions{ display:flex;align-items:center;gap:8px;justify-self:end }
 .nav-login{
-  font-size:14px;color:var(--ink-60);padding:8px;font-weight:500;min-height:40px;
+  font-size:13px;color:var(--ink-60);padding:8px;font-weight:400;min-height:38px;
   display:inline-flex;align-items:center;letter-spacing:-.005em;
 }
 .nav-login:hover{ color:var(--ink) }

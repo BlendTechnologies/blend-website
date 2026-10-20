@@ -71,7 +71,7 @@
 .sci-verts .is-off:focus-visible{outline:2px solid #E7CFA3;outline-offset:3px;border-radius:4px}
 
 /* A tooltip, shared by the categories, the run marker and the warning. */
-.sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:var(--gold);color:#17140F;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
+.sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:var(--gold);color:#17140F;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
 
 [class*="sci-"]:hover > .sci-tip,[class*="sci-"]:focus-visible > .sci-tip{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -81,12 +81,12 @@
 .sci-gbox:hover{border-color:var(--line-strong)}
 .sci-gbox[aria-expanded="true"]{border-color:var(--gold);background:var(--raised-2)}
 .sci-gbox:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-gbox-n{font-size:20px;font-weight:600;letter-spacing:-.02em;font-feature-settings:"tnum";color:var(--gold-strong)}
-.sci-gbox-name{font-size:14px;font-weight:600;letter-spacing:-.005em}
+.sci-gbox-n{font-size:20px;font-weight:500;letter-spacing:-.02em;font-feature-settings:"tnum";color:var(--gold-strong)}
+.sci-gbox-name{font-size:14px;font-weight:500;letter-spacing:-.005em}
 .sci-glist{max-width:900px;margin:14px auto 0;border:1px solid var(--line);border-radius:12px;padding:4px 20px}
 .sci-check{padding:13px 0;border-bottom:1px solid var(--line)}
 .sci-check:last-child{border-bottom:0}
-.sci-check-n{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+.sci-check-n{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
 .sci-check-d{margin:3px 0 0;font-size:13px;line-height:1.55;color:var(--ink-80)}
 /* Two different markers, and they are not the same claim.
    .sci-dot says this check FIRED in the run, and the only checks that carry
@@ -118,29 +118,29 @@
 .sci-cbtn{padding:8px 15px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-80);font-size:13.5px;font-weight:500;font-family:inherit;cursor:pointer;transition:border-color .18s ease,color .18s ease,background .18s ease}
 /* --gold-strong, not --gold: white on #B47F39 is 3.48:1 and on #96682B
    it is 4.87. The same fill every other gold button on the site uses. */
-.sci-cbtn[aria-pressed="true"]{background:var(--gold-strong);border-color:var(--gold-strong);color:var(--white);font-weight:600}
+.sci-cbtn[aria-pressed="true"]{background:var(--gold-strong);border-color:var(--gold-strong);color:var(--white);font-weight:500}
 .sci-cbtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .sci-auth{max-width:900px;margin:0 auto 26px;text-align:center;font-size:13.5px;line-height:1.6;color:var(--muted)}
-.sci-auth b{display:block;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:5px;letter-spacing:-.01em}
+.sci-auth b{display:block;font-size:16px;font-weight:500;color:var(--ink);margin-bottom:5px;letter-spacing:-.01em}
 .sci-ladders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;max-width:900px;margin:0 auto}
 .sci-dose{padding:16px 0;border-top:1px solid var(--line)}
 .sci-dose-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px}
-.sci-dose-n{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
-.sci-dose-s{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:3px 8px}
+.sci-dose-n{font-size:14.5px;font-weight:500;letter-spacing:-.01em}
+.sci-dose-s{font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:3px 8px}
 .sci-dose-s.is-strict{color:var(--bad);background:rgba(200,97,76,.16)}
 .sci-dose-s.is-lenient{color:var(--ok);background:rgba(127,168,106,.14)}
 .sci-track{position:relative;height:6px;border-radius:999px;background:var(--subtle);margin:0 0 26px}
 .sci-never{position:absolute;top:0;bottom:0;right:0;border-radius:0 999px 999px 0;background:repeating-linear-gradient(45deg,rgba(200,97,76,.3) 0 4px,transparent 4px 8px);border-left:1px solid #C8614C}
-.sci-never-l{position:absolute;right:6px;top:10px;font-size:10px;font-weight:600;color:var(--bad);letter-spacing:.05em;text-transform:uppercase}
+.sci-never-l{position:absolute;right:6px;top:10px;font-size:10px;font-weight:500;color:var(--bad);letter-spacing:.05em;text-transform:uppercase}
 .sci-mark{position:absolute;top:-5px;width:2px;height:16px;border-radius:1px;background:var(--gold-strong);transition:left .5s cubic-bezier(.2,.7,.25,1)}
-.sci-mark i{position:absolute;top:19px;left:50%;transform:translateX(-50%);font-size:10.5px;font-style:normal;white-space:nowrap;color:var(--ink-80);font-feature-settings:"tnum";font-weight:600}
+.sci-mark i{position:absolute;top:19px;left:50%;transform:translateX(-50%);font-size:10.5px;font-style:normal;white-space:nowrap;color:var(--ink-80);font-feature-settings:"tnum";font-weight:500}
 .sci-mark.is-left i{left:0;transform:none}
 .sci-mark.is-right i{left:auto;right:0;transform:none}
 .sci-dose-f{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
 
 /* ---- the endcap ---------------------------------------------------------- */
 .closer{padding:88px 0 72px;text-align:center;background:var(--bg)}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(28px,3.4vw,42px)}
+.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(23px,2.4vw,29px)}
 .closer .lead{margin:0 auto 30px;max-width:520px}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
@@ -253,12 +253,12 @@
    marked more firmly than a hover: gold, heavier, and carrying its own
    underline. Colour alone at 13px in a wall of 41 names was findable only if
    you already knew where to look. */
-.sci-goalname[aria-expanded="true"]{color:var(--gold);font-weight:600}
+.sci-goalname[aria-expanded="true"]{color:var(--gold);font-weight:500}
 .sci-goalname[aria-expanded="true"]::before{content:"";position:absolute;left:14px;right:14px;
   bottom:-1px;height:1.5px;background:var(--gold);border-radius:2px}
 .sci-goalname:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .sci-subs{max-width:860px;margin:22px auto 0;min-height:112px;text-align:center}
-.sci-subs-t{font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--gold)}
+.sci-subs-t{font-size:15px;font-weight:500;letter-spacing:-.01em;color:var(--gold)}
 .sci-subs-list{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
 .sci-subs-list span{font-size:12.5px;line-height:1.5;padding:5px 11px;border-radius:999px;
   background:var(--raised);border:1px solid var(--line);color:var(--ink-80)}
@@ -287,7 +287,7 @@
   grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,3.5vw,52px)}
 .sci-steps li{display:flex;flex-direction:column;gap:7px;padding-top:17px;
   border-top:1px solid var(--line)}
-.sci-steps h3{margin:0;font-size:16px;font-weight:600;letter-spacing:-.012em;color:var(--ink)}
+.sci-steps h3{margin:0;font-size:16px;font-weight:500;letter-spacing:-.012em;color:var(--ink)}
 .sci-steps p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
 @media (max-width:760px){
   .sci-steps{grid-template-columns:minmax(0,1fr);gap:22px}

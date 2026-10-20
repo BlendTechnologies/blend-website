@@ -41,10 +41,10 @@
 
 /* The meta line: small, secondary, items parted by a dot. */
 .ph-meta{margin:24px 0 0;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ph-muted,var(--muted))}
-.ph-meta b{font-weight:600;color:var(--ink)}
+.ph-meta b{font-weight:500;color:var(--ink)}
 .ph-dot{width:3px;height:3px;border-radius:50%;background:var(--line-strong);flex:0 0 auto}
 .ph-live{display:inline-flex;align-items:center;gap:6px;font-weight:500;color:var(--ink-80)}
-.ph-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#5E8E3E;box-shadow:0 0 0 3px rgba(94,142,62,.18)}
+.ph-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#5E8E3E;box-shadow:none}
 
 .ph-ctas{margin-top:30px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 
@@ -54,8 +54,8 @@
 .ph-figs{margin:56px 0 0;display:grid;grid-template-columns:repeat(var(--ph-figs,4),minmax(0,1fr));gap:0;border-top:1px solid var(--line-strong)}
 .ph-fig{padding:24px 24px 4px;border-right:1px solid var(--line);text-align:center}
 .ph-fig:last-child{border-right:0}
-.ph-fig-n{font-size:clamp(34px,3.4vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--ink);font-feature-settings:"ss01","cv11","tnum"}
-.ph-fig-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
+.ph-fig-n{font-size:clamp(34px,3.4vw,44px);font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--ink);font-feature-settings:"ss01","cv11","tnum"}
+.ph-fig-label{margin-top:12px;font-size:14px;font-weight:500;letter-spacing:-.005em}
 .ph-fig-sub{margin:6px auto 0;font-size:13.5px;color:var(--ink-60);line-height:1.5;max-width:30ch}
 
 /* ---- bottom strip, index --------------------------------------------
@@ -66,7 +66,7 @@
 .ph-ix-line{position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--gold-active);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s cubic-bezier(.2,.7,.25,1)}
 .ph-ix-item:hover .ph-ix-line,
 .ph-ix-item:focus-visible .ph-ix-line{transform:scaleX(1)}
-.ph-ix-n{font-size:12px;font-weight:600;color:var(--gold-active);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";flex:0 0 auto}
+.ph-ix-n{font-size:12px;font-weight:500;color:var(--gold-active);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";flex:0 0 auto}
 .ph-ix-name{font-size:15px;font-weight:500;color:var(--ink-80);transition:color .2s ease}
 .ph-ix-item:hover .ph-ix-name,
 .ph-ix-item:focus-visible .ph-ix-name{color:var(--ink)}

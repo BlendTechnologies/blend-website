@@ -4,9 +4,11 @@
    Two shapes, one idea: a full-bleed block that closes into a rounded
    card, and a rounded card that opens to full bleed. Both are driven by
    a --sc-p that scroll-cards.js writes on the element itself, so a page
-   can carry as many as it likes, and both are clip-path only — nothing
-   here animates a property that would make the browser lay the page out
-   again, and nothing inside either shape is scaled, moved or reflowed.
+   can carry as many as it likes, and both are clip-path plus one scale —
+   nothing here animates a property that would make the browser lay the
+   page out again, and nothing inside either shape is reflowed. The content
+   IS scaled, by --sc-fit, so it closes in with the card's edge instead of
+   being cropped by it (see the end of this file).
 
    Lifted out of the homepage's inline stylesheet unchanged so
    /how-it-works can use the same component. The values, the easing and
@@ -58,11 +60,18 @@
 
    So the default is shorter and the homepage opts back in. Both floors are
    still generous enough that the card has room to form. */
-:root{--sc-hero-min:calc(72vh - var(--nav-h))}
-@supports (height:100svh){ :root{--sc-hero-min:calc(72svh - var(--nav-h))} }
+/* --nav-overlay is var(--nav-h) exactly when the bar is transparent and
+   sitting ON the hero (nav.css sets it from body:has(.sc-hero)), and 0px
+   otherwise. Adding it back here means the hero still reaches the same
+   point down the viewport whether the bar is over it or above it, and the
+   padding breakpoints below stay a plain cascade instead of each needing a
+   second copy under the :has() selector. */
+:root{--nav-overlay:0px}
+:root{--sc-hero-min:calc(72vh - var(--nav-h) + var(--nav-overlay))}
+@supports (height:100svh){ :root{--sc-hero-min:calc(72svh - var(--nav-h) + var(--nav-overlay))} }
 .sc-hero{position:relative;display:grid;align-content:safe center;overflow:hidden;
   min-height:var(--sc-hero-min);
-  padding:40px 0 56px;
+  padding:calc(40px + var(--nav-overlay)) 0 56px;
   background:transparent;
   clip-path:inset(
     calc(var(--sc-p) * var(--sc-inset)) calc(var(--sc-p) * var(--sc-inset))
@@ -72,15 +81,16 @@
    against a white page #FAF8F2 was close enough that the card barely read
    as a separate surface. One token, because the nav has to match it
    exactly while the page is at the top. */
-.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--hero-tint,var(--hero-beige));
+.sc-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-color:var(--hero-tint,var(--hero-beige));background-image:var(--wash-deep);
   clip-path:inset(
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
     calc(var(--sc-p) * (var(--sc-inset) + 1px)) calc(var(--sc-p) * (var(--sc-inset) + 1px))
     round calc(var(--sc-p) * (var(--sc-round) - 1px)))}
 /* The block's own height carries the space the padding used to. */
-@media (max-width:960px){ .sc-hero{padding:32px 0 56px} }
-@media (max-width:760px){ .sc-hero{padding:24px 0 48px} }
-@media (max-width:560px){ .sc-hero{align-content:start;padding-top:34px} }
+@media (max-width:960px){ .sc-hero{padding:calc(32px + var(--nav-overlay)) 0 56px} }
+@media (max-width:760px){ .sc-hero{padding:calc(24px + var(--nav-overlay)) 0 48px} }
+@media (max-width:560px){ .sc-hero{align-content:start;padding-top:calc(34px + var(--nav-overlay))} }
 /* The content used to scale with the card: 6% over at rest, settling to
    its design size as the card formed, so the block and its contents moved
    as one thing. It cost more than it bought. A scaled layer rasterises
@@ -98,7 +108,8 @@
    it, and what belongs either side of a reveal is the ground it sits on.
    The block keeps that ground; the layer carries the ink. */
 .sc-reveal{position:relative;overflow:hidden}
-.sc-reveal::before{content:"";position:absolute;inset:0;z-index:0;background:var(--deep);
+.sc-reveal::before{content:"";position:absolute;inset:0;z-index:0;
+  background-color:var(--deep);background-image:var(--wash-deep);
   clip-path:inset(
     calc((1 - var(--sc-p)) * var(--sc-inset)) calc((1 - var(--sc-p)) * var(--sc-inset))
     calc((1 - var(--sc-p)) * var(--sc-inset)) calc((1 - var(--sc-p)) * var(--sc-inset))
@@ -151,9 +162,10 @@
    is left alone, so the desktop composition keeps its full width.
 
    The hero keeps a wider one further up than the reveals do. That began
-   as headroom for the content scale, which is gone; it stays because the
-   hero's inset is the deepest on the site and its first line is the one
-   that must not graze the card's corner. */
+   as headroom for the content scale; it stays because the hero's inset is
+   the deepest on the site, and reduced motion holds the hero as a card
+   with no scale at all, so this is still the only thing keeping its first
+   line off the card's corner there. */
 @media (max-width:1263px){
   .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 20px)}
 }
@@ -224,3 +236,17 @@
   .sc-cue svg{animation:none}
   .sc-cue::after{display:none}
 }
+
+/* ---- The content follows the edge ------------------------------------
+   As the card's sides come in, what is written on it comes in with them:
+   scaled by --sc-fit, the card's width over the block's, which
+   scroll-cards.js works out from the same inset the clip-path uses. Unset
+   (no JS, reduced motion) it is 1 and nothing moves, which is what the
+   static gutter above is for.
+
+   Each half of the closer+footer pair shrinks toward the edge it shares
+   with the other, so the two halves keep meeting on one line instead of
+   each pulling away from it about its own middle. */
+.sc-hero > .wrap,.sc-reveal > .wrap{scale:var(--sc-fit,1)}
+.sc-reveal--top > .wrap{transform-origin:50% 100%}
+.sc-reveal--bottom > .wrap{transform-origin:50% 0}

@@ -35,20 +35,20 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--ground);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}.skip:focus{left:16px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:200}.skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0;text-wrap:balance}
-.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0;text-wrap:balance}
-.lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
+.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;margin:0;text-wrap:balance}
+.lead{font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80);margin:0;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
 /* 12px of side padding on a 93px label left "Try it yourself" all but
    touching both ends of its own pill. The ≤860 rule below already carried
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
-.btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
+.btn-lg{padding:9px 19px;font-size:14px;min-height:38px}
 /* At rest the bar is the beige this page starts with, so the seam is not
    there to find; scrolled, it goes back to being a bar over content. */
 @media(max-width:860px){}
@@ -97,9 +97,9 @@ body{background:var(--ground)}
 .case-card-icon.shopify svg{color:#5E8E3E}
 /* Two of the three titles are one line and one is two, so without a floor
    the three paragraphs start at three different heights. */
-.case-card h3{font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink);min-height:2.5em}
+.case-card h3{font-size:20px;font-weight:500;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink);min-height:2.5em}
 .case-card p{font-size:14px;color:var(--ink-80);line-height:1.6;margin:0 0 24px;flex:1}
-.case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:600;letter-spacing:-.005em}
+.case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:500;letter-spacing:-.005em}
 .case-card-cta::after{content:"\2192";transition:transform .2s ease}
 .case-card:hover .case-card-cta::after{transform:translateX(3px)}
 
@@ -116,11 +116,11 @@ body{background:var(--ground)}
 .aud-head .lead{margin-left:auto;margin-right:auto;max-width:560px}
 .aud-list{max-width:1100px;margin:0 auto;padding:0;border-top:1px solid var(--line)}
 .aud-row{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) minmax(0,240px);gap:16px 36px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
-.aud-row dt{margin:0;font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;color:var(--ink)}
+.aud-row dt{margin:0;font-size:20px;font-weight:500;letter-spacing:-.015em;line-height:1.25;color:var(--ink)}
 .aud-row dd{margin:0}
 .aud-row .aud-go{text-align:right}
 .aud-row dd p{margin:0;font-size:15px;line-height:1.6;color:var(--ink-80)}
-.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:600;letter-spacing:-.005em;line-height:1.6}
+.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:500;letter-spacing:-.005em;line-height:1.6}
 .aud-link::after{content:"\2192";transition:transform .2s ease}
 .aud-link:hover::after{transform:translateX(3px)}
 @media (prefers-reduced-motion:reduce){.aud-link::after{transition:none}}
@@ -238,7 +238,6 @@ html,body{max-width:100%;overflow-x:clip}
 <section class="ph ph--fill">
   <div class="wrap">
     <div class="ph-inner">
-      <span class="eyebrow">Use cases</span>
       <h1 class="h1">How brands use Blend.</h1>
       <p class="lead">Help customers find the products that fit their needs, with personalised recommendations they can understand and trust.</p>
       <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
@@ -278,7 +277,6 @@ html,body{max-width:100%;overflow-x:clip}
 <section class="aud-section">
   <div class="wrap">
     <div class="aud-head">
-      <span class="eyebrow">Who it&#8217;s for</span>
       <h2 class="h2">Same engine, different shop floor.</h2>
       <p class="lead">Supplements and over-the-counter health is the live vertical. What changes is the catalogue and the room it sells in, not the scoring underneath.</p>
     </div>
@@ -324,7 +322,6 @@ html,body{max-width:100%;overflow-x:clip}
 
 <section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
-    <span class="eyebrow">Get started</span>
     <h2 class="h2">Not sure which fits? Start a trial.</h2>
     <p class="lead">15-day free trial on every plan. Live in an afternoon.</p>
     <div class="closer-ctas">

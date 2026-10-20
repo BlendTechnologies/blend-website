@@ -36,20 +36,20 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;z-index:200}.skip:focus{left:16px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:200}.skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0}
-.h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0}
-.lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
+.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0}
+.h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;margin:0}
+.lead{font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80);margin:0;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px}
 .btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
 /* 12px of side padding on a 93px label left "Try it yourself" all but
    touching both ends of its own pill. The ≤860 rule below already carried
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
-.btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
+.btn-lg{padding:9px 19px;font-size:14px;min-height:38px}
 @media(max-width:860px){}
 .crumb{padding:20px 0 0;font-size:12px;color:var(--muted)}.crumb a{color:var(--muted);border-bottom:1px solid transparent}.crumb a:hover{color:var(--ink);border-bottom-color:var(--line-strong)}.crumb-sep{color:var(--line-strong);margin:0 8px}
 .hero{padding:48px 0 80px;background:var(--cream);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
@@ -63,23 +63,23 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .hero-foot{margin-top:24px;display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px}
 .hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--line-strong);align-self:center}
 /* Dashboard mockup, homepage style */
-.dash-mock{background:var(--deep);color:var(--white);border-radius:18px;padding:26px 28px 24px;box-shadow:0 24px 60px rgba(0,0,0,.18),0 2px 8px rgba(0,0,0,.08);max-width:480px;margin-left:auto;position:relative;overflow:hidden}
+.dash-mock{background:var(--deep);color:var(--white);border-radius:18px;padding:26px 28px 24px;box-shadow:none;max-width:480px;margin-left:auto;position:relative;overflow:hidden}
 .dash-mock::before{content:"";position:absolute;top:-60px;left:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(180,127,57,.12) 0%,transparent 70%);pointer-events:none}
 .dash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative}
-.dash-title{font-size:12.5px;font-weight:600;color:var(--white);letter-spacing:-.005em}
+.dash-title{font-size:12.5px;font-weight:500;color:var(--white);letter-spacing:-.005em}
 .dash-pill{font-size:10px;color:rgba(255,255,255,.55);background:rgba(255,255,255,.06);padding:4px 10px;border-radius:99px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
 .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;position:relative}
 .dash-tile{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px}
 .dash-tile svg{width:62px;height:62px}
 .dash-tile-lab{font-size:10.5px;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.02em}
 .dash-bars{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 16px;position:relative}
-.dash-bars-title{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:block}
+.dash-bars-title{font-size:10.5px;font-weight:500;color:rgba(255,255,255,.55);margin-bottom:10px;display:block}
 .dash-bar-row{display:grid;grid-template-columns:80px 1fr 32px;gap:10px;align-items:center;margin-bottom:7px}
 .dash-bar-row:last-child{margin-bottom:0}
 .dash-bar-lab{font-size:11px;color:rgba(255,255,255,.72)}
 .dash-bar-track{height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
 .dash-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-soft) 0%,var(--gold) 100%);border-radius:99px}
-.dash-bar-val{font-size:10.5px;color:var(--gold);font-weight:600;font-feature-settings:"tnum";text-align:right}
+.dash-bar-val{font-size:10.5px;color:var(--gold);font-weight:500;font-feature-settings:"tnum";text-align:right}
 @media(max-width:860px){.hero{padding:32px 0 64px}.hero-grid{grid-template-columns:1fr;text-align:center;gap:32px}.hero-sub{margin:22px auto 0}.hero-ctas,.hero-foot{justify-content:center}.dash-mock{margin:0 auto}}
 .section{padding:96px 0}.section-cream{background:var(--cream)}.section-subtle{background:var(--subtle)}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
@@ -87,18 +87,18 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 /* Switch cards */
 .switch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
 .switch-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:32px 24px;display:flex;flex-direction:column}
-.switch-card-num{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--gold-text);margin-bottom:14px}
-.switch-card h3{font-size:16px;line-height:1.25;letter-spacing:-.015em;font-weight:600;margin:0 0 12px}
+.switch-card-num{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--gold-text);margin-bottom:14px}
+.switch-card h3{font-size:16px;line-height:1.25;letter-spacing:-.015em;font-weight:500;margin:0 0 12px}
 .switch-card p{font-size:14px;line-height:1.65;color:var(--ink-80);margin:0}
-.switch-card strong{color:var(--ink);font-weight:600}
+.switch-card strong{color:var(--ink);font-weight:500}
 @media(max-width:860px){.switch-grid{grid-template-columns:1fr}}
 /* Comparison table */
 .compare-table{max-width:900px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .compare-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line);font-size:14px}
 .compare-row:last-child{border-bottom:0}
-.compare-row.head{background:var(--subtle);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.compare-row.head{background:var(--subtle);font-weight:500;font-size:12px;color:var(--muted)}
 .compare-row .feature{color:var(--ink);font-weight:500}
-.compare-row .blend{color:var(--gold-strong);font-weight:600;text-align:center}
+.compare-row .blend{color:var(--gold-strong);font-weight:500;text-align:center}
 .compare-row .other{color:var(--muted);text-align:center}
 .check-mark{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--gold-soft);position:relative;vertical-align:middle}
 .check-mark::after{content:"";position:absolute;left:5px;top:3px;width:5px;height:9px;border-right:2px solid var(--gold-strong);border-bottom:2px solid var(--gold-strong);transform:rotate(45deg)}
@@ -121,7 +121,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .faq-item .faq-answer{padding:0 4px 24px;font-size:14px;color:var(--ink-80);line-height:1.7}
 .faq-item .faq-answer p{margin:0}
 .closer{padding:96px 0 112px;background:var(--cream-2);text-align:center;border-top:1px solid var(--line)}
-.closer h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0 auto 14px;max-width:640px}
+.closer h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;margin:0 auto 14px;max-width:640px}
 .closer p{margin:0 auto 28px;max-width:520px;color:var(--ink-80);font-size:16px;line-height:1.55}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
@@ -170,7 +170,6 @@ html,body{max-width:100%;overflow-x:clip}
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-text">
-        <span class="hero-eyebrow">Use case, software comparison</span>
         <h1 class="h1 hero-title">Blend vs tag-based quiz tools.</h1>
         <p class="lead hero-sub">Traditional quiz builders typically rely on predefined rules and product tags. Blend adds nutritional analysis, product-level scoring and explainable recommendations, built specifically for supplement and OTC health brands.</p>
         <div class="hero-ctas">
@@ -212,7 +211,7 @@ html,body{max-width:100%;overflow-x:clip}
   </div>
 </section>
 
-<section class="section section-cream">
+<section class="section section-cream has-wash">
   <div class="wrap">
     <div class="section-head">
       <h2 class="h2">Where the major quiz tools stop, Blend keeps going.</h2>
@@ -237,7 +236,6 @@ html,body{max-width:100%;overflow-x:clip}
 <section class="section section-subtle">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Why brands switch</span>
       <h2 class="h2">Beyond the feature checklist.</h2>
       <p class="lead">What the table doesn't show: the outcomes that move brands from a tag-based quiz to Blend.</p>
     </div>
@@ -261,9 +259,9 @@ html,body{max-width:100%;overflow-x:clip}
   </div>
 </section>
 
-<section class="section section-cream">
+<section class="section section-cream has-wash">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Frequently asked questions</span><h2 class="h2">Buyer questions.</h2></div>
+    <div class="section-head"><h2 class="h2">Buyer questions.</h2></div>
     <div class="faq-list">
       <details class="faq-item"><summary>How is Blend different from other quiz tools?</summary><div class="faq-answer"><p>General quiz tools match products to multiple-choice answers using tags or point accumulators. Blend runs deterministic scoring across every product in your catalogue, factoring in ingredient interactions, upper-limit safety, synergies, and nutrient gaps inferred from a food-frequency questionnaire. Same input always produces the same output, and every recommendation is traceable to the information that produced it. Every recommendation carries the reasons that produced it.</p></div></details>
       <details class="faq-item"><summary>Can I migrate from another quiz tool?</summary><div class="faq-answer"><p>Yes. Most brands switch over in days, not weeks. We map your existing quiz logic into Blend's scoring engine, ingest your catalogue, and you keep your existing embed slot.</p></div></details>
@@ -275,7 +273,6 @@ html,body{max-width:100%;overflow-x:clip}
 
 <section class="closer">
   <div class="wrap">
-    <span class="eyebrow">Get started</span>
     <h2>Pick the right software for your supplement brand.</h2>
     <p>15-day free trial on every plan.</p>
     <div class="closer-ctas">

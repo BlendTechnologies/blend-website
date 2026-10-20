@@ -69,7 +69,6 @@ const verts = Object.entries(V).map(([key, v]) => {
 const hero = `<section class="theme-dark ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
     <div class="ph-inner">
-      <span class="eyebrow">The science</span>
       <h1 class="h1">A scoring engine you can audit, line by line.</h1>
       <p class="lead">Blend combines nutritional research, individual customer information and product-level analysis to deliver personalised, explainable recommendations. One engine per vertical, every pick scored, safety-checked and explained.</p>
       <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
@@ -80,7 +79,6 @@ const hero = `<section class="theme-dark ph ph--fill sc-hero" data-sc="hero">
     </div>
     <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:${Object.keys(V).length}">${verts}</nav>
   </div>
-  <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>`;
 
 /* ---- 2. what the engine covers ---------------------------------------------
@@ -122,7 +120,6 @@ const prodRows = pr => pr.attributes.map(a =>
 const productsSec = `<section class="sci-sec" id="products">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">The product database</span>
       <h2 class="h2"><span data-count="${h.counts.products_audited.value}">${num(h.counts.products_audited.value)}</span>+ products &#183; <span data-count="${h.counts.product_attributes.value}">${num(h.counts.product_attributes.value)}</span> attributes each</h2>
       <p class="lead">Audited for safety and composition. Explore a product to see what the engine records.</p>
     </div>
@@ -150,7 +147,6 @@ const covers = `<section class="sci-sec" id="covers">
   <div class="wrap">
     <hr class="sci-divider sci-in">
     <div class="sci-head sci-in">
-      <span class="eyebrow">What the engine covers</span>
       <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
       <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
@@ -240,7 +236,6 @@ const heads = STAGE_NAMES.map(([n, say], i) =>
 const run = `<section class="sci-sec" id="run">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">The engine, end to end</span>
       <h2 class="h2">Watch it decide.</h2>
       <p class="lead">Seven stages, from the first answer to a readable plan.</p>
     </div>
@@ -335,7 +330,6 @@ const exampleList = `      <div class="sci-glist" id="sci-examples">` +
 const safety = `<section class="sci-sec" id="safety">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">Safety</span>
       <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
       <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
     </div>
@@ -406,7 +400,6 @@ const first = sets[0];
 const markets = `<section class="sci-sec" id="markets">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">Markets</span>
       <h2 class="h2">Targets follow the country you sell in.</h2>
       <p class="lead">Reference targets follow the official authority for each market, and an ingredient a country bans in supplements is never recommended there.</p>
     </div>
@@ -425,7 +418,6 @@ ${first.nutrients.map(ladder).join('\n')}
 /* ---- 5. the endcap --------------------------------------------------------- */
 const cta = `<section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
-    <span class="eyebrow">The methodology</span>
     <h2 class="h1">Read the full methodology.</h2>
     <p class="lead">See how answers, research and rules produce every recommendation.</p>
     <div class="closer-ctas">

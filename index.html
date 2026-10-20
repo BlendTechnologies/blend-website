@@ -51,14 +51,30 @@ img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--gold);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;z-index:200}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--gold);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;z-index:200}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0;text-wrap:balance}
-.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0;text-wrap:balance}
-.lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
+.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;margin:0;text-wrap:balance}
+/* THE LEAD, measured off superpower.com rather than guessed. Their root is
+   a fluid 14.0861px and the lead is 1rem on it, lh 1.5rem, ls -0.014em,
+   with half-rem gaps around it:
+
+     h1 -> lead          0.5rem  =  7px
+     lead -> buttons     2.5rem  = 35px
+     button row gap      1rem    = 14px
+
+   The founder's note was that the LEAD is the subheading and it is too
+   big: ours was 16-18px against their 14, and our h1-to-lead gap was 22px
+   against their 7. The gap mattered more than the size.
+
+   NOTHING ELSE MOVED. An earlier pass took the whole 80rem container,
+   the 4.5rem gutter and the 3rem h1 with it, across twelve files, which
+   was not what was asked for and was reverted. The heading scale, the
+   container and the section rhythm are this site's own. */
+.lead{font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80);margin:0;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
 .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -69,7 +85,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    touching both ends of its own pill. The ≤860 rule below already carried
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
-.btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
+.btn-lg{padding:9px 19px;font-size:14px;min-height:38px}
 /* At rest the bar is whatever the page starts with, so the seam between
    it and the top of the page is not there to find. --nav-bg is set by
    the pages whose first block is not cream; everything else keeps the
@@ -87,13 +103,72 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-grid{display:grid;grid-template-columns:0.95fr 1.05fr;gap:48px;align-items:center;padding:8px 0}
 .hero-eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .hero-title{margin-top:14px}
-.hero-sub{margin-top:22px;max-width:520px}
-.hero-ctas{margin-top:32px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hero-sub{margin-top:7px;max-width:460px}
+.hero-ctas{margin-top:35px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .hero-foot{margin-top:24px;font-size:14px;color:var(--muted);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
 .cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
 .cta-alt a{color:var(--gold-text);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
 .cta-alt a:hover{text-decoration-color:var(--sand)}
+/* The divided strip under the hero.
+   REBUILT. The first attempt put the three facts in a bordered, filled
+   box with hard rules, and the founder's note was that it had nothing to
+   do with the reference. Looking again at that shot: there IS no box. The
+   facts sit directly on a soft blurred backdrop with a hairline between
+   them, and every bit of the softness comes from what is BEHIND the text,
+   not from a container around it. So: no fill, no border, no radius. Just
+   the dividers and the light the hero's wash is already casting. */
+/* Natural widths, no cap. Three equal columns inside 620px wrapped "One
+   embed, no developer" onto two lines from 1199 down to 621, and the first
+   item onto three at 621, while the short third column sat half empty. Auto
+   tracks give each item what it needs and only wrap when the row is truly
+   out of room. */
+.hero-strip{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;
+  margin-top:30px;max-width:none}
+.hero-strip > div{padding:2px 32px;border-left:1px solid rgba(255,255,255,.14);
+  display:grid;gap:3px;min-width:0}
+.hero-strip > div:first-child{border-left:0;padding-left:0}
+.hero-strip b{font-size:13px;font-weight:400;color:var(--white);letter-spacing:-.005em}
+.hero-strip span{font-size:13px;color:rgba(255,255,255,.55);line-height:1.4}
+/* Stacks below 700, measured: with 32px either side of each divider the
+   row fits on one line from 700 up, and from 699 down to 621 it wrapped
+   instead, to three lines at 621. */
+@media(max-width:699px){
+  .hero-strip{grid-template-columns:minmax(0,1fr);gap:14px;max-width:none}
+  .hero-strip > div{border-left:0;padding:0}
+}
+/* PINNED: the strip bottom-left of the hero, 32px off its bottom edge.
+   Only from 1200, where the hero is two columns; below that the hero stacks
+   and the strip stays in the copy, under the buttons.
+
+   The wrap is stretched to the full height of the hero and the copy is
+   centred inside it, so the strip can sit on the wrap's bottom edge, which
+   is the hero's padding edge. The wrap's padding-bottom reserves the
+   strip's band, so a short window grows the hero rather than running the
+   copy into the strip.
+
+   No width cap: it stopped short of the centre to clear the scroll arrow,
+   and the arrow is gone (founder, 2026-10-20). nowrap keeps each item on its
+   own two lines, and there is room for all three from 1200 up. */
+@media(min-width:1200px){
+  .sc-hero:has(.hero-strip){align-content:stretch;padding-bottom:32px}
+  .sc-hero:has(.hero-strip) > .wrap{display:grid;align-content:center;padding-bottom:84px;width:100%}
+  /* left is the hero wrap's own gutter, which is NOT the page's 32px
+     everywhere: scroll-cards.css widens it to inset + 24 below 1300, so a
+     fixed 32 put the strip 32px left of the headline above it at 1200-1299. */
+  .hero-strip{position:absolute;left:32px;bottom:0;margin:0;
+    grid-template-columns:repeat(3,auto);justify-content:start;
+    max-width:none}
+  .hero-strip > div{white-space:nowrap}
+  /* Gone by the time the card has closed 15% of the way. Left visible, the
+     card's own clip-path closing in from the bottom cut its second line in
+     half. */
+  .hero-strip{opacity:clamp(0, calc((.15 - var(--sc-p, 0)) * 6.6667), 1);
+    transition:opacity .12s linear}
+}
+@media(min-width:1200px) and (max-width:1299px){
+  .hero-strip{left:calc(var(--sc-inset) + 24px)}
+}
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
 /* No height here. The plan card's own content and its own padding set
    the height of the pair; see the composition block below. */
@@ -108,7 +183,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .qprog-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.01em;white-space:nowrap}
 .qprog-bar{flex:1;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
 .qprog-fill{height:100%;width:40%;background:var(--deep);border-radius:999px}
-.quiz .qtitle{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;margin:0}
+.quiz .qtitle{font-size:18px;font-weight:500;line-height:1.3;letter-spacing:-.015em;margin:0}
 .quiz .qopts{margin-top:16px;display:grid;gap:7px}
 .qopt{padding:12px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:500;cursor:default;transition:border-color .38s cubic-bezier(.2,.7,.25,1),background .38s cubic-bezier(.2,.7,.25,1);background:var(--surface-up);text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);}
 .qopt:hover{border-color:var(--line-strong)}
@@ -116,7 +191,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .qopt-label{flex:1;min-width:0}
 
 
-.quiz-next{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--deep);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:600;transition:background .15s ease;}
+.quiz-next{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--deep);color:var(--white);border-radius:8px;font-size:12.5px;font-weight:500;transition:background .15s ease;}
 .quiz-next:hover{background:#1f1f1f}
 .quiz-prebuilt{display:none}
 .hero-arrow{display:none}
@@ -233,8 +308,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    Tablet and phone keep the values they already had. */
 /* The homepage hero holds the product preview and fills a full viewport;
    the shared default is shorter for the pages whose hero is only type. */
-:root{--sc-hero-min:calc(100vh - var(--nav-h))}
-@supports (height:100svh){ :root{--sc-hero-min:calc(100svh - var(--nav-h))} }
+:root{--sc-hero-min:calc(100vh - var(--nav-h) + var(--nav-overlay))}
+@supports (height:100svh){ :root{--sc-hero-min:calc(100svh - var(--nav-h) + var(--nav-overlay))} }
 :root{--sec:72px;--sec-tight:62px;--sec-join:30px}
 @media(max-width:860px){:root{--sec-join:44px}}
 @media(max-width:760px){:root{--sec:58px;--sec-tight:54px;--sec-join:28px}}
@@ -242,7 +317,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section--tight{padding:var(--sec-tight) 0}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:14px;display:inline-block}
-.section-head .h2{margin-bottom:20px}
+.section-head .h2{margin-bottom:7px}
 .section-cream{background:var(--ground)}
 /* White where the hero's card leaves off, settling into the beige that the
    rest of the page sits on. A plain background, not a scroll effect: it is
@@ -340,23 +415,61 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    gaps from one source stay equal at every width; padding here made
    the lower one 20px bigger at every width. */
 .step-body{padding:0 22px 0;flex:1}
-.step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em;font-feature-settings:"tnum"}
+.step h3{margin:0 0 6px;font-size:16px;font-weight:500;letter-spacing:-.01em;font-feature-settings:"tnum"}
 .step p{margin:0;font-size:14px;color:var(--ink-60);line-height:1.5}
 /* The row is laid out whether or not it is visible, so nothing shifts when
    it appears: only opacity changes. Touch has no hover, so there it is
    simply always on. */
-.step-cta{display:block;padding:8px 22px 14px;font-size:13px;font-weight:500;color:var(--gold-text);opacity:0;transition:opacity .18s ease}
-.step:hover .step-cta,.step:focus-visible .step-cta{opacity:1}
-@media(hover:none){.step-cta{opacity:1}}
 @media(prefers-reduced-motion:reduce){.step{transition:border-color .18s ease,box-shadow .18s ease}.step:hover,.step:focus-visible{transform:none}}
 @media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
 @media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
+/* ---- The six steps: a scene, and its caption under it ---------------------
+   Founder, 2026-10-20, from the prototype: each step is a soft studio-lit
+   scene with the product UI floating on it in frosted glass, its number in a
+   glass square, and the words under it with nothing framing the pair. One
+   light for all six ("all with the same background colour"), and rectangles,
+   not squares. Glass reads as glass here because the scene has light and
+   grain behind it, which the white page did not.
+
+   Hover keeps the site's one treatment: the scene's edge warms to
+   --hover-border, the UI lifts, "Learn more" appears, the focus ring stays
+   on the link. */
+#how .steps{row-gap:44px;column-gap:32px}
+#how .step{background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+#how .step:hover,#how .step:focus-visible{background:none;border:0;box-shadow:none;transform:none}
+/* One padding on all four sides: 8% of the width, which is what the UI's
+   84% left either side of it, so the rectangle's height follows the UI. */
+#how .step-thumb{position:relative;aspect-ratio:auto;border-radius:18px;overflow:hidden;padding:8%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid transparent;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(55% 60% at 22% 18%, #FFFFFF 0%, rgba(255,255,255,0) 70%),
+    radial-gradient(70% 70% at 88% 96%, #B9BCC2 0%, rgba(185,188,194,0) 72%),
+    radial-gradient(30% 30% at 78% 22%, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 100%),
+    #E6E7EA;
+  transition:border-color .18s ease}
+#how .step:hover .step-thumb,#how .step:focus-visible .step-thumb{border-color:var(--hover-border)}
+#how .step-ui{display:block;width:100%;padding:6px 0;border-radius:16px;
+  background:rgba(255,255,255,.58);
+  -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+  transition:transform .45s cubic-bezier(.2,.7,.25,1)}
+#how .step-ui svg{display:block;width:100%;height:auto}
+#how .step:hover .step-ui,#how .step:focus-visible .step-ui{transform:translateY(-4px)}
+#how .step-body{padding:16px 2px 0}
+#how .step h3{font-size:18px;letter-spacing:-.015em;margin-bottom:7px}
+#how .step p{font-size:14px;max-width:38ch}
+/* Inside the scene, under the floating UI, on a small white glass pill. As
+   plain gold text on the scene it measured 3.1:1 at worst and 3.6:1 at the
+   median, short of AA; on the pill it is the site's gold on near-white. */
+@media(prefers-reduced-motion:reduce){#how .step:hover .step-ui,#how .step:focus-visible .step-ui{transform:none}}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
 .soon{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;
-  background:var(--gold-soft);color:var(--gold-text);font-size:11px;font-weight:600;
+  background:var(--gold-soft);color:var(--gold-text);font-size:11px;font-weight:500;
   letter-spacing:.04em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .split-card{padding:40px;border-radius:14px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
@@ -364,7 +477,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .split-card.brand{background:var(--deep);color:var(--white);border:1px solid transparent}
 .split-pill{display:inline-flex;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
 .split-card.brand .split-pill{color:rgba(255,255,255,.55)}
-.split-card h3{font-size:26px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:600}
+.split-card h3{font-size:19px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:500}
 .split-bullets{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:8px}
 .split-bullets li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink-80)}
 .split-bullets li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:9px;flex-shrink:0}
@@ -373,50 +486,50 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .insight-pill.warn{background:#FAEEEB;color:#8A2A1A;border-color:#F0D8D2}
 .report-card{margin-top:auto;background:var(--ground);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
 .report-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.report-card-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
-.report-card-pill{font-size:10px;color:var(--gold-text);letter-spacing:.06em;text-transform:uppercase;font-weight:600;background:var(--gold-soft);padding:3px 8px;border-radius:999px}
+.report-card-title{font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.report-card-pill{font-size:10px;color:var(--gold-text);letter-spacing:.06em;text-transform:uppercase;font-weight:500;background:var(--gold-soft);padding:3px 8px;border-radius:999px}
 .report-products{display:grid;gap:7px}
 .rp-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border:1px solid var(--line);border-radius:9px}
-.rp-swatch{width:30px;height:30px;border-radius:6px;background:var(--deep);display:grid;place-items:center;color:var(--white);font-size:9px;font-weight:700;flex-shrink:0;letter-spacing:.02em}
+.rp-swatch{width:30px;height:30px;border-radius:6px;background:var(--deep);display:grid;place-items:center;color:var(--white);font-size:9px;font-weight:600;flex-shrink:0;letter-spacing:.02em}
 .rp-info{flex:1;min-width:0}
-.rp-name{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.2}
+.rp-name{font-size:12.5px;font-weight:500;color:var(--ink);line-height:1.2}
 .rp-reason{font-size:11px;color:var(--muted);margin-top:1px}
-.rp-badge{flex-shrink:0;font-size:10px;font-weight:600;color:var(--gold-text);background:var(--gold-soft);padding:2px 7px;border-radius:999px}
+.rp-badge{flex-shrink:0;font-size:10px;font-weight:500;color:var(--gold-text);background:var(--gold-soft);padding:2px 7px;border-radius:999px}
 .report-nutrients{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
-.report-nut-title{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.report-nut-title{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
 .report-nut-row{display:grid;grid-template-columns:88px 1fr 40px;align-items:center;gap:10px;margin-bottom:5px}
 .report-nut-row:last-child{margin-bottom:0}
 .report-nut-lab{font-size:12px;color:var(--ink);font-weight:500;letter-spacing:-.005em}
 .report-nut-track{height:5px;background:var(--line);border-radius:999px;overflow:hidden}
 .report-nut-fill{height:100%;border-radius:999px}
-.report-nut-val{font-size:11.5px;color:var(--muted);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.report-nut-val{font-size:11.5px;color:var(--muted);font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
 .report-nutrients-full{padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .report-nutrients-full .report-nut-row{margin-bottom:0;padding:4px 0}
 .routine{display:flex;flex-direction:column;gap:10px;flex:1}
 .routine-slot{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
-.routine-when{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;line-height:1;padding-left:14px}
+.routine-when{display:block;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;line-height:1;padding-left:14px}
 .routine-when::before{content:"";position:absolute;left:14px;top:13px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 .routine-items{display:grid;gap:7px}
 .routine-item{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.routine-name{font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.routine-name{font-size:13.5px;font-weight:500;color:var(--ink);letter-spacing:-.01em}
 .routine-qty{font-size:11.5px;color:var(--muted);font-weight:400}
-.routine-tag{font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--gold-soft);color:var(--gold-text);position:relative;top:-1px}
+.routine-tag{font-size:8.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--gold-soft);color:var(--gold-text);position:relative;top:-1px}
 .dash{margin-top:auto;background:#0F0F0F;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;color:var(--white);flex:1}
 .dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.dash-title{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
-.dash-pill{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;font-weight:600;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:999px}
+.dash-title{font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--white)}
+.dash-pill{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;font-weight:500;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:999px}
 .dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .dash-tile{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
 .dash-tile svg{flex:0 0 auto;width:100%;max-width:88px;height:auto}
-.dash-tile-lab{font-size:10px;color:rgba(255,255,255,.65);font-weight:600;letter-spacing:.02em;text-align:center}
+.dash-tile-lab{font-size:10px;color:rgba(255,255,255,.65);font-weight:500;letter-spacing:.02em;text-align:center}
 .dash-bars{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px;flex:1;display:flex;flex-direction:column;justify-content:center}
-.dash-bars-title{font-size:11px;font-weight:700;color:var(--white);letter-spacing:.02em;margin-bottom:10px;display:block}
+.dash-bars-title{font-size:11px;font-weight:600;color:var(--white);margin-bottom:10px;display:block}
 .dash-bar{display:grid;grid-template-columns:86px 1fr 30px;align-items:center;gap:8px;margin-bottom:6px}
 .dash-bar:last-child{margin-bottom:0}
 .dash-bar-lab{font-size:10px;color:rgba(255,255,255,.7);font-weight:500}
 .dash-bar-track{height:6px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
 .dash-bar-fill{height:100%;background:var(--gold);border-radius:999px}
-.dash-bar-val{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;text-align:right;letter-spacing:.02em}
+.dash-bar-val{font-size:10px;color:rgba(255,255,255,.55);font-weight:500;text-align:right;letter-spacing:.02em}
 @media(max-width:860px){.split{grid-template-columns:1fr}.split-card{min-height:auto}}
 .personas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .persona{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .18s ease}
@@ -424,12 +537,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .persona-head{padding:20px 20px 12px;display:flex;align-items:center;gap:12px}
 .persona-score{width:48px;height:48px;border-radius:50%;background:conic-gradient(var(--ring,var(--green-soft)) 0 var(--pct,80%),var(--ring-rest,var(--gold-soft)) var(--pct,80%) 100%);display:grid;place-items:center;position:relative;flex-shrink:0}
 .persona-score::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--surface)}
-.persona-score span{position:relative;z-index:1;font-weight:600;font-size:14px;font-feature-settings:"tnum"}
+.persona-score span{position:relative;z-index:1;font-weight:500;font-size:14px;font-feature-settings:"tnum"}
 .persona-head-copy{flex:1;min-width:0}
-.persona-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
+.persona-name{font-weight:500;font-size:16px;letter-spacing:-.01em}
 .persona-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
 .prow{position:relative}
-.pbadge{position:absolute;top:8px;right:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-text);line-height:1.35}
+.pbadge{position:absolute;top:8px;right:10px;font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 6px;border-radius:999px;background:var(--gold-soft);color:var(--gold-text);line-height:1.35}
 /* Goal marquee */
 .gm{padding:64px 0;background:var(--ground-2);overflow:hidden}
 .gm .section-head{margin-bottom:30px}
@@ -446,7 +559,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .gm-chip:hover,.gm-chip.on{border-color:var(--gold);color:var(--gold-text);background:var(--gold-soft)}
 .gm-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .gm-panel{max-width:680px;margin:0 auto;padding:0 32px;text-align:center;min-height:88px}
-.gm-panel-goal{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
+.gm-panel-goal{font-size:20px;font-weight:500;letter-spacing:-.015em;margin-bottom:15px;color:var(--ink)}
 .gm-subs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .gm-sub{font-size:12px;padding:4px 12px;border-radius:999px;background:rgba(10,10,10,.045);border:0;color:var(--muted);font-weight:400}
 @media(max-width:860px){.gm{padding:64px 0}.gm-panel{padding:0 20px}.gm-chip{padding:12px 16px;font-size:14px}.gm-sub{padding:8px 12px;font-size:12px}
@@ -458,8 +571,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .persona-insights{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:18px}
 .persona-list{display:grid;gap:8px}
 .prow{display:grid;grid-template-columns:32px 1fr;gap:8px;align-items:center;padding:8px 8px;background:var(--ground-2);border-radius:8px}
-.pswatch{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;color:var(--white);font-weight:600;font-size:10px;letter-spacing:.02em}
-.pname{font-size:14px;font-weight:600;line-height:1.25}
+.pswatch{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;color:var(--white);font-weight:500;font-size:10px;letter-spacing:.02em}
+.pname{font-size:14px;font-weight:500;line-height:1.25}
 .preason{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
 @media(max-width:860px){.personas{grid-template-columns:1fr}}
 /* ---- The engine ------------------------------------------------------
@@ -475,20 +588,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .science-head .lead{color:var(--muted-on-dark);margin-top:20px}
 .science-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:64px}
 .sci-stat{padding:24px 20px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
-.sci-n{font-size:48px;font-weight:600;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
-.sci-label{margin-top:12px;font-size:14px;font-weight:600;letter-spacing:-.005em}
+.sci-n{font-size:48px;font-weight:500;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
+.sci-label{margin-top:12px;font-size:14px;font-weight:500;letter-spacing:-.005em}
 .sci-sub{margin-top:6px;font-size:14px;color:var(--muted-on-dark);line-height:1.5}
 .sci-note{grid-column:1/-1;margin:6px 0 2px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px}
 .sci-note p{margin:0;font-size:15px;line-height:1.6;color:var(--muted-on-dark)}
-.sci-note b{color:var(--white);font-weight:600}
+.sci-note b{color:var(--white);font-weight:500}
 @media(max-width:860px){.sci-note{grid-template-columns:1fr;gap:14px}.science{padding:88px 0}}
 .sci-method{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:1px solid var(--gold);background:rgba(180,127,57,.08);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--white);transition:background .2s ease,border-color .2s ease;margin-top:4px}
 .sci-method:hover{background:rgba(180,127,57,.15);border-color:var(--gold-soft)}
 .sci-method-left{display:flex;align-items:center;gap:16px}
 .sci-method-icon{width:44px;height:44px;border-radius:8px;background:rgba(180,127,57,.2);border:1px solid rgba(180,127,57,.4);display:grid;place-items:center;flex-shrink:0}
-.sci-method-copy .sci-method-label{font-size:16px;font-weight:600;color:var(--white);letter-spacing:-.01em}
+.sci-method-copy .sci-method-label{font-size:16px;font-weight:500;color:var(--white);letter-spacing:-.01em}
 .sci-method-copy .sci-method-sub{font-size:14px;color:rgba(255,255,255,.6);margin-top:3px}
-.sci-method-arrow{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--gold);white-space:nowrap}
+.sci-method-arrow{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--gold);white-space:nowrap}
 .sci-method-arrow svg{transition:transform .2s ease}
 .sci-method:hover .sci-method-arrow svg{transform:translateX(4px)}
 @media(max-width:1100px){.science-stats{grid-template-columns:repeat(3,1fr)}}
@@ -497,7 +610,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:480px){.science-stats{grid-template-columns:1fr}}
 .int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:0 auto}
 .int{padding:32px 24px;text-align:center;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
-.int-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
+.int-name{font-weight:500;font-size:16px;letter-spacing:-.01em}
 .int-mark{height:32px;display:grid;place-items:center;margin-bottom:4px}
 .int-status{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .int.native .int-status{color:var(--gold-text)}
@@ -520,7 +633,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .wl-trait:hover .wl-trait-n{background:var(--deep);border-color:var(--line-strong)}
 .wl-trait:hover .wl-trait-n svg{stroke:var(--white)!important}
 .wl-trait-copy{flex:1;min-width:0;padding-top:2px}
-.wl-trait-label{font-size:14px;font-weight:600;letter-spacing:-.008em;color:var(--ink);line-height:1.2}
+.wl-trait-label{font-size:14px;font-weight:500;letter-spacing:-.008em;color:var(--ink);line-height:1.2}
 .wl-trait-sub{font-size:14px;color:var(--muted);margin-top:3px;line-height:1.5}
 .wl-preview-wrap{position:sticky;top:calc(var(--nav-h) + 24px)}
 .wl-preview{border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;--p-bg:var(--ink);--p-accent:#B47F39;--p-accent-soft:rgba(180,127,57,.15);--p-accent-border:rgba(180,127,57,.5);--p-text:#ffffff;--p-text-dim:rgba(255,255,255,.55);--p-surface:rgba(255,255,255,.05);--p-border:rgba(255,255,255,.1);--p-font:"Inter","Inter var",sans-serif;--p-radius:10px;background:var(--p-bg);font-family:var(--p-font);transition:background .4s ease,color .4s ease;}
@@ -528,20 +641,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .wl-preview-brand{display:flex;align-items:center;gap:9px}
 .wl-brand-logo{width:28px;height:28px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .4s ease}
 .wl-brand-logo svg,.wl-brand-logo img{width:18px;height:18px;display:block}
-.wl-preview-name{font-size:14px;font-weight:700;color:var(--p-text);letter-spacing:-.01em;transition:font-family .4s ease,color .4s ease;font-family:var(--p-font)}
+.wl-preview-name{font-size:14px;font-weight:600;color:var(--p-text);letter-spacing:-.01em;transition:font-family .4s ease,color .4s ease;font-family:var(--p-font)}
 .wl-preview-badge{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--p-text-dim);background:var(--p-surface);padding:3px 8px;border-radius:999px;transition:color .4s ease,background .4s ease}
 .wl-quiz-content{display:flex;flex-direction:column;gap:12px;}
 .wl-qprog{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .wl-qprog-label{font-size:10.5px;color:var(--p-text-dim);font-weight:500;white-space:nowrap;transition:color .4s ease;font-family:var(--p-font)}
 .wl-qprog-bar{flex:1;height:2px;background:var(--p-border);border-radius:999px;overflow:hidden;transition:background .4s ease}
 .wl-qprog-fill{height:100%;width:60%;background:var(--p-accent);border-radius:999px;transition:background .4s ease}
-.wl-qtitle{font-size:16px;font-weight:600;color:var(--p-text);line-height:1.3;margin:0 0 12px;transition:color .4s ease,font-family .4s ease;font-family:var(--p-font)}
+.wl-qtitle{font-size:16px;font-weight:500;color:var(--p-text);line-height:1.3;margin:0 0 12px;transition:color .4s ease,font-family .4s ease;font-family:var(--p-font)}
 .wl-qopts{display:grid;gap:4px}
 .wl-qopt{padding:8px 12px;border:1px solid var(--p-border);border-radius:var(--p-radius);font-size:12px;font-weight:500;color:var(--p-text-dim);background:transparent;display:flex;align-items:center;justify-content:space-between;transition:border-color .3s ease,background .3s ease,color .3s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font)}
 .wl-qopt.active{border-color:var(--p-accent);background:var(--p-accent-soft);color:var(--p-text)}
 .wl-qopt-check{width:16px;height:16px;border-radius:50%;border:1px solid var(--p-border);display:grid;place-items:center;transition:background .3s ease,border-color .3s ease}
 .wl-qopt.active .wl-qopt-check{background:var(--p-accent);border-color:var(--p-accent)}
-.wl-btn{display:inline-flex;align-self:flex-start;align-items:center;gap:4px;padding:8px 16px;background:var(--p-accent);color:#ffffff;border-radius:calc(var(--p-radius) - 2px);font-size:12px;font-weight:600;margin-top:2px;transition:background .4s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font);width:auto}
+.wl-btn{display:inline-flex;align-self:flex-start;align-items:center;gap:4px;padding:8px 16px;background:var(--p-accent);color:#ffffff;border-radius:calc(var(--p-radius) - 2px);font-size:12px;font-weight:500;margin-top:2px;transition:background .4s ease,border-radius .4s ease,font-family .4s ease;font-family:var(--p-font);width:auto}
 .wl-tagline{font-size:12px;color:var(--p-text-dim);letter-spacing:.02em;transition:color .4s ease;font-family:var(--p-font)}
 /* Example switcher, sits BELOW the preview card, page-themed (not theme-scoped) so it stays visible regardless of which example is active */
 .wl-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px;padding:0 8px}
@@ -559,8 +672,19 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    tinting the card. */
 .tier.featured{background:var(--surface-2);border-color:rgba(231,207,163,.55)}
 .tier.featured::before{content:"Most popular";position:absolute;top:20px;right:20px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--gold-text);text-transform:uppercase}
+/* ---- The plans on the system (2026-10-20) --------------------------------
+   No beige: the section's warm wash is the neutral light (wash-neutral on the
+   section), and the featured plan loses its beige fill and sand border. All
+   three wear what Beauty, Food and Fashion wear: the flat grey of the How it
+   works inner cards and a bright rim, no shadow. Pro keeps a gold edge, as the
+   plan Blend recommends. */
+#pricing .tier{background:var(--n-100);
+  -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+#pricing .tier.featured{background:var(--n-100);border-color:rgba(180,127,57,.5)}
 .tier-name{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
-.tier-price{font-size:40px;font-weight:600;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
+.tier-price{font-size:40px;font-weight:500;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
 .tier-from{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px;vertical-align:baseline}
 .tier-per{font-size:14px;color:var(--muted);font-weight:400;margin-left:4px}
 .tier-vat{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
@@ -584,7 +708,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tier-list li{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:14px;line-height:1.5;color:var(--ink-80);padding:2px 0}
 .tier-list li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23B47F39' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;margin-top:3px;flex-shrink:0}
 .tier-list li .hint{color:var(--muted);font-size:12px;font-weight:400}
-.tier-cta{margin-top:auto;padding:12px 20px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
+.tier-cta{margin-top:auto;padding:12px 20px;border-radius:999px;text-align:center;font-weight:500;font-size:14px;transition:background .18s ease,border-color .18s ease;min-height:44px;display:flex;align-items:center;justify-content:center}
 .tier-cta.dark{background:var(--deep);color:var(--white)}
 .tier-cta.dark:hover{background:var(--hover-surface)}
 .tier-cta.gold{background:var(--gold-strong);color:var(--white)}
@@ -601,7 +725,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .billing-toggle button{padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted);background:transparent;transition:all .2s ease;cursor:pointer;position:relative;z-index:1}
 .billing-toggle button.active{color:var(--ink);background:var(--ground);border:1px solid var(--line-strong)}
 .billing-toggle button:not(.active):hover{color:var(--ink-80)}
-.billing-savings{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);padding:4px 8px;background:rgba(180,127,57,.12);color:var(--gold-text);border-radius:8px;font-size:12px;font-weight:600;letter-spacing:.02em;white-space:nowrap;pointer-events:none}
+.billing-savings{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);padding:4px 8px;background:rgba(180,127,57,.12);color:var(--gold-text);border-radius:8px;font-size:12px;font-weight:500;letter-spacing:.02em;white-space:nowrap;pointer-events:none}
 @media(max-width:560px){.billing-savings{position:static;transform:none;margin-top:8px;margin-left:0}}
 .tier-annual{display:block;font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
 .pricing-foot{text-align:center;margin-top:32px;font-size:14px;color:var(--muted)}
@@ -638,7 +762,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .faq-item .faq-answer p:last-child{margin-bottom:0}
 .faq-item .faq-answer ul{padding-left:16px;margin:10px 0}
 .faq-item .faq-answer li{margin-bottom:6px;color:var(--ink-80)}
-.faq-item .faq-answer strong{color:var(--ink);font-weight:600}
+.faq-item .faq-answer strong{color:var(--ink);font-weight:500}
 .faq-item .faq-answer a{color:var(--ink);border-bottom:1px solid var(--line-strong)}
 .faq-item .faq-answer a:hover{border-color:var(--line-strong)}
 /* ---- Who we work with -------------------------------------------------
@@ -675,7 +799,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     linear-gradient(to top,rgba(10,10,10,.70) 0%,rgba(10,10,10,0) 44%),
     linear-gradient(98deg,#0A0A0A 0%,#0A0A0A 30%,rgba(10,10,10,.88) 46%,rgba(10,10,10,.42) 66%,rgba(10,10,10,0) 88%)}
 .vlead-copy{position:relative;z-index:2;padding:34px 32px;max-width:63%;display:flex;flex-direction:column;align-items:flex-start;flex:1}
-.vlead-name{margin:14px 0 0;font-size:clamp(22px,2.4vw,28px);line-height:1.15;letter-spacing:-.02em;font-weight:600;color:#F3F1ED}
+.vlead-name{margin:14px 0 0;font-size:clamp(22px,2.4vw,28px);line-height:1.15;letter-spacing:-.02em;font-weight:500;color:#F3F1ED}
 .vlead-note{margin:12px 0 0;font-size:15px;line-height:1.6;color:rgba(245,243,239,.72);max-width:34ch}
 .vlead-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:22px}
 .vlead-tags span,.vlead-tags a{font-size:12.5px;font-weight:500;color:rgba(231,207,163,.92);background:rgba(255,255,255,.06);
@@ -690,7 +814,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    a border that comes up to full on hover and an arrow that moves with it. */
 .vlead-cta{display:inline-flex;align-items:center;gap:8px;margin-top:24px;align-self:flex-start;
   min-height:44px;padding:12px 20px;border-radius:8px;border:1px solid rgba(255,255,255,.35);
-  background:transparent;color:var(--white);font-size:14px;font-weight:600;letter-spacing:-.005em;
+  background:transparent;color:var(--white);font-size:14px;font-weight:500;letter-spacing:-.005em;
   transition:border-color .18s ease,background .18s ease}
 .vlead-cta span{transition:transform .18s ease}
 .vlead-cta:hover{border-color:var(--white);background:rgba(255,255,255,.06)}
@@ -698,10 +822,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vlead-cta:focus-visible{outline:2px solid var(--sand);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.vlead-cta span{transition:none}}
 .vnext{display:flex;flex-direction:column;gap:8px}
-.vnext-cap{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.vnext-cap{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .vrow{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;flex:1;transition:border-color .18s ease,transform .18s ease}
 .vrow-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--ground-2);color:var(--muted)}
-.vrow-name{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.005em}
+.vrow-name{display:block;font-size:14.5px;font-weight:500;letter-spacing:-.005em}
 .vrow-note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
 .vrow-talk{background:var(--deep);border-color:var(--line-strong);color:var(--white)}
 .vrow-talk .vrow-icon{background:rgba(255,255,255,.1);color:var(--gold-text)}
@@ -711,7 +835,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vrow-talk:hover,.vrow-talk:focus-visible{transform:translateY(-2px);border-color:var(--gold);box-shadow:var(--shadow-md)}
 .vrow:not(.vrow-talk):hover{border-color:var(--line-strong)}
 
-.vbadge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.vbadge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:10.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 .vbadge-live{display:inline-flex;align-items:center;gap:7px;background:rgba(106,168,79,.14);color:#3F6B2E}
 .vbadge-soon{background:var(--ground-2);color:var(--muted)}
 /* The one thing on this band that moves, because "live today" is the claim
@@ -744,6 +868,77 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
 }
+
+/* ---- The verticals, on the system (2026-10-20) ---------------------------
+   Founder: "apply the rules to this, soft, glass, right colours; the
+   inspiration is superpower.com". Rule by rule:
+   - NEUTRAL SURFACES. The three "coming next" rows are light glass, the
+     system recipe the six steps above wear. "Don't see your category?" is
+     smoked glass, superpower's FAQ rows: grey frost, white type, a lighter
+     glass square for the +. It lost the warm sand wash every .theme-dark
+     element paints on ::after. The section carries the neutral light that
+     glass needs behind it.
+   - COLOUR MEANS SOMETHING. "Live today" is a status, so it is the system
+     green for a dark surface. The category tags are neither status nor
+     action, so they are no longer gold: neutral glass pills, no border, as
+     superpower draws theirs.
+   - GOLD IS BLEND. Nothing here is a Blend action except the CTA card,
+     whose hover keeps the site's one hover border.
+   - No uppercase: "Coming next" and "Live today" are sentence case, as
+     every label on superpower.com is.
+   Every rule is scoped to .vsplit, so nothing else on the page moves. */
+.vsplit .vlead{border-radius:20px;border-color:rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.vsplit .vlead-name{color:#FAFAFA}
+.vsplit .vlead-note{color:rgba(255,255,255,.72)}
+.vsplit .vlead .vbadge-live{background:rgba(34,197,94,.14);border:1px solid rgba(74,222,128,.28);
+  color:var(--ok-on-dark);text-transform:none;letter-spacing:0;font-size:12px;padding:4px 11px}
+.vsplit .vdot{background:var(--ok)}
+.vsplit .vlead-tags a{color:rgba(255,255,255,.92);background:var(--sys-glass-on-dark);
+  border:1px solid transparent;font-size:13px;font-weight:400;
+  -webkit-backdrop-filter:blur(32px);backdrop-filter:blur(32px)}
+.vsplit .vlead-tags a:hover{background:var(--sys-glass-on-dark-hover);border-color:transparent;color:#FFFFFF}
+/* the section's action, as the site's secondary button in glass: a pill,
+   38px, no border, the same frost as the tags one step up */
+/* gold: the site's primary button (white on --gold-strong, 4.87:1) */
+.vsplit .vlead-cta{border-radius:999px;min-height:38px;padding:9px 19px;font-weight:400;
+  border:1px solid transparent;background:var(--gold-strong);color:#FFFFFF}
+.vsplit .vlead-cta:hover{background:var(--gold-hover);border-color:transparent;color:#FFFFFF}
+
+.vsplit .vnext{gap:10px}
+.vsplit .vnext-cap{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--n-600);margin-bottom:0}
+/* the glass the six steps' floating UI wears: frost, a bright rim, a soft drop */
+.vsplit .vrow{
+  /* flat: the grey of the frosted cards inside the How it works rectangles
+     (they shade #F7F7F7 to #E7E8EB; --n-100 is their middle) */
+  background:var(--n-100);
+  -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
+  border:1px solid rgba(255,255,255,.65);border-radius:16px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);padding:14px 16px}
+.vsplit .vrow-icon{background:rgba(24,24,27,.045);color:var(--n-600);border-radius:10px}
+.vsplit .vrow-name{font-size:15px}
+/* --n-600, not --n-500: over the neutral wash and through the glass, --n-500
+   measured 3.9-4.4:1. */
+.vsplit .vrow-note{font-size:13px;color:var(--n-600)}
+
+/* the Health card's near-black beside it, the site's one dark: the mid grey
+   it wore appeared nowhere else */
+.vsplit .vrow-talk{background:#0A0A0A;
+  -webkit-backdrop-filter:var(--sys-smoke-blur);backdrop-filter:var(--sys-smoke-blur);
+  border-color:rgba(255,255,255,.12);color:#FFFFFF;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+/* theme.css paints --wash-deep on every .theme-dark::after; that is the warm
+   brown gradient this card carried. Named at that rule's specificity. */
+.vsplit a.vrow-talk.theme-dark::after{content:none}
+.vsplit .vrow-talk .vrow-name{color:#FFFFFF}
+.vsplit .vrow-talk .vrow-icon{background:rgba(255,255,255,.14);color:#FFFFFF}
+.vsplit .vrow-talk .vrow-note{color:rgba(255,255,255,.74)}
+.vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{background:#18181B;border-color:var(--gold)}
+@media(prefers-reduced-transparency:reduce){
+  .vsplit .vrow{background:#FFFFFF;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .vsplit .vrow-talk{background:#3F3F46}
+  .vsplit .vlead-tags a,.vsplit .vlead-cta{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.16)}
+}
 /* ---- The closing band -------------------------------------------------
    The engine's move again: beige section, black layer inside it, clipped
    from a rounded card to full bleed as it arrives. The border-top is gone
@@ -756,13 +951,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    progression. Wrapping them in a single element would have been simpler
    and is not available: </main> closes between them. */
 .closer > .wrap{position:relative;z-index:1}
-.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(28px,3.4vw,42px);color:var(--white)}
-.closer .lead{margin:0 auto 32px;max-width:520px;color:var(--muted-on-dark)}
+.closer .h1{max-width:760px;margin:0 auto 7px;color:var(--white)}
+.closer .lead{margin:0 auto 35px;max-width:520px;color:var(--muted-on-dark)}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
-.closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.closer-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 /* The outlined button is drawn for ink on cream, so it gets a light
    counterpart here rather than a near-invisible dark outline on black. */
-.closer .btn-ghost{color:var(--white);border-color:rgba(255,255,255,.34);background:transparent}
+/* GLASS, on a dark ground. Measured on superpower.com's hero:
+   rgba(255,255,255,.1) over backdrop-filter:blur(32px), radius 999, and NO
+   border. The translucency does the separating a border used to, and a
+   1px outline on top of it reads as neither one thing nor the other.
+   backdrop-filter is progressive: without it this is simply a 10% white
+   fill, which still works on a dark ground. */
+.closer .btn-ghost,.theme-dark .btn-ghost,.sc-hero .btn-ghost{
+  color:var(--white);border-color:transparent;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(32px) saturate(140%);
+  -webkit-backdrop-filter:blur(32px) saturate(140%)}
+.closer .btn-ghost:hover,.theme-dark .btn-ghost:hover,.sc-hero .btn-ghost:hover{
+  background:rgba(255,255,255,.17);border-color:transparent}
 .closer .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
 .closer .cta-alt{color:rgba(255,255,255,.62)}
 .closer .cta-alt a{color:var(--gold-text);text-decoration-color:rgba(231,207,163,.45)}
@@ -778,20 +985,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
 .footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
 .footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
-.footer-tag{margin-top:14px;font-size:14px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
+.footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
 .footer-news{margin-top:24px;display:flex;gap:8px;max-width:360px}
 .footer-news label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
 .footer-news input::placeholder{color:rgba(255,255,255,.4)}
 .footer-news input:focus{border-color:rgba(255,255,255,.5)}
-.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;min-height:42px;border:1px solid var(--line-strong)}
+.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;border:1px solid var(--line-strong)}
 .footer-news button:hover{background:rgba(255,255,255,.85)}
-.footer-col h5{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 16px;font-weight:500}
+.footer-col h5{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.45);margin:0 0 14px;font-weight:400}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
-.footer-col a{font-size:14px;color:rgba(255,255,255,.78);transition:color .15s ease}
-.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.45)}
-.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
-.footer-trust-label{color:var(--gold);font-weight:600}
+.footer-col a{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.78);transition:color .15s ease}
+.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.45)}
+.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
+.footer-trust-label{color:var(--gold);font-weight:400}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
 @media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
  
@@ -1065,7 +1272,7 @@ html,body{max-width:100%;overflow-x:clip}
   width:auto;height:auto;padding:7px 14px;min-height:36px;
   border-radius:999px;background:transparent;border:1px solid var(--line);
   color:var(--muted);opacity:1;transform:none;
-  font:inherit;font-size:12.5px;font-weight:600;letter-spacing:.02em;
+  font:inherit;font-size:12.5px;font-weight:500;letter-spacing:.02em;
   transition:color .18s ease,border-color .18s ease,background .18s ease}
 .deck-dots--named button::before{display:none}
 .deck-dots--named button[aria-current="true"]{
@@ -1389,8 +1596,8 @@ html,body{max-width:100%;overflow-x:clip}
 .rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .rbrand{flex-shrink:0;color:var(--white)}
 .rbrand .qbrand-mark{width:17px}
-.rlabel{font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(231,207,163,.7)}
-.rtitle{margin-top:8px;font-size:18px;font-weight:600;line-height:1.1;letter-spacing:-.022em;color:#F3F1ED}
+.rlabel{font-size:8.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(231,207,163,.7)}
+.rtitle{margin-top:8px;font-size:18px;font-weight:500;line-height:1.1;letter-spacing:-.022em;color:#F3F1ED}
 .rprofile{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
 .rprofile span{font-size:9.5px;font-weight:500;color:rgba(243,241,237,.56);background:rgba(255,255,255,.035);
   border:1px solid #30302D;border-radius:999px;padding:4px 10px;white-space:nowrap}
@@ -1412,7 +1619,7 @@ html,body{max-width:100%;overflow-x:clip}
 .pc>*{flex-shrink:0}
 .pc{flex:1;margin:0 7px;display:flex;flex-direction:column;padding:16px 16px 15px;
   background:#171717;border:1px solid #30302D;border-radius:13px;color:#F3F1ED}
-.pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:600;
+.pc-badge{align-self:flex-start;height:11px;line-height:11px;font-size:7.5px;font-weight:500;
   letter-spacing:.15em;text-transform:uppercase;color:rgba(243,241,237,.48)}
 /* The shot squares up with the two lines beside it rather than setting its
    own height, so adding it cost the card nothing: badge + name already
@@ -1423,7 +1630,7 @@ html,body{max-width:100%;overflow-x:clip}
 .pc-shot img{display:block;width:100%;height:100%;object-fit:cover}
 .pc-headtext{min-width:0;flex:1}
 .pc-badge,.pc-name{display:block}
-.pc-name{margin-top:6px;font-size:17px;font-weight:600;letter-spacing:-.018em;line-height:1.2;color:#F3F1ED;
+.pc-name{margin-top:6px;font-size:17px;font-weight:500;letter-spacing:-.018em;line-height:1.2;color:#F3F1ED;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pc-tags{display:flex;align-items:center;gap:9px;margin-top:12px;overflow:hidden}
 .pc-tag{font-size:9.5px;font-weight:500;letter-spacing:.02em;color:rgba(243,241,237,.48);padding:4px 0;white-space:nowrap}
@@ -1444,10 +1651,10 @@ html,body{max-width:100%;overflow-x:clip}
    auto-fit does that without a breakpoint, and at 320px "With meal" was
    wrapping onto a second line rather than giving up the pairing. */
 .pc-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:5px 10px}
-.pc-facts dt{font-weight:600;color:rgba(243,241,237,.48);white-space:nowrap}
+.pc-facts dt{font-weight:500;color:rgba(243,241,237,.48);white-space:nowrap}
 .pc-facts dd{margin:0;color:rgba(243,241,237,.56)}
 .pc-fact-why dd{min-height:2.9em}
-.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.01em;
+.pc-cta{display:block;text-align:center;margin-top:auto;font-size:11px;font-weight:500;letter-spacing:.01em;
   color:#F3F1ED;background:rgba(180,127,57,.78);border-radius:8px;padding:8px 14px}
 
 /* the one slide with no reason to clamp a description */
@@ -1471,6 +1678,107 @@ html,body{max-width:100%;overflow-x:clip}
   /* the breakdown's description takes a second line at this width, and the
      card is nine pixels shorter; the rows give that back. */
   .nb{gap:7px}
+}
+
+/* ---- The hero pair: a client's quiz, in smoked glass ---------------------
+   A FICTIONAL CLIENT's white-labelled quiz, not Blend's own interface, so it
+   deliberately does not wear Blend's black and gold. Beside the gold "Try
+   the demo" the contrast is the point. Markup, the intro sequence and the
+   product deck are untouched; one block of css, every rule scoped to
+   .hero-stage.
+
+   2026-10-20, second pass, founder's notes on the first:
+   - BOTH cards are glass now. The quiz was solid slate (#303236), which is
+     what read as "too greyish"; it is dark smoked glass, the plan a lighter
+     smoked glass over it, and the light behind them is stronger so the frost
+     has something to soften.
+   - White, not beige: the buttons, ticks, progress line and outlines are
+     white, the text a neutral near-white.
+   - The breakdown's consumption levels keep their colours: the base rules'
+     grey, gold and coral bars are not overridden here.
+   - The quiz's B. is the bare mark, like the plan's, not a black tile.
+   - The two cards are one size: 57% of the stage each from 1200 up, where
+     they overlap. Their heights already matched. */
+.hero-stage{
+  --hs-bg:#17181A;--hs-text:#F7F7F7;--hs-white:#FFFFFF;--hs-grey:#A8AAAC;--hs-sage:#B8C5B9;
+  --hs-rule:rgba(255,255,255,.10);--hs-rule-2:rgba(255,255,255,.20)}
+
+/* the light behind the pair: neutral, and every ellipse ends inside its own
+   box so there is no edge to find. Brighter than the first pass -- glass
+   over a flat black is a flat grey, which is what the quiz looked like. */
+.hero-visual::before{content:"";position:absolute;inset:-16% -12%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(34% 36% at 64% 50%, rgba(255,255,255,.12) 0%, rgba(255,255,255,.04) 45%, rgba(255,255,255,0) 100%),
+    radial-gradient(26% 28% at 30% 28%, rgba(255,255,255,.09) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(22% 22% at 40% 78%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 100%)}
+
+@media(min-width:1200px){.hero-stage .quiz,.hero-stage .results{width:57%}}
+
+/* 1. the quiz, dark smoked glass */
+.hero-stage .quiz{
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.015) 55%),rgba(20,21,23,.38);
+  -webkit-backdrop-filter:blur(40px) saturate(120%);backdrop-filter:blur(40px) saturate(120%);
+  border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 28px 24px;color:var(--hs-text);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.hero-stage .quiz .qtitle{color:var(--hs-text)}
+.hero-stage .qprog-bar{height:2px;background:rgba(255,255,255,.12)}
+.hero-stage .qprog-fill{background:var(--hs-white)}
+/* the bare mark, as on the plan card: no tile, and left-aligned with the
+   question rather than centred in a 30px box */
+.hero-stage .qbrand{background:none;box-shadow:none;border-radius:0;width:auto;height:auto;color:var(--hs-text)}
+.hero-stage .qbrand .qbrand-mark{width:17px}
+.hero-stage .qopts{gap:12px}
+.hero-stage .qopt{color:var(--hs-text);background:rgba(0,0,0,.18);
+  border:1px solid var(--hs-rule);border-radius:12px;padding:12px 16px;
+  transition:border-color .3s cubic-bezier(.2,.7,.25,1),background .3s cubic-bezier(.2,.7,.25,1)}
+.hero-stage .qopt:hover{border-color:var(--hs-rule-2);background:rgba(255,255,255,.03)}
+.hero-stage .qopt.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5)}
+.hero-stage .qopt-check{width:18px;height:18px;border-color:rgba(255,255,255,.24)}
+.hero-stage .qopt.active .qopt-check{background:var(--hs-white);border-color:var(--hs-white)}
+.hero-stage .qopt.active .qopt-check svg path{stroke:var(--hs-bg)!important}
+.hero-stage .quiz-next{background:var(--hs-white);color:var(--hs-bg);border-radius:10px;padding:10px 18px}
+.hero-stage .quiz-next:hover{background:rgba(255,255,255,.86)}
+
+/* 2. the plan, lighter smoked glass, over the quiz */
+.hero-stage .results{
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(160deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 45%,rgba(255,255,255,.01) 100%),rgba(34,35,38,.36);
+  -webkit-backdrop-filter:blur(44px) saturate(125%);backdrop-filter:blur(44px) saturate(125%);
+  border:1px solid rgba(255,255,255,.14);border-radius:26px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
+.hero-stage .rbrand{color:var(--hs-text)}
+.hero-stage .rlabel{color:#C9CACB}
+.hero-stage .rtitle{color:var(--hs-text)}
+.hero-stage .rprofile span{color:#D4D5D6;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12)}
+.hero-stage .pc-deck{border-radius:16px}
+.hero-stage .pc{background:linear-gradient(180deg,#1C1D20 0%,var(--hs-bg) 100%);
+  border:1px solid rgba(255,255,255,.08);border-radius:16px;color:var(--hs-text);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.hero-stage .pc-name{color:var(--hs-text)}
+.hero-stage .pc-badge{color:var(--hs-sage)}
+.hero-stage .pc-tag{color:var(--hs-grey)}
+.hero-stage .pc-tag.is-match{color:var(--hs-text);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.hero-stage .pc-shot{border-color:rgba(255,255,255,.12)}
+.hero-stage .pc-desc{color:var(--hs-grey)}
+.hero-stage .pc-rule{background:var(--hs-rule)}
+.hero-stage .pc-facts dt{color:#8E9092}
+.hero-stage .pc-facts dd{color:#C9CACB}
+.hero-stage .pc-cta{background:var(--hs-white);color:var(--hs-bg);border-radius:10px}
+/* consumption levels: the names and plain values go neutral; the bars and
+   the flagged values keep the base rules' colours */
+.hero-stage .nb-n,.hero-stage .nb-v:not(.is-mid):not(.is-low){color:var(--hs-grey)}
+
+/* no backdrop-filter, or the reader asked for less transparency: the same
+   two smokes, opaque */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .hero-stage .quiz{background:#1E1F22}
+  .hero-stage .results{background:linear-gradient(160deg,#3A3C40 0%,#2B2D30 50%,#1F2023 100%)}
+}
+@media(prefers-reduced-transparency:reduce){
+  .hero-stage .quiz{background:#1E1F22;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .hero-stage .results{background:linear-gradient(160deg,#3A3C40 0%,#2B2D30 50%,#1F2023 100%);
+    -webkit-backdrop-filter:none;backdrop-filter:none}
 }
 
 /* ---- The engine band -------------------------------------------------
@@ -1578,7 +1886,7 @@ html,body{max-width:100%;overflow-x:clip}
    page is a grid of cards, so this one is deliberately not one. */
 .sci-points{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px}
 .sci-point{padding-top:22px;border-top:1px solid rgba(255,255,255,.2)}
-.sci-point h3{margin:0 0 10px;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--white)}
+.sci-point h3{margin:0 0 10px;font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--white)}
 .sci-point p{margin:0;font-size:15px;line-height:1.62;color:var(--muted-on-dark)}
 .science .sci-method{margin-top:48px}
 @media(max-width:860px){
@@ -1588,13 +1896,13 @@ html,body{max-width:100%;overflow-x:clip}
 }
 section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 .hw-head{margin-bottom:48px}
-.hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text)}
+.hw-n{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text)}
 .hw-n::before{content:"";width:24px;height:1px;background:var(--line-strong)}
 .hw-head .h2{margin-top:14px;max-width:760px}
 .hw-head .lead{margin-top:14px;max-width:720px}
 .hw-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .hw-col{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;box-shadow:var(--shadow-sm)}
-.hw-col h3{margin:0 0 8px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.hw-col h3{margin:0 0 8px;font-size:16px;font-weight:500;letter-spacing:-.01em}
 .hw-col p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-60)}
 @media(max-width:860px){
   .hw-hero{padding:40px 0 48px}
@@ -1637,6 +1945,41 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    Only placement belongs here. The component brings its own palette, which
    is what lets it sit in this dark card on an otherwise light page. */
 .eng-term{margin-top:46px;border:1px solid rgba(255,255,255,.08);border-radius:18px}
+/* ---- The engine band on the system (2026-10-20) --------------------------
+   Homepage only (#science): engine-terminal.css also dresses /science.
+   The terminal's palette was all warm -- an ivory, a tan grey, a warm black,
+   a sage, a terracotta and a sand gold on seventeen things. Now:
+   - text and quiet text are the zinc near-white and grey
+   - a product picked is the system green, a product ruled out the system
+     red, a nutrient short of target the system yellow: they are statuses
+   - the scored catalogue cells, the sweep and their key are white tints:
+     they are data, and gold is never data
+   - log keys, panel headers and the corner ticks are neutral
+   - the step ticks, the buttons and the "running" light stay gold: they are
+     Blend's controls and Blend's active state
+   The panel is the hero's dark smoked glass, with soft neutral light behind
+   it so the frost has something to soften. */
+#science .tm{
+  --t-ink:#F4F4F5;--t-dim:#A1A1AA;--t-line:rgba(255,255,255,.1);
+  --t-ok:#4ADE80;--t-bad:#F87171;--t-short:#FDE047;--t-data:rgba(255,255,255,.55);
+  background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.015) 55%),rgba(20,21,23,.38);
+  -webkit-backdrop-filter:blur(40px) saturate(120%);backdrop-filter:blur(40px) saturate(120%);
+  border-color:rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+#science .tm-k{color:var(--t-dim)}
+#science .tm-line.is-short .tm-f,#science .tm-line.is-short .tm-s{color:var(--t-short)}
+#science .tm-line.is-ok .tm-s{color:rgba(74,222,128,.85)}
+#science .tm-plan-h{color:var(--t-dim);border-bottom-color:var(--t-line)}
+#science .tm-persona-h{color:var(--t-dim)}
+#science .tm-mx i.is-idle{background:rgba(255,255,255,.1)}
+#science .tm-mx i.is-on{background:var(--t-data)}
+#science .tm-sweep{background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent)}
+#science .k-gold{background:var(--t-data)}
+#science .tm::before,#science .tm::after{border-color:rgba(255,255,255,.3)}
+#science > .wrap::before{content:"";position:absolute;inset:12% -6% -4%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(34% 40% at 30% 62%, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(30% 36% at 74% 70%, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 100%)}
 .eng-term-note{margin:0;padding:12px 22px 18px;text-align:right;
   font-size:11.5px;color:#8E877C}
 @media(max-width:860px){
@@ -1651,7 +1994,12 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    cannot change — /how-it-works and /use-cases are still light — so the
    override is on the pseudo-element rather than the token, which would hand
    near-black to anything inside it that draws text. */
-.sc-reveal::before{background:var(--deep)}
+.sc-reveal::before{background-color:var(--deep);background-image:var(--wash-deep)}
+/* The lower half of the closer+footer card carries NO wash of its own. The
+   closer's has faded to plain --deep by its bottom edge; a second radial
+   starting at full strength on the footer's top edge is a seam across the
+   full width, which is what screenshot 4 showed. */
+.sc-reveal--bottom::before{background-image:none}
 
 /* ---- one hover for clickable boxes ---------------------------------------
    They had four treatments between them: a border change, a background
@@ -1753,17 +2101,18 @@ a.vrow:hover,a.vrow:focus-visible{
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-copy">
-        <span class="hero-eyebrow">Personalised quizzes for product brands</span>
         <h1 class="h1 hero-title">Recommend the right product to every customer.</h1>
-        <p class="lead hero-sub">Turn customer needs into personalised product recommendations that help shoppers buy with confidence, increase conversions and grow basket sizes.</p>
+        <p class="lead hero-sub">Turn customer needs into personalised product recommendations. Help shoppers buy with confidence, increase conversions and grow basket sizes.</p>
         <div class="hero-ctas">
           <a href="try.html" class="btn btn-primary btn-lg">Try the demo</a>
           <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39');">Book a call</a>
         </div>
         <div class="cta-alt">Not ready? <a href="sample-report.html">See a sample report &rarr;</a></div>
-        <div class="hero-foot">
-          <span>15-day free trial</span><span class="dot" aria-hidden="true"></span>
-          <span>Live in an afternoon</span></div>
+        <div class="hero-strip">
+          <div><b>15-day free trial</b><span>No charge until it ends</span></div>
+          <div><b>Live in an afternoon</b><span>One embed, no developer</span></div>
+          <div><b>Trusted</b><span>Built by science</span></div>
+        </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
         <div class="hero-stage">
@@ -1788,25 +2137,24 @@ a.vrow:hover,a.vrow:focus-visible{
       </div>
     </div>
   </div>
-  <button type="button" class="sc-cue sc-cue--desktop" data-sc-cue="#how" aria-label="Scroll to How it works"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 <section class="section section-cream" id="how">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">How it works</span><h2 class="h2">Your catalogue. Their personalised plan.</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
+    <div class="section-head"><h2 class="h2">How it works</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
     <div class="steps">
-      <a class="step" href="/how-it-works#step-1"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="252" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><circle cx="42" cy="45" r="3.6" fill="#067647"/><text x="53" y="48.5" font-size="11" font-weight="600" fill="#29251F">Store connected</text><defs><clipPath id="t1c"><rect class="t-type" x="53" y="55" width="117" height="12"/></clipPath></defs><g clip-path="url(#t1c)"><text x="53" y="63" font-size="9" font-weight="500" fill="#7C756B">yourbrand.myshopify.com</text></g><rect class="t-caret" x="168" y="55.5" width="1.2" height="9" fill="#96682B"/><line x1="38" y1="75" x2="262" y2="75" stroke="#E2DACA"/><g class="t-press" style="--d:.92s"><rect x="38" y="84" width="84" height="19" rx="5" fill="#96682B"/><text x="80" y="96.5" font-size="8.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">Import products</text></g></svg></span><div class="step-body"><h3>01. Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
-      <a class="step" href="/how-it-works#step-2"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="252" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><svg x="36" y="29" width="13" height="13" viewBox="0 0 24 24"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg><text x="54" y="39.5" font-size="10.5" font-weight="600" fill="#29251F">Match my catalogue</text><rect x="36" y="50" width="228" height="26" rx="6" fill="#FFFFFF" stroke="#E2DACA"/><rect class="t-ghost" x="44" y="58.5" width="9" height="9" rx="2" fill="#EEEAE3" stroke="#CFC6B5"/><g class="t-real"><rect x="44" y="58.5" width="9" height="9" rx="2" fill="#96682B"/><path d="M46.2 63.1l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="60" y="66" font-size="8.5" font-weight="500" fill="#29251F">Essential Creatine</text><text x="145" y="66" font-size="8.5" font-weight="500" fill="#7C756B">&#8594;</text><text x="157" y="66" font-size="8.5" font-weight="500" fill="#7C756B">Creatine Monohydrate</text><g class="t-press" style="--d:.8s"><rect x="194" y="85" width="70" height="18" rx="5" fill="#96682B"/><text x="229" y="97" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Apply match</text></g></svg></span><div class="step-body"><h3>02. Match your catalogue</h3><p>Import your catalogue and let Blend organise products, ingredients and benefits for intelligent recommendations.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
-      <a class="step" href="/how-it-works#step-3"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="62" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><rect x="30" y="29" width="50" height="14" rx="4" fill="#F6EEDF" stroke="#E8D9BC"/><text x="55" y="38.6" font-size="7.5" font-weight="600" fill="#96682B" text-anchor="middle">Brand</text><text x="55" y="56" font-size="7.5" font-weight="500" fill="#7C756B" text-anchor="middle">Screens</text><rect x="32" y="67" width="5" height="5" rx="1.4" fill="#CFC6B5"/><rect x="41" y="68.6" width="30" height="2" rx="1" fill="#E2DACA"/><rect x="32" y="78" width="5" height="5" rx="1.4" fill="#CFC6B5"/><rect x="41" y="79.6" width="24" height="2" rx="1" fill="#E2DACA"/><rect x="32" y="89" width="5" height="5" rx="1.4" fill="#CFC6B5"/><rect x="41" y="90.6" width="28" height="2" rx="1" fill="#E2DACA"/><rect x="94" y="20" width="182" height="92" rx="8" fill="#FFFFFF" stroke="#E2DACA"/><text x="104" y="42" font-size="10.5" font-weight="600" fill="#29251F">What sports do you do?</text><rect class="t-ghost" x="104" y="50" width="162" height="17" rx="4" fill="#EEEAE3" stroke="#E2DACA"/><rect class="t-real" x="104" y="50" width="162" height="17" rx="4" fill="#EEEAE3" stroke="#C9A26A"/><text x="112" y="61.4" font-size="8.5" font-weight="500" fill="#29251F">Gym</text><g class="t-real"><circle cx="255" cy="58.5" r="4.4" fill="#96682B"/><path d="M253.1 58.6l1.4 1.4 2.3-2.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g><circle class="t-ghost" cx="255" cy="58.5" r="4.4" fill="none" stroke="#CFC6B5"/><rect x="104" y="71" width="162" height="17" rx="4" fill="#EEEAE3" stroke="#E2DACA"/><text x="112" y="82.4" font-size="8.5" font-weight="500" fill="#7C756B">Racquet sports</text><circle cx="255" cy="79.5" r="4.4" fill="none" stroke="#CFC6B5"/><g class="t-press" style="--d:.82s"><rect x="104" y="94" width="46" height="13" rx="4" fill="#96682B"/><text x="127" y="102.8" font-size="7" font-weight="600" fill="#ffffff" text-anchor="middle">Continue</text></g></svg></span><div class="step-body"><h3>03. Design your quiz</h3><p>Create your fully bespoke quiz, screen by screen. Or let Blend AI draft it.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
-      <a class="step" href="/how-it-works#step-4"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="252" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><text x="36" y="38" font-size="10.5" font-weight="600" fill="#29251F">Embed your quiz</text><g class="t-ghost"><rect x="36" y="46" width="228" height="27" rx="6" fill="#FFFFFF" stroke="#E2DACA"/><svg x="45" y="51.5" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#403B34" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#403B34" opacity=".06"/><g fill="#403B34"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="62.5" font-size="9" font-weight="500" fill="#7C756B">A page</text></g><g class="t-real"><rect x="36" y="46" width="228" height="27" rx="6" fill="#FFFFFF" stroke="#B47F39"/><svg x="45" y="51.5" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#96682B" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#96682B" opacity=".06"/><g fill="#96682B"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="62.5" font-size="9" font-weight="600" fill="#29251F">A page</text></g><rect x="36" y="78" width="228" height="27" rx="6" fill="#EEEAE3" stroke="#E2DACA"/><svg x="45" y="83.5" width="29" height="17.6" viewBox="0 0 56 34"><g fill="#403B34"><rect x="0" y="0" width="56" height="4" rx="1" opacity="0.12"/><rect x="4" y="8" width="20" height="2" rx="1" opacity="0.12"/><rect x="4" y="12" width="14" height="2" rx="1" opacity="0.12"/></g><rect x="8" y="5" width="40" height="26" rx="2" fill="#403B34" opacity=".06" stroke="#403B34" stroke-opacity="0.5" stroke-width="1"/><g fill="#403B34"><rect x="11" y="8" width="22" height="3" rx="1" opacity="0.85"/><rect x="11" y="14" width="30" height="2" rx="1" opacity="0.2"/><rect x="11" y="19" width="26" height="2" rx="1" opacity="0.2"/><rect x="11" y="25" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="94.5" font-size="9" font-weight="500" fill="#7C756B">A button + pop up</text></svg></span><div class="step-body"><h3>04. Put it where your customers are</h3><p>One script tag on your own storefront, inline or as a popup. No developer needed.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
-      <a class="step" href="/how-it-works#step-5"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="252" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><text x="36" y="40" font-size="11" font-weight="600" fill="#29251F">Made for Jane.</text><rect x="36" y="48" width="228" height="54" rx="6" fill="#FFFFFF" stroke="#E2DACA"/><text x="46" y="64" font-size="10" font-weight="600" fill="#29251F">Omega-3</text><g class="t-added"><rect x="196" y="54" width="58" height="14" rx="7" fill="#F6EEDF" stroke="#E8D9BC"/><path d="M204 61.2l2 2 3.4-3.8" stroke="#96682B" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><text x="230" y="63.6" font-size="7.5" font-weight="600" fill="#96682B" text-anchor="middle">Added</text></g><text x="46" y="76" font-size="8" font-weight="500" fill="#7C756B">Your estimated omega-3 intake is 8% of your target.</text><g class="t-press" style="--d:.16s"><rect x="46" y="82" width="208" height="14" rx="4" fill="#96682B"/><text x="150" y="91.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add to cart</text></g></svg></span><div class="step-body"><h3>05. They get a plan. You get the sale.</h3><p>Give every shopper a personalised plan with clear reasons behind each recommendation and a direct path to purchase.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
-      <a class="step" href="/how-it-works#step-6"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="252" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><text x="36" y="38" font-size="10" font-weight="600" fill="#29251F">Quiz engagements</text><defs><clipPath id="t6c"><rect class="t-wipe" x="36" y="44" width="230" height="48"/></clipPath></defs><path d="M36,90 L36,82 L69,76 L101,78 L134,67 L166,61 L199,65 L231,53 L264,47 L264,90 Z" fill="#96682B" fill-opacity=".09" clip-path="url(#t6c)"/><polyline class="t-draw" points="36,82 69,76 101,78 134,67 166,61 199,65 231,53 264,47" pathLength="1" fill="none" stroke="#96682B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><polyline class="t-draw" points="36,87 69,84 101,85 134,80 166,77 199,79 231,73 264,70" pathLength="1" fill="none" stroke="#C9A26A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".75"/><line x1="36" y1="90" x2="264" y2="90" stroke="#E2DACA"/><circle class="t-dot" cx="264" cy="47" r="2.6" fill="#96682B"/><rect x="36" y="100" width="10" height="2" rx="1" fill="#96682B"/><text x="50" y="103.5" font-size="8" font-weight="500" fill="#7C756B">Completed</text><rect x="114" y="100" width="10" height="2" rx="1" fill="#C9A26A"/><text x="128" y="103.5" font-size="8" font-weight="500" fill="#7C756B">Product clicks</text></svg></span><div class="step-body"><h3>06. Analyse the data</h3><p>Collect and analyse first-party data on your customers and know where to expand.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
+      <a class="step" href="/how-it-works#step-1"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="42" cy="45" r="3.6" fill="#22C55E"/><text x="53" y="48.5" font-size="11" font-weight="600" fill="#18181B">Store connected</text><defs><clipPath id="t1c"><rect class="t-type" x="53" y="55" width="117" height="12"/></clipPath></defs><g clip-path="url(#t1c)"><text x="53" y="63" font-size="9" font-weight="500" fill="#52525B">yourbrand.myshopify.com</text></g><rect class="t-caret" x="168" y="55.5" width="1.2" height="9" fill="#96682B"/><line x1="38" y1="75" x2="262" y2="75" stroke="#E4E4E7"/><g class="t-press" style="--d:.92s"><rect x="38" y="84" width="84" height="19" rx="5" fill="#96682B"/><text x="80" y="96.5" font-size="8.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">Import products</text></g></svg></span></span><div class="step-body"><h3>01. Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div></a>
+      <a class="step" href="/how-it-works#step-2"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><svg x="36" y="29" width="13" height="13" viewBox="0 0 24 24"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg><text x="54" y="39.5" font-size="10.5" font-weight="600" fill="#18181B">Match my catalogue</text><rect x="36" y="50" width="228" height="26" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" x="44" y="58.5" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real"><rect x="44" y="58.5" width="9" height="9" rx="2" fill="#96682B"/><path d="M46.2 63.1l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="60" y="66" font-size="8.5" font-weight="500" fill="#18181B">Essential Creatine</text><text x="145" y="66" font-size="8.5" font-weight="500" fill="#52525B">&#8594;</text><text x="157" y="66" font-size="8.5" font-weight="500" fill="#52525B">Creatine Monohydrate</text><g class="t-press" style="--d:.8s"><rect x="194" y="85" width="70" height="18" rx="5" fill="#96682B"/><text x="229" y="97" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Apply match</text></g></svg></span></span><div class="step-body"><h3>02. Match your catalogue</h3><p>Import your catalogue and let Blend organise products, ingredients and benefits for intelligent recommendations.</p></div></a>
+      <a class="step" href="/how-it-works#step-3"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="62" height="92" rx="8" fill="#FFFFFF" fill-opacity=".55" stroke="#FFFFFF" stroke-opacity=".7"/><rect x="30" y="29" width="50" height="14" rx="4" fill="#FFFFFF" stroke="#E4E4E7"/><text x="55" y="38.6" font-size="7.5" font-weight="600" fill="#96682B" text-anchor="middle">Brand</text><text x="55" y="56" font-size="7.5" font-weight="500" fill="#52525B" text-anchor="middle">Screens</text><rect x="32" y="67" width="5" height="5" rx="1.4" fill="#D4D4D8"/><rect x="41" y="68.6" width="30" height="2" rx="1" fill="#E4E4E7"/><rect x="32" y="78" width="5" height="5" rx="1.4" fill="#D4D4D8"/><rect x="41" y="79.6" width="24" height="2" rx="1" fill="#E4E4E7"/><rect x="32" y="89" width="5" height="5" rx="1.4" fill="#D4D4D8"/><rect x="41" y="90.6" width="28" height="2" rx="1" fill="#E4E4E7"/><rect x="94" y="20" width="182" height="92" rx="8" fill="#FFFFFF" stroke="#E4E4E7"/><text x="104" y="42" font-size="10.5" font-weight="600" fill="#18181B">What sports do you do?</text><rect class="t-ghost" x="104" y="50" width="162" height="17" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect class="t-real" x="104" y="50" width="162" height="17" rx="4" fill="#F4F4F5" stroke="#B47F39"/><text x="112" y="61.4" font-size="8.5" font-weight="500" fill="#18181B">Gym</text><g class="t-real"><circle cx="255" cy="58.5" r="4.4" fill="#96682B"/><path d="M253.1 58.6l1.4 1.4 2.3-2.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g><circle class="t-ghost" cx="255" cy="58.5" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="104" y="71" width="162" height="17" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><text x="112" y="82.4" font-size="8.5" font-weight="500" fill="#52525B">Racquet sports</text><circle cx="255" cy="79.5" r="4.4" fill="none" stroke="#D4D4D8"/><g class="t-press" style="--d:.82s"><rect x="104" y="94" width="46" height="13" rx="4" fill="#96682B"/><text x="127" y="102.8" font-size="7" font-weight="600" fill="#ffffff" text-anchor="middle">Continue</text></g></svg></span></span><div class="step-body"><h3>03. Design your quiz</h3><p>Create your fully bespoke quiz, screen by screen. Or let Blend AI draft it.</p></div></a>
+      <a class="step" href="/how-it-works#step-4"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="36" y="38" font-size="10.5" font-weight="600" fill="#18181B">Embed your quiz</text><g class="t-ghost"><rect x="36" y="46" width="228" height="27" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><svg x="45" y="51.5" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#3F3F46" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#3F3F46" opacity=".06"/><g fill="#3F3F46"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="62.5" font-size="9" font-weight="500" fill="#52525B">A page</text></g><g class="t-real"><rect x="36" y="46" width="228" height="27" rx="6" fill="#FFFFFF" stroke="#B47F39"/><svg x="45" y="51.5" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#96682B" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#96682B" opacity=".06"/><g fill="#96682B"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="62.5" font-size="9" font-weight="600" fill="#18181B">A page</text></g><rect x="36" y="78" width="228" height="27" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><svg x="45" y="83.5" width="29" height="17.6" viewBox="0 0 56 34"><g fill="#3F3F46"><rect x="0" y="0" width="56" height="4" rx="1" opacity="0.12"/><rect x="4" y="8" width="20" height="2" rx="1" opacity="0.12"/><rect x="4" y="12" width="14" height="2" rx="1" opacity="0.12"/></g><rect x="8" y="5" width="40" height="26" rx="2" fill="#3F3F46" opacity=".06" stroke="#3F3F46" stroke-opacity="0.5" stroke-width="1"/><g fill="#3F3F46"><rect x="11" y="8" width="22" height="3" rx="1" opacity="0.85"/><rect x="11" y="14" width="30" height="2" rx="1" opacity="0.2"/><rect x="11" y="19" width="26" height="2" rx="1" opacity="0.2"/><rect x="11" y="25" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="94.5" font-size="9" font-weight="500" fill="#52525B">A button + pop up</text></svg></span></span><div class="step-body"><h3>04. Put it where your customers are</h3><p>One script tag on your own storefront, inline or as a popup. No developer needed.</p></div></a>
+      <a class="step" href="/how-it-works#step-5"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="36" y="40" font-size="11" font-weight="600" fill="#18181B">Made for Jane.</text><rect x="36" y="48" width="228" height="54" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="46" y="64" font-size="10" font-weight="600" fill="#18181B">Omega-3</text><g class="t-added"><rect x="196" y="54" width="58" height="14" rx="7" fill="#F0FDF4" stroke="#BBF7D0"/><path d="M204 61.2l2 2 3.4-3.8" stroke="#15803D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><text x="230" y="63.6" font-size="7.5" font-weight="600" fill="#15803D" text-anchor="middle">Added</text></g><circle cx="48.4" cy="73.3" r="2.2" fill="#EF4444"/><text x="54" y="76" font-size="8" font-weight="500" fill="#52525B">Your estimated omega-3 intake is 8% of your target.</text><g class="t-press" style="--d:.16s"><rect x="46" y="82" width="208" height="14" rx="4" fill="#96682B"/><text x="150" y="91.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add to cart</text></g></svg></span></span><div class="step-body"><h3>05. They get a plan. You get the sale.</h3><p>Give every shopper a personalised plan with clear reasons behind each recommendation and a direct path to purchase.</p></div></a>
+      <a class="step" href="/how-it-works#step-6"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="36" y="38" font-size="10" font-weight="600" fill="#18181B">Quiz engagements</text><defs><clipPath id="t6c"><rect class="t-wipe" x="36" y="44" width="230" height="48"/></clipPath></defs><path d="M36,90 L36,82 L69,76 L101,78 L134,67 L166,61 L199,65 L231,53 L264,47 L264,90 Z" fill="#96682B" fill-opacity=".09" clip-path="url(#t6c)"/><polyline class="t-draw" points="36,82 69,76 101,78 134,67 166,61 199,65 231,53 264,47" pathLength="1" fill="none" stroke="#96682B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><polyline class="t-draw" points="36,87 69,84 101,85 134,80 166,77 199,79 231,73 264,70" pathLength="1" fill="none" stroke="#A1A1AA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".75"/><line x1="36" y1="90" x2="264" y2="90" stroke="#E4E4E7"/><circle class="t-dot" cx="264" cy="47" r="2.6" fill="#96682B"/><rect x="36" y="100" width="10" height="2" rx="1" fill="#96682B"/><text x="50" y="103.5" font-size="8" font-weight="500" fill="#52525B">Completed</text><rect x="114" y="100" width="10" height="2" rx="1" fill="#A1A1AA"/><text x="128" y="103.5" font-size="8" font-weight="500" fill="#52525B">Product clicks</text></svg></span></span><div class="step-body"><h3>06. Analyse the data</h3><p>Collect and analyse first-party data on your customers and know where to expand.</p></div></a>
     </div>
   </div>
 </section>
 
-<section class="section section--tight section-cream">
+<section class="section section--tight section-cream has-wash wash-neutral">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Who we work with</span><h2 class="h2">Any catalogue where the right product depends on the person.</h2><p class="lead">Live for health and wellness. More categories on the way.</p></div>
+    <div class="section-head"><h2 class="h2">Any catalogue where the right product depends on the person.</h2><p class="lead">Live for health and wellness. More categories on the way.</p></div>
     <div class="vsplit">
       <article class="vlead">
         <div class="vlead-photo" aria-hidden="true"></div>
@@ -1879,9 +2227,9 @@ a.vrow:hover,a.vrow:focus-visible{
   </div>
 </section>
 
-<section class="section section-cream" id="pricing">
+<section class="section section-cream has-wash wash-neutral" id="pricing">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Pricing</span><h2 class="h2">Powerful personalisation. Simple pricing.</h2><p class="lead">Start with a 15-day free trial. Choose the capacity and insights your business needs.</p></div>
+    <div class="section-head"><h2 class="h2">Powerful personalisation. Simple pricing.</h2><p class="lead">Start with a 15-day free trial. Choose the capacity and insights your business needs.</p></div>
     <div class="pricing-controls">
       <div class="billing-toggle">
         <button id="billing-monthly" class="active" type="button">Monthly</button>
@@ -1932,7 +2280,6 @@ a.vrow:hover,a.vrow:focus-visible{
   <div class="wrap">
     <div class="faq-split">
       <div class="faq-intro">
-        <span class="eyebrow">Frequently asked questions</span>
         <h2 class="h2 faq-h">Good questions.<br>Clear answers.</h2>
         <p class="faq-sub">Everything you need to know before getting started.</p>
         <div class="faq-ask">
@@ -1950,7 +2297,6 @@ a.vrow:hover,a.vrow:focus-visible{
 </section>
 <section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
-    <span class="eyebrow">Get started</span>
     <h2 class="h1">Turn customer insights into more sales.</h2>
     <p class="lead">Try the demo, or book 15 minutes with us.</p>
     <div class="closer-ctas">

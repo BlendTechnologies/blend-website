@@ -48,14 +48,14 @@ body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,u
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--gold);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;z-index:200}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--gold);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;z-index:200}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:600;margin:0;text-wrap:balance}
-.h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.022em;font-weight:600;margin:0;text-wrap:balance}
-.lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
+.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;margin:0;text-wrap:balance}
+.lead{font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80);margin:0;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
 .btn-primary:hover{background:var(--gold-hover)}
 .btn-primary:active{background:var(--gold-active)}
@@ -67,7 +67,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    touching both ends of its own pill. The ≤860 rule below already carried
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
-.btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
+.btn-lg{padding:9px 19px;font-size:14px;min-height:38px}
 /* At rest the bar is whatever the page starts with, so the seam between
    it and the top of the page is not there to find. --nav-bg is set by
    the pages whose first block is not cream; everything else keeps the
@@ -143,7 +143,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
 .soon{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;
-  background:var(--gold-soft);color:var(--gold-active);font-size:11px;font-weight:600;
+  background:var(--gold-soft);color:var(--gold-active);font-size:11px;font-weight:500;
   letter-spacing:.04em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
 @keyframes gm-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes gm-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
@@ -190,14 +190,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
 .footer-news input::placeholder{color:rgba(255,255,255,.4)}
 .footer-news input:focus{border-color:rgba(255,255,255,.5)}
-.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;min-height:42px;transition:background .15s ease}
+.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;transition:background .15s ease}
 .footer-news button:hover{background:rgba(255,255,255,.85)}
 .footer-col h5{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 16px;font-weight:500}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .footer-col a{font-size:14px;color:rgba(255,255,255,.78);transition:color .15s ease}
 .footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.45)}
 .footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
-.footer-trust-label{color:var(--gold);font-weight:600}
+.footer-trust-label{color:var(--gold);font-weight:500}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
 /* ============================================================
@@ -954,7 +954,6 @@ body{background:var(--ground)}
 <section class="theme-dark ph ph--fill sc-hero" data-sc="hero">
   <div class="wrap">
     <div class="ph-inner">
-      <span class="eyebrow">The science</span>
       <h1 class="h1">A scoring engine you can audit, line by line.</h1>
       <p class="lead">Blend combines nutritional research, individual customer information and product-level analysis to deliver personalised, explainable recommendations. One engine per vertical, every pick scored, safety-checked and explained.</p>
       <p class="ph-meta">Live for Health &amp; Wellness <span class="ph-dot" aria-hidden="true"></span> Built for any catalogue</p>
@@ -965,13 +964,11 @@ body{background:var(--ground)}
     </div>
     <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:4"><a class="ph-ix-item is-on" href="#run" data-vertical="health" aria-current="true"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">Health and wellness</span></a><span class="ph-ix-item is-off" data-vertical="beauty" tabindex="0" role="note"><span class="ph-ix-name">Beauty</span><span class="sci-tip">Coming soon</span></span><span class="ph-ix-item is-off" data-vertical="food" tabindex="0" role="note"><span class="ph-ix-name">Food</span><span class="sci-tip">Coming soon</span></span><span class="ph-ix-item is-off" data-vertical="fashion" tabindex="0" role="note"><span class="ph-ix-name">Fashion</span><span class="sci-tip">Coming soon</span></span></nav>
   </div>
-  <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 
 <section class="sci-sec" id="run">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">The engine, end to end</span>
       <h2 class="h2">Watch it decide.</h2>
       <p class="lead">Seven stages, from the first answer to a readable plan.</p>
     </div>
@@ -1033,7 +1030,6 @@ body{background:var(--ground)}
 <section class="sci-sec" id="products">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">The product database</span>
       <h2 class="h2"><span data-count="223">223</span>+ products &#183; <span data-count="25">25</span> attributes each</h2>
       <p class="lead">Audited for safety and composition. Explore a product to see what the engine records.</p>
     </div>
@@ -1056,7 +1052,6 @@ body{background:var(--ground)}
   <div class="wrap">
     <hr class="sci-divider sci-in">
     <div class="sci-head sci-in">
-      <span class="eyebrow">What the engine covers</span>
       <h2 class="h2"><span data-count="41">41</span> goals &#183; <span data-count="252">252</span> signals</h2>
       <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
@@ -1113,7 +1108,6 @@ body{background:var(--ground)}
 <section class="sci-sec" id="safety">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">Safety</span>
       <h2 class="h2">17 checks that can remove a product. None can be switched off.</h2>
       <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
     </div>
@@ -1133,7 +1127,6 @@ body{background:var(--ground)}
 <section class="sci-sec" id="markets">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <span class="eyebrow">Markets</span>
       <h2 class="h2">Targets follow the country you sell in.</h2>
       <p class="lead">Reference targets follow the official authority for each market, and an ingredient a country bans in supplements is never recommended there.</p>
     </div>
@@ -1174,7 +1167,6 @@ body{background:var(--ground)}
 
 <section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
   <div class="wrap">
-    <span class="eyebrow">The methodology</span>
     <h2 class="h1">Read the full methodology.</h2>
     <p class="lead">See how answers, research and rules produce every recommendation.</p>
     <div class="closer-ctas">
