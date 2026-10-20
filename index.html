@@ -439,16 +439,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    and out over the last 10%, so the section still has no edge. The cards
    smooth the grain behind themselves, and that difference is what reads as
    frosted. */
-#how.has-wash::before{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    radial-gradient(30% 42% at 18% 42%, rgba(24,24,27,.07) 0%, rgba(24,24,27,0) 100%),
-    radial-gradient(28% 40% at 82% 62%, rgba(24,24,27,.06) 0%, rgba(24,24,27,0) 100%),
-    radial-gradient(36% 46% at 50% 72%, rgba(24,24,27,.045) 0%, rgba(24,24,27,0) 100%)}
 #how .step{
-  background:linear-gradient(180deg,rgba(255,255,255,.78) 0%,rgba(255,255,255,.52) 100%);
-  -webkit-backdrop-filter:blur(28px) saturate(150%);backdrop-filter:blur(28px) saturate(150%);
-  border:1px solid rgba(24,24,27,.07);border-radius:20px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 22px 44px -26px rgba(24,24,27,.22),0 2px 6px -2px rgba(24,24,27,.05)}
+  background:var(--sys-glass);
+  -webkit-backdrop-filter:var(--sys-glass-blur);backdrop-filter:var(--sys-glass-blur);
+  border:1px solid var(--sys-glass-edge);border-radius:20px;box-shadow:var(--sys-glass-shadow)}
 /* The hover border is the site's one hover border, unchanged. It has to be
    named here only because the resting glass border above outranks the
    shared .step:hover rule. */
@@ -857,6 +851,68 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow{grid-template-columns:34px minmax(0,1fr);row-gap:8px;padding:12px}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
+}
+
+/* ---- The verticals, on the system (2026-10-20) ---------------------------
+   Founder: "apply the rules to this, soft, glass, right colours; the
+   inspiration is superpower.com". Rule by rule:
+   - NEUTRAL SURFACES. The three "coming next" rows are light glass, the
+     system recipe the six steps above wear. "Don't see your category?" is
+     smoked glass, superpower's FAQ rows: grey frost, white type, a lighter
+     glass square for the +. It lost the warm sand wash every .theme-dark
+     element paints on ::after. The section carries the neutral light that
+     glass needs behind it.
+   - COLOUR MEANS SOMETHING. "Live today" is a status, so it is the system
+     green for a dark surface. The category tags are neither status nor
+     action, so they are no longer gold: neutral glass pills, no border, as
+     superpower draws theirs.
+   - GOLD IS BLEND. Nothing here is a Blend action except the CTA card,
+     whose hover keeps the site's one hover border.
+   - No uppercase: "Coming next" and "Live today" are sentence case, as
+     every label on superpower.com is.
+   Every rule is scoped to .vsplit, so nothing else on the page moves. */
+.vsplit .vlead{border-radius:20px;border-color:rgba(255,255,255,.08)}
+.vsplit .vlead-name{color:#FAFAFA}
+.vsplit .vlead-note{color:rgba(255,255,255,.72)}
+.vsplit .vlead .vbadge-live{background:rgba(34,197,94,.14);border:1px solid rgba(74,222,128,.28);
+  color:var(--ok-on-dark);text-transform:none;letter-spacing:0;font-size:12px;padding:4px 11px}
+.vsplit .vdot{background:var(--ok)}
+.vsplit .vlead-tags a{color:rgba(255,255,255,.92);background:var(--sys-glass-on-dark);
+  border:1px solid transparent;font-size:13px;font-weight:400;
+  -webkit-backdrop-filter:blur(32px);backdrop-filter:blur(32px)}
+.vsplit .vlead-tags a:hover{background:var(--sys-glass-on-dark-hover);border-color:transparent;color:#FFFFFF}
+/* the section's action, as the site's secondary button in glass: a pill,
+   38px, no border, the same frost as the tags one step up */
+.vsplit .vlead-cta{border-radius:999px;min-height:38px;padding:9px 19px;font-weight:400;
+  border:1px solid transparent;background:var(--sys-glass-on-dark);
+  -webkit-backdrop-filter:blur(32px);backdrop-filter:blur(32px)}
+.vsplit .vlead-cta:hover{background:var(--sys-glass-on-dark-hover);border-color:transparent;color:#FFFFFF}
+
+.vsplit .vnext{gap:10px}
+.vsplit .vnext-cap{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--n-600);margin-bottom:0}
+.vsplit .vrow{background:var(--sys-glass);
+  -webkit-backdrop-filter:var(--sys-glass-blur);backdrop-filter:var(--sys-glass-blur);
+  border-color:var(--sys-glass-edge);border-radius:16px;box-shadow:var(--sys-glass-shadow);padding:14px 16px}
+.vsplit .vrow-icon{background:rgba(24,24,27,.045);color:var(--n-600);border-radius:10px}
+.vsplit .vrow-name{font-size:15px}
+/* --n-600, not --n-500: over the neutral wash and through the glass, --n-500
+   measured 3.9-4.4:1. */
+.vsplit .vrow-note{font-size:13px;color:var(--n-600)}
+
+.vsplit .vrow-talk{background:var(--sys-smoke);
+  -webkit-backdrop-filter:var(--sys-smoke-blur);backdrop-filter:var(--sys-smoke-blur);
+  border-color:var(--sys-smoke-edge);box-shadow:var(--sys-smoke-shadow);color:#FFFFFF}
+/* theme.css paints --wash-deep on every .theme-dark::after; that is the warm
+   brown gradient this card carried. Named at that rule's specificity. */
+.vsplit a.vrow-talk.theme-dark::after{content:none}
+.vsplit .vrow-talk .vrow-name{color:#FFFFFF}
+.vsplit .vrow-talk .vrow-icon{background:rgba(255,255,255,.14);color:#FFFFFF}
+.vsplit .vrow-talk .vrow-note{color:rgba(255,255,255,.74)}
+.vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{background:rgba(24,24,27,.84);border-color:var(--gold)}
+@media(prefers-reduced-transparency:reduce){
+  .vsplit .vrow{background:#FFFFFF;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .vsplit .vrow-talk{background:#3F3F46}
+  .vsplit .vlead-tags a,.vsplit .vlead-cta{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.16)}
 }
 /* ---- The closing band -------------------------------------------------
    The engine's move again: beige section, black layer inside it, clipped
@@ -2023,7 +2079,7 @@ a.vrow:hover,a.vrow:focus-visible{
     </div>
   </div>
 </section>
-<section class="section section-cream has-wash" id="how">
+<section class="section section-cream has-wash wash-neutral" id="how">
   <div class="wrap">
     <div class="section-head"><h2 class="h2">How it works</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
     <div class="steps">
@@ -2037,7 +2093,7 @@ a.vrow:hover,a.vrow:focus-visible{
   </div>
 </section>
 
-<section class="section section--tight section-cream">
+<section class="section section--tight section-cream has-wash wash-neutral">
   <div class="wrap">
     <div class="section-head"><h2 class="h2">Any catalogue where the right product depends on the person.</h2><p class="lead">Live for health and wellness. More categories on the way.</p></div>
     <div class="vsplit">
