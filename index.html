@@ -146,6 +146,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(min-width:1200px){
   .sc-hero:has(.hero-strip){align-content:stretch;padding-bottom:32px}
   .sc-hero:has(.hero-strip) > .wrap{display:grid;align-content:center;padding-bottom:84px;width:100%}
+  /* left is the hero wrap's own gutter, which is NOT the page's 32px
+     everywhere: scroll-cards.css widens it to inset + 24 below 1300, so a
+     fixed 32 put the strip 32px left of the headline above it at 1200-1299. */
   .hero-strip{position:absolute;left:32px;bottom:0;margin:0;
     grid-template-columns:repeat(3,auto);justify-content:start;
     max-width:calc(50% - 86px)}
@@ -155,6 +158,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
      clip-path closing in from the bottom cut its second line in half. */
   .hero-strip{opacity:clamp(0, calc((.15 - var(--sc-p, 0)) * 6.6667), 1);
     transition:opacity .12s linear}
+}
+@media(min-width:1200px) and (max-width:1299px){
+  .hero-strip{left:calc(var(--sc-inset) + 24px)}
 }
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
 /* No height here. The plan card's own content and its own padding set

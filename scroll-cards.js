@@ -19,6 +19,13 @@
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var heroes, reveals, endcap, zooms, queued = false;
+  /* --sc-inset in px, read from the stylesheet rather than repeated here,
+     because it changes at 560px and the clip-path is what has to be matched. */
+  var inset = 0;
+  function readInset() {
+    inset = parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--sc-inset')) || 0;
+  }
 
   function collect() {
     heroes  = [].slice.call(document.querySelectorAll('[data-sc="hero"]'));
@@ -29,6 +36,16 @@
 
   function clamp(n) { return n < 0 ? 0 : (n > 1 ? 1 : n); }
   function set(el, v) { el.style.setProperty('--sc-p', v.toFixed(4)); }
+  /* THE CONTENT FOLLOWS THE EDGE. The card's sides come in by d, so its
+     width is w - 2d, and the content is scaled by that over w: a point x
+     from the block's edge lands at x*s + d, which is x*s from the card's
+     edge. Without it the edges closed in over content that stayed put, and
+     on a window where the wrap is not centred by its max-width the first
+     letters of every line were cropped. A ratio of two widths is a number
+     CSS cannot divide out of two lengths, so it is worked out here. */
+  function fit(el, d, w) {
+    el.style.setProperty('--sc-fit', (w > 0 ? Math.max(0, 1 - 2 * d / w) : 1).toFixed(4));
+  }
 
   function update() {
     queued = false;
@@ -43,6 +60,7 @@
       var r = el.getBoundingClientRect();
       var p = clamp(-r.top / Math.max(1, r.height * 0.5));
       set(el, p);
+      fit(el, p * inset, r.width);
       /* The cue fades out on this same progression; the class takes it out
          of reach and out of the tab order once it has, so there is never an
          invisible button sitting over the page. */
@@ -62,7 +80,9 @@
       /* Entry runs the full viewport - card when the top crosses the
          bottom edge, open when it reaches the top. Exit runs a shorter
          span, so it closes late rather than early. */
-      set(el, Math.min(clamp((vh - r.top) / vh), clamp(r.bottom / (vh * 0.55))));
+      var p = Math.min(clamp((vh - r.top) / vh), clamp(r.bottom / (vh * 0.55)));
+      set(el, p);
+      fit(el, (1 - p) * inset, r.width);
     });
 
     if (endcap.length) {
@@ -75,7 +95,7 @@
       var last = endcap[endcap.length - 1].getBoundingClientRect();
       var reach = Math.max(1, last.bottom - first.top);
       var p = clamp((vh - first.top) / reach);
-      endcap.forEach(function (el) { set(el, p); });
+      endcap.forEach(function (el) { set(el, p); fit(el, (1 - p) * inset, first.width); });
     }
   }
 
@@ -86,6 +106,7 @@
   function clear() {
     heroes.concat(reveals, endcap).forEach(function (el) {
       el.style.removeProperty('--sc-p');
+      el.style.removeProperty('--sc-fit');
     });
     zooms.forEach(function (el) { el.style.removeProperty('--sc-p'); });
   }
@@ -108,7 +129,7 @@
     if (!heroes.length && !reveals.length && !endcap.length && !zooms.length) return;
     if (!window.requestAnimationFrame) return;
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', function () { readInset(); onScroll(); });
     /* Turning reduced motion on mid-session has to hand control back to
        the stylesheet, which means clearing what was written inline. */
     if (reduce.addEventListener) {
@@ -116,6 +137,7 @@
         if (reduce.matches) { clear(); } else { update(); }
       });
     }
+    readInset();
     update();
   }
 
