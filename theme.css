@@ -210,8 +210,17 @@ body:has(.sc-hero) .nav:not(.scrolled){
 
 /* A section that should feel lit rather than tinted. */
 .has-wash{position:relative;isolation:isolate}
+/* THE WASH HAS TO ARRIVE, NOT START. A radial at `at 15% 0%` is at full
+   strength on the section's own first row of pixels, so a washed section
+   under a white one meets it as a hard horizontal step -- reported as
+   "background behind hero, footer etc. has the same problem as usual".
+   The gradient is unchanged; a mask ramps it in over the first 18% and out
+   over the last 10%, so the section has no edge of its own and the colour
+   belongs to the middle of it. */
 .has-wash::before{content:"";position:absolute;inset:0;z-index:-1;
-  background-image:var(--wash-warm);pointer-events:none}
+  background-image:var(--wash-warm);pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0,#000 18%,#000 90%,rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0,#000 18%,#000 90%,rgba(0,0,0,0) 100%)}
 .has-wash-cool::before{background-image:var(--wash-cool)}
 
 /* The dark islands get the same treatment in reverse: the near-black keeps
@@ -227,11 +236,26 @@ body:has(.sc-hero) .nav:not(.scrolled){
    check exists because a colour regression of exactly this kind passed a
    screenshot suite twice before. */
 .theme-dark,.sc-hero,.closer,.footer{position:relative;isolation:isolate}
-.theme-dark::after,.sc-hero::after,.closer::after{content:"";position:absolute;
+/* NOT on .sc-hero or any .sc-reveal. Their shape is a clip-path on their own
+   ::before, not a border-radius on the box, so `border-radius:inherit` here
+   inherited 0 and the wash painted a full rectangle over a rounded card --
+   the hard corners and the pale seam between the CTA and the footer that
+   were reported as "footer and CTA obviously wrong". Those two take the wash
+   as a background-image ON the clipped layer (scroll-cards.css and the
+   .sc-reveal::before override in index.html), where the clip-path applies to
+   it for free and the card keeps its shape at every scroll position.
+   What is left here is the plain rounded dark box, where inherit is right. */
+.theme-dark:not(.sc-reveal):not(.sc-hero)::after{content:"";position:absolute;
   inset:0;z-index:0;background-image:var(--wash-deep);pointer-events:none;
   border-radius:inherit}
-/* the wash sits over the card and under everything written on it */
-.theme-dark > *,.sc-hero > *,.closer > *{position:relative;z-index:1}
+/* the wash sits over the card and under everything written on it -- ONLY
+   where there is still an ::after wash to sit over. This used to name
+   .sc-hero > * and .closer > * as well, and `position:relative` on every
+   child beat .sc-cue{position:absolute} at equal specificity: the scroll
+   arrow dropped into the hero's grid as a second row and sat 32px above
+   where it was drawn to be. Those two keep their wash on the clipped
+   ::before now, and scroll-cards.css already lifts their .wrap. */
+.theme-dark:not(.sc-reveal):not(.sc-hero) > *{position:relative;z-index:1}
 
 /* GLASS, anywhere. Light over a wash, dark over an island. */
 .glass{background:var(--glass);

@@ -55,8 +55,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(32px,3.9vw,48px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
-.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0;text-wrap:balance}
+.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
 /* THE LEAD, measured off superpower.com rather than guessed. Their root is
    a fluid 14.0861px and the lead is 1rem on it, lh 1.5rem, ls -0.014em,
    with half-rem gaps around it:
@@ -73,8 +73,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    the 4.5rem gutter and the 3rem h1 with it, across twelve files, which
    was not what was asked for and was reverted. The heading scale, the
    container and the section rhythm are this site's own. */
-.lead{font-size:14px;line-height:1.5;letter-spacing:-.014em;color:var(--ink-80);margin:0;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
+.lead{font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80);margin:0;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
 .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
 .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -85,7 +85,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    touching both ends of its own pill. The ≤860 rule below already carried
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
-.btn-lg{padding:16px 24px;font-size:16px;min-height:50px}
+.btn-lg{padding:9px 19px;font-size:14px;min-height:38px}
 /* At rest the bar is whatever the page starts with, so the seam between
    it and the top of the page is not there to find. --nav-bg is set by
    the pages whose first block is not cream; everything else keeps the
@@ -123,11 +123,38 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-strip > div{padding:2px 20px;border-left:1px solid rgba(255,255,255,.14);
   display:grid;gap:3px;min-width:0}
 .hero-strip > div:first-child{border-left:0;padding-left:0}
-.hero-strip b{font-size:13.5px;font-weight:500;color:var(--white);letter-spacing:-.005em}
-.hero-strip span{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.4}
+.hero-strip b{font-size:13px;font-weight:400;color:var(--white);letter-spacing:-.005em}
+.hero-strip span{font-size:13px;color:rgba(255,255,255,.55);line-height:1.4}
 @media(max-width:620px){
   .hero-strip{grid-template-columns:minmax(0,1fr);gap:14px;max-width:none}
   .hero-strip > div{border-left:0;padding:0}
+}
+/* PINNED: the strip bottom-left of the hero, the arrow bottom-centre, on one
+   line. Only where the arrow exists (>=1200, the same breakpoint as
+   .sc-cue--desktop); below that the hero stacks and the strip stays in the
+   copy, under the buttons, where it was.
+
+   The wrap is stretched to the full height of the hero and the copy is
+   centred inside it, so the strip can sit on the wrap's bottom edge, which
+   is the hero's padding edge, which is where the arrow's bottom is too: the
+   hero's bottom padding is set to the arrow's own 32px for that reason. The
+   wrap's padding-bottom reserves the strip's band, so a short window grows
+   the hero rather than running the copy into the strip.
+
+   Its width stops short of the centre by the arrow's half-width and a gap,
+   or at 1200 the third column ran under the arrow. */
+@media(min-width:1200px){
+  .sc-hero:has(.hero-strip){align-content:stretch;padding-bottom:32px}
+  .sc-hero:has(.hero-strip) > .wrap{display:grid;align-content:center;padding-bottom:84px;width:100%}
+  .hero-strip{position:absolute;left:32px;bottom:0;margin:0;
+    grid-template-columns:repeat(3,auto);justify-content:start;
+    max-width:calc(50% - 86px)}
+  .hero-strip > div{white-space:nowrap}
+  /* It shares the arrow's line, so it shares the arrow's exit: gone by the
+     time the card has closed 15% of the way. Left visible, the card's own
+     clip-path closing in from the bottom cut its second line in half. */
+  .hero-strip{opacity:clamp(0, calc((.15 - var(--sc-p, 0)) * 6.6667), 1);
+    transition:opacity .12s linear}
 }
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
 /* No height here. The plan card's own content and its own padding set
@@ -268,8 +295,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    Tablet and phone keep the values they already had. */
 /* The homepage hero holds the product preview and fills a full viewport;
    the shared default is shorter for the pages whose hero is only type. */
-:root{--sc-hero-min:calc(100vh - var(--nav-h))}
-@supports (height:100svh){ :root{--sc-hero-min:calc(100svh - var(--nav-h))} }
+:root{--sc-hero-min:calc(100vh - var(--nav-h) + var(--nav-overlay))}
+@supports (height:100svh){ :root{--sc-hero-min:calc(100svh - var(--nav-h) + var(--nav-overlay))} }
 :root{--sec:72px;--sec-tight:62px;--sec-join:30px}
 @media(max-width:860px){:root{--sec-join:44px}}
 @media(max-width:760px){:root{--sec:58px;--sec-tight:54px;--sec-join:28px}}
@@ -277,7 +304,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section--tight{padding:var(--sec-tight) 0}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:14px;display:inline-block}
-.section-head .h2{margin-bottom:20px}
+.section-head .h2{margin-bottom:7px}
 .section-cream{background:var(--ground)}
 /* White where the hero's card leaves off, settling into the beige that the
    rest of the page sits on. A plain background, not a scroll effect: it is
@@ -791,10 +818,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    progression. Wrapping them in a single element would have been simpler
    and is not available: </main> closes between them. */
 .closer > .wrap{position:relative;z-index:1}
-.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(23px,2.4vw,29px);color:var(--white)}
-.closer .lead{margin:0 auto 32px;max-width:520px;color:var(--muted-on-dark)}
+.closer .h1{max-width:760px;margin:0 auto 7px;color:var(--white)}
+.closer .lead{margin:0 auto 35px;max-width:520px;color:var(--muted-on-dark)}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
-.closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.closer-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 /* The outlined button is drawn for ink on cream, so it gets a light
    counterpart here rather than a near-invisible dark outline on black. */
 /* GLASS, on a dark ground. Measured on superpower.com's hero:
@@ -825,7 +852,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
 .footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
 .footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
-.footer-tag{margin-top:14px;font-size:14px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
+.footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
 .footer-news{margin-top:24px;display:flex;gap:8px;max-width:360px}
 .footer-news label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
@@ -833,12 +860,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-news input:focus{border-color:rgba(255,255,255,.5)}
 .footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;border:1px solid var(--line-strong)}
 .footer-news button:hover{background:rgba(255,255,255,.85)}
-.footer-col h5{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 16px;font-weight:500}
+.footer-col h5{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.45);margin:0 0 14px;font-weight:400}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
-.footer-col a{font-size:14px;color:rgba(255,255,255,.78);transition:color .15s ease}
-.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.45)}
-.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
-.footer-trust-label{color:var(--gold);font-weight:500}
+.footer-col a{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.78);transition:color .15s ease}
+.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.45)}
+.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
+.footer-trust-label{color:var(--gold);font-weight:400}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
 @media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
  
@@ -1698,7 +1725,12 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    cannot change — /how-it-works and /use-cases are still light — so the
    override is on the pseudo-element rather than the token, which would hand
    near-black to anything inside it that draws text. */
-.sc-reveal::before{background:var(--deep)}
+.sc-reveal::before{background-color:var(--deep);background-image:var(--wash-deep)}
+/* The lower half of the closer+footer card carries NO wash of its own. The
+   closer's has faded to plain --deep by its bottom edge; a second radial
+   starting at full strength on the footer's top edge is a seam across the
+   full width, which is what screenshot 4 showed. */
+.sc-reveal--bottom::before{background-image:none}
 
 /* ---- one hover for clickable boxes ---------------------------------------
    They had four treatments between them: a border change, a background
