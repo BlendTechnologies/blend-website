@@ -403,6 +403,22 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .step:hover .t-draw,.step:focus-visible .t-draw{animation:t-draw 1.05s cubic-bezier(.4,0,.25,1) both}
 .step:hover .t-wipe,.step:focus-visible .t-wipe{animation:t-type 1.05s cubic-bezier(.4,0,.25,1) both}
 .step:hover .t-dot,.step:focus-visible .t-dot{animation:t-pop .3s cubic-bezier(.2,.7,.25,1) .98s both}
+/* The square drawings (founder, 2026-10-20): the store's products arriving
+   one by one after the import, the embed code written line by line, and the
+   quiz trying on four brands' colours before settling back on its own. The
+   rest state is still the last frame: rows shown, code whole, gold. */
+@keyframes t-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes t-hue{0%,100%{fill:#96682B}22%,30%{fill:#2F6B4F}47%,55%{fill:#7A3B5E}72%,80%{fill:#2B4C7E}}
+@keyframes t-hue-s{0%,100%{stroke:#B47F39}22%,30%{stroke:#4A8A6A}47%,55%{stroke:#9A5579}72%,80%{stroke:#4A6CA0}}
+.t-code{transform-box:fill-box;transform-origin:left}
+.step:hover .t-row,.step:focus-visible .t-row{animation:t-in .32s cubic-bezier(.2,.7,.25,1) var(--d,0s) both}
+.step:hover .t-code,.step:focus-visible .t-code{animation:t-type .45s steps(18,end) var(--d,0s) both}
+.step:hover .t-hue,.step:focus-visible .t-hue{animation:t-hue 2.4s ease .6s both}
+.step:hover .t-hue-s,.step:focus-visible .t-hue-s{animation:t-hue-s 2.4s ease .6s both}
+@media(prefers-reduced-motion:reduce){
+  .step:hover .t-row,.step:hover .t-code,.step:hover .t-hue,.step:hover .t-hue-s,
+  .step:focus-visible .t-row,.step:focus-visible .t-code,.step:focus-visible .t-hue,.step:focus-visible .t-hue-s{animation:none}
+}
 @media(prefers-reduced-motion:reduce){
   .step:hover .t-type,.step:hover .t-caret,.step:hover .t-ghost,.step:hover .t-real,
   .step:hover .t-press,.step:hover .t-added,.step:hover .t-draw,.step:hover .t-wipe,.step:hover .t-dot,
@@ -425,12 +441,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
 /* ---- The six steps: a scene, and its caption under it ---------------------
-   Founder, 2026-10-20, from the prototype: each step is a soft studio-lit
-   scene with the product UI floating on it in frosted glass, its number in a
-   glass square, and the words under it with nothing framing the pair. One
-   light for all six ("all with the same background colour"), and rectangles,
-   not squares. Glass reads as glass here because the scene has light and
-   grain behind it, which the white page did not.
+   Founder, 2026-10-20, from the prototype: each step is a studio-lit scene
+   with the product UI floating on it in smoked glass, and the words under it
+   with nothing framing the pair. One light for all six ("all with the same
+   background colour"). The scene went dark and square, and the six became
+   one row that scrolls, later the same day: see the carousel block below.
+   Glass reads as glass here because the scene has light and grain behind it,
+   which the white page did not.
 
    Hover keeps the site's one treatment: the scene's edge warms to
    --hover-border, the UI lifts, "Learn more" appears, the focus ring stays
@@ -459,12 +476,103 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 #how .step-ui svg{display:block;width:100%;height:auto}
 #how .step:hover .step-ui,#how .step:focus-visible .step-ui{transform:translateY(-4px)}
 #how .step-body{padding:16px 2px 0}
-#how .step h3{font-size:18px;letter-spacing:-.015em;margin-bottom:7px}
+/* 16px so the longest two, 04 and 05, hold one line in a quarter of the
+   content width down to a 1280 window (founder, 2026-10-20). */
+#how .step h3{font-size:16px;letter-spacing:-.015em;margin-bottom:7px}
 #how .step p{font-size:14px;max-width:38ch}
 /* Inside the scene, under the floating UI, on a small white glass pill. As
    plain gold text on the scene it measured 3.1:1 at worst and 3.6:1 at the
    median, short of AA; on the pill it is the site's gold on near-white. */
 @media(prefers-reduced-motion:reduce){#how .step:hover .step-ui,#how .step:focus-visible .step-ui{transform:none}}
+/* ---- The six steps, dark and square, in one row ------------------------
+   Founder, 2026-10-20: the hero's graphite instead of the light studio, the
+   tiles square, the six as a carousel. The scene is lit from the top left
+   with white grain; the UI is the hero quiz's smoked glass, with no drop
+   shadow (nothing on the site has one). The drawings were made for a light
+   surface, so their colours are mapped to the dark ones here rather than
+   redrawn: the same drawing serves both. */
+/* The hero's own black and its two warm lights, the same colours and
+   strengths as --wash-deep, so the tiles read as pieces of the same night as
+   the top of the page. The lights are not in the same place twice (founder,
+   2026-10-20): --l1 is the pale sand one, --l2 the gold, set per tile. */
+#how .step-thumb{aspect-ratio:1/1;--l1:20% 0%;--l2:90% 15%;
+  background:radial-gradient(90% 70% at var(--l1), rgba(231,207,163,.16) 0%, rgba(231,207,163,0) 55%),
+    radial-gradient(80% 70% at var(--l2), rgba(180,127,57,.14) 0%, rgba(180,127,57,0) 60%),
+    #0E0E10}
+#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%}
+#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%}
+#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%}
+#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%}
+#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%}
+/* The drawings are square too (246 units, one per pixel at 1440), so the
+   panel takes no padding of its own: the tile's 8% is the only margin. */
+/* Soft, matte glass, from the founder's reference (2026-10-20): a frosted
+   fill and nothing else. No sheen from the top, no lit top edge, no
+   outline; the blur and the fill are what separate it. Inside, the same
+   rule: surfaces are fills a shade lighter, and only a selection gets a
+   line. */
+#how .step-ui{padding:0;
+  background:rgba(255,255,255,.06);
+  -webkit-backdrop-filter:blur(28px) saturate(120%);backdrop-filter:blur(28px) saturate(120%);
+  border-color:transparent;
+  box-shadow:none}
+#how .step-ui svg [fill="#18181B"]{fill:#F4F4F5}
+#how .step-ui svg [fill="#52525B"]{fill:#A8AAAC}
+#how .step-ui svg [fill="#3F3F46"]{fill:#D4D4D8}
+#how .step-ui svg rect[fill="#FFFFFF"],#how .step-ui svg rect[fill="#ffffff"]{fill:rgba(255,255,255,.06)}
+#how .step-ui svg [fill="#F4F4F5"]{fill:rgba(255,255,255,.06)}
+#how .step-ui svg [fill="#E4E4E7"]{fill:rgba(255,255,255,.14)}
+#how .step-ui svg rect[stroke="#E4E4E7"]{stroke:none}
+#how .step-ui svg line[stroke="#E4E4E7"]{stroke:rgba(255,255,255,.07)}
+#how .step-ui svg [fill="#D4D4D8"]{fill:rgba(255,255,255,.28)}
+#how .step-ui svg [stroke="#D4D4D8"]{stroke:rgba(255,255,255,.28)}
+#how .step-ui svg [fill="#F0FDF4"]{fill:rgba(34,197,94,.14)}
+#how .step-ui svg [stroke="#BBF7D0"]{stroke:rgba(74,222,128,.3)}
+#how .step-ui svg [fill="#15803D"]{fill:#4ADE80}
+#how .step-ui svg [stroke="#15803D"]{stroke:#4ADE80}
+#how .step-ui svg svg rect:not([fill]){fill:#D4D4D8}
+/* The row runs to both edges of the window, and its padding puts the first
+   card on the content edge, so a card leaving on the left goes off the page
+   rather than being cut at the gutter. --steps-bleed is that distance: half
+   the window less half the content box, which is min(100vw,--content) less
+   the wrap's 32px either side. It has to be a length, not 50vw - 50%,
+   because it is the same distance on both sides of the content box. Four
+   cards fill the content width and the fifth shows in the margin, which is
+   what says the row goes on.
+
+   NOT a scroll box the reader scrolls. The first version was overflow-x:auto
+   with scroll snapping, and it took most of the screen: a trackpad swipe
+   over it that was not perfectly vertical latched onto the row, and the page
+   stopped scrolling under the founder's fingers ("it's hard to scroll now").
+   superpower.com's sliders are moved by dragging and never take the page's
+   scroll, so this is too: overflow:hidden is still scrollable from script
+   but not by a wheel, the row is dragged with the mouse or a finger
+   (touch-action:pan-y leaves vertical swipes to the page), a sideways
+   trackpad swipe moves it, and the script settles it on a card. The 6px top
+   and bottom keep the focus ring and the hover lift inside the box.
+
+   Four across from 1200, three from 761 (an iPad held upright is 768 to
+   834), each square at least 211px there. Below 761 it is the phone's own
+   swipe deck, with the cards smaller than the other decks' 86% so the next
+   one shows more of itself (founder, 2026-10-20: "on phone small version
+   of animation works better"). */
+.steps-nav{display:none}
+@media(min-width:761px){
+  #how .steps{--steps-bleed:max(32px,calc(50vw - (var(--content) - 64px) / 2));
+    display:flex;align-items:flex-start;gap:32px;overflow:hidden;touch-action:pan-y;
+    margin:-6px calc(-1 * var(--steps-bleed));padding:6px var(--steps-bleed)}
+  #how .step{flex:0 0 calc((100% - 64px) / 3);min-width:0;-webkit-user-drag:none}
+  #how .steps.is-dragging,#how .steps.is-dragging *{cursor:grabbing;user-select:none}
+  .steps-nav{display:flex;justify-content:flex-end;gap:10px;margin-top:28px}
+}
+@media(min-width:1200px){#how .step{flex-basis:calc((100% - 96px) / 4)}}
+@media(max-width:760px){#how .step{flex:0 0 70%;width:70%}}
+.steps-arrow{display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:999px;
+  background:var(--n-0);border:1px solid var(--n-200);color:var(--n-900);cursor:pointer;
+  transition:border-color .18s ease,opacity .18s ease}
+.steps-arrow:hover:not(:disabled){border-color:var(--hover-border)}
+.steps-arrow:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
+.steps-arrow:disabled{opacity:.35;cursor:default}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
@@ -2142,12 +2250,16 @@ a.vrow:hover,a.vrow:focus-visible{
   <div class="wrap">
     <div class="section-head"><h2 class="h2">How it works</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
     <div class="steps">
-      <a class="step" href="/how-it-works#step-1"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="42" cy="45" r="3.6" fill="#22C55E"/><text x="53" y="48.5" font-size="11" font-weight="600" fill="#18181B">Store connected</text><defs><clipPath id="t1c"><rect class="t-type" x="53" y="55" width="117" height="12"/></clipPath></defs><g clip-path="url(#t1c)"><text x="53" y="63" font-size="9" font-weight="500" fill="#52525B">yourbrand.myshopify.com</text></g><rect class="t-caret" x="168" y="55.5" width="1.2" height="9" fill="#96682B"/><line x1="38" y1="75" x2="262" y2="75" stroke="#E4E4E7"/><g class="t-press" style="--d:.92s"><rect x="38" y="84" width="84" height="19" rx="5" fill="#96682B"/><text x="80" y="96.5" font-size="8.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">Import products</text></g></svg></span></span><div class="step-body"><h3>01. Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div></a>
-      <a class="step" href="/how-it-works#step-2"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><svg x="36" y="29" width="13" height="13" viewBox="0 0 24 24"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg><text x="54" y="39.5" font-size="10.5" font-weight="600" fill="#18181B">Match my catalogue</text><rect x="36" y="50" width="228" height="26" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" x="44" y="58.5" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real"><rect x="44" y="58.5" width="9" height="9" rx="2" fill="#96682B"/><path d="M46.2 63.1l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="60" y="66" font-size="8.5" font-weight="500" fill="#18181B">Essential Creatine</text><text x="145" y="66" font-size="8.5" font-weight="500" fill="#52525B">&#8594;</text><text x="157" y="66" font-size="8.5" font-weight="500" fill="#52525B">Creatine Monohydrate</text><g class="t-press" style="--d:.8s"><rect x="194" y="85" width="70" height="18" rx="5" fill="#96682B"/><text x="229" y="97" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Apply match</text></g></svg></span></span><div class="step-body"><h3>02. Match your catalogue</h3><p>Import your catalogue and let Blend organise products, ingredients and benefits for intelligent recommendations.</p></div></a>
-      <a class="step" href="/how-it-works#step-3"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="62" height="92" rx="8" fill="#FFFFFF" fill-opacity=".55" stroke="#FFFFFF" stroke-opacity=".7"/><rect x="30" y="29" width="50" height="14" rx="4" fill="#FFFFFF" stroke="#E4E4E7"/><text x="55" y="38.6" font-size="7.5" font-weight="600" fill="#96682B" text-anchor="middle">Brand</text><text x="55" y="56" font-size="7.5" font-weight="500" fill="#52525B" text-anchor="middle">Screens</text><rect x="32" y="67" width="5" height="5" rx="1.4" fill="#D4D4D8"/><rect x="41" y="68.6" width="30" height="2" rx="1" fill="#E4E4E7"/><rect x="32" y="78" width="5" height="5" rx="1.4" fill="#D4D4D8"/><rect x="41" y="79.6" width="24" height="2" rx="1" fill="#E4E4E7"/><rect x="32" y="89" width="5" height="5" rx="1.4" fill="#D4D4D8"/><rect x="41" y="90.6" width="28" height="2" rx="1" fill="#E4E4E7"/><rect x="94" y="20" width="182" height="92" rx="8" fill="#FFFFFF" stroke="#E4E4E7"/><text x="104" y="42" font-size="10.5" font-weight="600" fill="#18181B">What sports do you do?</text><rect class="t-ghost" x="104" y="50" width="162" height="17" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect class="t-real" x="104" y="50" width="162" height="17" rx="4" fill="#F4F4F5" stroke="#B47F39"/><text x="112" y="61.4" font-size="8.5" font-weight="500" fill="#18181B">Gym</text><g class="t-real"><circle cx="255" cy="58.5" r="4.4" fill="#96682B"/><path d="M253.1 58.6l1.4 1.4 2.3-2.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g><circle class="t-ghost" cx="255" cy="58.5" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="104" y="71" width="162" height="17" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><text x="112" y="82.4" font-size="8.5" font-weight="500" fill="#52525B">Racquet sports</text><circle cx="255" cy="79.5" r="4.4" fill="none" stroke="#D4D4D8"/><g class="t-press" style="--d:.82s"><rect x="104" y="94" width="46" height="13" rx="4" fill="#96682B"/><text x="127" y="102.8" font-size="7" font-weight="600" fill="#ffffff" text-anchor="middle">Continue</text></g></svg></span></span><div class="step-body"><h3>03. Design your quiz</h3><p>Create your fully bespoke quiz, screen by screen. Or let Blend AI draft it.</p></div></a>
-      <a class="step" href="/how-it-works#step-4"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="36" y="38" font-size="10.5" font-weight="600" fill="#18181B">Embed your quiz</text><g class="t-ghost"><rect x="36" y="46" width="228" height="27" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><svg x="45" y="51.5" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#3F3F46" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#3F3F46" opacity=".06"/><g fill="#3F3F46"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="62.5" font-size="9" font-weight="500" fill="#52525B">A page</text></g><g class="t-real"><rect x="36" y="46" width="228" height="27" rx="6" fill="#FFFFFF" stroke="#B47F39"/><svg x="45" y="51.5" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#96682B" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#96682B" opacity=".06"/><g fill="#96682B"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="62.5" font-size="9" font-weight="600" fill="#18181B">A page</text></g><rect x="36" y="78" width="228" height="27" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><svg x="45" y="83.5" width="29" height="17.6" viewBox="0 0 56 34"><g fill="#3F3F46"><rect x="0" y="0" width="56" height="4" rx="1" opacity="0.12"/><rect x="4" y="8" width="20" height="2" rx="1" opacity="0.12"/><rect x="4" y="12" width="14" height="2" rx="1" opacity="0.12"/></g><rect x="8" y="5" width="40" height="26" rx="2" fill="#3F3F46" opacity=".06" stroke="#3F3F46" stroke-opacity="0.5" stroke-width="1"/><g fill="#3F3F46"><rect x="11" y="8" width="22" height="3" rx="1" opacity="0.85"/><rect x="11" y="14" width="30" height="2" rx="1" opacity="0.2"/><rect x="11" y="19" width="26" height="2" rx="1" opacity="0.2"/><rect x="11" y="25" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="84" y="94.5" font-size="9" font-weight="500" fill="#52525B">A button + pop up</text></svg></span></span><div class="step-body"><h3>04. Put it where your customers are</h3><p>One script tag on your own storefront, inline or as a popup. No developer needed.</p></div></a>
-      <a class="step" href="/how-it-works#step-5"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="36" y="40" font-size="11" font-weight="600" fill="#18181B">Made for Jane.</text><rect x="36" y="48" width="228" height="54" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="46" y="64" font-size="10" font-weight="600" fill="#18181B">Omega-3</text><g class="t-added"><rect x="196" y="54" width="58" height="14" rx="7" fill="#F0FDF4" stroke="#BBF7D0"/><path d="M204 61.2l2 2 3.4-3.8" stroke="#15803D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><text x="230" y="63.6" font-size="7.5" font-weight="600" fill="#15803D" text-anchor="middle">Added</text></g><circle cx="48.4" cy="73.3" r="2.2" fill="#EF4444"/><text x="54" y="76" font-size="8" font-weight="500" fill="#52525B">Your estimated omega-3 intake is 8% of your target.</text><g class="t-press" style="--d:.16s"><rect x="46" y="82" width="208" height="14" rx="4" fill="#96682B"/><text x="150" y="91.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add to cart</text></g></svg></span></span><div class="step-body"><h3>05. They get a plan. You get the sale.</h3><p>Give every shopper a personalised plan with clear reasons behind each recommendation and a direct path to purchase.</p></div></a>
-      <a class="step" href="/how-it-works#step-6"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="36" y="38" font-size="10" font-weight="600" fill="#18181B">Quiz engagements</text><defs><clipPath id="t6c"><rect class="t-wipe" x="36" y="44" width="230" height="48"/></clipPath></defs><path d="M36,90 L36,82 L69,76 L101,78 L134,67 L166,61 L199,65 L231,53 L264,47 L264,90 Z" fill="#96682B" fill-opacity=".09" clip-path="url(#t6c)"/><polyline class="t-draw" points="36,82 69,76 101,78 134,67 166,61 199,65 231,53 264,47" pathLength="1" fill="none" stroke="#96682B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><polyline class="t-draw" points="36,87 69,84 101,85 134,80 166,77 199,79 231,73 264,70" pathLength="1" fill="none" stroke="#A1A1AA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".75"/><line x1="36" y1="90" x2="264" y2="90" stroke="#E4E4E7"/><circle class="t-dot" cx="264" cy="47" r="2.6" fill="#96682B"/><rect x="36" y="100" width="10" height="2" rx="1" fill="#96682B"/><text x="50" y="103.5" font-size="8" font-weight="500" fill="#52525B">Completed</text><rect x="114" y="100" width="10" height="2" rx="1" fill="#A1A1AA"/><text x="128" y="103.5" font-size="8" font-weight="500" fill="#52525B">Product clicks</text></svg></span></span><div class="step-body"><h3>06. Analyse the data</h3><p>Collect and analyse first-party data on your customers and know where to expand.</p></div></a>
+      <a class="step" href="/how-it-works#step-1"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="29" r="3.6" fill="#22C55E"/><text x="33" y="32.5" font-size="11" font-weight="600" fill="#18181B">Store connected</text><defs><clipPath id="t1c"><rect class="t-type" x="33" y="39" width="117" height="12"/></clipPath></defs><g clip-path="url(#t1c)"><text x="33" y="47" font-size="9" font-weight="500" fill="#52525B">yourbrand.myshopify.com</text></g><rect class="t-caret" x="148" y="39.5" width="1.2" height="9" fill="#96682B"/><rect x="20" y="62" width="206" height="134" rx="7" fill="#FFFFFF" stroke="#E4E4E7"/><g class="t-row" style="--d:1.2s"><rect x="30" y="70" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="73" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="76.5" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="77.5" font-size="8.5" font-weight="600" fill="#18181B">Essential Creatine</text><text x="56" y="87.5" font-size="7" font-weight="500" fill="#52525B">Powder · 300 g</text><text x="216" y="82.5" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£24</text></g><line x1="30" y1="95.5" x2="216" y2="95.5" stroke="#E4E4E7"/><g class="t-row" style="--d:1.32s"><rect x="30" y="103.5" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="106.5" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="110" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="111" font-size="8.5" font-weight="600" fill="#18181B">Daily Greens</text><text x="56" y="121" font-size="7" font-weight="500" fill="#52525B">Powder · 30 servings</text><text x="216" y="116" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£39</text></g><line x1="30" y1="129" x2="216" y2="129" stroke="#E4E4E7"/><g class="t-row" style="--d:1.44s"><rect x="30" y="137" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="140" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="143.5" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="144.5" font-size="8.5" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><text x="56" y="154.5" font-size="7" font-weight="500" fill="#52525B">Capsules · 60</text><text x="216" y="149.5" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£28</text></g><line x1="30" y1="162.5" x2="216" y2="162.5" stroke="#E4E4E7"/><g class="t-row" style="--d:1.56s"><rect x="30" y="170.5" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="173.5" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="177" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="178" font-size="8.5" font-weight="600" fill="#18181B">Gut Health</text><text x="56" y="188" font-size="7" font-weight="500" fill="#52525B">Capsules · 30</text><text x="216" y="183" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£32</text></g><g class="t-press" style="--d:.92s"><rect x="146" y="210" width="80" height="18" rx="5" fill="#96682B"/><text x="186" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Import products</text></g></svg></span></span><div class="step-body"><h3>01. Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div></a>
+      <a class="step" href="/how-it-works#step-2"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><svg x="20" y="17" width="13" height="13" viewBox="0 0 24 24"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg><text x="38" y="27.5" font-size="10.5" font-weight="600" fill="#18181B">Match my catalogue</text><rect x="20" y="38" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0s" x="29" y="45" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0s"><rect x="29" y="45" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 49.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="52.5" font-size="8.5" font-weight="600" fill="#18181B">Essential Creatine</text><text x="45" y="66.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="58" width="87.4" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="99.7" y="65.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Creatine Monohydrate</text><rect x="20" y="80" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.25s" x="29" y="87" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.25s"><rect x="29" y="87" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 91.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="94.5" font-size="8.5" font-weight="600" fill="#18181B">Vitamin B Complex</text><text x="45" y="108.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="100" width="16.84" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="64.42" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">B6</text><rect x="75.84" y="100" width="20.76" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="86.22" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">B12</text><rect x="99.6" y="100" width="32.52" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="115.86" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Folate</text><rect x="20" y="122" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.5s" x="29" y="129" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.5s"><rect x="29" y="129" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 133.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="136.5" font-size="8.5" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><text x="45" y="150.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="142" width="44.28" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="78.14" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Magnesium</text><rect x="103.28" y="142" width="48.2" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="127.38" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">L-Theanine</text><rect x="154.48" y="142" width="36.44" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="172.7" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Glycine</text><rect x="20" y="164" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.75s" x="29" y="171" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.75s"><rect x="29" y="171" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 175.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="178.5" font-size="8.5" font-weight="600" fill="#18181B">Immune Support</text><text x="45" y="192.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="184" width="44.28" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="78.14" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Vitamin C</text><rect x="103.28" y="184" width="24.68" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="115.62" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Zinc</text><rect x="130.96" y="184" width="48.2" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="155.06" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Vitamin D3</text><g class="t-press" style="--d:1.5s"><rect x="156" y="210" width="70" height="18" rx="5" fill="#96682B"/><text x="191" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Apply match</text></g></svg></span></span><div class="step-body"><h3>02. Match your catalogue</h3><p>Import your catalogue and let Blend organise products, ingredients and benefits for intelligent recommendations.</p></div></a>
+      <a class="step" href="/how-it-works#step-3"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="18" width="206" height="3" rx="1.5" fill="#E4E4E7"/><rect class="t-hue" x="20" y="18" width="69" height="3" rx="1.5" fill="#96682B"/><text x="20" y="41" font-size="11" font-weight="600" fill="#18181B">What sports do you do?</text><text x="20" y="53" font-size="7.5" font-weight="500" fill="#52525B">Choose all that apply.</text><rect class="t-ghost" x="20" y="64" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><g class="t-real"><rect class="t-hue-s" x="20" y="64" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#B47F39"/></g><text x="29" y="79.2" font-size="8.5" font-weight="500" fill="#18181B">Gym</text><g class="t-real"><circle class="t-hue" cx="214" cy="76" r="4.4" fill="#96682B"/><path d="M212.1 76.1l1.4 1.4 2.3-2.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g><circle class="t-ghost" cx="214" cy="76" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="20" y="95" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="29" y="110.2" font-size="8.5" font-weight="500" fill="#52525B">Racquet sports</text><circle cx="214" cy="107" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="20" y="126" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="29" y="141.2" font-size="8.5" font-weight="500" fill="#52525B">Endurance sports</text><circle cx="214" cy="138" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="20" y="157" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="29" y="172.2" font-size="8.5" font-weight="500" fill="#52525B">Yoga &amp; Pilates</text><circle cx="214" cy="169" r="4.4" fill="none" stroke="#D4D4D8"/><g class="t-press" style="--d:3.1s"><rect class="t-hue" x="20" y="208" width="58" height="17" rx="5" fill="#96682B"/><text x="49" y="219.2" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Continue</text></g></svg></span></span><div class="step-body"><h3>03. Design your quiz</h3><p>Create your fully bespoke quiz, screen by screen. Or let Blend AI draft it.</p></div></a>
+      <a class="step" href="/how-it-works#step-4"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="20" y="30" font-size="10.5" font-weight="600" fill="#18181B">Embed your quiz</text><g class="t-ghost"><rect x="20" y="40" width="206" height="30" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><svg x="29" y="46.2" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#3F3F46" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#3F3F46" opacity=".06"/><g fill="#3F3F46"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="68" y="58" font-size="9" font-weight="500" fill="#52525B">A page</text></g><g class="t-real"><rect x="20" y="40" width="206" height="30" rx="6" fill="#FFFFFF" stroke="#B47F39"/><svg x="29" y="46.2" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#96682B" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#96682B" opacity=".06"/><g fill="#96682B"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="68" y="58" font-size="9" font-weight="600" fill="#18181B">A page</text></g><rect x="20" y="76" width="206" height="30" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><svg x="29" y="82.2" width="29" height="17.6" viewBox="0 0 56 34"><g fill="#3F3F46"><rect x="0" y="0" width="56" height="4" rx="1" opacity="0.12"/><rect x="4" y="8" width="20" height="2" rx="1" opacity="0.12"/><rect x="4" y="12" width="14" height="2" rx="1" opacity="0.12"/></g><rect x="8" y="5" width="40" height="26" rx="2" fill="#3F3F46" opacity=".06" stroke="#3F3F46" stroke-opacity="0.5" stroke-width="1"/><g fill="#3F3F46"><rect x="11" y="8" width="22" height="3" rx="1" opacity="0.85"/><rect x="11" y="14" width="30" height="2" rx="1" opacity="0.2"/><rect x="11" y="19" width="26" height="2" rx="1" opacity="0.2"/><rect x="11" y="25" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="68" y="94" font-size="9" font-weight="500" fill="#52525B">A button + pop up</text><rect x="20" y="114" width="206" height="88" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="30" y="130" font-size="7.5" font-weight="600" fill="#52525B">Embed code</text><g class="t-press" style="--d:1.9s"><rect x="184" y="121" width="32" height="13" rx="3.5" fill="#FFFFFF" stroke="#E4E4E7"/><text x="200" y="130" font-size="7" font-weight="600" fill="#18181B" text-anchor="middle">Copy</text></g><line x1="20" y1="140" x2="226" y2="140" stroke="#E4E4E7"/><defs><clipPath id="t4l0"><rect class="t-code" style="--d:0.9s" x="30" y="148" width="190" height="11"/></clipPath><clipPath id="t4l1"><rect class="t-code" style="--d:1.15s" x="30" y="161" width="190" height="11"/></clipPath><clipPath id="t4l2"><rect class="t-code" style="--d:1.4s" x="30" y="174" width="190" height="11"/></clipPath><clipPath id="t4l3"><rect class="t-code" style="--d:1.65s" x="30" y="187" width="190" height="11"/></clipPath></defs><text clip-path="url(#t4l0)" x="30" y="156" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve"><tspan fill="#18181B">&lt;script</tspan> async src=</text><text clip-path="url(#t4l1)" x="30" y="169" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve">  <tspan fill="#3F3F46">"https://app.blend-technologies</tspan></text><text clip-path="url(#t4l2)" x="30" y="182" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve">  <tspan fill="#3F3F46">.com/embed/yourbrand.js"</tspan><tspan fill="#18181B">&gt;</tspan></text><text clip-path="url(#t4l3)" x="30" y="195" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve"><tspan fill="#18181B">&lt;/script&gt;</tspan></text><g class="t-press" style="--d:2.3s"><rect x="180" y="210" width="46" height="18" rx="5" fill="#96682B"/><text x="203" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Save</text></g></svg></span></span><div class="step-body"><h3>04. Put it where your customers are</h3><p>One script tag on your own storefront, inline or as a popup. No developer needed.</p></div></a>
+      <a class="step" href="/how-it-works#step-5"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="20" y="28" font-size="11" font-weight="600" fill="#18181B">Made for Jane.</text><rect x="20" y="36" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="50.5" font-size="9" font-weight="600" fill="#18181B">Omega-3</text><circle cx="32.2" cy="59.4" r="2" fill="#EF4444"/><text x="38" y="61.9" font-size="7" font-weight="500" fill="#52525B">Omega-3 intake: 8% of target.</text><g class="t-press" style="--d:.16s"><rect x="180" y="46" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="55.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text></g><g class="t-added"><rect x="134" y="46" width="40" height="14" rx="7" fill="#F0FDF4" stroke="#BBF7D0"/><path d="M140.5 53.2l2 2 3.4-3.8" stroke="#15803D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><text x="160" y="55.6" font-size="7.5" font-weight="600" fill="#15803D" text-anchor="middle">Added</text></g><rect x="20" y="75" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="89.5" font-size="9" font-weight="600" fill="#18181B">Vitamin B Complex</text><circle cx="32.2" cy="98.4" r="2" fill="#EAB308"/><text x="38" y="100.9" font-size="7" font-weight="500" fill="#52525B">B12 intake: 46% of target.</text><rect x="180" y="85" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="94.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text><rect x="20" y="114" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="128.5" font-size="9" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><circle cx="32.2" cy="137.4" r="2" fill="#EAB308"/><text x="38" y="139.9" font-size="7" font-weight="500" fill="#52525B">Magnesium intake: 61% of target.</text><rect x="180" y="124" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="133.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text><rect x="20" y="153" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="167.5" font-size="9" font-weight="600" fill="#18181B">Gut Health</text><circle cx="32.2" cy="176.4" r="2" fill="#A1A1AA"/><text x="38" y="178.9" font-size="7" font-weight="500" fill="#52525B">Matches your goal: gut health.</text><rect x="180" y="163" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="172.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text><rect x="20" y="192" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="206.5" font-size="9" font-weight="600" fill="#18181B">Energy &amp; Focus</text><circle cx="32.2" cy="215.4" r="2" fill="#A1A1AA"/><text x="38" y="217.9" font-size="7" font-weight="500" fill="#52525B">Matches your goal: energy.</text><rect x="180" y="202" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="211.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text></svg></span></span><div class="step-body"><h3>05. They get a plan. You get the sale.</h3><p>Give every shopper a personalised plan with clear reasons and a direct path to purchase.</p></div></a>
+      <a class="step" href="/how-it-works#step-6"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="20" y="30" font-size="10.5" font-weight="600" fill="#18181B">Quiz engagements</text><line x1="20" y1="87.5" x2="226" y2="87.5" stroke="#E4E4E7" stroke-dasharray="2 3"/><line x1="20" y1="125" x2="226" y2="125" stroke="#E4E4E7" stroke-dasharray="2 3"/><line x1="20" y1="162.5" x2="226" y2="162.5" stroke="#E4E4E7" stroke-dasharray="2 3"/><defs><clipPath id="t6c"><rect class="t-wipe" x="20" y="46" width="210" height="156"/></clipPath></defs><path d="M20,200 L20,173.91 L49.82,154.35 L78.73,160.87 L108.54,125 L137.46,105.43 L167.27,118.48 L196.18,79.35 L226,59.78 L226,200 Z" fill="#96682B" fill-opacity=".09" clip-path="url(#t6c)"/><polyline class="t-draw" points="20,173.91 49.82,154.35 78.73,160.87 108.54,125 137.46,105.43 167.27,118.48 196.18,79.35 226,59.78" pathLength="1" fill="none" stroke="#96682B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><polyline class="t-draw" points="20,190.22 49.82,180.43 78.73,183.7 108.54,167.39 137.46,157.61 167.27,164.13 196.18,144.57 226,134.78" pathLength="1" fill="none" stroke="#A1A1AA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".75"/><line x1="20" y1="200" x2="226" y2="200" stroke="#E4E4E7"/><circle class="t-dot" cx="226" cy="59.78" r="2.6" fill="#96682B"/><rect x="20" y="214" width="10" height="2" rx="1" fill="#96682B"/><text x="34" y="217.5" font-size="8" font-weight="500" fill="#52525B">Completed</text><rect x="98" y="214" width="10" height="2" rx="1" fill="#A1A1AA"/><text x="112" y="217.5" font-size="8" font-weight="500" fill="#52525B">Product clicks</text></svg></span></span><div class="step-body"><h3>06. Analyse the data</h3><p>Collect and analyse first-party data on your customers and know where to expand.</p></div></a>
+    </div>
+    <div class="steps-nav" role="group" aria-label="Move through the steps">
+      <button type="button" class="steps-arrow" data-dir="-1" aria-label="Previous step"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="steps-arrow" data-dir="1" aria-label="Next step"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
 </section>
@@ -2724,6 +2836,130 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   if(seed) show(seed);
 })();
 
+/* ---- The six steps' row: arrows, drag, sideways swipe -------------------
+   The row is overflow:hidden (see the CSS for why), so everything that moves
+   it is here, and everything ends on a card. A stop is where a card's left
+   edge meets the content edge, except that the last three share one stop:
+   the end of the row. One card per arrow press; a drag or a swipe goes to
+   the nearest stop, or one card on if it moved at least 40px and the nearest
+   is still where it began. Below 761 the row is the phone's own deck and
+   none of this runs. */
+(function(){
+  var deck = document.querySelector('#how .steps');
+  var nav = document.querySelector('#how .steps-nav');
+  if(!deck || !nav) return;
+  var prev = nav.querySelector('[data-dir="-1"]'), next = nav.querySelector('[data-dir="1"]');
+  var wide = window.matchMedia('(min-width:761px)');
+  var still = window.matchMedia('(prefers-reduced-motion:reduce)');
+  var cards = Array.prototype.slice.call(deck.children);
+
+  function stops(){
+    var max = deck.scrollWidth - deck.clientWidth, out = [];
+    cards.forEach(function(c){
+      var x = Math.min(c.offsetLeft - cards[0].offsetLeft, max);
+      if(out.indexOf(x) < 0) out.push(x);
+    });
+    return out;
+  }
+  function nearest(x, all){
+    var best = 0;
+    all.forEach(function(v, i){ if(Math.abs(v - x) < Math.abs(all[best] - x)) best = i; });
+    return best;
+  }
+  /* The stop a movement is heading for, until the row comes to rest. Three
+     quick presses read the position mid-glide without it, and landed short. */
+  var aim = null, idle;
+  function go(i, all){
+    all = all || stops();
+    i = Math.max(0, Math.min(all.length - 1, i));
+    aim = i;
+    deck.scrollTo({ left: all[i], behavior: still.matches ? 'auto' : 'smooth' });
+  }
+  /* where a gesture began, and how far it went */
+  function settle(from, moved){
+    var all = stops(), i = nearest(deck.scrollLeft, all);
+    if(i === from && Math.abs(moved) >= 40) i += moved > 0 ? 1 : -1;
+    go(i, all);
+  }
+  function sync(){
+    var max = deck.scrollWidth - deck.clientWidth;
+    prev.disabled = deck.scrollLeft <= 2;
+    next.disabled = deck.scrollLeft >= max - 2;
+  }
+
+  nav.addEventListener('click', function(e){
+    var b = e.target.closest('button');
+    if(!b) return;
+    var all = stops();
+    go((aim !== null ? aim : nearest(deck.scrollLeft, all)) + Number(b.dataset.dir), all);
+  });
+
+  /* Drag. A press that moved more than 5px was a drag, not a click, so the
+     link under it does not open. */
+  var down = null, dragged = false;
+  deck.addEventListener('pointerdown', function(e){
+    if(!wide.matches || e.button !== 0) return;
+    down = { x: e.clientX, left: deck.scrollLeft, from: nearest(deck.scrollLeft, stops()), id: e.pointerId };
+    dragged = false;
+  });
+  deck.addEventListener('pointermove', function(e){
+    if(!down || e.pointerId !== down.id) return;
+    var dx = e.clientX - down.x;
+    if(!dragged && Math.abs(dx) > 5){
+      dragged = true;
+      deck.classList.add('is-dragging');
+      deck.setPointerCapture(e.pointerId);
+    }
+    if(dragged) deck.scrollLeft = down.left - dx;
+  });
+  function release(e){
+    if(!down || e.pointerId !== down.id) return;
+    if(dragged){
+      deck.classList.remove('is-dragging');
+      settle(down.from, deck.scrollLeft - down.left);
+    }
+    down = null;
+  }
+  deck.addEventListener('pointerup', release);
+  deck.addEventListener('pointercancel', release);
+  deck.addEventListener('click', function(e){
+    if(dragged){ e.preventDefault(); e.stopPropagation(); dragged = false; }
+  }, true);
+  deck.addEventListener('dragstart', function(e){ e.preventDefault(); });
+
+  /* A sideways trackpad swipe. Only a mostly-horizontal wheel is taken, so
+     a vertical one always reaches the page. Settled once the events stop,
+     which on a Mac is after the swipe's momentum has run out. */
+  var wheel = null;
+  deck.addEventListener('wheel', function(e){
+    if(!wide.matches || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    if(!wheel) wheel = { left: deck.scrollLeft, from: nearest(deck.scrollLeft, stops()) };
+    deck.scrollLeft += e.deltaX;
+    clearTimeout(wheel.t);
+    wheel.t = setTimeout(function(){
+      var w = wheel; wheel = null;
+      settle(w.from, deck.scrollLeft - w.left);
+    }, 140);
+  }, { passive: false });
+
+  /* Tabbing onto a card the row has not shown brings it to a stop. */
+  deck.addEventListener('focusin', function(e){
+    var c = e.target.closest('.step');
+    if(!c || !wide.matches) return;
+    var all = stops(), x = c.offsetLeft - cards[0].offsetLeft;
+    if(x < deck.scrollLeft || x + c.offsetWidth > deck.scrollLeft + deck.clientWidth) go(nearest(x, all), all);
+  });
+
+  deck.addEventListener('scroll', function(){
+    sync();
+    clearTimeout(idle);
+    idle = setTimeout(function(){ aim = null; }, 150);
+  }, { passive: true });
+  window.addEventListener('resize', function(){ go(nearest(deck.scrollLeft, stops())); sync(); });
+  sync();
+})();
+
 /* ---- Phone card decks: dots + nav CTA visibility ------------------------
    Decks only read as swipeable if something says so. One dot per card, current
    dot tracked from scrollLeft, tapping a dot scrolls to that card.
@@ -2750,6 +2986,9 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
       });
       if(cards.length < 2) return;
       if(deck.scrollWidth <= deck.clientWidth + 4) return;  // does not actually overflow
+      /* From 761 the six steps are a row with its own arrows, and dots
+         under it as well would be two controls for one thing. */
+      if(sel === '.steps' && !window.matchMedia('(max-width:760px)').matches) return;
 
       var dots = document.createElement('div');
       dots.className = 'deck-dots';
