@@ -428,46 +428,43 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
 /* ---- The six steps on frosted glass --------------------------------------
-   Founder's reference was hims' product cards and superpower's booking card:
-   translucent, blurred, matte panels over something with colour and texture
-   in it. Glass over a plain white page is a flat tint, so the steps carry
-   their own ground: a field of the brand's own warm tones, soft enough to
-   read as out of focus, with a fine grain on top for the matte, photographic
-   feel. The cards blur that grain away behind themselves, which is what
-   makes them read as frosted rather than as pale boxes.
+   Founder's reference was hims' product cards and superpower's booking card.
+   Second pass, 2026-10-20: "remove the outer rectangle, only the 6 boxes,
+   glass, the right palette". So no field: six frosted white cards on the
+   page itself, in the site's neutrals, nothing beige or brown.
 
-   ONE element, all background layers, no pseudo-element. Under 760 the steps
-   are a swipe deck and a scroll container: an absolutely positioned layer
-   inside it scrolls away with the cards, a background does not, so the cards
-   glide over a field that stays put.
-
-   Kept light on purpose: the cards' text is ink. Measured from rendered
-   pixels (text hidden, darkest pixel under each line, worst card): body copy
-   7.6:1, "Learn more" 4.8:1 in --gold-active. In --gold-text it measured
-   3.8:1, which fails AA for 13px text, hence the darker gold here only. */
-.steps{padding:24px}
-#how .steps{border-radius:28px;isolation:isolate;
-  background-color:#E3CDB2;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    radial-gradient(42% 60% at 10% 12%, rgba(244,239,229,.95) 0%, rgba(244,239,229,0) 70%),
-    radial-gradient(40% 55% at 92% 8%, rgba(180,127,57,.55) 0%, rgba(180,127,57,0) 72%),
-    radial-gradient(48% 62% at 74% 96%, rgba(140,106,82,.45) 0%, rgba(140,106,82,0) 72%),
-    radial-gradient(44% 58% at 18% 92%, rgba(201,163,154,.5) 0%, rgba(201,163,154,0) 72%),
-    radial-gradient(36% 46% at 50% 48%, rgba(231,207,163,.7) 0%, rgba(231,207,163,0) 72%)}
+   Glass with nothing behind it is a flat white card, so the section's own
+   wash is neutral here instead of cream: soft grey light and a fine grain.
+   It rides on .has-wash::before, which already ramps in over the first 18%
+   and out over the last 10%, so the section still has no edge. The cards
+   smooth the grain behind themselves, and that difference is what reads as
+   frosted. */
+#how.has-wash::before{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(30% 42% at 18% 42%, rgba(24,24,27,.07) 0%, rgba(24,24,27,0) 100%),
+    radial-gradient(28% 40% at 82% 62%, rgba(24,24,27,.06) 0%, rgba(24,24,27,0) 100%),
+    radial-gradient(36% 46% at 50% 72%, rgba(24,24,27,.045) 0%, rgba(24,24,27,0) 100%)}
 #how .step{
-  background:rgba(255,255,255,.45);
-  -webkit-backdrop-filter:blur(24px) saturate(140%);backdrop-filter:blur(24px) saturate(140%);
-  border:1px solid rgba(255,255,255,.5);border-radius:20px;box-shadow:none}
+  background:linear-gradient(180deg,rgba(255,255,255,.78) 0%,rgba(255,255,255,.52) 100%);
+  -webkit-backdrop-filter:blur(28px) saturate(150%);backdrop-filter:blur(28px) saturate(150%);
+  border:1px solid rgba(24,24,27,.07);border-radius:20px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 22px 44px -26px rgba(24,24,27,.22),0 2px 6px -2px rgba(24,24,27,.05)}
 /* The hover border is the site's one hover border, unchanged. It has to be
    named here only because the resting glass border above outranks the
    shared .step:hover rule. */
 #how .step:hover,#how .step:focus-visible{
-  background:rgba(255,255,255,.62);border-color:var(--hover-border);box-shadow:none}
+  background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.72) 100%);
+  border-color:var(--hover-border)}
 #how .step p{color:var(--ink-80)}
-#how .step-cta{color:var(--gold-active)}
-@media(max-width:760px){#how .steps{border-radius:0}}
+/* Under 760 the steps are a swipe deck, a scroll container with 24px of
+   padding under the cards, and it clips: the desktop shadow reaches ~40px
+   down and was cut off in a straight line above the dots. This one ends
+   inside the padding. */
+@media(max-width:760px){
+  #how .step{box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 24px -14px rgba(24,24,27,.2),0 2px 6px -2px rgba(24,24,27,.05)}
+}
 @media(prefers-reduced-transparency:reduce){
-  #how .step{background:rgba(255,255,255,.9);-webkit-backdrop-filter:none;backdrop-filter:none}
+  #how .step{background:#FFFFFF;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
