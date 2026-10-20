@@ -1,0 +1,98 @@
+/* ============================================================
+   The three use-case pages, on the homepage's system
+   ------------------------------------------------------------
+   /use-cases/shopify, /use-cases/supplement-brands and
+   /use-cases/compare share one template, and it predated the
+   design system: a light hero, warm beige washes behind every
+   section, white cards with beige icon tiles, gold used for data,
+   a plain closing band. Founder, 2026-10-20: "make sure how it
+   works, use cases and the engine look like the homepage".
+
+   One file for the three, linked after each page's own styles,
+   so the three cannot drift apart again the way their inline
+   copies did. docs/DESIGN_SYSTEM.md in the workspace has the
+   rules this applies.
+   ============================================================ */
+
+/* ---- The hero: the dark card every other page opens on ------------------
+   .sc-hero comes from scroll-cards.css; the page's own .hero rules set a
+   padding, a beige background and a radial on ::before that would cover the
+   card's fill, so each is put back here. */
+.hero.sc-hero{background:transparent;border-bottom:0;
+  padding:calc(40px + var(--nav-overlay)) 0 56px}
+.hero.sc-hero::before{background-color:var(--hero-tint,var(--hero-beige));
+  background-image:var(--wash-deep);pointer-events:none}
+/* The breadcrumb rides inside the card, above the title, where the transparent
+   bar cannot sit on it. */
+.hero.sc-hero .crumb{padding:0;margin:0 0 36px;color:var(--muted)}
+.hero.sc-hero .crumb a{color:var(--muted)}
+.hero.sc-hero .crumb a:hover{color:var(--ink)}
+.hero.sc-hero .crumb-sep{color:rgba(255,255,255,.3)}
+@media(max-width:960px){.hero.sc-hero{padding:calc(32px + var(--nav-overlay)) 0 56px}}
+@media(max-width:760px){.hero.sc-hero{padding:calc(24px + var(--nav-overlay)) 0 48px}}
+
+/* The Shopify storefront is the BRAND's store, so it stays a light window on
+   the dark card, the way the homepage's quiz wears a client's theme. Inside
+   .theme-dark every token is dark, so the light ones are set back here. */
+.store-mock{--ink:#18181B;--ink-80:rgba(24,24,27,.84);--ink-60:rgba(24,24,27,.68);
+  --muted:rgba(24,24,27,.64);--surface:#FFFFFF;--surface-2:#FAFAFA;--line:rgba(24,24,27,.09);
+  --line-strong:rgba(24,24,27,.16);--cream:#FFFFFF;--cream-2:#FAFAFA;--deep:#18181B;--white:#FFFFFF;
+  --gold-text:var(--gold-hover);color:var(--ink);border-color:transparent;border-radius:16px}
+.store-bar{background:#F4F4F5}
+.store-bar .b-dot{background:#D4D4D8}
+.store-quiz{background:#FAFAFA}
+.store-quiz-eyebrow{color:#52525B}
+.store-quiz-eyebrow::before{background:#22C55E}
+
+/* The plan and the dashboard: the homepage hero's smoked glass, no edge
+   light, no shadow, and no gold, because what they show is data. */
+.rec-mock,.dash-mock{
+  background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.015) 55%),rgba(20,21,23,.38);
+  -webkit-backdrop-filter:blur(40px) saturate(120%);backdrop-filter:blur(40px) saturate(120%);
+  border:1px solid rgba(255,255,255,.12);border-radius:20px}
+.rec-mock::before,.dash-mock::before{content:none}
+.rec-mock-tag{color:rgba(255,255,255,.62)}
+.rec-mock-tag::before{background:#4ADE80}
+.rec-row{background:rgba(255,255,255,.05);border-color:transparent}
+.rec-swatch{background:rgba(255,255,255,.08);color:#FAFAFA}
+.rec-foot strong{color:rgba(255,255,255,.78)}
+.dash-tile,.dash-bars{background:rgba(255,255,255,.05);border-color:transparent}
+.dash-tile polygon{fill:rgba(255,255,255,.16);stroke:rgba(255,255,255,.72)}
+.dash-bar-fill{background:rgba(255,255,255,.72)}
+.dash-bar-val{color:rgba(255,255,255,.72)}
+
+/* ---- The sections -------------------------------------------------------
+   Neutral light rather than the warm beige wash (markup adds wash-neutral),
+   and the homepage's flat grey cards: --n-100, no edge, no shadow, the icon
+   on a white square in ink. */
+.why-card,.switch-card{background:var(--n-100);border:1px solid transparent;border-radius:16px;box-shadow:none}
+.why-card-icon{background:var(--n-0);border-radius:10px}
+.why-card-icon svg{color:var(--n-700)}
+.why-card h3,.switch-card h3{font-size:16px}
+.switch-card-num{color:var(--n-600)}
+
+/* The wellness report is a piece of the product, drawn as the homepage's
+   step drawings are: white panel, hairline, status colours only where a
+   value has a status. */
+.report-card{border-radius:16px}
+.report-card-pill{color:var(--n-700);background:var(--n-100)}
+.report-text li::before{background:var(--n-200)}
+.rp-row{background:var(--n-100)}
+
+/* The trace is the one dark element in its section: smoked glass, a status
+   dot rather than a gold one, and a neutral label. */
+.trace-card{background:var(--sys-smoke);
+  -webkit-backdrop-filter:var(--sys-smoke-blur);backdrop-filter:var(--sys-smoke-blur);border-radius:16px}
+.trace-card-tag{color:rgba(255,255,255,.62)}
+.trace-card-tag::before{background:#4ADE80}
+
+/* The table: Blend's column keeps the gold tick the homepage's plans use. */
+.compare-table{border-radius:16px}
+.compare-row.head{background:var(--n-50)}
+
+/* The questions, at the homepage's size. */
+.faq-item>summary{font-size:16px;font-weight:400}
+.faq-item[open]>summary{font-weight:500}
+.faq-item>summary:hover{color:var(--ink)}
+.faq-item>summary:hover::after{border-color:var(--ink)}
+.faq-item .faq-answer{font-size:15px}

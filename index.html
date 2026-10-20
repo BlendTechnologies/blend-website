@@ -144,9 +144,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* Stacks below 700, measured: with 32px either side of each divider the
    row fits on one line from 700 up, and from 699 down to 621 it wrapped
    instead, to three lines at 621. */
+/* On a phone the three facts are one quiet line, titles only (founder,
+   2026-10-20, "it's a bit crowded on iphone"). Stacked with their second
+   lines they were six lines of type between the buttons and the quiz. The
+   second lines are still read by a screen reader. */
 @media(max-width:699px){
-  .hero-strip{grid-template-columns:minmax(0,1fr);gap:14px;max-width:none}
-  .hero-strip > div{border-left:0;padding:0}
+  .hero-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 0;max-width:none;margin-top:26px}
+  .hero-strip{flex-wrap:nowrap}
+  .hero-strip > div{border-left:0;padding:0 7px;display:flex;align-items:center;gap:0}
+  .hero-strip > div + div::before{content:"";width:3px;height:3px;border-radius:50%;
+    background:rgba(255,255,255,.35);margin-right:14px;margin-left:-7px}
+  .hero-strip b{font-size:12px;white-space:nowrap;color:rgba(255,255,255,.72)}
+  .hero-strip span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+/* Under 380 the line no longer fits, and a wrapped row starts its second line
+   on a dot: the three stack, centred, with nothing between them. */
+@media(max-width:379px){
+  .hero-strip{flex-direction:column;align-items:center;gap:4px}
+  .hero-strip > div + div::before{content:none}
 }
 /* PINNED: the strip bottom-left of the hero, 32px off its bottom edge.
    Only from 1200, where the hero is two columns; below that the hero stacks
@@ -451,17 +466,17 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .t-press,.t-added,.t-dot{transform-box:fill-box;transform-origin:center}
 .t-caret,.t-ghost,.t-added{opacity:0}
 .t-draw{stroke-dasharray:1;stroke-dashoffset:0}
-.step:hover .t-type,.step:focus-visible .t-type{animation:t-type .8s steps(23,end) both}
-.step:hover .t-caret,.step:focus-visible .t-caret{animation:t-caret .8s steps(23,end) both}
-.step:hover .t-ghost,.step:focus-visible .t-ghost{animation:t-ghost .9s ease both}
-.step:hover .t-real,.step:focus-visible .t-real{animation:t-real .9s ease both}
+.step:hover .t-type,.step:focus-visible .t-type,.step.is-playing .t-type{animation:t-type .8s steps(23,end) both}
+.step:hover .t-caret,.step:focus-visible .t-caret,.step.is-playing .t-caret{animation:t-caret .8s steps(23,end) both}
+.step:hover .t-ghost,.step:focus-visible .t-ghost,.step.is-playing .t-ghost{animation:t-ghost .9s ease both}
+.step:hover .t-real,.step:focus-visible .t-real,.step.is-playing .t-real{animation:t-real .9s ease both}
 /* Each press waits for the thing it is pressing to have happened; --d carries
    that card's cue, set on the group itself. */
-.step:hover .t-press,.step:focus-visible .t-press{animation:t-press .42s cubic-bezier(.3,.8,.3,1) var(--d,.9s) both}
-.step:hover .t-added,.step:focus-visible .t-added{animation:t-pop .34s cubic-bezier(.2,.7,.25,1) .52s both}
-.step:hover .t-draw,.step:focus-visible .t-draw{animation:t-draw 1.05s cubic-bezier(.4,0,.25,1) both}
-.step:hover .t-wipe,.step:focus-visible .t-wipe{animation:t-type 1.05s cubic-bezier(.4,0,.25,1) both}
-.step:hover .t-dot,.step:focus-visible .t-dot{animation:t-pop .3s cubic-bezier(.2,.7,.25,1) .98s both}
+.step:hover .t-press,.step:focus-visible .t-press,.step.is-playing .t-press{animation:t-press .42s cubic-bezier(.3,.8,.3,1) var(--d,.9s) both}
+.step:hover .t-added,.step:focus-visible .t-added,.step.is-playing .t-added{animation:t-pop .34s cubic-bezier(.2,.7,.25,1) .52s both}
+.step:hover .t-draw,.step:focus-visible .t-draw,.step.is-playing .t-draw{animation:t-draw 1.05s cubic-bezier(.4,0,.25,1) both}
+.step:hover .t-wipe,.step:focus-visible .t-wipe,.step.is-playing .t-wipe{animation:t-type 1.05s cubic-bezier(.4,0,.25,1) both}
+.step:hover .t-dot,.step:focus-visible .t-dot,.step.is-playing .t-dot{animation:t-pop .3s cubic-bezier(.2,.7,.25,1) .98s both}
 /* The square drawings (founder, 2026-10-20): the store's products arriving
    one by one after the import, the embed code written line by line, and the
    quiz trying on four brands' colours before settling back on its own. The
@@ -470,20 +485,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @keyframes t-hue{0%,100%{fill:#96682B}22%,30%{fill:#2F6B4F}47%,55%{fill:#7A3B5E}72%,80%{fill:#2B4C7E}}
 @keyframes t-hue-s{0%,100%{stroke:#B47F39}22%,30%{stroke:#4A8A6A}47%,55%{stroke:#9A5579}72%,80%{stroke:#4A6CA0}}
 .t-code{transform-box:fill-box;transform-origin:left}
-.step:hover .t-row,.step:focus-visible .t-row{animation:t-in .32s cubic-bezier(.2,.7,.25,1) var(--d,0s) both}
-.step:hover .t-code,.step:focus-visible .t-code{animation:t-type .45s steps(18,end) var(--d,0s) both}
-.step:hover .t-hue,.step:focus-visible .t-hue{animation:t-hue 2.4s ease .6s both}
-.step:hover .t-hue-s,.step:focus-visible .t-hue-s{animation:t-hue-s 2.4s ease .6s both}
+.step:hover .t-row,.step:focus-visible .t-row,.step.is-playing .t-row{animation:t-in .32s cubic-bezier(.2,.7,.25,1) var(--d,0s) both}
+.step:hover .t-code,.step:focus-visible .t-code,.step.is-playing .t-code{animation:t-type .45s steps(18,end) var(--d,0s) both}
+.step:hover .t-hue,.step:focus-visible .t-hue,.step.is-playing .t-hue{animation:t-hue 2.4s ease .6s both}
+.step:hover .t-hue-s,.step:focus-visible .t-hue-s,.step.is-playing .t-hue-s{animation:t-hue-s 2.4s ease .6s both}
 @media(prefers-reduced-motion:reduce){
   .step:hover .t-row,.step:hover .t-code,.step:hover .t-hue,.step:hover .t-hue-s,
-  .step:focus-visible .t-row,.step:focus-visible .t-code,.step:focus-visible .t-hue,.step:focus-visible .t-hue-s{animation:none}
+  .step:focus-visible .t-row,.step.is-playing .t-row,.step:focus-visible .t-code,.step.is-playing .t-code,.step:focus-visible .t-hue,.step.is-playing .t-hue,.step:focus-visible .t-hue-s,.step.is-playing .t-hue-s{animation:none}
 }
 @media(prefers-reduced-motion:reduce){
   .step:hover .t-type,.step:hover .t-caret,.step:hover .t-ghost,.step:hover .t-real,
   .step:hover .t-press,.step:hover .t-added,.step:hover .t-draw,.step:hover .t-wipe,.step:hover .t-dot,
-  .step:focus-visible .t-type,.step:focus-visible .t-caret,.step:focus-visible .t-ghost,
-  .step:focus-visible .t-real,.step:focus-visible .t-press,.step:focus-visible .t-added,
-  .step:focus-visible .t-draw,.step:focus-visible .t-wipe,.step:focus-visible .t-dot{animation:none}
+  .step:focus-visible .t-type,.step.is-playing .t-type,.step:focus-visible .t-caret,.step.is-playing .t-caret,.step:focus-visible .t-ghost,.step.is-playing .t-ghost,
+  .step:focus-visible .t-real,.step.is-playing .t-real,.step:focus-visible .t-press,.step.is-playing .t-press,.step:focus-visible .t-added,.step.is-playing .t-added,
+  .step:focus-visible .t-draw,.step.is-playing .t-draw,.step:focus-visible .t-wipe,.step.is-playing .t-wipe,.step:focus-visible .t-dot,.step.is-playing .t-dot{animation:none}
 }
 /* No top padding: the space above the title is the illustration frame's
    own bottom margin, which is the same margin that sits above it. Two
@@ -625,10 +640,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .steps-nav{display:flex;justify-content:flex-end;gap:10px;margin-top:28px}
 }
 @media(min-width:1200px){#how .step{flex-basis:calc((100% - 96px) / 4)}}
-/* 74% with a 4% frame on a phone: the drawings were ~5.8px type at 70% and
-   8%, and this brings their smallest line to ~6.7px while the next card
-   still shows. */
-@media(max-width:760px){#how .step{flex:0 0 74%;width:74%}#how .step-thumb{padding:4%}}
+/* 86% on a phone, the width every other deck on the page uses (founder,
+   2026-10-20: "increase the size of each box"), with a 4% frame. A phone
+   has no hover, so the card the reader has swiped to plays its step:
+   .is-playing, set by the script below, stands in for :hover. */
+@media(max-width:760px){#how .step{flex:0 0 86%;width:86%}#how .step-thumb{padding:4%}}
 .steps-arrow{display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:999px;
   background:var(--n-0);border:1px solid var(--n-200);color:var(--n-900);cursor:pointer;
   transition:border-color .18s ease,opacity .18s ease}
@@ -1571,11 +1587,16 @@ html,body{max-width:100%;overflow-x:clip}
     padding:0;
   }
 
-  /* Fixed gaps, so the four parts read as one unit. */
+  /* Fixed gaps, so the four parts read as one unit. Opened up on
+     2026-10-20 (founder: "a bit more space on phone hero, let it breathe"):
+     each gap is about half again what it was, and the quiz starts further
+     below the strip. */
   .hero .hero-title{margin-top:12px}
-  .hero .hero-sub{margin-top:14px;max-width:32ch;margin-left:auto;margin-right:auto}
-  .hero .hero-ctas{margin-top:22px;justify-content:center}
-  .hero .cta-alt{margin-top:16px}
+  .hero .hero-sub{margin-top:20px;max-width:32ch;margin-left:auto;margin-right:auto}
+  .hero .hero-ctas{margin-top:32px;justify-content:center}
+  .hero .cta-alt{margin-top:20px}
+  .hero .hero-strip{margin-top:34px}
+  .hero .hero-grid{gap:48px}
   .hero .hero-foot{margin-top:18px;padding-top:0;justify-content:center}
 }
 
@@ -2926,6 +2947,30 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   // never render an empty state: seed with a goal that shows the depth well
   const seed=['Gut Health','Sleep','Hormonal Balance'].find(g=>GOAL_SUBS[g]) || Object.keys(GOAL_SUBS)[0];
   if(seed) show(seed);
+})();
+
+/* ---- The six steps on a phone play as they arrive -----------------------
+   No hover on a phone, so the drawings never moved. A card that is at least
+   60% on screen (inside the swipe row and inside the window: the observer
+   counts the row's clipping) plays its step once, and again each time it
+   comes back. Phone only, and nothing under reduced motion. */
+(function(){
+  var phone = window.matchMedia('(max-width:760px)');
+  var still = window.matchMedia('(prefers-reduced-motion:reduce)');
+  if(!('IntersectionObserver' in window)) return;
+  var cards = document.querySelectorAll('#how .step');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var c = e.target;
+      if(!phone.matches || still.matches){ c.classList.remove('is-playing'); return; }
+      if(e.intersectionRatio >= 0.6){
+        if(!c.classList.contains('is-playing')){ void c.offsetWidth; c.classList.add('is-playing'); }
+      } else if(e.intersectionRatio < 0.2){
+        c.classList.remove('is-playing');
+      }
+    });
+  }, { threshold: [0, 0.2, 0.6, 1] });
+  Array.prototype.forEach.call(cards, function(c){ io.observe(c); });
 })();
 
 /* ---- The six steps' row: arrows, drag, sideways swipe -------------------

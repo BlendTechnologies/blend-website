@@ -41,7 +41,7 @@
 /* ============================================================
    BLEND MARKETING SITE
    ============================================================ */
-:root{--content:1200px}
+:root{--content:1340px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
@@ -178,28 +178,74 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    the band is making and a steady dot is how a status reads as current. */
 .vdot{width:7px;height:7px;border-radius:50%;background:var(--green-soft);animation:vpulse 2.4s ease-in-out infinite}
 @keyframes vpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.78)}}
-.footer{background:var(--deep);color:rgba(255,255,255,.72);padding:48px 0 32px}
+/* ---- The closing band and the footer: the homepage's, verbatim ----------
+   Copied from index.html on 2026-10-20 (founder: "make sure how it works, use
+   cases and the engine look like the homepage"). This page's own copies had
+   drifted: smaller headings, uppercase column labels, a beige gold, and on the
+   use-case pages a footer wordmark drawn black on black. Change it there, then
+   here, or not at all. */
+.cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
+.cta-alt a{color:var(--gold-text);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
+.cta-alt a:hover{text-decoration-color:var(--gold)}
+:root .theme-dark{--gold-text:var(--gold);--gold-soft:rgba(180,127,57,.32)}
+.closer{position:relative;padding:120px 0 72px;text-align:center;background:var(--page);color:var(--white);overflow:hidden}
+/* The closing band and the footer are one card, not two. The closer insets
+   its top and sides and rounds only its top corners; the footer insets its
+   sides and bottom and rounds only its bottom corners; neither insets the
+   edge they share. Two clipped layers, one continuous shape, one
+   progression. Wrapping them in a single element would have been simpler
+   and is not available: </main> closes between them. */
+.closer > .wrap{position:relative;z-index:1}
+.closer .h1{max-width:760px;margin:0 auto 7px;color:var(--white)}
+.closer .lead{margin:0 auto 35px;max-width:520px;color:var(--muted-on-dark)}
+.closer .eyebrow{display:inline-block;margin-bottom:14px}
+.closer-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+/* The outlined button is drawn for ink on cream, so it gets a light
+   counterpart here rather than a near-invisible dark outline on black. */
+/* GLASS, on a dark ground. Measured on superpower.com's hero:
+   rgba(255,255,255,.1) over backdrop-filter:blur(32px), radius 999, and NO
+   border. The translucency does the separating a border used to, and a
+   1px outline on top of it reads as neither one thing nor the other.
+   backdrop-filter is progressive: without it this is simply a 10% white
+   fill, which still works on a dark ground. */
+.closer .btn-ghost,.theme-dark .btn-ghost,.sc-hero .btn-ghost{
+  color:var(--white);border-color:transparent;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(32px) saturate(140%);
+  -webkit-backdrop-filter:blur(32px) saturate(140%)}
+.closer .btn-ghost:hover,.theme-dark .btn-ghost:hover,.sc-hero .btn-ghost:hover{
+  background:rgba(255,255,255,.17);border-color:transparent}
+.closer .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+.closer .cta-alt{color:rgba(255,255,255,.62)}
+.closer .cta-alt a{color:var(--gold-text);text-decoration-color:rgba(180,127,57,.55)}
+.closer .cta-alt a:hover{text-decoration-color:var(--gold)}
+.closer-foot{margin-top:28px;font-size:14px;color:rgba(255,255,255,.62)}
+.closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
+.closer-foot a:hover{border-bottom-color:var(--white)}
+.footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:48px 0 32px}
+@media (max-width:760px){.footer{padding:76px 0 28px}}
+.footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
 .footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
 .footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
-.footer-tag{margin-top:14px;font-size:14px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
+.footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
 .footer-news{margin-top:24px;display:flex;gap:8px;max-width:360px}
 .footer-news label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
 .footer-news input::placeholder{color:rgba(255,255,255,.4)}
 .footer-news input:focus{border-color:rgba(255,255,255,.5)}
-.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;transition:background .15s ease}
+.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;border:1px solid var(--line-strong)}
 .footer-news button:hover{background:rgba(255,255,255,.85)}
-.footer-col h5{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 16px;font-weight:500}
+.footer-col h5{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.45);margin:0 0 14px;font-weight:400}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
-.footer-col a{font-size:14px;color:rgba(255,255,255,.78);transition:color .15s ease}
-.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.45)}
-.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
-.footer-trust-label{color:var(--gold);font-weight:500}
+.footer-col a{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.78);transition:color .15s ease}
+.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.45)}
+.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
+.footer-trust-label{color:var(--gold);font-weight:400}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
-@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
+@media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
    Desktop is untouched. Tablet (761-860) swipes .personas and .pricing
@@ -927,6 +973,63 @@ body{background:var(--ground)}
 /* The bar is light on this page, and the toggle takes currentColor. */
 /* the icon takes the bar's own colour; see nav-mobile.css */
 @media(max-width:860px){}
+
+/* ---- The engine page on the system (founder, 2026-10-20) -----------------
+   "Make sure how it works, use cases and the engine look like the homepage,
+   and that colours are right."
+
+   THE TERMINAL. theme.css makes every .sci-card light glass, and the terminal
+   is also a .sci-card, so it rendered as a 55% white card with its pale
+   ivory text on it: unreadable. It is the hero's black with the hero's warm
+   light (the homepage's dark scenes), and wears the homepage terminal's
+   system palette: zinc text, white-tint data, green picked, red ruled out,
+   yellow short, green "running". The step ticks and the buttons are Blend's
+   controls, so they are the one gold. */
+#run .tm{
+  --t-ink:#F4F4F5;--t-dim:#A1A1AA;--t-line:rgba(255,255,255,.1);--t-gold:var(--gold);
+  --t-ok:#4ADE80;--t-bad:#F87171;--t-short:#FDE047;--t-data:rgba(255,255,255,.55);
+  background:var(--wash-deep),#0E0E10;border:0;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;border-radius:20px}
+#run .tm-k{color:var(--t-dim)}
+#run .tm-line.is-short .tm-f,#run .tm-line.is-short .tm-s{color:var(--t-short)}
+#run .tm-line.is-ok .tm-s{color:rgba(74,222,128,.85)}
+#run .tm-plan-h,#run .tm-persona-h{color:var(--t-dim)}
+#run .tm-plan-h{border-bottom-color:var(--t-line)}
+#run .tm-mx i.is-idle{background:rgba(255,255,255,.1)}
+#run .tm-mx i.is-on{background:var(--t-data);opacity:1}
+#run .tm-sweep{background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent)}
+#run .k-gold{background:var(--t-data)}
+#run .tm-live.is-on{color:var(--t-ok)}
+#run .tm-live.is-on::before{background:var(--t-ok)}
+#run .tm::before,#run .tm::after{border-color:rgba(255,255,255,.3)}
+#run .tm-tick:hover{background:rgba(180,127,57,.6)}
+#run .tm-tick.is-done{background:rgba(180,127,57,.5)}
+#run .eng-term-note,#run .tm-note{color:#A1A1AA}
+
+/* GOLD IS BLEND, NOT DATA. The counts in the check boxes, the target marks on
+   the ladders and the titles over the product and goal panels were gold:
+   they are figures and names, so they are ink. Gold stays on what a reader
+   presses and on the one they have chosen (the tab underline, the pressed
+   market, the open box's edge). */
+.sci-gbox-n,.sci-gbox--plan .sci-gbox-n{color:var(--ink)}
+.sci-mark{background:var(--ink)}
+.sci-subs-t{color:var(--ink)}
+
+/* The homepage's light content cards: flat --n-100, no edge. */
+.sci-gbox{background:var(--n-100);border-color:transparent}
+.sci-gbox[aria-expanded="true"]{background:var(--n-100);border-color:var(--gold)}
+.sci-glist{background:var(--n-100);border-color:transparent}
+.sci-card:not(.tm){background:var(--n-100);border-color:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* STATUS IN THE SYSTEM'S COLOURS. The badges and the "above the limit" hatch
+   were a terracotta and a sage of the old warm palette. */
+.sci-dot{background:var(--gap)}
+.sci-dose-s.is-strict{color:var(--gap-text);background:var(--gap-tint)}
+.sci-dose-s.is-lenient{color:var(--ok-text);background:var(--ok-tint)}
+.sci-never{background:repeating-linear-gradient(45deg,rgba(239,68,68,.32) 0 4px,transparent 4px 8px)}
+.sci-never-l{color:var(--gap-text)}
+.sci-never{border-left-color:var(--gap)}
 </style>
 </head>
 <body>
@@ -1173,6 +1276,7 @@ body{background:var(--ground)}
       <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-primary btn-lg">Request the methodology</a>
       <a href="/try" class="btn btn-ghost btn-lg">Try the demo</a>
     </div>
+    <div class="cta-alt">Not ready? <a href="/sample-report">See a sample report &rarr;</a></div>
   </div>
 </section>
 

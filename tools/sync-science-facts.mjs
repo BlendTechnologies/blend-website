@@ -424,6 +424,7 @@ const cta = `<section class="theme-dark closer sc-reveal sc-reveal--top" data-sc
       <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-primary btn-lg">Request the methodology</a>
       <a href="/try" class="btn btn-ghost btn-lg">Try the demo</a>
     </div>
+    <div class="cta-alt">Not ready? <a href="/sample-report">See a sample report &rarr;</a></div>
   </div>
 </section>`;
 

@@ -42,7 +42,7 @@
 /* ============================================================
    BLEND MARKETING SITE
    ============================================================ */
-:root{--content:1200px}
+:root{--content:1340px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--ground);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
@@ -85,9 +85,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .hero-ctas{margin-top:32px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .hero-foot{margin-top:24px;font-size:14px;color:var(--muted);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .hero-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
-.cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
-.cta-alt a{color:var(--gold-strong);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
-.cta-alt a:hover{text-decoration-color:var(--gold-strong)}
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
 .hero-stage{position:relative;width:100%;height:560px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-md)}
@@ -536,37 +533,77 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow .vbadge{grid-column:2}
   .vrow-icon{width:34px;height:34px}
 }
-.closer{padding:120px 0 72px;text-align:center;background:var(--cream)}
-.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(23px,2.4vw,29px)}
-.closer .lead{margin:0 auto 32px;max-width:520px}
-.closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.closer-foot{margin-top:28px;font-size:14px;color:var(--muted)}
-.closer-foot a{color:var(--ink);border-bottom:1px solid var(--ink)}
 /* The dark is painted by the reveal, not by the footer, so the footer sits
    on cream like the section above it and the two become one card. Same as
    the homepage. */
-.footer{position:relative;overflow:hidden;background:var(--cream);color:rgba(255,255,255,.72);padding:48px 0 32px}
+/* ---- The closing band and the footer: the homepage's, verbatim ----------
+   Copied from index.html on 2026-10-20 (founder: "make sure how it works, use
+   cases and the engine look like the homepage"). This page's own copies had
+   drifted: smaller headings, uppercase column labels, a beige gold, and on the
+   use-case pages a footer wordmark drawn black on black. Change it there, then
+   here, or not at all. */
+.cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
+.cta-alt a{color:var(--gold-text);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
+.cta-alt a:hover{text-decoration-color:var(--gold)}
+:root .theme-dark{--gold-text:var(--gold);--gold-soft:rgba(180,127,57,.32)}
+.closer{position:relative;padding:120px 0 72px;text-align:center;background:var(--page);color:var(--white);overflow:hidden}
+/* The closing band and the footer are one card, not two. The closer insets
+   its top and sides and rounds only its top corners; the footer insets its
+   sides and bottom and rounds only its bottom corners; neither insets the
+   edge they share. Two clipped layers, one continuous shape, one
+   progression. Wrapping them in a single element would have been simpler
+   and is not available: </main> closes between them. */
+.closer > .wrap{position:relative;z-index:1}
+.closer .h1{max-width:760px;margin:0 auto 7px;color:var(--white)}
+.closer .lead{margin:0 auto 35px;max-width:520px;color:var(--muted-on-dark)}
+.closer .eyebrow{display:inline-block;margin-bottom:14px}
+.closer-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+/* The outlined button is drawn for ink on cream, so it gets a light
+   counterpart here rather than a near-invisible dark outline on black. */
+/* GLASS, on a dark ground. Measured on superpower.com's hero:
+   rgba(255,255,255,.1) over backdrop-filter:blur(32px), radius 999, and NO
+   border. The translucency does the separating a border used to, and a
+   1px outline on top of it reads as neither one thing nor the other.
+   backdrop-filter is progressive: without it this is simply a 10% white
+   fill, which still works on a dark ground. */
+.closer .btn-ghost,.theme-dark .btn-ghost,.sc-hero .btn-ghost{
+  color:var(--white);border-color:transparent;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(32px) saturate(140%);
+  -webkit-backdrop-filter:blur(32px) saturate(140%)}
+.closer .btn-ghost:hover,.theme-dark .btn-ghost:hover,.sc-hero .btn-ghost:hover{
+  background:rgba(255,255,255,.17);border-color:transparent}
+.closer .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+.closer .cta-alt{color:rgba(255,255,255,.62)}
+.closer .cta-alt a{color:var(--gold-text);text-decoration-color:rgba(180,127,57,.55)}
+.closer .cta-alt a:hover{text-decoration-color:var(--gold)}
+.closer-foot{margin-top:28px;font-size:14px;color:rgba(255,255,255,.62)}
+.closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
+.closer-foot a:hover{border-bottom-color:var(--white)}
+.footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:48px 0 32px}
+@media (max-width:760px){.footer{padding:76px 0 28px}}
+.footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
 .footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
 .footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
-.footer-tag{margin-top:14px;font-size:14px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
+.footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
 .footer-news{margin-top:24px;display:flex;gap:8px;max-width:360px}
 .footer-news label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
 .footer-news input::placeholder{color:rgba(255,255,255,.4)}
 .footer-news input:focus{border-color:rgba(255,255,255,.5)}
-.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;transition:background .15s ease}
+.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;border:1px solid var(--line-strong)}
 .footer-news button:hover{background:rgba(255,255,255,.85)}
-.footer-col h5{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 16px;font-weight:500}
+.footer-col h5{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.45);margin:0 0 14px;font-weight:400}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
-.footer-col a{font-size:14px;color:rgba(255,255,255,.78);transition:color .15s ease}
-.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.45)}
-.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
-.footer-trust-label{color:var(--gold);font-weight:500}
+.footer-col a{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.78);transition:color .15s ease}
+.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.45)}
+.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
+.footer-trust-label{color:var(--gold);font-weight:400}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
-@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
+@media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
  
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
@@ -1620,6 +1657,119 @@ body{background:var(--ground)}
 @media(prefers-reduced-motion:reduce){
   .hw-stage .hw-shot{transition:none}
 }
+
+/* ---- The six frames, drawn as the homepage draws them (2026-10-20) --------
+   Founder: "make sure how it works looks like the homepage, same fonts,
+   effects". The six 16:9 frames were empty slots waiting for recordings, so
+   the page opened every step beside a dashed grey box. They now carry the
+   homepage's six step drawings, in the same scene: the hero's black with its
+   two warm lights, placed differently for each step, and the drawing in matte
+   glass, square, centred. Each plays its step once as its text arrives (the
+   stage marks the frame .is-active), where the homepage plays it on hover.
+   A recording can still go into any figure later; it covers the scene. */
+.hw-stage-inner{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-radius:18px}
+.hw-stage .hw-shot,.hw-shot{padding:0;border:0;box-shadow:none;border-radius:18px;overflow:hidden}
+.hw-scene{--l1:20% 0%;--l2:90% 15%;position:absolute;inset:0;display:grid;place-items:center;
+  background:radial-gradient(90% 70% at var(--l1), rgba(231,207,163,.16) 0%, rgba(231,207,163,0) 55%),
+    radial-gradient(80% 70% at var(--l2), rgba(180,127,57,.14) 0%, rgba(180,127,57,0) 60%),#0E0E10}
+.hw-shot[data-step="2"] .hw-scene{--l1:85% 100%;--l2:5% 30%}
+.hw-shot[data-step="3"] .hw-scene{--l1:50% 0%;--l2:100% 85%}
+.hw-shot[data-step="4"] .hw-scene{--l1:0% 85%;--l2:80% 0%}
+.hw-shot[data-step="5"] .hw-scene{--l1:100% 25%;--l2:20% 100%}
+.hw-shot[data-step="6"] .hw-scene{--l1:30% 100%;--l2:95% 55%}
+.hw-ui{display:block;height:84%;aspect-ratio:1/1;border-radius:16px;background:rgba(255,255,255,.06);
+  -webkit-backdrop-filter:blur(28px) saturate(120%);backdrop-filter:blur(28px) saturate(120%)}
+.hw-ui svg{display:block;width:100%;height:100%;font-family:inherit;pointer-events:none}
+/* the drawings are made for a light surface; their colours mapped to dark,
+   exactly as on the homepage */
+.hw-ui svg [fill="#18181B"]{fill:#F4F4F5}
+.hw-ui svg [fill="#52525B"]{fill:#A8AAAC}
+.hw-ui svg [fill="#3F3F46"]{fill:#D4D4D8}
+.hw-ui svg rect[fill="#FFFFFF"],.hw-ui svg rect[fill="#ffffff"]{fill:rgba(255,255,255,.06)}
+.hw-ui svg [fill="#F4F4F5"]{fill:rgba(255,255,255,.06)}
+.hw-ui svg [fill="#E4E4E7"]{fill:rgba(255,255,255,.14)}
+.hw-ui svg rect[stroke="#E4E4E7"]{stroke:none}
+.hw-ui svg line[stroke="#E4E4E7"]{stroke:rgba(255,255,255,.07)}
+.hw-ui svg [fill="#D4D4D8"]{fill:rgba(255,255,255,.28)}
+.hw-ui svg [stroke="#D4D4D8"]{stroke:rgba(255,255,255,.28)}
+.hw-ui svg [fill="#F0FDF4"]{fill:rgba(34,197,94,.14)}
+.hw-ui svg [stroke="#BBF7D0"]{stroke:rgba(74,222,128,.3)}
+.hw-ui svg [fill="#15803D"]{fill:#4ADE80}
+.hw-ui svg [stroke="#15803D"]{stroke:#4ADE80}
+.hw-ui svg svg rect:not([fill]){fill:#D4D4D8}
+@keyframes t-type{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes t-caret{0%{transform:translateX(-114px);opacity:1}88%{opacity:1}100%{transform:translateX(0);opacity:0}}
+@keyframes t-press{0%,100%{transform:none}32%{transform:scale(.93)}64%{transform:scale(1.02)}}
+@keyframes t-ghost{0%,38%{opacity:1}54%,100%{opacity:0}}
+@keyframes t-real{0%,38%{opacity:0}54%,100%{opacity:1}}
+@keyframes t-pop{0%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
+@keyframes t-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.t-type,.t-wipe{transform-box:fill-box;transform-origin:left}
+.t-press,.t-added,.t-dot{transform-box:fill-box;transform-origin:center}
+.t-caret,.t-ghost,.t-added{opacity:0}
+.t-draw{stroke-dasharray:1;stroke-dashoffset:0}
+.hw-shot.is-active .t-type{animation:t-type .8s steps(23,end) both}
+.hw-shot.is-active .t-caret{animation:t-caret .8s steps(23,end) both}
+.hw-shot.is-active .t-ghost{animation:t-ghost .9s ease both}
+.hw-shot.is-active .t-real{animation:t-real .9s ease both}
+.hw-shot.is-active .t-press{animation:t-press .42s cubic-bezier(.3,.8,.3,1) var(--d,.9s) both}
+.hw-shot.is-active .t-added{animation:t-pop .34s cubic-bezier(.2,.7,.25,1) .52s both}
+.hw-shot.is-active .t-draw{animation:t-draw 1.05s cubic-bezier(.4,0,.25,1) both}
+.hw-shot.is-active .t-wipe{animation:t-type 1.05s cubic-bezier(.4,0,.25,1) both}
+.hw-shot.is-active .t-dot{animation:t-pop .3s cubic-bezier(.2,.7,.25,1) .98s both}
+@keyframes t-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes t-hue{0%,100%{fill:#96682B}22%,30%{fill:#2F6B4F}47%,55%{fill:#7A3B5E}72%,80%{fill:#2B4C7E}}
+@keyframes t-hue-s{0%,100%{stroke:#B47F39}22%,30%{stroke:#4A8A6A}47%,55%{stroke:#9A5579}72%,80%{stroke:#4A6CA0}}
+.t-code{transform-box:fill-box;transform-origin:left}
+.hw-shot.is-active .t-row{animation:t-in .32s cubic-bezier(.2,.7,.25,1) var(--d,0s) both}
+.hw-shot.is-active .t-code{animation:t-type .45s steps(18,end) var(--d,0s) both}
+.hw-shot.is-active .t-hue{animation:t-hue 2.4s ease .6s both}
+.hw-shot.is-active .t-hue-s{animation:t-hue-s 2.4s ease .6s both}
+@media(prefers-reduced-motion:reduce){
+  .hw-shot.is-active .t-row,.hw-shot.is-active .t-code,.hw-shot.is-active .t-hue,.hw-shot.is-active .t-hue-s,
+  .hw-shot.is-active .t-row,.hw-shot.is-active .t-code,.hw-shot.is-active .t-hue,.hw-shot.is-active .t-hue-s{animation:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .hw-shot.is-active .t-type,.hw-shot.is-active .t-caret,.hw-shot.is-active .t-ghost,.hw-shot.is-active .t-real,
+  .hw-shot.is-active .t-press,.hw-shot.is-active .t-added,.hw-shot.is-active .t-draw,.hw-shot.is-active .t-wipe,.hw-shot.is-active .t-dot,
+  .hw-shot.is-active .t-type,.hw-shot.is-active .t-caret,.hw-shot.is-active .t-ghost,
+  .hw-shot.is-active .t-real,.hw-shot.is-active .t-press,.hw-shot.is-active .t-added,
+  .hw-shot.is-active .t-draw,.hw-shot.is-active .t-wipe,.hw-shot.is-active .t-dot{animation:none}
+}
+
+/* The step text on the homepage's scale: its .h2 and its .lead. The h2 had no
+   rule of its own and drew in the browser's default bold. */
+.hw-zone h2{margin:0;font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;text-wrap:balance}
+.hw-zone .hw-lead{margin-top:10px;font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80)}
+.hw-why-label{color:var(--n-600)}
+.hw-more a:hover{text-decoration-color:var(--gold)}
+/* The frame is held in the middle of the screen, level with the step text,
+   which each zone centres in its own screenful. Pinned at the nav, it sat
+   ~230px above the words it was showing. Its height is 27% of the content
+   width (48% of the row, 16:9), so half of it is 13.5vw less 8.6px, capped
+   where the content stops growing at 1340. */
+@media(min-width:901px){.hw-stage{top:calc(50vh + var(--nav-h) / 2 - min(172px, 13.5vw - 8.6px))}}
+/* One column from 900 down: each frame sits under its own step. The frames
+   live in the stage, not in the zones, so the two wrappers step aside
+   (display:contents) and the zones and frames become one list, ordered step,
+   frame, step, frame. Before, all six frames stacked after all six steps. */
+@media(max-width:900px){
+  .hw-track,.hw-stage,.hw-stage-inner{display:contents}
+  .hw-zone[data-step="1"]{order:1}.hw-shot[data-step="1"]{order:2}
+  .hw-zone[data-step="2"]{order:3}.hw-shot[data-step="2"]{order:4}
+  .hw-zone[data-step="3"]{order:5}.hw-shot[data-step="3"]{order:6}
+  .hw-zone[data-step="4"]{order:7}.hw-shot[data-step="4"]{order:8}
+  .hw-zone[data-step="5"]{order:9}.hw-shot[data-step="5"]{order:10}
+  .hw-zone[data-step="6"]{order:11}.hw-shot[data-step="6"]{order:12}
+  .hw-zone{padding:34px 0 18px}
+  .hw-stage .hw-shot{margin-bottom:0}
+}
+/* On a phone a 16:9 frame left the square drawing small; the frame is square
+   there, as the homepage's step cards are, and the drawing fills more of it. */
+@media(max-width:600px){
+  .hw-stage .hw-shot{aspect-ratio:1/1}
+  .hw-ui{height:88%}
+}
 </style>
 </head>
 <body>
@@ -1684,18 +1834,30 @@ body{background:var(--ground)}
         <!-- DEMO SLOT: catalogue management, 15-20s. Product import, AI-assisted
      product matching, ingredient and benefit configuration. Drop a <video
      muted loop playsinline preload="none" poster="..."> in here; .hw-shot
-     already reserves the 16:9 box. --><figure class="hw-shot is-active" data-demo="catalogue" data-step="1"></figure>
-        <figure class="hw-shot" data-step="2"></figure>
+     already reserves the 16:9 box. --><figure class="hw-shot is-active" data-demo="catalogue" data-step="1" aria-hidden="true"><div class="hw-scene"><span class="hw-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="29" r="3.6" fill="#22C55E"/><text x="33" y="32.5" font-size="11" font-weight="600" fill="#18181B">Store connected</text><defs><clipPath id="t1c"><rect class="t-type" x="33" y="39" width="117" height="12"/></clipPath></defs><g clip-path="url(#t1c)"><text x="33" y="47" font-size="9" font-weight="500" fill="#52525B">yourbrand.myshopify.com</text></g><rect class="t-caret" x="148" y="39.5" width="1.2" height="9" fill="#96682B"/><rect x="20" y="62" width="206" height="134" rx="7" fill="#FFFFFF" stroke="#E4E4E7"/><g class="t-row" style="--d:1.2s"><rect x="30" y="70" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="73" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="76.5" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="77.5" font-size="8.5" font-weight="600" fill="#18181B">Essential Creatine</text><text x="56" y="87.5" font-size="7" font-weight="500" fill="#52525B">Powder · 300 g</text><text x="216" y="82.5" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£24</text></g><line x1="30" y1="95.5" x2="216" y2="95.5" stroke="#E4E4E7"/><g class="t-row" style="--d:1.32s"><rect x="30" y="103.5" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="106.5" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="110" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="111" font-size="8.5" font-weight="600" fill="#18181B">Daily Greens</text><text x="56" y="121" font-size="7" font-weight="500" fill="#52525B">Powder · 30 servings</text><text x="216" y="116" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£39</text></g><line x1="30" y1="129" x2="216" y2="129" stroke="#E4E4E7"/><g class="t-row" style="--d:1.44s"><rect x="30" y="137" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="140" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="143.5" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="144.5" font-size="8.5" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><text x="56" y="154.5" font-size="7" font-weight="500" fill="#52525B">Capsules · 60</text><text x="216" y="149.5" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£28</text></g><line x1="30" y1="162.5" x2="216" y2="162.5" stroke="#E4E4E7"/><g class="t-row" style="--d:1.56s"><rect x="30" y="170.5" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="173.5" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="177" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="178" font-size="8.5" font-weight="600" fill="#18181B">Gut Health</text><text x="56" y="188" font-size="7" font-weight="500" fill="#52525B">Capsules · 30</text><text x="216" y="183" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£32</text></g><g class="t-press" style="--d:.92s"><rect x="146" y="210" width="80" height="18" rx="5" fill="#96682B"/><text x="186" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Import products</text></g></svg></span></div></figure>
+        <figure class="hw-shot" data-step="2" aria-hidden="true"><div class="hw-scene"><span class="hw-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><svg x="20" y="17" width="13" height="13" viewBox="0 0 24 24"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg><text x="38" y="27.5" font-size="10.5" font-weight="600" fill="#18181B">Match my catalogue</text><rect x="20" y="38" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0s" x="29" y="45" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0s"><rect x="29" y="45" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 49.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="52.5" font-size="8.5" font-weight="600" fill="#18181B">Essential Creatine</text><text x="45" y="66.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="58" width="87.4" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="99.7" y="65.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Creatine Monohydrate</text><rect x="20" y="80" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.25s" x="29" y="87" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.25s"><rect x="29" y="87" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 91.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="94.5" font-size="8.5" font-weight="600" fill="#18181B">Vitamin B Complex</text><text x="45" y="108.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="100" width="16.84" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="64.42" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">B6</text><rect x="75.84" y="100" width="20.76" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="86.22" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">B12</text><rect x="99.6" y="100" width="32.52" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="115.86" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Folate</text><rect x="20" y="122" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.5s" x="29" y="129" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.5s"><rect x="29" y="129" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 133.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="136.5" font-size="8.5" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><text x="45" y="150.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="142" width="44.28" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="78.14" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Magnesium</text><rect x="103.28" y="142" width="48.2" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="127.38" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">L-Theanine</text><rect x="154.48" y="142" width="36.44" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="172.7" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Glycine</text><rect x="20" y="164" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.75s" x="29" y="171" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.75s"><rect x="29" y="171" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 175.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="178.5" font-size="8.5" font-weight="600" fill="#18181B">Immune Support</text><text x="45" y="192.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="184" width="44.28" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="78.14" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Vitamin C</text><rect x="103.28" y="184" width="24.68" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="115.62" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Zinc</text><rect x="130.96" y="184" width="48.2" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="155.06" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Vitamin D3</text><g class="t-press" style="--d:1.5s"><rect x="156" y="210" width="70" height="18" rx="5" fill="#96682B"/><text x="191" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Apply match</text></g></svg></span></div></figure>
         <!-- DEMO SLOT: quiz builder, 20-30s. Question editing, branding
-     customisation, quiz preview. --><figure class="hw-shot" data-demo="quiz-builder" data-step="3"></figure>
+     customisation, quiz preview. --><figure class="hw-shot" data-demo="quiz-builder" data-step="3" aria-hidden="true"><div class="hw-scene"><span class="hw-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="18" width="206" height="3" rx="1.5" fill="#E4E4E7"/><rect class="t-hue" x="20" y="18" width="69" height="3" rx="1.5" fill="#96682B"/><text x="20" y="41" font-size="11" font-weight="600" fill="#18181B">What sports do you do?</text><text x="20" y="53" font-size="7.5" font-weight="500" fill="#52525B">Choose all that apply.</text><rect class="t-ghost" x="20" y="64" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><g class="t-real"><rect class="t-hue-s" x="20" y="64" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#B47F39"/></g><text x="29" y="79.2" font-size="8.5" font-weight="500" fill="#18181B">Gym</text><g class="t-real"><circle class="t-hue" cx="214" cy="76" r="4.4" fill="#96682B"/><path d="M212.1 76.1l1.4 1.4 2.3-2.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g><circle class="t-ghost" cx="214" cy="76" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="20" y="95" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="29" y="110.2" font-size="8.5" font-weight="500" fill="#52525B">Racquet sports</text><circle cx="214" cy="107" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="20" y="126" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="29" y="141.2" font-size="8.5" font-weight="500" fill="#52525B">Endurance sports</text><circle cx="214" cy="138" r="4.4" fill="none" stroke="#D4D4D8"/><rect x="20" y="157" width="206" height="24" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="29" y="172.2" font-size="8.5" font-weight="500" fill="#52525B">Yoga &amp; Pilates</text><circle cx="214" cy="169" r="4.4" fill="none" stroke="#D4D4D8"/><g class="t-press" style="--d:3.1s"><rect class="t-hue" x="20" y="208" width="58" height="17" rx="5" fill="#96682B"/><text x="49" y="219.2" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Continue</text></g></svg></span></div></figure>
         <!-- DEMO SLOT: analytics, 15-20s. Dashboard, quiz engagement,
-     customer insights. --><figure class="hw-shot" data-demo="analytics" data-step="4"></figure>
-        <figure class="hw-shot" data-step="5"></figure>
-        <figure class="hw-shot" data-step="6"></figure>
+     customer insights. --><figure class="hw-shot" data-demo="analytics" data-step="4" aria-hidden="true"><div class="hw-scene"><span class="hw-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="20" y="30" font-size="10.5" font-weight="600" fill="#18181B">Embed your quiz</text><g class="t-ghost"><rect x="20" y="40" width="206" height="30" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><svg x="29" y="46.2" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#3F3F46" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#3F3F46" opacity=".06"/><g fill="#3F3F46"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="68" y="58" font-size="9" font-weight="500" fill="#52525B">A page</text></g><g class="t-real"><rect x="20" y="40" width="206" height="30" rx="6" fill="#FFFFFF" stroke="#B47F39"/><svg x="29" y="46.2" width="29" height="17.6" viewBox="0 0 56 34"><rect x="0" y="0" width="56" height="4" rx="1" fill="#96682B" opacity="0.2"/><rect x="0" y="6" width="56" height="28" rx="1" fill="#96682B" opacity=".06"/><g fill="#96682B"><rect x="3" y="9" width="22" height="3" rx="1" opacity="0.85"/><rect x="3" y="15" width="30" height="2" rx="1" opacity="0.2"/><rect x="3" y="20" width="26" height="2" rx="1" opacity="0.2"/><rect x="3" y="26" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="68" y="58" font-size="9" font-weight="600" fill="#18181B">A page</text></g><rect x="20" y="76" width="206" height="30" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><svg x="29" y="82.2" width="29" height="17.6" viewBox="0 0 56 34"><g fill="#3F3F46"><rect x="0" y="0" width="56" height="4" rx="1" opacity="0.12"/><rect x="4" y="8" width="20" height="2" rx="1" opacity="0.12"/><rect x="4" y="12" width="14" height="2" rx="1" opacity="0.12"/></g><rect x="8" y="5" width="40" height="26" rx="2" fill="#3F3F46" opacity=".06" stroke="#3F3F46" stroke-opacity="0.5" stroke-width="1"/><g fill="#3F3F46"><rect x="11" y="8" width="22" height="3" rx="1" opacity="0.85"/><rect x="11" y="14" width="30" height="2" rx="1" opacity="0.2"/><rect x="11" y="19" width="26" height="2" rx="1" opacity="0.2"/><rect x="11" y="25" width="10" height="4" rx="2" opacity="0.5"/></g></svg><text x="68" y="94" font-size="9" font-weight="500" fill="#52525B">A button + pop up</text><rect x="20" y="114" width="206" height="88" rx="6" fill="#F4F4F5" stroke="#E4E4E7"/><text x="30" y="130" font-size="7.5" font-weight="600" fill="#52525B">Embed code</text><g class="t-press" style="--d:1.9s"><rect x="184" y="121" width="32" height="13" rx="3.5" fill="#FFFFFF" stroke="#E4E4E7"/><text x="200" y="130" font-size="7" font-weight="600" fill="#18181B" text-anchor="middle">Copy</text></g><line x1="20" y1="140" x2="226" y2="140" stroke="#E4E4E7"/><defs><clipPath id="t4l0"><rect class="t-code" style="--d:0.9s" x="30" y="148" width="190" height="11"/></clipPath><clipPath id="t4l1"><rect class="t-code" style="--d:1.15s" x="30" y="161" width="190" height="11"/></clipPath><clipPath id="t4l2"><rect class="t-code" style="--d:1.4s" x="30" y="174" width="190" height="11"/></clipPath><clipPath id="t4l3"><rect class="t-code" style="--d:1.65s" x="30" y="187" width="190" height="11"/></clipPath></defs><text clip-path="url(#t4l0)" x="30" y="156" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve"><tspan fill="#18181B">&lt;script</tspan> async src=</text><text clip-path="url(#t4l1)" x="30" y="169" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve">  <tspan fill="#3F3F46">"https://app.blend-technologies</tspan></text><text clip-path="url(#t4l2)" x="30" y="182" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve">  <tspan fill="#3F3F46">.com/embed/yourbrand.js"</tspan><tspan fill="#18181B">&gt;</tspan></text><text clip-path="url(#t4l3)" x="30" y="195" font-size="7.5" font-weight="500" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#52525B" xml:space="preserve"><tspan fill="#18181B">&lt;/script&gt;</tspan></text><g class="t-press" style="--d:2.3s"><rect x="180" y="210" width="46" height="18" rx="5" fill="#96682B"/><text x="203" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Save</text></g></svg></span></div></figure>
+        <figure class="hw-shot" data-step="5" aria-hidden="true"><div class="hw-scene"><span class="hw-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="20" y="28" font-size="11" font-weight="600" fill="#18181B">Made for Jane.</text><rect x="20" y="36" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="50.5" font-size="9" font-weight="600" fill="#18181B">Omega-3</text><circle cx="32.2" cy="59.4" r="2" fill="#EF4444"/><text x="38" y="61.9" font-size="7" font-weight="500" fill="#52525B">Omega-3 intake: 8% of target.</text><g class="t-press" style="--d:.16s"><rect x="180" y="46" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="55.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text></g><g class="t-added"><rect x="134" y="46" width="40" height="14" rx="7" fill="#F0FDF4" stroke="#BBF7D0"/><path d="M140.5 53.2l2 2 3.4-3.8" stroke="#15803D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><text x="160" y="55.6" font-size="7.5" font-weight="600" fill="#15803D" text-anchor="middle">Added</text></g><rect x="20" y="75" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="89.5" font-size="9" font-weight="600" fill="#18181B">Vitamin B Complex</text><circle cx="32.2" cy="98.4" r="2" fill="#EAB308"/><text x="38" y="100.9" font-size="7" font-weight="500" fill="#52525B">B12 intake: 46% of target.</text><rect x="180" y="85" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="94.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text><rect x="20" y="114" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="128.5" font-size="9" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><circle cx="32.2" cy="137.4" r="2" fill="#EAB308"/><text x="38" y="139.9" font-size="7" font-weight="500" fill="#52525B">Magnesium intake: 61% of target.</text><rect x="180" y="124" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="133.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text><rect x="20" y="153" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="167.5" font-size="9" font-weight="600" fill="#18181B">Gut Health</text><circle cx="32.2" cy="176.4" r="2" fill="#A1A1AA"/><text x="38" y="178.9" font-size="7" font-weight="500" fill="#52525B">Matches your goal: gut health.</text><rect x="180" y="163" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="172.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text><rect x="20" y="192" width="206" height="34" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><text x="30" y="206.5" font-size="9" font-weight="600" fill="#18181B">Energy &amp; Focus</text><circle cx="32.2" cy="215.4" r="2" fill="#A1A1AA"/><text x="38" y="217.9" font-size="7" font-weight="500" fill="#52525B">Matches your goal: energy.</text><rect x="180" y="202" width="36" height="14" rx="4" fill="#96682B"/><text x="198" y="211.6" font-size="7.5" font-weight="600" fill="#ffffff" text-anchor="middle">Add</text></svg></span></div></figure>
+        <figure class="hw-shot" data-step="6" aria-hidden="true"><div class="hw-scene"><span class="hw-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="20" y="30" font-size="10.5" font-weight="600" fill="#18181B">Quiz engagements</text><line x1="20" y1="87.5" x2="226" y2="87.5" stroke="#E4E4E7" stroke-dasharray="2 3"/><line x1="20" y1="125" x2="226" y2="125" stroke="#E4E4E7" stroke-dasharray="2 3"/><line x1="20" y1="162.5" x2="226" y2="162.5" stroke="#E4E4E7" stroke-dasharray="2 3"/><defs><clipPath id="t6c"><rect class="t-wipe" x="20" y="46" width="210" height="156"/></clipPath></defs><path d="M20,200 L20,173.91 L49.82,154.35 L78.73,160.87 L108.54,125 L137.46,105.43 L167.27,118.48 L196.18,79.35 L226,59.78 L226,200 Z" fill="#96682B" fill-opacity=".09" clip-path="url(#t6c)"/><polyline class="t-draw" points="20,173.91 49.82,154.35 78.73,160.87 108.54,125 137.46,105.43 167.27,118.48 196.18,79.35 226,59.78" pathLength="1" fill="none" stroke="#96682B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><polyline class="t-draw" points="20,190.22 49.82,180.43 78.73,183.7 108.54,167.39 137.46,157.61 167.27,164.13 196.18,144.57 226,134.78" pathLength="1" fill="none" stroke="#A1A1AA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".75"/><line x1="20" y1="200" x2="226" y2="200" stroke="#E4E4E7"/><circle class="t-dot" cx="226" cy="59.78" r="2.6" fill="#96682B"/><rect x="20" y="214" width="10" height="2" rx="1" fill="#96682B"/><text x="34" y="217.5" font-size="8" font-weight="500" fill="#52525B">Completed</text><rect x="98" y="214" width="10" height="2" rx="1" fill="#A1A1AA"/><text x="112" y="217.5" font-size="8" font-weight="500" fill="#52525B">Product clicks</text></svg></span></div></figure>
       </div>
     </div>
   </div>
 </div>
+<section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
+  <div class="wrap">
+    <h2 class="h1">Put the engine to work on your store.</h2>
+    <p class="lead">Try the demo, or book 15 minutes with us.</p>
+    <div class="closer-ctas">
+      <a href="/try" class="btn btn-primary btn-lg">Try the demo</a>
+      <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39');">Book a call</a>
+    </div>
+    <div class="cta-alt" style="text-align:center;margin-top:16px">Not ready? <a href="sample-report.html">See a sample report &rarr;</a></div>
+    <div class="closer-foot">Or email us at <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></div>
+  </div>
+</section>
 </main>
 <footer class="theme-dark footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
