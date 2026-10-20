@@ -26,6 +26,18 @@ engine's own exports that `/science` is written from, produced by
 `export_engine_trace.py`. The folder keeps its name because those two
 exporters write to it by path and they belong to another lane.
 
+## The design system
+
+`docs/DESIGN_SYSTEM.md` in the workspace is the source, agreed with the founder
+on 2026-10-20, for this site and for the webapp after it. `theme.css`'s "THE
+SYSTEM" block carries its tokens. The three rules, in short: surfaces are
+neutral (white, zinc greys, near-black, glass in those tones, nothing beige);
+colour means something (green, yellow, red, on small things only, never alone);
+gold is Blend (actions and active state, never status or data). Measure
+contrast from rendered pixels, never from tokens, especially on glass. The
+hero's quiz and plan are a fictional client's theme and are exempt from the
+gold rule on purpose.
+
 ## Prices
 
 `pricing.json` is where plan prices are written. `index.html` still carries

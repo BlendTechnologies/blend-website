@@ -159,6 +159,36 @@
   --nav-h:68px;
 }
 
+/* ---- THE SYSTEM, 2026-10-20 --------------------------------------------
+   Founder-approved. The source is docs/DESIGN_SYSTEM.md in the workspace;
+   this is the website's copy of its tokens, and the webapp will carry the
+   same names. Three rules, and every other choice follows from them:
+
+     1. SURFACES ARE NEUTRAL. White, the zinc greys, near-black, and glass
+        in those tones. Nothing beige, cream or tan.
+     2. COLOUR MEANS SOMETHING. Green on track, yellow attention, red a gap,
+        on small things only (dots, pills, thin lines, bars, letters), and
+        never as the only signal: there is always a word or a number too.
+     3. GOLD IS BLEND. Actions, the active state in Blend's own UI, the
+        brand. Never a status, never a data series, never decoration.
+
+   The neutral ramp is Tailwind's zinc on purpose: the webapp is Tailwind,
+   so the two products share these values without a translation table. */
+:root{
+  --n-0:#FFFFFF;--n-50:#FAFAFA;--n-100:#F4F4F5;--n-200:#E4E4E7;--n-300:#D4D4D8;--n-400:#A1A1AA;
+  --n-500:#71717A;--n-600:#52525B;--n-700:#3F3F46;--n-800:#27272A;--n-900:#18181B;--n-950:#0E0E10;
+  /* Secondary text is --n-500 on white and --n-50 only (4.8:1). On --n-100
+     and anything darker it is --n-600: --n-500 there measured 4.40:1. */
+
+  /* status. The 500s are for dots, lines and bars; on a light surface,
+     status TEXT uses the 700 on its tint (4.8:1 and 5.9:1). Attention text
+     is ink, beside the yellow dot: every yellow dark enough to read as text
+     is brown, and brown is the gold's. */
+  --ok:#22C55E;--ok-text:#15803D;--ok-tint:#F0FDF4;--ok-line:#BBF7D0;--ok-on-dark:#4ADE80;
+  --attn:#FACC15;--attn-tint:#FEFCE8;--attn-line:#FEF08A;--attn-on-dark:#FDE047;
+  --gap:#EF4444;--gap-text:#B91C1C;--gap-tint:#FEF2F2;--gap-line:#FECACA;--gap-on-dark:#F87171;
+}
+
 /* ---- Dark islands -------------------------------------------------------
    Everything a light-theme rule reads, redefined. A component inside the
    scope needs no knowledge of where it is: --surface is still "a card",
