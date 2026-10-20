@@ -118,31 +118,38 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    them, and every bit of the softness comes from what is BEHIND the text,
    not from a container around it. So: no fill, no border, no radius. Just
    the dividers and the light the hero's wash is already casting. */
-.hero-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  margin-top:30px;max-width:620px}
-.hero-strip > div{padding:2px 20px;border-left:1px solid rgba(255,255,255,.14);
+/* Natural widths, no cap. Three equal columns inside 620px wrapped "One
+   embed, no developer" onto two lines from 1199 down to 621, and the first
+   item onto three at 621, while the short third column sat half empty. Auto
+   tracks give each item what it needs and only wrap when the row is truly
+   out of room. */
+.hero-strip{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;
+  margin-top:30px;max-width:none}
+.hero-strip > div{padding:2px 32px;border-left:1px solid rgba(255,255,255,.14);
   display:grid;gap:3px;min-width:0}
 .hero-strip > div:first-child{border-left:0;padding-left:0}
 .hero-strip b{font-size:13px;font-weight:400;color:var(--white);letter-spacing:-.005em}
 .hero-strip span{font-size:13px;color:rgba(255,255,255,.55);line-height:1.4}
-@media(max-width:620px){
+/* Stacks below 700, measured: with 32px either side of each divider the
+   row fits on one line from 700 up, and from 699 down to 621 it wrapped
+   instead, to three lines at 621. */
+@media(max-width:699px){
   .hero-strip{grid-template-columns:minmax(0,1fr);gap:14px;max-width:none}
   .hero-strip > div{border-left:0;padding:0}
 }
-/* PINNED: the strip bottom-left of the hero, the arrow bottom-centre, on one
-   line. Only where the arrow exists (>=1200, the same breakpoint as
-   .sc-cue--desktop); below that the hero stacks and the strip stays in the
-   copy, under the buttons, where it was.
+/* PINNED: the strip bottom-left of the hero, 32px off its bottom edge.
+   Only from 1200, where the hero is two columns; below that the hero stacks
+   and the strip stays in the copy, under the buttons.
 
    The wrap is stretched to the full height of the hero and the copy is
    centred inside it, so the strip can sit on the wrap's bottom edge, which
-   is the hero's padding edge, which is where the arrow's bottom is too: the
-   hero's bottom padding is set to the arrow's own 32px for that reason. The
-   wrap's padding-bottom reserves the strip's band, so a short window grows
-   the hero rather than running the copy into the strip.
+   is the hero's padding edge. The wrap's padding-bottom reserves the
+   strip's band, so a short window grows the hero rather than running the
+   copy into the strip.
 
-   Its width stops short of the centre by the arrow's half-width and a gap,
-   or at 1200 the third column ran under the arrow. */
+   No width cap: it stopped short of the centre to clear the scroll arrow,
+   and the arrow is gone (founder, 2026-10-20). nowrap keeps each item on its
+   own two lines, and there is room for all three from 1200 up. */
 @media(min-width:1200px){
   .sc-hero:has(.hero-strip){align-content:stretch;padding-bottom:32px}
   .sc-hero:has(.hero-strip) > .wrap{display:grid;align-content:center;padding-bottom:84px;width:100%}
@@ -151,11 +158,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
      fixed 32 put the strip 32px left of the headline above it at 1200-1299. */
   .hero-strip{position:absolute;left:32px;bottom:0;margin:0;
     grid-template-columns:repeat(3,auto);justify-content:start;
-    max-width:calc(50% - 86px)}
+    max-width:none}
   .hero-strip > div{white-space:nowrap}
-  /* It shares the arrow's line, so it shares the arrow's exit: gone by the
-     time the card has closed 15% of the way. Left visible, the card's own
-     clip-path closing in from the bottom cut its second line in half. */
+  /* Gone by the time the card has closed 15% of the way. Left visible, the
+     card's own clip-path closing in from the bottom cut its second line in
+     half. */
   .hero-strip{opacity:clamp(0, calc((.15 - var(--sc-p, 0)) * 6.6667), 1);
     transition:opacity .12s linear}
 }
@@ -420,6 +427,48 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:1100px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}}
 @media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
+/* ---- The six steps on frosted glass --------------------------------------
+   Founder's reference was hims' product cards and superpower's booking card:
+   translucent, blurred, matte panels over something with colour and texture
+   in it. Glass over a plain white page is a flat tint, so the steps carry
+   their own ground: a field of the brand's own warm tones, soft enough to
+   read as out of focus, with a fine grain on top for the matte, photographic
+   feel. The cards blur that grain away behind themselves, which is what
+   makes them read as frosted rather than as pale boxes.
+
+   ONE element, all background layers, no pseudo-element. Under 760 the steps
+   are a swipe deck and a scroll container: an absolutely positioned layer
+   inside it scrolls away with the cards, a background does not, so the cards
+   glide over a field that stays put.
+
+   Kept light on purpose: the cards' text is ink. Measured from rendered
+   pixels (text hidden, darkest pixel under each line, worst card): body copy
+   7.6:1, "Learn more" 4.8:1 in --gold-active. In --gold-text it measured
+   3.8:1, which fails AA for 13px text, hence the darker gold here only. */
+.steps{padding:24px}
+#how .steps{border-radius:28px;isolation:isolate;
+  background-color:#E3CDB2;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(42% 60% at 10% 12%, rgba(244,239,229,.95) 0%, rgba(244,239,229,0) 70%),
+    radial-gradient(40% 55% at 92% 8%, rgba(180,127,57,.55) 0%, rgba(180,127,57,0) 72%),
+    radial-gradient(48% 62% at 74% 96%, rgba(140,106,82,.45) 0%, rgba(140,106,82,0) 72%),
+    radial-gradient(44% 58% at 18% 92%, rgba(201,163,154,.5) 0%, rgba(201,163,154,0) 72%),
+    radial-gradient(36% 46% at 50% 48%, rgba(231,207,163,.7) 0%, rgba(231,207,163,0) 72%)}
+#how .step{
+  background:rgba(255,255,255,.45);
+  -webkit-backdrop-filter:blur(24px) saturate(140%);backdrop-filter:blur(24px) saturate(140%);
+  border:1px solid rgba(255,255,255,.5);border-radius:20px;box-shadow:none}
+/* The hover border is the site's one hover border, unchanged. It has to be
+   named here only because the resting glass border above outranks the
+   shared .step:hover rule. */
+#how .step:hover,#how .step:focus-visible{
+  background:rgba(255,255,255,.62);border-color:var(--hover-border);box-shadow:none}
+#how .step p{color:var(--ink-80)}
+#how .step-cta{color:var(--gold-active)}
+@media(max-width:760px){#how .steps{border-radius:0}}
+@media(prefers-reduced-transparency:reduce){
+  #how .step{background:rgba(255,255,255,.9);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
 /* "coming soon" marker. NOT .pill: that is white on the black top bar and
    illegible on a light section. --gold-strong measures 3.82:1 on --gold-soft,
    under AA for text this small, so this uses --gold-active at 6.28:1. */
@@ -1839,7 +1888,7 @@ a.vrow:hover,a.vrow:focus-visible{
     <div class="hero-grid">
       <div class="hero-copy">
         <h1 class="h1 hero-title">Recommend the right product to every customer.</h1>
-        <p class="lead hero-sub">Turn customer needs into personalised product recommendations that help shoppers buy with confidence, increase conversions and grow basket sizes.</p>
+        <p class="lead hero-sub">Turn customer needs into personalised product recommendations. Help shoppers buy with confidence, increase conversions and grow basket sizes.</p>
         <div class="hero-ctas">
           <a href="try.html" class="btn btn-primary btn-lg">Try the demo</a>
           <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39');">Book a call</a>
@@ -1848,7 +1897,7 @@ a.vrow:hover,a.vrow:focus-visible{
         <div class="hero-strip">
           <div><b>15-day free trial</b><span>No charge until it ends</span></div>
           <div><b>Live in an afternoon</b><span>One embed, no developer</span></div>
-          <div><b>Your catalogue</b><span>Shopify, CSV or manual</span></div>
+          <div><b>Trusted</b><span>Built by science</span></div>
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -1874,11 +1923,10 @@ a.vrow:hover,a.vrow:focus-visible{
       </div>
     </div>
   </div>
-  <button type="button" class="sc-cue sc-cue--desktop" data-sc-cue="#how" aria-label="Scroll to How it works"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
 <section class="section section-cream has-wash" id="how">
   <div class="wrap">
-    <div class="section-head"><h2 class="h2">Your catalogue. Their personalised plan.</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
+    <div class="section-head"><h2 class="h2">How it works</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
     <div class="steps">
       <a class="step" href="/how-it-works#step-1"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="252" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><circle cx="42" cy="45" r="3.6" fill="#067647"/><text x="53" y="48.5" font-size="11" font-weight="600" fill="#29251F">Store connected</text><defs><clipPath id="t1c"><rect class="t-type" x="53" y="55" width="117" height="12"/></clipPath></defs><g clip-path="url(#t1c)"><text x="53" y="63" font-size="9" font-weight="500" fill="#7C756B">yourbrand.myshopify.com</text></g><rect class="t-caret" x="168" y="55.5" width="1.2" height="9" fill="#96682B"/><line x1="38" y1="75" x2="262" y2="75" stroke="#E2DACA"/><g class="t-press" style="--d:.92s"><rect x="38" y="84" width="84" height="19" rx="5" fill="#96682B"/><text x="80" y="96.5" font-size="8.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">Import products</text></g></svg></span><div class="step-body"><h3>01. Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>
       <a class="step" href="/how-it-works#step-2"><span class="step-thumb" aria-hidden="true"><svg viewBox="-20 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="20" width="252" height="92" rx="8" fill="#EEEAE3" stroke="#E2DACA"/><svg x="36" y="29" width="13" height="13" viewBox="0 0 24 24"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg><text x="54" y="39.5" font-size="10.5" font-weight="600" fill="#29251F">Match my catalogue</text><rect x="36" y="50" width="228" height="26" rx="6" fill="#FFFFFF" stroke="#E2DACA"/><rect class="t-ghost" x="44" y="58.5" width="9" height="9" rx="2" fill="#EEEAE3" stroke="#CFC6B5"/><g class="t-real"><rect x="44" y="58.5" width="9" height="9" rx="2" fill="#96682B"/><path d="M46.2 63.1l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="60" y="66" font-size="8.5" font-weight="500" fill="#29251F">Essential Creatine</text><text x="145" y="66" font-size="8.5" font-weight="500" fill="#7C756B">&#8594;</text><text x="157" y="66" font-size="8.5" font-weight="500" fill="#7C756B">Creatine Monohydrate</text><g class="t-press" style="--d:.8s"><rect x="194" y="85" width="70" height="18" rx="5" fill="#96682B"/><text x="229" y="97" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Apply match</text></g></svg></span><div class="step-body"><h3>02. Match your catalogue</h3><p>Import your catalogue and let Blend organise products, ingredients and benefits for intelligent recommendations.</p></div><span class="step-cta" aria-hidden="true">Learn more</span></a>

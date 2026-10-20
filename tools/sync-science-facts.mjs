@@ -79,7 +79,6 @@ const hero = `<section class="theme-dark ph ph--fill sc-hero" data-sc="hero">
     </div>
     <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:${Object.keys(V).length}">${verts}</nav>
   </div>
-  <button type="button" class="sc-cue" data-sc-cue="#run" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>`;
 
 /* ---- 2. what the engine covers ---------------------------------------------
