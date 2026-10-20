@@ -140,7 +140,7 @@
 
 /* ---- the endcap ---------------------------------------------------------- */
 .closer{padding:88px 0 72px;text-align:center;background:var(--bg)}
-.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(28px,3.4vw,42px)}
+.closer .h1{max-width:760px;margin:0 auto 18px;font-size:clamp(25px,2.8vw,33px)}
 .closer .lead{margin:0 auto 30px;max-width:520px}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}

@@ -39,7 +39,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:200}.skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(36px,4.6vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0}
+.h1{font-size:clamp(34px,4.2vw,52px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0}
 .h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px}
@@ -73,7 +73,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .dash-tile svg{width:62px;height:62px}
 .dash-tile-lab{font-size:10.5px;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.02em}
 .dash-bars{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 16px;position:relative}
-.dash-bars-title{font-size:10.5px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:block}
+.dash-bars-title{font-size:10.5px;font-weight:500;color:rgba(255,255,255,.55);margin-bottom:10px;display:block}
 .dash-bar-row{display:grid;grid-template-columns:80px 1fr 32px;gap:10px;align-items:center;margin-bottom:7px}
 .dash-bar-row:last-child{margin-bottom:0}
 .dash-bar-lab{font-size:11px;color:rgba(255,255,255,.72)}
@@ -96,7 +96,7 @@ img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button
 .compare-table{max-width:900px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .compare-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line);font-size:14px}
 .compare-row:last-child{border-bottom:0}
-.compare-row.head{background:var(--subtle);font-weight:500;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.compare-row.head{background:var(--subtle);font-weight:500;font-size:12px;color:var(--muted)}
 .compare-row .feature{color:var(--ink);font-weight:500}
 .compare-row .blend{color:var(--gold-strong);font-weight:500;text-align:center}
 .compare-row .other{color:var(--muted);text-align:center}
@@ -170,7 +170,6 @@ html,body{max-width:100%;overflow-x:clip}
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-text">
-        <span class="hero-eyebrow">Use case, software comparison</span>
         <h1 class="h1 hero-title">Blend vs tag-based quiz tools.</h1>
         <p class="lead hero-sub">Traditional quiz builders typically rely on predefined rules and product tags. Blend adds nutritional analysis, product-level scoring and explainable recommendations, built specifically for supplement and OTC health brands.</p>
         <div class="hero-ctas">
@@ -237,7 +236,6 @@ html,body{max-width:100%;overflow-x:clip}
 <section class="section section-subtle">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Why brands switch</span>
       <h2 class="h2">Beyond the feature checklist.</h2>
       <p class="lead">What the table doesn't show: the outcomes that move brands from a tag-based quiz to Blend.</p>
     </div>
@@ -263,7 +261,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 <section class="section section-cream">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Frequently asked questions</span><h2 class="h2">Buyer questions.</h2></div>
+    <div class="section-head"><h2 class="h2">Buyer questions.</h2></div>
     <div class="faq-list">
       <details class="faq-item"><summary>How is Blend different from other quiz tools?</summary><div class="faq-answer"><p>General quiz tools match products to multiple-choice answers using tags or point accumulators. Blend runs deterministic scoring across every product in your catalogue, factoring in ingredient interactions, upper-limit safety, synergies, and nutrient gaps inferred from a food-frequency questionnaire. Same input always produces the same output, and every recommendation is traceable to the information that produced it. Every recommendation carries the reasons that produced it.</p></div></details>
       <details class="faq-item"><summary>Can I migrate from another quiz tool?</summary><div class="faq-answer"><p>Yes. Most brands switch over in days, not weeks. We map your existing quiz logic into Blend's scoring engine, ingest your catalogue, and you keep your existing embed slot.</p></div></details>
@@ -275,7 +273,6 @@ html,body{max-width:100%;overflow-x:clip}
 
 <section class="closer">
   <div class="wrap">
-    <span class="eyebrow">Get started</span>
     <h2>Pick the right software for your supplement brand.</h2>
     <p>15-day free trial on every plan.</p>
     <div class="closer-ctas">
