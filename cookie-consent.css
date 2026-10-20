@@ -126,20 +126,25 @@
 }
 
 /* Responsive layout */
+/* Compact on a phone (founder, 2026-10-20): stacked, the banner took ~40% of
+   the first screen. The two choices sit side by side at equal width, as on
+   desktop, which also keeps rejecting exactly as easy as accepting. The words
+   are the consent notice and do not change. */
 @media (max-width: 860px) {
   .blend-cookie-banner-inner {
     grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 20px 20px 24px;
+    gap: 12px;
+    padding: 14px 20px 16px;
   }
 
   .blend-cookie-banner-actions {
     width: 100%;
-    flex-direction: column-reverse;
+    flex-direction: row;
   }
 
   .blend-cookie-banner-btn {
-    width: 100%;
+    flex: 1 1 0;
+    width: auto;
   }
 }
 
@@ -149,7 +154,8 @@
   }
 
   .blend-cookie-banner-text {
-    font-size: 13px;
+    font-size: 12.5px;
+    line-height: 1.45;
   }
 
   .blend-cookie-banner-btn {
