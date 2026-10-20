@@ -65,21 +65,62 @@
 
 :root{
   /* text */
-  --ink:#1A1916;--ink-80:rgba(26,25,22,.84);--ink-60:rgba(26,25,22,.68);--ink-40:rgba(26,25,22,.52);
-  --muted:rgba(26,25,22,.66);--muted-on-dark:rgba(255,255,255,.72);
+  --ink:#18181B;--ink-80:rgba(24,24,27,.84);--ink-60:rgba(24,24,27,.68);--ink-40:rgba(24,24,27,.52);
+  --muted:rgba(24,24,27,.64);--muted-on-dark:rgba(255,255,255,.72);
   --white:#ffffff;
 
-  /* surfaces: the ground, and cards raised off it */
-  --ground:#EEEAE3;--ground-2:#EEEAE3;--deep:#0E0E10;
+  /* WHITE. The ground was #EEEAE3 warm cream and is now white, with
+     #FAFAFA for a section that needs to step back. Measured on
+     superpower.com: body #fff, section fills #fafafa, text rgb(24,24,27),
+     which is a COOLER near-black than our #1A1916 and is what stops a
+     white page reading as yellowish.
+
+     This reverses a decision recorded in .impeccable/config.json as
+     "user confirmed: cream is Blend's brand surface colour". The founder
+     asked for it directly on 2026-10-20; that ignore wants updating
+     rather than leaving as a contradiction in the config.
+
+     The separation cream used to give is now gradients and glass, which
+     is the whole point of the direction: softness from light, not from
+     a tinted slab. */
+  --ground:#FFFFFF;--ground-2:#FAFAFA;--deep:#0E0E10;
+
+  /* THE GRADIENTS. One warm, one cool, both very low contrast: they are
+     atmosphere, not decoration, and anything a reader can name as "a
+     gradient" is too strong. --wash-* go behind glass, which is what
+     gives backdrop-filter something to blur. A flat ground makes glass
+     look like a flat tint, which is what the hero did before these. */
+  --wash-warm:radial-gradient(120% 90% at 15% 0%, rgba(231,207,163,.38) 0%, rgba(231,207,163,0) 58%),
+              radial-gradient(90% 80% at 95% 10%, rgba(180,127,57,.18) 0%, rgba(180,127,57,0) 60%);
+  --wash-cool:radial-gradient(100% 80% at 80% 0%, rgba(24,24,27,.05) 0%, rgba(24,24,27,0) 55%);
+  /* On the dark islands, where the same idea has to work in reverse. */
+  --wash-deep:radial-gradient(90% 70% at 20% 0%, rgba(231,207,163,.16) 0%, rgba(231,207,163,0) 55%),
+              radial-gradient(80% 70% at 90% 15%, rgba(180,127,57,.14) 0%, rgba(180,127,57,0) 60%);
+
+  /* GLASS, one definition. rgba fill plus a blur, no border: measured on
+     superpower, the translucency does the separating and an outline on
+     top of it reads as neither. */
+  --glass:rgba(255,255,255,.55);
+  --glass-dark:rgba(255,255,255,.08);
+  --glass-blur:blur(28px) saturate(150%);
   /* The page's ground, and NOT redefined inside .theme-dark. A reveal
      block keeps the ground it sits on as its own background while a
      clipped layer carries the ink, so that the card can inset out of
      something. With --ground it went dark with its own contents and the
      band painted near-black edge to edge, card and surround alike. */
-  --page:#EEEAE3;
-  --surface:#FFFFFF;--surface-2:#F7F5F0;--surface-up:#FFFFFF;
+  --page:#FFFFFF;
+  --surface:#FFFFFF;--surface-2:#FAFAFA;--surface-up:#FFFFFF;
   /* the same ground under its older names, so existing rules resolve */
-  --cream:#EEEAE3;--cream-2:#EEEAE3;--subtle:#EEEAE3;
+  /* ONE GROUND. These were #EEEAE3, the same value as --ground, so the page
+     was a single colour and surfaces.spec's "does not band" walk passed.
+     Setting them to #FAFAFA against a white --ground reintroduced the
+     banding that walk exists to catch: a section starting a shade darker
+     than the body it butts against is the first thing a person notices and
+     the last thing a screenshot does.
+     So they are white too, and a section that needs to step back uses
+     .has-wash. Softness from light, not from a tinted slab, which is the
+     whole direction. */
+  --cream:#FFFFFF;--cream-2:#FFFFFF;--subtle:#FFFFFF;
   --hero-beige:#0E0E10;--hero-tint:#0E0E10;
 
   /* the brand, unchanged */
@@ -92,13 +133,13 @@
      using --sand and --gold directly, because those do not need to. */
   --gold-text:var(--gold-hover);
 
-  --line:rgba(26,25,22,.10);--line-strong:rgba(26,25,22,.20);
+  --line:rgba(24,24,27,.09);--line-strong:rgba(24,24,27,.16);
 
   /* darkened from #C4513B and #3E8A4F, which read 3.82 and 3.54 on the
      ground. These clear 4.5 on the ground and on white. */
   --red-soft:#B14935;--green-soft:#367744;
 
-  --hover-surface:#F7F5F0;--hover-border:#B47F39;
+  --hover-surface:#F4F4F5;--hover-border:#B47F39;
 
   --r-sm:12px;--r-md:16px;--r-lg:20px;--r-xl:24px;
 
@@ -156,4 +197,56 @@ body:has(.sc-hero) .nav:not(.scrolled){
   --shadow-sm:none;
   --shadow-md:none;
   --shadow-lg:none;
+}
+
+
+/* ---- THE DIRECTION, APPLIED ---------------------------------------------
+   White ground, soft light on top of it, glass over the light. The order
+   matters: glass with nothing behind it is a flat tint, which is what the
+   hero looked like before the washes existed.
+
+   Every wash is a background-image on a pseudo-element or on the section
+   itself, never an extra DOM node, so nothing here changes markup. */
+
+/* A section that should feel lit rather than tinted. */
+.has-wash{position:relative;isolation:isolate}
+.has-wash::before{content:"";position:absolute;inset:0;z-index:-1;
+  background-image:var(--wash-warm);pointer-events:none}
+.has-wash-cool::before{background-image:var(--wash-cool)}
+
+/* The dark islands get the same treatment in reverse: the near-black keeps
+   its colour and the light sits on top, so glass over it has something to
+   pick up. */
+/* ::after, NOT ::before. page-hero.css already paints .sc-hero::before and
+   index.html paints .closer::before: those pseudo-elements ARE the dark
+   card, clipped out of the ground. Putting the wash on ::before replaced
+   them, and the endcap went from near-black to a gradient over nothing.
+
+   surfaces.spec.mjs caught it within the minute, because it reads
+   read('.closer', '::before') by name and says so in its own comment. That
+   check exists because a colour regression of exactly this kind passed a
+   screenshot suite twice before. */
+.theme-dark,.sc-hero,.closer,.footer{position:relative;isolation:isolate}
+.theme-dark::after,.sc-hero::after,.closer::after{content:"";position:absolute;
+  inset:0;z-index:0;background-image:var(--wash-deep);pointer-events:none;
+  border-radius:inherit}
+/* the wash sits over the card and under everything written on it */
+.theme-dark > *,.sc-hero > *,.closer > *{position:relative;z-index:1}
+
+/* GLASS, anywhere. Light over a wash, dark over an island. */
+.glass{background:var(--glass);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid rgba(255,255,255,.6)}
+.theme-dark .glass,.sc-hero .glass,.closer .glass{
+  background:var(--glass-dark);border-color:rgba(255,255,255,.1)}
+
+/* Cards stop being opaque white slabs on a white page: on a wash they are
+   glass, which is what keeps the softness when the cream goes. */
+.tier,.faq-item,.mode-card,.split-card,.uc-card,.sci-card{
+  background:var(--glass);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur)}
+
+@media(prefers-reduced-transparency:reduce){
+  .glass,.tier,.faq-item,.mode-card,.split-card,.uc-card,.sci-card{
+    background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}
 }

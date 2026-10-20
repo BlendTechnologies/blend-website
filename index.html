@@ -55,8 +55,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(34px,4.2vw,52px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
-.h2{font-size:clamp(26px,2.9vw,34px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0;text-wrap:balance}
+.h1{font-size:clamp(32px,3.9vw,48px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
+.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0;text-wrap:balance}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
@@ -94,25 +94,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
 .cta-alt a{color:var(--gold-text);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
 .cta-alt a:hover{text-decoration-color:var(--sand)}
-/* The divided strip under the hero. Three facts, a label over a value,
-   hairline rules between, on the same glass as the ghost button. Grid
-   rather than flex so the dividers land on the track edges and the
-   columns stay equal whatever the copy does. Stacks on a phone, where
-   three 100px columns would wrap into nonsense. */
+/* The divided strip under the hero.
+   REBUILT. The first attempt put the three facts in a bordered, filled
+   box with hard rules, and the founder's note was that it had nothing to
+   do with the reference. Looking again at that shot: there IS no box. The
+   facts sit directly on a soft blurred backdrop with a hairline between
+   them, and every bit of the softness comes from what is BEHIND the text,
+   not from a container around it. So: no fill, no border, no radius. Just
+   the dividers and the light the hero's wash is already casting. */
 .hero-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  margin-top:26px;border-radius:14px;overflow:hidden;
-  background:rgba(255,255,255,.07);
-  backdrop-filter:blur(32px) saturate(140%);
-  -webkit-backdrop-filter:blur(32px) saturate(140%)}
-.hero-strip > div{padding:12px 16px;border-left:1px solid rgba(255,255,255,.12);
-  display:grid;gap:2px;min-width:0}
-.hero-strip > div:first-child{border-left:0}
-.hero-strip b{font-size:13px;font-weight:500;color:var(--white);letter-spacing:-.005em}
-.hero-strip span{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4}
+  margin-top:30px;max-width:620px}
+.hero-strip > div{padding:2px 20px;border-left:1px solid rgba(255,255,255,.14);
+  display:grid;gap:3px;min-width:0}
+.hero-strip > div:first-child{border-left:0;padding-left:0}
+.hero-strip b{font-size:13.5px;font-weight:500;color:var(--white);letter-spacing:-.005em}
+.hero-strip span{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.4}
 @media(max-width:620px){
-  .hero-strip{grid-template-columns:minmax(0,1fr)}
-  .hero-strip > div{border-left:0;border-top:1px solid rgba(255,255,255,.12)}
-  .hero-strip > div:first-child{border-top:0}
+  .hero-strip{grid-template-columns:minmax(0,1fr);gap:14px;max-width:none}
+  .hero-strip > div{border-left:0;padding:0}
 }
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
 /* No height here. The plan card's own content and its own padding set
@@ -384,7 +383,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .split-card.brand{background:var(--deep);color:var(--white);border:1px solid transparent}
 .split-pill{display:inline-flex;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
 .split-card.brand .split-pill{color:rgba(255,255,255,.55)}
-.split-card h3{font-size:21px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:500}
+.split-card h3{font-size:19px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:500}
 .split-bullets{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:8px}
 .split-bullets li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink-80)}
 .split-bullets li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:9px;flex-shrink:0}
@@ -776,7 +775,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    progression. Wrapping them in a single element would have been simpler
    and is not available: </main> closes between them. */
 .closer > .wrap{position:relative;z-index:1}
-.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(25px,2.8vw,33px);color:var(--white)}
+.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(23px,2.4vw,29px);color:var(--white)}
 .closer .lead{margin:0 auto 32px;max-width:520px;color:var(--muted-on-dark)}
 .closer .eyebrow{display:inline-block;margin-bottom:14px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
@@ -1823,7 +1822,7 @@ a.vrow:hover,a.vrow:focus-visible{
   </div>
   <button type="button" class="sc-cue sc-cue--desktop" data-sc-cue="#how" aria-label="Scroll to How it works"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </section>
-<section class="section section-cream" id="how">
+<section class="section section-cream has-wash" id="how">
   <div class="wrap">
     <div class="section-head"><h2 class="h2">Your catalogue. Their personalised plan.</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
     <div class="steps">
@@ -1912,7 +1911,7 @@ a.vrow:hover,a.vrow:focus-visible{
   </div>
 </section>
 
-<section class="section section-cream" id="pricing">
+<section class="section section-cream has-wash" id="pricing">
   <div class="wrap">
     <div class="section-head"><h2 class="h2">Powerful personalisation. Simple pricing.</h2><p class="lead">Start with a 15-day free trial. Choose the capacity and insights your business needs.</p></div>
     <div class="pricing-controls">

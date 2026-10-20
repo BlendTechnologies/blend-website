@@ -54,8 +54,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(34px,4.2vw,52px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
-.h2{font-size:clamp(26px,2.9vw,34px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0;text-wrap:balance}
+.h1{font-size:clamp(32px,3.9vw,48px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
+.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0;text-wrap:balance}
 .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
@@ -228,7 +228,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .split-card.brand{background:var(--deep);color:var(--white);border:1px solid transparent}
 .split-pill{display:inline-flex;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
 .split-card.brand .split-pill{color:rgba(255,255,255,.55)}
-.split-card h3{font-size:21px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:500}
+.split-card h3{font-size:19px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:500}
 .split-bullets{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:8px}
 .split-bullets li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink-80)}
 .split-bullets li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:9px;flex-shrink:0}
@@ -537,7 +537,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .vrow-icon{width:34px;height:34px}
 }
 .closer{padding:120px 0 72px;text-align:center;background:var(--cream)}
-.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(25px,2.8vw,33px)}
+.closer .h1{max-width:760px;margin:0 auto 20px;font-size:clamp(23px,2.4vw,29px)}
 .closer .lead{margin:0 auto 32px;max-width:520px}
 .closer-ctas{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .closer-foot{margin-top:28px;font-size:14px;color:var(--muted)}
@@ -1582,6 +1582,44 @@ body{background:var(--ground)}
   .hw-shot.is-in [data-reveal]{animation:none !important}
   [data-zone]{transition:none !important}
 }
+
+/* ---- the pinned run ----------------------------------------------------
+   Text scrolls, the stage stays. The stage is SHORTER than the viewport by
+   construction, because a sticky box taller than its scrollport does not
+   stick, it stops at the wrong moment. Learned on /sample-report, where the
+   aside was the sticky one until it grew two cards tall. */
+.hw-run-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,48%);
+  gap:72px;align-items:start}
+.hw-track{display:grid}
+/* Each zone is a screenful, which is what gives the stage something to
+   travel against. min-height rather than height so long copy still fits. */
+.hw-zone{min-height:78vh;display:flex;flex-direction:column;justify-content:center;
+  padding:48px 0}
+.hw-stage{position:sticky;top:calc(var(--nav-h) + 56px)}
+.hw-stage-inner{position:relative;aspect-ratio:16/9;border-radius:var(--r-md);
+  overflow:hidden;background:var(--glass);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--line)}
+.hw-stage .hw-shot{position:absolute;inset:0;margin:0;opacity:0;
+  transition:opacity .45s ease;border:0;background:none}
+.hw-stage .hw-shot.is-active{opacity:1}
+/* The empty slot still reads as a reserved frame rather than a hole. */
+.hw-stage .hw-shot:empty{border:1px dashed var(--line-strong);border-radius:var(--r-md);
+  background:var(--surface-2)}
+
+@media(max-width:900px){
+  /* One column, nothing pinned, every frame in flow: the same page the
+     no-JavaScript reader gets. */
+  .hw-run-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .hw-zone{min-height:0;padding:34px 0}
+  .hw-stage{position:static}
+  .hw-stage-inner{aspect-ratio:auto;background:none;backdrop-filter:none;border:0}
+  .hw-stage .hw-shot{position:relative;inset:auto;opacity:1;aspect-ratio:16/9;
+    margin-bottom:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hw-stage .hw-shot{transition:none}
+}
 </style>
 </head>
 <body>
@@ -1606,16 +1644,58 @@ body{background:var(--ground)}
 
 <main id="main">
 <section class="theme-dark ph ph--fill sc-hero" data-sc="hero"><div class="wrap"><div class="ph-inner"><h1 class="h1">Live in an afternoon.</h1><p class="lead">The plug and play solution for true personalisation.</p><p class="ph-meta" id="hw-price" data-plan="starter"><b id="hw-price-from">From $49/month</b> <span class="ph-dot" aria-hidden="true"></span> <span class="hw-price-trial">15-day free trial</span></p><div class="ph-ctas"><a href="/try" class="btn btn-primary btn-lg">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Book a call</a></div></div><nav class="ph-ix" aria-label="The six steps"><a class="ph-ix-item" href="#connect"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">01</span><span class="ph-ix-name">Connect</span></a><a class="ph-ix-item" href="#match"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">02</span><span class="ph-ix-name">Match</span></a><a class="ph-ix-item" href="#design"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">03</span><span class="ph-ix-name">Design</span></a><a class="ph-ix-item" href="#launch"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">04</span><span class="ph-ix-name">Launch</span></a><a class="ph-ix-item" href="#recommend"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">05</span><span class="ph-ix-name">Recommend</span></a><a class="ph-ix-item" href="#analyse"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">06</span><span class="ph-ix-name">Analyse</span></a></nav></div><button type="button" class="sc-cue" data-sc-cue="#connect" aria-label="Scroll to content"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></section>
-<div class="hw-steps">
-<section class="hw-step" id="connect"><span class="hw-anchor" id="step-1" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><h2>Start with your catalogue.</h2><p class="hw-lead">Connect Shopify, import a CSV, pick from our catalogue or add products by hand. Your catalogue is the starting point for every recommendation.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Connect your catalogue with a click and it re-syncs on a schedule, so price and stock changes flow through on their own. Or upload a CSV and let us work out what goes where.</p></div></div><div class="hw-vis" data-sc="zoom"><!-- DEMO SLOT: catalogue management, 15-20s. Product import, AI-assisted
+<!-- THE PINNED RUN. One sticky stage on the right, six zones of text
+     scrolling past it on the left, the stage swapping to match. The
+     founder asked for superpower.com/how-it-works, where
+     .steps-scroll_image-sticky pins a panel inside a taller track and
+     cross-fades between three images.
+
+     NO GSAP AND NO LENIS. They drive theirs with both; sticky plus an
+     IntersectionObserver gets the same result in a dozen lines, and
+     Lenis hijacks native scrolling, which is the first thing to break
+     on a trackpad or under a screen reader.
+
+     The step-N anchors stay on the zones: the homepage six-step preview
+     links straight to them. -->
+<div class="hw-steps hw-run">
+  <div class="wrap hw-run-grid">
+    <div class="hw-track">
+      <article class="hw-zone" data-step="1"><span class="hw-anchor" id="step-1" aria-hidden="true"></span>
+        <h2>Start with your catalogue.</h2><p class="hw-lead">Connect Shopify, import a CSV, pick from our catalogue or add products by hand. Your catalogue is the starting point for every recommendation.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Connect your catalogue with a click and it re-syncs on a schedule, so price and stock changes flow through on their own. Or upload a CSV and let us work out what goes where.</p></div>
+      </article>
+      <article class="hw-zone" data-step="2"><span class="hw-anchor" id="step-2" aria-hidden="true"></span>
+        <h2>Connect products to the data.</h2><p class="hw-lead">Blend reads what&#8217;s in each product, matches it to its research database, and fills in the data the engine scores. You review every match before anything is saved.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Blend AI reads your whole catalogue and pre-fills everything the engine needs from what is actually in each product: every ingredient, including the ones combined into a single formula. You review it, change whatever you want, and nothing is saved until you apply it.</p></div><p class="hw-more"><a href="/science">How the engine works &#8594;</a></p>
+      </article>
+      <article class="hw-zone" data-step="3"><span class="hw-anchor" id="step-3" aria-hidden="true"></span>
+        <h2>Your questions. Your look and feel.</h2><p class="hw-lead">Build the experience in your brand&#8217;s voice. Edit the content, adjust the design, and preview the quiz as your customers will see it.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Start from your industry&#8217;s template and make it yours in the editor. The only limit on how it looks and feels should be what you can picture. If you picture something the editor cannot do yet, our team will build it. If you would rather not start from a blank page, let Blend AI draft it.</p></div>
+      </article>
+      <article class="hw-zone" data-step="4"><span class="hw-anchor" id="step-4" aria-hidden="true"></span>
+        <h2>Put it where customers shop.</h2><p class="hw-lead">Embed the quiz on a page, open it from a button as a pop-up, or share a direct link.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Paste one script once, into your site, your app or an email campaign. Everything you change afterwards updates itself, with no second visit to the code. Lock it to the domains you choose, so nobody else can run your quiz.</p></div>
+      </article>
+      <article class="hw-zone" data-step="5"><span class="hw-anchor" id="step-5" aria-hidden="true"></span>
+        <h2>Their answers. A plan of their own.</h2><p class="hw-lead">The engine scores every product in your catalogue against each customer&#8217;s answers, targets and your rules, then explains every pick.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>This goes well beyond tags and personas. Every product runs through a multi-layer engine that weighs the customer&#8217;s answers, the product&#8217;s own data and the safety rules. Every pick comes back with the reason behind it, and the method underneath that.</p></div><p class="hw-more"><a href="/sample-report">See the full sample report &#8594;</a></p>
+      </article>
+      <article class="hw-zone" data-step="6"><span class="hw-anchor" id="step-6" aria-hidden="true"></span>
+        <h2>Learn from every journey.</h2><p class="hw-lead">Hear your customers in their own words. See where they engage, where they drop off, and what they need from your range.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>This is first-party data you own outright: what lifts your quiz&#8217;s conversion, who your customers actually are, what they came for, and what they expect a personalised range to include. Catalogue gaps turns the last of those into a stocking list: the products your customers keep asking for and you do not yet sell.</p></div>
+      </article>
+    </div>
+    <div class="hw-stage" aria-hidden="true">
+      <div class="hw-stage-inner">
+        <!-- DEMO SLOT: catalogue management, 15-20s. Product import, AI-assisted
      product matching, ingredient and benefit configuration. Drop a <video
      muted loop playsinline preload="none" poster="..."> in here; .hw-shot
-     already reserves the 16:9 box. --><figure class="hw-shot" data-demo="catalogue"></figure></div></div></div></section><section class="hw-step hw-step--flip" id="match"><span class="hw-anchor" id="step-2" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><h2>Connect products to the data.</h2><p class="hw-lead">Blend reads what&#8217;s in each product, matches it to its research database, and fills in the data the engine scores. You review every match before anything is saved.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Blend AI reads your whole catalogue and pre-fills everything the engine needs from what is actually in each product: every ingredient, including the ones combined into a single formula. You review it, change whatever you want, and nothing is saved until you apply it.</p></div><p class="hw-more"><a href="/science">How the engine works &#8594;</a></p></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"></figure></div></div></div></section><section class="hw-step" id="design"><span class="hw-anchor" id="step-3" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><h2>Your questions. Your look and feel.</h2><p class="hw-lead">Build the experience in your brand&#8217;s voice. Edit the content, adjust the design, and preview the quiz as your customers will see it.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Start from your industry&#8217;s template and make it yours in the editor. The only limit on how it looks and feels should be what you can picture. If you picture something the editor cannot do yet, our team will build it. If you would rather not start from a blank page, let Blend AI draft it.</p></div></div><div class="hw-vis" data-sc="zoom"><!-- DEMO SLOT: quiz builder, 20-30s. Question editing, branding
-     customisation, quiz preview. --><figure class="hw-shot" data-demo="quiz-builder"></figure></div></div></div></section><section class="hw-step hw-step--flip" id="launch"><span class="hw-anchor" id="step-4" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><h2>Put it where customers shop.</h2><p class="hw-lead">Embed the quiz on a page, open it from a button as a pop-up, or share a direct link.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Paste one script once, into your site, your app or an email campaign. Everything you change afterwards updates itself, with no second visit to the code. Lock it to the domains you choose, so nobody else can run your quiz.</p></div></div><div class="hw-vis" data-sc="zoom"><!-- DEMO SLOT: analytics, 15-20s. Dashboard, quiz engagement,
-     customer insights. --><figure class="hw-shot" data-demo="analytics"></figure></div></div></div></section>
-<section class="hw-step" id="recommend"><span class="hw-anchor" id="step-5" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><h2>Their answers. A plan of their own.</h2><p class="hw-lead">The engine scores every product in your catalogue against each customer&#8217;s answers, targets and your rules, then explains every pick.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>This goes well beyond tags and personas. Every product runs through a multi-layer engine that weighs the customer&#8217;s answers, the product&#8217;s own data and the safety rules. Every pick comes back with the reason behind it, and the method underneath that.</p></div><p class="hw-more"><a href="/sample-report">See the full sample report &#8594;</a></p></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"></figure></div></div></div></section><section class="hw-step hw-step--flip" id="analyse"><span class="hw-anchor" id="step-6" aria-hidden="true"></span><div class="wrap"><div class="hw-step-grid"><div class="hw-step-text"><h2>Learn from every journey.</h2><p class="hw-lead">Hear your customers in their own words. See where they engage, where they drop off, and what they need from your range.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>This is first-party data you own outright: what lifts your quiz&#8217;s conversion, who your customers actually are, what they came for, and what they expect a personalised range to include. Catalogue gaps turns the last of those into a stocking list: the products your customers keep asking for and you do not yet sell.</p></div></div><div class="hw-vis" data-sc="zoom"><figure class="hw-shot"></figure></div></div></div></section>
+     already reserves the 16:9 box. --><figure class="hw-shot is-active" data-demo="catalogue" data-step="1"></figure>
+        <figure class="hw-shot" data-step="2"></figure>
+        <!-- DEMO SLOT: quiz builder, 20-30s. Question editing, branding
+     customisation, quiz preview. --><figure class="hw-shot" data-demo="quiz-builder" data-step="3"></figure>
+        <!-- DEMO SLOT: analytics, 15-20s. Dashboard, quiz engagement,
+     customer insights. --><figure class="hw-shot" data-demo="analytics" data-step="4"></figure>
+        <figure class="hw-shot" data-step="5"></figure>
+        <figure class="hw-shot" data-step="6"></figure>
+      </div>
+    </div>
+  </div>
 </div>
-<section class="theme-dark closer hw-closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact"><div class="wrap"><h2 class="h2">See it from your customer&#8217;s side.</h2><p class="lead">Take the quiz and explore a personalised result.</p><div class="closer-ctas"><a href="/try" class="btn btn-primary">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39" class="btn btn-ghost" target="_blank" rel="noopener">Book a call</a></div><p class="hw-closer-alt"><a href="/sample-report">See a sample report &#8594;</a></p></div></section>
 </main>
 <footer class="theme-dark footer sc-reveal sc-reveal--bottom" data-sc="endcap">
   <div class="wrap">
@@ -1926,6 +2006,40 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
 </script>
 <script src="/scroll-cards.js"></script>
 <script src="/cookie-consent.js">
+</script>
+<script>
+/* Which zone is in front of the stage. An IntersectionObserver with the
+   root box squeezed to a band across the middle of the viewport, so the
+   active step is whichever one is being READ, not whichever happens to
+   touch an edge. No library: GSAP and Lenis do this on the reference site
+   and neither is needed for a cross-fade.
+
+   Ships with step 1 already active, so a reader with no JavaScript, or one
+   who arrives before this runs, sees a stage with something in it rather
+   than an empty box. */
+(function(){
+  var zones = [].slice.call(document.querySelectorAll('.hw-zone'));
+  var shots = [].slice.call(document.querySelectorAll('.hw-stage .hw-shot'));
+  if (!zones.length || !shots.length || !('IntersectionObserver' in window)) return;
+
+  function show(step){
+    shots.forEach(function(f){
+      f.classList.toggle('is-active', f.getAttribute('data-step') === step);
+    });
+  }
+  var io = new IntersectionObserver(function(entries){
+    /* Most-visible wins. Two zones overlap the band during a scroll, and
+       picking the first in document order makes the stage flick backwards
+       on the way down. */
+    var best = null;
+    entries.forEach(function(e){
+      if (e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio)) best = e;
+    });
+    if (best) show(best.target.getAttribute('data-step'));
+  }, { rootMargin: '-35% 0px -35% 0px', threshold: [0, .25, .5, .75, 1] });
+
+  zones.forEach(function(z){ io.observe(z); });
+})();
 </script>
 </body>
 </html>
