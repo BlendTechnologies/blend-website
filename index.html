@@ -43,7 +43,7 @@
 /* ============================================================
    BLEND MARKETING SITE
    ============================================================ */
-:root{--content:1127px}
+:root{--content:1340px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--ground);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
@@ -53,26 +53,26 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--gold);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;z-index:200}
 .skip:focus{left:16px}
-.wrap{max-width:var(--content);margin:0 auto;padding:0 63px}
+.wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(30px,3.4vw,42px);line-height:1.166;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
+.h1{font-size:clamp(32px,3.9vw,48px);line-height:1.06;letter-spacing:-.025em;font-weight:500;margin:0;text-wrap:balance}
 .h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1;letter-spacing:-.022em;font-weight:500;margin:0;text-wrap:balance}
-/* THE SPACING SYSTEM, measured off superpower.com rather than guessed.
-   Their root is a fluid 14.0861px and everything is a multiple of it, in
-   half-rem steps, on an 80rem container:
+/* THE LEAD, measured off superpower.com rather than guessed. Their root is
+   a fluid 14.0861px and the lead is 1rem on it, lh 1.5rem, ls -0.014em,
+   with half-rem gaps around it:
 
-     h1      3rem    lh 3.5rem   ls -0.0225em
-     lead    1rem    lh 1.5rem   ls -0.014em
      h1 -> lead          0.5rem  =  7px
      lead -> buttons     2.5rem  = 35px
      button row gap      1rem    = 14px
-     heading -> body     0.5rem  =  7px
-     section padding     5rem    = 70px   (7.5rem on a feature band)
-     container          80rem    = 1127px, gutter 4.5rem = 63px
 
    The founder's note was that the LEAD is the subheading and it is too
    big: ours was 16-18px against their 14, and our h1-to-lead gap was 22px
-   against their 7. The gap mattered more than the size. */
+   against their 7. The gap mattered more than the size.
+
+   NOTHING ELSE MOVED. An earlier pass took the whole 80rem container,
+   the 4.5rem gutter and the 3rem h1 with it, across twelve files, which
+   was not what was asked for and was reverted. The heading scale, the
+   container and the section rhythm are this site's own. */
 .lead{font-size:14px;line-height:1.5;letter-spacing:-.014em;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:44px;}
 .btn-primary{background:var(--gold-strong);color:var(--white)}
@@ -270,10 +270,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    the shared default is shorter for the pages whose hero is only type. */
 :root{--sc-hero-min:calc(100vh - var(--nav-h))}
 @supports (height:100svh){ :root{--sc-hero-min:calc(100svh - var(--nav-h))} }
-:root{--sec:70px;--sec-tight:70px;--sec-join:35px}
+:root{--sec:72px;--sec-tight:62px;--sec-join:30px}
 @media(max-width:860px){:root{--sec-join:44px}}
-@media(max-width:760px){:root{--sec:56px;--sec-tight:56px;--sec-join:28px}}
-@media(max-width:560px){.wrap{padding:0 20px}}
+@media(max-width:760px){:root{--sec:58px;--sec-tight:54px;--sec-join:28px}}
 .section{padding:var(--sec) 0}
 .section--tight{padding:var(--sec-tight) 0}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
