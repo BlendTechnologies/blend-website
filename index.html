@@ -1603,114 +1603,103 @@ html,body{max-width:100%;overflow-x:clip}
 }
 
 /* ---- The hero pair: a client's quiz, in smoked glass ---------------------
-   Founder's brief, 2026-10-20. This pair is a FICTIONAL CLIENT's
-   white-labelled quiz, not Blend's own interface, so it deliberately does
-   not wear Blend's black and gold: graphite, slate, smoked grey and ivory,
-   with a muted sage kept for small status marks. Beside the gold "Try the
-   demo" the contrast is the point -- Blend delivers the brand's look, not
-   its own. Markup, the intro sequence and the product deck are untouched;
-   one block of css, every rule scoped to .hero-stage.
+   A FICTIONAL CLIENT's white-labelled quiz, not Blend's own interface, so it
+   deliberately does not wear Blend's black and gold. Beside the gold "Try
+   the demo" the contrast is the point. Markup, the intro sequence and the
+   product deck are untouched; one block of css, every rule scoped to
+   .hero-stage.
 
-   No orange, bronze, brown, pink or purple inside the pair. That reached
-   further than the bronze this replaces: on the dark hero --red-soft is
-   #E8826B, a coral, and the breakdown's middle bars were gold. Its three
-   states are now brightness and sage -- the biggest gaps in ivory, the
-   smaller ones in grey, on-track in sage.
-
-   THE QUIZ is the solid stage, slate #303236. Unselected answers are a
-   darker layer with a grey hairline; selected is lighter graphite (#55585A,
-   part-transparent so it stays "slightly" lighter) with an ivory outline
-   and a small ivory tick. A 2px ivory progress line. Continue is ivory with
-   dark text.
-
-   THE PLAN is the glass: neutral smoked grey at ~50% over a 36px blur, so
-   the quiz shows through it, softened, where they overlap. A faint grain
-   keeps it matte; an ivory hairline along the top and a soft drop beneath
-   float it. The recommendation cards inside are deep graphite and opaque,
-   for contrast. Pills are translucent grey; Add to cart is ivory.
-
-   COMPOSITION: the plan was 63.5% of the stage and covered most of the
-   quiz's right half. It is 57% from 1200 up (where the two overlap), so its
-   left edge sits ~40px further right and its right edge does not move --
-   nothing new near the hero card's edge to clip. */
+   2026-10-20, second pass, founder's notes on the first:
+   - BOTH cards are glass now. The quiz was solid slate (#303236), which is
+     what read as "too greyish"; it is dark smoked glass, the plan a lighter
+     smoked glass over it, and the light behind them is stronger so the frost
+     has something to soften.
+   - White, not beige: the buttons, ticks, progress line and outlines are
+     white, the text a neutral near-white.
+   - The breakdown's consumption levels keep their colours: the base rules'
+     grey, gold and coral bars are not overridden here.
+   - The quiz's B. is the bare mark, like the plan's, not a black tile.
+   - The two cards are one size: 57% of the stage each from 1200 up, where
+     they overlap. Their heights already matched. */
 .hero-stage{
-  --hs-bg:#17181A;--hs-slate:#303236;--hs-ivory:#F4F3F0;--hs-grey:#A8AAAC;
-  --hs-selected:#55585A;--hs-accent:#E5E2DB;--hs-sage:#B8C5B9;
-  --hs-rule:rgba(244,243,240,.09);--hs-rule-2:rgba(244,243,240,.17)}
+  --hs-bg:#17181A;--hs-text:#F7F7F7;--hs-white:#FFFFFF;--hs-grey:#A8AAAC;--hs-sage:#B8C5B9;
+  --hs-rule:rgba(255,255,255,.10);--hs-rule-2:rgba(255,255,255,.20)}
 
-/* ambient light behind the pair: neutral, low, and every ellipse ends
-   inside its own box so there is no edge to find. The brighter patch sits
-   behind the plan, so its frost has some tone in it to soften. */
+/* the light behind the pair: neutral, and every ellipse ends inside its own
+   box so there is no edge to find. Brighter than the first pass -- glass
+   over a flat black is a flat grey, which is what the quiz looked like. */
 .hero-visual::before{content:"";position:absolute;inset:-16% -12%;z-index:0;pointer-events:none;
   background:
-    radial-gradient(38% 40% at 62% 58%, rgba(244,243,240,.075) 0%, rgba(244,243,240,.025) 45%, rgba(244,243,240,0) 100%),
-    radial-gradient(28% 28% at 30% 30%, rgba(168,170,172,.06) 0%, rgba(168,170,172,0) 100%)}
+    radial-gradient(34% 36% at 64% 50%, rgba(255,255,255,.12) 0%, rgba(255,255,255,.04) 45%, rgba(255,255,255,0) 100%),
+    radial-gradient(26% 28% at 30% 28%, rgba(255,255,255,.09) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(22% 22% at 40% 78%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 100%)}
 
-/* 1. the quiz */
+@media(min-width:1200px){.hero-stage .quiz,.hero-stage .results{width:57%}}
+
+/* 1. the quiz, dark smoked glass */
 .hero-stage .quiz{
-  background:linear-gradient(180deg,rgba(244,243,240,.03) 0%,rgba(244,243,240,0) 40%),var(--hs-slate);
-  border:1px solid var(--hs-rule);border-radius:22px;padding:28px 28px 24px;color:var(--hs-ivory);
-  box-shadow:inset 0 1px 0 rgba(244,243,240,.06),0 28px 56px -28px rgba(0,0,0,.7)}
-.hero-stage .quiz .qtitle{color:var(--hs-ivory)}
-.hero-stage .qprog-bar{height:2px;background:var(--hs-rule)}
-.hero-stage .qprog-fill{background:var(--hs-accent)}
-.hero-stage .qbrand{background:var(--hs-bg);box-shadow:inset 0 0 0 1px var(--hs-rule)}
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.015) 55%),rgba(20,21,23,.38);
+  -webkit-backdrop-filter:blur(40px) saturate(120%);backdrop-filter:blur(40px) saturate(120%);
+  border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 28px 24px;color:var(--hs-text);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -30px rgba(0,0,0,.75)}
+.hero-stage .quiz .qtitle{color:var(--hs-text)}
+.hero-stage .qprog-bar{height:2px;background:rgba(255,255,255,.12)}
+.hero-stage .qprog-fill{background:var(--hs-white)}
+/* the bare mark, as on the plan card: no tile, and left-aligned with the
+   question rather than centred in a 30px box */
+.hero-stage .qbrand{background:none;box-shadow:none;border-radius:0;width:auto;height:auto;color:var(--hs-text)}
+.hero-stage .qbrand .qbrand-mark{width:17px}
 .hero-stage .qopts{gap:12px}
-.hero-stage .qopt{color:var(--hs-ivory);background:rgba(23,24,26,.32);
+.hero-stage .qopt{color:var(--hs-text);background:rgba(0,0,0,.18);
   border:1px solid var(--hs-rule);border-radius:12px;padding:12px 16px;
   transition:border-color .3s cubic-bezier(.2,.7,.25,1),background .3s cubic-bezier(.2,.7,.25,1)}
-.hero-stage .qopt:hover{border-color:var(--hs-rule-2);background:rgba(23,24,26,.18)}
-.hero-stage .qopt.active{background:rgba(85,88,90,.6);border-color:rgba(229,226,219,.42)}
-.hero-stage .qopt-check{width:18px;height:18px;border-color:rgba(244,243,240,.22)}
-.hero-stage .qopt.active .qopt-check{background:var(--hs-accent);border-color:var(--hs-accent)}
+.hero-stage .qopt:hover{border-color:var(--hs-rule-2);background:rgba(255,255,255,.03)}
+.hero-stage .qopt.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5)}
+.hero-stage .qopt-check{width:18px;height:18px;border-color:rgba(255,255,255,.24)}
+.hero-stage .qopt.active .qopt-check{background:var(--hs-white);border-color:var(--hs-white)}
 .hero-stage .qopt.active .qopt-check svg path{stroke:var(--hs-bg)!important}
-.hero-stage .quiz-next{background:var(--hs-accent);color:var(--hs-bg);border-radius:10px;padding:10px 18px}
-.hero-stage .quiz-next:hover{background:var(--hs-ivory)}
+.hero-stage .quiz-next{background:var(--hs-white);color:var(--hs-bg);border-radius:10px;padding:10px 18px}
+.hero-stage .quiz-next:hover{background:rgba(255,255,255,.86)}
 
-/* 2. the plan, in neutral smoked glass */
+/* 2. the plan, lighter smoked glass, over the quiz */
 .hero-stage .results{
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    linear-gradient(160deg,rgba(64,66,70,.5) 0%,rgba(42,44,47,.5) 50%,rgba(28,29,32,.58) 100%);
-  -webkit-backdrop-filter:blur(36px) saturate(110%);backdrop-filter:blur(36px) saturate(110%);
-  border:1px solid rgba(244,243,240,.10);border-radius:26px;
-  box-shadow:inset 0 1px 0 rgba(244,243,240,.08),
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(160deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 45%,rgba(255,255,255,.01) 100%),rgba(34,35,38,.36);
+  -webkit-backdrop-filter:blur(44px) saturate(125%);backdrop-filter:blur(44px) saturate(125%);
+  border:1px solid rgba(255,255,255,.14);border-radius:26px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),
     0 40px 80px -32px rgba(0,0,0,.75),0 16px 32px -18px rgba(0,0,0,.5)}
-@media(min-width:1200px){.hero-stage .results{width:57%}}
-.hero-stage .rbrand{color:var(--hs-ivory)}
-/* #C9CACB rather than the palette's #A8AAAC: the label sits on the glass,
-   over the quiz, and #A8AAAC measured 3.7:1 there */
+.hero-stage .rbrand{color:var(--hs-text)}
 .hero-stage .rlabel{color:#C9CACB}
-.hero-stage .rtitle{color:var(--hs-ivory)}
-.hero-stage .rprofile span{color:#C9CACB;background:rgba(244,243,240,.06);border-color:rgba(244,243,240,.10)}
+.hero-stage .rtitle{color:var(--hs-text)}
+.hero-stage .rprofile span{color:#D4D5D6;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12)}
 .hero-stage .pc-deck{border-radius:16px}
 .hero-stage .pc{background:linear-gradient(180deg,#1C1D20 0%,var(--hs-bg) 100%);
-  border:1px solid rgba(244,243,240,.07);border-radius:16px;color:var(--hs-ivory);
-  box-shadow:inset 0 1px 0 rgba(244,243,240,.045)}
-.hero-stage .pc-name{color:var(--hs-ivory)}
+  border:1px solid rgba(255,255,255,.08);border-radius:16px;color:var(--hs-text);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.hero-stage .pc-name{color:var(--hs-text)}
 .hero-stage .pc-badge{color:var(--hs-sage)}
 .hero-stage .pc-tag{color:var(--hs-grey)}
-.hero-stage .pc-tag.is-match{color:var(--hs-accent);background:rgba(244,243,240,.07);border-color:rgba(244,243,240,.14)}
-.hero-stage .pc-shot{border-color:rgba(244,243,240,.12)}
+.hero-stage .pc-tag.is-match{color:var(--hs-text);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.hero-stage .pc-shot{border-color:rgba(255,255,255,.12)}
 .hero-stage .pc-desc{color:var(--hs-grey)}
 .hero-stage .pc-rule{background:var(--hs-rule)}
 .hero-stage .pc-facts dt{color:#8E9092}
 .hero-stage .pc-facts dd{color:#C9CACB}
-.hero-stage .pc-cta{background:var(--hs-accent);color:var(--hs-bg);border-radius:10px}
-/* the breakdown: brightness carries the size of the gap, sage marks on-track */
-.hero-stage .nb-n,.hero-stage .nb-v{color:var(--hs-grey)}
-.hero-stage .nb-bar{background:var(--hs-rule)}
-.hero-stage .nb-bar i{background:var(--hs-sage)}
-.hero-stage .nb-bar i.is-mid{background:var(--hs-grey)}
-.hero-stage .nb-bar i.is-low{background:var(--hs-accent)}
-.hero-stage .nb-v.is-mid{color:#C9CACB}
-.hero-stage .nb-v.is-low{color:var(--hs-accent)}
+.hero-stage .pc-cta{background:var(--hs-white);color:var(--hs-bg);border-radius:10px}
+/* consumption levels: the names and plain values go neutral; the bars and
+   the flagged values keep the base rules' colours */
+.hero-stage .nb-n,.hero-stage .nb-v:not(.is-mid):not(.is-low){color:var(--hs-grey)}
 
 /* no backdrop-filter, or the reader asked for less transparency: the same
-   smoked grey, opaque */
+   two smokes, opaque */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .hero-stage .quiz{background:#1E1F22}
   .hero-stage .results{background:linear-gradient(160deg,#3A3C40 0%,#2B2D30 50%,#1F2023 100%)}
 }
 @media(prefers-reduced-transparency:reduce){
+  .hero-stage .quiz{background:#1E1F22;-webkit-backdrop-filter:none;backdrop-filter:none}
   .hero-stage .results{background:linear-gradient(160deg,#3A3C40 0%,#2B2D30 50%,#1F2023 100%);
     -webkit-backdrop-filter:none;backdrop-filter:none}
 }
