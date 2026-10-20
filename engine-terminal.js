@@ -55,7 +55,20 @@
      page ships and the state this handler builds cannot drift apart. */
   var CUT = [7, 19, 26, 41, 53, 68, 74, 88, 97, 111, 123, 134, 141, 150, 157];
   var PICK = [34, 60, 92, 118, 129, 146];
-  var HOLD = [3200, 3100, 3000, 3400, 4400, 4400, 2400];
+  /* The first hold carries the profile for PERSONA ms and then a second of
+     the log, so the two move together. */
+  var HOLD = [4500, 3100, 3000, 3400, 4400, 4400, 2400];
+  /* A page can ask for a shorter run. The homepage does (founder,
+     2026-10-20: "make the scroller shorter, animation shorter in general"):
+     its own holds, a wider and flatter matrix, a shorter look at the
+     profile, and a log that opens full. /science gives none of these and
+     runs exactly as it always has. */
+  var given = (card.getAttribute('data-tm-hold') || '').split(',').map(Number)
+    .filter(function (v) { return v > 0; });
+  if (given.length === HOLD.length) { HOLD = given; } else { given = []; }
+  var COLS = Number(card.getAttribute('data-tm-cols')) || 16;
+  /* the scoring wave crosses the matrix inside three quarters of its stage */
+  var STEP = given.length ? HOLD[4] * 0.75 / COLS : 230;
 
   /* The pools are sized against a stage, not against the screen: a stage
      runs about 36 lines at this rate, so a pool shorter than that repeats
@@ -94,7 +107,10 @@
     'turmeric-complex', 'milk-thistle', 'saw-palmetto', 'lutein-zeaxanthin', 'glucosamine',
     'beta-alanine', 'bcaa-211', 'pea-protein'];
 
-  var PERSONA = 1500;
+  /* The profile is who the plan is for, and it has to be read: at 1.1 to
+     1.5s it was gone before a reader had (founder, 2026-10-20, "at least
+     3-5 seconds"). */
+  var PERSONA = Number(card.getAttribute('data-tm-persona-ms')) || 3500;
   var at = LAST, timer = null, lineTimer = null, personaTimer = null, playing = false, n = 0, cut = 0;
   var userTook = false;
 
@@ -194,7 +210,7 @@
     if (stage === 4) {
       cells.forEach(function (c, i) {
         setTimeout(function () { if (Math.random() < 0.62) { c.className = 'is-on'; } },
-          (i % 16) * 230 + Math.random() * 180);
+          (i % COLS) * STEP + Math.random() * 180);
       });
     }
     if (stage === 6) {
@@ -234,6 +250,10 @@
       personaTimer = setTimeout(function () {
         if (personaEl) personaEl.hidden = true;
         logEl.hidden = false;
+        /* A shortened run has no time to fill the window line by line, and
+           an empty window under "Reading the signals" was what a reader
+           scrolling past saw. */
+        if (given.length && playing) { for (var i = 0; i < 9; i++) { line(0); } }
       }, PERSONA);
     }
     if (stateEl) stateEl.textContent = live ? 'running' : (stage === LAST ? 'complete' : 'paused');
