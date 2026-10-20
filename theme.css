@@ -190,20 +190,20 @@
   --attn:#FACC15;--attn-tint:#FEFCE8;--attn-line:#FEF08A;--attn-on-dark:#FDE047;
   --gap:#EF4444;--gap-text:#B91C1C;--gap-tint:#FEF2F2;--gap-line:#FECACA;--gap-on-dark:#F87171;
 
-  /* GLASS, LIGHT: white frost on the white ground. The homepage six steps
-     are the reference. --sys-glass-* rather than --glass-*, because the
+  /* GLASS, LIGHT: white frost on the white ground. The floating UI in the
+     homepage six steps is the reference. --sys-glass-* rather than --glass-*, because the
      older --glass tokens below predate the system and still dress the
      pricing tiers and the FAQ until those sections are migrated. */
   --sys-glass:linear-gradient(180deg,rgba(255,255,255,.78) 0%,rgba(255,255,255,.52) 100%);
   --sys-glass-blur:blur(28px) saturate(150%);
   --sys-glass-edge:rgba(24,24,27,.07);
-  --sys-glass-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 22px 44px -26px rgba(24,24,27,.22),0 2px 6px -2px rgba(24,24,27,.05);
+  --sys-glass-shadow:inset 0 1px 0 rgba(255,255,255,.95);
   /* SMOKED GLASS on the white ground, for the one dark element in a light
      section: superpower's FAQ rows, grey frost with white type. */
   --sys-smoke:rgba(24,24,27,.74);
   --sys-smoke-blur:blur(32px) saturate(140%);
   --sys-smoke-edge:rgba(255,255,255,.10);
-  --sys-smoke-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 22px 44px -26px rgba(24,24,27,.35);
+  --sys-smoke-shadow:inset 0 1px 0 rgba(255,255,255,.10);
   /* glass on a dark surface: superpower measured rgba(255,255,255,.1) over
      a 32px blur with no border */
   --sys-glass-on-dark:rgba(255,255,255,.10);
