@@ -2394,6 +2394,9 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   }
 
   function build(){
+    /* Which decks were already decks before this rebuild. Only one that has
+       just become a deck gets the opening position; see below. */
+    var wereDecks = built.map(function(d){ return d.deck; });
     clear();
     if(!MQ.matches) return;
     DECKS.forEach(function(sel){
@@ -2435,8 +2438,15 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
 
       /* Open on the plan we actually sell. Starter was first in the DOM, so a
          phone opened on the cheapest plan with Pro off-screen entirely.
-         'instant' because this is the starting position, not a movement. */
-      if (named) {
+         'instant' because this is the starting position, not a movement.
+
+         Only when the deck has just become one: on the first build, or when a
+         resize brings it back from the desktop grid. build() also runs on
+         every resize, and a phone resizes the window whenever its toolbar
+         shows or hides on scroll, so setting it on every rebuild pulled a
+         visitor who had swiped to Starter or Enterprise back to Pro as soon
+         as they scrolled the page. */
+      if (named && wereDecks.indexOf(deck) === -1) {
         var featured = deck.querySelector('.tier.featured');
         if (featured) deck.scrollTo({ left: featured.offsetLeft - deck.offsetLeft, behavior: 'instant' });
       }
