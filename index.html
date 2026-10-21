@@ -1636,18 +1636,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* Coming next, in the product tour's questions' style (founder, 2026-10-21:
    "keep this visual style for the who it's for part"): rows between
    hairlines, no fill, no card, no icon squares; the name in ink with its
-   note muted beside it, and the call to talk carrying the questions' plus.
-   The rows sit at the column's foot, level with the live card's, the way the
-   tour's questions meet its screen. Narrow, a note wraps under its name. */
-.vsplit .vnext{gap:0;justify-content:flex-end}
+   note muted under it, and the call to talk carrying the questions' plus.
+   Side by side the list spans the live card's height, its rows sharing it
+   evenly, so the column has no empty band above it (founder, 2026-10-21:
+   rows at the foot with the notes far right "doesn't look good"). */
+.vsplit .vnext{gap:0}
 .vsplit .vnext-cap{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--n-600);margin-bottom:12px}
 .vsplit .vrow,.vsplit .vrow:hover,.vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{
   background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;transform:none}
-.vsplit .vrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex:0 0 auto;
-  padding:17px 4px;color:var(--ink)}
+.vsplit .vrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex:1 1 auto;
+  padding:16px 4px;color:var(--ink)}
 .vsplit .vnext-cap + .vrow{border-top:1px solid var(--line)}
 .vsplit .vrow-icon{display:none}
-.vsplit .vrow-copy{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;flex:1;min-width:0}
+.vsplit .vrow-copy{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:1;min-width:0}
+/* stacked, one line a row, the note beside its name, so the list stays short
+   on a phone (founder, 2026-10-21: "take too much space on phone") */
+@media(max-width:900px){
+  .vsplit .vrow{flex:0 0 auto;padding:17px 4px}
+  .vsplit .vrow-copy{flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px}
+}
 .vsplit .vrow-name{font-size:15px;font-weight:400;letter-spacing:-.005em;color:var(--ink)}
 .vsplit .vrow-note{margin:0;font-size:13.5px;color:var(--n-600)}
 /* the call to talk: the same row, and the plus the questions open with */
