@@ -6,19 +6,33 @@ no build step and no package.json; what is in the file is what ships.
 
 ## Product UI
 
-**There is none on the site any more, and no pipeline for it.**
+**The homepage's product tour (`#product`) carries three hand-rebuilt
+copies of the dashboard, and they will drift.** Nothing else on the site
+copies the product.
 
-`/how-it-works` carried six screenshots of six different screens at six
-aspect ratios; they are now empty slots waiting for a GIF or a video of the
-product actually doing the thing. `/sample-report` embeds the live report
-from the demo quiz rather than a copy of it. `tools/scope-mockups.mjs`, the
-exported fragments, their stylesheet and their PNGs are deleted.
+The founder asked for them on 2026-10-21, from screenshots: 01 the quiz
+builder (`.bx`), 02 the results builder (`.bx.rx`) and 04 Contacts (`.cx`).
+Each is the screen's own layout drawn at the size it was captured,
+2000 x 1125, and scaled into the frame, so it is sharp at any size and is
+not an image. 03 Analytics is still a placeholder. What keeps them honest:
 
-The lesson is worth keeping even though the tool is gone: a copy of the
-product UI drifts from the product, and nobody who would notice reads this
-repository. The fragment on `/sample-report` disagreed with its own
-breakdown for months. The answer was not a better copy; it was to stop
-keeping one.
+- **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the
+  webapp's own enums (`lib/schemas/theme.ts`: 12 layouts, 4 answer styles,
+  6 button styles, 8 transitions). Check there before changing a card.
+- **Contacts shows invented shoppers** on the reserved example domains,
+  never a real list, and the button is **Remove**, never Erase. In the
+  product, Remove takes someone off the list and out of the export, and a
+  full erasure goes to contact@blend-technologies.com. The site must not
+  promise more than that.
+- **When the dashboard's look changes, the copies are stale.** Nothing here
+  can notice. Ask the founder for fresh screenshots and redraw.
+
+The lesson from before still holds: a copy of the product UI drifts from
+the product, and nobody who would notice reads this repository. The fragment
+that used to sit on `/sample-report` disagreed with its own breakdown for
+months; that page now embeds the live report instead. `/how-it-works` dropped
+its six screenshots for drawings. `tools/scope-mockups.mjs` and its exports
+are deleted, and there is still no pipeline.
 
 `blend-mockups/` still exists and holds exactly one thing: `science/`, the
 engine's own exports that `/science` is written from, produced by
