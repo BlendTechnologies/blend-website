@@ -196,6 +196,18 @@ the page) against `/#pricing` elsewhere. `/try` is the one whole-page
 exception — its nav carries "Book a call", because a demo button there
 would point at the page you are on.
 
+## Class names the chrome already uses
+
+The bar toggles `open` on `.nav` to show its menu, and the stylesheets on a
+page are one namespace. On 2026-10-21 the homepage's opener section was
+`class="open"`, so every `.open{...}` rule written for that section also
+landed on the bar the moment a phone opened its menu: 72px of padding and a
+tall minimum height pushed the logo and the close button down behind the
+sheet. It was live for a day and the founder found it on a phone. Name a
+section for what it is (`.opener`), never with a word the chrome uses as a
+state (`open`, `active`, `scrolled`, `is-*`). `nav-sheet.spec.mjs` in the
+workspace now asserts the bar does not move when its menu opens.
+
 ## Before merging
 
 - `node tools/check-prices.mjs`
