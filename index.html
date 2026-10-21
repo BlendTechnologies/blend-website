@@ -399,6 +399,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .proof-mark .c.pick{animation-name:pg-pick}
 .proof-mark .c.drop{animation-name:pg-drop}
 @media(prefers-reduced-motion:reduce){.proof-mark .c{animation:none}}
+/* Half the space above and below the words (founder, 2026-10-21). It was a
+   full window with the words centred, (window - words) / 2 a side; now a side
+   is a quarter of that. 168px is the words' own height on desktop. */
+@media(min-width:901px){.open{min-height:0;padding:max(48px, calc((100vh - var(--nav-h) - 168px) / 4)) 0}}
 @media(max-width:900px){.open{min-height:0;padding:96px 0}}
 @media(max-width:560px){.open{padding:72px 0}.open-h{font-size:30px}.open-sub{font-size:16px}}
 /* AI where AI does the work: matching the catalogue, drafting the quiz. Not
@@ -1016,13 +1020,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    2026-10-21). It takes the column's width, and a short window takes it
    down so it always fits the height with room for the cards around it. */
 .tour-visual{display:flex;justify-content:center}
-/* Side by side, the screen sits 10% inside the column, its right edge on the
-   page's, and its foot on the line under the last question (founder,
-   2026-10-21: "bring the screen down to the bottom", "10% smaller"). */
+/* Side by side, the screen sits at 99% of the column (founder, 2026-10-21:
+   "10% smaller", then "10% bigger" than that), its right edge on the page's,
+   and its foot on the line under the last question ("bring the screen down
+   to the bottom"). */
 @media(min-width:901px){.tour-visual{align-self:end;justify-content:flex-end}}
-.tour-device{position:relative;width:min(90%, calc((100vh - var(--nav-h) - 150px) * 16 / 9 * .9));
+.tour-device{position:relative;width:min(99%, calc((100vh - var(--nav-h) - 150px) * 16 / 9 * .99));
   padding:7px;border-radius:22px;background:#111214}
-@supports(height:100svh){.tour-device{width:min(90%, calc((100svh - var(--nav-h) - 150px) * 16 / 9 * .9))}}
+@supports(height:100svh){.tour-device{width:min(99%, calc((100svh - var(--nav-h) - 150px) * 16 / 9 * .99))}}
 .tour-frame{position:relative;aspect-ratio:16/9;border-radius:15px;overflow:hidden;background:var(--n-100)}
 .tour-media{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .45s ease}
 .tour-media.is-on{opacity:1}
@@ -1296,13 +1301,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .fx-file em{font-style:normal;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:var(--n-600)}
 .fx-toast{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:8px;background:#F4F4F5;font-size:11.5px;color:var(--ink)}
 .fx-toast svg{color:#16A34A}
-/* This page leaves its sides empty, so its cards sit there rather than over
-   the heading and the names; Export hangs over the top edge, clear of its
-   button, because the right side is too narrow for it at 1280. */
+/* This page leaves its sides and its foot empty, so its cards sit there
+   rather than over the heading and the names: Export over the top edge, clear
+   of its button (the right side is too narrow for it at 1280), and Remove
+   under the bottom corner (the left side is too narrow beside the questions). */
 @media(min-width:901px){
-  .tour-bits[data-step="4"] .tour-bit.c1{left:-8%;top:24%}
-  .tour-bits[data-step="4"] .tour-bit.c2{right:-4%;top:-23%}
-  .tour-bits[data-step="4"] .tour-bit.c3{left:-13%;top:67%}
+  .tour-bits[data-step="4"] .tour-bit.c1{left:-6%;top:24%}
+  .tour-bits[data-step="4"] .tour-bit.c2{right:-3%;top:-23%}
+  .tour-bits[data-step="4"] .tour-bit.c3{left:4%;top:auto;bottom:-17%;transform-origin:0 100%}
 }
 .tour.is-held{overflow:clip}
 .tour.is-held > .tour-stage{position:sticky;top:0;height:100vh;min-height:0}
@@ -3602,13 +3608,13 @@ window.addEventListener('load', function(){
     });
   });
   /* The rebuilt screens are drawn at 2000px wide and scaled to the frame;
-     the cards are drawn at the 1440 size of the screen before it went 10%
-     smaller (772px) and scale with it as if it had not, within bounds, and
+     the cards are drawn at the 1440 size of the screen when it filled its
+     column (772px) and scale with it as if it still did, within bounds, and
      keep their own size where they sit under it. */
   var frame = tour.querySelector('.tour-frame'), device = tour.querySelector('.tour-device');
   function fit(){
     frame.style.setProperty('--k', (frame.clientWidth / 2000).toFixed(4));
-    var c = wide.matches ? Math.max(.74, Math.min(1.12, device.clientWidth / 707)) : 1;
+    var c = wide.matches ? Math.max(.74, Math.min(1.12, device.clientWidth / 778)) : 1;
     device.style.setProperty('--c', c.toFixed(3));
   }
   if('ResizeObserver' in window) new ResizeObserver(fit).observe(frame);
