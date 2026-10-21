@@ -259,6 +259,9 @@
     if (stateEl) stateEl.textContent = live ? 'running' : (stage === LAST ? 'complete' : 'paused');
     if (stateEl) stateEl.classList.toggle('is-on', !!live);
     matrixFor(stage);
+    /* A page can follow the run: the homepage lights the step of its three
+       that this stage belongs to. */
+    card.dispatchEvent(new CustomEvent('tm-stage', { detail: { stage: stage, live: !!live } }));
   }
 
   function stream(delay) {
@@ -282,14 +285,19 @@
     if (stateEl) stateEl.classList.remove('is-on');
   }
 
+  /* The furthest stage a run may reach on its own. LAST for a whole run; a
+     page playing one part of it (see "a part at a time" below) stops short,
+     and the log keeps streaming on the part's last stage. */
+  var limit = LAST;
   function advance() {
-    if (at >= LAST) { stop(); return; }
+    if (at >= limit) { if (at >= LAST) { stop(); } return; }
     show(at + 1, true);
     stream();
-    if (at < LAST) { timer = setTimeout(advance, HOLD[at]); } else { stop(); }
+    if (at < limit) { timer = setTimeout(advance, HOLD[at]); } else if (at >= LAST) { stop(); }
   }
 
   function play() {
+    limit = LAST;
     if (reduce) { show(LAST, false); return; }
     if (at >= LAST) { logEl.textContent = ''; show(0, true); } else { show(at, true); }
     playing = true;
@@ -308,9 +316,32 @@
   var replayBtn = $('[data-tm-replay]', card) || $('[data-tm-restart]', card);
   if (replayBtn) {
     replayBtn.addEventListener('click', function () {
+      /* Driven, the run is a stretch of the page; restarting means going
+         back to the start of it, which the page does. */
+      if (card.dataset.tmDriven) { card.dispatchEvent(new CustomEvent('tm-restart')); return; }
       userTook = false; stop(); logEl.textContent = ''; show(0, false); play();
     });
   }
+
+  /* ---- a part at a time -------------------------------------------------
+     The homepage holds its engine band for three short scrolls, one per step
+     of its 01, 02, 03 (founder, 2026-10-21), and plays the part of the run
+     each step covers: tmPart(from, to) jumps to stage `from` and runs on its
+     own timer as far as `to`. While a page does this it marks the card
+     data-tm-driven, and the terminal stops starting itself on sight.
+     /science never does, and runs as it always has. */
+  card.tmPart = function (from, to) {
+    clearTimeout(timer); clearInterval(lineTimer);
+    limit = Math.min(LAST, to);
+    if (from >= LAST) { limit = LAST; playing = false; show(LAST, false); return; }
+    if (from === 0) { logEl.textContent = ''; }
+    else if (!reduce) { for (var i = 0; i < 9; i++) { line(from); } }
+    playing = true;
+    show(from, true);
+    stream(from === 0 ? PERSONA : 0);
+    if (from < limit) { timer = setTimeout(advance, HOLD[from]); }
+  };
+  card.tmPause = function () { stop(); };
   ticks.forEach(function (t, k) {
     t.addEventListener('click', function () {
       userTook = true; stop(); logEl.textContent = ''; show(k, false);
@@ -328,6 +359,7 @@
      scrolling past should not overrule them. */
   if (reduce || !window.IntersectionObserver) { show(LAST, false); return; }
   var io = new IntersectionObserver(function (es) {
+    if (card.dataset.tmDriven) return;
     es.forEach(function (e) {
       if (e.isIntersecting) {
         if (userTook || playing) return;
