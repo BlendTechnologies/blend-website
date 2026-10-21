@@ -1009,8 +1009,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   transition:opacity .35s ease,transform .5s cubic-bezier(.22,1,.36,1),visibility 0s linear .35s}
 .tour-swap > .is-on{visibility:visible;opacity:1;transform:none;transition-delay:0s}
 .tour-panel{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
-.tour-h{margin:36px 0 0;font-size:clamp(24px,2.1vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;color:var(--ink)}
-.tour-sub{margin:12px 0 0;font-size:16px;line-height:1.5;letter-spacing:-.01em;color:var(--ink);max-width:38ch}
+.tour-h{margin:36px 0 0;font-size:clamp(24px,2.1vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;color:var(--ink);text-wrap:balance}
+.tour-sub{margin:12px 0 0;font-size:16px;line-height:1.5;letter-spacing:-.01em;color:var(--ink);max-width:none;text-wrap:pretty}
+/* One system for the four steps (founder's brief, 2026-10-21). Side by side,
+   each headline breaks where it is written to and holds two lines, so a
+   one-line headline does not lift its description above the others, and the
+   column is shorter, which brings the questions about 60px closer to the
+   words while their last line still meets the screen's foot. Stacked, the
+   headlines wrap on their own. */
+.tour-br{display:none}
+@media(min-width:901px){
+  .tour-br{display:inline}
+  .tour-h{min-height:calc(2em * 1.1875)}
+  .tour-copy{min-height:min(500px, 66vh)}
+}
+/* Stacked there is no screen beside the words to meet, so the questions
+   follow the words at a fixed distance instead of taking the slack of the
+   tallest step's panel. */
+@media(max-width:900px){.tour-panel{justify-content:flex-start;gap:32px}}
 /* the questions, set as the FAQ sets its rows */
 .tq-list{border-top:1px solid var(--line)}
 .tq{border-bottom:1px solid var(--line)}
@@ -1035,9 +1051,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    to the bottom"). */
 @media(min-width:901px){.tour-visual{align-self:end;justify-content:flex-end}}
 .tour-device{position:relative;width:min(99%, calc((100vh - var(--nav-h) - 150px) * 16 / 9 * .99));
-  padding:7px;border-radius:22px;background:#111214}
+  /* A 4px edge rather than a 7px slab, a rounder corner and a soft lift
+     (founder's brief, 2026-10-21: the black frames were "visually too
+     heavy"). The one shadow the system allows: under this frame only. */
+  padding:0;border:4px solid #292929;border-radius:clamp(20px, 2.1vw, 30px);background:#292929;
+  box-shadow:0 14px 36px rgba(0,0,0,.06)}
 @supports(height:100svh){.tour-device{width:min(99%, calc((100svh - var(--nav-h) - 150px) * 16 / 9 * .99))}}
-.tour-frame{position:relative;aspect-ratio:16/9;border-radius:15px;overflow:hidden;background:var(--n-100)}
+.tour-frame{position:relative;aspect-ratio:16/9;border-radius:calc(clamp(20px, 2.1vw, 30px) - 4px);overflow:hidden;background:var(--n-100)}
 .tour-media{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .45s ease}
 .tour-media.is-on{opacity:1}
 .tour-media > span{font-size:13px;color:var(--n-600)}
@@ -3021,34 +3041,34 @@ a.vrow:hover,a.vrow:focus-visible{
         </div>
         <div class="tour-swap">
             <div class="tour-panel is-on" id="tour-p1" role="tabpanel" aria-labelledby="tour-t1">
-              <div><h3 class="tour-h">Your quiz, in your brand, in an afternoon.</h3><p class="tour-sub">Edit every question, set your colours and see it as your customers will. Or let Blend AI draft the first version.</p></div>
+              <div><h3 class="tour-h">Your quiz. Your brand.<br class="tour-br"> Ready in an afternoon.</h3><p class="tour-sub">Customise every question, colour and detail. Preview exactly what your customers will see, or let Blend AI create your first draft.</p></div>
               <div class="tq-list">
-                <details class="tq" name="tour-q1"><summary>What can I change in the design?<span class="tq-pm" aria-hidden="true"></span></summary><p>Everything a shopper sees: twelve layouts, four answer styles, six button styles and eight transitions, the font, size and alignment of every kind of text, and every colour. Set it once as your brand and every screen follows; a single screen can still override its layout.</p></details>
+                <details class="tq" name="tour-q1"><summary>How much can I customise?<span class="tq-pm" aria-hidden="true"></span></summary><p>Everything a shopper sees: twelve layouts, four answer styles, six button styles and eight transitions, the font, size and alignment of every kind of text, and every colour. Set it once as your brand and every screen follows; a single screen can still override its layout.</p></details>
                 <details class="tq" name="tour-q1"><summary>Can I edit every question?<span class="tq-pm" aria-hidden="true"></span></summary><p>Every word: the heading, the subtext and the answer labels, screen by screen, and you can hide the screens you do not need. A few questions the engine reads by id keep a fixed answer set and are always asked, but you can still reword them.</p></details>
-                <details class="tq" name="tour-q1"><summary>What does Blend AI do?<span class="tq-pm" aria-hidden="true"></span></summary><p>It drafts your quiz. Describe your brand in a short interview and it writes the layout, the tone, the palette and a first set of screens, which you then edit.</p></details>
+                <details class="tq" name="tour-q1"><summary>What can Blend AI create?<span class="tq-pm" aria-hidden="true"></span></summary><p>A first draft of your quiz. Describe your brand in a short interview and it writes the layout, the tone, the palette and a first set of screens, which you then edit.</p></details>
               </div>
             </div>
             <div class="tour-panel" id="tour-p2" role="tabpanel" aria-labelledby="tour-t2">
-              <div><h3 class="tour-h">A results page that sells.</h3><p class="tour-sub">Every shopper gets a plan made for them: the products picked, the reason for each, and a direct way to buy. You decide what it shows and how it looks.</p></div>
+              <div><h3 class="tour-h">A results page that sells.</h3><p class="tour-sub">Turn every completed quiz into a personalised plan, with product recommendations, clear explanations and a direct path to purchase. All in your brand.</p></div>
               <div class="tq-list">
-                <details class="tq" name="tour-q2"><summary>What can I change on the results page?<span class="tq-pm" aria-hidden="true"></span></summary><p>What it shows and in what order: the profile, goals, score, products, macros and the full breakdown, each on or off. What every product card shows, what its button does, six starting layouts, every colour and every word.</p></details>
-                <details class="tq" name="tour-q2"><summary>What can I not switch off?<span class="tq-pm" aria-hidden="true"></span></summary><p>Which products a shopper is matched with, and the notices that must appear beside them: product warnings, nutrient upper-limit flags and clinician referral notes always show when the engine returns them.</p></details>
-                <details class="tq" name="tour-q2"><summary>Can shoppers buy straight from the plan?<span class="tq-pm" aria-hidden="true"></span></summary><p>Yes. Each product&#8217;s button can add it to the cart through your store&#8217;s script, open its product page, or collect products into a bundle that goes to the cart at once.</p></details>
+                <details class="tq" name="tour-q2"><summary>What can I customise?<span class="tq-pm" aria-hidden="true"></span></summary><p>What it shows and in what order: the profile, goals, score, products, macros and the full breakdown, each on or off. What every product card shows, what its button does, six starting layouts, every colour and every word.</p></details>
+                <details class="tq" name="tour-q2"><summary>What information is always included?<span class="tq-pm" aria-hidden="true"></span></summary><p>The products the engine matches to each shopper, and on every product card its name, its caution, the engine&#8217;s note and the buy button. Product warnings, nutrient upper-limit flags and clinician referral notes always show when the engine returns them.</p></details>
+                <details class="tq" name="tour-q2"><summary>Can shoppers purchase directly from their plan?<span class="tq-pm" aria-hidden="true"></span></summary><p>Yes. Each product&#8217;s button can add it to the cart through your store&#8217;s script, open its product page, or collect products into a bundle that goes to the cart at once.</p></details>
               </div>
             </div>
             <div class="tour-panel" id="tour-p3" role="tabpanel" aria-labelledby="tour-t3">
-              <div><h3 class="tour-h">Know what your customers need.</h3><p class="tour-sub">Every answer is first-party data you own: who takes your quiz, what they ask for, and what they need that you do not stock yet.</p></div>
+              <div><h3 class="tour-h">Understand your customers.<br class="tour-br"> Improve your results.</h3><p class="tour-sub">See what shoppers want, which products interest them and where they drop off. Turn real customer insights into better quizzes, smarter decisions and new opportunities.</p></div>
               <div class="tq-list">
-                <details class="tq" name="tour-q3"><summary>What customer insights will I get?<span class="tq-pm" aria-hidden="true"></span></summary><p>A conversion funnel from started to purchased, drop-off by question, completion by goal, answer insights across every question, product performance, and Catalogue gaps: where your customers&#8217; needs and your catalogue do not meet.</p></details>
-                <details class="tq" name="tour-q3"><summary>Who owns the data?<span class="tq-pm" aria-hidden="true"></span></summary><p>You do. It is first-party data you own outright: what lifts your quiz&#8217;s conversion, who your customers actually are, and what they came for.</p></details>
+                <details class="tq" name="tour-q3"><summary>What insights can I track?<span class="tq-pm" aria-hidden="true"></span></summary><p>A conversion funnel from started to purchased, drop-off by question, completion by goal, answer insights across every question, product performance, and Catalogue gaps: where your customers&#8217; needs and your catalogue do not meet.</p></details>
+                <details class="tq" name="tour-q3"><summary>Who controls the data?<span class="tq-pm" aria-hidden="true"></span></summary><p>You do. It is first-party data you own outright: what lifts your quiz&#8217;s conversion, who your customers actually are, and what they came for.</p></details>
               </div>
             </div>
             <div class="tour-panel" id="tour-p4" role="tabpanel" aria-labelledby="tour-t4">
-              <div><h3 class="tour-h">Everyone who chose to hear from you.</h3><p class="tour-sub">Only shoppers who opted in to marketing appear, with a name, an email and the date. Export them to your email tool, or take anyone off the list.</p></div>
+              <div><h3 class="tour-h">Turn quiz completions into<br class="tour-br"> lasting relationships.</h3><p class="tour-sub">Build your audience with shoppers who opt in to hear from you. Keep their contact details organised, export them to your email platform and manage your list with ease.</p></div>
               <div class="tq-list">
                 <details class="tq" name="tour-q4"><summary>Who appears in Contacts?<span class="tq-pm" aria-hidden="true"></span></summary><p>Only shoppers who separately ticked the marketing opt-in. Without it, nobody appears, and a contact is never more than a name, an email and the date: no quiz answers, no recommendations.</p></details>
                 <details class="tq" name="tour-q4"><summary>Can I export my contacts?<span class="tq-pm" aria-hidden="true"></span></summary><p>On Pro and Enterprise: a CSV with each contact&#8217;s name, email and the date they opted in.</p></details>
-                <details class="tq" name="tour-q4"><summary>Can I remove or erase someone?<span class="tq-pm" aria-hidden="true"></span></summary><p>Remove takes them off your list and out of the export; their quiz submission and report stay. For a full erasure request, send their email address or quiz submission ID to contact@blend-technologies.com.</p></details>
+                <details class="tq" name="tour-q4"><summary>How do I remove a contact?<span class="tq-pm" aria-hidden="true"></span></summary><p>Press Remove beside their name: it takes them off your list and out of the export, while their quiz submission and report stay. For a full erasure request, send their email address or quiz submission ID to contact@blend-technologies.com.</p></details>
               </div>
             </div>
         </div>
@@ -3781,8 +3801,9 @@ window.addEventListener('load', function(){
       var sx = f.left + x * kk + sw / 2, sy = f.top + y * kk + sh / 2;
       var w = card.offsetWidth, h = card.offsetHeight;
       var o = getComputedStyle(card).transformOrigin.split(' ').map(parseFloat);
-      var ox = d.left + card.offsetLeft + o[0], oy = d.top + card.offsetTop + o[1];
-      var px = d.left + card.offsetLeft + w / 2, py = d.top + card.offsetTop + h / 2;
+      /* a card's offsets start inside the frame's edge */
+      var bx = d.left + device.clientLeft + card.offsetLeft, by = d.top + device.clientTop + card.offsetTop;
+      var ox = bx + o[0], oy = by + o[1], px = bx + w / 2, py = by + h / 2;
       var f0 = Math.max(.18, Math.min(.8 * c, Math.sqrt((sw * sh) / (w * h))));
       card.style.setProperty('--fx', Math.round(sx - ox - (px - ox) * f0) + 'px');
       card.style.setProperty('--fy', Math.round(sy - oy - (py - oy) * f0) + 'px');
@@ -3844,7 +3865,7 @@ window.addEventListener('load', function(){
   var frame = tour.querySelector('.tour-frame'), device = tour.querySelector('.tour-device');
   function fit(){
     frame.style.setProperty('--k', (frame.clientWidth / 2000).toFixed(4));
-    var c = wide.matches ? Math.max(.62, Math.min(.96, device.clientWidth / 778 * .86)) : 1;
+    var c = wide.matches ? Math.max(.62, Math.min(.96, device.offsetWidth / 778 * .86)) : 1;
     device.style.setProperty('--c', c.toFixed(3));
     if(at >= 0) detach(at);
   }
