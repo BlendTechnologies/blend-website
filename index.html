@@ -1247,6 +1247,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   transition:opacity .2s ease .35s,transform .55s cubic-bezier(.55,0,.75,.2)}
 .tour-bit b{font-size:12.5px;font-weight:500;color:var(--ink)}
 .tour-bit > span{font-size:12px;color:var(--n-600);white-space:nowrap}
+/* a step being left takes its cards at once, rather than gliding each back
+   into a screen that is itself fading out (a fast scroll stacked all four) */
+.tour-bits:not(.is-on) .tour-bit{transition:opacity .12s ease,transform 0s linear .12s}
 /* out of the picture: visible at its part of the screen first, then a slow
    lift and a glide to its spot; back in, the glide first and the fade last */
 .tour-bits.is-on .tour-bit.is-in{opacity:1;transform:scale(var(--c,1));
@@ -1612,41 +1615,31 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
 .vsplit .vnext{gap:10px}
 .vsplit .vnext-cap{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--n-600);margin-bottom:0}
-/* the glass the six steps' floating UI wears: frost, a bright rim, a soft drop */
-.vsplit .vrow{
-  /* flat: the grey of the frosted cards inside the How it works rectangles
-     (they shade #F7F7F7 to #E7E8EB; --n-100 is their middle) */
-  background:var(--n-100);
-  -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
-  /* no rim and no lit top edge: over the light wash they drew as a border
-     (founder, 2026-10-20, "Coming next boxes have a border, remove") */
-  border:1px solid transparent;border-radius:16px;
+/* The page's own surfaces only (founder, 2026-10-21: "the right is using
+   effects not used anywhere else"). It had frosted glass over a grey wash
+   and a smoked-glass row, which nothing else on the page wears. Now: the
+   pricing plans' flat --n-100, no edge, no blur, on the white every section
+   sits on; the icon on a white square in ink, as on the use-case cards. */
+.vsplit .vrow{background:var(--n-100);border:1px solid transparent;border-radius:16px;
   box-shadow:none;padding:14px 16px}
 .vsplit .vrow:not(.vrow-talk):hover{border-color:transparent}
-.vsplit .vrow-icon{background:rgba(24,24,27,.045);color:var(--n-600);border-radius:10px}
+.vsplit .vrow-icon{background:var(--n-0);color:var(--n-700);border-radius:10px}
 .vsplit .vrow-name{font-size:15px}
 /* --n-600, not --n-500: over the neutral wash and through the glass, --n-500
    measured 3.9-4.4:1. */
 .vsplit .vrow-note{font-size:13px;color:var(--n-600)}
 
-/* Smoked glass, superpower's FAQ rows (founder, 2026-10-20, "make sure the
-   black is the right black"): a grey frost over the light wash rather than
-   a solid near-black, white type, the icon on a lighter square, and no edge
-   or sheen. --sys-smoke is the system's token for exactly this, the one dark
-   element in a light section. */
-.vsplit .vrow-talk{background:var(--sys-smoke);
-  -webkit-backdrop-filter:var(--sys-smoke-blur);backdrop-filter:var(--sys-smoke-blur);
-  border-color:transparent;color:#FFFFFF;box-shadow:none}
+/* The call to talk: the black of the Health and wellness card beside it,
+   solid, white type, the icon on a lighter square, and no edge or sheen. */
+.vsplit .vrow-talk{background:#0A0A0A;border-color:transparent;color:#FFFFFF;box-shadow:none}
 /* theme.css paints --wash-deep on every .theme-dark::after; that is the warm
    brown gradient this card carried. Named at that rule's specificity. */
 .vsplit a.vrow-talk.theme-dark::after{content:none}
 .vsplit .vrow-talk .vrow-name{color:#FFFFFF}
 .vsplit .vrow-talk .vrow-icon{background:rgba(255,255,255,.14);color:#FFFFFF}
 .vsplit .vrow-talk .vrow-note{color:rgba(255,255,255,.74)}
-.vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{background:rgba(24,24,27,.84);border-color:var(--gold)}
+.vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{background:#18181B;border-color:var(--gold)}
 @media(prefers-reduced-transparency:reduce){
-  .vsplit .vrow{background:#FFFFFF;-webkit-backdrop-filter:none;backdrop-filter:none}
-  .vsplit .vrow-talk{background:#3F3F46}
   .vsplit .vlead-tags a,.vsplit .vlead-cta{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.16)}
 }
 /* ---- The closing band -------------------------------------------------
@@ -3086,7 +3079,7 @@ a.vrow:hover,a.vrow:focus-visible{
   <div class="tour-space" aria-hidden="true"></div>
 </section>
 
-<section class="section section--tight section-cream has-wash wash-neutral">
+<section class="section section--tight section-cream">
   <div class="wrap">
     <div class="section-head"><h2 class="h2">Who it's for</h2><p class="lead">Any catalogue where the right product depends on the person.</p></div>
     <div class="vsplit">
