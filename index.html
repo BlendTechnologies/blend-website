@@ -388,6 +388,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .proof-mark svg{display:block;width:56px;height:56px}
 .open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:500;color:var(--ink)}
 .open-sub{margin:14px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.01em;color:var(--n-600)}
+/* The first time it comes into view (founder, 2026-10-21): the mark starts
+   large over where the words will be and settles into its place while the
+   words arrive. The script arms it, so without the script, or under reduced
+   motion, the section is simply its end state. Once only. */
+.open.is-armed .proof-mark{transform:translateY(var(--mark-dy,60px)) scale(3)}
+.open.is-armed .open-h,.open.is-armed .open-sub{opacity:0;transform:translateY(14px)}
+.open.is-armed.is-in .proof-mark{transform:none;transition:transform 1.2s cubic-bezier(.65,0,.25,1) .2s}
+.open.is-armed.is-in .open-h{opacity:1;transform:none;transition:opacity .7s ease .75s,transform .9s cubic-bezier(.22,1,.36,1) .75s}
+.open.is-armed.is-in .open-sub{opacity:1;transform:none;transition:opacity .7s ease .9s,transform .9s cubic-bezier(.22,1,.36,1) .9s}
 /* The square runs: a wave of assessment crosses the grid corner to corner,
    then three products are picked and three ruled out, and it starts again.
    The resting frame, which is what reduced motion and the screenshot suite
@@ -1233,12 +1242,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    (--c), from the corner that meets the screen, so the composition holds
    at every width. White, a hairline, no shadow. */
 .tour-bit{position:absolute;display:grid;gap:2px;padding:10px 14px;border-radius:12px;background:#FFFFFF;
-  border:1px solid rgba(24,24,27,.08);opacity:0;transform:translateY(10px) scale(calc(var(--c,1) * .97));
-  transition:opacity .3s ease,transform .3s ease}
+  border:1px solid rgba(24,24,27,.08);opacity:0;
+  transform:translate(var(--fx,0px),var(--fy,10px)) scale(var(--f0,calc(var(--c,1) * .97)));
+  transition:opacity .2s ease .35s,transform .55s cubic-bezier(.55,0,.75,.2)}
 .tour-bit b{font-size:12.5px;font-weight:500;color:var(--ink)}
 .tour-bit > span{font-size:12px;color:var(--n-600);white-space:nowrap}
+/* out of the picture: visible at its part of the screen first, then a slow
+   lift and a glide to its spot; back in, the glide first and the fade last */
 .tour-bits.is-on .tour-bit.is-in{opacity:1;transform:scale(var(--c,1));
-  transition:opacity .45s ease,transform .6s cubic-bezier(.22,1,.36,1)}
+  transition:opacity .18s ease,transform .8s cubic-bezier(.5,0,.15,1)}
 /* not held (a short window): the step's five arrive in turn */
 .tour:not(.is-held) .tour-bits.is-on .tour-bit.is-in{transition-delay:calc(.25s + var(--i) * .3s)}
 .tour-bit.c1{left:-3%;top:5%;transform-origin:0 0}
@@ -1246,6 +1258,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tour-bit.c3{left:-4%;top:46%;transform-origin:0 0}
 .tour-bit.c4{right:-4%;bottom:12%;transform-origin:100% 100%}
 .tour-bit.c5{left:27%;bottom:-9%;transform-origin:0 100%}
+/* 01 and 02: each card sits beside the part of the editor it is about, which
+   is where it detaches from */
+@media(min-width:901px){
+  .tour-bits[data-step="1"] .tour-bit.c1{left:auto;right:-4%;top:5%;transform-origin:100% 0}
+  .tour-bits[data-step="1"] .tour-bit.c2{left:30%;right:auto;top:-12%;transform-origin:0 100%}
+  .tour-bits[data-step="1"] .tour-bit.c3{left:34%;top:auto;bottom:-11%;transform-origin:0 100%}
+  .tour-bits[data-step="1"] .tour-bit.c4{left:-5%;right:auto;top:56%;bottom:auto;transform-origin:0 0}
+  .tour-bits[data-step="1"] .tour-bit.c5{left:-5%;top:16%;bottom:auto;transform-origin:0 0}
+  .tour-bits[data-step="2"] .tour-bit.c1{left:auto;right:-4%;top:22%;transform-origin:100% 0}
+  .tour-bits[data-step="2"] .tour-bit.c2{right:-4%;top:auto;bottom:4%;transform-origin:100% 100%}
+  .tour-bits[data-step="2"] .tour-bit.c3{left:-5%;top:48%;transform-origin:0 0}
+  .tour-bits[data-step="2"] .tour-bit.c4{left:auto;right:24%;top:-12%;bottom:auto;transform-origin:100% 100%}
+  .tour-bits[data-step="2"] .tour-bit.c5{left:30%;bottom:-11%;transform-origin:0 100%}
+}
 /* the colour and type cards' own parts */
 .fx-sw{display:flex;gap:6px}
 .fx-sw i{width:24px;height:24px;border-radius:7px;border:1px solid #E5E5E5}
@@ -1422,8 +1448,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    under the bottom corner (the left side is too narrow beside the questions). */
 @media(min-width:901px){
   .tour-bits[data-step="4"] .tour-bit.c1{left:-6%;top:24%}
-  .tour-bits[data-step="4"] .tour-bit.c2{right:-3%;top:-23%}
-  .tour-bits[data-step="4"] .tour-bit.c3{left:4%;top:auto;bottom:-17%;transform-origin:0 100%}
+  .tour-bits[data-step="4"] .tour-bit.c2{right:-3%;top:-15%}
+  .tour-bits[data-step="4"] .tour-bit.c3{left:4%;top:auto;bottom:-12%;transform-origin:0 100%}
 }
 .tour.is-held{overflow:clip}
 .tour.is-held > .tour-stage{position:sticky;top:0;height:100vh;min-height:0}
@@ -3607,11 +3633,32 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
   Array.prototype.forEach.call(cards, function(c){ io.observe(c); });
 })();
 
+/* ---- The opener's first appearance --------------------------------------
+   Measures where the mark ends (above the words), arms the section with the
+   mark moved down over the words' middle, and plays once, the first time all
+   of it is in view (half, where it is taller than the window), so the large
+   mark has been seen before it moves. See .open.is-armed for the shapes. */
+(function(){
+  var sec = document.getElementById('opener');
+  if(!sec || !('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var mark = sec.querySelector('.proof-mark'), inner = sec.querySelector('.open-inner');
+  var m = mark.getBoundingClientRect(), b = inner.getBoundingClientRect();
+  sec.style.setProperty('--mark-dy', Math.round((b.top + b.height / 2) - (m.top + m.height / 2)) + 'px');
+  sec.classList.add('is-armed');
+  var io = new IntersectionObserver(function(es){
+    if(!es[0].isIntersecting) return;
+    io.disconnect();
+    requestAnimationFrame(function(){ sec.classList.add('is-in'); });
+  }, { threshold: sec.offsetHeight < window.innerHeight - 40 ? 0.98 : 0.5 });
+  io.observe(sec);
+})();
+
 /* ---- The product: tabs, and the scroll that tells it ---------------------
    The WAI tabs pattern for the four pills. While the section is held (see
    its CSS), the page's scroll tells the section: start() is where its top
-   meets the window's, and the hold is one short stretch per card, so a step
-   takes as many as it has cards (five, five, four and three). Each stretch
+   meets the window's, and each step opens on its screen alone for one short
+   stretch, then takes one per card (five, five, four and three). Each stretch
    brings the step's next card in, and in step 01 moves the builder's rail to
    the part of the editor that card is about; the one after the last goes to
    the next step. The ring on the chosen pill fills across its step. Scrolling
@@ -3634,9 +3681,26 @@ window.addEventListener('load', function(){
   var wide = window.matchMedia('(min-width:901px)');
   var still = window.matchMedia('(prefers-reduced-motion:reduce)');
   var counts = sets.map(function(set){ return set.querySelectorAll('.tour-bit').length || 1; });
+  /* each step opens on its screen alone (founder, 2026-10-21), so a step is
+     one stretch more than it has cards */
+  var spans = counts.map(function(n){ return n + 1; });
   var offs = [], total = 0;
-  counts.forEach(function(n, i){ offs[i] = total; total += n; });
-  var pin = { on: false, step: 0 }, at = -1, cardAt = -1, cycle = null, seen = false;
+  spans.forEach(function(n, i){ offs[i] = total; total += n; });
+  var pin = { on: false, step: 0 }, at = -1, cardAt = null, cycle = null, seen = false;
+  /* where 02's report and 03's page stand for card n (-1: the screen alone) */
+  function reportY(n){
+    var mark = report.querySelector('[data-at="' + n + '"]'), y = 0, e = mark;
+    if(!mark) return 0;
+    while(e && e !== report){ y += e.offsetTop; e = e.offsetParent; }
+    y -= +mark.dataset.at === 2 ? win.clientHeight * .62 : 20;
+    return Math.round(Math.max(0, Math.min(report.scrollHeight - win.clientHeight + 34, y)));
+  }
+  function axY(n){
+    var stop = analytics.querySelector('[data-ax-at="' + n + '"]'), y = 0, e = stop;
+    if(!stop) return 0;
+    while(e && e !== analytics){ y += e.offsetTop; e = e.offsetParent; }
+    return Math.round(Math.max(0, Math.min(analytics.offsetHeight - 1125, y - 40)));
+  }
   function cards(k, upto, only){
     sets.forEach(function(set, i){
       set.classList.toggle('is-on', i === k);
@@ -3645,27 +3709,10 @@ window.addEventListener('load', function(){
         c.classList.toggle('is-in', i === k && (only ? n === upto : n <= upto));
       });
     });
-    if(k === 1 && report){
-      /* the report walks down as 02's cards come in */
-      var at = report.querySelector('[data-at="' + (only ? upto : upto) + '"]'), y = 0;
-      if(at){
-        var top = 0, e = at;
-        while(e && e !== report){ top += e.offsetTop; e = e.offsetParent; }
-        y = top - (+at.dataset.at === 2 ? win.clientHeight * .62 : 20);
-        y = Math.max(0, Math.min(report.scrollHeight - win.clientHeight + 34, y));
-      }
-      report.style.setProperty('--y', Math.round(y) + 'px');
-    }
-    if(k === 2 && analytics){
-      /* 03: the page scrolls to the part each card is about */
-      var stop = analytics.querySelector('[data-ax-at="' + upto + '"]'), ay = 0;
-      if(stop){
-        var e2 = stop;
-        while(e2 && e2 !== analytics){ ay += e2.offsetTop; e2 = e2.offsetParent; }
-        ay = Math.max(0, Math.min(analytics.offsetHeight - 1125, ay - 40));
-      }
-      analytics.style.setProperty('--y', Math.round(ay) + 'px');
-    }
+    /* the report walks down as 02's cards come in; 03's page goes to the part
+       each card is about */
+    if(k === 1 && report) report.style.setProperty('--y', reportY(upto) + 'px');
+    if(k === 2 && analytics) analytics.style.setProperty('--y', axY(upto) + 'px');
     if(k === 3 && contacts){
       /* 04: Export presses with its card, and Remove takes a row off */
       contacts.querySelector('.cx-btn').classList.toggle('is-on', upto === 1);
@@ -3685,6 +3732,51 @@ window.addEventListener('load', function(){
     });
     tour.querySelectorAll('.tour-panel').forEach(function(p, i){ p.classList.toggle('is-on', i === k); });
     tour.querySelectorAll('.tour-media').forEach(function(m, i){ m.classList.toggle('is-on', i === k); });
+    detach(k);
+  }
+  /* DETACH (founder, 2026-10-21: the cards should "detach from the picture").
+     A card's hidden state is the place and size of the part of the screen it
+     is about, so it grows out of the picture to its own spot, and goes back
+     into it. FROM names that part per step and card, as [selector, index];
+     02's report and 03's page are taken where they will stand for that card.
+     The hidden transform is worked out against the card's transform-origin,
+     so the final place is the stylesheet's, untouched. Side by side only. */
+  var FROM = [
+    [['.bx-panel .bx-sw', 0], ['.bx-q h4', 0], ['.bx-card', 0], ['.bx-btns', 0], ['.bx-rail .bx-row', 4]],
+    [['.rx-panel .rx-row', 2], ['.rx-panel .rx-row', 13], ['.rp-add', 0], ['.rx-tabs span', 1], ['.rp-top', 0]],
+    [['.ax-tile', 1], ['.ax-row', 5], ['.ax-tile', 10], ['.ax-heat td', 0]],
+    [['.cx-sub', 0], ['.cx-btn', 0], ['[data-gone] u', 0]]
+  ];
+  var medias = Array.prototype.slice.call(tour.querySelectorAll('.tour-media'));
+  function detach(k){
+    if(!sets[k]) return;
+    var list = Array.prototype.slice.call(sets[k].querySelectorAll('.tour-bit'));
+    if(!wide.matches || still.matches){
+      list.forEach(function(card){ ['--fx', '--fy', '--f0'].forEach(function(p){ card.style.removeProperty(p); }); });
+      return;
+    }
+    var root = medias[k] && medias[k].firstElementChild, kk = frame.clientWidth / 2000;
+    var f = frame.getBoundingClientRect(), d = device.getBoundingClientRect();
+    var c = parseFloat(device.style.getPropertyValue('--c')) || 1;
+    list.forEach(function(card){
+      var n = +card.dataset.n, def = FROM[k] && FROM[k][n];
+      var el = def && root && root.querySelectorAll(def[0])[def[1]];
+      if(!el) return;
+      var x = 0, y = 0, e = el;
+      while(e && e !== root){ x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+      if(k === 1 && report && report.contains(el)) y -= reportY(n);
+      if(k === 2 && analytics && analytics.contains(el)) y -= axY(n);
+      var sw = el.offsetWidth * kk, sh = el.offsetHeight * kk;
+      var sx = f.left + x * kk + sw / 2, sy = f.top + y * kk + sh / 2;
+      var w = card.offsetWidth, h = card.offsetHeight;
+      var o = getComputedStyle(card).transformOrigin.split(' ').map(parseFloat);
+      var ox = d.left + card.offsetLeft + o[0], oy = d.top + card.offsetTop + o[1];
+      var px = d.left + card.offsetLeft + w / 2, py = d.top + card.offsetTop + h / 2;
+      var f0 = Math.max(.18, Math.min(.8 * c, Math.sqrt((sw * sh) / (w * h))));
+      card.style.setProperty('--fx', Math.round(sx - ox - (px - ox) * f0) + 'px');
+      card.style.setProperty('--fy', Math.round(sy - oy - (py - oy) * f0) + 'px');
+      card.style.setProperty('--f0', f0.toFixed(3));
+    });
   }
   function start(){ return tour.getBoundingClientRect().top + window.scrollY; }
   function measure(){
@@ -3701,11 +3793,11 @@ window.addEventListener('load', function(){
     if(!pin.on) return;
     var x = Math.max(0, (window.scrollY - start()) / pin.step), k = 0;
     while(k < tabs.length - 1 && x >= offs[k + 1]) k++;
-    var c = Math.min(counts[k] - 1, Math.floor(x - offs[k]));
+    var c = Math.min(spans[k] - 1, Math.floor(x - offs[k])) - 1;   /* -1: the screen alone */
     if(k !== at) show(k);
     if(offs[k] + c !== cardAt){ cardAt = offs[k] + c; cards(k, c, false); }
     tabs.forEach(function(t, i){
-      t.style.setProperty('--p', i < k ? 1 : i > k ? 0 : Math.max(0, Math.min(1, (x - offs[k]) / counts[k])).toFixed(3));
+      t.style.setProperty('--p', i < k ? 1 : i > k ? 0 : Math.max(0, Math.min(1, (x - offs[k]) / spans[k])).toFixed(3));
     });
   }
   /* not held */
@@ -3735,13 +3827,15 @@ window.addEventListener('load', function(){
   });
   /* The rebuilt screens are drawn at 2000px wide and scaled to the frame;
      the cards are drawn at the 1440 size of the screen when it filled its
-     column (772px) and scale with it as if it still did, within bounds, and
-     keep their own size where they sit under it. */
+     column (772px) and scale with it as if it still did, then to 86% of that
+     (founder, 2026-10-21: "fonts too big"), within bounds, and keep their own
+     size where they sit under it. */
   var frame = tour.querySelector('.tour-frame'), device = tour.querySelector('.tour-device');
   function fit(){
     frame.style.setProperty('--k', (frame.clientWidth / 2000).toFixed(4));
-    var c = wide.matches ? Math.max(.74, Math.min(1.12, device.clientWidth / 778)) : 1;
+    var c = wide.matches ? Math.max(.62, Math.min(.96, device.clientWidth / 778 * .86)) : 1;
     device.style.setProperty('--c', c.toFixed(3));
+    if(at >= 0) detach(at);
   }
   if('ResizeObserver' in window) new ResizeObserver(fit).observe(frame);
   fit();
@@ -3751,7 +3845,7 @@ window.addEventListener('load', function(){
       if(!pin.on){ if(seen && !cycle) loose(Math.max(0, at)); else if(!seen){ clearInterval(cycle); cycle = null; } }
     }, { threshold: 0.35 }).observe(tour);
   } else { seen = true; }
-  function reset(){ measure(); at = -1; cardAt = -1; if(pin.on) follow(); else loose(0); }
+  function reset(){ measure(); at = -1; cardAt = null; if(pin.on) follow(); else loose(0); }
   window.addEventListener('scroll', follow, { passive: true });
   window.addEventListener('resize', reset);
   reset();
