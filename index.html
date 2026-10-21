@@ -382,8 +382,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    A window tall, under the hero: the small scoring grid running on its own
    loop, the line, and the four words under it. The founder tried a large
    scroll-held panel here the same day and asked for this instead. */
-.open{display:flex;align-items:center;min-height:calc(100vh - var(--nav-h));padding:48px 0;background:#FFFFFF}
-@supports(height:100svh){.open{min-height:calc(100svh - var(--nav-h))}}
+.opener{display:flex;align-items:center;min-height:calc(100vh - var(--nav-h));padding:48px 0;background:#FFFFFF}
+@supports(height:100svh){.opener{min-height:calc(100svh - var(--nav-h))}}
 .open-inner{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center}
 .proof-mark svg{display:block;width:56px;height:56px}
 .open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:500;color:var(--ink)}
@@ -392,11 +392,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    large over where the words will be and settles into its place while the
    words arrive. The script arms it, so without the script, or under reduced
    motion, the section is simply its end state. Once only. */
-.open.is-armed .proof-mark{transform:translateY(var(--mark-dy,60px)) scale(3)}
-.open.is-armed .open-h,.open.is-armed .open-sub{opacity:0;transform:translateY(14px)}
-.open.is-armed.is-in .proof-mark{transform:none;transition:transform 1.2s cubic-bezier(.65,0,.25,1) .2s}
-.open.is-armed.is-in .open-h{opacity:1;transform:none;transition:opacity .7s ease .75s,transform .9s cubic-bezier(.22,1,.36,1) .75s}
-.open.is-armed.is-in .open-sub{opacity:1;transform:none;transition:opacity .7s ease .9s,transform .9s cubic-bezier(.22,1,.36,1) .9s}
+.opener.is-armed .proof-mark{transform:translateY(var(--mark-dy,60px)) scale(3)}
+.opener.is-armed .open-h,.opener.is-armed .open-sub{opacity:0;transform:translateY(14px)}
+.opener.is-armed.is-in .proof-mark{transform:none;transition:transform 1.2s cubic-bezier(.65,0,.25,1) .2s}
+.opener.is-armed.is-in .open-h{opacity:1;transform:none;transition:opacity .7s ease .75s,transform .9s cubic-bezier(.22,1,.36,1) .75s}
+.opener.is-armed.is-in .open-sub{opacity:1;transform:none;transition:opacity .7s ease .9s,transform .9s cubic-bezier(.22,1,.36,1) .9s}
 /* The square runs: a wave of assessment crosses the grid corner to corner,
    then three products are picked and three ruled out, and it starts again.
    The resting frame, which is what reduced motion and the screenshot suite
@@ -411,9 +411,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* Half the space above and below the words (founder, 2026-10-21). It was a
    full window with the words centred, (window - words) / 2 a side; now a side
    is a quarter of that. 168px is the words' own height on desktop. */
-@media(min-width:901px){.open{min-height:0;padding:max(48px, calc((100vh - var(--nav-h) - 168px) / 4)) 0}}
-@media(max-width:900px){.open{min-height:0;padding:96px 0}}
-@media(max-width:560px){.open{padding:72px 0}.open-h{font-size:30px}.open-sub{font-size:16px}}
+@media(min-width:901px){.opener{min-height:0;padding:max(48px, calc((100vh - var(--nav-h) - 168px) / 4)) 0}}
+@media(max-width:900px){.opener{min-height:0;padding:96px 0}}
+@media(max-width:560px){.opener{padding:72px 0}.open-h{font-size:30px}.open-sub{font-size:16px}}
 /* AI where AI does the work: matching the catalogue, drafting the quiz. Not
    on the plan, which the engine makes and AI never touches. Neutral, so
    the multicoloured mark is the only colour, as it is inside the product. */
@@ -1639,6 +1639,17 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vsplit .vrow-talk .vrow-icon{background:rgba(255,255,255,.14);color:#FFFFFF}
 .vsplit .vrow-talk .vrow-note{color:rgba(255,255,255,.74)}
 .vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{background:#18181B;border-color:var(--gold)}
+/* On a phone the three that are coming are one row of three, a name each
+   (founder, 2026-10-21: "take too much space on phone"), and the call to talk
+   stays a full row under them. */
+@media(max-width:760px){
+  .vsplit .vnext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .vsplit .vnext-cap,.vsplit .vrow-talk{grid-column:1/-1}
+  .vsplit .vrow:not(.vrow-talk){display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:12px}
+  .vsplit .vrow:not(.vrow-talk) .vrow-note{display:none}
+  .vsplit .vrow:not(.vrow-talk) .vrow-icon{width:32px;height:32px}
+  .vsplit .vrow:not(.vrow-talk) .vrow-name{font-size:14px}
+}
 @media(prefers-reduced-transparency:reduce){
   .vsplit .vlead-tags a,.vsplit .vlead-cta{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.16)}
 }
@@ -1734,13 +1745,17 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
     overflow-x:auto;
     overflow-y:visible;
     scroll-snap-type:x mandatory;
-    scroll-padding-left:32px;
+    /* The bleed is the page's own gutter, which is 20px below 561 and 16px
+       below 381: a fixed 32px ran each deck 12px past the screen, and the
+       last card, snapped to the end, sat against the edge with no margin
+       (founder, 2026-10-21). The end padding is the snap's too. */
+    scroll-padding-inline:var(--deck-g,32px);
     scroll-behavior:smooth;
     -webkit-overflow-scrolling:touch;
     gap:12px;
-    margin-left:-32px;
-    margin-right:-32px;
-    padding:4px 32px 24px;
+    margin-left:calc(-1 * var(--deck-g,32px));
+    margin-right:calc(-1 * var(--deck-g,32px));
+    padding:4px var(--deck-g,32px) 24px;
     scrollbar-width:none;
   }
   .hero-stage::-webkit-scrollbar,
@@ -1780,8 +1795,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
 html,body{max-width:100%;overflow-x:clip}
 
-@media(max-width:560px){.wrap{padding:0 20px}}
-@media(max-width:380px){.wrap{padding:0 16px}}
+@media(max-width:560px){.wrap{padding:0 20px}:root{--deck-g:20px}}
+@media(max-width:380px){.wrap{padding:0 16px}:root{--deck-g:16px}}
 
 /* ---- Tablet portrait (761-860): don't stretch ---------------------------
    Below 861 the desktop grid collapses everything to a single column, which on
@@ -2102,6 +2117,9 @@ html,body{max-width:100%;overflow-x:clip}
      below the strip. */
   .hero .hero-title{margin-top:12px}
   .hero .hero-sub{margin-top:20px;max-width:32ch;margin-left:auto;margin-right:auto}
+  /* one sentence on a phone (founder, 2026-10-21: "when it first loads, it's
+     a bit packed"); the first says what Blend does, the second is the pitch */
+  .hero .hero-sub-more{display:none}
   .hero .hero-ctas{margin-top:32px;justify-content:center}
   .hero .cta-alt{margin-top:20px}
   .hero .hero-strip{margin-top:34px}
@@ -2878,7 +2896,7 @@ a.vrow:hover,a.vrow:focus-visible{
     <div class="hero-grid">
       <div class="hero-copy">
         <h1 class="h1 hero-title">Recommend the right product to every customer.</h1>
-        <p class="lead hero-sub">Blend reads each shopper's needs and recommends the right products from your catalogue. Help shoppers buy with confidence, increase conversions and grow basket sizes.</p>
+        <p class="lead hero-sub">Blend reads each shopper's needs and recommends the right products from your catalogue.<span class="hero-sub-more"> Help shoppers buy with confidence, increase conversions and grow basket sizes.</span></p>
         <div class="hero-ctas">
           <a href="try.html" class="btn btn-primary btn-lg">Try the demo</a>
           <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39');">Book a call</a>
@@ -2914,7 +2932,7 @@ a.vrow:hover,a.vrow:focus-visible{
     </div>
   </div>
 </section>
-<section class="open" id="opener" aria-labelledby="open-h">
+<section class="opener" id="opener" aria-labelledby="open-h">
   <div class="wrap open-inner">
     <span class="proof-mark" aria-hidden="true"><svg viewBox="0 0 56 56"><rect width="56" height="56" rx="14" fill="#0E0E10"/><rect class="c" style="--i:0" x="9" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:1" x="17" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:2" x="25" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c pick" style="--i:3" x="33" y="9" width="6" height="6" rx="1.5" fill="#4ADE80"/><rect class="c" style="--i:4" x="41" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c drop" style="--i:1" x="9" y="17" width="6" height="6" rx="1.5" fill="#F87171"/><rect class="c" style="--i:2" x="17" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:3" x="25" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:4" x="33" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:5" x="41" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:2" x="9" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c pick" style="--i:3" x="17" y="25" width="6" height="6" rx="1.5" fill="#4ADE80"/><rect class="c" style="--i:4" x="25" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:5" x="33" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:6" x="41" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:3" x="9" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:4" x="17" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:5" x="25" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c drop" style="--i:6" x="33" y="33" width="6" height="6" rx="1.5" fill="#F87171"/><rect class="c" style="--i:7" x="41" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:4" x="9" y="41" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c drop" style="--i:5" x="17" y="41" width="6" height="6" rx="1.5" fill="#F87171"/><rect class="c" style="--i:6" x="25" y="41" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:7" x="33" y="41" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c pick" style="--i:8" x="41" y="41" width="6" height="6" rx="1.5" fill="#4ADE80"/></svg></span>
     <h2 class="open-h" id="open-h">An engine behind every recommendation.</h2>
@@ -3630,7 +3648,7 @@ const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone 
    Measures where the mark ends (above the words), arms the section with the
    mark moved down over the words' middle, and plays once, the first time all
    of it is in view (half, where it is taller than the window), so the large
-   mark has been seen before it moves. See .open.is-armed for the shapes. */
+   mark has been seen before it moves. See .opener.is-armed for the shapes. */
 (function(){
   var sec = document.getElementById('opener');
   if(!sec || !('IntersectionObserver' in window)) return;
