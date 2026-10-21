@@ -6,19 +6,24 @@ no build step and no package.json; what is in the file is what ships.
 
 ## Product UI
 
-**The homepage's product tour (`#product`) carries three hand-rebuilt
+**The homepage's product tour (`#product`) carries four hand-rebuilt
 copies of the dashboard, and they will drift.** Nothing else on the site
 copies the product.
 
 The founder asked for them on 2026-10-21, from screenshots: 01 the quiz
-builder (`.bx`), 02 the results builder (`.bx.rx`) and 04 Contacts (`.cx`).
-Each is the screen's own layout drawn at the size it was captured,
-2000 x 1125, and scaled into the frame, so it is sharp at any size and is
-not an image. 03 Analytics is still a placeholder. What keeps them honest:
+builder (`.bx`), 02 the results builder (`.bx.rx`), 03 Analytics (`.ax`, the
+whole page, scrolled to the part each card is about) and 04 Contacts (`.cx`).
+Each is the screen's own layout drawn at the width it was captured, 2000px,
+and scaled into the frame, so it is sharp at any size and is not an image.
+What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the
   webapp's own enums (`lib/schemas/theme.ts`: 12 layouts, 4 answer styles,
   6 button styles, 8 transitions). Check there before changing a card.
+- **Analytics shows invented numbers that add up**: 1,284 starts, 912
+  completions, four products a plan, EUR 27 a product. Purchased stays
+  "Coming soon", because purchase tracking is. Never fill in a figure the
+  product cannot produce.
 - **Contacts shows invented shoppers** on the reserved example domains,
   never a real list, and the button is **Remove**, never Erase. In the
   product, Remove takes someone off the list and out of the export, and a
