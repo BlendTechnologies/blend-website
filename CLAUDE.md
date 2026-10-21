@@ -15,6 +15,11 @@ builder (`.bx`), 02 the results builder (`.bx.rx`), 03 Analytics (`.ax`, the
 whole page, scrolled to the part each card is about) and 04 Contacts (`.cx`).
 Each is the screen's own layout drawn at the width it was captured, 2000px,
 and scaled into the frame, so it is sharp at any size and is not an image.
+/how-it-works shows the first three again, in steps 03, 05 and 06, each
+playing a short loop (founder, 2026-10-21: "gifs for the how it works").
+Their rules live once, in `product-screens.css`, linked by both pages; the
+markup is copied, the homepage is the source, and
+`node tools/check-screens.mjs` refuses when a copy differs.
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the
@@ -215,6 +220,7 @@ workspace now asserts the bar does not move when its menu opens.
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`
+- `node tools/check-screens.mjs`
 - `node tools/check-demo-report.mjs`  (and `sync-demo-answers.mjs` when it refuses)
 - `node tools/check-css-shape.mjs`
 - `node tools/check-dashes.mjs`
