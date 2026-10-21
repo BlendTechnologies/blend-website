@@ -1429,6 +1429,11 @@ html,body{max-width:100%;overflow-x:clip}
    empty anchor inside the section, so neither has to move. */
 .hw-step,.hw-anchor{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .hw-anchor{display:block;height:0}
+/* at the top of its zone, not inside the zone's centred words: a link landed
+   with the words at the top and the next step filling the band the page
+   reads, so #launch showed step 05 */
+.hw-zone{position:relative}
+.hw-zone > .hw-anchor{position:absolute;top:0;left:0}
 
 /* ---- Header ----------------------------------------------------------
    The shared PageHero: /page-hero.css. The tint is this page's, at the
@@ -1634,7 +1639,7 @@ body{background:var(--ground)}
 .hw-track{display:grid}
 /* Each zone is a screenful, which is what gives the stage something to
    travel against. min-height rather than height so long copy still fits. */
-.hw-zone{min-height:78vh;display:flex;flex-direction:column;justify-content:center;
+.hw-zone{min-height:46vh;display:flex;flex-direction:column;justify-content:center;
   padding:48px 0}
 .hw-stage{position:sticky;top:calc(var(--nav-h) + 56px)}
 .hw-stage-inner{position:relative;aspect-ratio:16/9;border-radius:var(--r-md);
@@ -1743,6 +1748,13 @@ body{background:var(--ground)}
 
 /* The step text on the homepage's scale: its .h2 and its .lead. The h2 had no
    rule of its own and drew in the browser's default bold. */
+/* Each step carries its number and its short name, as the hero's index does
+   (founder, 2026-10-21: "steps are not enumerated"); the zones are 46% of
+   the window rather than 78, which took about 200px of white out of every
+   step ("so much empty space"). The short names are anchors too: the
+   index and other pages link to #connect .. #analyse, which did not exist. */
+.hw-n{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;font-size:13px;letter-spacing:-.005em;color:var(--n-600)}
+.hw-n b{font-weight:500;color:var(--ink);font-feature-settings:"tnum"}
 .hw-zone h2{margin:0;font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;text-wrap:balance}
 .hw-zone .hw-lead{margin-top:10px;font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80)}
 .hw-why-label{color:var(--n-600)}
@@ -1763,7 +1775,9 @@ body{background:var(--ground)}
 .hw-screen{position:absolute;inset:0;display:grid;place-items:center}
 .hw-win{position:relative;width:90%;aspect-ratio:16/9;overflow:hidden;border-radius:12px;
   background:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.1);transition:opacity .35s ease}
-@media(max-width:600px){.hw-win{width:92%;border-radius:10px}}
+@media(max-width:600px){.hw-win{width:94%;border-radius:10px}
+  /* the square frame is for the square drawings; a screen keeps its 16:9 */
+  .hw-stage .hw-shot:has(.hw-screen){aspect-ratio:16/9}}
 .hw-win > .bx,.hw-win > .ax{transform:scale(var(--k,.3))}
 .hw-screen.is-out .hw-win{opacity:0}
 /* the page's old .hw-shot img rule (a radius, a 16:9 box, a top-aligned crop)
@@ -1881,22 +1895,22 @@ body{background:var(--ground)}
 <div class="hw-steps hw-run">
   <div class="wrap hw-run-grid">
     <div class="hw-track">
-      <article class="hw-zone" data-step="1"><span class="hw-anchor" id="step-1" aria-hidden="true"></span>
+      <article class="hw-zone" data-step="1"><span class="hw-anchor" id="step-1" aria-hidden="true"></span><span class="hw-anchor" id="connect" aria-hidden="true"></span><p class="hw-n"><b>01</b>Connect</p>
         <h2>Start with your catalogue.</h2><p class="hw-lead">Connect Shopify, import a CSV, pick from our catalogue or add products by hand. Your catalogue is the starting point for every recommendation.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Connect your catalogue with a click and it re-syncs on a schedule, so price and stock changes flow through on their own. Or upload a CSV and let us work out what goes where.</p></div>
       </article>
-      <article class="hw-zone" data-step="2"><span class="hw-anchor" id="step-2" aria-hidden="true"></span>
+      <article class="hw-zone" data-step="2"><span class="hw-anchor" id="step-2" aria-hidden="true"></span><span class="hw-anchor" id="match" aria-hidden="true"></span><p class="hw-n"><b>02</b>Match</p>
         <h2>Connect products to the data.</h2><p class="hw-lead">Blend reads what&#8217;s in each product, matches it to its research database, and fills in the data the engine scores. You review every match before anything is saved.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Blend AI reads your whole catalogue and pre-fills everything the engine needs from what is actually in each product: every ingredient, including the ones combined into a single formula. You review it, change whatever you want, and nothing is saved until you apply it.</p></div><p class="hw-more"><a href="/science">How the engine works &#8594;</a></p>
       </article>
-      <article class="hw-zone" data-step="3"><span class="hw-anchor" id="step-3" aria-hidden="true"></span>
+      <article class="hw-zone" data-step="3"><span class="hw-anchor" id="step-3" aria-hidden="true"></span><span class="hw-anchor" id="design" aria-hidden="true"></span><p class="hw-n"><b>03</b>Design</p>
         <h2>Your questions. Your look and feel.</h2><p class="hw-lead">Build the experience in your brand&#8217;s voice. Edit the content, adjust the design, and preview the quiz as your customers will see it.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Start from your industry&#8217;s template and make it yours in the editor. The only limit on how it looks and feels should be what you can picture. If you picture something the editor cannot do yet, our team will build it. If you would rather not start from a blank page, let Blend AI draft it.</p></div>
       </article>
-      <article class="hw-zone" data-step="4"><span class="hw-anchor" id="step-4" aria-hidden="true"></span>
+      <article class="hw-zone" data-step="4"><span class="hw-anchor" id="step-4" aria-hidden="true"></span><span class="hw-anchor" id="launch" aria-hidden="true"></span><p class="hw-n"><b>04</b>Launch</p>
         <h2>Put it where customers shop.</h2><p class="hw-lead">Embed the quiz on a page, open it from a button as a pop-up, or share a direct link.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>Paste one script once, into your site, your app or an email campaign. Everything you change afterwards updates itself, with no second visit to the code. Lock it to the domains you choose, so nobody else can run your quiz.</p></div>
       </article>
-      <article class="hw-zone" data-step="5"><span class="hw-anchor" id="step-5" aria-hidden="true"></span>
+      <article class="hw-zone" data-step="5"><span class="hw-anchor" id="step-5" aria-hidden="true"></span><span class="hw-anchor" id="recommend" aria-hidden="true"></span><p class="hw-n"><b>05</b>Recommend</p>
         <h2>Their answers. A plan of their own.</h2><p class="hw-lead">The engine scores every product in your catalogue against each customer&#8217;s answers, targets and your rules, then explains every pick.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>This goes well beyond tags and personas. Every product runs through a multi-layer engine that weighs the customer&#8217;s answers, the product&#8217;s own data and the safety rules. Every pick comes back with the reason behind it, and the method underneath that.</p></div><p class="hw-more"><a href="/sample-report">See the full sample report &#8594;</a></p>
       </article>
-      <article class="hw-zone" data-step="6"><span class="hw-anchor" id="step-6" aria-hidden="true"></span>
+      <article class="hw-zone" data-step="6"><span class="hw-anchor" id="step-6" aria-hidden="true"></span><span class="hw-anchor" id="analyse" aria-hidden="true"></span><p class="hw-n"><b>06</b>Analyse</p>
         <h2>Learn from every journey.</h2><p class="hw-lead">Hear your customers in their own words. See where they engage, where they drop off, and what they need from your range.</p><div class="hw-why"><span class="hw-why-label">Why it&#8217;s different</span><p>This is first-party data you own outright: what lifts your quiz&#8217;s conversion, who your customers actually are, what they came for, and what they expect a personalised range to include. Catalogue gaps turns the last of those into a stocking list: the products your customers keep asking for and you do not yet sell.</p></div>
       </article>
     </div>
