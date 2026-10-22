@@ -1798,6 +1798,22 @@ body{background:var(--ground)}
    was written for flat screenshots; the screens' photos take none of it */
 .hw-win img{border-radius:0;aspect-ratio:auto;object-position:50% 50%}
 .hw-screen.no-tr .hw-win *,.hw-screen.no-tr .hw-win *::before,.hw-screen.no-tr .hw-win *::after{transition:none !important;animation:none !important}
+/* The homepage tour's frame, not a window in a dark scene (founder,
+   2026-10-22: "reduce and soften the borders in the images. So they look
+   like in homepage"). In the scene the screen sat at 90%, so the black
+   round it read as a 46px bezel at 1440. Now the screen fills the frame
+   inside a 4px edge, with the tour's corner and its one soft shadow, which
+   the stage and the figure stop clipping. The loop's reset fades the screen,
+   not the frame, or the frame would blink out with it. Desktop first. */
+@media(min-width:901px){
+  .hw-stage-inner,.hw-stage .hw-shot:has(.hw-screen){overflow:visible}
+  .hw-shot:has(.hw-screen) .hw-scene{background:none}
+  .hw-win{width:100%;border:4px solid #292929;border-radius:clamp(20px, 2.1vw, 30px);
+    box-shadow:0 14px 36px rgba(0,0,0,.06)}
+  .hw-screen.is-out .hw-win{opacity:1}
+  .hw-win > *{transition:opacity .35s ease}
+  .hw-screen.is-out .hw-win > *{opacity:0}
+}
 
 /* 03, the quiz builder: each phase sets one part of the brand, and they add up */
 .hw-screen[data-demo="quiz"] .bx-row{transition:background-color .35s ease,color .35s ease}
