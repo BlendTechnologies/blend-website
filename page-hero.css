@@ -24,6 +24,24 @@
    — see .ph--fill below. */
 .ph > .wrap{position:relative;z-index:1}
 .ph--fill > .wrap{width:100%}
+
+/* ---- the card --------------------------------------------------------
+   How it works, Use cases and The engine open on a card that starts under
+   the bar, on the page's own ground (founder, 2026-10-22, from
+   superpower.com's How it works). They used to open on .sc-hero: a block
+   that ran up behind a see-through bar at most of the screen's height and
+   closed into a card as you scrolled. The homepage keeps that; these three
+   do not.
+
+   Static, so the corner is a real border-radius rather than a clip-path.
+   The wash is the card's own background, as it was .sc-hero::before's, so
+   the surfaces spec reads it as lit; theme.css leaves .ph--card out of
+   its ::after wash for plain dark boxes, or it would be painted twice.
+   The inset and the corner are the ones the homepage's hero closes to, so
+   the two cards are the same shape. The height is the content and .ph's
+   own padding, with no viewport minimum. */
+.ph--card{margin:8px var(--sc-inset,40px) 0;border-radius:var(--sc-round,36px);
+  background-color:var(--hero-tint,var(--deep));background-image:var(--wash-deep)}
 .ph-inner{max-width:860px;margin:0 auto;text-align:center}
 /* Secondary text takes --ph-muted where a page sets one. The site's
    --muted is 4.65:1 on /science's tint and 4.30 and 4.46 on the two
