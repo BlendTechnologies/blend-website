@@ -1776,7 +1776,17 @@ body{background:var(--ground)}
 @media(min-width:901px){
   .hw-stage{--hw-half:min(258.4px, 20.25vw - 13px, 28.125vw - 111.4px);
     top:calc(50vh + var(--nav-h) / 2 - var(--hw-half));
-    margin-top:calc(50vh - var(--nav-h) / 2 - var(--hw-half))}
+    margin-top:calc(50vh - var(--nav-h) / 2 - var(--hw-half));
+    margin-bottom:calc(50vh - var(--nav-h) / 2 - var(--hw-half))}
+  /* from one step's film to the next (founder, 2026-10-22: "when it goes
+     from one animation to the other, add an effect"): the next rises in as
+     the last lifts away */
+  .hw-stage .hw-shot{transform:translateY(56px) scale(.96);transition:opacity .5s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+  .hw-stage .hw-shot.is-before{transform:translateY(-56px) scale(.96)}
+  .hw-stage .hw-shot.is-active{transform:none}
+}
+@media(min-width:901px) and (prefers-reduced-motion:reduce){
+  .hw-stage .hw-shot,.hw-stage .hw-shot.is-before{transform:none}
   .hw-zone > .hw-anchor{scroll-margin-top:var(--nav-h)}
   /* the margin above is the room under the hero here; the card hero's own
      72px (#136, for the one column) stacked on it made it 230px at 1440 */
@@ -1854,7 +1864,8 @@ body{background:var(--ground)}
     10  the CSV: a file is chosen, Upload and preview
    The numbers are the page's own geometry (2000px wide): a shot is a scale
    and the offset that centres its subject, kept below the bar so its edge
-   never crosses the frame. Reduced motion holds beat 5.
+   never crosses the frame. A last beat goes back out to the whole dashboard
+   (founder: "entire dashboard to end too"). Reduced motion holds beat 5.
    A press scales and dims (filter), and leaves the background alone: a
    button whose colour changes in the same beat (Save, Apply) is transitioning
    it, and in Chromium an animation on a property, even one still in its
@@ -1872,6 +1883,7 @@ body{background:var(--ground)}
 .hw-screen[data-demo="catalogue"].is-p8 .kx-cam{--cx:-861.2px;--cy:-720px;--cs:1.8}
 .hw-screen[data-demo="catalogue"].is-p9 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
 .hw-screen[data-demo="catalogue"].is-p10 .kx-cam{--cx:-964.6px;--cy:-150.1px;--cs:1.9}
+.hw-screen[data-demo="catalogue"].is-p11 .kx-cam{--cx:0px;--cy:0px;--cs:1}
 .hw-screen[data-demo="catalogue"] .kx-off,.hw-screen[data-demo="catalogue"] .kx-on,.hw-screen[data-demo="catalogue"] .kx-pc,.hw-screen[data-demo="catalogue"] .kx-pa,.hw-screen[data-demo="catalogue"] .kx-pi{transition:opacity .35s ease}
 /* 2, 3: the store */
 .hw-screen[data-demo="catalogue"] .kx-in em{transition:opacity .15s ease}
@@ -1952,6 +1964,7 @@ body{background:var(--ground)}
         cut so you can't see anything": one shot of the whole form was too
         far out to read and cut through it; two, each ending at a rule)
     12  Sync now, and the engine has them
+    13  back out to the whole dashboard
    Reduced motion holds beat 9. */
 .hw-screen[data-demo="match"] .kx-cam{--cx:0px;--cy:0px;--cs:1}
 .hw-screen[data-demo="match"].is-p1 .kx-cam{--cx:-323.5px;--cy:-81.9px;--cs:1.28}
@@ -1966,6 +1979,7 @@ body{background:var(--ground)}
 .hw-screen[data-demo="match"].is-p10 .kx-cam{--cx:-1688.4px;--cy:-195px;--cs:2.6}
 .hw-screen[data-demo="match"].is-p11 .kx-cam{--cx:-1326.5px;--cy:-1145.3px;--cs:2.25}
 .hw-screen[data-demo="match"].is-p12 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
+.hw-screen[data-demo="match"].is-p13 .kx-cam{--cx:0px;--cy:0px;--cs:1}
 .hw-screen[data-demo="match"] .kx-grid{display:grid}
 .hw-screen[data-demo="match"] .kx-off,.hw-screen[data-demo="match"] .kx-on,.hw-screen[data-demo="match"] .kx-pc,.hw-screen[data-demo="match"] .kx-pa{transition:opacity .35s ease}
 .hw-screen[data-demo="match"].is-p2 .kx-go{animation:mx-tap .5s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
@@ -2065,6 +2079,7 @@ body{background:var(--ground)}
 .hw-screen[data-demo="design"].is-p14 .kx-cam{--cx:-250.0px;--cy:-200.0px;--cs:1.25}
 .hw-screen[data-demo="design"].is-p15 .kx-cam{--cx:-2000.0px;--cy:-118.0px;--cs:2.0}
 .hw-screen[data-demo="design"].is-p16 .kx-cam{--cx:-861.2px;--cy:-1026.0px;--cs:1.8}
+.hw-screen[data-demo="design"].is-p17 .kx-cam{--cx:0px;--cy:0px;--cs:1}
 .hw-screen[data-demo="design"] .kx-pc,.hw-screen[data-demo="design"] .qx-ed,.hw-screen[data-demo="design"] .qx-lpc,.hw-screen[data-demo="design"] .qx-pn,.hw-screen[data-demo="design"] .kx-off,.hw-screen[data-demo="design"] .kx-on,.hw-screen[data-demo="design"] .qx-mop,.hw-screen[data-demo="design"] .qx-qt,.hw-screen[data-demo="design"] .qx-qs{transition:opacity .35s ease}
 .hw-screen[data-demo="design"] .qx-pn{transition:opacity .35s ease,transform .9s cubic-bezier(.22,1,.36,1)}
 .hw-screen[data-demo="design"] .qx-scr{--q-d:1.3s}
@@ -2675,9 +2690,14 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   var shots = [].slice.call(document.querySelectorAll('.hw-stage .hw-shot'));
   if (!zones.length || !shots.length || !('IntersectionObserver' in window)) return;
 
+  /* the frames before the active one sit above it, the ones after below, so
+     the next film rises in as the last one lifts away, whichever way the
+     reader is scrolling */
   function show(step){
     shots.forEach(function(f){
+      var n = +f.getAttribute('data-step');
       f.classList.toggle('is-active', f.getAttribute('data-step') === step);
+      f.classList.toggle('is-before', n < +step);
     });
   }
   var io = new IntersectionObserver(function(entries){
@@ -2717,7 +2737,7 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   var PLANS = {
     /* a beat each (ms, or one per beat); the count runs 0 to 51 in beat 4,
        as the confirmations arrive, and is 52 once a product is added */
-    catalogue: { ms: [1600, 2000, 2600, 2200, 3000, 3000, 1800, 2400, 2800, 2600, 3000], n: 11, rest: 5, step: function(sc, p){
+    catalogue: { ms: [1600, 2000, 2600, 2200, 3000, 3000, 1800, 2400, 2800, 2600, 3000, 2200], n: 12, rest: 5, step: function(sc, p){
       var n = sc.querySelector('.kx-n'), go = sc._kx = (sc._kx || 0) + 1;
       if(p !== 4 || still.matches){ n.textContent = p < 4 ? '0' : p < 9 ? '51' : '52'; return; }
       var t0 = performance.now() + 700;
@@ -2729,8 +2749,8 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
       });
     } },
     /* the scan's percentage in beat 4, and Apply's count in beat 7 */
-    design: { ms: [1600, 2000, 1800, 2800, 2400, 2600, 2200, 2600, 2400, 2200, 2800, 3000, 1800, 2400, 2600, 1800, 3000], n: 17, rest: 7, step: function(){} },
-    match: { ms: [1600, 1700, 2000, 2200, 2600, 2200, 2200, 2800, 2200, 3000, 2200, 2600, 2800], n: 13, rest: 9, step: function(sc, p){
+    design: { ms: [1600, 2000, 1800, 2800, 2400, 2600, 2200, 2600, 2400, 2200, 2800, 3000, 1800, 2400, 2600, 1800, 3000, 2200], n: 18, rest: 7, step: function(){} },
+    match: { ms: [1600, 1700, 2000, 2200, 2600, 2200, 2200, 2800, 2200, 3000, 2200, 2600, 2800, 2200], n: 14, rest: 9, step: function(sc, p){
       var pc = sc.querySelector('.mx-pc'), bar = sc.querySelector('.mx-bar'), n = sc.querySelector('.mx-n'), go = sc._mx = (sc._mx || 0) + 1;
       function setPc(v){ pc.textContent = v + '%'; bar.style.setProperty('--pc', v); }
       function setN(v){ n.textContent = v; }
@@ -2763,7 +2783,7 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
     } }
   };
   function phase(sc, p){
-    for(var i = 1; i < 17; i++) sc.classList.toggle('is-p' + i, i <= p);
+    for(var i = 1; i < 18; i++) sc.classList.toggle('is-p' + i, i <= p);
     PLANS[sc.dataset.demo].step(sc, p);
   }
   function reset(sc){
