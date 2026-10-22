@@ -31,7 +31,7 @@
   /* Status is the system's: --ok, --attn and --gap from theme.css, used
      directly below. This block used to redefine them as a sage, an amber
      and a terracotta from the old warm palette, lifted for a dark page. */
-  background:var(--bg); color:var(--ink);
+  background:transparent; color:var(--ink);
   /* A faint rule grid, the paper this is drawn on. */
   background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
   background-size:64px 64px;

@@ -209,6 +209,13 @@
   --sys-glass-on-dark:rgba(255,255,255,.10);
   --sys-glass-on-dark-hover:rgba(255,255,255,.18);
   /* the matte: a fine grain that glass smooths away behind itself */
+  /* the ground's light: three soft greys at the window's edges, top left,
+     right and low, with the middle left white (body::before below) */
+  --ground-light:
+    radial-gradient(48% 55% at 0% 0%, rgba(24,24,27,.06) 0%, rgba(24,24,27,0) 100%),
+    radial-gradient(42% 50% at 100% 58%, rgba(24,24,27,.05) 0%, rgba(24,24,27,0) 100%),
+    radial-gradient(55% 45% at 22% 100%, rgba(24,24,27,.04) 0%, rgba(24,24,27,0) 100%);
+  --ground-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .02 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --sys-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -325,6 +332,34 @@ body:has(.sc-hero) .nav:not(.scrolled){
    where it was drawn to be. Those two keep their wash on the clipped
    ::before now, and scroll-cards.css already lifts their .wrap. */
 .theme-dark:not(.sc-reveal):not(.sc-hero,.hero-card) > *{position:relative;z-index:1}
+
+/* THE GROUND'S LIGHT (founder, 2026-10-22: "add some soft gradients to
+   white background. holistic and discreet to add a little bit of substance
+   to website"). One layer of soft grey light, fixed to the window, under
+   every page: the same light wherever a reader is, so it belongs to the
+   site rather than to a section, and nothing scrolls into it as an edge.
+   A grain finer and fainter than the glass's goes over it: light this soft
+   steps from one shade to the next in visible bands on an ordinary screen,
+   and the grain dithers them away.
+   Neutral like every surface (the system's first rule), and quiet enough
+   that a reader feels the white has depth before they could say why.
+   Sections that used to paint their own white over it are transparent, so
+   it is the one ground. A white card on it now reads as a card, which is
+   what lets cards be white with a hairline instead of grey. */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:var(--ground-grain),var(--ground-light)}
+
+/* A frame round a screen: frosted glass, not a black edge (founder,
+   2026-10-22, on the homepage tour and /how-it-works: "decrease border
+   width ... soft, holistic, glass effect"). A narrow pane of white frost,
+   a hairline either side of it, and the soft lift, the one shadow the
+   system allows. The rim is a border with the background clipped inside
+   it, so the frost shows the light behind rather than the screen's white;
+   the inner hairline is an outline pulled in over the border's last pixel. */
+:root{--glass-rim:5px;
+  --frame-rim:rgba(255,255,255,.55);
+  --frame-blur:blur(18px) saturate(140%);
+  --frame-shadow:0 0 0 1px rgba(24,24,27,.08),0 18px 44px -18px rgba(24,24,27,.16)}
 
 /* GLASS, anywhere. Light over a wash, dark over an island. */
 .glass{background:var(--glass);

@@ -1775,10 +1775,17 @@ body{background:var(--ground)}
    padding. Increase it"). And a step link lands its zone right under the
    nav, so the step fills the window. */
 @media(min-width:901px){
-  .hw-stage{--hw-half:min(258.4px, 20.25vw - 13px, 28.125vw - 111.4px);
-    top:calc(50vh + var(--nav-h) / 2 - var(--hw-half));
-    margin-top:calc(50vh - var(--nav-h) / 2 - var(--hw-half));
+  .hw-run-grid{--hw-half:min(258.4px, 20.25vw - 13px, 28.125vw - 111.4px)}
+  .hw-stage{top:calc(50vh + var(--nav-h) / 2 - var(--hw-half));
+    margin-top:72px;
     margin-bottom:calc(50vh - var(--nav-h) / 2 - var(--hw-half))}
+  /* The frame starts 72px under the hero, the room every page leaves under
+     its card (founder, 2026-10-22: "decrease white space between hero and
+     01 Connect"; it was the half-window the frame needs to sit centred, 157px
+     at 1440). Step 01 is as tall as that room and the frame together, so its
+     words are centred on the frame from the first screen, as every later
+     step's are once the frame sticks. */
+  .hw-zone[data-step="1"]{min-height:calc(2 * (72px + var(--hw-half)))}
   /* from one step's film to the next (founder, 2026-10-22: "add an effect",
      then "the place holder shouldn't move. Just close/switch from top to
      bottom or vice versa depending on direction of scroll"): the frame stays
@@ -1796,6 +1803,11 @@ body{background:var(--ground)}
 @keyframes hw-wipe-up{from{clip-path:inset(100% -60px -60px -60px)}to{clip-path:inset(-60px)}}
 @media(min-width:901px) and (prefers-reduced-motion:reduce){
   .hw-stage .hw-shot.is-active{animation:none}
+}
+/* These two sat inside the reduced-motion block above until 2026-10-22, so
+   they only ever applied with motion off: everyone else got the card hero's
+   72px on top of the stage's margin, 229px of white at 1440. */
+@media(min-width:901px){
   .hw-zone > .hw-anchor{scroll-margin-top:var(--nav-h)}
   /* the margin above is the room under the hero here; the card hero's own
      72px (#136, for the one column) stacked on it made it 230px at 1440 */
@@ -1823,8 +1835,14 @@ body{background:var(--ground)}
 @media(min-width:901px){
   .hw-stage-inner,.hw-stage .hw-shot:has(.hw-screen){overflow:visible}
   .hw-shot:has(.hw-screen) .hw-scene{background:none}
-  .hw-win{width:100%;border:4px solid #292929;border-radius:clamp(20px, 2.1vw, 30px);
-    box-shadow:0 14px 36px rgba(0,0,0,.06)}
+  /* The tour's frame, glass since 2026-10-22 (theme.css, "A frame round a
+     screen"; founder: "decrease border width of placeholder (soft,
+     holistic, glass effect)"). */
+  .hw-win{width:100%;border-radius:clamp(20px, 2.1vw, 30px);
+    border:var(--glass-rim) solid var(--frame-rim);background-clip:padding-box;
+    -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
+    outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
+    box-shadow:var(--frame-shadow)}
   .hw-screen.is-out .hw-win{opacity:1}
   .hw-win > *{transition:opacity .35s ease}
   .hw-screen.is-out .hw-win > *{opacity:0}
