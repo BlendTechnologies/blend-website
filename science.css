@@ -18,17 +18,19 @@
    a different site, so the surfaces now come from theme.css and only the
    things this page genuinely means differently stay here.
 
-   The gold is the exception that stays: #B47F39 is the brand on white and
-   is too dark to carry a figure on charcoal, so this page uses --sand,
-   which is the same brand gold lifted for a dark ground. */
+   Since 2026-10-20 the body is white and the gold is the site's one gold,
+   on what a reader presses and on what they have chosen, never on a figure
+   or a name; status is the system's green, yellow and red. */
 .sci{
   --bg:var(--ground); --raised:var(--surface); --raised-2:#30303A;
-  --subtle:var(--surface);
-  /* The golds were all #E7CFA3 here, the ramp lifted for a near-black
-     page. On the warm grey ground that reads 1.3:1. The page takes the
-     site ramp now, and --gold-text resolves dark on light and sand
-     inside the hero and the closing card, which are .theme-dark. */
-  --ok:#8FBE74; --warn:#E3B457; --bad:var(--red-soft);
+  /* The track under each market's ladder. It was --surface, which went
+     white with the palette on 2026-10-20, so on a white page the ladders
+     lost their bar and kept only the tick and the hatch (founder,
+     2026-10-21: "colours are not working correctly"). */
+  --subtle:var(--n-200);
+  /* Status is the system's: --ok, --attn and --gap from theme.css, used
+     directly below. This block used to redefine them as a sage, an amber
+     and a terracotta from the old warm palette, lifted for a dark page. */
   background:var(--bg); color:var(--ink);
   /* A faint rule grid, the paper this is drawn on. */
   background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
@@ -74,7 +76,7 @@
 .sci-verts .is-off:focus-visible{outline:2px solid #E7CFA3;outline-offset:3px;border-radius:4px}
 
 /* A tooltip, shared by the categories, the run marker and the warning. */
-.sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:var(--gold);color:#17140F;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
+.sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:#18181B;color:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.14);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
 
 [class*="sci-"]:hover > .sci-tip,[class*="sci-"]:focus-visible > .sci-tip{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -84,7 +86,7 @@
 .sci-gbox:hover{border-color:var(--line-strong)}
 .sci-gbox[aria-expanded="true"]{border-color:var(--gold);background:var(--raised-2)}
 .sci-gbox:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sci-gbox-n{font-size:20px;font-weight:500;letter-spacing:-.02em;font-feature-settings:"tnum";color:var(--gold-strong)}
+.sci-gbox-n{font-size:20px;font-weight:500;letter-spacing:-.02em;font-feature-settings:"tnum";color:var(--ink)}
 .sci-gbox-name{font-size:14px;font-weight:500;letter-spacing:-.005em}
 .sci-glist{max-width:900px;margin:14px auto 0;border:1px solid var(--line);border-radius:12px;padding:4px 20px}
 .sci-check{padding:13px 0;border-bottom:1px solid var(--line)}
@@ -100,8 +102,8 @@
    and read as "notable" when it means "this one stopped something".
    .sci-warn stays amber: that check warns and removes nothing. */
 .sci-dot,.sci-warn{position:relative;width:8px;height:8px;border-radius:50%;display:inline-block;flex:0 0 auto}
-.sci-dot{background:var(--bad)}
-.sci-warn{background:var(--warn)}
+.sci-dot{background:var(--gap)}
+.sci-warn{background:var(--attn)}
 /* The plan checks box: the same box as the safety groups, marked as a
    different kind of check. Dashed rather than solid, and the figure in the
    muted gold rather than the strong one — these shape a plan, they do not
@@ -112,7 +114,7 @@
 .sci-gbox--static:hover{border-color:var(--line)}
 .sci-gbox--plan.sci-gbox--static:hover{border-color:var(--line)}
 .sci-gbox--plan{border-style:dashed}
-.sci-gbox--plan .sci-gbox-n{color:var(--gold)}
+.sci-gbox--plan .sci-gbox-n{color:var(--ink)}
 .sci-gbox--plan[aria-expanded="true"]{border-style:solid}
 
 /* ---- markets ------------------------------------------------------------- */
@@ -130,12 +132,12 @@
 .sci-dose-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px}
 .sci-dose-n{font-size:14.5px;font-weight:500;letter-spacing:-.01em}
 .sci-dose-s{font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:3px 8px}
-.sci-dose-s.is-strict{color:var(--bad);background:rgba(200,97,76,.16)}
-.sci-dose-s.is-lenient{color:var(--ok);background:rgba(127,168,106,.14)}
+.sci-dose-s.is-strict{color:var(--gap-text);background:var(--gap-tint)}
+.sci-dose-s.is-lenient{color:var(--ok-text);background:var(--ok-tint)}
 .sci-track{position:relative;height:6px;border-radius:999px;background:var(--subtle);margin:0 0 26px}
-.sci-never{position:absolute;top:0;bottom:0;right:0;border-radius:0 999px 999px 0;background:repeating-linear-gradient(45deg,rgba(200,97,76,.3) 0 4px,transparent 4px 8px);border-left:1px solid #C8614C}
-.sci-never-l{position:absolute;right:6px;top:10px;font-size:10px;font-weight:500;color:var(--bad);letter-spacing:.05em;text-transform:uppercase}
-.sci-mark{position:absolute;top:-5px;width:2px;height:16px;border-radius:1px;background:var(--gold-strong);transition:left .5s cubic-bezier(.2,.7,.25,1)}
+.sci-never{position:absolute;top:0;bottom:0;right:0;border-radius:0 999px 999px 0;background:repeating-linear-gradient(45deg,rgba(239,68,68,.32) 0 4px,transparent 4px 8px);border-left:1px solid var(--gap)}
+.sci-never-l{position:absolute;right:6px;top:10px;font-size:10px;font-weight:500;color:var(--gap-text);letter-spacing:.05em;text-transform:uppercase}
+.sci-mark{position:absolute;top:-5px;width:2px;height:16px;border-radius:1px;background:var(--ink);transition:left .5s cubic-bezier(.2,.7,.25,1)}
 .sci-mark i{position:absolute;top:19px;left:50%;transform:translateX(-50%);font-size:10.5px;font-style:normal;white-space:nowrap;color:var(--ink-80);font-feature-settings:"tnum";font-weight:500}
 .sci-mark.is-left i{left:0;transform:none}
 .sci-mark.is-right i{left:auto;right:0;transform:none}
@@ -256,7 +258,7 @@
   bottom:-1px;height:1.5px;background:var(--gold);border-radius:2px}
 .sci-goalname:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .sci-subs{max-width:860px;margin:22px auto 0;min-height:112px;text-align:center}
-.sci-subs-t{font-size:15px;font-weight:500;letter-spacing:-.01em;color:var(--gold)}
+.sci-subs-t{font-size:15px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
 .sci-subs-list{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
 .sci-subs-list span{font-size:12.5px;line-height:1.5;padding:5px 11px;border-radius:999px;
   background:var(--raised);border:1px solid var(--line);color:var(--ink-80)}

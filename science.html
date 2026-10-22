@@ -987,7 +987,9 @@ body{background:var(--ground)}
 #run .tm{
   --t-ink:#F4F4F5;--t-dim:#A1A1AA;--t-line:rgba(255,255,255,.1);--t-gold:var(--gold);
   --t-ok:#4ADE80;--t-bad:#F87171;--t-short:#FDE047;--t-data:rgba(255,255,255,.55);
-  background:var(--wash-deep),#0E0E10;border:0;box-shadow:none;
+  /* the hero's black under the homepage terminal's neutral light: the
+     sand wash it wore showed through every translucent cell as brown */
+  background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.015) 55%),#0E0E10;border:0;box-shadow:none;
   -webkit-backdrop-filter:none;backdrop-filter:none;border-radius:20px}
 #run .tm-k{color:var(--t-dim)}
 #run .tm-line.is-short .tm-f,#run .tm-line.is-short .tm-s{color:var(--t-short)}
@@ -1005,14 +1007,10 @@ body{background:var(--ground)}
 #run .tm-tick.is-done{background:rgba(180,127,57,.5)}
 #run .eng-term-note,#run .tm-note{color:#A1A1AA}
 
-/* GOLD IS BLEND, NOT DATA. The counts in the check boxes, the target marks on
-   the ladders and the titles over the product and goal panels were gold:
-   they are figures and names, so they are ink. Gold stays on what a reader
-   presses and on the one they have chosen (the tab underline, the pressed
-   market, the open box's edge). */
-.sci-gbox-n,.sci-gbox--plan .sci-gbox-n{color:var(--ink)}
-.sci-mark{background:var(--ink)}
-.sci-subs-t{color:var(--ink)}
+/* GOLD IS BLEND, NOT DATA: the counts, the target marks and the panel titles
+   are ink in science.css itself now, as is status (the system's green,
+   yellow and red); gold stays on what a reader presses and on the one they
+   have chosen (the tab underline, the pressed market, the open box's edge). */
 
 /* The homepage's light content cards: flat --n-100, no edge. */
 .sci-gbox{background:var(--n-100);border-color:transparent}
@@ -1021,14 +1019,6 @@ body{background:var(--ground)}
 .sci-card:not(.tm){background:var(--n-100);border-color:transparent;
   -webkit-backdrop-filter:none;backdrop-filter:none}
 
-/* STATUS IN THE SYSTEM'S COLOURS. The badges and the "above the limit" hatch
-   were a terracotta and a sage of the old warm palette. */
-.sci-dot{background:var(--gap)}
-.sci-dose-s.is-strict{color:var(--gap-text);background:var(--gap-tint)}
-.sci-dose-s.is-lenient{color:var(--ok-text);background:var(--ok-tint)}
-.sci-never{background:repeating-linear-gradient(45deg,rgba(239,68,68,.32) 0 4px,transparent 4px 8px)}
-.sci-never-l{color:var(--gap-text)}
-.sci-never{border-left-color:var(--gap)}
 </style>
 </head>
 <body>
