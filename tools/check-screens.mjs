@@ -36,6 +36,13 @@ const SCREENS = {
   analytics: '<div class="ax" aria-hidden="true">',
 };
 const COPIES = { 'how-it-works.html': [] };
+/* The films (films.css, films.js) have their own source: /how-it-works,
+   where each was directed. A page that plays one copies its .hw-screen
+   whole, and is held to it here. */
+const FILM_SOURCE = 'how-it-works.html';
+const FILM_COPIES = {};
+const FILM_SHEET = '<link rel="stylesheet" href="/films.css">';
+const FILM_SCRIPT = '<script src="/films.js" defer></script>';
 const SHEET = '<link rel="stylesheet" href="/product-screens.css">';
 
 /** The element opening at src[start], through its matching </div>. */
@@ -79,10 +86,33 @@ for (const [page, names] of Object.entries(COPIES)) {
   }
 }
 
+const filmSrc = read(FILM_SOURCE);
+for (const [page, names] of Object.entries(FILM_COPIES)) {
+  const html = read(page);
+  if (!html.includes(FILM_SHEET)) failures.push(`${page} plays a film but does not link /films.css`);
+  if (!html.includes(FILM_SCRIPT)) failures.push(`${page} plays a film but does not load /films.js`);
+  if (!html.includes(SHEET)) failures.push(`${page} plays a film but does not link /product-screens.css`);
+  for (const name of names) {
+    const open = `<div class="hw-screen" data-demo="${name}">`;
+    const a = filmSrc.indexOf(open), b = html.indexOf(open);
+    if (a < 0) { failures.push(`${FILM_SOURCE}: no ${name} film`); continue; }
+    if (b < 0) { failures.push(`${page}: no ${name} film`); continue; }
+    const want = norm(element(filmSrc, a)), got = norm(element(html, b));
+    if (want !== got) {
+      let i = 0;
+      while (i < got.length && got[i] === want[i]) i++;
+      failures.push(`${page}: the ${name} film differs from ${FILM_SOURCE}'s at character ${i}:\n` +
+        `    ${FILM_SOURCE}: ...${want.slice(Math.max(0, i - 40), i + 60)}...\n` +
+        `    ${page}: ...${got.slice(Math.max(0, i - 40), i + 60)}...`);
+    }
+  }
+}
+
 if (failures.length) {
   console.error('FAILED:\n  ' + failures.join('\n  '));
   console.error('\nThe homepage is the source: copy its screen between the markers.');
   process.exit(1);
 }
 const n = Object.values(COPIES).reduce((t, v) => t + v.length, 0);
-console.log(`PASSED: ${n} copied screen(s) match the homepage's, and every page showing them links product-screens.css.`);
+const f = Object.values(FILM_COPIES).reduce((t, v) => t + v.length, 0);
+console.log(`PASSED: ${n} copied screen(s) match the homepage's, ${f} copied film(s) match ${FILM_SOURCE}'s, and every page showing them links what they need.`);
