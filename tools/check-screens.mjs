@@ -5,10 +5,10 @@
  *
  * WHY THIS EXISTS. The dashboard's screens are rebuilt in code from the
  * founder's screenshots: the quiz builder (.bx), the results builder
- * (.bx.rx) and Analytics (.ax) in the homepage's product tour, and the last
- * two again in steps 05 and 06 of /how-it-works (its 01, 02 and 03, the
- * Catalogue, Match and the quiz editor, are drawn for that page alone). There is no build step, so
- * the markup is copied. Their rules are not: both pages link
+ * (.bx.rx) and Analytics (.ax) in the homepage's product tour, and Analytics
+ * again in step 06 of /how-it-works (its 01 to 05, the Catalogue, Match, the
+ * quiz editor, Recommend and Launch, are drawn for that page alone). There is
+ * no build step, so the markup is copied. Their rules are not: both pages link
  * product-screens.css. The visual-diff suite compares each page against its
  * own past, so a copy that drifts from the other page's is invisible to it,
  * the same way the wordmark under /use-cases went wrong for months. Agreement
@@ -33,7 +33,7 @@ const SCREENS = {
   plan: '<div class="bx rx" aria-hidden="true">',
   analytics: '<div class="ax" aria-hidden="true">',
 };
-const COPIES = { 'how-it-works.html': ['plan', 'analytics'] };
+const COPIES = { 'how-it-works.html': ['analytics'] };
 const SHEET = '<link rel="stylesheet" href="/product-screens.css">';
 
 /** The element opening at src[start], through its matching </div>. */

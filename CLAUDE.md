@@ -15,9 +15,10 @@ builder (`.bx`), 02 the results builder (`.bx.rx`), 03 Analytics (`.ax`, the
 whole page, scrolled to the part each card is about) and 04 Contacts (`.cx`).
 Each is the screen's own layout drawn at the width it was captured, 2000px,
 and scaled into the frame, so it is sharp at any size and is not an image.
-/how-it-works shows the last two again, in steps 05 and 06, each playing a
-short loop (founder, 2026-10-21: "gifs for the how it works"); its step 03
-showed the quiz builder too until it got its own film (below).
+/how-it-works shows Analytics again, in step 06, playing a short loop
+(founder, 2026-10-21: "gifs for the how it works"); its steps 03 and 04 showed
+the quiz builder and the results builder too until each got its own film
+(below).
 Their rules live once, in `product-screens.css`, linked by both pages; the
 markup is copied, the homepage is the source, and
 `node tools/check-screens.mjs` refuses when a copy differs.
@@ -39,7 +40,15 @@ Step 03 has a seventh, the Quiz page and its editor (`.qx`, on the same
 dashboard): Brand essentials, Typography, Layout and spacing, Answers and
 buttons, Transitions, a screen's Content and Style, and Quiz setup. Its preview
 is one quiz screen drawn from the brand's variables (`--q-*`), so restyling it
-is changing them, as the editor does. Step 04 has an eighth, Launch (`.lx`):
+is changing them, as the editor does. Step 04 has an eighth, Recommend
+(`.wx`): the results editor's Wellness plan, drawn with the report's own `.rp`
+rules, and its Style and Text panels changing the layout, the product cards,
+the colours and what a card shows. Three products (founder: "show case 3
+products that's enough"), each with a canister photograph, and descriptions in
+the authorised wording for its nutrient, not the demo data's claims. It comes
+before Launch since 2026-10-22 (founder: "results should go before embed");
+the anchors `#recommend` and `#launch` stay with their content, so `#step-4`
+is Launch and `#step-5` Recommend. Step 05 has a ninth, Launch (`.lx`):
 the Quiz page as Design leaves it, its Embed panel and Publish. Its embed code
 and direct link carry an invented quiz id, never a real account's, and the
 address it is locked to is yourbrand.com (founder: "make sure you add fake codes
