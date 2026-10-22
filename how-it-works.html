@@ -1642,8 +1642,10 @@ body{background:var(--ground)}
   gap:72px;align-items:start}
 .hw-track{display:grid}
 /* Each zone is a screenful, which is what gives the stage something to
-   travel against. min-height rather than height so long copy still fits. */
-.hw-zone{min-height:46vh;display:flex;flex-direction:column;justify-content:center;
+   travel against. min-height rather than height so long copy still fits.
+   Exactly the window under the nav, so each scroll brings the next step in
+   whole (founder, 2026-10-22: "make each step 100vh"). */
+.hw-zone{min-height:calc(100vh - var(--nav-h));display:flex;flex-direction:column;justify-content:center;
   padding:48px 0}
 .hw-stage{position:sticky;top:calc(var(--nav-h) + 56px)}
 .hw-stage-inner{position:relative;aspect-ratio:16/9;border-radius:var(--r-md);
@@ -1753,9 +1755,7 @@ body{background:var(--ground)}
 /* The step text on the homepage's scale: its .h2 and its .lead. The h2 had no
    rule of its own and drew in the browser's default bold. */
 /* Each step carries its number and its short name, as the hero's index does
-   (founder, 2026-10-21: "steps are not enumerated"); the zones are 46% of
-   the window rather than 78, which took about 200px of white out of every
-   step ("so much empty space"). The short names are anchors too: the
+   (founder, 2026-10-21: "steps are not enumerated"). The short names are anchors too: the
    index and other pages link to #connect .. #analyse, which did not exist. */
 .hw-n{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;font-size:13px;letter-spacing:-.005em;color:var(--n-600)}
 .hw-n b{font-weight:500;color:var(--ink);font-feature-settings:"tnum"}
@@ -1768,8 +1768,17 @@ body{background:var(--ground)}
    ~230px above the words it was showing. Half its height is 9/32 of its
    width, which is the least of: 72% of the row (20.25vw less 13px), the row
    less the gap and the text's 260px (28.125vw less 111.4px), and 258px where
-   the content stops growing at 1340. */
-@media(min-width:901px){.hw-stage{top:calc(50vh + var(--nav-h) / 2 - min(258.4px, 20.25vw - 13px, 28.125vw - 111.4px))}}
+   the content stops growing at 1340.
+   Its margin puts it there before it sticks too, level with step 01: on the
+   grid's top edge it sat flush against the hero (founder, 2026-10-22: "no
+   padding. Increase it"). And a step link lands its zone right under the
+   nav, so the step fills the window. */
+@media(min-width:901px){
+  .hw-stage{--hw-half:min(258.4px, 20.25vw - 13px, 28.125vw - 111.4px);
+    top:calc(50vh + var(--nav-h) / 2 - var(--hw-half));
+    margin-top:calc(50vh - var(--nav-h) / 2 - var(--hw-half))}
+  .hw-zone > .hw-anchor{scroll-margin-top:var(--nav-h)}
+}
 /* ---- 03, 05, 06: the product screens --------------------------------------
    The dashboard's own screens (product-screens.css, the same rules and markup
    the homepage tour uses) as a window on the step's dark scene, each playing
