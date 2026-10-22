@@ -26,6 +26,14 @@ rather than walked through ("more than just someone strolling around the
 webapp"): a camera over the page, `--cx --cy --cs` per beat. Its prices are
 in pounds, because `tools/check-prices.mjs` holds every `$` figure on the
 site to `pricing.json`, and its product descriptions make no health claims.
+Step 02 has a sixth, Match (`.mx`, on the same `.kx` dashboard): Blend AI's
+scan, its list of matches and a combined product's Edit page. Its products are
+invented and marketing-named, half of them made of more than one ingredient;
+what each is matched to, and every goal and "Not suitable for" tag the matched
+cards show, are the engine's master references in
+`algorithms/personalization/data/product_taxonomy.json`, a combined product's
+being all of its ingredients' together. Regenerate them from there if the
+references change; never type a restriction in by hand.
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the

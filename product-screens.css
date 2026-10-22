@@ -398,7 +398,7 @@
   border:1.5px dashed #E4E4E7;border-radius:12px;color:#3F3F46}
 .kx-pgn{margin-top:34px !important;color:#3F3F46}
 .kx-grid{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:25px}
-.kx-p{height:447px;padding:20px;border:1px solid #E4E4E7;border-radius:12px;background:#FFFFFF;box-shadow:0 1px 2px rgba(24,24,27,.04),0 4px 14px rgba(24,24,27,.03)}
+.kx-p{height:447px;overflow:hidden;padding:20px;border:1px solid #E4E4E7;border-radius:12px;background:#FFFFFF;box-shadow:0 1px 2px rgba(24,24,27,.04),0 4px 14px rgba(24,24,27,.03)}
 .kx-ph{display:flex;align-items:flex-start;gap:12px}
 .kx-th{flex:none;width:48px;height:48px;overflow:hidden;border-radius:10px;background:#F1EADF}
 .kx-th img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.35)}
@@ -449,3 +449,86 @@
 .kx-file em{font-style:normal}
 .kx-cf{flex:none;padding:1px 8px;border:1px solid #D4D4D8;border-radius:5px;background:#F4F4F5}
 .kx-up .kx-btn{margin-top:16px}
+
+/* ---- 06: Match, rebuilt (founder's screenshots, 2026-10-22) -------------
+   Blend AI's Match my catalogue, in the same dashboard as the Catalogue
+   (.kx, above) and drawn the same way: the window over the page, its scan,
+   its list of matches, the result; the cards once matched; a combined
+   product's Edit page; and the engine synced. The products are invented, with
+   marketing names, half of them combined (founder: "change product names to
+   something more marketing led ... show case also multi ingredient
+   products"). What each is matched to, and the goals and restrictions the
+   matched cards show, are the engine's own master references in
+   algorithms/personalization/data/product_taxonomy.json, a combined
+   product's being all of its ingredients' together. Goes stale when the
+   dashboard's look changes, or the references do. */
+.mx-dim{position:absolute;left:-1000px;top:-1000px;z-index:3;width:4000px;height:4400px;background:rgba(24,24,27,.38);opacity:0}
+.mx-modal{position:absolute;left:590px;top:90px;z-index:4;width:820px;padding:38px 40px 36px;border:1px solid #EAD7BF;border-radius:18px;
+  background:linear-gradient(170deg,#FCF8F3 0%,#FFFFFF 40%);box-shadow:0 24px 60px rgba(24,24,27,.18);opacity:0;transform:translateY(16px) scale(.98)}
+.mx-x{position:absolute;right:28px;top:30px;width:20px;height:20px}
+.mx-eb{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:500;letter-spacing:.1em;color:#3F3F46}
+.mx-eb svg{width:22px;height:22px}
+.mx-eb em{padding:0 8px;border:1.5px solid #C9A57A;border-radius:999px;font-style:normal;font-size:13px;font-weight:600;letter-spacing:0;line-height:19px;color:#93652F}
+.mx-modal h4{margin-top:26px !important;font-size:30px}
+.mx-lead{margin-top:8px !important;max-width:700px;font-size:17px;line-height:1.55;color:#52525B}
+.mx-s1 .kx-btn{height:48px;margin-top:30px;padding:0 20px;font-size:16px}
+.mx-s2,.mx-s3,.mx-s4{display:none}
+.mx-s2{flex-direction:column;align-items:center;gap:22px;padding:44px 0 18px}
+.mx-s2 > svg{width:66px;height:66px}
+.mx-bar{position:relative;width:400px;height:5px;overflow:hidden;border-radius:999px;background:#E4E4E7}
+.mx-bar i{position:absolute;left:0;top:0;bottom:0;width:calc(var(--pc,0) * 1%);border-radius:999px;background:#93652F}
+.mx-pc{font-size:16px;font-weight:400;color:#3F3F46}
+.mx-links{display:flex;gap:16px;margin-top:30px !important;font-size:15px}
+.mx-links u + u{color:#52525B}
+.mx-note{margin-top:12px !important;font-size:14px;color:#3F3F46}
+.mx-list{margin-top:14px;overflow:hidden;border:1px solid #E4E4E7;border-radius:12px;background:#FFFFFF}
+.mx-row{display:flex;gap:14px;padding:17px 20px;border-bottom:1px solid #E4E4E7}
+.mx-row:last-child{border-bottom:0}
+.mx-row > div{min-width:0;flex:1}
+.mx-cb{display:grid;place-items:center;flex:none;width:20px;height:20px;margin-top:3px;border:1.5px solid #A1A1AA;border-radius:5px;background:#FFFFFF;transition:background-color .2s ease,border-color .2s ease}
+.mx-cb svg{width:12px;height:12px;opacity:0;transition:opacity .15s ease}
+.mx-cb.is-set{border-color:#2563EB;background:#2563EB}
+.mx-cb.is-set svg{opacity:1}
+.mx-nm{font-size:17px}
+.mx-nm span{margin:0 8px;color:#52525B}
+.mx-sc{display:flex;align-items:center;gap:7px;margin-top:5px !important;font-size:14.5px;color:#52525B}
+.mx-sc i{width:8px;height:8px;border-radius:50%;background:#16A34A}
+.mx-sc b{font-weight:400;color:#15803D}
+.mx-sc.mx-wl i{background:#C2410C}
+.mx-sc.mx-wl b{color:#C2410C}
+.mx-why{margin-top:5px !important;font-size:14px;font-style:italic;color:#3F3F46}
+.mx-call{margin-top:12px;padding:11px 14px;border:1px solid #F3D36B;border-radius:10px;background:#FFFBEA;font-size:14px;line-height:1.45;color:#3F3F46}
+.mx-call b{display:block;font-weight:600;color:#18181B}
+.mx-foot{display:flex;align-items:center;gap:26px;margin-top:26px}
+.mx-foot .kx-btn{height:48px;padding:0 22px;font-size:16px}
+.mx-foot u{font-size:16px;color:#3F3F46}
+.mx-apply em{font-style:normal}
+.mx-apply b{font-weight:inherit}
+.mx-done{display:flex;flex-direction:column;gap:2px;margin-top:30px;padding:16px 18px;border:1px solid #E4E4E7;border-radius:10px;background:#F4F4F5;font-size:15.5px}
+.mx-done b{font-weight:400;color:#18181B}
+.mx-done span{color:#52525B}
+.mx-s4 > p{margin-top:22px !important;font-size:15.5px}
+/* the cards, matched; the needs-review face and this one share the card */
+.mx-card{display:grid}
+.mx-card > *{grid-area:1/1}
+.mx-ok{display:flex;align-items:center;gap:6px;margin-top:14px !important;font-size:13px;color:#15803D}
+.mx-ok span{color:#52525B}
+.mx-h{margin-top:10px !important;font-size:12.5px;color:#18181B}
+.mx-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.mx-chips span{padding:1px 7px;border-radius:6px;background:#F4F4F5;font-size:12px;line-height:17px;color:#18181B}
+.mx-chips .mx-sub{background:#F7F7F8;color:#52525B}
+.mx-chips .mx-no{background:#FDF1E9;color:#C2410C}
+.mx-chips small{font-size:12px;line-height:17px;color:#52525B}
+.kx-p .mx-kv{margin-top:8px !important;color:#18181B}
+.kx-p .mx-kv span{display:block;color:#3F3F46}
+.mx-rv{max-height:0;margin-top:0;overflow:hidden;opacity:0;color:#3F3F46}
+/* the engine, before and after a sync */
+.mx-eng .kx-on .kx-t i{background:#16A34A}
+/* a combined product's Edit page: its ingredients, one select each */
+.mx-ed .kx-fi.is-full{color:#18181B}
+.mx-ed .kx-ta{height:auto;min-height:77px;padding:9px;line-height:1.45;white-space:normal;align-items:flex-start}
+.mx-ing{display:block;margin:16px 0 6px;font-size:13px;color:#3F3F46}
+.mx-irow{display:flex;gap:10px}
+.mx-irow .kx-fi{flex:1}
+.mx-irow .kx-btn{width:43px;height:43px;padding:0}
+.mx-add{display:block;margin-top:14px;font-size:14px;font-weight:600}
