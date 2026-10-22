@@ -245,6 +245,43 @@ the page) against `/#pricing` elsewhere. `/try` is the one whole-page
 exception — its nav carries "Book a call", because a demo button there
 would point at the page you are on.
 
+`node tools/check-cookie-consent.mjs` is that check for the cookie banner,
+and it was needed: five of thirteen pages carried no consent system at all —
+`/sample-report`, the page sent in cold outreach, and all four under
+`/use-cases`. The eight that had it had had it since they were written, so no
+capture of the other five ever showed a banner and no baseline was ever wrong.
+
+It checks THREE parts, not two. Beyond the stylesheet and the script there is
+the `#blend-cookie-banner` markup, inline in every page, and
+`cookie-consent.js` does not build it — `showBanner()` looks the element up
+and returns if it is not there. So a page carrying only the stylesheet and the
+script renders no banner on first visit and leaves `window.blendBookDemo()` a
+button that silently does nothing, with the two ways round it that the prompt
+offers (Calendly in a new tab, and email) inside the message that never
+appears.
+
+It resolves the hrefs rather than comparing them, because four of the thirteen
+pages are one directory down, where the relative form the root pages use
+resolves to `/use-cases/cookie-consent.css` and 404s — silently, since a
+missing stylesheet and a missing script complain to nobody. Both path forms
+are legal wherever they actually work. One difference is sanctioned and
+normalised away: the privacy-policy href, relative on the root pages and
+root-relative below them.
+
+It strips HTML comments first. `/sample-report` and `/try` both carry a note
+quoting `<script src="cookie-consent.js">` while explaining that a script
+element with a src ignores its inline content, and the first version of the
+check counted that prose as the include.
+
+There is a fourth part it does **not** check: the `Cookie settings` link in
+`.footer-bottom` that calls `blendOpenCookieSettings()`, which the eight
+original pages carry and the five do not. It is the only way to change a
+choice once made, so it is worth more than tidiness — but the four
+`/use-cases` pages carry a different footer and `sample-report.html` has no
+`<footer>` at all, and a check cannot demand it of a page with nowhere to put
+it. Consent is stored per origin, so the link on any other page still governs
+the whole site. When all thirteen footers can carry it, require it here too.
+
 ## Class names the chrome already uses
 
 The bar toggles `open` on `.nav` to show its menu, and the stylesheets on a
@@ -276,6 +313,7 @@ both engines, and across a sweep of widths, not at three.
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`
 - `node tools/check-screens.mjs`
+- `node tools/check-cookie-consent.mjs`
 - `node tools/check-demo-report.mjs`  (and `sync-demo-answers.mjs` when it refuses)
 - `node tools/check-css-shape.mjs`
 - `node tools/check-dashes.mjs`

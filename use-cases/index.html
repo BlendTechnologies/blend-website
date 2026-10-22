@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="/nav-mobile.css">
 <link rel="stylesheet" href="/scroll-cards.css">
 <link rel="stylesheet" href="/page-hero.css">
+<link rel="stylesheet" href="/cookie-consent.css">
   <link rel="stylesheet" href="/theme.css">
 <style>
 :root{--content:1340px}
@@ -498,5 +499,20 @@ toggle.addEventListener('click', () => { const open = nav.classList.toggle('open
 /* The footer's newsletter form, as on the homepage. */
 (function(){var f=document.getElementById('news-form');if(!f)return;f.addEventListener('submit',function(e){e.preventDefault();var b=document.getElementById('news-submit'),i=document.getElementById('news-email');b.textContent='Thanks \u2713';b.disabled=true;i.value='';setTimeout(function(){b.textContent='Subscribe';b.disabled=false;},3000);});})();
 </script>
+<div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
+  <div class="blend-cookie-banner-inner">
+    <div class="blend-cookie-banner-content">
+      <h2 id="cookie-banner-title" class="blend-cookie-banner-title">Cookie notice</h2>
+      <p id="cookie-banner-text" class="blend-cookie-banner-text">We use essential cookies to run this site and remember your choice. To let you book a demo we also load Calendly, which sets its own cookies. The site works either way. <a href="/privacy">Privacy policy</a></p>
+    </div>
+    <div class="blend-cookie-banner-actions">
+      <button id="blend-cookie-reject" class="blend-cookie-banner-btn blend-cookie-banner-btn-reject" type="button">Reject all</button>
+      <button id="blend-cookie-accept" class="blend-cookie-banner-btn blend-cookie-banner-btn-accept" type="button">Accept all</button>
+    </div>
+  </div>
+</div>
+
+<script src="/cookie-consent.js"></script>
+
 </body>
 </html>

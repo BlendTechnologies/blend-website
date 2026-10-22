@@ -38,6 +38,13 @@ jobs:
       - name: The product screens are one copy everywhere
         run: node tools/check-screens.mjs
 
+      # Five of thirteen pages carried no consent system at all — /sample-report
+      # and all four under /use-cases. No capture of those pages ever showed a
+      # banner, so no baseline was ever wrong: the same blind spot that hid the
+      # wordmark's missing full stop.
+      - name: Every page carries the cookie consent system
+        run: node tools/check-cookie-consent.mjs
+
       # /sample-report embeds a LIVE result from the demo quiz, and a
       # results link is good for 90 days. Without this the page becomes one
       # line of grey text on day 91 and every other check still passes.
