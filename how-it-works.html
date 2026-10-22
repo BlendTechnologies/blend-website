@@ -2452,6 +2452,10 @@ body{background:var(--ground)}
   .hw-zone[data-step="6"]{order:11}.hw-shot[data-step="6"]{order:12}
   .hw-zone{padding:34px 0 18px}
   .hw-stage .hw-shot{margin-bottom:0}
+  /* the last frame ends the list, so the closing card needs its own room:
+     the 72px the hero card leaves above the first step. Without it the
+     frame sat on the card's edge. */
+  .hw-steps{padding-bottom:72px}
 }
 /* On a phone a 16:9 frame left the square drawing small; the frame is square
    there, as the homepage's step cards are, and the drawing fills more of it. */
