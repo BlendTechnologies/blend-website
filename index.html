@@ -164,7 +164,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .hero-strip > div + div::before{content:none}
 }
 /* PINNED: the strip bottom-left of the hero, 32px off its bottom edge.
-   Only from 1200, where the hero is two columns; below that the hero stacks
+   Only from 901, where the hero is two columns; below that the hero stacks
    and the strip stays in the copy, under the buttons.
 
    The wrap is stretched to the full height of the hero and the copy is
@@ -175,8 +175,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
    No width cap: it stopped short of the centre to clear the scroll arrow,
    and the arrow is gone (founder, 2026-10-20). nowrap keeps each item on its
-   own two lines, and there is room for all three from 1200 up. */
-@media(min-width:1200px){
+   own two lines, and there is room for all three from 901 up. */
+@media(min-width:901px){
   .sc-hero:has(.hero-strip){align-content:stretch;padding-bottom:32px}
   .sc-hero:has(.hero-strip) > .wrap{display:grid;align-content:center;padding-bottom:84px;width:100%}
   /* left is the hero wrap's own gutter, which is NOT the page's 32px
@@ -192,7 +192,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .hero-strip{opacity:clamp(0, calc((.15 - var(--sc-p, 0)) * 6.6667), 1);
     transition:opacity .12s linear}
 }
-@media(min-width:1200px) and (max-width:1299px){
+@media(min-width:901px) and (max-width:1299px){
   .hero-strip{left:calc(var(--sc-inset) + 24px)}
 }
 .hero-visual{position:relative;min-height:600px;padding-top:8px}
@@ -240,7 +240,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    The deck is the only thing in either card with a minimum. */
 .results{width:63.5%;padding:19px 18px 17px;z-index:3;min-width:0;
   display:flex;flex-direction:column}
-@media (min-width:1200px){
+@media (min-width:901px){
   .hero-stage{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:112px auto 112px}
   .quiz{grid-area:1/1/3/2;justify-self:start}
   .results{grid-area:2/1/4/2;justify-self:end}
@@ -311,7 +311,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* Skipped: the end state arrives with nothing still in flight. */
 .hi-skip .hero-visual,.hi-skip .hero-visual *{animation:none!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){.results{animation:none;opacity:1;transform:none}}
-@media(max-width:1199px){
+@media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
   /* A grid item's automatic minimum is min-content, and `1fr` is really
      minmax(auto,1fr), so one wide descendant drags the whole track with it.
@@ -1848,22 +1848,20 @@ html,body{max-width:100%;overflow-x:clip}
   .pricing>:last-child{scroll-snap-align:end;margin-right:32px}
 }
 
-/* ---- Between a phone and a desktop (761-1199): the hero goes two-up ----
+/* ---- Between a phone and a desktop (761-900): the hero goes two-up -----
    Same complaint as the block above, same cause: where the desktop grid
    collapses to one column a hero card runs the full wrap width — 727px at
    834, with "Serving" stranded 600px from "When" and a full-width Add to
    cart. The hero is exactly two cards, so it does not need the swipe the
    three-card rails needed: two tracks put each card at 318px at 761 and
-   543px at 1199, against the 369px it has at 1440.
+   378px at 900, against the 369px it has at 1440.
 
-   The range now runs to 1199 rather than 960, because the overlapping
-   composition it replaces needs room the widths below 1200 do not have.
-   The two cards keep a constant 36% overlap at every width, so at 1024 the
-   stage column is 445px, each card 280px, and barely 179px of the quiz is
-   left showing to the left of the plan card: the layering stops reading as
-   depth and starts reading as one card sitting on top of another. Side by
-   side, both are whole. */
-@media (min-width:761px) and (max-width:1199px){
+   It ran to 1199 for a while, because the overlapping pair laid out again
+   in a narrower column stopped reading as depth: at 1024 each card was
+   280px and barely 179px of the quiz showed beside the plan card. From 901
+   the pair is now the 1200 one scaled down whole (the block after the
+   glass), so it holds its proportions and the range ends at 900 again. */
+@media (min-width:761px) and (max-width:900px){
   .hero-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .quiz,.results{width:auto}
 }
@@ -2419,7 +2417,7 @@ html,body{max-width:100%;overflow-x:clip}
    - The breakdown's consumption levels keep their colours: the base rules'
      grey, gold and coral bars are not overridden here.
    - The quiz's B. is the bare mark, like the plan's, not a black tile.
-   - The two cards are one size: 57% of the stage each from 1200 up, where
+   - The two cards are one size: 57% of the stage each from 901 up, where
      they overlap. Their heights already matched. */
 .hero-stage{
   --hs-bg:#17181A;--hs-text:#F7F7F7;--hs-white:#FFFFFF;--hs-grey:#A8AAAC;--hs-sage:#B8C5B9;
@@ -2434,7 +2432,24 @@ html,body{max-width:100%;overflow-x:clip}
     radial-gradient(26% 28% at 30% 28%, rgba(255,255,255,.09) 0%, rgba(255,255,255,0) 100%),
     radial-gradient(22% 22% at 40% 78%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 100%)}
 
-@media(min-width:1200px){.hero-stage .quiz,.hero-stage .results{width:57%}}
+@media(min-width:901px){.hero-stage .quiz,.hero-stage .results{width:57%}}
+/* ---- The pair, scaled, 901-1199 ---------------------------------------
+   Two columns down to 901, and the pair on the right is the 1200 one drawn
+   smaller rather than laid out again (founder, 2026-10-22: "the two
+   animations can be reduced in size as the screen is smaller ... it's not
+   until the screen is quite smaller that the two animations are pushed
+   down"). Laid out again, the cards keep their type size in a narrower
+   column, wrap, and the overlap swallows the quiz; scaled, every width
+   shows the composition it has at 1200.
+
+   The stage is laid out at its 1200 width, 538px, and scaled by the column
+   over that. tan(atan2(a, b)) is a / b, the one way CSS divides a length by
+   a length, and 100cqw is the column. A transform rather than zoom, so the
+   intro's offset* measurements still read the 538px layout it plays in. */
+@media (min-width:901px) and (max-width:1199px){
+  .hero-visual{container-type:inline-size}
+  .hero-stage{width:538px;transform:scale(tan(atan2(100cqw, 538px)));transform-origin:0 50%}
+}
 
 /* 1. the quiz, dark smoked glass */
 .hero-stage .quiz{
@@ -3334,7 +3349,7 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
        animation, and the bigger the step the more that shows. Only where
        the two cards overlap; the single-column layout picks its answers
        at size. */
-    if (results && window.matchMedia('(min-width:1200px)').matches) {
+    if (results && window.matchMedia('(min-width:901px)').matches) {
       /* The box the card starts in: its own top-left corner to the far
          corner of the plan card, and the size it ends at.
 
