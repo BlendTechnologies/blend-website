@@ -408,10 +408,21 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .proof-mark .c.pick{animation-name:pg-pick}
 .proof-mark .c.drop{animation-name:pg-drop}
 @media(prefers-reduced-motion:reduce){.proof-mark .c{animation:none}}
-/* Half the space above and below the words (founder, 2026-10-21). It was a
-   full window with the words centred, (window - words) / 2 a side; now a side
-   is a quarter of that. 168px is the words' own height on desktop. */
-@media(min-width:901px){.opener{min-height:0;padding:max(48px, calc((100vh - var(--nav-h) - 168px) / 4)) 0}}
+/* Half the space above and below the words (founder, 2026-10-21), and half
+   again the next day ("decrease the whitespace here"). It was a full window
+   with the words centred, (window - words) / 2 a side; now a side is an
+   eighth of that. 168px is the words' own height on desktop.
+   Both sections are white, so the steps' own 72px on top was more of the
+   same void: the space under the words ran 72px deeper than the space over
+   them. It goes (founder: "trim the 72px too so it's even"). The steps'
+   hold reads that padding when it measures, so it follows.
+   Even to the eye, not the box: by the time the opener is on screen the
+   hero card above has closed in by --sc-inset, so its visible edge is that
+   far above the box's. The top gives that back. */
+@media(min-width:901px){
+  .opener{--open-pad:max(48px, calc((100vh - var(--nav-h) - 168px) / 8));
+    min-height:0;padding:calc(var(--open-pad) - var(--sc-inset)) 0 var(--open-pad)}
+  .opener + #how{padding-top:0}}
 @media(max-width:900px){.opener{min-height:0;padding:96px 0}}
 @media(max-width:560px){.opener{padding:72px 0}.open-h{font-size:30px}.open-sub{font-size:16px}}
 /* AI where AI does the work: matching the catalogue, drafting the quiz. Not
