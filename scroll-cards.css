@@ -183,11 +183,19 @@
    in place of the clip: the same inset and corner as the card hero, and the
    padding inside is the block's own, so the words sit as far from the card's
    edge as they sat from the screen's. A page with no call to action has its
-   footer as the whole card: .sc-reveal on its own, four corners. */
+   footer as the whole card: .sc-reveal on its own, four corners.
+
+   One colour from the call to action down (founder, 2026-10-22: "make sure
+   CTA and footer look good (same colour), every where"): the lower half
+   carries no wash of its own. The upper half's has faded to plain --deep by
+   its bottom edge, so a second one starting at full strength on the
+   footer's top edge drew a seam across the card. The homepage found this
+   first and fixed it for itself (index.html); this is the same fix for
+   every page. */
 .sc-reveal:not([data-sc]){margin-inline:var(--sc-inset);background:transparent}
 .sc-reveal:not([data-sc])::before{clip-path:none;border-radius:var(--sc-round)}
 .sc-reveal--top:not([data-sc])::before{border-radius:var(--sc-round) var(--sc-round) 0 0}
-.sc-reveal--bottom:not([data-sc])::before{border-radius:0 0 var(--sc-round) var(--sc-round)}
+.sc-reveal--bottom:not([data-sc])::before{border-radius:0 0 var(--sc-round) var(--sc-round);background-image:none}
 .sc-reveal--bottom:not([data-sc]),
 .sc-reveal:not([data-sc]):not(.sc-reveal--top){margin-bottom:var(--sc-inset)}
 @media (prefers-reduced-motion:reduce){.sc-reveal:not([data-sc]){--sc-p:0}}
