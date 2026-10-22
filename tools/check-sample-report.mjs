@@ -58,9 +58,26 @@ R.breakdown.forEach(g => g.rows.forEach(b => { need(b.name, `${b.pct}%`); need(`
 need('disclaimer', R.disclaimer);
 if (/<iframe/i.test(page)) failures.push('the page embeds an iframe again: the report is drawn here, not loaded from the webapp');
 
+/* The homepage quotes three of the picks (its "What a customer receives"
+   section, 2026-10-22). Each card names its pick in data-sample-pick, and
+   the card's words have to be the file's: the name, the reason, the form
+   and timing, and the caution where there is one. */
+const home = readFileSync(join(ROOT, 'index.html'), 'utf8');
+const cardText = s => s.replace(/<[^>]+>/g, ' ').replace(/&#8217;|&#x27;|&#39;/g, "'").replace(/&amp;/g, '&').replace(/&#183;/g, '·').replace(/\s+/g, ' ');
+const cards_home = [...home.matchAll(/<article class="sp-card" data-sample-pick="([^"]+)">([\s\S]*?)<\/article>/g)];
+if (!cards_home.length) failures.push('index.html: no data-sample-pick cards (the homepage used to quote three picks)');
+for (const [, name, body] of cards_home) {
+  const p = R.products.find(x => x.name === name.replace(/&amp;/g, '&'));
+  if (!p) { failures.push(`index.html: "${name}" is not one of the engine's picks`); continue; }
+  const t = cardText(body);
+  const want = (what, str) => { if (!t.includes(str)) failures.push(`index.html, ${p.name}: ${what} "${str}" is not on the card`); };
+  want('name', p.name); want('reason', p.why); want('form', `${p.form} · ${p.timing}`);
+  if (p.caution) want('caution', p.caution);
+}
+
 if (failures.length) {
   console.error('FAILED:\n  ' + failures.join('\n  '));
   console.error('\nsample-report.json is the engine\'s output. Change the page to match it, or re-run the engine and change both.');
   process.exit(1);
 }
-console.log(`PASSED: /sample-report shows the engine's ${R.products.length} picks, ${R.macros.length} macros and ${R.breakdown.reduce((n, g) => n + g.rows.length, 0)} gaps exactly as sample-report.json records them.`);
+console.log(`PASSED: /sample-report shows the engine's ${R.products.length} picks, ${R.macros.length} macros and ${R.breakdown.reduce((n, g) => n + g.rows.length, 0)} gaps exactly as sample-report.json records them, and the homepage's ${cards_home.length} quoted pick(s) match it.`);

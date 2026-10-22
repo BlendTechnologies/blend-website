@@ -86,6 +86,16 @@
       map[g.goal] = g.subgoals.filter(function (x) { return x.trim().toLowerCase() !== 'none of the above.'; });
     });
     var btns = $$('.sci-goalname', grid);
+    /* the fold: ten goals open, the rest behind "+N more" */
+    var more = $('.sci-goalmore', grid);
+    if (more) {
+      var closed = more.textContent;
+      more.addEventListener('click', function () {
+        var open = grid.classList.toggle('is-open');
+        more.setAttribute('aria-expanded', String(open));
+        more.textContent = open ? 'Show fewer' : closed;
+      });
+    }
     function show(btn) {
       var subs = map[btn.getAttribute('data-goal')];
       if (!subs) return;

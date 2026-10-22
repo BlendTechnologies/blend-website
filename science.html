@@ -969,7 +969,6 @@ body{background:var(--ground)}
         <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-ghost btn-lg">Request the methodology</a>
       </div>
     </div>
-    <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:4"><a class="ph-ix-item is-on" href="#run" data-vertical="health" aria-current="true"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">Health and wellness</span></a><span class="ph-ix-item is-off" data-vertical="beauty" tabindex="0" role="note"><span class="ph-ix-name">Beauty</span><span class="sci-tip">Coming soon</span></span><span class="ph-ix-item is-off" data-vertical="food" tabindex="0" role="note"><span class="ph-ix-name">Food</span><span class="sci-tip">Coming soon</span></span><span class="ph-ix-item is-off" data-vertical="fashion" tabindex="0" role="note"><span class="ph-ix-name">Fashion</span><span class="sci-tip">Coming soon</span></span></nav>
   </div>
 </section>
 
@@ -1062,7 +1061,7 @@ body{background:var(--ground)}
       <h2 class="h2"><span data-count="41">41</span> goals &#183; <span data-count="252">252</span> signals</h2>
       <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
-    <div class="sci-goalgrid sci-in" data-goals>
+    <div class="sci-goalgrid sci-in" id="sci-goals" data-goals>
       <button type="button" class="sci-goalname" data-goal="Bone &amp; Joint Health" aria-controls="sci-subs" aria-expanded="false">Bone &amp; Joint Health</button>
       <button type="button" class="sci-goalname" data-goal="Boost Energy" aria-controls="sci-subs" aria-expanded="false">Boost Energy</button>
       <button type="button" class="sci-goalname" data-goal="Build Muscle" aria-controls="sci-subs" aria-expanded="false">Build Muscle</button>
@@ -1073,37 +1072,38 @@ body{background:var(--ground)}
       <button type="button" class="sci-goalname" data-goal="Gut Health" aria-controls="sci-subs" aria-expanded="true">Gut Health</button>
       <button type="button" class="sci-goalname" data-goal="Healthy Ageing &amp; Longevity" aria-controls="sci-subs" aria-expanded="false">Healthy Ageing &amp; Longevity</button>
       <button type="button" class="sci-goalname" data-goal="Heart Health" aria-controls="sci-subs" aria-expanded="false">Heart Health</button>
-      <button type="button" class="sci-goalname" data-goal="Hormonal Balance" aria-controls="sci-subs" aria-expanded="false">Hormonal Balance</button>
-      <button type="button" class="sci-goalname" data-goal="Immunity" aria-controls="sci-subs" aria-expanded="false">Immunity</button>
-      <button type="button" class="sci-goalname" data-goal="Increase Endurance" aria-controls="sci-subs" aria-expanded="false">Increase Endurance</button>
-      <button type="button" class="sci-goalname" data-goal="Sexual Health" aria-controls="sci-subs" aria-expanded="false">Sexual Health</button>
-      <button type="button" class="sci-goalname" data-goal="Liver Health" aria-controls="sci-subs" aria-expanded="false">Liver Health</button>
-      <button type="button" class="sci-goalname" data-goal="Lose Weight" aria-controls="sci-subs" aria-expanded="false">Lose Weight</button>
-      <button type="button" class="sci-goalname" data-goal="Lung Health" aria-controls="sci-subs" aria-expanded="false">Lung Health</button>
-      <button type="button" class="sci-goalname" data-goal="Menopause" aria-controls="sci-subs" aria-expanded="false">Menopause</button>
-      <button type="button" class="sci-goalname" data-goal="Mood &amp; Emotions" aria-controls="sci-subs" aria-expanded="false">Mood &amp; Emotions</button>
-      <button type="button" class="sci-goalname" data-goal="Prostate Health" aria-controls="sci-subs" aria-expanded="false">Prostate Health</button>
-      <button type="button" class="sci-goalname" data-goal="Sleep" aria-controls="sci-subs" aria-expanded="false">Sleep</button>
-      <button type="button" class="sci-goalname" data-goal="Stress" aria-controls="sci-subs" aria-expanded="false">Stress</button>
-      <button type="button" class="sci-goalname" data-goal="Testosterone Health" aria-controls="sci-subs" aria-expanded="false">Testosterone Health</button>
-      <button type="button" class="sci-goalname" data-goal="Urinary Health" aria-controls="sci-subs" aria-expanded="false">Urinary Health</button>
-      <button type="button" class="sci-goalname" data-goal="Blood Sugar Support" aria-controls="sci-subs" aria-expanded="false">Blood Sugar Support</button>
-      <button type="button" class="sci-goalname" data-goal="Thyroid &amp; Metabolism Support" aria-controls="sci-subs" aria-expanded="false">Thyroid &amp; Metabolism Support</button>
-      <button type="button" class="sci-goalname" data-goal="Cycle Support" aria-controls="sci-subs" aria-expanded="false">Cycle Support</button>
-      <button type="button" class="sci-goalname" data-goal="Conception Support" aria-controls="sci-subs" aria-expanded="false">Conception Support</button>
-      <button type="button" class="sci-goalname" data-goal="Prenatal Support" aria-controls="sci-subs" aria-expanded="false">Prenatal Support</button>
-      <button type="button" class="sci-goalname" data-goal="Postnatal Support" aria-controls="sci-subs" aria-expanded="false">Postnatal Support</button>
-      <button type="button" class="sci-goalname" data-goal="Men&#8217;s Fertility" aria-controls="sci-subs" aria-expanded="false">Men&#8217;s Fertility</button>
-      <button type="button" class="sci-goalname" data-goal="Skin Health" aria-controls="sci-subs" aria-expanded="false">Skin Health</button>
-      <button type="button" class="sci-goalname" data-goal="Hair Health" aria-controls="sci-subs" aria-expanded="false">Hair Health</button>
-      <button type="button" class="sci-goalname" data-goal="Nail Health" aria-controls="sci-subs" aria-expanded="false">Nail Health</button>
-      <button type="button" class="sci-goalname" data-goal="Mass Gain" aria-controls="sci-subs" aria-expanded="false">Mass Gain</button>
-      <button type="button" class="sci-goalname" data-goal="Tone &amp; Definition" aria-controls="sci-subs" aria-expanded="false">Tone &amp; Definition</button>
-      <button type="button" class="sci-goalname" data-goal="Strength &amp; Power" aria-controls="sci-subs" aria-expanded="false">Strength &amp; Power</button>
-      <button type="button" class="sci-goalname" data-goal="Recovery &amp; Repair" aria-controls="sci-subs" aria-expanded="false">Recovery &amp; Repair</button>
-      <button type="button" class="sci-goalname" data-goal="Hydration &amp; Electrolytes" aria-controls="sci-subs" aria-expanded="false">Hydration &amp; Electrolytes</button>
-      <button type="button" class="sci-goalname" data-goal="Plant-Based Nutrition" aria-controls="sci-subs" aria-expanded="false">Plant-Based Nutrition</button>
-      <button type="button" class="sci-goalname" data-goal="Everyday Comfort" aria-controls="sci-subs" aria-expanded="false">Everyday Comfort</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Hormonal Balance" aria-controls="sci-subs" aria-expanded="false">Hormonal Balance</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Immunity" aria-controls="sci-subs" aria-expanded="false">Immunity</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Increase Endurance" aria-controls="sci-subs" aria-expanded="false">Increase Endurance</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Sexual Health" aria-controls="sci-subs" aria-expanded="false">Sexual Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Liver Health" aria-controls="sci-subs" aria-expanded="false">Liver Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Lose Weight" aria-controls="sci-subs" aria-expanded="false">Lose Weight</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Lung Health" aria-controls="sci-subs" aria-expanded="false">Lung Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Menopause" aria-controls="sci-subs" aria-expanded="false">Menopause</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Mood &amp; Emotions" aria-controls="sci-subs" aria-expanded="false">Mood &amp; Emotions</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Prostate Health" aria-controls="sci-subs" aria-expanded="false">Prostate Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Sleep" aria-controls="sci-subs" aria-expanded="false">Sleep</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Stress" aria-controls="sci-subs" aria-expanded="false">Stress</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Testosterone Health" aria-controls="sci-subs" aria-expanded="false">Testosterone Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Urinary Health" aria-controls="sci-subs" aria-expanded="false">Urinary Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Blood Sugar Support" aria-controls="sci-subs" aria-expanded="false">Blood Sugar Support</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Thyroid &amp; Metabolism Support" aria-controls="sci-subs" aria-expanded="false">Thyroid &amp; Metabolism Support</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Cycle Support" aria-controls="sci-subs" aria-expanded="false">Cycle Support</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Conception Support" aria-controls="sci-subs" aria-expanded="false">Conception Support</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Prenatal Support" aria-controls="sci-subs" aria-expanded="false">Prenatal Support</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Postnatal Support" aria-controls="sci-subs" aria-expanded="false">Postnatal Support</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Men&#8217;s Fertility" aria-controls="sci-subs" aria-expanded="false">Men&#8217;s Fertility</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Skin Health" aria-controls="sci-subs" aria-expanded="false">Skin Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Hair Health" aria-controls="sci-subs" aria-expanded="false">Hair Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Nail Health" aria-controls="sci-subs" aria-expanded="false">Nail Health</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Mass Gain" aria-controls="sci-subs" aria-expanded="false">Mass Gain</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Tone &amp; Definition" aria-controls="sci-subs" aria-expanded="false">Tone &amp; Definition</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Strength &amp; Power" aria-controls="sci-subs" aria-expanded="false">Strength &amp; Power</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Recovery &amp; Repair" aria-controls="sci-subs" aria-expanded="false">Recovery &amp; Repair</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Hydration &amp; Electrolytes" aria-controls="sci-subs" aria-expanded="false">Hydration &amp; Electrolytes</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Plant-Based Nutrition" aria-controls="sci-subs" aria-expanded="false">Plant-Based Nutrition</button>
+      <button type="button" class="sci-goalname is-more" data-goal="Everyday Comfort" aria-controls="sci-subs" aria-expanded="false">Everyday Comfort</button>
+      <button type="button" class="sci-goalmore" data-more="31" aria-expanded="false" aria-controls="sci-goals">+31 more</button>
     </div>
     <div class="sci-subs sci-in" id="sci-subs" data-subs aria-live="polite">
       <div class="sci-subs-t">Gut Health</div>
