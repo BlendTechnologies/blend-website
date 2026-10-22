@@ -204,6 +204,19 @@
    width is its own size, so in WebKit Subscribe ran 34px past the card's edge
    at 390. The field gives way now. */
 .sc-reveal:not([data-sc]) .footer-news input{min-width:0}
+/* On a phone the card runs edge to edge (founder, 2026-10-22: "On phone:
+   Footer +CTA -> full width"). The 24px inset left a narrow column for the
+   footer's two lists and its email field, and a card floating 24px off
+   every edge reads as one more card in the page rather than its end.
+   Square, with nothing under it: it ends the page where the page ends. */
+@media (max-width:560px){
+  .sc-reveal:not([data-sc]){margin-inline:0}
+  .sc-reveal:not([data-sc])::before,
+  .sc-reveal--top:not([data-sc])::before,
+  .sc-reveal--bottom:not([data-sc])::before{border-radius:0}
+  .sc-reveal--bottom:not([data-sc]),
+  .sc-reveal:not([data-sc]):not(.sc-reveal--top){margin-bottom:0}
+}
 
 /* ---- Clipped blocks need a gutter wider than their own inset --------
    The page gutter is 32px and the cards inset by 40, so wherever .wrap is
