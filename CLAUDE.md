@@ -39,8 +39,13 @@ Step 03 has a seventh, the Quiz page and its editor (`.qx`, on the same
 dashboard): Brand essentials, Typography, Layout and spacing, Answers and
 buttons, Transitions, a screen's Content and Style, and Quiz setup. Its preview
 is one quiz screen drawn from the brand's variables (`--q-*`), so restyling it
-is changing them, as the editor does. All three films open on the whole
-dashboard and zoom in (founder: "same rule as before").
+is changing them, as the editor does. Step 04 has an eighth, Launch (`.lx`):
+the Quiz page as Design leaves it, its Embed panel and Publish. Its embed code
+and direct link carry an invented quiz id, never a real account's, and the
+address it is locked to is yourbrand.com (founder: "make sure you add fake codes
+and links"). Every film opens on the whole dashboard, zooms in, and goes back
+out to it at the end (founder: "same rule as before", "entire dashboard to end
+too").
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the
