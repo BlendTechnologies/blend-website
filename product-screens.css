@@ -731,3 +731,12 @@
 .qx-mo{top:44px}
 .qx-mob{height:812px}
 .qx-grp > div{padding:14px 12px}
+.qx-rt.qx-rth{position:relative;overflow:visible}
+.qx-acol{padding:2px 4px;border-radius:5px}
+.qx-pop{position:absolute;left:78px;top:40px;z-index:2;display:flex;gap:7px;padding:9px;border:1px solid #E4E4E7;border-radius:10px;background:#FFFFFF;
+  box-shadow:0 8px 22px rgba(24,24,27,.12);opacity:0;transform:translateY(-4px)}
+.qx-pop i{width:22px;height:22px;border:1px solid #E4E4E7;border-radius:6px;background:var(--c)}
+.qx-hl{border-radius:3px}
+/* the Catalogue greys a count in its title (.kx h4 span); a preview heading's
+   words keep the heading's colour until they are given one */
+.qx-qb h4 span{color:inherit}
