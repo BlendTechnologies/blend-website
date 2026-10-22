@@ -170,6 +170,41 @@
     round 0 0 calc((1 - var(--sc-p)) * var(--sc-round))
               calc((1 - var(--sc-p)) * var(--sc-round)))}
 
+/* ---- The end card: the static one ------------------------------------
+   The closing call to action and the footer are one card with a margin round
+   it, on every page, and they stay that way (founder, 2026-10-22, from
+   superpower.com's footer: "the margin around, no more effect ... basically
+   like the hero of how it works"). They used to be the endcap, a reveal that
+   opened to full bleed as it arrived.
+
+   Still the reveal pair, so its ink, its wash, the 1px overlap at the seam and
+   the colours of what sits on it are unchanged, but with no data-sc, so
+   scroll-cards.js leaves it alone, and with a real margin and a real corner
+   in place of the clip: the same inset and corner as the card hero, and the
+   padding inside is the block's own, so the words sit as far from the card's
+   edge as they sat from the screen's. A page with no call to action has its
+   footer as the whole card: .sc-reveal on its own, four corners.
+
+   One colour from the call to action down (founder, 2026-10-22: "make sure
+   CTA and footer look good (same colour), every where"): the lower half
+   carries no wash of its own. The upper half's has faded to plain --deep by
+   its bottom edge, so a second one starting at full strength on the
+   footer's top edge drew a seam across the card. The homepage found this
+   first and fixed it for itself (index.html); this is the same fix for
+   every page. */
+.sc-reveal:not([data-sc]){margin-inline:var(--sc-inset);background:transparent}
+.sc-reveal:not([data-sc])::before{clip-path:none;border-radius:var(--sc-round)}
+.sc-reveal--top:not([data-sc])::before{border-radius:var(--sc-round) var(--sc-round) 0 0}
+.sc-reveal--bottom:not([data-sc])::before{border-radius:0 0 var(--sc-round) var(--sc-round);background-image:none}
+.sc-reveal--bottom:not([data-sc]),
+.sc-reveal:not([data-sc]):not(.sc-reveal--top){margin-bottom:var(--sc-inset)}
+@media (prefers-reduced-motion:reduce){.sc-reveal:not([data-sc]){--sc-p:0}}
+/* The card is narrower than the block it replaces, and on a phone the
+   footer's email field would not give way to its button: an input's minimum
+   width is its own size, so in WebKit Subscribe ran 34px past the card's edge
+   at 390. The field gives way now. */
+.sc-reveal:not([data-sc]) .footer-news input{min-width:0}
+
 /* ---- Clipped blocks need a gutter wider than their own inset --------
    The page gutter is 32px and the cards inset by 40, so wherever .wrap is
    not centred by its max-width the content crosses the card's edge and
@@ -187,14 +222,14 @@
    with no scale at all, so this is still the only thing keeping its first
    line off the card's corner there. */
 @media (max-width:1263px){
-  .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 20px)}
+  .sc-reveal[data-sc] > .wrap{padding-inline:calc(var(--sc-inset) + 20px)}
 }
 @media (max-width:1299px){
   .sc-hero > .wrap{padding-inline:calc(var(--sc-inset) + 24px)}
 }
 @media (max-width:560px){
   .sc-hero > .wrap{padding-inline:calc(var(--sc-inset) + 16px)}
-  .sc-reveal > .wrap{padding-inline:calc(var(--sc-inset) + 12px)}
+  .sc-reveal[data-sc] > .wrap{padding-inline:calc(var(--sc-inset) + 12px)}
 }
 
 /* ---- What sits on a dark reveal ---------------------------------------
