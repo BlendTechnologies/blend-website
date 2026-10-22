@@ -113,6 +113,23 @@ contrast from rendered pixels, never from tokens, especially on glass. The
 hero's quiz and plan are a fictional client's theme and are exempt from the
 gold rule on purpose.
 
+**The ground has light on it** (2026-10-22, founder: "add some soft gradients
+to white background. holistic and discreet"). `theme.css` paints soft grey
+light and a faint grain on `body::before`, fixed to the window, under every
+page. Two consequences. A section that paints its own white hides it, so
+sections are transparent and cards are white with a hairline (the plans,
+the use-case cards); grey boxes are gone. And a page must not take
+`body::before` for anything else: /how-it-works and /science did, below
+560px, with a wash from an old light hero, and lost the light on phones.
+The workspace's surfaces spec reads it at 390 and 1440 on every page.
+
+**A frame round a screen is glass** (same day, "soft, holistic, glass
+effect"): a 5px rim of white frost with a hairline either side and the one
+soft shadow, from the `--glass-rim` and `--frame-*` tokens. The homepage
+tour and the films use the whole recipe; /how-it-works leaves out the
+backdrop blur, which over the ground light changes nothing visible and made
+the phone capture of that page flaky.
+
 ## Prices
 
 `pricing.json` is where plan prices are written. `index.html` still carries

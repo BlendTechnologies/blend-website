@@ -352,7 +352,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:14px;display:inline-block}
 .section-head .h2{margin-bottom:7px}
-.section-cream{background:var(--ground)}
+.section-cream{background:transparent}
 /* White where the hero's card leaves off, settling into the beige that the
    rest of the page sits on. A plain background, not a scroll effect: it is
    the page changing colour, not something animating. */
@@ -361,7 +361,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    is a visible step: the section starts darker than the body it butts
    against, and the join lands right under the hero. One ground means one
    ground. */
-#how{background:var(--ground)}
+#how{background:transparent}
 .section-subtle{background:var(--ground-2)}
 /* A colour change divides the space either side of it: you never see the
    sum, only 120 of black and then 120 of cream, so both sections keep their
@@ -382,19 +382,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    A window tall, under the hero: the small scoring grid running on its own
    loop, the line, and the four words under it. The founder tried a large
    scroll-held panel here the same day and asked for this instead. */
-.opener{display:flex;align-items:center;min-height:calc(100vh - var(--nav-h));padding:48px 0;background:#FFFFFF}
+.opener{display:flex;align-items:center;min-height:calc(100vh - var(--nav-h));padding:48px 0;background:transparent}
 @supports(height:100svh){.opener{min-height:calc(100svh - var(--nav-h))}}
 .open-inner{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center}
-.proof-mark svg{display:block;width:56px;height:56px}
+/* Drawn at three times its size and shown at a third (founder, 2026-10-22:
+   "pixeled when big"). The first appearance runs it at full size, and a
+   transform scales a picture the browser has already drawn, so a 56px
+   drawing blown up three times was a 56px bitmap blown up. Drawn at 168,
+   it is sharp large and sharp small. */
+.proof-mark{position:relative;display:block;width:56px;height:56px}
+.proof-mark svg{position:absolute;left:50%;top:50%;display:block;width:168px;height:168px;max-width:none;margin:-84px 0 0 -84px;transform:scale(.33333)}
 .open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:500;color:var(--ink)}
 .open-sub{margin:14px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.01em;color:var(--n-600)}
 /* The first time it comes into view (founder, 2026-10-21): the mark starts
    large over where the words will be and settles into its place while the
    words arrive. The script arms it, so without the script, or under reduced
    motion, the section is simply its end state. Once only. */
-.opener.is-armed .proof-mark{transform:translateY(var(--mark-dy,60px)) scale(3)}
+.opener.is-armed .proof-mark svg{transform:translateY(var(--mark-dy,60px))}
 .opener.is-armed .open-h,.opener.is-armed .open-sub{opacity:0;transform:translateY(14px)}
-.opener.is-armed.is-in .proof-mark{transform:none;transition:transform 1.2s cubic-bezier(.65,0,.25,1) .2s}
+.opener.is-armed.is-in .proof-mark svg{transform:scale(.33333);transition:transform 1.2s cubic-bezier(.65,0,.25,1) .2s}
 .opener.is-armed.is-in .open-h{opacity:1;transform:none;transition:opacity .7s ease .75s,transform .9s cubic-bezier(.22,1,.36,1) .75s}
 .opener.is-armed.is-in .open-sub{opacity:1;transform:none;transition:opacity .7s ease .9s,transform .9s cubic-bezier(.22,1,.36,1) .9s}
 /* The square runs: a wave of assessment crosses the grid corner to corner,
@@ -794,7 +800,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    The page's one dark block. Its shape is the shared .sc-reveal in
    scroll-cards.css; what is here is the ground it sits on and the type
    that goes over it. */
-.science{position:relative;padding:120px 0;background:var(--page);color:var(--white);overflow:hidden}
+.science{position:relative;padding:120px 0;background:transparent;color:var(--white);overflow:hidden}
 .science .wrap{position:relative;z-index:1}
 .science-head{max-width:800px}
 /* The section heading's own size (founder, 2026-10-21: "the same size as
@@ -885,12 +891,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    three wear what Beauty, Food and Fashion wear: their flat grey, and since
    2026-10-20 no rim and no lit top edge either (founder: "remove the border
    on pricing plans too"). Pro keeps its gold edge, as the plan Blend
-   recommends: that one is a marker, not a border. */
-#pricing .tier{background:var(--n-100);
-  -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
-  border:1px solid transparent;
-  box-shadow:none}
-#pricing .tier.featured{background:var(--n-100);border-color:var(--gold)}
+   recommends: that one is a marker, not a border.
+   White with a hairline since 2026-10-22 (founder: "Gray boxes do not exist
+   anywhere else. Instead white background with thin borders"). */
+#pricing .tier{background:var(--surface);border:1px solid var(--line);box-shadow:none}
+#pricing .tier.featured{background:var(--surface);border-color:var(--gold)}
 .tier-name{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
 .tier-price{font-size:40px;font-weight:500;letter-spacing:-.025em;line-height:1;font-feature-settings:"tnum"}
 .tier-from{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px;vertical-align:baseline}
@@ -1006,7 +1011,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    section made taller by a spacer, on from 901 when it fits, not under
    reduced motion, and only where overflow:clip exists. Without it the pills
    still switch the steps. */
-.tour{position:relative;background:#FFFFFF}
+.tour{position:relative;background:transparent}
 .tour-stage{display:flex;align-items:center;min-height:100vh;padding:calc(var(--nav-h) + 24px) 0 40px}
 @supports(height:100svh){.tour-stage{min-height:100svh}}
 .tour-grid{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:64px;align-items:center;width:100%}
@@ -1062,13 +1067,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    to the bottom"). */
 @media(min-width:901px){.tour-visual{align-self:end;justify-content:flex-end}}
 .tour-device{position:relative;width:min(99%, calc((100vh - var(--nav-h) - 150px) * 16 / 9 * .99));
-  /* A 4px edge rather than a 7px slab, a rounder corner and a soft lift
-     (founder's brief, 2026-10-21: the black frames were "visually too
-     heavy"). The one shadow the system allows: under this frame only. */
-  padding:0;border:4px solid #292929;border-radius:clamp(20px, 2.1vw, 30px);background:#292929;
-  box-shadow:0 14px 36px rgba(0,0,0,.06)}
+  /* Glass, not a black edge, since 2026-10-22: theme.css, "A frame round a
+     screen". */
+  padding:0;border-radius:clamp(20px, 2.1vw, 30px);
+  border:var(--glass-rim) solid var(--frame-rim);background:transparent;background-clip:padding-box;
+  -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
+  outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
+  box-shadow:var(--frame-shadow)}
 @supports(height:100svh){.tour-device{width:min(99%, calc((100svh - var(--nav-h) - 150px) * 16 / 9 * .99))}}
-.tour-frame{position:relative;aspect-ratio:16/9;border-radius:calc(clamp(20px, 2.1vw, 30px) - 4px);overflow:hidden;background:var(--n-100)}
+.tour-frame{position:relative;aspect-ratio:16/9;border-radius:calc(clamp(20px, 2.1vw, 30px) - var(--glass-rim));overflow:hidden;background:var(--n-100)}
 .tour-media{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .45s ease}
 .tour-media.is-on{opacity:1}
 .tour-media > span{font-size:13px;color:var(--n-600)}
