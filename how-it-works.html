@@ -1878,7 +1878,11 @@ body{background:var(--ground)}
     10  the CSV: a file is chosen, Upload and preview
    The numbers are the page's own geometry (2000px wide): a shot is a scale
    and the offset that centres its subject, kept below the bar so its edge
-   never crosses the frame. Reduced motion holds beat 5. */
+   never crosses the frame. Reduced motion holds beat 5.
+   The typing holds its start (backwards) and then lets go to the phase's own
+   clip-path:none, rather than holding its last frame (both): WebKit holds a
+   steps(n, end) animation one step short of its end, so in Safari both names
+   stopped a letter early, "Magnesium Glycinat" (founder, 2026-10-22). */
 .hw-screen[data-demo="catalogue"].is-p1 .kx-cam{--cx:-323.5px;--cy:-82.6px;--cs:1.28}
 .hw-screen[data-demo="catalogue"].is-p2 .kx-cam{--cx:-861.2px;--cy:-106.2px;--cs:1.8}
 .hw-screen[data-demo="catalogue"].is-p4 .kx-cam{--cx:-468.3px;--cy:-103.5px;--cs:1.42}
@@ -1892,7 +1896,7 @@ body{background:var(--ground)}
 /* 2, 3: the store */
 .hw-screen[data-demo="catalogue"] .kx-in em{transition:opacity .15s ease}
 .hw-screen[data-demo="catalogue"].is-p2 .kx-in em{opacity:0;transition-delay:.95s}
-.hw-screen[data-demo="catalogue"].is-p2 .kx-in b{animation:kx-type 1s steps(21,end) 1s both}
+.hw-screen[data-demo="catalogue"].is-p2 .kx-in b{clip-path:none;animation:kx-type 1s steps(21,end) 1s backwards}
 .hw-screen[data-demo="catalogue"].is-p3 .kx-connect{animation:kx-press .5s cubic-bezier(.3,.8,.3,1) .15s both}
 .hw-screen[data-demo="catalogue"].is-p3 .kx-store .kx-off{opacity:0;transition-delay:.6s}
 .hw-screen[data-demo="catalogue"].is-p3 .kx-store .kx-on{opacity:1;transition-delay:.75s}
@@ -1921,7 +1925,7 @@ body{background:var(--ground)}
 .hw-screen[data-demo="catalogue"].is-p7 .kx-pc{opacity:0}
 .hw-screen[data-demo="catalogue"].is-p7 .kx-pa{opacity:1}
 .hw-screen[data-demo="catalogue"].is-p7 .kx-name{border-color:#A1A1AA}
-.hw-screen[data-demo="catalogue"].is-p7 .kx-name b{animation:kx-type .9s steps(19,end) 1.15s both}
+.hw-screen[data-demo="catalogue"].is-p7 .kx-name b{clip-path:none;animation:kx-type .9s steps(19,end) 1.15s backwards}
 .hw-screen[data-demo="catalogue"].is-p8 .kx-name{border-color:#E4E4E7}
 .hw-screen[data-demo="catalogue"].is-p8 .kx-sel{border-color:#A1A1AA;transition-delay:.9s}
 .hw-screen[data-demo="catalogue"].is-p8 .kx-sel .kx-off{opacity:0;transition-delay:1.15s}
