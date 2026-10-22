@@ -1634,7 +1634,11 @@ body{background:var(--ground)}
    construction, because a sticky box taller than its scrollport does not
    stick, it stops at the wrong moment. Learned on /sample-report, where the
    aside was the sticky one until it grew two cards tall. */
-.hw-run-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,48%);
+/* The frame takes 72% of the row, half as big again as the 48% it had
+   (founder, 2026-10-22: "increase the size of the place holder by 50%"):
+   918x517 at full width. The text keeps 260px, so on a narrower desktop it
+   is the frame that gives way, not the words. */
+.hw-run-grid{display:grid;grid-template-columns:minmax(260px,1fr) minmax(0,72%);
   gap:72px;align-items:start}
 .hw-track{display:grid}
 /* Each zone is a screenful, which is what gives the stage something to
@@ -1761,10 +1765,11 @@ body{background:var(--ground)}
 .hw-more a:hover{text-decoration-color:var(--gold)}
 /* The frame is held in the middle of the screen, level with the step text,
    which each zone centres in its own screenful. Pinned at the nav, it sat
-   ~230px above the words it was showing. Its height is 27% of the content
-   width (48% of the row, 16:9), so half of it is 13.5vw less 8.6px, capped
-   where the content stops growing at 1340. */
-@media(min-width:901px){.hw-stage{top:calc(50vh + var(--nav-h) / 2 - min(172px, 13.5vw - 8.6px))}}
+   ~230px above the words it was showing. Half its height is 9/32 of its
+   width, which is the least of: 72% of the row (20.25vw less 13px), the row
+   less the gap and the text's 260px (28.125vw less 111.4px), and 258px where
+   the content stops growing at 1340. */
+@media(min-width:901px){.hw-stage{top:calc(50vh + var(--nav-h) / 2 - min(258.4px, 20.25vw - 13px, 28.125vw - 111.4px))}}
 /* ---- 03, 05, 06: the product screens --------------------------------------
    The dashboard's own screens (product-screens.css, the same rules and markup
    the homepage tour uses) as a window on the step's dark scene, each playing
