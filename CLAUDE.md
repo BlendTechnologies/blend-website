@@ -185,19 +185,22 @@ account, and nothing in this repository can see it go.
   page shows anything the file does not. To change a figure, re-run the
   request and change both.
 - **In the UK, Melatonin is out.** The engine's legality gate removes it
-  (prescription-only) and Cordyceps takes its place; the guide says so,
-  because it is the clearest safety proof on the page.
+  (prescription-only) and Cordyceps takes its place.
 - **Two spellings are the site's, not the engine's**: the em dash in the
   algae oil's name is a comma, and "Healthy Aging" is "Healthy Ageing". The
   demo catalogue has no prices (none shown) and no photographs (the cards
   carry the site's canister shots, and the page says so).
-- **Desktop holds a guide beside the report** (`sample-report.js`), opening
-  the part in view, and the hero's index marks it too. Under 1024px the
-  guide reads first, all open, and the report follows.
-- **The pitch band is the founder's copy of 2026-10-19, as written.** It
+- **It is a one-pager, and stays one** (founder, the evening of 2026-10-22,
+  after a rebuild with a hero, a guide and a closing card that morning: "It
+  was better before. Quick one pager for clients to open as before. No
+  hero."). The notice strip, the pitch card, then Alex's answers beside the
+  report, which is laid out at twice its frame's size and drawn at a half,
+  scrolling inside it, with a fullscreen button for reading it. It is the
+  page sent in cold outreach: one screen, no tour.
+- **The pitch card is the founder's copy of 2026-10-19, as written.** It
   carries outcome claims CONTENT_STATE.md forbids ("Convert more visitors",
   "Increase average order value"); that was raised then and the founder
-  specified it anyway. Only its button changed, to the site's "Book a call".
+  specified it anyway.
 
 ## Agreement between pages
 
