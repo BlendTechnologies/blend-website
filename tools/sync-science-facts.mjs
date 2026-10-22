@@ -20,9 +20,10 @@
  * below; every number, name, check, target, source and run line is read.
  *
  * The page is generated for the live vertical AND carries the whole export
- * as JSON, so the category selector can rebuild the vertical-specific
- * sections in the browser. Turning on Beauty is then a data change: the
- * export grows a vertical with counts, the selector enables it.
+ * as JSON, so a category selector can rebuild the vertical-specific sections
+ * in the browser. Turning on Beauty is then a data change: the export grows
+ * a vertical with counts, and the hero's index, which lists live verticals
+ * only and only once there are two of them, appears with both.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -56,15 +57,17 @@ if (!liveKey) { console.error('FAILED: no live vertical in the export'); process
 const h = V[liveKey];
 
 /* ---- 1. hero --------------------------------------------------------------
-   The same hero as every other inner page, on black: the index component
-   carries the verticals rather than steps, so it has no numbers. */
-const verts = Object.entries(V).map(([key, v]) => {
-  const live = v.status === 'live';
-  const label = key === 'health' ? 'Health and wellness' : cap(key);
-  return live
-    ? `<a class="ph-ix-item is-on" href="#run" data-vertical="${esc(key)}" aria-current="true"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">${esc(label)}</span></a>`
-    : `<span class="ph-ix-item is-off" data-vertical="${esc(key)}" tabindex="0" role="note"><span class="ph-ix-name">${esc(label)}</span><span class="sci-tip">Coming soon</span></span>`;
-}).join('');
+   The same hero as every other inner page, on black. The index component
+   carries the verticals rather than steps, so it has no numbers, and it is
+   only there once there are two live verticals to choose between: with one,
+   it listed that one beside three "Coming soon" entries that went nowhere,
+   which the design review of 2026-10-22 read as "signals early-stage". The
+   meta line under the lead still says what is live. */
+const liveVerts = Object.entries(V).filter(([, v]) => v.status === 'live');
+const label = key => key === 'health' ? 'Health and wellness' : cap(key);
+const verts = liveVerts.length < 2 ? '' : `
+    <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:${liveVerts.length}">` + liveVerts.map(([key]) =>
+  `<a class="ph-ix-item${key === liveKey ? ' is-on' : ''}" href="#run" data-vertical="${esc(key)}"${key === liveKey ? ' aria-current="true"' : ''}><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">${esc(label(key))}</span></a>`).join('') + `</nav>`;
 
 const hero = `<section class="theme-dark ph ph--fill hero-card">
   <div class="wrap">
@@ -76,8 +79,7 @@ const hero = `<section class="theme-dark ph ph--fill hero-card">
         <a href="#run" class="btn btn-primary btn-lg">See a real run</a>
         <a href="mailto:contact@blend-technologies.com?subject=Blend%20methodology" class="btn btn-ghost btn-lg">Request the methodology</a>
       </div>
-    </div>
-    <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:${Object.keys(V).length}">${verts}</nav>
+    </div>${verts}
   </div>
 </section>`;
 
@@ -91,6 +93,11 @@ const SIGNAL = x => x.trim().toLowerCase() !== 'none of the above.';
 const goals = h.goals.map(g => ({ goal: g.goal, subgoals: g.subgoals.filter(SIGNAL) }));
 const goalList = goals.map(g => g.goal);
 const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
+/* Ten goals open and the rest behind "+31 more" (the design review of
+   2026-10-22: 41 names "is a wall"). Every goal is still in the page, hidden
+   by science.css until the button opens them (science.js), so the count in
+   the heading is what the page holds. The open goal is never folded. */
+const SHOWN = 10;
 /* The two figures lead, because what the section is really claiming is the
    breadth of what the engine knows about a product, and a figure buried in a
    line under a taxonomy does not claim it. They sit either side of a quiet
@@ -150,8 +157,9 @@ const covers = `<section class="sci-sec" id="covers">
       <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
       <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
-    <div class="sci-goalgrid sci-in" data-goals>
-${goals.map(g => `      <button type="button" class="sci-goalname" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
+    <div class="sci-goalgrid sci-in" id="sci-goals" data-goals>
+${goals.map((g, i) => `      <button type="button" class="sci-goalname${i >= SHOWN && g !== openGoal ? ' is-more' : ''}" data-goal="${esc(g.goal)}" aria-controls="sci-subs"${g === openGoal ? ' aria-expanded="true"' : ' aria-expanded="false"'}>${esc(g.goal)}</button>`).join('\n')}
+${goals.length > SHOWN ? `      <button type="button" class="sci-goalmore" data-more="${goals.length - SHOWN}" aria-expanded="false" aria-controls="sci-goals">+${num(goals.length - SHOWN)} more</button>` : ''}
     </div>
     <div class="sci-subs sci-in" id="sci-subs" data-subs aria-live="polite">
       <div class="sci-subs-t">${esc(openGoal.goal)}</div>

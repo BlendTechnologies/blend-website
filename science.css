@@ -64,16 +64,11 @@
 .sci .ph{--ph-muted:var(--muted)}
 .sci .ph .h1,.sci .ph .lead{color:var(--ink)}
 .sci .sc-cue{border-color:rgba(255,255,255,.22);color:#B9B1A4}
-/* The index carries categories, not steps, so it has no numbers and only
-   the live one is a link. */
-.sci-verts{--ph-ix:4}
-.sci-verts .ph-ix-item{cursor:default}
-.sci-verts .is-on{cursor:pointer}
+/* The index carries categories, not steps, so it has no numbers. It is
+   only generated once two verticals are live (sync-science-facts.mjs); the
+   "Coming soon" entries it used to carry went on 2026-10-22. */
 .sci-verts .is-on .ph-ix-line{transform:scaleX(1);background:var(--gold-active)}
 .sci-verts .is-on .ph-ix-name{color:#EDE6DA}
-.sci-verts .is-off{position:relative;color:#6F6A62}
-.sci-verts .is-off .ph-ix-name{color:#6F6A62}
-.sci-verts .is-off:focus-visible{outline:2px solid #E7CFA3;outline-offset:3px;border-radius:4px}
 
 /* A tooltip, shared by the categories, the run marker and the warning. */
 .sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:#18181B;color:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.14);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
@@ -202,6 +197,13 @@
    worse than something that plainly is not. It takes the row's own metrics so
    it sits on the same line as the names, and no separator after it. */
 .sci-goalmore{font-size:13px;line-height:1.6;padding:5px 14px;color:var(--muted);white-space:nowrap}
+/* The goals' fold (2026-10-22): ten open, the rest behind the button, and
+   all of them in the page. On the products' row the same class is a plain
+   count, so only the button form gets the hand and the colour. */
+button.sci-goalmore{font:inherit;font-size:13px;line-height:1.6;border:0;background:none;cursor:pointer;color:var(--gold-text, var(--gold-hover));font-weight:500}
+button.sci-goalmore:hover{text-decoration:underline;text-underline-offset:3px}
+button.sci-goalmore:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.sci-goalgrid[data-goals]:not(.is-open) .sci-goalname.is-more:not([aria-expanded="true"]){display:none}
 
 .sci-prows{max-width:680px;margin:20px auto 0;text-align:left}
 .sci-prow{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);gap:18px;

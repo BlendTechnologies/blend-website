@@ -352,6 +352,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .section-head{max-width:680px;margin:0 auto 56px;text-align:center}
 .section-head .eyebrow{margin-bottom:14px;display:inline-block}
 .section-head .h2{margin-bottom:7px}
+/* ---- What a customer receives: three of Alex's picks ---------------------
+   White cards with a hairline, as the plans are; the tier as an eyebrow, the
+   reason in the report's own "Why:" form, a caution as the system's
+   attention dot beside ink. Three across, one column under 901. */
+.sp{background:transparent}
+.sp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sp-card{display:flex;flex-direction:column;gap:10px;padding:26px 26px 24px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.sp-card h3{margin:0;font-size:19px;line-height:1.3;letter-spacing:-.015em;font-weight:500;color:var(--ink)}
+.sp-tier{margin:0 0 2px}
+.sp-why{margin:0;font-size:15px;line-height:1.55;color:var(--ink-80)}
+.sp-why b{font-weight:500;color:var(--ink)}
+.sp-note{display:flex;align-items:center;gap:8px;margin:0;font-size:13.5px;font-weight:500;color:var(--ink)}
+.sp-note i{width:8px;height:8px;border-radius:50%;background:var(--attn);flex:0 0 auto}
+.sp-form{margin:auto 0 0;padding-top:10px;font-size:13px;color:var(--muted)}
+.sp-foot{margin:28px auto 0;max-width:680px;text-align:center;font-size:14px;line-height:1.55;color:var(--muted)}
+.sp-foot a{color:var(--gold-text);font-weight:500}
+.sp-foot a:hover{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.sp-grid{grid-template-columns:minmax(0,1fr);gap:12px}.sp-card{padding:22px 20px 20px}}
+
 .section-cream{background:transparent}
 /* White where the hero's card leaves off, settling into the beige that the
    rest of the page sits on. A plain background, not a scroll effect: it is
@@ -2670,7 +2689,7 @@ a.vrow:hover,a.vrow:focus-visible{
     <div class="hero-grid">
       <div class="hero-copy">
         <h1 class="h1 hero-title">Recommend the right product to every customer.</h1>
-        <p class="lead hero-sub">Blend reads each shopper's needs and recommends the right products from your catalogue.<span class="hero-sub-more"> Help shoppers buy with confidence, increase conversions and grow basket sizes.</span></p>
+        <p class="lead hero-sub">Blend reads each shopper's needs, scores every product in your catalogue and explains every pick.<span class="hero-sub-more"> Help shoppers buy with confidence, increase conversions and grow basket sizes.</span></p>
         <div class="hero-ctas">
           <a href="try.html" class="btn btn-primary btn-lg">Try the demo</a>
           <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39');">Book a call</a>
@@ -2879,6 +2898,39 @@ a.vrow:hover,a.vrow:focus-visible{
     </div>
   </div>
   <div class="tour-space" aria-hidden="true"></div>
+</section>
+
+<!-- What a customer receives (the design review of 2026-10-22: the sample
+     report "is your strongest proof" and was a text link). Three of Alex's
+     eight picks with the reason under each, the engine's own words from
+     sample-report.json; tools/check-sample-report.mjs holds every card here
+     to that file, as it holds /sample-report. -->
+<section class="section section--tight sp" id="plan" aria-labelledby="plan-title">
+  <div class="wrap">
+    <div class="section-head"><h2 class="h2" id="plan-title">What a customer receives</h2><p class="lead">Alex, a fictional customer, took the demo quiz. The engine scored a sample catalogue for Alex and returned eight products, each with its reason. The three it marked essential:</p></div>
+    <div class="sp-grid">
+      <article class="sp-card" data-sample-pick="Omega-3 (Algae Oil, Vegan)">
+        <p class="eyebrow sp-tier">Essential</p>
+        <h3>Omega-3 (Algae Oil, Vegan)</h3>
+        <p class="sp-why"><b>Why:</b> Your omega 3 is at 8% of your target.</p>
+        <p class="sp-form">Softgel &#183; With meal</p>
+      </article>
+      <article class="sp-card" data-sample-pick="Vitamin D3">
+        <p class="eyebrow sp-tier">Essential</p>
+        <h3>Vitamin D3</h3>
+        <p class="sp-why"><b>Why:</b> Your vitamin D3 is at 6% of your target, which one serving covers.</p>
+        <p class="sp-note"><i aria-hidden="true"></i>Pair with Vitamin K2</p>
+        <p class="sp-form">Softgel &#183; With meal</p>
+      </article>
+      <article class="sp-card" data-sample-pick="Iron">
+        <p class="eyebrow sp-tier">Essential</p>
+        <h3>Iron</h3>
+        <p class="sp-why"><b>Why:</b> Your iron is at 57% of your target, which one serving covers, and it matches your boost energy goal.</p>
+        <p class="sp-form">Tablet &#183; Evening</p>
+      </article>
+    </div>
+    <p class="sp-foot">Every figure is the engine's, for one fictional customer on a sample catalogue. <a href="/sample-report">See the full report &rarr;</a></p>
+  </div>
 </section>
 
 <section class="section section--tight section-cream">
@@ -3160,10 +3212,14 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
      an anchor lands further down, and a sequence nobody saw has still
      spent its once per session. */
   var visual = document.querySelector('.hero-visual') || quiz;
-  if (!window.IntersectionObserver) { play(); return; }
+  /* 700ms after it is in view, not at once: the headline lands first and
+     the demo follows it (the design review of 2026-10-22; the two arrived
+     together). The quiz and the plan card stay hidden by .hero-intro until
+     play() runs, and 700 + 2950 is well inside the head's 5000ms backstop. */
+  if (!window.IntersectionObserver) { at(700, play); return; }
   var io = new IntersectionObserver(function (entries) {
     for (var i = 0; i < entries.length; i++) {
-      if (entries[i].isIntersecting) { io.disconnect(); play(); return; }
+      if (entries[i].isIntersecting) { io.disconnect(); at(700, play); return; }
     }
   }, { threshold: 0.25 });
   io.observe(visual);
