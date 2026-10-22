@@ -1017,99 +1017,12 @@ html,body{max-width:100%;overflow-x:clip}
   .hero .hero-copy::after{display:none}
 }
 
-/* ---- Phone hero: subtle wash into the background ------------------------
-   A warm tint at the top of the hero that resolves to flat --cream before the
-   first screen ends, so the hero settles into the page background rather than
-   meeting it at an edge. Built on --sand-soft, the palette's existing warm
-   tone, at low alpha; peak opacity is .20, which is a few percent of tint.
-
-   Stops are in svh rather than percentages so the wash is tied to the screen
-   rather than to the hero's full height, which on a phone is roughly three
-   screens tall and would have stretched the gradient into invisibility.
-
-   The hard border-bottom is dropped here too. With the hero and the section
-   below it both landing on --cream, a 1px line is the one thing that would
-   still read as a seam. Desktop keeps the border. */
-@media (max-width:560px){
-  /* A slowly drifting warm wash behind the first screen. Two soft radial
-     gradients on --sand-soft and --gold-soft, offset from each other, moving
-     on a 19s loop. Peak alpha was .42, which on tones this close to --cream
-     produced a colour shift of only about 17 points in the blue channel and
-     roughly 2 in red: measurable but invisible on a phone in daylight, which
-     is why the movement could not be seen. Now .78/.66/.62 on --sand-soft and
-     --sand, which lands around rgb(237,222,193) against a rgb(250,248,242)
-     background, a shift of ~13/26/49. Still a wash rather than a colour, but
-     the drift now actually reads.
-
-     Two of the three are deliberately placed around 46-62% of the screen. The
-     hero content is roughly 376px in an 844px screen, and the brief needs the
-     headline high and the buttons low, which necessarily leaves a ~318px gap
-     between them. That gap cannot be designed away, so the wash has to occupy
-     it; a gradient clustered at the top left it reading as empty.
-
-     It lives on body::before at z-index:-1 rather than on .hero, for two
-     reasons. The nav is translucent, rgba(250,248,242,.82) with a backdrop
-     blur, and sits in flow *above* the hero, so anything starting at the
-     hero's top edge begins at the nav's bottom edge and draws a visible seam
-     across the screen; starting at the top of the body clears that and the
-     wash reads through the nav's blur. And transform animates on the
-     compositor, where animating background-position would not.
-
-     z-index:-1 puts it behind all content without needing to raise the nav or
-     main, which would risk breaking the sticky positioning. */
-  html{background:var(--ground)}
-  /* body carries an opaque --cream background from the base rule. The wash is
-     a body::before at z-index:-1, which paints behind its own parent's
-     background, so it was completely hidden: the animation ran, the gradient
-     was correct, and none of it was ever on screen. html keeps the cream so
-     the page still has a background. */
-  body{position:relative;background-color:transparent}
-  body::before{
-    content:"";
-    position:absolute;
-    top:0;left:0;right:0;
-    height:115svh;
-    z-index:-1;
-    pointer-events:none;
-    background:
-      radial-gradient(95% 48% at 16% 10%, rgba(231,207,163,.78), rgba(231,207,163,0) 64%),
-      radial-gradient(88% 46% at 88% 46%, rgba(226,196,146,.62), rgba(226,196,146,0) 66%),
-      radial-gradient(76% 40% at 34% 64%, rgba(231,207,163,.66), rgba(231,207,163,0) 68%);
-    animation:hero-wash 11s ease-in-out infinite alternate;
-    will-change:transform;
-  }
-  /* The wash reaches full strength immediately at the top, which put a warm
-     band directly behind the translucent nav and made the nav read as a
-     separate strip. This is a static cream cap over the top of it, so the page
-     starts at the nav's own colour and the tint only develops below it.
-
-     It has to be a second, non-animated layer: folding it into body::before
-     would make it drift with the transform, and the whole point is that the
-     nav's blend does not move. ::after paints after ::before at the same
-     z-index, so it lands on top of the wash and under all content. */
-  body::after{
-    content:"";
-    position:absolute;
-    top:0;left:0;right:0;
-    height:34svh;
-    z-index:-1;
-    pointer-events:none;
-    background:linear-gradient(180deg,
-      var(--cream) 0,
-      rgba(250,248,242,.92) 22%,
-      rgba(250,248,242,.55) 55%,
-      rgba(250,248,242,0) 100%);
-  }
-  .hero{background:transparent;border-bottom:0}
-}
-
-@keyframes hero-wash{
-  from{transform:translate3d(-7%,1%,0) scale(1.08)}
-  to{transform:translate3d(7%,-4%,0) scale(1.20)}
-}
-@media (prefers-reduced-motion:reduce){
-  body::before{animation:none}
-}
+/* ---- Phone: the ground ------------------------------------------------
+   A warm wash drifted behind the first screen here, on body::before, from
+   when this page opened on a light hero. It went on 2026-10-22: the hero
+   is the dark card now, the system has no beige, and body::before carries
+   the site's one ground light (theme.css), which this replaced below
+   560px. */
 
 /* ---- Phone: scoring model and FAQ compaction ----------------------------
    Scoring model. The section ran 1.54 screens: a 171px head, five 137px cards,
@@ -1822,7 +1735,7 @@ body{background:var(--ground)}
    greys. films.css holds the screens' frame rules and every film's
    choreography, and films.js walks the phases, so another page can play a
    film too; what stays here is how this page frames them. */
-@media(max-width:600px){.hw-win{width:94%;border-radius:10px}
+@media(max-width:600px){
   /* the square frame is for the square drawings; a screen keeps its 16:9 */
   .hw-stage .hw-shot:has(.hw-screen){aspect-ratio:16/9}}
 /* The homepage tour's frame, not a window in a dark scene (founder,
@@ -1831,22 +1744,21 @@ body{background:var(--ground)}
    round it read as a 46px bezel at 1440. Now the screen fills the frame
    inside a 4px edge, with the tour's corner and its one soft shadow, which
    the stage and the figure stop clipping. The loop's reset fades the screen,
-   not the frame, or the frame would blink out with it. Desktop first. */
-@media(min-width:901px){
-  .hw-stage-inner,.hw-stage .hw-shot:has(.hw-screen){overflow:visible}
-  .hw-shot:has(.hw-screen) .hw-scene{background:none}
-  /* The tour's frame, glass since 2026-10-22 (theme.css, "A frame round a
-     screen"; founder: "decrease border width of placeholder (soft,
-     holistic, glass effect)"). */
-  .hw-win{width:100%;border-radius:clamp(20px, 2.1vw, 30px);
-    border:var(--glass-rim) solid var(--frame-rim);background-clip:padding-box;
-    -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
-    outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
-    box-shadow:var(--frame-shadow)}
-  .hw-screen.is-out .hw-win{opacity:1}
-  .hw-win > *{transition:opacity .35s ease}
-  .hw-screen.is-out .hw-win > *{opacity:0}
-}
+   not the frame, or the frame would blink out with it. Desktop first, then
+   every width once the founder had seen it (2026-10-22). */
+.hw-stage-inner,.hw-stage .hw-shot:has(.hw-screen){overflow:visible}
+.hw-shot:has(.hw-screen) .hw-scene{background:none}
+/* The tour's frame, glass since 2026-10-22 (theme.css, "A frame round a
+   screen"; founder: "decrease border width of placeholder (soft, holistic,
+   glass effect)"). */
+.hw-win{width:100%;border-radius:clamp(16px, 2.1vw, 30px);
+  border:var(--glass-rim) solid var(--frame-rim);background-clip:padding-box;
+  -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
+  outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
+  box-shadow:var(--frame-shadow)}
+.hw-screen.is-out .hw-win{opacity:1}
+.hw-win > *{transition:opacity .35s ease}
+.hw-screen.is-out .hw-win > *{opacity:0}
 
 /* One column from 900 down: each frame sits under its own step. The frames
    live in the stage, not in the zones, so the two wrappers step aside

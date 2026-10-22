@@ -26,16 +26,19 @@
    this outranks it by specificity rather than by order. */
 .hw-screen .hw-win img{border-radius:0;aspect-ratio:auto;object-position:50% 50%}
 .hw-screen.no-tr .hw-win *,.hw-screen.no-tr .hw-win *::before,.hw-screen.no-tr .hw-win *::after{transition:none !important;animation:none !important}
-/* A film on its own on a page: the homepage tour's frame (a 4px edge, the
-   tour's corner, one soft shadow), the screen filling it at 16:9. */
+/* A film on its own on a page: the homepage tour's frame (glass since
+   2026-10-22, theme.css "A frame round a screen"), the screen filling it at
+   16:9. */
 .film{position:relative;margin:0}
 .film .hw-screen{position:relative;inset:auto}
-.film .hw-win{width:100%;border:4px solid #292929;border-radius:clamp(16px, 2.1vw, 30px);
-  box-shadow:0 14px 36px rgba(0,0,0,.06)}
+.film .hw-win{width:100%;border-radius:clamp(16px, 2.1vw, 30px);
+  border:var(--glass-rim) solid var(--frame-rim);background-clip:padding-box;
+  -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
+  outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
+  box-shadow:var(--frame-shadow)}
 .film .hw-screen.is-out .hw-win{opacity:1}
 .film .hw-win > *{transition:opacity .35s ease}
 .film .hw-screen.is-out .hw-win > *{opacity:0}
-@media(max-width:600px){.film .hw-win{border-width:3px;border-radius:12px}}
 
 /* 04, Recommend: the wellness plan a customer receives, built in the
    results editor (founder's screenshots, 2026-10-22):
