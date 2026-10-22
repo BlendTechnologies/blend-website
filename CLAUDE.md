@@ -15,10 +15,9 @@ builder (`.bx`), 02 the results builder (`.bx.rx`), 03 Analytics (`.ax`, the
 whole page, scrolled to the part each card is about) and 04 Contacts (`.cx`).
 Each is the screen's own layout drawn at the width it was captured, 2000px,
 and scaled into the frame, so it is sharp at any size and is not an image.
-/how-it-works shows Analytics again, in step 06, playing a short loop
-(founder, 2026-10-21: "gifs for the how it works"); its steps 03 and 04 showed
-the quiz builder and the results builder too until each got its own film
-(below).
+/how-it-works showed three of them again, as short loops (founder,
+2026-10-21: "gifs for the how it works"), until each of its steps got its own
+film (below); it copies none of their markup now.
 Their rules live once, in `product-screens.css`, linked by both pages; the
 markup is copied, the homepage is the source, and
 `node tools/check-screens.mjs` refuses when a copy differs.
@@ -52,9 +51,19 @@ is Launch and `#step-5` Recommend. Step 05 has a ninth, Launch (`.lx`):
 the Quiz page as Design leaves it, its Embed panel and Publish. Its embed code
 and direct link carry an invented quiz id, never a real account's, and the
 address it is locked to is yourbrand.com (founder: "make sure you add fake codes
-and links"). Every film opens on the whole dashboard, zooms in, and goes back
-out to it at the end (founder: "same rule as before", "entire dashboard to end
-too").
+and links"). Step 06 sets the homepage's Analytics (`.ax`) in the same
+dashboard (`.vx`), regenerated from the homepage's markup with the states its
+film needs: a tile picked, its panel swapped and its number counting up, a
+pointer resting on the chart, the Sleep follow-up in Answer insights, Who wants
+what by gender. Each does what the product does (`apps/webapp`
+`components/dashboard/metric-explorer.tsx`, `answer-insights.tsx`,
+`cross-tab-grid.tsx`), so no dashed previous period and no weekly charts. The
+question and its answers are the demo quiz's own
+(`apps/webapp/supabase/seed/quiz-demo.json`), and every new figure derives from
+the page's: the completion-rate chart is the two engagement series pooled over
+seven days, and the gender columns sum to the age columns' 1,212. Every film
+opens on the whole dashboard, zooms in, and goes back out to it at the end
+(founder: "same rule as before", "entire dashboard to end too").
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the

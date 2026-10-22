@@ -5,10 +5,12 @@
  *
  * WHY THIS EXISTS. The dashboard's screens are rebuilt in code from the
  * founder's screenshots: the quiz builder (.bx), the results builder
- * (.bx.rx) and Analytics (.ax) in the homepage's product tour, and Analytics
- * again in step 06 of /how-it-works (its 01 to 05, the Catalogue, Match, the
- * quiz editor, Recommend and Launch, are drawn for that page alone). There is
- * no build step, so the markup is copied. Their rules are not: both pages link
+ * (.bx.rx), Analytics (.ax) and Contacts (.cx) in the homepage's product
+ * tour. /how-it-works showed two of them again until each of its six steps
+ * got its own film (2026-10-22), so today no page copies one; the list below
+ * is empty, and the check holds both pages to the shared stylesheet until a
+ * page copies a screen again. There is no build step, so a copy is
+ * markup copied by hand. The rules are not: both pages link
  * product-screens.css. The visual-diff suite compares each page against its
  * own past, so a copy that drifts from the other page's is invisible to it,
  * the same way the wordmark under /use-cases went wrong for months. Agreement
@@ -33,7 +35,7 @@ const SCREENS = {
   plan: '<div class="bx rx" aria-hidden="true">',
   analytics: '<div class="ax" aria-hidden="true">',
 };
-const COPIES = { 'how-it-works.html': ['analytics'] };
+const COPIES = { 'how-it-works.html': [] };
 const SHEET = '<link rel="stylesheet" href="/product-screens.css">';
 
 /** The element opening at src[start], through its matching </div>. */
@@ -83,4 +85,4 @@ if (failures.length) {
   process.exit(1);
 }
 const n = Object.values(COPIES).reduce((t, v) => t + v.length, 0);
-console.log(`PASSED: ${n} copied screen(s) match the homepage's, and both pages link product-screens.css.`);
+console.log(`PASSED: ${n} copied screen(s) match the homepage's, and every page showing them links product-screens.css.`);

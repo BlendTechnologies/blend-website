@@ -4,16 +4,19 @@
    The dashboard's own screens, rebuilt in code from the founder's
    screenshots (2026-10-21): the quiz builder (.bx), the results
    builder (.bx.rx), Analytics (.ax) and Contacts (.cx), and the
-   Catalogue (.kx, 2026-10-22, /how-it-works only so far). Each is drawn
+   dashboard /how-it-works directs its films in (.kx, 2026-10-22). Each is drawn
    at the width it was captured, 2000px, and scaled to its frame by
    --k, which the page sets from the frame's width, so it is sharp at
    any size and is not an image.
 
-   ONE COPY, TWO PAGES. The homepage's product tour and /how-it-works
-   both show these screens, and both link this file rather than carry
-   the rules inline, so the two cannot drift apart the way the site's
-   inline copies have. The markup is copied, because there is no build
-   step; tools/check-screens.mjs refuses when the copies differ.
+   ONE SET OF RULES, TWO PAGES. The homepage's product tour and
+   /how-it-works both link this file rather than carry the rules inline,
+   so the two cannot drift apart the way the site's inline copies have.
+   /how-it-works copies none of the homepage's markup any more: each of its
+   six steps is its own film, the last setting the homepage's Analytics
+   (.ax) in the dashboard with the states its film walks through.
+   tools/check-screens.mjs holds both pages to linking this file, and any
+   page that copies a screen again to the homepage's.
 
    They go stale whenever the dashboard's look changes; CLAUDE.md says
    what keeps them honest. Class names are short and unique to these
@@ -835,3 +838,24 @@
 .wx-lock svg{width:14px;height:14px;margin-top:3px;color:#52525B}
 .wx-in{display:block;margin:12px 0 5px;font-size:13px;color:#3F3F46}
 .wx-pn .kx-fi{color:#A1A1AA;font-size:14px}
+
+/* ---- 10: Analyse, directed ---------------------------------------------
+   /how-it-works plays Analytics as a film: the page above (.ax) set in the
+   dashboard (.kx), with the states it walks through. Its words and numbers
+   are the page above's. */
+.ax.vx{position:relative;width:auto;height:1066px;transform:none}
+.vx-act{top:200px}
+.vx-ch,.vx-rk,.vx-hx{display:grid}
+.vx-ch > *,.vx-rk > *,.vx-hx > *{grid-area:1/1}
+.vx-alt,.vx-rk2,.vx-h2{opacity:0}
+.vx-n1,.vx-n2{font-style:normal}
+.vx-tip{opacity:0}
+.vx-tip line{stroke:#A1A1AA;stroke-width:1}
+.vx-tip > circle{fill:#B47F39;stroke:#FFFFFF;stroke-width:2}
+.vx-tip rect{fill:#FFFFFF;stroke:#E4E4E7}
+.vx-tip text{font-size:13px;fill:#18181B;font-family:inherit}
+.vx-tip .vx-td{fill:#52525B}
+.vx-tip tspan{font-weight:600}
+.vx-tip g circle{fill:#B47F39}
+.vx-q{margin-top:16px !important;font-size:13px;color:#71717A}
+.vx-rk2 .ax-rank{margin-top:10px !important}
