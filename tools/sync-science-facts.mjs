@@ -416,7 +416,7 @@ ${first.nutrients.map(ladder).join('\n')}
 </section>`;
 
 /* ---- 5. the endcap --------------------------------------------------------- */
-const cta = `<section class="theme-dark closer sc-reveal sc-reveal--top" data-sc="endcap" id="contact">
+const cta = `<section class="theme-dark closer sc-reveal sc-reveal--top" id="contact">
   <div class="wrap">
     <h2 class="h1">Read the full methodology.</h2>
     <p class="lead">See how answers, research and rules produce every recommendation.</p>
