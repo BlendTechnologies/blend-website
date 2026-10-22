@@ -1020,8 +1020,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   transition:opacity .35s ease,transform .5s cubic-bezier(.22,1,.36,1),visibility 0s linear .35s}
 .tour-swap > .is-on{visibility:visible;opacity:1;transform:none;transition-delay:0s}
 .tour-panel{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
-.tour-h{margin:36px 0 0;font-size:clamp(24px,2.1vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;color:var(--ink)}
-.tour-sub{margin:12px 0 0;font-size:16px;line-height:1.5;letter-spacing:-.01em;color:var(--ink);max-width:38ch}
+.tour-h{margin:36px 0 0;font-size:clamp(24px,2.1vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;color:var(--ink);text-wrap:balance}
+.tour-sub{margin:12px 0 0;font-size:16px;line-height:1.5;letter-spacing:-.01em;color:var(--ink);max-width:none;text-wrap:pretty}
+/* One system for the four steps (founder's brief, 2026-10-21). Side by side,
+   each headline breaks where it is written to and holds two lines, so a
+   one-line headline does not lift its description above the others, and the
+   column is shorter, which brings the questions about 60px closer to the
+   words while their last line still meets the screen's foot. Stacked, the
+   headlines wrap on their own. */
+.tour-br{display:none}
+@media(min-width:901px){
+  .tour-br{display:inline}
+  .tour-h{min-height:calc(2em * 1.1875)}
+  .tour-copy{min-height:min(500px, 66vh)}
+}
+/* Stacked there is no screen beside the words to meet, so the questions
+   follow the words at a fixed distance instead of taking the slack of the
+   tallest step's panel. */
+@media(max-width:900px){.tour-panel{justify-content:flex-start;gap:32px}}
 /* the questions, set as the FAQ sets its rows */
 .tq-list{border-top:1px solid var(--line)}
 .tq{border-bottom:1px solid var(--line)}
@@ -1046,9 +1062,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    to the bottom"). */
 @media(min-width:901px){.tour-visual{align-self:end;justify-content:flex-end}}
 .tour-device{position:relative;width:min(99%, calc((100vh - var(--nav-h) - 150px) * 16 / 9 * .99));
-  padding:7px;border-radius:22px;background:#111214}
+  /* A 4px edge rather than a 7px slab, a rounder corner and a soft lift
+     (founder's brief, 2026-10-21: the black frames were "visually too
+     heavy"). The one shadow the system allows: under this frame only. */
+  padding:0;border:4px solid #292929;border-radius:clamp(20px, 2.1vw, 30px);background:#292929;
+  box-shadow:0 14px 36px rgba(0,0,0,.06)}
 @supports(height:100svh){.tour-device{width:min(99%, calc((100svh - var(--nav-h) - 150px) * 16 / 9 * .99))}}
-.tour-frame{position:relative;aspect-ratio:16/9;border-radius:15px;overflow:hidden;background:var(--n-100)}
+.tour-frame{position:relative;aspect-ratio:16/9;border-radius:calc(clamp(20px, 2.1vw, 30px) - 4px);overflow:hidden;background:var(--n-100)}
 .tour-media{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .45s ease}
 .tour-media.is-on{opacity:1}
 .tour-media > span{font-size:13px;color:var(--n-600)}
@@ -1624,43 +1644,40 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   border:1px solid transparent;background:var(--gold-strong);color:#FFFFFF}
 .vsplit .vlead-cta:hover{background:var(--gold-hover);border-color:transparent;color:#FFFFFF}
 
-.vsplit .vnext{gap:10px}
-.vsplit .vnext-cap{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--n-600);margin-bottom:0}
-/* The page's own surfaces only (founder, 2026-10-21: "the right is using
-   effects not used anywhere else"). It had frosted glass over a grey wash
-   and a smoked-glass row, which nothing else on the page wears. Now: the
-   pricing plans' flat --n-100, no edge, no blur, on the white every section
-   sits on; the icon on a white square in ink, as on the use-case cards. */
-.vsplit .vrow{background:var(--n-100);border:1px solid transparent;border-radius:16px;
-  box-shadow:none;padding:14px 16px}
-.vsplit .vrow:not(.vrow-talk):hover{border-color:transparent}
-.vsplit .vrow-icon{background:var(--n-0);color:var(--ink);border-radius:10px}
-.vsplit .vrow-name{font-size:15px}
-/* --n-600, not --n-500: over the neutral wash and through the glass, --n-500
-   measured 3.9-4.4:1. */
-.vsplit .vrow-note{font-size:13px;color:var(--n-600)}
-
-/* The call to talk: the black of the Health and wellness card beside it,
-   solid, white type, the icon on a lighter square, and no edge or sheen. */
-.vsplit .vrow-talk{background:#0A0A0A;border-color:transparent;color:#FFFFFF;box-shadow:none}
-/* theme.css paints --wash-deep on every .theme-dark::after; that is the warm
-   brown gradient this card carried. Named at that rule's specificity. */
-.vsplit a.vrow-talk.theme-dark::after{content:none}
-.vsplit .vrow-talk .vrow-name{color:#FFFFFF}
-.vsplit .vrow-talk .vrow-icon{background:rgba(255,255,255,.14);color:#FFFFFF}
-.vsplit .vrow-talk .vrow-note{color:rgba(255,255,255,.74)}
-.vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{background:#18181B;border-color:var(--gold)}
-/* On a phone the three that are coming are one row of three, a name each
-   (founder, 2026-10-21: "take too much space on phone"), and the call to talk
-   stays a full row under them. */
-@media(max-width:760px){
-  .vsplit .vnext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .vsplit .vnext-cap,.vsplit .vrow-talk{grid-column:1/-1}
-  .vsplit .vrow:not(.vrow-talk){display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:12px}
-  .vsplit .vrow:not(.vrow-talk) .vrow-note{display:none}
-  .vsplit .vrow:not(.vrow-talk) .vrow-icon{width:32px;height:32px}
-  .vsplit .vrow:not(.vrow-talk) .vrow-name{font-size:14px}
+/* Coming next, in the product tour's questions' style (founder, 2026-10-21:
+   "keep this visual style for the who it's for part"): rows between
+   hairlines, no fill, no card, no icon squares; the name in ink with its
+   note muted under it, and the call to talk carrying the questions' plus.
+   Side by side the list spans the live card's height, its rows sharing it
+   evenly, so the column has no empty band above it (founder, 2026-10-21:
+   rows at the foot with the notes far right "doesn't look good"). */
+.vsplit .vnext{gap:0}
+.vsplit .vnext-cap{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--n-600);margin-bottom:12px}
+.vsplit .vrow,.vsplit .vrow:hover,.vsplit .vrow-talk:hover,.vsplit .vrow-talk:focus-visible{
+  background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;transform:none}
+.vsplit .vrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex:1 1 auto;
+  padding:16px 4px;color:var(--ink)}
+.vsplit .vnext-cap + .vrow{border-top:1px solid var(--line)}
+.vsplit .vrow-icon{display:none}
+.vsplit .vrow-copy{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:1;min-width:0}
+/* stacked, one line a row, the note beside its name, so the list stays short
+   on a phone (founder, 2026-10-21: "take too much space on phone") */
+@media(max-width:900px){
+  .vsplit .vrow{flex:0 0 auto;padding:17px 4px}
+  .vsplit .vrow-copy{flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px}
 }
+.vsplit .vrow-name{font-size:15px;font-weight:400;letter-spacing:-.005em;color:var(--ink)}
+.vsplit .vrow-note{margin:0;font-size:13.5px;color:var(--n-600)}
+/* the call to talk: the same row, and the plus the questions open with */
+.vsplit .vrow-talk{cursor:pointer}
+.vsplit .vrow-talk .vrow-name{font-weight:500}
+.vsplit .vrow-talk::after{content:"";flex-shrink:0;width:11px;height:11px;
+  background:linear-gradient(var(--muted),var(--muted)) center/100% 1.5px no-repeat,
+    linear-gradient(var(--muted),var(--muted)) center/1.5px 100% no-repeat}
+.vsplit .vrow-talk:hover::after,.vsplit .vrow-talk:focus-visible::after{
+  background:linear-gradient(var(--ink),var(--ink)) center/100% 1.5px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) center/1.5px 100% no-repeat}
+.vsplit .vrow-talk:focus-visible{outline:2px solid var(--gold-active);outline-offset:2px;border-radius:4px}
 @media(prefers-reduced-transparency:reduce){
   .vsplit .vlead-tags a,.vsplit .vlead-cta{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.16)}
 }
@@ -3070,34 +3087,34 @@ a.vrow:hover,a.vrow:focus-visible{
         </div>
         <div class="tour-swap">
             <div class="tour-panel is-on" id="tour-p1" role="tabpanel" aria-labelledby="tour-t1">
-              <div><h3 class="tour-h">Your quiz, in your brand, in an afternoon.</h3><p class="tour-sub">Edit every question, set your colours and see it as your customers will. Or let Blend AI draft the first version.</p></div>
+              <div><h3 class="tour-h">Your quiz. Your brand.<br class="tour-br"> Ready in an afternoon.</h3><p class="tour-sub">Customise every question, colour and detail. Preview exactly what your customers will see, or let Blend AI create your first draft.</p></div>
               <div class="tq-list">
-                <details class="tq" name="tour-q1"><summary>What can I change in the design?<span class="tq-pm" aria-hidden="true"></span></summary><p>Everything a shopper sees: twelve layouts, four answer styles, six button styles and eight transitions, the font, size and alignment of every kind of text, and every colour. Set it once as your brand and every screen follows; a single screen can still override its layout.</p></details>
+                <details class="tq" name="tour-q1"><summary>How much can I customise?<span class="tq-pm" aria-hidden="true"></span></summary><p>Everything a shopper sees: twelve layouts, four answer styles, six button styles and eight transitions, the font, size and alignment of every kind of text, and every colour. Set it once as your brand and every screen follows; a single screen can still override its layout.</p></details>
                 <details class="tq" name="tour-q1"><summary>Can I edit every question?<span class="tq-pm" aria-hidden="true"></span></summary><p>Every word: the heading, the subtext and the answer labels, screen by screen, and you can hide the screens you do not need. A few questions the engine reads by id keep a fixed answer set and are always asked, but you can still reword them.</p></details>
-                <details class="tq" name="tour-q1"><summary>What does Blend AI do?<span class="tq-pm" aria-hidden="true"></span></summary><p>It drafts your quiz. Describe your brand in a short interview and it writes the layout, the tone, the palette and a first set of screens, which you then edit.</p></details>
+                <details class="tq" name="tour-q1"><summary>What can Blend AI create?<span class="tq-pm" aria-hidden="true"></span></summary><p>A first draft of your quiz. Describe your brand in a short interview and it writes the layout, the tone, the palette and a first set of screens, which you then edit.</p></details>
               </div>
             </div>
             <div class="tour-panel" id="tour-p2" role="tabpanel" aria-labelledby="tour-t2">
-              <div><h3 class="tour-h">A results page that sells.</h3><p class="tour-sub">Every shopper gets a plan made for them: the products picked, the reason for each, and a direct way to buy. You decide what it shows and how it looks.</p></div>
+              <div><h3 class="tour-h">A results page that sells.</h3><p class="tour-sub">Turn every completed quiz into a personalised plan, with product recommendations, clear explanations and a direct path to purchase. All in your brand.</p></div>
               <div class="tq-list">
-                <details class="tq" name="tour-q2"><summary>What can I change on the results page?<span class="tq-pm" aria-hidden="true"></span></summary><p>What it shows and in what order: the profile, goals, score, products, macros and the full breakdown, each on or off. What every product card shows, what its button does, six starting layouts, every colour and every word.</p></details>
-                <details class="tq" name="tour-q2"><summary>What can I not switch off?<span class="tq-pm" aria-hidden="true"></span></summary><p>Which products a shopper is matched with, and the notices that must appear beside them: product warnings, nutrient upper-limit flags and clinician referral notes always show when the engine returns them.</p></details>
-                <details class="tq" name="tour-q2"><summary>Can shoppers buy straight from the plan?<span class="tq-pm" aria-hidden="true"></span></summary><p>Yes. Each product&#8217;s button can add it to the cart through your store&#8217;s script, open its product page, or collect products into a bundle that goes to the cart at once.</p></details>
+                <details class="tq" name="tour-q2"><summary>What can I customise?<span class="tq-pm" aria-hidden="true"></span></summary><p>What it shows and in what order: the profile, goals, score, products, macros and the full breakdown, each on or off. What every product card shows, what its button does, six starting layouts, every colour and every word.</p></details>
+                <details class="tq" name="tour-q2"><summary>What information is always included?<span class="tq-pm" aria-hidden="true"></span></summary><p>The products the engine matches to each shopper, and on every product card its name, its caution, the engine&#8217;s note and the buy button. Product warnings, nutrient upper-limit flags and clinician referral notes always show when the engine returns them.</p></details>
+                <details class="tq" name="tour-q2"><summary>Can shoppers purchase directly from their plan?<span class="tq-pm" aria-hidden="true"></span></summary><p>Yes. Each product&#8217;s button can add it to the cart through your store&#8217;s script, open its product page, or collect products into a bundle that goes to the cart at once.</p></details>
               </div>
             </div>
             <div class="tour-panel" id="tour-p3" role="tabpanel" aria-labelledby="tour-t3">
-              <div><h3 class="tour-h">Know what your customers need.</h3><p class="tour-sub">Every answer is first-party data you own: who takes your quiz, what they ask for, and what they need that you do not stock yet.</p></div>
+              <div><h3 class="tour-h">Understand your customers.<br class="tour-br"> Improve your results.</h3><p class="tour-sub">See what shoppers want, which products interest them and where they drop off. Turn real customer insights into better quizzes, smarter decisions and new opportunities.</p></div>
               <div class="tq-list">
-                <details class="tq" name="tour-q3"><summary>What customer insights will I get?<span class="tq-pm" aria-hidden="true"></span></summary><p>A conversion funnel from started to purchased, drop-off by question, completion by goal, answer insights across every question, product performance, and Catalogue gaps: where your customers&#8217; needs and your catalogue do not meet.</p></details>
-                <details class="tq" name="tour-q3"><summary>Who owns the data?<span class="tq-pm" aria-hidden="true"></span></summary><p>You do. It is first-party data you own outright: what lifts your quiz&#8217;s conversion, who your customers actually are, and what they came for.</p></details>
+                <details class="tq" name="tour-q3"><summary>What insights can I track?<span class="tq-pm" aria-hidden="true"></span></summary><p>A conversion funnel from started to purchased, drop-off by question, completion by goal, answer insights across every question, product performance, and Catalogue gaps: where your customers&#8217; needs and your catalogue do not meet.</p></details>
+                <details class="tq" name="tour-q3"><summary>Who controls the data?<span class="tq-pm" aria-hidden="true"></span></summary><p>You do. It is first-party data you own outright: what lifts your quiz&#8217;s conversion, who your customers actually are, and what they came for.</p></details>
               </div>
             </div>
             <div class="tour-panel" id="tour-p4" role="tabpanel" aria-labelledby="tour-t4">
-              <div><h3 class="tour-h">Everyone who chose to hear from you.</h3><p class="tour-sub">Only shoppers who opted in to marketing appear, with a name, an email and the date. Export them to your email tool, or take anyone off the list.</p></div>
+              <div><h3 class="tour-h">Turn quiz completions into<br class="tour-br"> lasting relationships.</h3><p class="tour-sub">Build your audience with shoppers who opt in to hear from you. Keep their contact details organised, export them to your email platform and manage your list with ease.</p></div>
               <div class="tq-list">
                 <details class="tq" name="tour-q4"><summary>Who appears in Contacts?<span class="tq-pm" aria-hidden="true"></span></summary><p>Only shoppers who separately ticked the marketing opt-in. Without it, nobody appears, and a contact is never more than a name, an email and the date: no quiz answers, no recommendations.</p></details>
                 <details class="tq" name="tour-q4"><summary>Can I export my contacts?<span class="tq-pm" aria-hidden="true"></span></summary><p>On Pro and Enterprise: a CSV with each contact&#8217;s name, email and the date they opted in.</p></details>
-                <details class="tq" name="tour-q4"><summary>Can I remove or erase someone?<span class="tq-pm" aria-hidden="true"></span></summary><p>Remove takes them off your list and out of the export; their quiz submission and report stay. For a full erasure request, send their email address or quiz submission ID to contact@blend-technologies.com.</p></details>
+                <details class="tq" name="tour-q4"><summary>How do I remove a contact?<span class="tq-pm" aria-hidden="true"></span></summary><p>Press Remove beside their name: it takes them off your list and out of the export, while their quiz submission and report stay. For a full erasure request, send their email address or quiz submission ID to contact@blend-technologies.com.</p></details>
               </div>
             </div>
         </div>
@@ -3163,7 +3180,7 @@ a.vrow:hover,a.vrow:focus-visible{
       <div class="vnext">
         <span class="vnext-cap">Coming next</span>
         <div class="vrow"><span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.2 4.2 6 7.1 6 10.5a6 6 0 0 1-12 0C6 10.1 8.8 7.2 12 3z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></svg></span><span class="vrow-copy"><span class="vrow-name">Beauty</span><span class="vrow-note">Skincare, haircare, cosmetics</span></span></div><div class="vrow"><span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M8 7.5c0-1.5 1.2-2 1.2-3.5M12 7c0-2 1.4-2.5 1.4-4M16 7.5c0-1.5 1.1-2 1.1-3"/><path d="M4 20h16"/></svg></span><span class="vrow-copy"><span class="vrow-name">Food</span><span class="vrow-note">Nutrition, snacks, meal plans</span></span></div><div class="vrow"><span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.2a2 2 0 1 1 2 2c-1.1 0-2 .9-2 2v.8"/><path d="M12 10 3.6 16.2a1 1 0 0 0 .6 1.8h15.6a1 1 0 0 0 .6-1.8L12 10z"/></svg></span><span class="vrow-copy"><span class="vrow-name">Fashion</span><span class="vrow-note">Apparel, footwear, accessories</span></span></div>
-        <a class="theme-dark vrow vrow-talk" href="" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39');">
+        <a class="vrow vrow-talk" href="" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39');">
           <span class="vrow-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
           <span class="vrow-copy"><span class="vrow-name">Don&#39;t see your category?</span>
           <span class="vrow-note">Let&#39;s explore your catalogue.</span></span>
@@ -3830,8 +3847,9 @@ window.addEventListener('load', function(){
       var sx = f.left + x * kk + sw / 2, sy = f.top + y * kk + sh / 2;
       var w = card.offsetWidth, h = card.offsetHeight;
       var o = getComputedStyle(card).transformOrigin.split(' ').map(parseFloat);
-      var ox = d.left + card.offsetLeft + o[0], oy = d.top + card.offsetTop + o[1];
-      var px = d.left + card.offsetLeft + w / 2, py = d.top + card.offsetTop + h / 2;
+      /* a card's offsets start inside the frame's edge */
+      var bx = d.left + device.clientLeft + card.offsetLeft, by = d.top + device.clientTop + card.offsetTop;
+      var ox = bx + o[0], oy = by + o[1], px = bx + w / 2, py = by + h / 2;
       var f0 = Math.max(.18, Math.min(.8 * c, Math.sqrt((sw * sh) / (w * h))));
       card.style.setProperty('--fx', Math.round(sx - ox - (px - ox) * f0) + 'px');
       card.style.setProperty('--fy', Math.round(sy - oy - (py - oy) * f0) + 'px');
@@ -3893,7 +3911,7 @@ window.addEventListener('load', function(){
   var frame = tour.querySelector('.tour-frame'), device = tour.querySelector('.tour-device');
   function fit(){
     frame.style.setProperty('--k', (frame.clientWidth / 2000).toFixed(4));
-    var c = wide.matches ? Math.max(.62, Math.min(.96, device.clientWidth / 778 * .86)) : 1;
+    var c = wide.matches ? Math.max(.62, Math.min(.96, device.offsetWidth / 778 * .86)) : 1;
     device.style.setProperty('--c', c.toFixed(3));
     if(at >= 0) detach(at);
   }
