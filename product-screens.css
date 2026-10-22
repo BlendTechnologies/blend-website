@@ -529,6 +529,6 @@
 .mx-ed .kx-ta{height:auto;min-height:77px;padding:9px;line-height:1.45;white-space:normal;align-items:flex-start}
 .mx-ing{display:block;margin:16px 0 6px;font-size:13px;color:#3F3F46}
 .mx-irow{display:flex;gap:10px}
-.mx-irow .kx-fi{flex:1}
+.mx-irow .kx-fi{flex:1;margin-top:0}
 .mx-irow .kx-btn{width:43px;height:43px;padding:0}
 .mx-add{display:block;margin-top:14px;font-size:14px;font-weight:600}
