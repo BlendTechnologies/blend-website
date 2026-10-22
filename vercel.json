@@ -8,6 +8,7 @@
     { "source": "/pricing", "destination": "/" }
   ],
   "redirects": [
+    { "source": "/product-example", "destination": "/how-it-works#launch", "permanent": true },
     { "source": "/shopify-supplement-quiz", "destination": "/use-cases/shopify", "permanent": true },
     { "source": "/personalized-supplement-quiz", "destination": "/use-cases/supplement-brands", "permanent": true },
     { "source": "/quiz-software-for-supplement-brands", "destination": "/use-cases/compare", "permanent": true },
