@@ -408,10 +408,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .proof-mark .c.pick{animation-name:pg-pick}
 .proof-mark .c.drop{animation-name:pg-drop}
 @media(prefers-reduced-motion:reduce){.proof-mark .c{animation:none}}
-/* Half the space above and below the words (founder, 2026-10-21). It was a
-   full window with the words centred, (window - words) / 2 a side; now a side
-   is a quarter of that. 168px is the words' own height on desktop. */
-@media(min-width:901px){.opener{min-height:0;padding:max(48px, calc((100vh - var(--nav-h) - 168px) / 4)) 0}}
+/* Half the space above and below the words (founder, 2026-10-21), and half
+   again the next day ("decrease the whitespace here"). It was a full window
+   with the words centred, (window - words) / 2 a side; now a side is an
+   eighth of that. 168px is the words' own height on desktop. */
+@media(min-width:901px){.opener{min-height:0;padding:max(48px, calc((100vh - var(--nav-h) - 168px) / 8)) 0}}
 @media(max-width:900px){.opener{min-height:0;padding:96px 0}}
 @media(max-width:560px){.opener{padding:72px 0}.open-h{font-size:30px}.open-sub{font-size:16px}}
 /* AI where AI does the work: matching the catalogue, drafting the quiz. Not
