@@ -1,0 +1,641 @@
+/* ============================================================
+   Films
+   ------------------------------------------------------------
+   The product screens (product-screens.css) as short directed films: a
+   camera over the dashboard (--cx --cy --cs), and states that arrive beat
+   by beat as films.js walks a film's phases (.is-p1, .is-p2 ...). Written
+   for /how-it-works's six steps (2026-10-21 to 22) and moved here so any
+   page can play one:
+
+     <figure class="film" aria-hidden="true"><div class="hw-screen"
+       data-demo="NAME"><div class="hw-win">...the screen...</div></div></figure>
+
+   A .film plays while half of it is on screen and rewinds when it leaves;
+   in /how-it-works's pinned stage the page says which film is playing. The
+   markup of a film is copied from /how-it-works, which is its source, and
+   tools/check-screens.mjs holds the copies equal.
+   ============================================================ */
+.hw-screen{position:absolute;inset:0;display:grid;place-items:center}
+.hw-win{position:relative;width:90%;aspect-ratio:16/9;overflow:hidden;border-radius:12px;
+  background:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.1);transition:opacity .35s ease}
+.hw-win > .bx,.hw-win > .ax,.hw-win > .kx{transform:scale(var(--k,.3))}
+.hw-screen.is-out .hw-win{opacity:0}
+/* /how-it-works's old .hw-shot img rule (a radius, a 16:9 box, a
+   top-aligned crop) was written for flat screenshots, and the screens'
+   photos take none of it. That page's style block comes after this file, so
+   this outranks it by specificity rather than by order. */
+.hw-screen .hw-win img{border-radius:0;aspect-ratio:auto;object-position:50% 50%}
+.hw-screen.no-tr .hw-win *,.hw-screen.no-tr .hw-win *::before,.hw-screen.no-tr .hw-win *::after{transition:none !important;animation:none !important}
+/* A film on its own on a page: the homepage tour's frame (a 4px edge, the
+   tour's corner, one soft shadow), the screen filling it at 16:9. */
+.film{position:relative;margin:0}
+.film .hw-screen{position:relative;inset:auto}
+.film .hw-win{width:100%;border:4px solid #292929;border-radius:clamp(16px, 2.1vw, 30px);
+  box-shadow:0 14px 36px rgba(0,0,0,.06)}
+.film .hw-screen.is-out .hw-win{opacity:1}
+.film .hw-win > *{transition:opacity .35s ease}
+.film .hw-screen.is-out .hw-win > *{opacity:0}
+@media(max-width:600px){.film .hw-win{border-width:3px;border-radius:12px}}
+
+/* 04, Recommend: the wellness plan a customer receives, built in the
+   results editor (founder's screenshots, 2026-10-22):
+     0  the whole dashboard, on Results: Wellness plan
+     1  in to the plan as a customer sees it
+     2  the three recommended products
+     3  Retake, and the macros
+     4  the breakdown and the disclaimer
+     5  Layout: Essentials, so the profile, the macros and the breakdown go
+     6  Product cards: Swipe, one row with the next card's edge showing
+     7  Colours: the page black, its text white
+     8  the Text tab
+     9  what the card shows: Description off
+    10  what is always included, and the disclaimer still there
+    11  back out to the whole dashboard
+   Reduced motion holds 1. */
+.hw-screen[data-demo="recommend"] .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="recommend"].is-p1 .kx-cam{--cx:-640px;--cy:-336px;--cs:1.6}
+.hw-screen[data-demo="recommend"].is-p4 .kx-cam{--cy:-675.2px}
+.hw-screen[data-demo="recommend"].is-p5 .kx-cam{--cx:-1600.2px;--cy:-450px;--cs:1.8}
+.hw-screen[data-demo="recommend"].is-p8 .kx-cam{--cy:-270px}
+.hw-screen[data-demo="recommend"].is-p9 .kx-cam{--cy:-450px}
+.hw-screen[data-demo="recommend"].is-p10 .kx-cam{--cy:-853.2px}
+.hw-screen[data-demo="recommend"].is-p11 .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="recommend"] .wx-pv .rp{transition:transform .9s cubic-bezier(.45,0,.2,1) .15s}
+.hw-screen[data-demo="recommend"].is-p2 .wx-pv .rp{--y:400px}
+.hw-screen[data-demo="recommend"].is-p3 .wx-pv .rp{--y:1127px}
+.hw-screen[data-demo="recommend"].is-p4 .wx-pv .rp{--y:1603px}
+.hw-screen[data-demo="recommend"].is-p5 .wx-pv .rp{--y:0px}
+.hw-screen[data-demo="recommend"].is-p6 .wx-pv .rp{--y:240px}
+.hw-screen[data-demo="recommend"].is-p10 .wx-pv .rp{--y:303px}
+.hw-screen[data-demo="recommend"].is-p11 .wx-pv .rp{--y:0px}
+.hw-screen[data-demo="recommend"] .wx-pn{transition:transform .9s cubic-bezier(.45,0,.2,1) .1s}
+.hw-screen[data-demo="recommend"].is-p6 .wx-pn{--y:-495px}
+.hw-screen[data-demo="recommend"].is-p7 .wx-pn{--y:-832px}
+.hw-screen[data-demo="recommend"].is-p8 .wx-pn{--y:0px}
+.hw-screen[data-demo="recommend"].is-p9 .wx-pn{--y:-446px}
+.hw-screen[data-demo="recommend"].is-p10 .wx-pn{--y:-820px}
+.hw-screen[data-demo="recommend"] .kx-off,.hw-screen[data-demo="recommend"] .kx-on{transition:opacity .35s ease}
+.hw-screen[data-demo="recommend"].is-p5 .wx-t4{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
+.hw-screen[data-demo="recommend"].is-p5 .wx-t1{border-color:#E4E4E7;background:#FFFFFF;transition-delay:1.45s}
+.hw-screen[data-demo="recommend"].is-p5 .wx-t1 .qx-dr i.d{background:#18181B}
+.hw-screen[data-demo="recommend"].is-p5 .wx-t1 .qx-dr i:not(.d):not(.b){background:#A1A1AA}
+.hw-screen[data-demo="recommend"].is-p5 .wx-t4{border-color:#93652F;background:#F8F2EB;transition-delay:1.45s}
+.hw-screen[data-demo="recommend"].is-p5 .wx-t4 .qx-dr i.d{background:#93652F}
+.hw-screen[data-demo="recommend"].is-p5 .wx-t4 .qx-dr i:not(.d):not(.b){background:#C9A57A}
+.hw-screen[data-demo="recommend"].is-p5 .wx-note .kx-off{opacity:0;transition-delay:1.5s}
+.hw-screen[data-demo="recommend"].is-p5 .wx-note .kx-on{opacity:1;transition-delay:1.6s}
+.hw-screen[data-demo="recommend"].is-p5 .qx-eh .kx-off{opacity:0;transition-delay:1.5s}
+.hw-screen[data-demo="recommend"].is-p5 .qx-eh .kx-on{opacity:1;transition-delay:1.6s}
+.hw-screen[data-demo="recommend"] .wx-pg,.hw-screen[data-demo="recommend"] .wx-mb{transition:max-height .7s cubic-bezier(.22,1,.36,1),opacity .35s ease}
+.hw-screen[data-demo="recommend"].is-p5 .wx-pg,.hw-screen[data-demo="recommend"].is-p5 .wx-mb{max-height:0;opacity:0;transition-delay:1.8s}
+.hw-screen[data-demo="recommend"].is-p6 .wx-c3{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.2s forwards}
+.hw-screen[data-demo="recommend"].is-p6 .wx-c1{border-color:#E4E4E7;background:#FFFFFF;transition-delay:1.35s}
+.hw-screen[data-demo="recommend"].is-p6 .wx-c1 b{color:#18181B;transition-delay:1.35s}
+.hw-screen[data-demo="recommend"].is-p6 .wx-c3{border-color:#93652F;background:#F8F2EB;transition-delay:1.35s}
+.hw-screen[data-demo="recommend"].is-p6 .wx-c3 b{color:#93652F;transition-delay:1.35s}
+.hw-screen[data-demo="recommend"] .wx-pv .rp-grid{transition:grid-template-columns .8s cubic-bezier(.65,0,.25,1)}
+.hw-screen[data-demo="recommend"].is-p6 .wx-pv .rp-grid{grid-template-columns:repeat(3,430px);transition-delay:1.6s}
+.hw-screen[data-demo="recommend"] .wx-dots{transition:height .4s ease,margin .4s ease,opacity .4s ease}
+.hw-screen[data-demo="recommend"].is-p6 .wx-dots{height:8px;margin-top:22px;opacity:1;transition-delay:2.1s}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r1 i{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.1s forwards}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r1{--c:#000000 !important}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r1 i{transition-delay:1.25s}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r1 .kx-off{opacity:0;transition-delay:1.25s}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r1 .kx-on{opacity:1;transition-delay:1.35s}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r2 i{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.9s forwards}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r2{--c:#FFFFFF !important}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r2 i{transition-delay:2.05s}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r2 .kx-off{opacity:0;transition-delay:2.05s}
+.hw-screen[data-demo="recommend"].is-p7 .qx-cs.r2 .kx-on{opacity:1;transition-delay:2.15s}
+.hw-screen[data-demo="recommend"] .wx-pv{transition:background-color .6s ease}
+.hw-screen[data-demo="recommend"] .wx-pv .rp h4,.hw-screen[data-demo="recommend"] .wx-pv .rp h5,.hw-screen[data-demo="recommend"] .wx-pv .rp-intro,.hw-screen[data-demo="recommend"] .wx-pv .rp-retake p,.hw-screen[data-demo="recommend"] .wx-pv .rp-foot,.hw-screen[data-demo="recommend"] .wx-rev,.hw-screen[data-demo="recommend"] .wx-hr{transition:color .5s ease,border-color .5s ease}
+.hw-screen[data-demo="recommend"].is-p7 .wx-pv{background:#000000;transition-delay:1.4s}
+.hw-screen[data-demo="recommend"].is-p7 .wx-pv .rp h4,.hw-screen[data-demo="recommend"].is-p7 .wx-pv .rp h5,.hw-screen[data-demo="recommend"].is-p7 .wx-pv .rp-intro,.hw-screen[data-demo="recommend"].is-p7 .wx-pv .rp-retake p,.hw-screen[data-demo="recommend"].is-p7 .wx-pv .rp-foot,.hw-screen[data-demo="recommend"].is-p7 .wx-rev,.hw-screen[data-demo="recommend"].is-p7 .wx-hr{color:#FFFFFF;border-color:rgba(255,255,255,.22);transition-delay:2.2s}
+.hw-screen[data-demo="recommend"].is-p7 .wx-pv .rp-retake p,.hw-screen[data-demo="recommend"].is-p7 .wx-pv .rp-foot{color:#A1A1AA}
+.hw-screen[data-demo="recommend"].is-p8 .wx-tt{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.2s forwards}
+.hw-screen[data-demo="recommend"].is-p8 .wx-ts{border-color:transparent;color:inherit;transition-delay:1.35s}
+.hw-screen[data-demo="recommend"].is-p8 .wx-tt{border-color:#93652F;color:#93652F;transition-delay:1.35s}
+.hw-screen[data-demo="recommend"] .qx-tabs span{transition:color .3s ease,border-color .3s ease}
+.hw-screen[data-demo="recommend"] .wx-ps,.hw-screen[data-demo="recommend"] .wx-pt{transition:opacity .35s ease}
+.hw-screen[data-demo="recommend"].is-p8 .wx-ps{opacity:0;transition-delay:1.4s}
+.hw-screen[data-demo="recommend"].is-p8 .wx-pt{opacity:1;transition-delay:1.5s}
+.hw-screen[data-demo="recommend"].is-p9 .wx-k1 i{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
+.hw-screen[data-demo="recommend"].is-p9 .wx-k1 i{background:#E4E4E7;transition-delay:1.45s}
+.hw-screen[data-demo="recommend"].is-p9 .wx-k1 i::after{left:2px;transition-delay:1.45s}
+.hw-screen[data-demo="recommend"] .wx-desc{transition:max-height .5s ease,margin .5s ease,opacity .3s ease}
+.hw-screen[data-demo="recommend"].is-p9 .wx-desc{max-height:0;margin-top:0 !important;opacity:0;transition-delay:1.75s}
+
+/* 06, Analyse: the Analytics page, from the same dashboard and camera:
+     0  the whole dashboard, the engagements chart drawing
+     1  in to Quiz insights
+     2  Completion rate: the panel swaps, its number counts up, a pointer
+        rests on 15 Oct
+     3  the conversion funnel and drop-off by question
+     4  completion by goal
+     5  Product insights: Product clicks
+     6  product performance and Catalogue Gaps
+     7  Commercial insights
+     8  Answer insights: the Sleep follow-up, its real question and answers
+     9  Who wants what, by gender
+    10  back out to the whole dashboard
+   What each click does is what the product does (apps/webapp, components/
+   dashboard/metric-explorer.tsx, answer-insights.tsx, cross-tab-grid.tsx).
+   Reduced motion holds 1. */
+.hw-screen[data-demo="analytics"] .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="analytics"].is-p1 .kx-cam{--cx:-782.8px;--cy:-500px;--cs:1.7241}
+.hw-screen[data-demo="analytics"].is-p9 .kx-cam{--cy:-815.5px}
+.hw-screen[data-demo="analytics"].is-p10 .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="analytics"] .vx .ax-pg{transition:transform .9s cubic-bezier(.45,0,.2,1) .15s}
+.hw-screen[data-demo="analytics"].is-p3 .vx .ax-pg{--y:601px}
+.hw-screen[data-demo="analytics"].is-p4 .vx .ax-pg{--y:1059px}
+.hw-screen[data-demo="analytics"].is-p5 .vx .ax-pg{--y:1631px}
+.hw-screen[data-demo="analytics"].is-p6 .vx .ax-pg{--y:2196px}
+.hw-screen[data-demo="analytics"].is-p7 .vx .ax-pg{--y:2872px}
+.hw-screen[data-demo="analytics"].is-p8 .vx .ax-pg{--y:3567px}
+.hw-screen[data-demo="analytics"].is-p9 .vx .ax-pg{--y:3973px}
+.hw-screen[data-demo="analytics"] .st-l,.hw-screen[data-demo="analytics"] .cp-l{stroke-dasharray:2600;stroke-dashoffset:0;transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1)}
+.hw-screen[data-demo="analytics"].is-pre .st-l,.hw-screen[data-demo="analytics"].is-pre .cp-l{stroke-dashoffset:2600}
+.hw-screen[data-demo="analytics"] .kx-off,.hw-screen[data-demo="analytics"] .kx-on,.hw-screen[data-demo="analytics"] .vx-alt,.hw-screen[data-demo="analytics"] .vx-rk1,.hw-screen[data-demo="analytics"] .vx-rk2,.hw-screen[data-demo="analytics"] .ax-heat,.hw-screen[data-demo="analytics"] .ax-lg{transition:opacity .2s ease}
+.hw-screen[data-demo="analytics"] .vx-ch > svg:first-child{transition:opacity .2s ease}
+.hw-screen[data-demo="analytics"] .ax-tile{transition:border-color .2s ease,box-shadow .2s ease}
+.hw-screen[data-demo="analytics"] .ax-pill{transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+.hw-screen[data-demo="analytics"].is-p2 .vx-t2{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) .5s forwards}
+.hw-screen[data-demo="analytics"].is-p2 .vx-t1{border-color:#E4E4E7;transition-delay:.65s}
+.hw-screen[data-demo="analytics"].is-p2 .vx-t2{border-color:#18181B;box-shadow:inset 0 0 0 1px #18181B;transition-delay:.65s}
+.hw-screen[data-demo="analytics"].is-p2 .vx-c1 .kx-off,.hw-screen[data-demo="analytics"].is-p2 .vx-c1 .ax-lg,.hw-screen[data-demo="analytics"].is-p2 .vx-c1 .vx-ch > svg:first-child{opacity:0;transition-delay:.65s}
+.hw-screen[data-demo="analytics"].is-p2 .vx-c1 .kx-on,.hw-screen[data-demo="analytics"].is-p2 .vx-c1 .vx-alt{opacity:1;transition-delay:.65s}
+.hw-screen[data-demo="analytics"] .vx-tip{transition:opacity .25s ease}
+.hw-screen[data-demo="analytics"].is-p2 .vx-tip{opacity:1;transition-delay:1.7s}
+.hw-screen[data-demo="analytics"].is-p3 .vx-tip{opacity:0;transition-delay:0s}
+.hw-screen[data-demo="analytics"] .ax-tr > i{transform-origin:0 50%;transition:transform 1s cubic-bezier(.22,1,.36,1) .8s}
+.hw-screen[data-demo="analytics"]:not(.is-p3) .vx-q2 .ax-tr > i,.hw-screen[data-demo="analytics"]:not(.is-p4) .vx-gw .ax-tr > i{transform:scaleX(0)}
+.hw-screen[data-demo="analytics"].is-p5 .vx-u2{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.2s forwards}
+.hw-screen[data-demo="analytics"].is-p5 .vx-u1{border-color:#E4E4E7;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p5 .vx-u2{border-color:#18181B;box-shadow:inset 0 0 0 1px #18181B;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p5 .vx-c2 .kx-off,.hw-screen[data-demo="analytics"].is-p5 .vx-c2 .vx-ch > svg:first-child{opacity:0;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p5 .vx-c2 .kx-on,.hw-screen[data-demo="analytics"].is-p5 .vx-c2 .vx-alt{opacity:1;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p8 .vx-a1{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.2s forwards}
+.hw-screen[data-demo="analytics"].is-p8 .vx-a0{background:#F4F4F5;border-color:#D4D4D8;color:#18181B;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p8 .vx-a1{background:#18181B;border-color:#18181B;color:#FFFFFF;font-weight:500;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p8 .vx-rk1{opacity:0;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p8 .vx-rk2{opacity:1;transition-delay:1.35s}
+.hw-screen[data-demo="analytics"].is-p9 .vx-g1{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
+.hw-screen[data-demo="analytics"].is-p9 .vx-g0{background:#F4F4F5;border-color:#D4D4D8;color:#18181B;transition-delay:1.45s}
+.hw-screen[data-demo="analytics"].is-p9 .vx-g1{background:#18181B;border-color:#18181B;color:#FFFFFF;transition-delay:1.45s}
+.hw-screen[data-demo="analytics"].is-p9 .vx-hx > .ax-heat:first-child{opacity:0;transition-delay:1.45s}
+.hw-screen[data-demo="analytics"].is-p9 .vx-h2{opacity:1;transition-delay:1.45s}
+
+/* 01, the catalogue: a short film of the dashboard rather than a walk round
+   it (founder, 2026-10-22: "more than just someone strolling around the
+   webapp"; "start with full view of dash board, then zoom to catalogue";
+   "click on add product and add through CSV"). A camera (.kx-cam) frames one
+   thing a beat, and each beat starts once it has arrived:
+     0  the whole dashboard, the Catalogue empty
+     1  in to the Catalogue
+     2  the Shopify card: the store's address types itself
+     3  Connect, and the card says so
+     4  back out: the count runs to 51 as the confirmations drop in
+     5  the products rise in under Blend AI's prompt, which is step 02
+     6  Add product
+     7  its form: the product's name types itself
+     8  a match is picked, Save wakes and is pressed
+     9  back on the Catalogue, now 52: the ... menu, Import products
+    10  the CSV: a file is chosen, Upload and preview
+   The numbers are the page's own geometry (2000px wide): a shot is a scale
+   and the offset that centres its subject, kept below the bar so its edge
+   never crosses the frame. A last beat goes back out to the whole dashboard
+   (founder: "entire dashboard to end too"). Reduced motion holds beat 5.
+   A press scales and dims (filter), and leaves the background alone: a
+   button whose colour changes in the same beat (Save, Apply) is transitioning
+   it, and in Chromium an animation on a property, even one still in its
+   delay, cancels that transition, so the colour changed at once.
+   The typing holds its start (backwards) and then lets go to the phase's own
+   clip-path:none, rather than holding its last frame (both): WebKit holds a
+   steps(n, end) animation one step short of its end, so in Safari both names
+   stopped a letter early, "Magnesium Glycinat" (founder, 2026-10-22). */
+.hw-screen[data-demo="catalogue"].is-p1 .kx-cam{--cx:-323.5px;--cy:-82.6px;--cs:1.28}
+.hw-screen[data-demo="catalogue"].is-p2 .kx-cam{--cx:-861.2px;--cy:-106.2px;--cs:1.8}
+.hw-screen[data-demo="catalogue"].is-p4 .kx-cam{--cx:-468.3px;--cy:-103.5px;--cs:1.42}
+.hw-screen[data-demo="catalogue"].is-p5 .kx-cam{--cx:-819.8px;--cy:-1247.8px;--cs:1.76}
+.hw-screen[data-demo="catalogue"].is-p6 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
+.hw-screen[data-demo="catalogue"].is-p7 .kx-cam{--cx:-861.2px;--cy:-142.2px;--cs:1.8}
+.hw-screen[data-demo="catalogue"].is-p8 .kx-cam{--cx:-861.2px;--cy:-720px;--cs:1.8}
+.hw-screen[data-demo="catalogue"].is-p9 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
+.hw-screen[data-demo="catalogue"].is-p10 .kx-cam{--cx:-964.6px;--cy:-150.1px;--cs:1.9}
+.hw-screen[data-demo="catalogue"].is-p11 .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="catalogue"] .kx-off,.hw-screen[data-demo="catalogue"] .kx-on,.hw-screen[data-demo="catalogue"] .kx-pc,.hw-screen[data-demo="catalogue"] .kx-pa,.hw-screen[data-demo="catalogue"] .kx-pi{transition:opacity .35s ease}
+/* 2, 3: the store */
+.hw-screen[data-demo="catalogue"] .kx-in em{transition:opacity .15s ease}
+.hw-screen[data-demo="catalogue"].is-p2 .kx-in em{opacity:0;transition-delay:.95s}
+.hw-screen[data-demo="catalogue"].is-p2 .kx-in b{clip-path:none;animation:kx-type 1s steps(21,end) 1s backwards}
+.hw-screen[data-demo="catalogue"].is-p3 .kx-connect{animation:kx-press .5s cubic-bezier(.3,.8,.3,1) .15s forwards}
+.hw-screen[data-demo="catalogue"].is-p3 .kx-store .kx-off{opacity:0;transition-delay:.6s}
+.hw-screen[data-demo="catalogue"].is-p3 .kx-store .kx-on{opacity:1;transition-delay:.75s}
+.hw-screen[data-demo="catalogue"].is-p3 .kx-store .kx-on .kx-t i{animation:kx-ping 1.3s ease-out .9s both}
+/* 4: the import lands */
+.hw-screen[data-demo="catalogue"] .kx-ban{transition:max-height .55s cubic-bezier(.22,1,.36,1),margin-top .55s cubic-bezier(.22,1,.36,1),opacity .4s ease}
+.hw-screen[data-demo="catalogue"].is-p4 .kx-ban{max-height:46px;margin-top:25px;opacity:1;border-width:1px;transition-delay:.7s}
+.hw-screen[data-demo="catalogue"].is-p4 .kx-ban + .kx-ban{transition-delay:1.1s}
+.hw-screen[data-demo="catalogue"].is-p4 .kx-ai .kx-off{opacity:0;transition-delay:1.6s}
+.hw-screen[data-demo="catalogue"].is-p4 .kx-ai .kx-on{opacity:1;transition-delay:1.75s}
+/* 5: the empty state fades in beat 4 and leaves in 5, when the cards take
+   its place; the grid is laid out all along, so the cards have a state to
+   rise from (out of display:none there is none, and they would pop) */
+.hw-screen[data-demo="catalogue"] .kx-empty,.hw-screen[data-demo="catalogue"] .kx-pgn{transition:opacity .4s ease}
+.hw-screen[data-demo="catalogue"].is-p4 .kx-empty,.hw-screen[data-demo="catalogue"].is-p4 .kx-pgn{opacity:0;transition-delay:1.5s}
+.hw-screen[data-demo="catalogue"].is-p5 .kx-empty,.hw-screen[data-demo="catalogue"].is-p5 .kx-pgn{display:none}
+.hw-screen[data-demo="catalogue"] .kx-grid{display:grid}
+.hw-screen[data-demo="catalogue"] .kx-p{transition:opacity .45s ease var(--d,.5s),transform .8s cubic-bezier(.22,1,.36,1) var(--d,.5s)}
+.hw-screen[data-demo="catalogue"]:not(.is-p5) .kx-p{opacity:0;transform:translateY(40px)}
+.hw-screen[data-demo="catalogue"] .kx-p:nth-child(2){--d:.59s}.hw-screen[data-demo="catalogue"] .kx-p:nth-child(3){--d:.68s}
+.hw-screen[data-demo="catalogue"] .kx-p:nth-child(4){--d:.77s}.hw-screen[data-demo="catalogue"] .kx-p:nth-child(5){--d:.86s}.hw-screen[data-demo="catalogue"] .kx-p:nth-child(6){--d:.95s}
+.hw-screen[data-demo="catalogue"].is-p5 .kx-dots{animation:kx-spin 1.6s cubic-bezier(.45,0,.2,1) .9s both}
+.hw-screen[data-demo="catalogue"].is-p5 .kx-go{animation:kx-ring 1.4s ease-out 1.6s both}
+/* 6, 7, 8: by hand */
+.hw-screen[data-demo="catalogue"].is-p6 .kx-add{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 1.15s forwards}
+.hw-screen[data-demo="catalogue"].is-p7 .kx-pc{opacity:0}
+.hw-screen[data-demo="catalogue"].is-p7 .kx-pa{opacity:1}
+.hw-screen[data-demo="catalogue"].is-p7 .kx-name{border-color:#A1A1AA}
+.hw-screen[data-demo="catalogue"].is-p7 .kx-name b{clip-path:none;animation:kx-type .9s steps(19,end) 1.15s backwards}
+.hw-screen[data-demo="catalogue"].is-p8 .kx-name{border-color:#E4E4E7}
+.hw-screen[data-demo="catalogue"].is-p8 .kx-sel{border-color:#A1A1AA;transition-delay:.9s}
+.hw-screen[data-demo="catalogue"].is-p8 .kx-sel .kx-off{opacity:0;transition-delay:1.15s}
+.hw-screen[data-demo="catalogue"].is-p8 .kx-sel .kx-on{opacity:1;transition-delay:1.25s}
+.hw-screen[data-demo="catalogue"].is-p8 .kx-save{border-color:#93652F;background:#93652F;transition-delay:1.5s}
+.hw-screen[data-demo="catalogue"].is-p8 .kx-save{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2.1s forwards}
+/* 9, 10: a CSV */
+.hw-screen[data-demo="catalogue"].is-p9 .kx-pa{opacity:0}
+.hw-screen[data-demo="catalogue"].is-p9 .kx-pc{opacity:1}
+.hw-screen[data-demo="catalogue"] .kx-menu{transition:opacity .25s ease,transform .35s cubic-bezier(.22,1,.36,1)}
+.hw-screen[data-demo="catalogue"].is-p9 .kx-hd .kx-more{background:#F4F4F5;transition-delay:1s}
+.hw-screen[data-demo="catalogue"].is-p9 .kx-menu{opacity:1;transform:none;transition-delay:1.1s}
+.hw-screen[data-demo="catalogue"].is-p9 .kx-menu span:first-child{animation:kx-pick .9s ease 1.5s both}
+.hw-screen[data-demo="catalogue"].is-p10 .kx-pc{opacity:0}
+.hw-screen[data-demo="catalogue"].is-p10 .kx-pi{opacity:1}
+.hw-screen[data-demo="catalogue"].is-p10 .kx-cf{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.1s forwards}
+.hw-screen[data-demo="catalogue"].is-p10 .kx-file .kx-off{opacity:0;transition-delay:1.45s}
+.hw-screen[data-demo="catalogue"].is-p10 .kx-file .kx-on{opacity:1;transition-delay:1.55s}
+.hw-screen[data-demo="catalogue"].is-p10 .kx-upl{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2.25s forwards}
+@keyframes kx-type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes kx-press{35%{transform:scale(.94);filter:brightness(.92)}100%{transform:none;filter:none}}
+@keyframes kx-pressg{35%{transform:scale(.94);filter:brightness(.82)}100%{transform:none;filter:none}}
+@keyframes kx-ping{0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}100%{box-shadow:0 0 0 12px rgba(22,163,74,0)}}
+@keyframes kx-spin{to{transform:rotate(360deg)}}
+@keyframes kx-ring{0%{box-shadow:0 0 0 0 rgba(147,101,47,.35)}100%{box-shadow:0 0 0 14px rgba(147,101,47,0)}}
+@keyframes kx-pick{0%{background:transparent}35%{background:#F4F4F5}100%{background:#E9E9EB}}
+/* 02, Match: Blend AI matching the catalogue, from the same dashboard and the
+   same camera as 01 (founder, 2026-10-22: "now do 02 match ... more
+   marketing led ... show case also multi ingredient products"):
+     0  the whole dashboard (founder: "same rule as before. Start by showing
+        entire dashboard, then zoom")
+     1  in to the Catalogue, 51 products, every one needing review
+     2  in to Blend AI's prompt, and its arrow
+     3  the window, over the page dimmed: Scan my catalogue
+     4  the scan, 0 to 100%
+     5  the matches arrive, each to a master reference
+     6  down the list, past the products made of more than one ingredient
+     7  at its foot they are ticked, the count runs to 51, Apply
+     8  51 applied, goals and safety tags filled in
+     9  the window closes and each card turns Matched, its goals and what it
+        is not suitable for coming from the engine's references
+    10  a combined product's Edit page, close enough to read: Focus Flow
+    11  down to its ingredients, both of them ("the edit multi ingredient is
+        cut so you can't see anything": one shot of the whole form was too
+        far out to read and cut through it; two, each ending at a rule)
+    12  Sync now, and the engine has them
+    13  back out to the whole dashboard
+   Reduced motion holds beat 9. */
+.hw-screen[data-demo="match"] .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="match"].is-p1 .kx-cam{--cx:-323.5px;--cy:-81.9px;--cs:1.28}
+.hw-screen[data-demo="match"].is-p2 .kx-cam{--cx:-819.8px;--cy:-996.2px;--cs:1.76}
+.hw-screen[data-demo="match"].is-p3 .kx-cam{--cx:-1000px;--cy:42.5px;--cs:2.0}
+.hw-screen[data-demo="match"].is-p4 .kx-cam{--cx:-1000px;--cy:-37.5px;--cs:2.0}
+.hw-screen[data-demo="match"].is-p5 .kx-cam{--cx:-800px;--cy:-108px;--cs:1.8}
+.hw-screen[data-demo="match"].is-p6 .kx-cam{--cx:-800px;--cy:-1422px;--cs:1.8}
+.hw-screen[data-demo="match"].is-p7 .kx-cam{--cx:-800px;--cy:-2547px;--cs:1.8}
+.hw-screen[data-demo="match"].is-p8 .kx-cam{--cx:-1000px;--cy:2.5px;--cs:2.0}
+.hw-screen[data-demo="match"].is-p9 .kx-cam{--cx:-757.8px;--cy:-962.2px;--cs:1.7}
+.hw-screen[data-demo="match"].is-p10 .kx-cam{--cx:-1688.4px;--cy:-195px;--cs:2.6}
+.hw-screen[data-demo="match"].is-p11 .kx-cam{--cx:-1326.5px;--cy:-1145.3px;--cs:2.25}
+.hw-screen[data-demo="match"].is-p12 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
+.hw-screen[data-demo="match"].is-p13 .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="match"] .kx-grid{display:grid}
+.hw-screen[data-demo="match"] .kx-off,.hw-screen[data-demo="match"] .kx-on,.hw-screen[data-demo="match"] .kx-pc,.hw-screen[data-demo="match"] .kx-pa{transition:opacity .35s ease}
+.hw-screen[data-demo="match"].is-p2 .kx-go{animation:mx-tap .5s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
+.hw-screen[data-demo="match"] .mx-dim{transition:opacity .35s ease}
+.hw-screen[data-demo="match"] .mx-modal{transition:opacity .35s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.hw-screen[data-demo="match"].is-p3 .mx-dim{opacity:1;transition-delay:.05s}
+.hw-screen[data-demo="match"].is-p3 .mx-modal{opacity:1;transform:none;transition-delay:.15s}
+.hw-screen[data-demo="match"].is-p3 .mx-scan{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 1.5s forwards}
+.hw-screen[data-demo="match"].is-p4 .mx-s1{display:none}
+.hw-screen[data-demo="match"].is-p4 .mx-s2{display:flex;animation:mx-in .4s ease both}
+.hw-screen[data-demo="match"].is-p4 .mx-spin{animation:kx-spin 1.2s linear infinite}
+.hw-screen[data-demo="match"].is-p5 .mx-s2{display:none}
+.hw-screen[data-demo="match"].is-p5 .mx-s3{display:block;animation:mx-in .4s ease both}
+.hw-screen[data-demo="match"].is-p5 .mx-row{animation:mx-in .45s ease both}
+.hw-screen[data-demo="match"].is-p5 .mx-row:nth-child(2){animation-delay:.1s}.hw-screen[data-demo="match"].is-p5 .mx-row:nth-child(3){animation-delay:.2s}.hw-screen[data-demo="match"].is-p5 .mx-row:nth-child(4){animation-delay:.3s}
+/* 6: the combined ones ticked, the two in shot last */
+.hw-screen[data-demo="match"] .mx-cb,.hw-screen[data-demo="match"] .mx-cb svg{transition-delay:.4s}
+.hw-screen[data-demo="match"] .mx-row:nth-child(9) .mx-cb,.hw-screen[data-demo="match"] .mx-row:nth-child(9) .mx-cb svg{transition-delay:1.05s}
+.hw-screen[data-demo="match"] .mx-row:nth-child(10) .mx-cb,.hw-screen[data-demo="match"] .mx-row:nth-child(10) .mx-cb svg{transition-delay:1.25s}
+.hw-screen[data-demo="match"].is-p7 .mx-cb{border-color:#2563EB;background:#2563EB}
+.hw-screen[data-demo="match"].is-p7 .mx-cb svg{opacity:1}
+.hw-screen[data-demo="match"].is-p7 .mx-apply{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2s forwards}
+.hw-screen[data-demo="match"].is-p7 .mx-apply .kx-off{opacity:0;transition-delay:2.2s}
+.hw-screen[data-demo="match"].is-p7 .mx-apply .kx-on{opacity:1;transition-delay:2.25s}
+.hw-screen[data-demo="match"].is-p7 .mx-apply{border-color:#C9A880;background:#C9A880;transition-delay:2.2s}
+.hw-screen[data-demo="match"].is-p8 .mx-s3{display:none}
+.hw-screen[data-demo="match"].is-p8 .mx-s4{display:block;animation:mx-in .4s ease both}
+/* 8: matched */
+.hw-screen[data-demo="match"].is-p9 .mx-dim{opacity:0}
+.hw-screen[data-demo="match"].is-p9 .mx-modal{opacity:0;transform:translateY(16px) scale(.98);transition-delay:0s}
+.hw-screen[data-demo="match"] .mx-rv{transition:max-height .5s cubic-bezier(.22,1,.36,1),margin-top .5s cubic-bezier(.22,1,.36,1),opacity .4s ease}
+.hw-screen[data-demo="match"].is-p9 .mx-rv{max-height:40px;margin-top:20px;opacity:1;transition-delay:.15s}
+.hw-screen[data-demo="match"].is-p9 .kx-ai .kx-off{opacity:0;transition-delay:.5s}
+.hw-screen[data-demo="match"].is-p9 .kx-ai .kx-on{opacity:1;transition-delay:.6s}
+.hw-screen[data-demo="match"] .mx-card > *{transition-delay:var(--d,.8s)}
+.hw-screen[data-demo="match"] .kx-p:nth-child(2){--d:.92s}.hw-screen[data-demo="match"] .kx-p:nth-child(3){--d:1.04s}.hw-screen[data-demo="match"] .kx-p:nth-child(4){--d:1.16s}.hw-screen[data-demo="match"] .kx-p:nth-child(5){--d:1.28s}.hw-screen[data-demo="match"] .kx-p:nth-child(6){--d:1.4s}
+.hw-screen[data-demo="match"].is-p9 .mx-card .kx-off{opacity:0}
+.hw-screen[data-demo="match"].is-p9 .mx-card .kx-on{opacity:1}
+.hw-screen[data-demo="match"].is-p9 .kx-p:nth-child(3) .kx-more{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 2.5s forwards}
+/* 9: Focus Flow, edited */
+.hw-screen[data-demo="match"].is-p10 .kx-pc{opacity:0}
+.hw-screen[data-demo="match"].is-p10 .kx-pa{opacity:1}
+.hw-screen[data-demo="match"].is-p11 .mx-i1{animation:mx-glow .9s ease 1.15s both}
+.hw-screen[data-demo="match"].is-p11 .mx-i2 .kx-fi{animation:mx-glow .9s ease 1.55s both}
+.hw-screen[data-demo="match"].is-p11 .mx-fill{animation:mx-ink .9s ease 1.95s both}
+/* 10: synced */
+.hw-screen[data-demo="match"].is-p12 .kx-pa{opacity:0}
+.hw-screen[data-demo="match"].is-p12 .kx-pc{opacity:1}
+.hw-screen[data-demo="match"].is-p12 .mx-sync{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.2s forwards}
+.hw-screen[data-demo="match"].is-p12 .mx-eng .kx-off{opacity:0;transition-delay:1.5s}
+.hw-screen[data-demo="match"].is-p12 .mx-eng .kx-on{opacity:1;transition-delay:1.6s}
+.hw-screen[data-demo="match"].is-p12 .mx-eng .kx-on .kx-t i{animation:kx-ping 1.3s ease-out 1.7s both}
+.hw-screen[data-demo="match"] .kx-ban{transition:max-height .55s cubic-bezier(.22,1,.36,1),margin-top .55s cubic-bezier(.22,1,.36,1),opacity .4s ease}
+.hw-screen[data-demo="match"].is-p12 .kx-ban{max-height:46px;margin-top:25px;opacity:1;border-width:1px;transition-delay:1.85s}
+@keyframes mx-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes mx-tap{35%{transform:scale(.88)}100%{transform:none}}
+@keyframes mx-glow{to{border-color:#C9A57A;box-shadow:0 0 0 4px rgba(147,101,47,.12)}}
+@keyframes mx-ink{to{color:#18181B}}
+/* 03, Design: the quiz editor, from the same dashboard and the same camera
+   as 01 and 02 (founder, 2026-10-22, the editor's screenshots):
+     0  the whole dashboard, on the Quiz page, its preview in the brand's light
+     1  in to Edit quiz: Open editor
+     2  the editor, on Brand essentials and screen 10
+     3  the colours: the page goes black, the words white
+     4  Typography: Lato
+     5  Layout and spacing: Focus, which centres the question; Apply
+     6  Answers: Soft fill
+     7  Buttons: Both, back on the left and next on the right
+     8  Transitions: Slide, and the screen slides
+     9  the Content tab: Health, screen 10
+    10  its subtext rewritten, and the preview follows
+    11  two words of its heading coloured: selected, A, the brand's gold
+        (founder: "show how I change the colours of 'prescription
+        medications'")
+    12  the screen's own Style tab
+    13  Quiz setup: the goals on offer
+    14  the question groups: the intro slides switched off; Save
+    15  Save draft
+    16  back on the Quiz page, the live preview in the new design
+   The preview is one screen drawn from the brand's variables (--q-*), and
+   each beat changes them as the editor would. Changes wait for the camera
+   (--q-d). Reduced motion holds beat 7. */
+.hw-screen[data-demo="design"] .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="design"].is-p1 .kx-cam{--cx:-819.8px;--cy:-264.0px;--cs:1.76}
+.hw-screen[data-demo="design"].is-p2 .kx-cam{--cx:-85.7px;--cy:-67.5px;--cs:1.05}
+.hw-screen[data-demo="design"].is-p3 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p4 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p5 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p6 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p7 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p8 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p9 .kx-cam{--cx:-110.2px;--cy:-218.7px;--cs:1.62}
+.hw-screen[data-demo="design"].is-p10 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p11 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p12 .kx-cam{--cx:-940.8px;--cy:-198.4px;--cs:1.47}
+.hw-screen[data-demo="design"].is-p13 .kx-cam{--cx:-250.0px;--cy:-37.5px;--cs:1.25}
+.hw-screen[data-demo="design"].is-p14 .kx-cam{--cx:-250.0px;--cy:-200.0px;--cs:1.25}
+.hw-screen[data-demo="design"].is-p15 .kx-cam{--cx:-2000.0px;--cy:-118.0px;--cs:2.0}
+.hw-screen[data-demo="design"].is-p16 .kx-cam{--cx:-861.2px;--cy:-1026.0px;--cs:1.8}
+.hw-screen[data-demo="design"].is-p17 .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="design"] .kx-pc,.hw-screen[data-demo="design"] .qx-ed,.hw-screen[data-demo="design"] .qx-lpc,.hw-screen[data-demo="design"] .qx-pn,.hw-screen[data-demo="design"] .kx-off,.hw-screen[data-demo="design"] .kx-on,.hw-screen[data-demo="design"] .qx-mop,.hw-screen[data-demo="design"] .qx-qt,.hw-screen[data-demo="design"] .qx-qs{transition:opacity .35s ease}
+.hw-screen[data-demo="design"] .qx-pn{transition:opacity .35s ease,transform .9s cubic-bezier(.22,1,.36,1)}
+.hw-screen[data-demo="design"] .qx-scr{--q-d:1.3s}
+.hw-screen[data-demo="design"].is-p1 .qx-open{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
+.hw-screen[data-demo="design"].is-p2 .kx-pc{opacity:0}
+.hw-screen[data-demo="design"].is-p2 .qx-ed{opacity:1}
+.hw-screen[data-demo="design"].is-p16 .qx-ed{opacity:0;transition-delay:.2s}
+.hw-screen[data-demo="design"].is-p16 .kx-pc{opacity:1;transition-delay:.2s}
+/* the bar: unsaved from the first change until Save draft */
+.hw-screen[data-demo="design"].is-p3 .qx-st .kx-off{opacity:0;transition-delay:1.4s}
+.hw-screen[data-demo="design"].is-p3 .qx-st .kx-on{opacity:1;transition-delay:1.4s}
+.hw-screen[data-demo="design"] .qx-save{transition:background-color .25s ease,border-color .25s ease}
+.hw-screen[data-demo="design"].is-p3 .qx-save{border-color:#93652F;background:#93652F;transition-delay:1.4s}
+.hw-screen[data-demo="design"].is-p15 .qx-save{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 1.15s forwards;border-color:#C9A880;background:#C9A880;transition-delay:1.5s}
+.hw-screen[data-demo="design"].is-p15 .qx-st .kx-off{opacity:1;transition-delay:1.5s}
+.hw-screen[data-demo="design"].is-p15 .qx-st .kx-on{opacity:0;transition-delay:1.5s}
+/* the Design list: one row chosen a beat */
+.hw-screen[data-demo="design"] .qx-rows .bx-row{transition:background-color .25s ease .9s,color .25s ease .9s}
+.hw-screen[data-demo="design"] .qx-rows .bx-row::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;background:#B47F39;opacity:0;transition:opacity .25s ease .9s}
+.hw-screen[data-demo="design"] .qx-r1{background:#F8F2EB;color:#0A0A0A;font-weight:600}
+.hw-screen[data-demo="design"] .qx-r1::before{opacity:1 !important}
+.hw-screen[data-demo="design"].is-p4 .qx-r1{background:transparent;color:#4A4A4F;font-weight:400}
+.hw-screen[data-demo="design"].is-p4 .qx-r1::before{opacity:0 !important}
+.hw-screen[data-demo="design"].is-p4 .qx-r2{background:#F8F2EB;color:#0A0A0A;font-weight:600}
+.hw-screen[data-demo="design"].is-p4 .qx-r2::before{opacity:1 !important}
+.hw-screen[data-demo="design"].is-p5 .qx-r2{background:transparent;color:#4A4A4F;font-weight:400}
+.hw-screen[data-demo="design"].is-p5 .qx-r2::before{opacity:0 !important}
+.hw-screen[data-demo="design"].is-p5 .qx-r3{background:#F8F2EB;color:#0A0A0A;font-weight:600}
+.hw-screen[data-demo="design"].is-p5 .qx-r3::before{opacity:1 !important}
+.hw-screen[data-demo="design"].is-p6 .qx-r3{background:transparent;color:#4A4A4F;font-weight:400}
+.hw-screen[data-demo="design"].is-p6 .qx-r3::before{opacity:0 !important}
+.hw-screen[data-demo="design"].is-p6 .qx-r4{background:#F8F2EB;color:#0A0A0A;font-weight:600}
+.hw-screen[data-demo="design"].is-p6 .qx-r4::before{opacity:1 !important}
+.hw-screen[data-demo="design"].is-p8 .qx-r4{background:transparent;color:#4A4A4F;font-weight:400}
+.hw-screen[data-demo="design"].is-p8 .qx-r4::before{opacity:0 !important}
+.hw-screen[data-demo="design"].is-p8 .qx-r5{background:#F8F2EB;color:#0A0A0A;font-weight:600}
+.hw-screen[data-demo="design"].is-p8 .qx-r5::before{opacity:1 !important}
+/* the right-hand panel: one a beat */
+.hw-screen[data-demo="design"] .qx-pb{opacity:1}
+.hw-screen[data-demo="design"].is-p4 .qx-pb{opacity:0}
+.hw-screen[data-demo="design"].is-p4 .qx-pt{opacity:1;transition-delay:.9s}
+.hw-screen[data-demo="design"].is-p5 .qx-pt{opacity:0}
+.hw-screen[data-demo="design"].is-p5 .qx-pl{opacity:1;transition-delay:.9s}
+.hw-screen[data-demo="design"].is-p6 .qx-pl{opacity:0}
+.hw-screen[data-demo="design"].is-p6 .qx-pa{opacity:1;transition-delay:.9s}
+.hw-screen[data-demo="design"].is-p8 .qx-pa{opacity:0}
+.hw-screen[data-demo="design"].is-p8 .qx-ptr{opacity:1;transition-delay:.9s}
+.hw-screen[data-demo="design"].is-p9 .qx-ptr{opacity:0}
+.hw-screen[data-demo="design"].is-p9 .qx-pq{opacity:1;transition-delay:.9s}
+.hw-screen[data-demo="design"].is-p3 .qx-pb{--y:-470px;transition-delay:0s}
+.hw-screen[data-demo="design"].is-p7 .qx-pa{--y:-560px}
+/* 3: the colours */
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c1{--c:#000000 !important}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c1 i{transition-delay:1.20s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c1 .kx-off{opacity:0;transition-delay:1.20s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c1 .kx-on{opacity:1;transition-delay:1.20s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c2{--c:#FFFFFF !important}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c2 i{transition-delay:1.32s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c2 .kx-off{opacity:0;transition-delay:1.32s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c2 .kx-on{opacity:1;transition-delay:1.32s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c3{--c:#FFFFFF !important}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c3 i{transition-delay:1.44s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c3 .kx-off{opacity:0;transition-delay:1.44s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c3 .kx-on{opacity:1;transition-delay:1.44s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c4{--c:#FFFFFF !important}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c4 i{transition-delay:1.56s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c4 .kx-off{opacity:0;transition-delay:1.56s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c4 .kx-on{opacity:1;transition-delay:1.56s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c5{--c:#000000 !important}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c5 i{transition-delay:1.68s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c5 .kx-off{opacity:0;transition-delay:1.68s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c5 .kx-on{opacity:1;transition-delay:1.68s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c6{--c:#FFFFFF !important}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c6 i{transition-delay:1.80s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c6 .kx-off{opacity:0;transition-delay:1.80s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c6 .kx-on{opacity:1;transition-delay:1.80s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c7{--c:#3F3F46 !important}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c7 i{transition-delay:1.92s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c7 .kx-off{opacity:0;transition-delay:1.92s}
+.hw-screen[data-demo="design"].is-p3 .qx-cs.c7 .kx-on{opacity:1;transition-delay:1.92s}
+.hw-screen[data-demo="design"].is-p3 .qx-scr{--q-bg:#000000;--q-head:#FFFFFF;--q-sec:#FFFFFF;--q-sub:#FFFFFF;--q-in:#000000;--q-intx:#FFFFFF;--q-inbd:#3F3F46;--q-prog:#FFFFFF;--q-track:#2B2B2B}
+.hw-screen[data-demo="design"].is-p3 .qx-sh u{opacity:1;transition:opacity .3s ease 1.3s}
+/* 4: Lato, set when the camera is there (a font cannot be faded, so a
+   zero-length animation flips it after the delay) */
+.hw-screen[data-demo="design"].is-p4 .qx-fsel .kx-off,.hw-screen[data-demo="design"].is-p4 .qx-pt .qx-sel .kx-off{opacity:0;transition-delay:1.15s}
+.hw-screen[data-demo="design"].is-p4 .qx-fsel .kx-on,.hw-screen[data-demo="design"].is-p4 .qx-pt .qx-sel .kx-on{opacity:1;transition-delay:1.15s}
+.hw-screen[data-demo="design"].is-p4 .qx-fsel{border:2px solid #18181B}
+.hw-screen[data-demo="design"].is-p4 .qx-s10{animation:qx-lato 0s 1.3s forwards}
+.hw-screen[data-demo="design"].is-p4 .qx-wel{--q-font:"Lato","Avenir Next","Avenir","Helvetica Neue",sans-serif}
+@keyframes qx-lato{to{font-family:"Lato","Avenir Next","Avenir","Helvetica Neue",sans-serif}}
+/* 5: Focus centres the question */
+.hw-screen[data-demo="design"] .qx-tile{transition:background-color .3s ease 1.1s,border-color .3s ease 1.1s}
+.hw-screen[data-demo="design"].is-p5 .qx-lay .qx-t1{border-color:#E4E4E7;background:#FFFFFF}
+.hw-screen[data-demo="design"].is-p5 .qx-lay .qx-t2{border-color:#93652F;background:#F8F2EB}
+.hw-screen[data-demo="design"].is-p5 .qx-s10{--q-top:230px}
+.hw-screen[data-demo="design"].is-p5 .qx-wel{--q-top:165px}
+.hw-screen[data-demo="design"].is-p5 .qx-wel .qx-qb{width:600px}
+.hw-screen[data-demo="design"].is-p5 .qx-ap{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2s forwards}
+/* 6: Soft fill */
+.hw-screen[data-demo="design"].is-p6 .qx-ans .qx-t1{border-color:#E4E4E7;background:#FFFFFF}
+.hw-screen[data-demo="design"].is-p6 .qx-ans .qx-t4{border-color:#93652F;background:#F8F2EB}
+.hw-screen[data-demo="design"].is-p6 .qx-scr{--q-in:#1F1F1F;--q-inbd:#1F1F1F}
+/* 7: Both, back left and next right */
+.hw-screen[data-demo="design"].is-p7 .qx-bst .qx-t2{border-color:#E4E4E7;background:#FFFFFF;transition-delay:1.2s}
+.hw-screen[data-demo="design"].is-p7 .qx-bst .qx-t3{border-color:#93652F;background:#F8F2EB;transition-delay:1.2s}
+.hw-screen[data-demo="design"].is-p7 .qx-bpos .kx-off{opacity:0;transition-delay:1.5s}
+.hw-screen[data-demo="design"].is-p7 .qx-bpos .kx-on{opacity:1;transition-delay:1.5s}
+.hw-screen[data-demo="design"] .qx-nav svg{display:block;width:0;opacity:0;transition:width .3s ease var(--q-d),opacity .3s ease var(--q-d),margin .3s ease var(--q-d)}
+.hw-screen[data-demo="design"] .qx-nav span{gap:0}
+.hw-screen[data-demo="design"] .qx-nx{transform:translateX(var(--nx,0px));transition:transform .7s cubic-bezier(.65,0,.25,1) var(--q-d)}
+.hw-screen[data-demo="design"].is-p7 .qx-scr{--q-d:1.6s}
+.hw-screen[data-demo="design"].is-p7 .qx-nav svg{width:14px;opacity:1}
+.hw-screen[data-demo="design"].is-p7 .qx-bk svg{margin-right:6px}
+.hw-screen[data-demo="design"].is-p7 .qx-nx svg{margin-left:6px}
+.hw-screen[data-demo="design"].is-p7 .qx-s10 .qx-nx{--nx:313px}
+.hw-screen[data-demo="design"].is-p7 .qx-wel .qx-nx{--nx:479px}
+/* 8: Slide */
+.hw-screen[data-demo="design"].is-p8 .qx-trs .qx-t2{border-color:#E4E4E7;background:#FFFFFF}
+.hw-screen[data-demo="design"].is-p8 .qx-trs .qx-t3{border-color:#93652F;background:#F8F2EB}
+.hw-screen[data-demo="design"].is-p8 .qx-s10 .qx-qb{animation:qx-slide 1s cubic-bezier(.65,0,.35,1) 1.5s both}
+@keyframes qx-slide{0%{transform:none;opacity:1}45%{transform:translateX(-90px);opacity:0}46%{transform:translateX(90px);opacity:0}100%{transform:none;opacity:1}}
+/* 9, 10, 12: the screen itself */
+.hw-screen[data-demo="design"].is-p9 .qx-rows{opacity:0;transition-delay:.9s}
+.hw-screen[data-demo="design"].is-p9 .qx-cont{opacity:1;transition-delay:.9s}
+.hw-screen[data-demo="design"] .qx-i10{transition:background-color .25s ease 1.3s,color .25s ease 1.3s}
+.hw-screen[data-demo="design"] .qx-i10::before{opacity:0;transition:opacity .25s ease 1.3s}
+.hw-screen[data-demo="design"].is-p9 .qx-i10{background:#F8F2EB;color:#18181B;font-weight:600}
+.hw-screen[data-demo="design"].is-p9 .qx-i10::before{content:"";opacity:1}
+.hw-screen[data-demo="design"] .qx-i10::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;background:#B47F39}
+.hw-screen[data-demo="design"] .qx-old{transition:background-color .2s ease 1.1s,opacity .2s ease 1.6s}
+.hw-screen[data-demo="design"].is-p10 .qx-old{background:rgba(37,99,235,.18);opacity:0}
+.hw-screen[data-demo="design"].is-p10 .qx-subx .qx-new{clip-path:none;animation:kx-type .8s steps(42,end) 1.7s backwards}
+.hw-screen[data-demo="design"].is-p10 .qx-psub .kx-off{opacity:0;transition-delay:2.5s}
+.hw-screen[data-demo="design"].is-p10 .qx-psub .kx-on{opacity:1;transition-delay:2.5s}
+.hw-screen[data-demo="design"] .qx-blk u{transition:opacity .3s ease 2.5s}
+.hw-screen[data-demo="design"].is-p10 .qx-blk u{opacity:1}
+.hw-screen[data-demo="design"] .qx-tabs span{transition:border-color .25s ease 1s,color .25s ease 1s}
+.hw-screen[data-demo="design"].is-p12 .qx-tt{border-color:transparent;color:#52525B}
+.hw-screen[data-demo="design"].is-p12 .qx-ts{border-color:#93652F;color:#93652F}
+.hw-screen[data-demo="design"].is-p12 .qx-qt{opacity:0;transition-delay:1.1s}
+.hw-screen[data-demo="design"].is-p12 .qx-qs{opacity:1;transition-delay:1.1s}
+/* 11: two words of the heading, coloured */
+.hw-screen[data-demo="design"] .qx-hw{transition:color .4s ease}
+.hw-screen[data-demo="design"].is-p11 .qx-hl{animation:qx-sel 1.5s ease 1s forwards}
+.hw-screen[data-demo="design"].is-p11 .qx-acol{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.4s forwards}
+.hw-screen[data-demo="design"].is-p11 .qx-pop{animation:qx-popin 1s ease 1.55s forwards}
+.hw-screen[data-demo="design"].is-p11 .qx-pop .qx-pk{animation:qx-ring .3s ease 2.05s forwards}
+.hw-screen[data-demo="design"].is-p11 .qx-hw{color:#96682A;transition-delay:2.6s}
+@keyframes qx-sel{0%{background-color:transparent;color:#18181B}8%,84%{background-color:rgba(37,99,235,.18);color:#18181B}100%{background-color:transparent;color:#96682A}}
+@keyframes qx-popin{0%{opacity:0;transform:translateY(-4px)}15%,82%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes qx-ring{to{box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #93652F}}
+/* 13, 14: Quiz setup */
+.hw-screen[data-demo="design"] .mx-dim{transition:opacity .35s ease}
+.hw-screen[data-demo="design"] .qx-mo{transition:opacity .35s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.hw-screen[data-demo="design"].is-p13 .mx-dim{opacity:1;transition-delay:.1s}
+.hw-screen[data-demo="design"].is-p13 .qx-mo{opacity:1;transform:none;transition-delay:.2s}
+.hw-screen[data-demo="design"] .qx-mg{opacity:1}
+.hw-screen[data-demo="design"] .qx-mon > span{transition:border-color .25s ease .9s,background-color .25s ease .9s,color .25s ease .9s}
+.hw-screen[data-demo="design"].is-p14 .qx-n1{border-color:transparent;background:transparent;color:#18181B;font-weight:400}
+.hw-screen[data-demo="design"].is-p14 .qx-n2{border-color:#93652F;background:#F8F2EB;color:#93652F;font-weight:600}
+.hw-screen[data-demo="design"].is-p14 .qx-mg{opacity:0;transition-delay:.9s}
+.hw-screen[data-demo="design"].is-p14 .qx-mq{opacity:1;transition-delay:.9s}
+.hw-screen[data-demo="design"] .qx-g1 .qx-vis i,.hw-screen[data-demo="design"] .qx-g1 .qx-vis i::after{transition-delay:1.4s}
+.hw-screen[data-demo="design"].is-p14 .qx-g1 .qx-vis i{background:#E4E4E7}
+.hw-screen[data-demo="design"].is-p14 .qx-g1 .qx-vis i::after{left:3px}
+.hw-screen[data-demo="design"].is-p14 .qx-g1 .kx-off,.hw-screen[data-demo="design"].is-p14 .qx-mof .kx-off{opacity:0;transition-delay:1.4s}
+.hw-screen[data-demo="design"].is-p14 .qx-g1 .kx-on,.hw-screen[data-demo="design"].is-p14 .qx-mof .kx-on{opacity:1;transition-delay:1.4s}
+.hw-screen[data-demo="design"].is-p14 .qx-msave{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2.1s forwards}
+.hw-screen[data-demo="design"].is-p15 .mx-dim{opacity:0;transition-delay:0s}
+.hw-screen[data-demo="design"].is-p15 .qx-mo{opacity:0;transform:translateY(16px) scale(.98);transition-delay:0s}
+
+/* 05, Launch: putting the quiz where customers shop, on the Quiz page as
+   Design leaves it (founder's screenshots, 2026-10-22):
+     0  the whole dashboard, the quiz not live yet
+     1  in to its status: Embed
+     2  the Embed panel, on A page
+     3  A button + pop up
+     4  the embed code, Copy, Copied; the direct link
+     5  where it can be used: yourbrand.com, Save
+     6  the panel closes: Publish quiz
+     7  Published, and the quiz is live
+     8  back out to the whole dashboard
+   The code and the link carry an invented quiz id. Reduced motion holds 7. */
+.hw-screen[data-demo="launch"] .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="launch"].is-p1 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
+.hw-screen[data-demo="launch"].is-p2 .kx-cam{--cx:-2400.2px;--cy:0px;--cs:2.2}
+.hw-screen[data-demo="launch"].is-p4 .kx-cam{--cx:-2400.2px;--cy:-726px;--cs:2.2}
+.hw-screen[data-demo="launch"].is-p5 .kx-cam{--cx:-2400.2px;--cy:-1232px;--cs:2.2}
+.hw-screen[data-demo="launch"].is-p6 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
+.hw-screen[data-demo="launch"].is-p8 .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="launch"] .kx-off,.hw-screen[data-demo="launch"] .kx-on{transition:opacity .35s ease}
+.hw-screen[data-demo="launch"] .lx-dim{transition:opacity .35s ease}
+.hw-screen[data-demo="launch"] .lx-dr{transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.hw-screen[data-demo="launch"].is-p1 .lx-emb{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
+.hw-screen[data-demo="launch"].is-p2 .lx-dim{opacity:1;transition-delay:.05s}
+.hw-screen[data-demo="launch"].is-p2 .lx-dr{transform:none;transition-delay:.1s}
+.hw-screen[data-demo="launch"].is-p3 .lx-o1{border-color:#E4E4E7;background:#FFFFFF;transition-delay:1.1s}
+.hw-screen[data-demo="launch"].is-p3 .lx-o1 > i{border-color:#A1A1AA;background:#FFFFFF;box-shadow:none;transition-delay:1.1s}
+.hw-screen[data-demo="launch"].is-p3 .lx-o2{border-color:#93652F;background:#F8F2EB;transition-delay:1.1s}
+.hw-screen[data-demo="launch"].is-p3 .lx-o2 > i{border-color:#2563EB;background:#2563EB;box-shadow:inset 0 0 0 2.5px #FFFFFF;transition-delay:1.1s}
+.hw-screen[data-demo="launch"].is-p4 .lx-cp{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.25s forwards}
+.hw-screen[data-demo="launch"].is-p4 .lx-cp .kx-off{opacity:0;transition-delay:1.4s}
+.hw-screen[data-demo="launch"].is-p4 .lx-cp .kx-on{opacity:1;transition-delay:1.4s}
+.hw-screen[data-demo="launch"].is-p4 .lx-code{animation:lx-hl 1.3s ease 1.25s both}
+.hw-screen[data-demo="launch"].is-p4 .lx-link{border-color:#A1A1AA;box-shadow:0 0 0 3px rgba(24,24,27,.05);transition-delay:2s}
+.hw-screen[data-demo="launch"].is-p5 .lx-link{border-color:#E4E4E7;box-shadow:none;transition-delay:0s}
+.hw-screen[data-demo="launch"].is-p5 .lx-sites{border-color:#A1A1AA;transition-delay:.9s}
+.hw-screen[data-demo="launch"].is-p5 .lx-sites em{opacity:0;transition-delay:1s}
+.hw-screen[data-demo="launch"].is-p5 .lx-sites b{clip-path:none;animation:kx-type .8s steps(13,end) 1.05s backwards}
+.hw-screen[data-demo="launch"].is-p5 .lx-save{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2.1s forwards}
+.hw-screen[data-demo="launch"].is-p6 .lx-dim{opacity:0;transition-delay:0s}
+.hw-screen[data-demo="launch"].is-p6 .lx-dr{transform:translateX(105%);transition-delay:0s}
+.hw-screen[data-demo="launch"].is-p6 .lx-pub{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 1.4s forwards}
+.hw-screen[data-demo="launch"] .kx-ban{transition:max-height .55s cubic-bezier(.22,1,.36,1),margin-top .55s cubic-bezier(.22,1,.36,1),opacity .4s ease}
+.hw-screen[data-demo="launch"].is-p7 .kx-ban{max-height:46px;margin-top:35px;opacity:1;border-width:1px;transition-delay:.2s}
+.hw-screen[data-demo="launch"].is-p7 .kx-store .kx-off{opacity:0;transition-delay:.4s}
+.hw-screen[data-demo="launch"].is-p7 .kx-store .kx-on{opacity:1;transition-delay:.55s}
+.hw-screen[data-demo="launch"].is-p7 .kx-store .kx-on .kx-t i{animation:kx-ping 1.3s ease-out .7s both}
+@keyframes lx-hl{0%,100%{background-color:transparent}20%,70%{background-color:rgba(37,99,235,.12)}}
+@media(prefers-reduced-motion:reduce){.hw-win,.hw-screen .hw-win *,.hw-screen .hw-win *::before,.hw-screen .hw-win *::after{transition:none !important;animation:none !important}}
