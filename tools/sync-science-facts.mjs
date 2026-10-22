@@ -66,7 +66,7 @@ const verts = Object.entries(V).map(([key, v]) => {
     : `<span class="ph-ix-item is-off" data-vertical="${esc(key)}" tabindex="0" role="note"><span class="ph-ix-name">${esc(label)}</span><span class="sci-tip">Coming soon</span></span>`;
 }).join('');
 
-const hero = `<section class="theme-dark ph ph--fill ph--card">
+const hero = `<section class="theme-dark ph ph--fill hero-card">
   <div class="wrap">
     <div class="ph-inner">
       <h1 class="h1">A scoring engine you can audit, line by line.</h1>

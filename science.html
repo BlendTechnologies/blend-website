@@ -939,7 +939,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    the end, where every other page on the site keeps it, so none of them
    applies any more.
 
-   The rhythm is the site's: the dark card hero (page-hero.css .ph--card),
+   The rhythm is the site's: the dark card hero (scroll-cards.css .hero-card),
    then white and beige alternating, then the dark endcap.
    ====================================================================== */
 /* The hero is the shared PageHero: /page-hero.css. */
@@ -962,7 +962,7 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 }
 /* ---- the page's own ground, and the bar over it -----------------------
    The hero is a black card under the bar and the body is white, so the
-   bar is the page's white from the top (page-hero.css .ph--card). */
+   bar is the page's white from the top (scroll-cards.css .hero-card). */
 :root{}
 body{background:var(--ground)}
 /* The footer sits outside <main>, so the page's own .footer rule wins over
@@ -1053,7 +1053,7 @@ body{background:var(--ground)}
 
 <main id="main" class="sci">
 <!-- science:body -->
-<section class="theme-dark ph ph--fill ph--card">
+<section class="theme-dark ph ph--fill hero-card">
   <div class="wrap">
     <div class="ph-inner">
       <h1 class="h1">A scoring engine you can audit, line by line.</h1>

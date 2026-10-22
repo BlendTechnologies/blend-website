@@ -56,7 +56,7 @@
 .sci-note span{display:block}
 
 /* ---- the hero, inverted ------------------------------------------------ */
-/* No background here: the hero is page-hero.css's .ph--card, which paints
+/* No background here: the hero is scroll-cards.css's .hero-card, which paints
    its own ink and wash. A `background:var(--deep)` here reset the wash, at
    equal specificity and later in the cascade. */
 .sci .ph{--ph-muted:var(--muted)}
