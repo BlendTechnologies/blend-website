@@ -1962,84 +1962,91 @@ body{background:var(--ground)}
 /* 02, Match: Blend AI matching the catalogue, from the same dashboard and the
    same camera as 01 (founder, 2026-10-22: "now do 02 match ... more
    marketing led ... show case also multi ingredient products"):
-     0  the Catalogue, 51 products, every one needing review
-     1  in to Blend AI's prompt, and its arrow
-     2  the window, over the page dimmed: Scan my catalogue
-     3  the scan, 0 to 100%
-     4  the matches arrive, each to a master reference
-     5  down the list, past the products made of more than one ingredient
-     6  at its foot they are ticked, the count runs to 51, Apply
-     7  51 applied, goals and safety tags filled in
-     8  the window closes and each card turns Matched, its goals and what it
+     0  the whole dashboard (founder: "same rule as before. Start by showing
+        entire dashboard, then zoom")
+     1  in to the Catalogue, 51 products, every one needing review
+     2  in to Blend AI's prompt, and its arrow
+     3  the window, over the page dimmed: Scan my catalogue
+     4  the scan, 0 to 100%
+     5  the matches arrive, each to a master reference
+     6  down the list, past the products made of more than one ingredient
+     7  at its foot they are ticked, the count runs to 51, Apply
+     8  51 applied, goals and safety tags filled in
+     9  the window closes and each card turns Matched, its goals and what it
         is not suitable for coming from the engine's references
-     9  a combined product's Edit page: both of its ingredients
-    10  Sync now, and the engine has them
-   Reduced motion holds beat 8. */
-.hw-screen[data-demo="match"] .kx-cam{--cx:-323.5px;--cy:-81.9px;--cs:1.28}
-.hw-screen[data-demo="match"].is-p1 .kx-cam{--cx:-819.8px;--cy:-996.2px;--cs:1.76}
-.hw-screen[data-demo="match"].is-p2 .kx-cam{--cx:-1000px;--cy:42.5px;--cs:2.0}
-.hw-screen[data-demo="match"].is-p3 .kx-cam{--cx:-1000px;--cy:-37.5px;--cs:2.0}
-.hw-screen[data-demo="match"].is-p4 .kx-cam{--cx:-800px;--cy:-108px;--cs:1.8}
-.hw-screen[data-demo="match"].is-p5 .kx-cam{--cx:-800px;--cy:-1422px;--cs:1.8}
-.hw-screen[data-demo="match"].is-p6 .kx-cam{--cx:-800px;--cy:-2547px;--cs:1.8}
-.hw-screen[data-demo="match"].is-p7 .kx-cam{--cx:-1000px;--cy:2.5px;--cs:2.0}
-.hw-screen[data-demo="match"].is-p8 .kx-cam{--cx:-757.8px;--cy:-962.2px;--cs:1.7}
-.hw-screen[data-demo="match"].is-p9 .kx-cam{--cx:-861.2px;--cy:-936px;--cs:1.8}
-.hw-screen[data-demo="match"].is-p10 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
+    10  a combined product's Edit page, close enough to read: Focus Flow
+    11  down to its ingredients, both of them ("the edit multi ingredient is
+        cut so you can't see anything": one shot of the whole form was too
+        far out to read and cut through it; two, each ending at a rule)
+    12  Sync now, and the engine has them
+   Reduced motion holds beat 9. */
+.hw-screen[data-demo="match"] .kx-cam{--cx:0px;--cy:0px;--cs:1}
+.hw-screen[data-demo="match"].is-p1 .kx-cam{--cx:-323.5px;--cy:-81.9px;--cs:1.28}
+.hw-screen[data-demo="match"].is-p2 .kx-cam{--cx:-819.8px;--cy:-996.2px;--cs:1.76}
+.hw-screen[data-demo="match"].is-p3 .kx-cam{--cx:-1000px;--cy:42.5px;--cs:2.0}
+.hw-screen[data-demo="match"].is-p4 .kx-cam{--cx:-1000px;--cy:-37.5px;--cs:2.0}
+.hw-screen[data-demo="match"].is-p5 .kx-cam{--cx:-800px;--cy:-108px;--cs:1.8}
+.hw-screen[data-demo="match"].is-p6 .kx-cam{--cx:-800px;--cy:-1422px;--cs:1.8}
+.hw-screen[data-demo="match"].is-p7 .kx-cam{--cx:-800px;--cy:-2547px;--cs:1.8}
+.hw-screen[data-demo="match"].is-p8 .kx-cam{--cx:-1000px;--cy:2.5px;--cs:2.0}
+.hw-screen[data-demo="match"].is-p9 .kx-cam{--cx:-757.8px;--cy:-962.2px;--cs:1.7}
+.hw-screen[data-demo="match"].is-p10 .kx-cam{--cx:-1688.4px;--cy:-195px;--cs:2.6}
+.hw-screen[data-demo="match"].is-p11 .kx-cam{--cx:-1326.5px;--cy:-1145.3px;--cs:2.25}
+.hw-screen[data-demo="match"].is-p12 .kx-cam{--cx:-819.8px;--cy:-139px;--cs:1.76}
 .hw-screen[data-demo="match"] .kx-grid{display:grid}
 .hw-screen[data-demo="match"] .kx-off,.hw-screen[data-demo="match"] .kx-on,.hw-screen[data-demo="match"] .kx-pc,.hw-screen[data-demo="match"] .kx-pa{transition:opacity .35s ease}
-.hw-screen[data-demo="match"].is-p1 .kx-go{animation:mx-tap .5s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
+.hw-screen[data-demo="match"].is-p2 .kx-go{animation:mx-tap .5s cubic-bezier(.3,.8,.3,1) 1.3s forwards}
 .hw-screen[data-demo="match"] .mx-dim{transition:opacity .35s ease}
 .hw-screen[data-demo="match"] .mx-modal{transition:opacity .35s ease,transform .5s cubic-bezier(.22,1,.36,1)}
-.hw-screen[data-demo="match"].is-p2 .mx-dim{opacity:1;transition-delay:.05s}
-.hw-screen[data-demo="match"].is-p2 .mx-modal{opacity:1;transform:none;transition-delay:.15s}
-.hw-screen[data-demo="match"].is-p2 .mx-scan{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 1.5s forwards}
-.hw-screen[data-demo="match"].is-p3 .mx-s1{display:none}
-.hw-screen[data-demo="match"].is-p3 .mx-s2{display:flex;animation:mx-in .4s ease both}
-.hw-screen[data-demo="match"].is-p3 .mx-spin{animation:kx-spin 1.2s linear infinite}
-.hw-screen[data-demo="match"].is-p4 .mx-s2{display:none}
-.hw-screen[data-demo="match"].is-p4 .mx-s3{display:block;animation:mx-in .4s ease both}
-.hw-screen[data-demo="match"].is-p4 .mx-row{animation:mx-in .45s ease both}
-.hw-screen[data-demo="match"].is-p4 .mx-row:nth-child(2){animation-delay:.1s}.hw-screen[data-demo="match"].is-p4 .mx-row:nth-child(3){animation-delay:.2s}.hw-screen[data-demo="match"].is-p4 .mx-row:nth-child(4){animation-delay:.3s}
+.hw-screen[data-demo="match"].is-p3 .mx-dim{opacity:1;transition-delay:.05s}
+.hw-screen[data-demo="match"].is-p3 .mx-modal{opacity:1;transform:none;transition-delay:.15s}
+.hw-screen[data-demo="match"].is-p3 .mx-scan{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 1.5s forwards}
+.hw-screen[data-demo="match"].is-p4 .mx-s1{display:none}
+.hw-screen[data-demo="match"].is-p4 .mx-s2{display:flex;animation:mx-in .4s ease both}
+.hw-screen[data-demo="match"].is-p4 .mx-spin{animation:kx-spin 1.2s linear infinite}
+.hw-screen[data-demo="match"].is-p5 .mx-s2{display:none}
+.hw-screen[data-demo="match"].is-p5 .mx-s3{display:block;animation:mx-in .4s ease both}
+.hw-screen[data-demo="match"].is-p5 .mx-row{animation:mx-in .45s ease both}
+.hw-screen[data-demo="match"].is-p5 .mx-row:nth-child(2){animation-delay:.1s}.hw-screen[data-demo="match"].is-p5 .mx-row:nth-child(3){animation-delay:.2s}.hw-screen[data-demo="match"].is-p5 .mx-row:nth-child(4){animation-delay:.3s}
 /* 6: the combined ones ticked, the two in shot last */
 .hw-screen[data-demo="match"] .mx-cb,.hw-screen[data-demo="match"] .mx-cb svg{transition-delay:.4s}
 .hw-screen[data-demo="match"] .mx-row:nth-child(9) .mx-cb,.hw-screen[data-demo="match"] .mx-row:nth-child(9) .mx-cb svg{transition-delay:1.05s}
 .hw-screen[data-demo="match"] .mx-row:nth-child(10) .mx-cb,.hw-screen[data-demo="match"] .mx-row:nth-child(10) .mx-cb svg{transition-delay:1.25s}
-.hw-screen[data-demo="match"].is-p6 .mx-cb{border-color:#2563EB;background:#2563EB}
-.hw-screen[data-demo="match"].is-p6 .mx-cb svg{opacity:1}
-.hw-screen[data-demo="match"].is-p6 .mx-apply{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2s forwards}
-.hw-screen[data-demo="match"].is-p6 .mx-apply .kx-off{opacity:0;transition-delay:2.2s}
-.hw-screen[data-demo="match"].is-p6 .mx-apply .kx-on{opacity:1;transition-delay:2.25s}
-.hw-screen[data-demo="match"].is-p6 .mx-apply{border-color:#C9A880;background:#C9A880;transition-delay:2.2s}
-.hw-screen[data-demo="match"].is-p7 .mx-s3{display:none}
-.hw-screen[data-demo="match"].is-p7 .mx-s4{display:block;animation:mx-in .4s ease both}
+.hw-screen[data-demo="match"].is-p7 .mx-cb{border-color:#2563EB;background:#2563EB}
+.hw-screen[data-demo="match"].is-p7 .mx-cb svg{opacity:1}
+.hw-screen[data-demo="match"].is-p7 .mx-apply{animation:kx-pressg .45s cubic-bezier(.3,.8,.3,1) 2s forwards}
+.hw-screen[data-demo="match"].is-p7 .mx-apply .kx-off{opacity:0;transition-delay:2.2s}
+.hw-screen[data-demo="match"].is-p7 .mx-apply .kx-on{opacity:1;transition-delay:2.25s}
+.hw-screen[data-demo="match"].is-p7 .mx-apply{border-color:#C9A880;background:#C9A880;transition-delay:2.2s}
+.hw-screen[data-demo="match"].is-p8 .mx-s3{display:none}
+.hw-screen[data-demo="match"].is-p8 .mx-s4{display:block;animation:mx-in .4s ease both}
 /* 8: matched */
-.hw-screen[data-demo="match"].is-p8 .mx-dim{opacity:0}
-.hw-screen[data-demo="match"].is-p8 .mx-modal{opacity:0;transform:translateY(16px) scale(.98);transition-delay:0s}
+.hw-screen[data-demo="match"].is-p9 .mx-dim{opacity:0}
+.hw-screen[data-demo="match"].is-p9 .mx-modal{opacity:0;transform:translateY(16px) scale(.98);transition-delay:0s}
 .hw-screen[data-demo="match"] .mx-rv{transition:max-height .5s cubic-bezier(.22,1,.36,1),margin-top .5s cubic-bezier(.22,1,.36,1),opacity .4s ease}
-.hw-screen[data-demo="match"].is-p8 .mx-rv{max-height:40px;margin-top:20px;opacity:1;transition-delay:.15s}
-.hw-screen[data-demo="match"].is-p8 .kx-ai .kx-off{opacity:0;transition-delay:.5s}
-.hw-screen[data-demo="match"].is-p8 .kx-ai .kx-on{opacity:1;transition-delay:.6s}
+.hw-screen[data-demo="match"].is-p9 .mx-rv{max-height:40px;margin-top:20px;opacity:1;transition-delay:.15s}
+.hw-screen[data-demo="match"].is-p9 .kx-ai .kx-off{opacity:0;transition-delay:.5s}
+.hw-screen[data-demo="match"].is-p9 .kx-ai .kx-on{opacity:1;transition-delay:.6s}
 .hw-screen[data-demo="match"] .mx-card > *{transition-delay:var(--d,.8s)}
 .hw-screen[data-demo="match"] .kx-p:nth-child(2){--d:.92s}.hw-screen[data-demo="match"] .kx-p:nth-child(3){--d:1.04s}.hw-screen[data-demo="match"] .kx-p:nth-child(4){--d:1.16s}.hw-screen[data-demo="match"] .kx-p:nth-child(5){--d:1.28s}.hw-screen[data-demo="match"] .kx-p:nth-child(6){--d:1.4s}
-.hw-screen[data-demo="match"].is-p8 .mx-card .kx-off{opacity:0}
-.hw-screen[data-demo="match"].is-p8 .mx-card .kx-on{opacity:1}
-.hw-screen[data-demo="match"].is-p8 .kx-p:nth-child(3) .kx-more{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 2.5s forwards}
+.hw-screen[data-demo="match"].is-p9 .mx-card .kx-off{opacity:0}
+.hw-screen[data-demo="match"].is-p9 .mx-card .kx-on{opacity:1}
+.hw-screen[data-demo="match"].is-p9 .kx-p:nth-child(3) .kx-more{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 2.5s forwards}
 /* 9: Focus Flow, edited */
-.hw-screen[data-demo="match"].is-p9 .kx-pc{opacity:0}
-.hw-screen[data-demo="match"].is-p9 .kx-pa{opacity:1}
-.hw-screen[data-demo="match"].is-p9 .mx-i1{animation:mx-glow .9s ease 1.15s both}
-.hw-screen[data-demo="match"].is-p9 .mx-i2 .kx-fi{animation:mx-glow .9s ease 1.55s both}
-.hw-screen[data-demo="match"].is-p9 .mx-fill{animation:mx-ink .9s ease 1.95s both}
+.hw-screen[data-demo="match"].is-p10 .kx-pc{opacity:0}
+.hw-screen[data-demo="match"].is-p10 .kx-pa{opacity:1}
+.hw-screen[data-demo="match"].is-p11 .mx-i1{animation:mx-glow .9s ease 1.15s both}
+.hw-screen[data-demo="match"].is-p11 .mx-i2 .kx-fi{animation:mx-glow .9s ease 1.55s both}
+.hw-screen[data-demo="match"].is-p11 .mx-fill{animation:mx-ink .9s ease 1.95s both}
 /* 10: synced */
-.hw-screen[data-demo="match"].is-p10 .kx-pa{opacity:0}
-.hw-screen[data-demo="match"].is-p10 .kx-pc{opacity:1}
-.hw-screen[data-demo="match"].is-p10 .mx-sync{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.2s forwards}
-.hw-screen[data-demo="match"].is-p10 .mx-eng .kx-off{opacity:0;transition-delay:1.5s}
-.hw-screen[data-demo="match"].is-p10 .mx-eng .kx-on{opacity:1;transition-delay:1.6s}
-.hw-screen[data-demo="match"].is-p10 .mx-eng .kx-on .kx-t i{animation:kx-ping 1.3s ease-out 1.7s both}
+.hw-screen[data-demo="match"].is-p12 .kx-pa{opacity:0}
+.hw-screen[data-demo="match"].is-p12 .kx-pc{opacity:1}
+.hw-screen[data-demo="match"].is-p12 .mx-sync{animation:kx-press .45s cubic-bezier(.3,.8,.3,1) 1.2s forwards}
+.hw-screen[data-demo="match"].is-p12 .mx-eng .kx-off{opacity:0;transition-delay:1.5s}
+.hw-screen[data-demo="match"].is-p12 .mx-eng .kx-on{opacity:1;transition-delay:1.6s}
+.hw-screen[data-demo="match"].is-p12 .mx-eng .kx-on .kx-t i{animation:kx-ping 1.3s ease-out 1.7s both}
 .hw-screen[data-demo="match"] .kx-ban{transition:max-height .55s cubic-bezier(.22,1,.36,1),margin-top .55s cubic-bezier(.22,1,.36,1),opacity .4s ease}
-.hw-screen[data-demo="match"].is-p10 .kx-ban{max-height:46px;margin-top:25px;opacity:1;border-width:1px;transition-delay:1.85s}
+.hw-screen[data-demo="match"].is-p12 .kx-ban{max-height:46px;margin-top:25px;opacity:1;border-width:1px;transition-delay:1.85s}
 @keyframes mx-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes mx-tap{35%{transform:scale(.88)}100%{transform:none}}
 @keyframes mx-glow{to{border-color:#C9A57A;box-shadow:0 0 0 4px rgba(147,101,47,.12)}}
@@ -2565,8 +2572,8 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
         if(f < 1) requestAnimationFrame(run);
       });
     } },
-    /* the scan's percentage in beat 3, and Apply's count in beat 6 */
-    match: { ms: [1800, 2000, 2200, 2600, 2400, 2400, 2800, 2200, 3000, 2800, 2800], n: 11, rest: 8, step: function(sc, p){
+    /* the scan's percentage in beat 4, and Apply's count in beat 7 */
+    match: { ms: [1600, 1700, 2000, 2200, 2600, 2200, 2200, 2800, 2200, 3000, 2200, 2600, 2800], n: 13, rest: 9, step: function(sc, p){
       var pc = sc.querySelector('.mx-pc'), bar = sc.querySelector('.mx-bar'), n = sc.querySelector('.mx-n'), go = sc._mx = (sc._mx || 0) + 1;
       function setPc(v){ pc.textContent = v + '%'; bar.style.setProperty('--pc', v); }
       function setN(v){ n.textContent = v; }
@@ -2579,8 +2586,8 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
           if(k < 1) requestAnimationFrame(f);
         });
       }
-      if(p === 3 && !still.matches) run(0, 100, 300, 1900, setPc); else setPc(p < 3 ? 0 : 100);
-      if(p === 6 && !still.matches) run(38, 51, 700, 900, setN); else setN(p < 6 ? 38 : 51);
+      if(p === 4 && !still.matches) run(0, 100, 300, 1900, setPc); else setPc(p < 4 ? 0 : 100);
+      if(p === 7 && !still.matches) run(38, 51, 700, 900, setN); else setN(p < 7 ? 38 : 51);
     } },
     quiz: { ms: 2600, n: 6, step: function(sc, p){
       var rail = sc.querySelectorAll('.bx-rail .bx-row'), on = [0, 0, 1, 2, 3, 4][p];
@@ -2603,7 +2610,7 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
     } }
   };
   function phase(sc, p){
-    for(var i = 1; i < 11; i++) sc.classList.toggle('is-p' + i, i <= p);
+    for(var i = 1; i < 13; i++) sc.classList.toggle('is-p' + i, i <= p);
     PLANS[sc.dataset.demo].step(sc, p);
   }
   function reset(sc){
