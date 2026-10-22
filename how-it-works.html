@@ -1750,10 +1750,13 @@ body{background:var(--ground)}
 .hw-shot:has(.hw-screen) .hw-scene{background:none}
 /* The tour's frame, glass since 2026-10-22 (theme.css, "A frame round a
    screen"; founder: "decrease border width of placeholder (soft, holistic,
-   glass effect)"). */
+   glass effect)"). Without the recipe's backdrop blur here: over the
+   ground's soft light a blur changes nothing a reader can see, measured
+   pixel for pixel at 1440 and 834, and on these frames it put each screen
+   on a layer of its own, where a phone drew the screens' small text a
+   little differently from one capture to the next. */
 .hw-win{width:100%;border-radius:clamp(16px, 2.1vw, 30px);
   border:var(--glass-rim) solid var(--frame-rim);background-clip:padding-box;
-  -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
   outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
   box-shadow:var(--frame-shadow)}
 .hw-screen.is-out .hw-win{opacity:1}
