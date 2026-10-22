@@ -64,6 +64,13 @@ the page's: the completion-rate chart is the two engagement series pooled over
 seven days, and the gender columns sum to the age columns' 1,212. Every film
 opens on the whole dashboard, zooms in, and goes back out to it at the end
 (founder: "same rule as before", "entire dashboard to end too").
+The films' choreography and their loop live in `films.css` and `films.js`
+(2026-10-22), so any page can play one: a `<figure class="film">` around a
+film's `.hw-screen` plays while half of it is on screen. /how-it-works is a
+film's source; a copy elsewhere is held equal to it. One trap from the move:
+the page's inline style now comes after `films.css`, so a films rule that
+must beat one of the page's own (the old `.hw-shot img`) wins on specificity,
+not on order.
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the
