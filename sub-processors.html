@@ -25,14 +25,11 @@
 <link rel="stylesheet" href="/nav.css">
   <link rel="stylesheet" href="/nav-mobile.css">
 <link rel="stylesheet" href="cookie-consent.css">
+<link rel="stylesheet" href="/page-hero.css">
   <link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/legal.css">
 
 <style>
-/* A wide table scrolls inside its own box. Before this it pushed the whole
-   document sideways at 390px, which is a horizontal scrollbar on a legal
-   page nobody was checking: this page is not in the visual-diff harness. */
-.legal-content table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
-
 :root{--content:1200px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -57,34 +54,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:860px){
   }
 
-/* legal page */
-.legal-hero{padding:64px 0 32px;text-align:center;background:var(--cream);border-bottom:1px solid var(--line)}
-.legal-hero .eyebrow{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:14px}
-.legal-hero h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0}
-.legal-hero .sub{margin-top:14px;color:var(--muted);font-size:14px}
 
-.legal{padding:64px 0 112px;background:var(--cream)}
-.legal-content{max-width:760px;margin:0 auto;font-size:16px;line-height:1.72;color:var(--ink-80)}
-.legal-content h2{font-size:20px;line-height:1.3;letter-spacing:-.015em;font-weight:500;color:var(--ink);margin:56px 0 16px;scroll-margin-top:90px}
-.legal-content h2:first-child{margin-top:0}
-.legal-content h3{font-size:16px;line-height:1.4;font-weight:500;color:var(--ink);margin:24px 0 8px}
-.legal-content p{margin:0 0 14px}
-.legal-content ul,.legal-content ol{margin:0 0 18px;padding-left:22px}
-.legal-content li{margin-bottom:8px}
-.legal-content a{color:var(--ink);border-bottom:1px solid var(--line-strong)}
-.legal-content a:hover{border-color:var(--ink)}
-.legal-content strong{color:var(--ink);font-weight:500}
-.legal-content em{color:var(--ink);font-style:italic}
 
-.legal-content table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px;border:1px solid var(--line)}
-.legal-content thead{background:var(--surface)}
-.legal-content th{text-align:left;padding:12px 12px;font-weight:500;color:var(--ink);border-bottom:2px solid var(--line-strong);font-size:14px;letter-spacing:.01em}
-.legal-content td{padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-.legal-content tr:last-child td{border-bottom:0}
-.legal-content tbody tr:nth-child(even){background:rgba(250,248,242,.5)}
-.legal-content code{background:var(--surface);border:1px solid var(--line);padding:0 4px;border-radius:8px;font-size:14px;font-family:"SF Mono",Monaco,Consolas,monospace}
 
-.legal-note{margin:32px 0;padding:12px 16px;background:var(--gold-soft);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:14px;line-height:1.6;color:var(--ink-80)}
 
 /* footer */
 .footer{background:var(--deep);color:rgba(255,255,255,.72);padding:80px 0 32px}
@@ -127,15 +99,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 
 <main id="main">
 
-<section class="legal-hero">
+<section class="theme-dark ph ph--fill hero-card">
   <div class="wrap">
-    <h1>Sub-Processors</h1>
-    <p class="sub">Last updated: 5 September 2026 &nbsp;&middot;&nbsp; Blend Technologies LTD (United Kingdom)</p>
+    <div class="ph-inner">
+      <p class="eyebrow">Legal</p>
+      <h1 class="h1">Sub-processors</h1>
+      <p class="lead">The services that help us run Blend, what each one processes, and where.</p>
+      <p class="ph-meta">Last updated 22 October 2026 <span class="ph-dot" aria-hidden="true"></span> Blend Technologies LTD (United Kingdom)</p>
+    </div>
+    <nav class="ph-ix lg-ix" aria-label="Legal documents"><a class="ph-ix-item" href="/privacy"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">01</span><span class="ph-ix-name">Privacy</span></a><a class="ph-ix-item" href="/terms"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">02</span><span class="ph-ix-name">Terms</span></a><a class="ph-ix-item" href="/sub-processors" aria-current="page"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">03</span><span class="ph-ix-name">Sub-processors</span></a></nav>
   </div>
 </section>
 
 <section class="legal">
-  <div class="wrap">
+  <div class="wrap lg-grid lg-grid--wide">
 
     <article class="legal-content">
 
@@ -154,60 +131,60 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
         </thead>
         <tbody>
           <tr>
-            <td><strong>Vercel</strong></td>
-            <td>Webapp hosting (frontend, serverless functions, quiz builder, merchant dashboard, auth)</td>
-            <td>Merchant account data; end-user quiz submissions</td>
-            <td>EU (fra1 Frankfurt)</td>
-            <td>N/A (EU processing region)</td>
-            <td>N/A</td>
+            <td data-label="Processor"><strong>Vercel</strong></td>
+            <td data-label="Purpose">Webapp hosting (frontend, serverless functions, quiz builder, merchant dashboard, auth)</td>
+            <td data-label="Data categories">Merchant account data; end-user quiz submissions</td>
+            <td data-label="Region">EU (fra1 Frankfurt)</td>
+            <td data-label="Transfer mechanism">N/A (EU processing region)</td>
+            <td data-label="DPF-certified?">N/A</td>
           </tr>
           <tr>
-            <td><strong>Supabase</strong></td>
-            <td>Database + auth; stores end-user quiz data</td>
-            <td>End-user quiz submissions (health data, identifiers, consent); merchant account data</td>
-            <td>EU (eu-west-1 Ireland)</td>
-            <td>N/A (EU processor)</td>
-            <td>N/A</td>
+            <td data-label="Processor"><strong>Supabase</strong></td>
+            <td data-label="Purpose">Database + auth; stores end-user quiz data</td>
+            <td data-label="Data categories">End-user quiz submissions (health data, identifiers, consent); merchant account data</td>
+            <td data-label="Region">EU (eu-west-1 Ireland)</td>
+            <td data-label="Transfer mechanism">N/A (EU processor)</td>
+            <td data-label="DPF-certified?">N/A</td>
           </tr>
           <tr>
-            <td><strong>Render</strong>: personalisation</td>
-            <td>FastAPI personalisation engine hosting</td>
-            <td>End-user quiz submissions; pseudonymised logs (90-day retention)</td>
-            <td>EU (Frankfurt)</td>
-            <td>N/A (EU processor)</td>
-            <td>N/A</td>
+            <td data-label="Processor"><strong>Render</strong>: personalisation</td>
+            <td data-label="Purpose">FastAPI personalisation engine hosting</td>
+            <td data-label="Data categories">End-user quiz submissions; pseudonymised logs (90-day retention)</td>
+            <td data-label="Region">EU (Frankfurt)</td>
+            <td data-label="Transfer mechanism">N/A (EU processor)</td>
+            <td data-label="DPF-certified?">N/A</td>
           </tr>
           <tr>
-            <td><strong>Render</strong>: checkout</td>
-            <td>Billing service hosting</td>
-            <td>Merchant billing data only</td>
-            <td>EU (Frankfurt)</td>
-            <td>N/A (EU)</td>
-            <td>N/A</td>
+            <td data-label="Processor"><strong>Stripe</strong></td>
+            <td data-label="Purpose">Payment processing (merchant billing, not end-customer)</td>
+            <td data-label="Data categories">Merchant billing data</td>
+            <td data-label="Region">US / Ireland</td>
+            <td data-label="Transfer mechanism">EU-US DPF</td>
+            <td data-label="DPF-certified?">Yes: EU-US DPF, UK Extension, Swiss-US DPF</td>
           </tr>
           <tr>
-            <td><strong>Stripe</strong></td>
-            <td>Payment processing (merchant billing, not end-customer)</td>
-            <td>Merchant billing data</td>
-            <td>US / Ireland</td>
-            <td>EU-US DPF</td>
-            <td>Yes: EU-US DPF, UK Extension, Swiss-US DPF</td>
+            <td data-label="Processor"><strong>Resend</strong></td>
+            <td data-label="Purpose">Transactional email (auth, password resets, quiz results)</td>
+            <td data-label="Data categories">Email addresses, recipient names, email content</td>
+            <td data-label="Region">US</td>
+            <td data-label="Transfer mechanism">UK IDTA / EU SCCs 2021/914</td>
+            <td data-label="DPF-certified?">Yes per Resend DPA (verify on gov registry)</td>
           </tr>
           <tr>
-            <td><strong>Resend</strong></td>
-            <td>Transactional email (auth, password resets, quiz results)</td>
-            <td>Email addresses, recipient names, email content</td>
-            <td>US</td>
-            <td>UK IDTA / EU SCCs 2021/914</td>
-            <td>Yes per Resend DPA (verify on gov registry)</td>
+            <td data-label="Processor"><strong>Shopify</strong></td>
+            <td data-label="Purpose">Source of merchant catalogue and order data (analytics only, no customer PII)</td>
+            <td data-label="Data categories">Product catalogue, order IDs, timestamps, cart events</td>
+            <td data-label="Region">Multi-region</td>
+            <td data-label="Transfer mechanism">Per Shopify DPA</td>
+            <td data-label="DPF-certified?">Per Shopify</td>
           </tr>
           <tr>
-            <td><strong>Shopify</strong></td>
-            <td>Source of merchant catalogue and order data (analytics only, no customer PII)</td>
-            <td>Product catalogue, order IDs, timestamps, cart events</td>
-            <td>Multi-region</td>
-            <td>Per Shopify DPA</td>
-            <td>Per Shopify</td>
+            <td data-label="Processor"><strong>Anthropic</strong></td>
+            <td data-label="Purpose">AI assistance in the merchant dashboard: drafting a quiz from a brand's template, and reviewing catalogue matches</td>
+            <td data-label="Data categories">A brand's own quiz content and product catalogue (names, descriptions, categories); never end-user quiz answers</td>
+            <td data-label="Region">US</td>
+            <td data-label="Transfer mechanism">EU Standard Contractual Clauses and UK Addendum (Anthropic's data processing addendum)</td>
+            <td data-label="DPF-certified?">No</td>
           </tr>
         </tbody>
       </table>
@@ -299,5 +276,6 @@ links.querySelectorAll('a').forEach(a => {
 </div>
 <script src="cookie-consent.js"></script>
 
+<script src="/legal.js" defer></script>
 </body>
 </html>
