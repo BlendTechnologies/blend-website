@@ -94,3 +94,4 @@
 .faq-item>summary:hover{color:var(--ink)}
 .faq-item>summary:hover::after{border-color:var(--ink)}
 .faq-item .faq-answer{font-size:15px}
+

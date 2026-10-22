@@ -1,0 +1,34 @@
+/* ============================================================
+   Film rows: a film beside its words
+   ------------------------------------------------------------
+   Founder, 2026-10-22: "They all have to look like the other pages, use
+   animations, screenshots". The use-case pages' hand-drawn mocks (a
+   storefront with an invented question, a two-pick report, a trace card)
+   go, and the films /how-it-works directs take their place (films.css,
+   films.js): a hero plays one, and a run of rows plays the rest, text on
+   one side and the film on the other, sides swapping row to row as on
+   /how-it-works. Linked by /use-cases and its three pages.
+   ============================================================ */
+.hero-visual .film{width:100%}
+.uc-rows{display:grid;gap:clamp(72px, 9vw, 128px);max-width:1200px;margin:0 auto}
+.uc-row{display:grid;grid-template-columns:minmax(260px, 1fr) minmax(0, 1.65fr);gap:clamp(36px, 5vw, 72px);align-items:center}
+.uc-row:nth-child(even){grid-template-columns:minmax(0, 1.65fr) minmax(260px, 1fr)}
+.uc-row:nth-child(even) .uc-copy{order:2}
+.uc-copy{min-width:0;max-width:440px}
+.uc-n{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;font-size:13px;letter-spacing:-.005em;color:var(--n-600)}
+.uc-n b{font-weight:500;color:var(--ink);font-feature-settings:"tnum"}
+.uc-copy h3{margin:0;font-size:clamp(24px, 2.5vw, 30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;text-wrap:balance}
+.uc-copy p{margin:14px 0 0;font-size:15.5px;line-height:1.62;color:var(--ink-80)}
+.uc-copy ul{margin:18px 0 0;padding:14px 0 0;border-top:1px solid var(--line-strong);list-style:none;display:grid;gap:8px}
+.uc-copy li{position:relative;padding-left:18px;font-size:14px;line-height:1.55;color:var(--ink)}
+.uc-copy li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--gold-active)}
+.uc-copy .uc-more{display:inline-block;margin-top:18px;font-size:14px;color:var(--gold-text, var(--gold-hover));
+  border-bottom:1px solid currentColor}
+@media(max-width:900px){
+  .uc-row,.uc-row:nth-child(even){grid-template-columns:minmax(0, 1fr);gap:28px}
+  .uc-row:nth-child(even) .uc-copy{order:0}
+  .uc-copy{max-width:640px}
+}
+/* /use-cases runs one row on its own between its cards and its list */
+.uc-band{padding:24px 0 96px}
+.uc-band .uc-n b:empty{display:none}
