@@ -2443,13 +2443,26 @@ html,body{max-width:100%;overflow-x:clip}
    shows the composition it has at 1200.
 
    The stage is laid out at its 1200 width, 538px, and scaled by the column
-   over that. tan(atan2(a, b)) is a / b, the one way CSS divides a length by
-   a length, and 100cqw is the column. A transform rather than zoom, so the
-   intro's offset* measurements still read the 538px layout it plays in. */
+   over that, which the script after the hero measures into --hk. A
+   transform rather than zoom, so the intro's offset* measurements still
+   read the 538px layout it plays in.
+
+   MEASURED, NOT COMPUTED IN CSS. The first version divided the column by
+   538px in the stylesheet, tan(atan2(100cqw, 538px)). Chrome and WebKit
+   drew it right; the founder's browser drew the pair four times too big at
+   one width and upside down at another, a negative scale. With no script,
+   --hk0 steps down in 50px bands, each set for the narrowest width in its
+   band with room for a scrollbar, so the pair is never wider than its column. */
 @media (min-width:901px) and (max-width:1199px){
-  .hero-visual{container-type:inline-size}
-  .hero-stage{width:538px;transform:scale(tan(atan2(100cqw, 538px)));transform-origin:0 50%}
+  /* or the 538px layout props the column open and squeezes the copy */
+  .hero-visual{min-width:0}
+  .hero-stage{width:538px;transform:scale(var(--hk, var(--hk0, .69)));transform-origin:0 50%}
 }
+@media (min-width:950px) and (max-width:1199px){.hero-stage{--hk0:.74}}
+@media (min-width:1000px) and (max-width:1199px){.hero-stage{--hk0:.78}}
+@media (min-width:1050px) and (max-width:1199px){.hero-stage{--hk0:.83}}
+@media (min-width:1100px) and (max-width:1199px){.hero-stage{--hk0:.88}}
+@media (min-width:1150px) and (max-width:1199px){.hero-stage{--hk0:.93}}
 
 /* 1. the quiz, dark smoked glass */
 .hero-stage .quiz{
@@ -2947,6 +2960,16 @@ a.vrow:hover,a.vrow:focus-visible{
     </div>
   </div>
 </section>
+<script>
+/* The hero pair's scale from 901 to 1199: its column over the 538px it is
+   laid out at (see "The pair, scaled" in the styles). Here, straight after
+   the hero, so the first paint already has it. */
+(function(){
+  var v = document.querySelector('.hero-visual'), s = v && v.querySelector('.hero-stage');
+  if (!s || !('ResizeObserver' in window)) return;
+  new ResizeObserver(function(){ s.style.setProperty('--hk', (v.clientWidth / 538).toFixed(4)); }).observe(v);
+})();
+</script>
 <section class="opener" id="opener" aria-labelledby="open-h">
   <div class="wrap open-inner">
     <span class="proof-mark" aria-hidden="true"><svg viewBox="0 0 56 56"><rect width="56" height="56" rx="14" fill="#0E0E10"/><rect class="c" style="--i:0" x="9" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:1" x="17" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:2" x="25" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c pick" style="--i:3" x="33" y="9" width="6" height="6" rx="1.5" fill="#4ADE80"/><rect class="c" style="--i:4" x="41" y="9" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c drop" style="--i:1" x="9" y="17" width="6" height="6" rx="1.5" fill="#F87171"/><rect class="c" style="--i:2" x="17" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:3" x="25" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:4" x="33" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:5" x="41" y="17" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:2" x="9" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c pick" style="--i:3" x="17" y="25" width="6" height="6" rx="1.5" fill="#4ADE80"/><rect class="c" style="--i:4" x="25" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:5" x="33" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:6" x="41" y="25" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:3" x="9" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:4" x="17" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:5" x="25" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c drop" style="--i:6" x="33" y="33" width="6" height="6" rx="1.5" fill="#F87171"/><rect class="c" style="--i:7" x="41" y="33" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:4" x="9" y="41" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c drop" style="--i:5" x="17" y="41" width="6" height="6" rx="1.5" fill="#F87171"/><rect class="c" style="--i:6" x="25" y="41" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c" style="--i:7" x="33" y="41" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.16)"/><rect class="c pick" style="--i:8" x="41" y="41" width="6" height="6" rx="1.5" fill="#4ADE80"/></svg></span>

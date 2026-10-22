@@ -208,6 +208,17 @@ section for what it is (`.opener`), never with a word the chrome uses as a
 state (`open`, `active`, `scrolled`, `is-*`). `nav-sheet.spec.mjs` in the
 workspace now asserts the bar does not move when its menu opens.
 
+## Ratios are measured, not divided in CSS
+
+On 2026-10-22 the homepage hero's pair was scaled to its column with
+`transform:scale(tan(atan2(100cqw, 538px)))`, the trick that divides a length
+by a length. Chromium and Playwright's WebKit drew it right; the founder's
+browser drew the pair four times too big at one width and upside down at
+another. A scale that depends on a box's size is set from script (a
+ResizeObserver writing a plain number into a custom property), with stepped
+media-query values as the no-script fallback. Check anything width-driven in
+both engines, and across a sweep of widths, not at three.
+
 ## Before merging
 
 - `node tools/check-prices.mjs`
