@@ -67,7 +67,8 @@ opens on the whole dashboard, zooms in, and goes back out to it at the end
 The films' choreography and their loop live in `films.css` and `films.js`
 (2026-10-22), so any page can play one: a `<figure class="film">` around a
 film's `.hw-screen` plays while half of it is on screen. /how-it-works is a
-film's source; a copy elsewhere is held equal to it. One trap from the move:
+film's source; a copy elsewhere is held equal to it. No page plays a copy
+since 2026-10-22, when the three use-case pages became articles (below). One trap from the move:
 the page's inline style now comes after `films.css`, so a films rule that
 must beat one of the page's own (the old `.hw-shot img`) wins on specificity,
 not on order.
@@ -129,6 +130,20 @@ soft shadow, from the `--glass-rim` and `--frame-*` tokens. The homepage
 tour and the films use the whole recipe; /how-it-works leaves out the
 backdrop blur, which over the ground light changes nothing visible and made
 the phone capture of that page flaky.
+
+## The use-case articles
+
+`/use-cases/shopify`, `/use-cases/supplement-brands` and `/use-cases/compare`
+are documents, not landing pages (founder, 2026-10-22: "more like use
+cases/blogs not pages with heroes, animations, etc. More academic/papers
+like", superpower.com/biomarkers as the reference). A plain title and
+standfirst, a summary, numbered sections with rows between hairlines, a table
+where something is compared, the questions, further reading, and a quiet
+card to try it. They sit on the legal pages' frame (`legal.css`, `legal.js`:
+the contents beside the text, marking the section in view) with
+`article.css` on top. No hero card, no films, no closing card. Keep it that
+way: a film or a hero added back to one of these is the thing the founder
+asked to remove.
 
 ## Prices
 
