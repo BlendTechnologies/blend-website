@@ -25,8 +25,7 @@
    THE FETCH IS THE AUTHORITY, not a list of allowed strings. A vendored copy
    of the app's enum would have drifted the same way the cycle name did; what
    cannot drift is whether the link lands on a payment page. Offline, it
-   falls back to checking the page is self-consistent and says so, the same
-   shape as check-demo-report.mjs.
+   falls back to checking the page is self-consistent and says so.
 
    These are LIVE Stripe sessions. Following the redirect creates a Checkout
    Session nobody completes, which is exactly what a visitor clicking the
