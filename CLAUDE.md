@@ -15,8 +15,9 @@ builder (`.bx`), 02 the results builder (`.bx.rx`), 03 Analytics (`.ax`, the
 whole page, scrolled to the part each card is about) and 04 Contacts (`.cx`).
 Each is the screen's own layout drawn at the width it was captured, 2000px,
 and scaled into the frame, so it is sharp at any size and is not an image.
-/how-it-works shows the first three again, in steps 03, 05 and 06, each
-playing a short loop (founder, 2026-10-21: "gifs for the how it works").
+/how-it-works shows the last two again, in steps 05 and 06, each playing a
+short loop (founder, 2026-10-21: "gifs for the how it works"); its step 03
+showed the quiz builder too until it got its own film (below).
 Their rules live once, in `product-screens.css`, linked by both pages; the
 markup is copied, the homepage is the source, and
 `node tools/check-screens.mjs` refuses when a copy differs.
@@ -34,6 +35,12 @@ cards show, are the engine's master references in
 `algorithms/personalization/data/product_taxonomy.json`, a combined product's
 being all of its ingredients' together. Regenerate them from there if the
 references change; never type a restriction in by hand.
+Step 03 has a seventh, the Quiz page and its editor (`.qx`, on the same
+dashboard): Brand essentials, Typography, Layout and spacing, Answers and
+buttons, Transitions, a screen's Content and Style, and Quiz setup. Its preview
+is one quiz screen drawn from the brand's variables (`--q-*`), so restyling it
+is changing them, as the editor does. All three films open on the whole
+dashboard and zoom in (founder: "same rule as before").
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the
