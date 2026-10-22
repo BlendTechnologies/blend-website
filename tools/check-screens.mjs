@@ -41,10 +41,6 @@ const COPIES = { 'how-it-works.html': [] };
    whole, and is held to it here. */
 const FILM_SOURCE = 'how-it-works.html';
 const FILM_COPIES = {
-  'use-cases/shopify.html': ['catalogue', 'match', 'recommend', 'launch'],
-  'use-cases/supplement-brands.html': ['recommend', 'match', 'design', 'analytics'],
-  'use-cases/compare.html': ['analytics', 'match', 'recommend'],
-  'use-cases/index.html': ['recommend'],
 };
 const FILM_SHEET = '<link rel="stylesheet" href="/films.css">';
 const FILM_SCRIPT = '<script src="/films.js" defer></script>';

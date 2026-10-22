@@ -1,0 +1,119 @@
+/* ============================================================
+   The use-case articles: /use-cases/shopify, /use-cases/supplement-brands
+   and /use-cases/compare
+   ------------------------------------------------------------
+   Founder, 2026-10-22: "These should be more like use cases/blogs not
+   pages with heroes, animations, etc. More academic/papers like", with
+   superpower.com/biomarkers and /reviews as the reference. So they read as
+   documents: a plain title and standfirst, a summary, numbered sections,
+   dense rows between hairlines, a table where there is something to
+   compare, and the reading at the end. No hero card, no films, nothing
+   that moves but the contents' marker.
+
+   The frame is the legal pages' (legal.css, legal.js): the text in one
+   column of 720px, the contents beside it from 1024px up, held in view
+   and marking the section being read, folded above the text below that.
+   This file adds what a document of this kind needs on top.
+   ============================================================ */
+
+.ar{padding:56px 0 112px}
+.ar .lg-grid{row-gap:48px}
+/* the title sits over the text, not over the contents */
+.ar-gap{display:none}
+@media(min-width:1024px){.ar-gap{display:block}}
+
+/* ---- the head ---------------------------------------------------------- */
+.ar-head{min-width:0}
+.ar-crumb{margin:0 0 32px;font-size:13px;color:var(--n-600)}
+.ar-crumb a{color:var(--n-600);text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px;
+  transition:color .15s ease,text-decoration-color .15s ease}
+.ar-crumb a:hover{color:var(--ink);text-decoration-color:var(--line-strong)}
+.ar-kind{margin:0;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600)}
+.ar-h1{margin:14px 0 0;font-size:clamp(32px, 3.3vw, 46px);line-height:1.08;letter-spacing:-.025em;font-weight:500;
+  color:var(--ink);text-wrap:balance}
+.ar-lead{margin:20px 0 0;font-size:19px;line-height:1.55;letter-spacing:-.012em;color:var(--ink-80)}
+.ar-meta{display:flex;flex-wrap:wrap;gap:6px 28px;margin:28px 0 0;padding:14px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px;color:var(--n-600)}
+.ar-meta b{font-weight:500;color:var(--ink)}
+
+/* ---- the contents, and the way to try it under them -------------------- */
+.ar-side-go{display:none}
+@media(min-width:1024px){
+  .ar-side-go{display:grid;gap:12px;justify-items:start;margin:28px 0 0 8px;padding:20px 0 0;border-top:1px solid var(--line)}
+  .ar-side-go p{margin:0;font-size:13px;line-height:1.5;color:var(--n-600)}
+  .ar-side-go a:not(.btn){font-size:14px;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:3px}
+}
+
+/* ---- the text ---------------------------------------------------------- */
+/* numbered sections, the way the contents count them */
+.ar-body{counter-reset:ar}
+.ar-body h2{counter-increment:ar}
+.ar-body h2::before{content:counter(ar, decimal-leading-zero);display:block;margin:0 0 6px;font-size:12px;font-weight:500;
+  letter-spacing:.04em;color:var(--gold-active);font-variant-numeric:tabular-nums}
+.ar-body h2.ar-un{counter-increment:none}
+.ar-body h2.ar-un::before{content:none}
+.ar-body h3{margin:36px 0 8px;font-size:18px;line-height:1.35;letter-spacing:-.01em}
+.ar-body h3 .ar-step{display:block;margin:0 0 4px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600)}
+
+/* the summary: what the page says, before it says it */
+.ar-sum{margin:0 0 8px;padding:22px 24px 10px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.ar-sum-t{margin:0 0 6px !important;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600)}
+.ar-sum ul{list-style:none;margin:0;padding:0}
+.ar-sum li{margin:0;padding:11px 0 11px 22px;border-top:1px solid var(--line);position:relative;font-size:15px;line-height:1.55;color:var(--ink)}
+.ar-sum li:first-child{border-top:0}
+.ar-sum li::before{content:"";position:absolute;left:2px;top:19px;width:8px;height:4px;border-left:1.5px solid var(--ink);
+  border-bottom:1.5px solid var(--ink);transform:rotate(-45deg)}
+
+/* rows: a term and what it means, between hairlines (superpower's
+   biomarker list is the reference) */
+.ar-rows{margin:22px 0 8px;border-bottom:1px solid var(--line)}
+.ar-rows > div{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);gap:8px 28px;padding:16px 0;border-top:1px solid var(--line)}
+.ar-rows dt{font-size:15px;line-height:1.5;font-weight:500;color:var(--ink)}
+.ar-rows dd{margin:0;font-size:15px;line-height:1.6;color:var(--ink-80)}
+@media(max-width:640px){.ar-rows > div{grid-template-columns:minmax(0,1fr);gap:4px}}
+
+/* a list of points, one to a row */
+.ar-body ul.ar-ticks{list-style:none;margin:16px 0 14px;padding:0;border-bottom:1px solid var(--line)}
+.ar-ticks li{position:relative;margin:0;padding:10px 0 10px 24px;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink)}
+.ar-ticks li::before{content:"";position:absolute;left:2px;top:18px;width:8px;height:4px;border-left:1.5px solid var(--n-600);
+  border-bottom:1.5px solid var(--n-600);transform:rotate(-45deg)}
+.ar-body a.ar-more{font-size:14px;font-weight:500;color:var(--gold-text, var(--gold-hover));text-decoration:none}
+.ar-body a.ar-more::after{content:" \2192"}
+.ar-body a.ar-more:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* questions and their answers */
+.ar-qa{margin:18px 0 8px;border-bottom:1px solid var(--line)}
+.ar-qa > div{padding:18px 0;border-top:1px solid var(--line)}
+.ar-qa dt{font-size:16px;line-height:1.45;font-weight:500;color:var(--ink)}
+.ar-qa dd{margin:6px 0 0;font-size:15px;line-height:1.65;color:var(--ink-80)}
+
+/* a table, as a paper sets one: the caption over it, the rules thin */
+.ar-body table{margin:22px 0 8px}
+.ar-body caption{caption-side:top;padding:0 0 12px 2px;text-align:left;font-size:13px;line-height:1.5;color:var(--n-600)}
+.ar-body caption b{font-weight:500;color:var(--ink)}
+.ar-body th{background:none}
+.ar-body td.ar-yes{color:var(--ink);font-weight:500}
+.ar-body td.ar-no{color:var(--n-500)}
+.ar-body td:not(:first-child),.ar-body th:not(:first-child){width:132px;white-space:nowrap}
+.ar-body td:first-child{white-space:normal}
+@media(max-width:760px){.ar-body td:not(:first-child){width:auto}}
+
+/* the reading: numbered, like a paper's references */
+.ar-refs{list-style:none;margin:18px 0 0;padding:0;counter-reset:ref;border-bottom:1px solid var(--line)}
+.ar-body .ar-refs li{counter-increment:ref;display:grid;grid-template-columns:40px minmax(0,1fr);margin:0;padding:14px 0;border-top:1px solid var(--line)}
+.ar-refs li::before{content:"[" counter(ref) "]";font-size:14px;line-height:1.55;color:var(--n-600);font-variant-numeric:tabular-nums}
+.ar-refs a{font-size:15px;font-weight:500}
+.ar-refs span{display:block;margin-top:2px;font-size:14px;line-height:1.55;color:var(--n-600)}
+
+/* the next step: a card at the end of the text, not a band across the page */
+.ar-next{margin:56px 0 0;padding:28px 28px 26px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.ar-next h2.ar-un{margin:0;padding:0;border:0;font-size:22px}
+.ar-next p{margin:8px 0 0 !important;font-size:15px;color:var(--ink-80)}
+.ar-next-go{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:20px}
+.ar-body .ar-next-go a.btn{text-decoration:none}
+.ar-body .ar-next-go a.btn-primary{color:var(--white)}
+.ar-next-alt{margin-left:6px;font-size:14px;color:var(--n-600)}
+/* the site's quiet button; the legal pages' base style has no use for it */
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
+.ar-body .ar-next-go a.btn-ghost{color:var(--ink)}
