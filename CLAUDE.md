@@ -15,6 +15,55 @@ builder (`.bx`), 02 the results builder (`.bx.rx`), 03 Analytics (`.ax`, the
 whole page, scrolled to the part each card is about) and 04 Contacts (`.cx`).
 Each is the screen's own layout drawn at the width it was captured, 2000px,
 and scaled into the frame, so it is sharp at any size and is not an image.
+/how-it-works showed three of them again, as short loops (founder,
+2026-10-21: "gifs for the how it works"), until each of its steps got its own
+film (below); it copies none of their markup now.
+Their rules live once, in `product-screens.css`, linked by both pages; the
+markup is copied, the homepage is the source, and
+`node tools/check-screens.mjs` refuses when a copy differs.
+Step 01 of /how-it-works has a fifth, the Catalogue (`.kx`, 2026-10-22),
+which is on that page only, so there is no copy to check. It is directed
+rather than walked through ("more than just someone strolling around the
+webapp"): a camera over the page, `--cx --cy --cs` per beat. Its prices are
+in pounds, because `tools/check-prices.mjs` holds every `$` figure on the
+site to `pricing.json`, and its product descriptions make no health claims.
+Step 02 has a sixth, Match (`.mx`, on the same `.kx` dashboard): Blend AI's
+scan, its list of matches and a combined product's Edit page. Its products are
+invented and marketing-named, half of them made of more than one ingredient;
+what each is matched to, and every goal and "Not suitable for" tag the matched
+cards show, are the engine's master references in
+`algorithms/personalization/data/product_taxonomy.json`, a combined product's
+being all of its ingredients' together. Regenerate them from there if the
+references change; never type a restriction in by hand.
+Step 03 has a seventh, the Quiz page and its editor (`.qx`, on the same
+dashboard): Brand essentials, Typography, Layout and spacing, Answers and
+buttons, Transitions, a screen's Content and Style, and Quiz setup. Its preview
+is one quiz screen drawn from the brand's variables (`--q-*`), so restyling it
+is changing them, as the editor does. Step 04 has an eighth, Recommend
+(`.wx`): the results editor's Wellness plan, drawn with the report's own `.rp`
+rules, and its Style and Text panels changing the layout, the product cards,
+the colours and what a card shows. Three products (founder: "show case 3
+products that's enough"), each with a canister photograph, and descriptions in
+the authorised wording for its nutrient, not the demo data's claims. It comes
+before Launch since 2026-10-22 (founder: "results should go before embed");
+the anchors `#recommend` and `#launch` stay with their content, so `#step-4`
+is Launch and `#step-5` Recommend. Step 05 has a ninth, Launch (`.lx`):
+the Quiz page as Design leaves it, its Embed panel and Publish. Its embed code
+and direct link carry an invented quiz id, never a real account's, and the
+address it is locked to is yourbrand.com (founder: "make sure you add fake codes
+and links"). Step 06 sets the homepage's Analytics (`.ax`) in the same
+dashboard (`.vx`), regenerated from the homepage's markup with the states its
+film needs: a tile picked, its panel swapped and its number counting up, a
+pointer resting on the chart, the Sleep follow-up in Answer insights, Who wants
+what by gender. Each does what the product does (`apps/webapp`
+`components/dashboard/metric-explorer.tsx`, `answer-insights.tsx`,
+`cross-tab-grid.tsx`), so no dashed previous period and no weekly charts. The
+question and its answers are the demo quiz's own
+(`apps/webapp/supabase/seed/quiz-demo.json`), and every new figure derives from
+the page's: the completion-rate chart is the two engagement series pooled over
+seven days, and the gender columns sum to the age columns' 1,212. Every film
+opens on the whole dashboard, zooms in, and goes back out to it at the end
+(founder: "same rule as before", "entire dashboard to end too").
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the
@@ -226,6 +275,7 @@ both engines, and across a sweep of widths, not at three.
 - `node tools/sync-science-facts.mjs --check`
 - `node tools/check-wordmark.mjs`
 - `node tools/check-nav.mjs`
+- `node tools/check-screens.mjs`
 - `node tools/check-demo-report.mjs`  (and `sync-demo-answers.mjs` when it refuses)
 - `node tools/check-css-shape.mjs`
 - `node tools/check-dashes.mjs`
