@@ -1778,15 +1778,23 @@ body{background:var(--ground)}
     top:calc(50vh + var(--nav-h) / 2 - var(--hw-half));
     margin-top:calc(50vh - var(--nav-h) / 2 - var(--hw-half));
     margin-bottom:calc(50vh - var(--nav-h) / 2 - var(--hw-half))}
-  /* from one step's film to the next (founder, 2026-10-22: "when it goes
-     from one animation to the other, add an effect"): the next rises in as
-     the last lifts away */
-  .hw-stage .hw-shot{transform:translateY(56px) scale(.96);transition:opacity .5s ease,transform .8s cubic-bezier(.22,1,.36,1)}
-  .hw-stage .hw-shot.is-before{transform:translateY(-56px) scale(.96)}
-  .hw-stage .hw-shot.is-active{transform:none}
+  /* from one step's film to the next (founder, 2026-10-22: "add an effect",
+     then "the place holder shouldn't move. Just close/switch from top to
+     bottom or vice versa depending on direction of scroll"): the frame stays
+     where it is and the next film is wiped in over the last, top to bottom
+     going down the page and bottom to top going back up. The last stays
+     under it until it is covered. The clip runs 60px outside the frame so
+     its shadow is not cut while it does. */
+  .hw-stage .hw-shot{opacity:0;z-index:0;transition:none}
+  .hw-stage .hw-shot.is-prev{opacity:1;z-index:1}
+  .hw-stage .hw-shot.is-active{opacity:1;z-index:2}
+  .hw-stage .hw-shot.is-active.is-down{animation:hw-wipe-down .75s cubic-bezier(.65,0,.35,1) both}
+  .hw-stage .hw-shot.is-active.is-up{animation:hw-wipe-up .75s cubic-bezier(.65,0,.35,1) both}
 }
+@keyframes hw-wipe-down{from{clip-path:inset(-60px -60px 100% -60px)}to{clip-path:inset(-60px)}}
+@keyframes hw-wipe-up{from{clip-path:inset(100% -60px -60px -60px)}to{clip-path:inset(-60px)}}
 @media(min-width:901px) and (prefers-reduced-motion:reduce){
-  .hw-stage .hw-shot,.hw-stage .hw-shot.is-before{transform:none}
+  .hw-stage .hw-shot.is-active{animation:none}
   .hw-zone > .hw-anchor{scroll-margin-top:var(--nav-h)}
   /* the margin above is the room under the hero here; the card hero's own
      72px (#136, for the one column) stacked on it made it 230px at 1440 */
@@ -2738,15 +2746,24 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
   var shots = [].slice.call(document.querySelectorAll('.hw-stage .hw-shot'));
   if (!zones.length || !shots.length || !('IntersectionObserver' in window)) return;
 
-  /* the frames before the active one sit above it, the ones after below, so
-     the next film rises in as the last one lifts away, whichever way the
-     reader is scrolling */
+  /* the next film is wiped in over the one being left, which stays under it
+     (is-prev) until it is covered; the wipe runs the way the reader is going */
+  var current = null, settle = null;
   function show(step){
+    if (step === current) return;
+    var down = current === null || +step > +current;
     shots.forEach(function(f){
-      var n = +f.getAttribute('data-step');
-      f.classList.toggle('is-active', f.getAttribute('data-step') === step);
-      f.classList.toggle('is-before', n < +step);
+      var s = f.getAttribute('data-step');
+      f.classList.toggle('is-prev', current !== null && s === current);
+      if (s === step) {
+        f.classList.remove('is-down', 'is-up');
+        if (current !== null) { void f.offsetWidth; f.classList.add(down ? 'is-down' : 'is-up'); }
+      }
+      f.classList.toggle('is-active', s === step);
     });
+    current = step;
+    clearTimeout(settle);
+    settle = setTimeout(function(){ shots.forEach(function(f){ f.classList.remove('is-prev'); }); }, 800);
   }
   var io = new IntersectionObserver(function(entries){
     /* Most-visible wins. Two zones overlap the band during a scroll, and
@@ -2869,8 +2886,16 @@ if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); c
       if(on && !still.matches) timer = setTimeout(tick, hold(0));
     }
     reset(sc); sc.classList.remove('is-pre');
-    new MutationObserver(function(){ play(fig.classList.contains('is-active')); })
-      .observe(fig, { attributes: true, attributeFilter: ['class'] });
+    var was = fig.classList.contains('is-active');
+    new MutationObserver(function(){
+      var now = fig.classList.contains('is-active');
+      if (now === was) return;
+      was = now;
+      if (now) { play(true); return; }
+      /* being wiped over: hold the frame it is on, rewind once it is covered */
+      clearTimeout(timer); timer = null;
+      timer = setTimeout(function(){ if (!was) play(false); }, 800);
+    }).observe(fig, { attributes: true, attributeFilter: ['class'] });
     if(fig.classList.contains('is-active')) play(true);
   });
 })();
