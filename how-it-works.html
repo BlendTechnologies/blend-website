@@ -1778,6 +1778,9 @@ body{background:var(--ground)}
     top:calc(50vh + var(--nav-h) / 2 - var(--hw-half));
     margin-top:calc(50vh - var(--nav-h) / 2 - var(--hw-half))}
   .hw-zone > .hw-anchor{scroll-margin-top:var(--nav-h)}
+  /* the margin above is the room under the hero here; the card hero's own
+     72px (#136, for the one column) stacked on it made it 230px at 1440 */
+  .ph + .hw-steps{padding-top:0}
 }
 /* ---- 01, 03, 05, 06: the product screens ----------------------------------
    The dashboard's own screens (product-screens.css, the same rules and markup
