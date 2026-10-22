@@ -307,8 +307,14 @@ body:has(.sc-hero) .nav:not(.scrolled){
    as a background-image ON the clipped layer (scroll-cards.css and the
    .sc-reveal::before override in index.html), where the clip-path applies to
    it for free and the card keeps its shape at every scroll position.
+   The inner pages' card hero (scroll-cards.css .hero-card) does the same: its
+   wash is its own background-image, as it was on .sc-hero::before. It
+   shares .sc-hero's :not() as a list ON PURPOSE: a :not() takes its most
+   specific argument, so the list keeps this rule at (0,3,1). A third :not()
+   made it (0,4,1), which beat the homepage's own overrides (the Talk row's
+   content:none among them) and moved the homepage at every width.
    What is left here is the plain rounded dark box, where inherit is right. */
-.theme-dark:not(.sc-reveal):not(.sc-hero)::after{content:"";position:absolute;
+.theme-dark:not(.sc-reveal):not(.sc-hero,.hero-card)::after{content:"";position:absolute;
   inset:0;z-index:0;background-image:var(--wash-deep);pointer-events:none;
   border-radius:inherit}
 /* the wash sits over the card and under everything written on it -- ONLY
@@ -318,7 +324,7 @@ body:has(.sc-hero) .nav:not(.scrolled){
    arrow dropped into the hero's grid as a second row and sat 32px above
    where it was drawn to be. Those two keep their wash on the clipped
    ::before now, and scroll-cards.css already lifts their .wrap. */
-.theme-dark:not(.sc-reveal):not(.sc-hero) > *{position:relative;z-index:1}
+.theme-dark:not(.sc-reveal):not(.sc-hero,.hero-card) > *{position:relative;z-index:1}
 
 /* GLASS, anywhere. Light over a wash, dark over an island. */
 .glass{background:var(--glass);

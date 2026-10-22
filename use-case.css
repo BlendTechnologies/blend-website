@@ -14,22 +14,20 @@
    rules this applies.
    ============================================================ */
 
-/* ---- The hero: the dark card every other page opens on ------------------
-   .sc-hero comes from scroll-cards.css; the page's own .hero rules set a
-   padding, a beige background and a radial on ::before that would cover the
-   card's fill, so each is put back here. */
-.hero.sc-hero{background:transparent;border-bottom:0;
-  padding:calc(40px + var(--nav-overlay)) 0 56px}
-.hero.sc-hero::before{background-color:var(--hero-tint,var(--hero-beige));
-  background-image:var(--wash-deep);pointer-events:none}
-/* The breadcrumb rides inside the card, above the title, where the transparent
-   bar cannot sit on it. */
-.hero.sc-hero .crumb{padding:0;margin:0 0 36px;color:var(--muted)}
-.hero.sc-hero .crumb a{color:var(--muted)}
-.hero.sc-hero .crumb a:hover{color:var(--ink)}
-.hero.sc-hero .crumb-sep{color:rgba(255,255,255,.3)}
-@media(max-width:960px){.hero.sc-hero{padding:calc(32px + var(--nav-overlay)) 0 56px}}
-@media(max-width:760px){.hero.sc-hero{padding:calc(24px + var(--nav-overlay)) 0 48px}}
+/* ---- The hero: the card the inner pages open on --------------------------
+   .hero-card comes from scroll-cards.css. Each page's own .hero rules come
+   after it and set a background shorthand (which drops the card's wash), a
+   hairline and a faint radial on ::before, so each is put back here. The
+   padding is page-hero.css's .ph, so all six cards breathe alike. */
+.hero.hero-card{background-color:var(--hero-tint,var(--deep));
+  background-image:var(--wash-deep);border-bottom:0;padding:72px 0 80px}
+.hero.hero-card::before{content:none}
+/* The breadcrumb rides inside the card, above the title. */
+.hero.hero-card .crumb{padding:0;margin:0 0 36px;color:var(--muted)}
+.hero.hero-card .crumb a{color:var(--muted)}
+.hero.hero-card .crumb a:hover{color:var(--ink)}
+.hero.hero-card .crumb-sep{color:rgba(255,255,255,.3)}
+@media(max-width:760px){.hero.hero-card{padding:56px 0 64px}}
 
 /* The Shopify storefront is the BRAND's store, so it stays a light window on
    the dark card, the way the homepage's quiz wears a client's theme. Inside

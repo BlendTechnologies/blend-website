@@ -88,6 +88,11 @@ body:has(.sc-hero) .nav:not(.scrolled){
   border-bottom-color:transparent;
 }
 
+/* Over a card hero (scroll-cards.css .hero-card) the bar is the page's own
+   white at rest, with no hairline, so it reads as the top of the page and
+   the card starts under it. Scrolled, it is the bar again. */
+body:has(.hero-card) .nav:not(.scrolled){border-bottom-color:transparent}
+
 /* Scoped past the page's own .wrap, which sets --content and is
    what made the bar three different widths. */
 .nav .nav-inner{

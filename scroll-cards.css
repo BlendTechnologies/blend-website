@@ -102,6 +102,26 @@
    The frame closes around fixed content now, and the type is the type. */
 .sc-hero > .wrap{position:relative;z-index:1}
 
+/* ---- The card hero: the static one -----------------------------------
+   How it works, Use cases with its three detail pages, and The engine open
+   on a card that starts under the bar, on the page's own ground (founder,
+   2026-10-22, from superpower.com's How it works). They used to open on
+   .sc-hero: a block that ran up behind a see-through bar at most of the
+   screen's height and closed into a card as you scrolled. The homepage
+   keeps that; these do not.
+
+   The inset and the corner are the ones .sc-hero closes to, so the two
+   cards are the same shape. Static, so the corner is a real border-radius
+   rather than a clip-path, and the wash is the card's own background, as
+   it is on .sc-hero::before: the surfaces spec reads it as lit, and
+   theme.css leaves .hero-card out of its ::after wash for plain dark
+   boxes, or it would be painted twice. The height is the content and the
+   composition's own padding (page-hero.css's .ph, or use-case.css), with
+   no viewport minimum. No overflow:hidden, so nothing is clipped at the
+   card's edge by the card itself. */
+.hero-card{margin:8px var(--sc-inset) 0;border-radius:var(--sc-round);
+  background-color:var(--hero-tint,var(--deep));background-image:var(--wash-deep)}
+
 /* ---- A reveal: a card at 0, full bleed at 1 -------------------------
    The ink is a layer inside the block rather than the block's own
    background, because clipping the block would reveal the page behind

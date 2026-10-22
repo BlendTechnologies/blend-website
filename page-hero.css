@@ -6,8 +6,9 @@
    nothing about how it looks; /how-it-works and /use-cases use it
    now instead of each keeping a hero of its own.
 
-   The shape and the shrink-on-scroll are .sc-hero in
-   scroll-cards.css. This is the composition inside it, top to
+   The shape is scroll-cards.css's .hero-card, a static card
+   under the bar (it was .sc-hero, the shrink-on-scroll block the
+   homepage keeps). This is the composition inside it, top to
    bottom: eyebrow, headline, sub, meta line, two buttons, and a
    bottom strip that is either figures or an index.
 
@@ -24,6 +25,7 @@
    — see .ph--fill below. */
 .ph > .wrap{position:relative;z-index:1}
 .ph--fill > .wrap{width:100%}
+
 .ph-inner{max-width:860px;margin:0 auto;text-align:center}
 /* Secondary text takes --ph-muted where a page sets one. The site's
    --muted is 4.65:1 on /science's tint and 4.30 and 4.46 on the two
