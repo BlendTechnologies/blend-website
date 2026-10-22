@@ -1,0 +1,497 @@
+{
+ "_": "The report /sample-report draws, from the engine's own output. tools/check-sample-report.mjs holds the page to it.",
+ "_how": "POST /recommend/algo (contract 2.0) on the engine in-process, 2026-10-22, with the request below: Alex's 43 answers from demo-answers.json mapped to their stable ids the way the webapp's lib/quiz/engine-payload.ts does, country GB as the webapp sends for a UK visitor, against the Blend Demo tenant's catalogue. HTTP 200, 8 products of 37 candidates. In the UK the engine's legality gate removes Melatonin (prescription-only) and Cordyceps takes its place. The figures below are transcribed from that response. To refresh: re-run the request, and update this file and the page together.",
+ "_display": "Two changes for the site's rules, not the engine's: the em dash in 'Omega-3 (Algae Oil — Vegan)' is a comma here, and the tag 'Healthy Aging' is spelt 'Healthy Ageing'. The demo catalogue has no prices and no photographs: no price is shown, and the photographs on the cards are the site's own.",
+ "request": {
+  "contract_version": "2.0",
+  "quiz_main": "1777914547769x511962629417775200",
+  "choices": [
+   {
+    "question_id": "002XNOTI",
+    "answer_ids": [
+     "002XNOTIX001XIACC",
+     "002XNOTIX002XITER"
+    ]
+   },
+   {
+    "question_id": "005XWHAT",
+    "answer_ids": [
+     "005XWHATX001XWOMA"
+    ]
+   },
+   {
+    "question_id": "007XWHIC",
+    "answer_ids": [
+     "007XWHICX001XMETR"
+    ]
+   },
+   {
+    "question_id": "013XWHAT",
+    "answer_ids": [
+     "013XWHATX007XPREF"
+    ]
+   },
+   {
+    "question_id": "014XAREY",
+    "answer_ids": [
+     "014XAREYX001XNO"
+    ]
+   },
+   {
+    "question_id": "015XDOYO",
+    "answer_ids": [
+     "015XDOYOX002XNO"
+    ]
+   },
+   {
+    "question_id": "017XAREY",
+    "answer_ids": [
+     "017XAREYX002XNO"
+    ]
+   },
+   {
+    "question_id": "021XHERE",
+    "answer_ids": [
+     "021XHEREX023XSLEE",
+     "021XHEREX002XBOOS",
+     "021XHEREX024XSTRE"
+    ]
+   },
+   {
+    "question_id": "025XAREY",
+    "answer_ids": [
+     "025XAREYX001XTROU",
+     "025XAREYX005XRACI"
+    ]
+   },
+   {
+    "question_id": "083XBOOS",
+    "answer_ids": [
+     "083XBOOSX002XAFTE",
+     "083XBOOSX006XCAFF"
+    ]
+   },
+   {
+    "question_id": "096XSTRE",
+    "answer_ids": [
+     "096XSTREX002XTROU"
+    ]
+   },
+   {
+    "question_id": "033XDOYO",
+    "answer_ids": [
+     "033XDOYOX001XNO"
+    ]
+   },
+   {
+    "question_id": "034XHOWM",
+    "answer_ids": [
+     "034XHOWMX001XLIMI"
+    ]
+   },
+   {
+    "question_id": "078XSLEE",
+    "answer_ids": [
+     "078XSLEEX002X56"
+    ]
+   },
+   {
+    "question_id": "035XEXCL",
+    "answer_ids": [
+     "035XEXCLX002XLIGH"
+    ]
+   },
+   {
+    "question_id": "036XDOYO",
+    "answer_ids": [
+     "036XDOYOX001XYES"
+    ]
+   },
+   {
+    "question_id": "079XACTI",
+    "answer_ids": [
+     "079XACTIX007XMIND"
+    ]
+   },
+   {
+    "question_id": "080XFREQ",
+    "answer_ids": [
+     "080XFREQX002X2"
+    ]
+   },
+   {
+    "question_id": "081XLENG",
+    "answer_ids": [
+     "081XLENGX002X3060"
+    ]
+   },
+   {
+    "question_id": "082XINTE",
+    "answer_ids": [
+     "082XINTEX002XMODE"
+    ]
+   },
+   {
+    "question_id": "044XLET'",
+    "answer_ids": [
+     "044XLET'X004XBALA"
+    ]
+   },
+   {
+    "question_id": "045XDOAN",
+    "answer_ids": [
+     "045XDOANX002XVEGE"
+    ]
+   },
+   {
+    "question_id": "046XWHAT",
+    "answer_ids": [
+     "046XWHATX001XBREA",
+     "046XWHATX003XLUNC",
+     "046XWHATX005XDINN",
+     "046XWHATX004XAFTE"
+    ]
+   },
+   {
+    "question_id": "047XHOWO",
+    "answer_ids": [
+     "047XHOWOX003XSOME"
+    ]
+   },
+   {
+    "question_id": "048XWHAT",
+    "answer_ids": [
+     "048XWHATX003XAVER"
+    ]
+   },
+   {
+    "question_id": "051XSHOR",
+    "answer_ids": [
+     "051XSHORX001XIWAN"
+    ]
+   },
+   {
+    "question_id": "054XHOWO",
+    "answer_ids": [
+     "054XHOWOX001XNEVE"
+    ]
+   },
+   {
+    "question_id": "056XHOWO",
+    "answer_ids": [
+     "056XHOWOX001XNEVE"
+    ]
+   },
+   {
+    "question_id": "058XHOWM",
+    "answer_ids": [
+     "058XHOWMX002X1–5E"
+    ]
+   },
+   {
+    "question_id": "059XHOWO",
+    "answer_ids": [
+     "059XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "061XHOWO",
+    "answer_ids": [
+     "061XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "063XHOWO",
+    "answer_ids": [
+     "063XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "065XHOWO",
+    "answer_ids": [
+     "065XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "067XHOWO",
+    "answer_ids": [
+     "067XHOWOX003XSOME"
+    ]
+   },
+   {
+    "question_id": "068XHOWO",
+    "answer_ids": [
+     "068XHOWOX003XSOME"
+    ]
+   },
+   {
+    "question_id": "069XHOWO",
+    "answer_ids": [
+     "069XHOWOX002XRARE"
+    ]
+   },
+   {
+    "question_id": "071XHOWO",
+    "answer_ids": [
+     "071XHOWOX002XRARE"
+    ]
+   },
+   {
+    "question_id": "073XHOWM",
+    "answer_ids": [
+     "073XHOWMX015X2TO3"
+    ]
+   },
+   {
+    "question_id": "075XHOWM",
+    "answer_ids": [
+     "075XHOWMX012XNONE"
+    ]
+   }
+  ],
+  "values": [
+   {
+    "question_id": "004XWHAT",
+    "type": "text",
+    "value": "Alex"
+   },
+   {
+    "question_id": "006XHOWO",
+    "type": "number",
+    "value": 34
+   },
+   {
+    "question_id": "008XWHAT",
+    "type": "number",
+    "value": 170
+   },
+   {
+    "question_id": "009XWHAT",
+    "type": "number",
+    "value": 68
+   }
+  ],
+  "country": "GB"
+ },
+ "report": {
+  "heading": "Your wellness plan",
+  "intro": "Based on your answers, your body needs extra support in 8 key areas. Your full plan is below, with the breakdown at the end.",
+  "profile": [
+   "34 years old",
+   "170 cm",
+   "68 kg",
+   "Vegetarian",
+   "Lightly Active",
+   "Healthy Weight",
+   "No Medical Condition"
+  ],
+  "goals": [
+   "Boost Energy",
+   "Sleep",
+   "Stress"
+  ],
+  "products": [
+   {
+    "name": "Omega-3 (Algae Oil, Vegan)",
+    "tier": "Essential",
+    "tags": [
+     "Heart",
+     "Cognitive Health",
+     "Bones & Joints",
+     "Mood & Emotions",
+     "Healthy Ageing"
+    ],
+    "why": "Your omega 3 is at 8% of your target.",
+    "form": "Softgel",
+    "timing": "With meal"
+   },
+   {
+    "name": "Vitamin D3",
+    "tier": "Essential",
+    "tags": [
+     "Bones & Joints",
+     "Immunity",
+     "Healthy Ageing",
+     "Mood & Emotions"
+    ],
+    "why": "Your vitamin D3 is at 6% of your target, which one serving covers.",
+    "form": "Softgel",
+    "timing": "With meal",
+    "caution": "Pair with Vitamin K2"
+   },
+   {
+    "name": "Iron",
+    "tier": "Essential",
+    "tags": [
+     "General Health Support",
+     "Boost Energy"
+    ],
+    "why": "Your iron is at 57% of your target, which one serving covers, and it matches your boost energy goal.",
+    "form": "Tablet",
+    "timing": "Evening"
+   },
+   {
+    "name": "Ashwagandha",
+    "tier": "Recommended",
+    "tags": [
+     "Stress",
+     "Sleep",
+     "Mood & Emotions",
+     "Testosterone Health"
+    ],
+    "why": "Chosen because you told us about trouble falling asleep and trouble winding down.",
+    "form": "Capsule",
+    "timing": "With meal"
+   },
+   {
+    "name": "L-Theanine",
+    "tier": "Recommended",
+    "tags": [
+     "Stress",
+     "Sleep",
+     "Mood & Emotions",
+     "Cognitive Health"
+    ],
+    "why": "Chosen because you told us about trouble falling asleep and racing mind at bedtime.",
+    "form": "Capsule",
+    "timing": "Before activity"
+   },
+   {
+    "name": "Multivitamin (Standard)",
+    "tier": "Recommended",
+    "tags": [
+     "General Health Support",
+     "Healthy Ageing",
+     "Boost Energy",
+     "Immunity"
+    ],
+    "why": "It helps with vitamin D3, iron, which you are short of, and it matches your boost energy goal.",
+    "form": "Tablet",
+    "timing": "With meal"
+   },
+   {
+    "name": "Creatine Monohydrate",
+    "tier": "Recommended",
+    "tags": [
+     "Build Muscle",
+     "Boost Energy",
+     "Cognitive Health",
+     "Increase Endurance"
+    ],
+    "why": "Chosen because it matches your boost energy goal.",
+    "form": "Scoop",
+    "timing": "With meal"
+   },
+   {
+    "name": "Cordyceps",
+    "tier": "Recommended",
+    "tags": [
+     "Increase Endurance",
+     "Boost Energy"
+    ],
+    "why": "Chosen because it matches your boost energy goal. This one is a fungal extract.",
+    "form": "Capsule",
+    "timing": "Morning"
+   }
+  ],
+  "macros": [
+   {
+    "label": "Calories",
+    "value": "2190",
+    "unit": "kcal",
+    "target": "Target 1865 kcal",
+    "pct": 117,
+    "cls": "m-g"
+   },
+   {
+    "label": "Protein",
+    "value": "85",
+    "unit": "g",
+    "target": "Target 83 g",
+    "pct": 102,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Carbs",
+    "value": "288",
+    "unit": "g",
+    "target": "Target 255 g",
+    "pct": 113,
+    "cls": "m-g"
+   },
+   {
+    "label": "Fat",
+    "value": "68",
+    "unit": "g",
+    "target": "Target 57 g",
+    "pct": 119,
+    "cls": "m-g"
+   },
+   {
+    "label": "Water",
+    "value": "1336",
+    "unit": "ml",
+    "target": "Drink 2631 ml",
+    "pct": 51,
+    "cls": "m-b"
+   },
+   {
+    "label": "Omega-3",
+    "value": "0.02",
+    "unit": "g",
+    "target": "Target 0.25 g",
+    "pct": 8,
+    "cls": "m-r"
+   },
+   {
+    "label": "Fibre",
+    "value": "40",
+    "unit": "g",
+    "target": "Target 30 g",
+    "pct": 133,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Free sugars",
+    "value": "29",
+    "unit": "g",
+    "target": "Limit 23 g",
+    "pct": 126,
+    "cls": "m-r"
+   },
+   {
+    "label": "Saturated fat",
+    "value": "23",
+    "unit": "g",
+    "target": "Limit 21 g",
+    "pct": 110,
+    "cls": "m-r"
+   }
+  ],
+  "macros_note": "Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.",
+  "breakdown": [
+   {
+    "group": "Vitamins",
+    "rows": [
+     {
+      "name": "Vitamin D3",
+      "pct": 6,
+      "sources": "Good food sources include eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter."
+     }
+    ]
+   },
+   {
+    "group": "Minerals",
+    "rows": [
+     {
+      "name": "Iron",
+      "pct": 57,
+      "sources": "Good food sources include lentils, eggs and iron-fortified cereals."
+     }
+    ]
+   }
+  ],
+  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use."
+ },
+ "_colours": "m-g is grey (informational), m-gr green (on track), m-b blue (water), m-r red (short or over), as product-screens.css names them; each macro's colour is the engine's verdict for it."
+}

@@ -137,58 +137,35 @@ a heading promising every goal a customer can pick.
 
 ## The sample report
 
-`/sample-report` **is** the demo. It embeds a real submission against the
-same quiz `/try` runs, so changing that quiz — its questions, its report
-sections, their order, the layout, the colours — changes this page with no
-work here at all.
+`/sample-report` is drawn here, not embedded (2026-10-22). It embedded one
+live demo result from the webapp until that result was deleted with the
+demo account's data, and the page showed "Page not found" inside its frame
+while the check guarding it passed: it read the 404 as "could not reach".
+An embedded result can be taken down by anything that touches the demo
+account, and nothing in this repository can see it go.
 
-It was an inlined export of the report component rendered against a
-fixture, and the fixture drifted: every percentage on a product card
-disagreed with the breakdown underneath it, for months, and nothing in this
-repository could have noticed.
-
-- The URL lives in `demo-report.json` and in the `#reportFrame` iframe.
-  `node tools/check-demo-report.mjs` refuses when the two disagree or when
-  the embedded URL has stopped being a report.
-- **A results link is good for 90 days** (`RESULTS_LINK_TTL_DAYS`,
-  `lib/quiz/results-expiry.ts`), checked before the recommendation is ever
-  fetched. On day 91 the page becomes one line of grey text and every other
-  check still passes — the page returns 200, the iframe loads, and the
-  screenshot suite cannot see inside a cross-origin frame. The checker warns
-  21 days out and fails after. Replacing it means taking the demo quiz
-  again and putting the new URL in both places.
-- **The page is two columns**: what Blend is and what this customer told it
-  on the left, the report those two produced on the right at half size.
-  The report column is a FIXED 576px, not a fraction, so the iframe lays
-  out at exactly 1024 and draws at exactly 0.5 — the app turns its macro
-  grid from two columns to four at 1024, so a column that follows the
-  window shows a tablet layout shrunk instead of the desktop one the
-  fullscreen button opens.
-- **The answers panel is a shape, not a list.** `api/_demo-summary.mjs`
-  builds who, goals, what they reported, how they live and what they eat
-  from the live submission; the full 43 rows sit behind a disclosure. It
-  printed all 43 in quiz order until 2026-10-19, and quiz order is
-  demographics first, so the rows a reader saw were consent, a name and a
-  unit choice while everything that produced a recommendation was below
-  the fold.
-- The panel is served by `/api/demo-answers`, a Vercel edge function, which
-  does not exist under a static server — so every local preview and every
-  visual-diff capture saw it hidden, and it was reported twice as missing
-  while being live the whole time. `demo-answers.json` is the same payload
-  vendored; `node tools/sync-demo-answers.mjs` writes it and
-  `check-demo-report.mjs` refuses when it drifts from the live submission.
-  Never edit it by hand. The sync also refuses to vendor a SMALLER panel
-  than the one on disk without `--accept-smaller`, because a matcher that
-  stopped fitting the quiz and a quiz that stopped asking look identical,
-  and the drift check cannot tell them apart once both sides agree.
-- The height comes from the report itself. It posts
-  `{source:"blend-report", type:"frame:height"}` on every resize
-  (`components/report/embed-auto-height.tsx`), built for brands embedding
-  the report on their own site; the page listens for that and checks the
-  origin. There is a tall fallback height for the message that never comes.
-- The palette swatches are gone with the fragment. A `--quiz-*` custom
-  property cannot cross an origin, so there was nothing left for them to
-  repaint. The live report wears the demo brand's own colours.
+- **Every figure is the engine's.** `sample-report.json` vendors the request
+  (Alex's 43 answers in `demo-answers.json`, mapped to stable ids the way the
+  webapp's `lib/quiz/engine-payload.ts` does, country GB) and what the engine
+  returned for it against the demo tenant's catalogue: eight picks with their
+  tiers, reasons, forms and the one caution, nine macros, two gaps, and the
+  report's own words. `node tools/check-sample-report.mjs` refuses when the
+  page shows anything the file does not. To change a figure, re-run the
+  request and change both.
+- **In the UK, Melatonin is out.** The engine's legality gate removes it
+  (prescription-only) and Cordyceps takes its place; the guide says so,
+  because it is the clearest safety proof on the page.
+- **Two spellings are the site's, not the engine's**: the em dash in the
+  algae oil's name is a comma, and "Healthy Aging" is "Healthy Ageing". The
+  demo catalogue has no prices (none shown) and no photographs (the cards
+  carry the site's canister shots, and the page says so).
+- **Desktop holds a guide beside the report** (`sample-report.js`), opening
+  the part in view, and the hero's index marks it too. Under 1024px the
+  guide reads first, all open, and the report follows.
+- **The pitch band is the founder's copy of 2026-10-19, as written.** It
+  carries outcome claims CONTENT_STATE.md forbids ("Convert more visitors",
+  "Increase average order value"); that was raised then and the founder
+  specified it anyway. Only its button changed, to the site's "Book a call".
 
 ## Agreement between pages
 
@@ -321,7 +298,7 @@ both engines, and across a sweep of widths, not at three.
 - `node tools/check-nav.mjs`
 - `node tools/check-screens.mjs`
 - `node tools/check-cookie-consent.mjs`
-- `node tools/check-demo-report.mjs`  (and `sync-demo-answers.mjs` when it refuses)
+- `node tools/check-sample-report.mjs`
 - `node tools/check-css-shape.mjs`
 - `node tools/check-dashes.mjs`
 - `node tools/check-product-facts.mjs`

@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en-GB"><head>
+<html lang="en-GB">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>See a Sample Wellness Report | Blend</title>
@@ -21,512 +22,264 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1E1E21">
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="/nav.css">
   <link rel="stylesheet" href="/nav-mobile.css">
+<link rel="stylesheet" href="/scroll-cards.css">
+<link rel="stylesheet" href="/page-hero.css">
+<link rel="stylesheet" href="/product-screens.css">
+<link rel="stylesheet" href="/sample-report.css">
 <link rel="stylesheet" href="/cookie-consent.css">
   <link rel="stylesheet" href="/theme.css">
 <style>
-  :root{--content:1200px;--bg:var(--ground);--track:rgba(255,255,255,.12);--accent:var(--gold);--accent-soft:var(--gold-soft);--green:var(--green-soft)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;
-    background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-
-  /* Buttons, same system as blend-technologies.com */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
-  .btn-primary{background:var(--gold-strong);color:var(--white)}
-  .btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
-  .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  /* 12px of side padding on a 93px label left "Try it yourself" all but
+:root{--content:1340px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Inter","Inter var",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;font-feature-settings:"cv11","ss01","ss03";font-size:16px;line-height:1.55;color:var(--ink);background:var(--ground);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img,svg{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--deep);color:var(--white);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:200}.skip:focus{left:16px}
+.wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+.h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;margin:0;text-wrap:balance}
+.lead{font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80);margin:0;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px}
+.btn-primary{background:var(--gold-strong);color:var(--white)}.btn-primary:hover{background:var(--gold-hover)}.btn-primary:active{background:var(--gold-active)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}.btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
+/* 12px of side padding on a 93px label left "Try it yourself" all but
    touching both ends of its own pill. The ≤860 rule below already carried
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
-  .samplebar{background:var(--deep);color:rgba(255,255,255,.72);font-size:12px;
-    text-align:center;padding:8px 16px}
-  .samplebar b{color:#fff}
+.btn-lg{padding:9px 19px;font-size:14px;min-height:38px}
+/* At rest the bar is the beige this page starts with, so the seam is not
+   there to find; scrolled, it goes back to being a bar over content. */
+@media(max-width:860px){}
+/* The shared PageHero: /page-hero.css. The tint is this page's, at the
+   same lightness as the others; the page's own ground stays --hero-beige
+   underneath it. */
+:root{--ph-muted:var(--muted)}
+/* ---- the page's ground ------------------------------------------------
+   One gradient on the body, white under the hero and beige by the end of
+   the page, so the fade runs the whole way down and the ink of the
+   closing card and the footer is cut out of beige rather than out of a
+   band that stops above them. The hero paints its own beige over the top
+   of it; the sections below are transparent so the gradient is what you
+   see. */
+body{background:var(--ground)}
+.closer,.footer{background:transparent}
 
-  .wrap{max-width:var(--content);margin:0 auto;padding:40px 32px 72px}
-  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  @media(max-width:560px){ .pgroup-grid{grid-template-columns:1fr} }
-  @media(max-width:900px){.hero .statgrid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:640px){.hero{padding:40px 24px 40px;border-radius:18px}
-    .hero .statgrid{grid-template-columns:1fr}}
-  @media (prefers-reduced-motion:reduce){
-    .js-motion .stat,.js-motion .arow{opacity:1;transform:none;transition:none}
-  }
-  @media(max-width:560px){.persona-tabs{grid-template-columns:1fr;max-width:none}}
-  @media(max-width:560px){.arow{grid-template-columns:130px 1fr}}
+.ph{--ph-ix:3}
+@media(max-width:760px){
+  .ph-ctas{flex-direction:column;align-items:center;gap:10px}
+  .ph-ctas .btn{width:100%;max-width:320px}
+}
+/* The rhythm the rest of the site keeps: a chapter pays the same above
+   and below. */
+.cases-section{padding:88px 0}
+/* Same adjacency rule as the homepage: a section that follows the hero
+   is already separated by the hero's own bottom padding, so it joins at
+   40 rather than opening another full 88. */
+.ph + .cases-section{padding-top:40px}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+@media(max-width:1000px){.cases-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:660px){.cases-grid{grid-template-columns:1fr}}
+/* The same reaction as the six step cards on the homepage: a clickable box
+   on this site lifts 2px, warms its border to the muted amber-beige and goes
+   from the small shadow to the medium one, over 180ms. Not the full gold —
+   three cards in a row each wearing a bright outline read as an alert rather
+   than a pointer — and not a grey border, which says "disabled" more than it
+   says "press me". Keyboard focus gets the identical treatment plus the ring,
+   because a keyboard user is pointing at it too. */
+.case-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:32px 32px;display:flex;flex-direction:column;text-align:left;box-shadow:var(--shadow-sm);transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease;position:relative}
+.case-card:hover,.case-card:focus-visible{border-color:#CFB68F;transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.case-card:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px}
+.case-card-icon{width:48px;height:48px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex-shrink:0}
+.case-card-icon.shopify{background:rgba(149,191,71,.18)}
+.case-card-icon svg{width:22px;height:22px;color:var(--gold-text)}
+.case-card-icon.shopify svg{color:#5E8E3E}
+/* Two of the three titles are one line and one is two, so without a floor
+   the three paragraphs start at three different heights. */
+.case-card h3{font-size:20px;font-weight:500;letter-spacing:-.015em;line-height:1.25;margin:0 0 10px;color:var(--ink);min-height:2.5em}
+.case-card p{font-size:14px;color:var(--ink-80);line-height:1.6;margin:0 0 24px;flex:1}
+.case-card-cta{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:500;letter-spacing:-.005em}
+.case-card-cta::after{content:"\2192";transition:transform .2s ease}
+.case-card:hover .case-card-cta::after{transform:translateX(3px)}
 
-  @media(max-width:800px){.top{grid-template-columns:1fr}}
-  h1{font-size:32px;letter-spacing:-.02em;line-height:1.1}
-  @media(max-width:640px){
-    .pgrid{display:block}
-    .pgroup-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px}
-    .pgroup-grid::-webkit-scrollbar{display:none}
-    .slide{flex:0 0 82%;scroll-snap-align:start}
-  }
-  @media(max-width:560px){.brow{grid-template-columns:96px 1fr 44px;gap:8px}}
-  /* Scoped to this panel. Unscoped, it redefined the site's .btn further down
-     the stylesheet than the real one and beat .btn-sm on equal specificity,
-     so the nav CTA on this page alone rendered inline-block at 12px with no
-     min-height: 119.5x42.6 against 128.8x38 on the other twelve. */
-  .cta .btn{display:inline-block;padding:12px 20px;border-radius:999px;text-decoration:none;
-    font-size:12px;font-weight:500}
+/* ---- Who it's for -------------------------------------------------------
+   Five anchored rows, one per chip on the homepage's "Who we work with"
+   card. Those chips have been linking into this page since the homepage
+   gained them; the page had no anchors at all, so all five landed at the
+   top. Rows rather than a grid: five cards leave a ragged last row at
+   every column count, and the names are the thing being scanned. */
+.aud-section{padding:0 0 88px}
+.aud-head{max-width:720px;margin:0 auto 40px;text-align:center}
+.aud-head .eyebrow{display:inline-block;margin-bottom:14px}
+.aud-head .h2{margin-bottom:16px}
+.aud-head .lead{margin-left:auto;margin-right:auto;max-width:560px}
+.aud-list{max-width:1100px;margin:0 auto;padding:0;border-top:1px solid var(--line)}
+.aud-row{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) minmax(0,240px);gap:16px 36px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
+.aud-row dt{margin:0;font-size:20px;font-weight:500;letter-spacing:-.015em;line-height:1.25;color:var(--ink)}
+.aud-row dd{margin:0}
+.aud-row .aud-go{text-align:right}
+.aud-row dd p{margin:0;font-size:15px;line-height:1.6;color:var(--ink-80)}
+.aud-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold-text);font-size:14px;font-weight:500;letter-spacing:-.005em;line-height:1.6}
+.aud-link::after{content:"\2192";transition:transform .2s ease}
+.aud-link:hover::after{transform:translateX(3px)}
+@media (prefers-reduced-motion:reduce){.aud-link::after{transition:none}}
+@media(max-width:980px){.aud-row{grid-template-columns:minmax(0,220px) minmax(0,1fr)}.aud-link{margin-top:12px}}
+@media(max-width:760px){.aud-row{grid-template-columns:minmax(0,1fr);gap:10px;padding:24px 0}.aud-row dt{font-size:18px}}
+/* The bar is sticky and 68px tall, so an anchor that scrolls to 0 puts its
+   own heading underneath it. */
+[id]{scroll-margin-top:calc(var(--nav-h) + 28px)}
+/* ...but [id] is broad enough to catch the bar itself. #nav, #nav-links and
+   #nav-toggle are not anchor targets, and a scroll-margin on a STICKY element
+   means that focusing it scrolls the page to make room above it: tabbing to
+   the menu button moved the page up 84px, and it could never succeed, because
+   the bar travels with the viewport. Anchor targets are the sections. */
+/* ---- The closing band and the footer: the homepage's, verbatim ----------
+   Copied from index.html on 2026-10-20 (founder: "make sure how it works, use
+   cases and the engine look like the homepage"). This page's own copies had
+   drifted: smaller headings, uppercase column labels, a beige gold, and on the
+   use-case pages a footer wordmark drawn black on black. Change it there, then
+   here, or not at all. */
+.cta-alt{margin-top:14px;font-size:14px;color:var(--ink-60);letter-spacing:-.005em}
+.cta-alt a{color:var(--gold-text);text-decoration:underline;text-decoration-color:var(--gold-soft);text-underline-offset:3px;font-weight:500}
+.cta-alt a:hover{text-decoration-color:var(--gold)}
+:root .theme-dark{--gold-text:var(--gold);--gold-soft:rgba(180,127,57,.32)}
+.closer{position:relative;padding:120px 0 72px;text-align:center;background:var(--page);color:var(--white);overflow:hidden}
+/* The closing band and the footer are one card, not two. The closer insets
+   its top and sides and rounds only its top corners; the footer insets its
+   sides and bottom and rounds only its bottom corners; neither insets the
+   edge they share. Two clipped layers, one continuous shape, one
+   progression. Wrapping them in a single element would have been simpler
+   and is not available: </main> closes between them. */
+.closer > .wrap{position:relative;z-index:1}
+.closer .h1{max-width:760px;margin:0 auto 7px;color:var(--white)}
+.closer .lead{margin:0 auto 35px;max-width:520px;color:var(--muted-on-dark)}
+.closer .eyebrow{display:inline-block;margin-bottom:14px}
+.closer-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+/* The outlined button is drawn for ink on cream, so it gets a light
+   counterpart here rather than a near-invisible dark outline on black. */
+/* GLASS, on a dark ground. Measured on superpower.com's hero:
+   rgba(255,255,255,.1) over backdrop-filter:blur(32px), radius 999, and NO
+   border. The translucency does the separating a border used to, and a
+   1px outline on top of it reads as neither one thing nor the other.
+   backdrop-filter is progressive: without it this is simply a 10% white
+   fill, which still works on a dark ground. */
+.closer .btn-ghost,.theme-dark .btn-ghost,.sc-hero .btn-ghost{
+  color:var(--white);border-color:transparent;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(32px) saturate(140%);
+  -webkit-backdrop-filter:blur(32px) saturate(140%)}
+.closer .btn-ghost:hover,.theme-dark .btn-ghost:hover,.sc-hero .btn-ghost:hover{
+  background:rgba(255,255,255,.17);border-color:transparent}
+.closer .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+.closer .cta-alt{color:rgba(255,255,255,.62)}
+.closer .cta-alt a{color:var(--gold-text);text-decoration-color:rgba(180,127,57,.55)}
+.closer .cta-alt a:hover{text-decoration-color:var(--gold)}
+.closer-foot{margin-top:28px;font-size:14px;color:rgba(255,255,255,.62)}
+.closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
+.closer-foot a:hover{border-bottom-color:var(--white)}
+.footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:48px 0 32px}
+@media (max-width:760px){.footer{padding:76px 0 28px}}
+.footer > .wrap{position:relative;z-index:1}
+.footer a:hover{color:var(--white)}
+.footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
+.footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
+.footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
+.footer-news{margin-top:24px;display:flex;gap:8px;max-width:360px}
+.footer-news label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
+.footer-news input::placeholder{color:rgba(255,255,255,.4)}
+.footer-news input:focus{border-color:rgba(255,255,255,.5)}
+.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;border:1px solid var(--line-strong)}
+.footer-news button:hover{background:rgba(255,255,255,.85)}
+.footer-col h5{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.45);margin:0 0 14px;font-weight:400}
+.footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.footer-col a{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.78);transition:color .15s ease}
+.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.45)}
+.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
+.footer-trust-label{color:var(--gold);font-weight:400}
+.footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
+@media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
 
-@media(max-width:560px){.wrap{padding:28px 20px 56px}}
-@media(max-width:380px){.wrap{padding:24px 16px 48px}}
+@media(max-width:560px){.wrap{padding:0 20px}}
+@media(max-width:380px){.wrap{padding:0 16px}}
 
 html,body{max-width:100%;overflow-x:clip}
 
-  /* ---- The page around the exported report -------------------------
-     The report is a live cross-origin document since #120, so none of
-     this reaches inside it. It styles the page around the frame. */
-
-
-  /* The report is a document: it keeps its own light surface on the page,
-     the way a sheet of paper would, and the brand palette repaints it
-     rather than the page around it.
-
-     THE MARGIN IS THE APP'S NOW, NOT THIS FILE'S, which is why there is so
-     little of it here. When the frame held an EXPORT of the report, the
-     export was the content only: measured in the page, the first product
-     card's left border sat at x=0 of the frame and the last one's right
-     border at the far edge, so the radius and overflow:hidden clipped
-     both, and a document whose contents run off all four sides reads as a
-     screenshot zoomed to fill. 32px was the fix, taken from the app's own
-     container.
-
-     The frame holds the LIVE page now, and that page brings the container
-     with it:
-
-         app/quiz/[embedKey]/results/[submissionId]/page.tsx
-         max-w-[1040px] ... p-8
-
-     32px inside the iframe, drawn at half scale, so the report already
-     arrives with 16px of visible margin of its own. Ours was stacked on
-     top of it and the result was a small document in a large box.
-
-     12, not 10, and not 32: 12 is the floor the design hook asks of any
-     bordered box, and here it buys nothing away. 540 of frame less 24 of
-     padding is a 516 viewport, so the iframe lays out at 1032 — under the
-     container's 1040 max, so it still fills rather than centring, and over
-     the 1024 where the macros go from two columns to four. One value at
-     every width, because 6px on a phone was under that floor and a phone
-     is where a clipped corner shows most. */
-  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-  /* THE PITCH FULL WIDTH, THEN ONE EXAMPLE ROW UNDER IT.
-     ------------------------------------------------------------------
-     The founder's shape, and it buys something the two-column version
-     could not: the row below is now nothing but one customer's answers
-     beside the report they produced, so a SECOND example is a second copy
-     of that row and a reader compares them down the page. While the pitch
-     sat in the left column there was no row to copy.
-
-     40/60, not half and half: the answers are a summary and the report is
-     a document, and the document needs the inches.
-
-     WHY 938 AND NOT 1040, AND WHY THE SCROLLBAR IS IN THE SUM. The iframe
-     lays out at twice the viewport it sits in and draws at a half, and the
-     report's macro grid is `grid-cols-2 lg:grid-cols-4` with Tailwind's lg
-     at 1024px. So the iframe has to lay out over 1024 or the preview shows
-     a tablet layout shrunk, which is not what the fullscreen button opens.
-
-     IT HAS TO CLEAR 1024 WITH A SCROLLBAR TAKEN OFF IT. The report scrolls
-     inside the frame, so a platform with classic scrollbars spends ~15px
-     of the iframe's own layout width on one, and a media query inside the
-     document measures what is left. At 1032 that is 1017, and the founder
-     saw two columns of macros in a browser while this file had been
-     verified at four by a Playwright capture, where scrollbars are overlay
-     and cost nothing. Measuring the wrong viewport is the whole bug.
-
-     524 of viewport is 1048 of iframe, 1033 after a scrollbar: over 1024
-     either way, and under the app container's own max-w-[1040px] when the
-     scrollbar is there, so the report fills rather than centring. 548 of
-     frame is 524 once its 12 of padding comes off; 548 is 60% of 914, and
-     914 plus the 24 gap is 938.
-
-     The pitch band keeps the same 938 so the page has one measure. */
-  .pitch,.report-split{max-width:938px;margin-left:auto;margin-right:auto}
-  .pitch{margin-bottom:24px}
-  .report-split{display:grid;grid-template-columns:minmax(0,40fr) minmax(0,60fr);
-    gap:24px;align-items:start}
-  /* A size container for the card inside it: the detail rows go two across
-     or one depending on how wide this column actually is, which is not a
-     function of the window alone. */
-  .report-aside{min-width:0;container-type:inline-size}
-  @media(max-width:1000px){
-    .report-split{grid-template-columns:minmax(0,1fr)}
+/* ---- Phone: the three scenarios become a swipe deck ---------------------
+   Same pattern as the homepage decks. Bleed tracks the .wrap gutter at each
+   breakpoint (32 / 20 / 16) or the rail hangs past the viewport. padding-right
+   is 0 and the trailing space comes from a margin on the last card plus
+   scroll-padding-right, because padding on a scroll container is not reliably
+   included in scrollWidth and gets ignored at the scroll end. */
+@media (max-width:660px){
+  .cases-grid{
+    display:flex;
+    flex-direction:row;
+    grid-template-columns:none;
+    max-width:none;
+    overflow-x:auto;
+    overflow-y:visible;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:12px;
+    margin-left:-32px;margin-right:-32px;
+    padding:0 0 20px 32px;
+    scroll-padding-left:32px;scroll-padding-right:32px;
   }
+  .cases-grid::-webkit-scrollbar{display:none}
+  .case-card{flex:0 0 86%;width:86%;min-width:0;scroll-snap-align:start;padding:26px 22px}
+  .cases-grid>:last-child{scroll-snap-align:end;margin-right:32px}
 
-  /* ---- the two cards share a rhythm ----------------------------------
-     They are read as a pair — what the product is, then what this one
-     customer put into it — so the heading size, the section labels, the
-     padding and the radius are the same in both, and only the ground
-     changes. Set here once rather than twice. */
-  .pitch{border-radius:16px;padding:26px 28px}
-  .answers{border-radius:16px;padding:24px}
-  .answers-head h2{margin:0 0 8px;font-size:18px;font-weight:500;
-    letter-spacing:-.02em;line-height:1.25}
+  .deck-dots{display:flex;justify-content:center;gap:8px;margin-top:2px;padding:0}
+  .deck-dots button{position:relative;width:7px;height:7px;padding:0;border:0;border-radius:999px;
+    background:var(--deep);opacity:.18;cursor:pointer;
+    transition:opacity .2s ease,transform .2s ease}
+  .deck-dots button[aria-current="true"]{opacity:.75;transform:scale(1.25)}
+  .deck-dots button::before{content:"";position:absolute;width:32px;height:32px;margin:-13px 0 0 -13px}
+}
+@media (max-width:560px){
+  .cases-grid{margin-left:-20px;margin-right:-20px;padding-left:20px;
+    scroll-padding-left:20px;scroll-padding-right:20px}
+  .cases-grid>:last-child{margin-right:20px}
+}
+@media (max-width:380px){
+  .cases-grid{margin-left:-16px;margin-right:-16px;padding-left:16px;
+    scroll-padding-left:16px;scroll-padding-right:16px}
+  .cases-grid>:last-child{margin-right:16px}
+}
 
-  /* A SECTION HEADING IN THE REPORT'S OWN VOICE. This was a 10px grey
-     uppercase label with a rule running out beside it, and set next to the
-     live report it read as a wireframe: the report titles its sections
-     "Your profile" and "Your macros" in dark 13.5px with a hairline UNDER
-     the whole row. Same thing here, so the two halves of the page are
-     plainly the same product. */
-  .pf-label{margin:0 0 10px;padding-bottom:7px;
-    border-bottom:1px solid var(--line);
-    font-size:13.5px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
-
-  /* ---- the pitch, a dark island -------------------------------------
-     Dark because it is the one box on the page that is us talking. The
-     answers below it and the report beside it are both the product's own
-     words, and they are both white; a reader can tell at a glance which is
-     which. .theme-dark redefines every token the components inside read,
-     so nothing in here needs to know where it is (theme.css).
-
-     The inset hairline is what stops it reading as a hole cut in the page:
-     a flat near-black rectangle on a warm ground has no edge of its own,
-     and the report beside it has a shadow and a border. */
-  /* THREE COLUMNS: the pitch, then two of business outcomes. The headline
-     carries the band, so the left column is sized for it and the two
-     benefit columns split what is left evenly. Equal columns, equal gaps,
-     and the same rhythm inside both, because six benefits that do not line
-     up read as two lists rather than one set. */
-  .pitch{background:var(--deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
-    display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
-    gap:30px 32px;align-items:start}
-
-  /* The column stretches to the band's height and the call to action sits
-     at the bottom of it; the 1fr row is what holds the copy up against the
-     headline instead of floating it in the middle. */
-  .pitch-say{display:grid;gap:18px;align-self:stretch;
-    grid-template-rows:auto auto 1fr auto}
-  /* 18px, half the 30 it opened at. The bar already carries a wordmark
-     twelve pixels above this card, so the one in here is a signature on
-     the band rather than a second announcement: present, small, and not
-     competing with the headline under it. The gap to that headline is
-     tightened because they are one unit. */
-  .pitch-mark{display:block;margin-bottom:-4px}
-  /* SIGNIFICANTLY more prominent, per the brief, and the one piece of type
-     on the page allowed to be this size. clamp so a 300px column on a
-     laptop and a 650px one on a phone do not both get 28px. */
-  .pitch-head{margin:0;font-size:clamp(24px,2.1vw,29px);line-height:1.15;
-    font-weight:500;letter-spacing:-.025em;color:var(--ink)}
-  .pitch-copy{display:grid;gap:12px;align-content:start}
-  .pitch-lead{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
-  /* The three short sentences are the objection handler, so they read as an
-     aside to the promise above rather than as more of it. */
-  .pitch-sub{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
-  .pitch-cta{align-self:end}
-  .pitch-cta .btn{gap:10px}
-  .btn-arrow{font-size:15px;line-height:1;transition:transform .18s ease}
-  .pitch-cta .btn:hover .btn-arrow{transform:translateX(3px)}
-  @media(prefers-reduced-motion:reduce){
-    .btn-arrow,.pitch-cta .btn:hover .btn-arrow{transition:none;transform:none}
-  }
-
-  /* Six benefits, three to a column, divided by the same hairline and lit
-     by the same tick.
-
-     ONE GRID, NOT TWO LISTS. Two separate <ul>s each spaced themselves, so
-     the second benefit in the left column and the second in the right
-     started at different heights whenever their copy ran to a different
-     number of lines, and six benefits that do not line up read as two
-     lists rather than one set. Column flow over three auto rows gives each
-     ROW the height of its taller item, so both columns step together.
-
-     That makes the first item of each COLUMN nth-child(3n+1) rather than
-     :first-child, which is what the divider and the tick hang off. */
-  .pitch-list{list-style:none;margin:0;padding:0;align-self:stretch;
-    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-    grid-template-rows:repeat(3,auto);grid-auto-flow:column;column-gap:32px}
-  .pitch-list li{position:relative;padding:12px 0 12px 24px;
-    border-top:1px solid var(--line)}
-  .pitch-list li:nth-child(3n+1){border-top:0;padding-top:0}
-  /* A notch down, and the padding with it: the brief was a slightly shorter
-     box, and type alone would have left the rhythm loose around smaller
-     words. */
-  .pitch-list b{display:block;font-size:12.5px;font-weight:500;line-height:1.35;
-    color:var(--ink);letter-spacing:-.01em}
-  .pitch-list span{display:block;margin-top:4px;font-size:11.5px;line-height:1.5;
-    color:var(--muted)}
-  /* A tick drawn in CSS rather than the homepage's data-URI one: that file
-     has #B47F39 baked into it, and on this ground the gold that reads is
-     --sand. A custom property cannot cross into a data URI, so the shape
-     is borders instead. */
-  .pitch-list li::before{content:"";position:absolute;left:1px;top:17px;
-    width:9px;height:5px;border-left:1.5px solid var(--sand);
-    border-bottom:1.5px solid var(--sand);transform:rotate(-45deg)}
-  .pitch-list li:nth-child(3n+1)::before{top:5px}
-
-  /* ---- the answers, designed rather than dumped ---------------------
-     43 rows in quiz order was a wall, and quiz order put consent, a name
-     and a unit choice at the top of it: everything that produced a
-     recommendation was below the fold of the cap. So the panel draws a
-     shape — who, goals, what they flagged, how they live, what they eat —
-     and the full 43 are a disclosure underneath.
-
-     The shape is built in api/_demo-summary.mjs from the same submission
-     the report renders, so it cannot drift from it, and
-     tools/check-demo-report.mjs refuses when the vendored fallback does. */
-  /* ONE SURFACE. This had a cream header band and a cream footer band for
-     about an hour, and they were wrong: --cream IS the page, so the header
-     text read as sitting OUTSIDE a white rectangle rather than on a card,
-     and the three slabs did not line up. Background slabs do not make
-     hierarchy; type and hairlines do. */
-  .answers{background:var(--surface);border:1px solid var(--line);padding:22px}
-  .answers-head{padding:0 0 16px;margin:0 0 18px;
-    border-bottom:1px solid var(--line)}
-  .answers-body{padding:0}
-  .answers-byline{margin:0 0 2px;font-size:13px;color:var(--ink-80);font-weight:500}
-  /* 12.5px, not 11.5. This is the only running PROSE on the card, as
-     against the labels and pills around it, and 11.5 is small for a
-     sentence somebody is meant to read rather than scan. The tile labels
-     stay at 9 and the pills at 11 because neither is body text: they are
-     the report's own scale, which this card borrows on purpose. */
-  .answers-sub{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
-
-  .pf{display:grid;gap:18px}
-  .pf-block{display:grid}
-
-  /* PILLS AND TILES, WHICH IS WHAT THE REPORT IS MADE OF.
-     ------------------------------------------------------------------
-     Set beside the live report this panel read as a wireframe, and the
-     reason was vocabulary rather than spacing. The report draws "Your
-     profile" and "What you told us matters" as small outlined pills, and
-     every macro as a bordered tile with a tiny uppercase label over a
-     value. It is dense, contained and finished. This was rules and loose
-     text on white.
-
-     So the panel borrows both components. That is not decoration: the
-     page's whole argument is that the left column produced the right one,
-     and it lands harder when a reader can see the same parts in both.
-
-     Pills small, like the report's. They were 12px with 10px of side
-     padding and five sentence-length ones wrapped into three rows of
-     bubbles that dominated the card. */
-  .pf-chips,.pf-tags{list-style:none;margin:0;padding:0;
-    display:flex;flex-wrap:wrap;gap:5px}
-  .pf-chips li,.pf-tags li{font-size:11px;line-height:1.3;padding:4.5px 9px;
-    border-radius:999px;border:1px solid var(--line)}
-  /* Goals carry the accent: they are what the customer ASKED for and the
-     plan is ordered by them. What they reported is what the customer TOLD
-     us, which is a different kind of fact and reads plainer. */
-  .pf-chips li{font-weight:500;background:var(--gold-soft);color:var(--gold-text);
-    border-color:rgba(180,127,57,.22)}
-  .pf-tags li{background:var(--surface-2);color:var(--ink-80)}
-
-  /* The macro tile, at this scale. Tiny uppercase label over the value,
-     bordered, on the lifted surface.
-
-     TWO ACROSS FOR BOTH GROUPS. Four across for the food frequency was
-     right for "Never" and "Daily" and wrong for "1-5 eggs", which wrapped
-     in a 74px tile; and two groups on different grids read as two
-     different components rather than one. */
-  .pf-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0}
-  .pf-tiles > div{border:1px solid var(--line);border-radius:8px;
-    padding:8px 10px;background:var(--surface-2);min-width:0}
-  .pf-tiles dt{font-size:9px;font-weight:500;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--muted);white-space:nowrap}
-  .pf-tiles dd{margin:3px 0 0;font-size:12.5px;font-weight:500;color:var(--ink);
-    line-height:1.25;min-width:0}
-
-  /* The full transcript, behind a disclosure. Nothing is hidden from a
-     reader who wants it; it is just not the first thing they meet.
-     Not a <details>: the panel ships `hidden` and is revealed by script
-     once the data is in hand, and a <details> would render its summary
-     with nothing behind it in the meantime. */
-  .answers-all{margin:0;display:grid;grid-template-columns:minmax(0,1fr)}
-  /* `hidden` is display:none in the UA sheet, and ANY author display rule
-     beats it. So the line above silently un-hid the transcript: the button
-     said "See all 43 answers" with all 43 already under it, and the aside
-     measured 3,374px against the report's 802. Specificity, not
-     !important — this is the element's own rule, not a global override.
-     tools/check-css-shape.mjs refuses a page that loses this. */
-  .answers-all[hidden]{display:none}
-  .answers-all > div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
-    gap:14px;padding:7px 0;border-top:1px solid var(--line);align-items:baseline}
-  .answers-all dt{font-size:12.5px;color:var(--muted);min-width:0}
-  .answers-all dd{margin:0;font-size:12.5px;color:var(--ink-80);min-width:0}
-  .answers-foot{margin-top:18px;padding-top:4px;border-top:1px solid var(--line)}
-  /* The whole band is the target, not four underlined words in the middle
-     of it: this is the one control on the card and a 44px row is what a
-     thumb expects. */
-  .answers-more{display:flex;width:100%;align-items:center;justify-content:space-between;
-    gap:10px;background:none;border:0;padding:10px 0;cursor:pointer;
-    font:inherit;font-size:12.5px;font-weight:500;color:var(--gold-text);
-    text-align:left;min-height:40px}
-  .answers-more[hidden]{display:none}
-  .answers-more:hover{color:var(--gold)}
-  .answers-more:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
-  /* A chevron in borders rather than a glyph: it has to rotate, and it has
-     to be the same weight as the tick in the band above it. */
-  .answers-more::after{content:"";width:7px;height:7px;flex:0 0 auto;
-    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
-    transform:translateY(-2px) rotate(45deg);transition:transform .18s ease}
-  .answers-more[aria-expanded="true"]::after{transform:translateY(1px) rotate(225deg)}
-  .answers-all{margin-top:18px}
-
-  /* Two columns of benefits under the pitch below 1000, one of each below
-     660. 300 of headline beside two 250px columns needs about 900 of card,
-     and a phone has 307. */
-  @media(max-width:1000px){
-    .pitch{grid-template-columns:minmax(0,1fr);gap:26px}
-    .pitch-say{grid-template-rows:none;gap:16px}
-    .pitch-cta{align-self:start}
-  }
-  /* One column of six: the flow goes back to rows, so the only item
-     without a rule over it is the first one. */
-  @media(max-width:660px){
-    .pitch-list{grid-template-columns:minmax(0,1fr);grid-template-rows:none;
-      grid-auto-flow:row}
-    .pitch-list li:nth-child(3n+1){border-top:1px solid var(--line);padding-top:14px}
-    .pitch-list li:nth-child(3n+1)::before{top:19px}
-    .pitch-list li:first-child{border-top:0;padding-top:0}
-    .pitch-list li:first-child::before{top:5px}
-  }
-  @media(max-width:760px){
-    .pitch{padding:22px 18px}
-    .answers{padding:18px}
-    .pf-tiles > div{padding:8px}
-  }
-  /* THE REPORT AT HALF SIZE, with a way to read it properly.
-     The frame holds a viewport; the iframe inside it is twice the
-     viewport's size and scaled to a half, so the report lays out at a
-     desktop width and draws at 50%. You see roughly four times as much of
-     the document as before in the same box — the shape of the whole thing,
-     the sections, where the plan ends and the breakdown begins — and the
-     button opens it full size when you want to read it.
-
-     Scaling the iframe rather than zooming inside it is the only way: the
-     document is cross-origin, so nothing on this page can reach in and set
-     a zoom on it.
-
-     The product posts its own height for embedders
-     ({source:"blend-report", type:"frame:height"}), and measured against
-     the deployed app it does not arrive for the results page — the same
-     component on the quiz posts within a second. So the viewport sets a
-     height and the report scrolls inside it. Raised with the webapp lane. */
-  /* Sized to fit between the nav and the bottom of the window, because a
-     sticky box taller than its scrollport is just a box that stops early:
-     100vh, less the nav, less the 18px it sticks below it, less 18 of air
-     underneath, less the frame's own 2x32 of padding. The floor is for a
-     short window; the ceiling stops a tall one turning this into a wall. */
-  .report-viewport{position:relative;overflow:hidden;
-    height:clamp(460px,calc(100vh - var(--nav-h) - 104px),1180px);
-    border-radius:8px}
-  .report-viewport iframe{position:absolute;top:0;left:0;display:block;border:0;
-    width:200%;height:200%;transform:scale(.5);transform-origin:0 0;
-    background:transparent}
-
-  /* Full size, for reading. Both paths: the Fullscreen API where it works,
-     and the fixed-position fallback for iOS Safari, which only grants it to
-     <video>. Either way the scale comes off — the point of opening it is to
-     read it. */
-  .report-frame:fullscreen,
-  .report-frame:-webkit-full-screen,
-  .report-frame.is-pseudo-fs{max-width:none;width:100vw;height:100vh;height:100dvh;
-    margin:0;padding:0;border-radius:0;box-shadow:none}
-  .report-frame.is-pseudo-fs{position:fixed;inset:0;z-index:9999}
-  .report-frame:fullscreen .report-viewport,
-  .report-frame:-webkit-full-screen .report-viewport,
-  .report-frame.is-pseudo-fs .report-viewport{height:100%;border-radius:0}
-  .report-frame:fullscreen iframe,
-  .report-frame:-webkit-full-screen iframe,
-  .report-frame.is-pseudo-fs iframe{width:100%;height:100%;transform:none}
-  body.is-fs-locked{overflow:hidden;touch-action:none}
-
-  .fs-btn{position:absolute;top:14px;right:14px;z-index:5;display:inline-flex;
-    align-items:center;gap:4px;background:rgba(10,10,10,.78);color:#fff;border:0;
-    border-radius:999px;padding:8px 12px;font:inherit;font-size:12px;font-weight:500;
-    letter-spacing:-.005em;line-height:1;cursor:pointer;opacity:.92;
-    backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);
-    transition:background .15s ease,opacity .15s ease}
-  .fs-btn:hover{background:#0A0A0A;opacity:1}
-  .fs-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  .fs-btn svg{width:13px;height:13px;display:block}
-  @media(max-width:560px){.fs-btn span.fs-label{display:none}.fs-btn{padding:9px}}
-
-  /* Sticky, so the report travels down beside the taller left column
-     rather than ending 400px above it; see .report-split for why this is
-     the box that can. It is also what POSITIONS the frame, which it has to
-     be: the fullscreen button is absolute inside it and was otherwise
-     resolving against whatever ancestor happened to be positioned — it
-     landed outside the frame and could not be clicked. Sticky establishes
-     a containing block exactly as relative does, so one declaration does
-     both jobs and there is no second `position` further up the file to
-     shadow this one. */
-  .report-frame{position:sticky;top:calc(var(--nav-h) + 18px);
-    max-width:none;margin:0;
-    padding:var(--report-pad);border-radius:16px;overflow:hidden;
-    /* The margin has to be paper, not page, or the report sits in a second
-       frame of a different colour. --quiz-bg is the fragment's own
-       background token, set as an inline style on its root where
-       inheritance cannot reach it, so the palette script sets it here too. */
-    background:rgb(var(--quiz-bg,250 248 242));
-    box-shadow:var(--shadow-lg)}
-
-  .report-foot{max-width:720px;margin:26px auto 0;text-align:center;
-    font-size:14px;color:var(--muted)}
-  .report-foot a{color:var(--sand);text-decoration:underline;text-underline-offset:3px}
-  /* One column puts the frame in a grid row of its own, so its area is its
-     own height and there is nowhere to travel. Off rather than relying on
-     that to stay true — and it has to come after the rule above, which is
-     why it is down here and not in the layout block. */
-  /* `top` as well as `position`: relative HONOURS an offset, so dropping
-     sticky on its own left the frame shifted 86px down its own row and
-     opened a gap under the answers on every phone. */
-  @media(max-width:1000px){ .report-frame{position:relative;top:auto} }
-
-  :root{--report-pad:12px}
-  /* A LOADER WHILE THE EMBED ARRIVES.
-     The quiz and the report are a separate deployment, cross-origin, and
-     they take a second or more on a cold cache. Until now that second was
-     a blank rectangle the size of the page, which reads as broken rather
-     than as loading.
-
-     Built on the frame, not inside the iframe: nothing here can reach into
-     a cross-origin document, and `load` on the element is the only signal
-     this side gets. It fires for a 404 too, so this says "we are waiting",
-     never "it worked".
-
-     The iframe starts transparent and fades in, so a reader never sees the
-     spinner and the content at once. Both sit in the same box, so neither
-     moves when the swap happens. */
-  /* Flex, not grid. Two children in an auto-row grid get the free space
-     distributed INTO the rows, so the spinner sat near the top of a 728px
-     box and its label near the bottom, 200px apart and reading as two
-     unrelated things. */
-  .embed-loading{position:absolute;inset:0;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;gap:12px;
-    background:rgb(var(--quiz-bg,250 248 242));border-radius:inherit;
-    transition:opacity .25s ease;z-index:2}
-  .embed-loading[hidden]{display:none}
-  .embed-spinner{width:26px;height:26px;border-radius:50%;
-    border:2px solid var(--line-strong);border-top-color:var(--gold);
-    animation:embed-spin .8s linear infinite}
-  .embed-note{font-size:12.5px;color:var(--muted)}
-  @keyframes embed-spin{to{transform:rotate(360deg)}}
-  /* Reduced motion gets the message without the movement. A spinner is
-     decoration; the sentence is the information. */
-  @media(prefers-reduced-motion:reduce){
-    .embed-spinner{animation:none;border-top-color:var(--line-strong)}
-  }
-</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sample wellness report | Blend","url":"https://www.blend-technologies.com/sample-report","description":"The report a customer receives at the end of a Blend quiz, with the reason behind every pick and the safety notices that apply to them. Yours to configure.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Sample report","item":"https://www.blend-technologies.com/sample-report"}]}}</script>
+/* ---- On the system (founder, 2026-10-20: "look like the homepage") -------
+   The hero is the dark card How it works and The engine open on. The three
+   cards are the homepage's light content cards: flat --n-100, no edge, no
+   shadow, the icon on a white square in ink rather than on a beige or a
+   Shopify-green tint (colour means something, and these mean nothing). The
+   hover is the site's one: the edge warms, nothing moves. */
+.ph + .cases-section{padding-top:72px}
+.case-card{background:var(--n-100);border:1px solid transparent;border-radius:16px;box-shadow:none;transform:none}
+.case-card:hover,.case-card:focus-visible{border-color:var(--hover-border);box-shadow:none;transform:none}
+.case-card-icon,.case-card-icon.shopify{background:var(--n-0);border-radius:12px}
+.case-card-icon svg,.case-card-icon.shopify svg{color:var(--n-700)}
+.case-card h3{font-size:18px}
+.aud-row dt{font-size:18px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sample wellness report | Blend","url":"https://www.blend-technologies.com/sample-report","description":"The report a customer receives at the end of a Blend quiz, with the reason behind every pick and the safety notices that apply to them. Yours to configure.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Sample report","item":"https://www.blend-technologies.com/sample-report"}]}}</script>
 </head>
 <body>
+<a href="#main" class="skip">Skip to content</a>
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="/" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#000000"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
     <nav class="nav-links" aria-label="Primary" id="nav-links">
       <a href="/how-it-works">How it works</a>
-      <a href="/use-cases">Use cases</a>
+      <a href="/use-cases" class="active">Use cases</a>
       <a href="/science">The engine</a>
       <a href="/#pricing">Pricing</a>
     </nav>
@@ -537,471 +290,142 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </header>
-<!-- Not "generated by Blend's real engine", which is what this said and
-     could not be supported. The PAGE is the product's own component, an
-     export of components/wellness-report.tsx; the NUMBERS come from
-     lib/report/sample-recommendation.ts, a fixture, shaped like an engine
-     row and run through the same normalizeEngineRow the live results page
-     uses, but not computed by the engine. The claim now says which half is
-     which. -->
-<div class="samplebar"><b>Sample report</b>, the product's own screen, for a fictional customer on a sample catalogue.</div>
-<div class="wrap">
 
-  <!-- The report, exactly as the product renders it.
-       ------------------------------------------------------------------
-       This page used to carry a hand-built approximation of the customer
-       report, with three invented personas and a 1-2-3 wizard in front of
-       it. CLAUDE.md in this repo forbids hand-building product UI for the
-       reason it had already gone wrong: "a hand-drawn approximation of the
-       app drifts from the app within a release and nobody notices, because
-       the person who would notice does not read this repo."
-
-       It had drifted. It said "Uniquely designed for Emma", a line the
-       product removed on 2026-09-28. It badged ten of eleven products
-       "Recommended", a heading the component refuses to use for products
-       that did not qualify. It had no safety notices, no retake, no legal
-       footer, and no prices.
-
-       What is below is the export of components/wellness-report.tsx,
-       brought in by tools/scope-mockups.mjs. Do not edit it here; ask the
-       webapp lane for a new export. The markers are what that script
-       re-inlines into. -->
-  <!-- The page's only heading, and it is not drawn. The intro that carried
-       it was removed on the founder's instruction; the page opens on the
-       answers and the report, which is what it is for. The heading stays
-       for the document outline and the tab's accessible name — /try shipped
-       with no h1 at all when its intro came out on the 17th, and that is
-       not a mistake worth making twice. -->
-  <h1 class="sr-only">A sample wellness report from the Blend demo quiz</h1>
-
-  <!-- The LIVE demo result, not a copy of one.
-       This page used to inline an export of the report component rendered
-       against a fixture, and the fixture drifted: every percentage on a
-       product card disagreed with the breakdown underneath it, and nothing
-       here could notice. It is now an iframe of a real submission against
-       the demo quiz /try embeds, so changing that quiz — its questions, its
-       report sections, their order, the layout, the colours — changes this
-       page with no work at all.
-
-       The palette swatches went with the change. They repainted the inlined
-       fragment through --quiz-* custom properties, and a custom property
-       cannot cross an origin. The live report wears the demo brand's own
-       colours, which is the same claim made by showing rather than telling.
-
-       The URL is in demo-report.json too, and tools/check-demo-report.mjs
-       refuses when it stops being a live report. It will: a results link is
-       good for RESULTS_LINK_TTL_DAYS = 90 (lib/quiz/results-expiry.ts), so
-       this one dies on its own, silently, without that check. -->
-
-  <!-- THE PITCH FULL WIDTH, THEN THE EXAMPLE UNDER IT.
-       The founder's shape, and it buys something the two-column version
-       could not: the left column below is now nothing but one customer's
-       answers beside the report they produced, so a SECOND example is a
-       second copy of that row and a reader can compare them down the page.
-       While the pitch sat in the left column there was no row to copy.
-
-       40/60 rather than half and half. The answers are a summary and the
-       report is a document; the document needs the inches. -->
-  <!-- THE BENEFITS BAND. Three columns: the pitch, then two columns of
-       business outcomes. Written to the founder's brief of 2026-10-19,
-       verbatim.
-
-       ONE THING ON THE RECORD. "Convert more visitors into customers" and
-       "Increase average order value" are outcome claims, and
-       CONTENT_STATE.md forbids them by name: "Any AOV, retention,
-       conversion percentage, or client count | Zero clients, and the
-       website deliberately publishes no outcome metrics." That was raised
-       and the founder specified this copy directly afterwards, so it ships
-       as written. Neither line carries a figure, which is the part that
-       would be unsupportable; they are claims about what the product is
-       for. If the rule is meant to stand, this band is where it bites.
-
-       THE WORDMARK IS A SIGNATURE HERE, NOT A MASTHEAD. It came out
-       entirely for one commit, which was too far: the bar's copy is twelve
-       pixels above this card, so the one in here only has to sign the band,
-       not announce the brand. 18px against the bar's 26.
-
-       SAME SIX-PATH DRAWING, in a light fill. tools/check-wordmark.mjs
-       compares the markup inside every wordmark on the site and normalises
-       the fill away, so a redrawn or five-path copy here would be refused.
-       That is the bug it exists for: /use-cases carried a copy missing the
-       full stop, in the bar and the footer, for months.
-
-       The sr-only <h2> stays either way: a logo was never the heading, and
-       the document outline and the page's accessible name still need one. -->
-  <section class="pitch theme-dark">
-    <h2 class="sr-only">What Blend does</h2>
-    <div class="pitch-say">
-      <svg class="pitch-mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="18" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#F3F1ED"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg>
-      <p class="pitch-head">Turn customer needs into more sales.</p>
-      <div class="pitch-copy">
-        <p class="pitch-lead">Build a personalised shopping experience that
-          helps every customer find the right products, increases
-          conversions, and drives bigger baskets.</p>
-        <p class="pitch-sub">No coding. No complicated setup. Just smarter
-          selling.</p>
-      </div>
-      <div class="pitch-cta">
-        <a class="btn btn-primary" href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39"
-           target="_blank" rel="noopener">Book a demo <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
-      </div>
+<main id="main">
+<section class="theme-dark ph ph--fill hero-card">
+  <div class="wrap">
+    <div class="ph-inner">
+      <p class="eyebrow">Sample report</p>
+      <h1 class="h1">One customer. One plan.</h1>
+      <p class="lead">The plan Alex received from the demo quiz: eight products from a sample catalogue, each scored for Alex, with the reason under every pick.</p>
+      <p class="ph-meta">A real engine run <span class="ph-dot" aria-hidden="true"></span> A fictional customer <span class="ph-dot" aria-hidden="true"></span> A sample catalogue</p>
+      <div class="ph-ctas"><a href="/try" class="btn btn-primary btn-lg">Try the demo</a><a href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Book a call</a></div>
     </div>
-
-    <ul class="pitch-list">
-      <li><b>Convert more visitors into customers.</b>
-        <span>Help shoppers find exactly what they need instead of leaving
-          overwhelmed by choice.</span></li>
-      <li><b>Increase average order value.</b>
-        <span>Recommend complementary products based on each customer's
-          individual needs.</span></li>
-      <li><b>Personalisation backed by science.</b>
-        <span>Go beyond generic quizzes with intelligent recommendations
-          built on nutritional science and real customer data.</span></li>
-      <li><b>Launch in an afternoon.</b>
-        <span>Connect your Shopify store, customise your quiz, and go live
-          with a simple embed.</span></li>
-      <li><b>Your brand. Your experience.</b>
-        <span>Fully customise the questions, design, recommendations, and
-          customer journey. No code required.</span></li>
-      <li><b>Turn customer insights into growth.</b>
-        <span>Discover what your customers want, where they drop off, and
-          which products they actually click.</span></li>
-    </ul>
-  </section>
-
-  <!-- ONE EXAMPLE: the answers a customer gave, beside the report they
-       produced. Nobody can judge "your omega-3 intake is 8% of your
-       target" without knowing the person never eats fish, so the left is
-       what makes the right legible.
-
-       Copy this whole block to add a second example. It needs a second
-       live submission against a differently branded demo quiz, its own
-       answers payload, and its own row in check-demo-report.mjs, because
-       every results link expires 90 days after it is taken. -->
-  <div class="report-split">
-    <div class="report-aside">
-      <!-- Drawn from /api/demo-answers, which reads the SAME submission the
-           iframe renders, falling back to demo-answers.json where the edge
-           function cannot run. Ships `hidden` and appears once the data is
-           in hand: a sample report with no answer panel is the page as it
-           was, a broken one is not.
-
-           It used to print all 43 rows in quiz order, and quiz order is
-           demographics first — so the rows a reader saw were consent, a
-           name, a gender and a unit choice, and everything that produced a
-           recommendation was below the fold of the cap. The shape below is
-           built in api/_demo-summary.mjs; the 43 are still here, behind the
-           button. -->
-      <section class="answers" id="answers" hidden>
-        <div class="answers-head">
-          <h2 id="answersTitle">What this customer told the quiz</h2>
-          <p class="answers-byline" id="answersByline"></p>
-          <p class="answers-sub">The same submission the report was built from.
-            <span id="answersCount"></span></p>
-        </div>
-        <div class="answers-body">
-          <div class="pf" id="answersProfile"></div>
-          <dl class="answers-all" id="answersGrid" hidden></dl>
-        </div>
-        <div class="answers-foot">
-          <button type="button" class="answers-more" id="answersMore" hidden
-                  aria-controls="answersGrid" aria-expanded="false"></button>
-        </div>
-      </section>
+    <nav class="ph-ix sr-ix" aria-label="The report"><a class="ph-ix-item" href="#sr-answers"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">01</span><span class="ph-ix-name">Answers</span></a><a class="ph-ix-item" href="#sr-picks"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">02</span><span class="ph-ix-name">Picks</span></a><a class="ph-ix-item" href="#sr-macros"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">03</span><span class="ph-ix-name">Macros</span></a><a class="ph-ix-item" href="#sr-gaps"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">04</span><span class="ph-ix-name">Gaps</span></a><a class="ph-ix-item" href="#sr-safety"><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-n">05</span><span class="ph-ix-name">Safety</span></a></nav>
+  </div>
+</section>
+<section class="sr-run" id="report"><div class="wrap sr-grid"><aside class="sr-guide" aria-label="How to read the report"><ol class="sr-steps"><li class="sr-step is-on" data-for="sr-answers"><a href="#sr-answers"><span class="sr-n">01</span><span class="sr-t">Answers</span></a><div class="sr-say"><h2>What Alex told the quiz.</h2><p>Forty-three answers: who Alex is, what Alex wants help with, and a typical day of eating. Alex is vegetarian, sleeps five to six hours, and reported trouble falling asleep and afternoon dips.</p></div></li><li class="sr-step" data-for="sr-picks"><a href="#sr-picks"><span class="sr-n">02</span><span class="sr-t">Picks</span></a><div class="sr-say"><h2>Eight picks, each with its reason.</h2><p>Three are Essential: the nutrients Alex&#x27;s diet leaves furthest short. Five are Recommended for what Alex told the quiz. Melatonin would have matched Alex&#x27;s sleep answers; it is prescription-only in the UK, so the engine left it out.</p></div></li><li class="sr-step" data-for="sr-macros"><a href="#sr-macros"><span class="sr-n">03</span><span class="sr-t">Macros</span></a><div class="sr-say"><h2>A day, estimated.</h2><p>Intake is estimated from Alex&#x27;s answers and set against Alex&#x27;s own targets. Free sugars and saturated fat run over their limits, and omega-3 is at 8% of target, which is why it heads the plan.</p></div></li><li class="sr-step" data-for="sr-gaps"><a href="#sr-gaps"><span class="sr-n">04</span><span class="sr-t">Gaps</span></a><div class="sr-say"><h2>Only what needs attention.</h2><p>Vitamin D3 at 6% of target and iron at 57%, with the foods that supply them. Everything else is on track, so it stays off the page.</p></div></li><li class="sr-step" data-for="sr-safety"><a href="#sr-safety"><span class="sr-n">05</span><span class="sr-t">Safety</span></a><div class="sr-say"><h2>Safe before it is shown.</h2><p>17 checks can remove a product before it reaches a plan, and none can be switched off. Here, Vitamin D3 carries a caution on its card, and the plan closes with the disclaimer and a way to ask for a human review.</p></div></li></ol></aside><div class="sr-doc"><section class="sr-part sr-answers" id="sr-answers" data-sr="sr-answers"><div class="sr-ans-head"><p class="sr-eb">What Alex told the quiz</p><h3>Alex, 34</h3><p class="sr-by">Woman &#183; 170 cm &#183; 68 kg</p></div><div class="sr-ans-grid"><div class="sr-blk"><p class="sr-lab">Goals</p><div class="rp-chips"><span class="rp-chip">Sleep</span><span class="rp-chip">Boost Energy</span><span class="rp-chip">Stress</span></div></div><div class="sr-blk"><p class="sr-lab">What Alex reported</p><div class="rp-chips"><span class="rp-chip">Trouble falling asleep</span><span class="rp-chip">Racing mind at bedtime</span><span class="rp-chip">Afternoon dips</span><span class="rp-chip">Caffeine reliance</span><span class="rp-chip">Trouble winding down</span></div></div><div class="sr-blk"><p class="sr-lab">Day to day</p><div class="sr-tiles"><div class="sr-tile"><span>Diet</span><b>Vegetarian</b></div><div class="sr-tile"><span>Sleep</span><b>5–6 hours</b></div><div class="sr-tile"><span>Sun</span><b>Limited</b></div><div class="sr-tile"><span>Activity</span><b>Lightly Active</b></div></div></div><div class="sr-blk"><p class="sr-lab">How often Alex eats</p><div class="sr-tiles"><div class="sr-tile"><span>Meat</span><b>Never</b></div><div class="sr-tile"><span>Fish</span><b>Never</b></div><div class="sr-tile"><span>Eggs</span><b>1–5 eggs</b></div><div class="sr-tile"><span>Dairy</span><b>Daily</b></div></div></div></div><details class="sr-all"><summary>See all 43 answers</summary><dl><div class="sr-qa"><dt>Notice &amp; Acknowledgment</dt><dd>I explicitly consent to my health data being processed to generate my personalised…</dd></div><div class="sr-qa"><dt>What is your first name?</dt><dd>Alex</dd></div><div class="sr-qa"><dt>What is your gender?</dt><dd>Woman</dd></div><div class="sr-qa"><dt>How old are you?</dt><dd>34</dd></div><div class="sr-qa"><dt>What is your height and weight?</dt><dd>Metric</dd></div><div class="sr-qa"><dt>What is your height (cm)?</dt><dd>170</dd></div><div class="sr-qa"><dt>What is your weight (kg)?</dt><dd>68</dd></div><div class="sr-qa"><dt>What is your ethnicity?</dt><dd>Prefer not to say</dd></div><div class="sr-qa"><dt>Are you currently pregnant or breastfeeding?</dt><dd>No</dd></div><div class="sr-qa"><dt>Do you have any diagnosed medical conditions?</dt><dd>No</dd></div><div class="sr-qa"><dt>Are you currently taking any prescription medications?</dt><dd>No</dd></div><div class="sr-qa"><dt>Here are some popular goals. Which resonate with you?</dt><dd>Sleep, Boost Energy, Stress</dd></div><div class="sr-qa"><dt>Are you currently experiencing any of the following sleep issues?</dt><dd>Trouble falling asleep, Racing mind at bedtime</dd></div><div class="sr-qa"><dt>What best describes your energy?</dt><dd>Afternoon dips, Caffeine reliance</dd></div><div class="sr-qa"><dt>How does stress show up for you?</dt><dd>Trouble winding down</dd></div><div class="sr-qa"><dt>Do you currently smoke or use nicotine products?</dt><dd>No</dd></div><div class="sr-qa"><dt>How much sun exposure do you usually get?</dt><dd>Limited</dd></div><div class="sr-qa"><dt>On an average night, how many hours do you sleep?</dt><dd>5–6</dd></div><div class="sr-qa"><dt>Excluding sports or workouts, how active is your daily routine?</dt><dd>Lightly Active</dd></div><div class="sr-qa"><dt>Do you engage in any structured physical activities or sports?</dt><dd>Yes</dd></div><div class="sr-qa"><dt>Which activities do you do regularly?</dt><dd>Mind-Body Wellness</dd></div><div class="sr-qa"><dt>How many times per week?</dt><dd>2</dd></div><div class="sr-qa"><dt>Typical session length?</dt><dd>30–60 min</dd></div><div class="sr-qa"><dt>How intense?</dt><dd>Moderate</dd></div><div class="sr-qa"><dt>Let&#x27;s discuss your weekly eating habits. Which description fits you best?</dt><dd>Balanced diet with occasional processed or sugary foods</dd></div><div class="sr-qa"><dt>Do any of the following dietary preferences or restrictions apply to you?</dt><dd>Vegetarian</dd></div><div class="sr-qa"><dt>What meals and snacks do you usually eat throughout the day?</dt><dd>Breakfast, Lunch, Dinner, Afternoon Snack</dd></div><div class="sr-qa"><dt>How often do you skip meals?</dt><dd>Sometimes</dd></div><div class="sr-qa"><dt>What size are your usual portions?</dt><dd>Average</dd></div><div class="sr-qa"><dt>Short on time?</dt><dd>I want to maximise personalisation</dd></div><div class="sr-qa"><dt>How often do you eat meat and poultry?</dt><dd>Never</dd></div><div class="sr-qa"><dt>How often do you eat fish and seafood?</dt><dd>Never</dd></div><div class="sr-qa"><dt>How many eggs do you eat on average per week?</dt><dd>1–5 eggs</dd></div><div class="sr-qa"><dt>How often do you eat dairy products?</dt><dd>Daily</dd></div><div class="sr-qa"><dt>How often do you eat fruit?</dt><dd>Daily</dd></div><div class="sr-qa"><dt>How often do you eat vegetables and legumes?</dt><dd>Daily</dd></div><div class="sr-qa"><dt>How often do you eat grains and cereals?</dt><dd>Daily</dd></div><div class="sr-qa"><dt>How often do you eat plant-based meat alternatives?</dt><dd>Sometimes</dd></div><div class="sr-qa"><dt>How often do you eat nuts and seeds?</dt><dd>Sometimes</dd></div><div class="sr-qa"><dt>How often do you eat sweets and desserts?</dt><dd>Rarely</dd></div><div class="sr-qa"><dt>How often do you eat fast food and ready-made meals?</dt><dd>Rarely</dd></div><div class="sr-qa"><dt>How many drinks other than water do you have on a typical day?</dt><dd>2 to 3 a day</dd></div><div class="sr-qa"><dt>How many alcoholic drinks do you have per week?</dt><dd>None</dd></div></dl></details></section><div class="sr-win"><div class="sr-bar" aria-hidden="true"><i></i><i></i><i></i><span>yourbrand.com/your-plan</span></div><div class="rp sr-report"><div class="sr-part sr-r-top"><div class="rp-top"><h4>Your wellness plan</h4></div><p class="rp-intro">Based on your answers, your body needs extra support in 8 key areas. Your full plan is below, with the breakdown at the end.</p><h5>Your profile</h5><div class="rp-chips"><span class="rp-chip">34 years old</span><span class="rp-chip">170 cm</span><span class="rp-chip">68 kg</span><span class="rp-chip">Vegetarian</span><span class="rp-chip">Lightly Active</span><span class="rp-chip">Healthy Weight</span><span class="rp-chip">No Medical Condition</span></div><h5>What you told us matters</h5><div class="rp-chips"><span class="rp-chip">Boost Energy</span><span class="rp-chip">Sleep</span><span class="rp-chip">Stress</span></div></div><div class="sr-part" id="sr-picks" data-sr="sr-picks"><h5 class="rp-wide">Recommended products</h5><div class="sr-row" tabindex="0" aria-label="Recommended products, scroll sideways"><div class="rp-card"><div class="rp-ph"><span class="rp-badge">Essential</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-detail.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">Omega-3 (Algae Oil, Vegan)</p><div class="rp-tags"><span>Heart</span><span>Cognitive Health</span><span>Bones &amp; Joints</span><span>Mood &amp; Emotions</span><span>Healthy Ageing</span></div><p class="rp-why"><b>Why:</b><span>Your omega 3 is at 8% of your target.</span></p><p class="sr-form">Softgel &#183; With meal</p><span class="rp-add">Add to cart</span></div></div><div class="rp-card"><div class="rp-ph"><span class="rp-badge">Essential</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-in-context.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">Vitamin D3</p><div class="rp-tags"><span>Bones &amp; Joints</span><span>Immunity</span><span>Healthy Ageing</span><span>Mood &amp; Emotions</span></div><p class="rp-why"><b>Why:</b><span>Your vitamin D3 is at 6% of your target, which one serving covers.</span></p><p class="sr-warn"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18h.01"/></svg><span>Pair with Vitamin K2</span></p><p class="sr-form">Softgel &#183; With meal</p><span class="rp-add">Add to cart</span></div></div><div class="rp-card"><div class="rp-ph"><span class="rp-badge">Essential</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-front.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">Iron</p><div class="rp-tags"><span>General Health Support</span><span>Boost Energy</span></div><p class="rp-why"><b>Why:</b><span>Your iron is at 57% of your target, which one serving covers, and it matches your boost energy goal.</span></p><p class="sr-form">Tablet &#183; Evening</p><span class="rp-add">Add to cart</span></div></div><div class="rp-card"><div class="rp-ph"><span class="rp-badge is-rec">Recommended</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-detail.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">Ashwagandha</p><div class="rp-tags"><span>Stress</span><span>Sleep</span><span>Mood &amp; Emotions</span><span>Testosterone Health</span></div><p class="rp-why"><b>Why:</b><span>Chosen because you told us about trouble falling asleep and trouble winding down.</span></p><p class="sr-form">Capsule &#183; With meal</p><span class="rp-add">Add to cart</span></div></div><div class="rp-card"><div class="rp-ph"><span class="rp-badge is-rec">Recommended</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-in-context.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">L-Theanine</p><div class="rp-tags"><span>Stress</span><span>Sleep</span><span>Mood &amp; Emotions</span><span>Cognitive Health</span></div><p class="rp-why"><b>Why:</b><span>Chosen because you told us about trouble falling asleep and racing mind at bedtime.</span></p><p class="sr-form">Capsule &#183; Before activity</p><span class="rp-add">Add to cart</span></div></div><div class="rp-card"><div class="rp-ph"><span class="rp-badge is-rec">Recommended</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-front.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">Multivitamin (Standard)</p><div class="rp-tags"><span>General Health Support</span><span>Healthy Ageing</span><span>Boost Energy</span><span>Immunity</span></div><p class="rp-why"><b>Why:</b><span>It helps with vitamin D3, iron, which you are short of, and it matches your boost energy goal.</span></p><p class="sr-form">Tablet &#183; With meal</p><span class="rp-add">Add to cart</span></div></div><div class="rp-card"><div class="rp-ph"><span class="rp-badge is-rec">Recommended</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-detail.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">Creatine Monohydrate</p><div class="rp-tags"><span>Build Muscle</span><span>Boost Energy</span><span>Cognitive Health</span><span>Increase Endurance</span></div><p class="rp-why"><b>Why:</b><span>Chosen because it matches your boost energy goal.</span></p><p class="sr-form">Scoop &#183; With meal</p><span class="rp-add">Add to cart</span></div></div><div class="rp-card"><div class="rp-ph"><span class="rp-badge is-rec">Recommended</span><span class="rp-ex"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><img src="/images/daily-energy-blend-in-context.jpg" alt="" loading="lazy" decoding="async"></div><div class="rp-body"><p class="rp-name">Cordyceps</p><div class="rp-tags"><span>Increase Endurance</span><span>Boost Energy</span></div><p class="rp-why"><b>Why:</b><span>Chosen because it matches your boost energy goal. This one is a fungal extract.</span></p><p class="sr-form">Capsule &#183; Morning</p><span class="rp-add">Add to cart</span></div></div></div><div class="sr-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="rp-retake"><span>Retake the quiz</span><p>Your current results stay available at this link.</p></div></div><div class="sr-part" id="sr-macros" data-sr="sr-macros"><div class="rp-hrow"><h5>Your macros</h5><span>Estimated daily intake vs. your target</span></div><div class="rp-macs"><div class="rp-mac"><p class="rp-ml">Calories</p><p class="rp-mv">2190<em>kcal</em></p><p class="rp-mt">Target 1865 kcal</p><div class="rp-mb m-g"><i style="width:100%"></i><span>117%</span></div></div><div class="rp-mac"><p class="rp-ml">Protein</p><p class="rp-mv">85<em>g</em></p><p class="rp-mt">Target 83 g</p><div class="rp-mb m-gr"><i style="width:100%"></i><span>102%</span></div></div><div class="rp-mac"><p class="rp-ml">Carbs</p><p class="rp-mv">288<em>g</em></p><p class="rp-mt">Target 255 g</p><div class="rp-mb m-g"><i style="width:100%"></i><span>113%</span></div></div><div class="rp-mac"><p class="rp-ml">Fat</p><p class="rp-mv">68<em>g</em></p><p class="rp-mt">Target 57 g</p><div class="rp-mb m-g"><i style="width:100%"></i><span>119%</span></div></div><div class="rp-mac"><p class="rp-ml">Water</p><p class="rp-mv">1336<em>ml</em></p><p class="rp-mt">Drink 2631 ml</p><div class="rp-mb m-b"><i style="width:51%"></i><span>51%</span></div></div><div class="rp-mac"><p class="rp-ml">Omega-3</p><p class="rp-mv">0.02<em>g</em></p><p class="rp-mt">Target 0.25 g</p><div class="rp-mb m-r"><i style="width:8%"></i><span>8%</span></div></div><div class="rp-mac"><p class="rp-ml">Fibre</p><p class="rp-mv">40<em>g</em></p><p class="rp-mt">Target 30 g</p><div class="rp-mb m-gr"><i style="width:100%"></i><span>133%</span></div></div><div class="rp-mac"><p class="rp-ml">Free sugars</p><p class="rp-mv">29<em>g</em></p><p class="rp-mt">Limit 23 g</p><div class="rp-mb m-r"><i style="width:100%"></i><span>126%</span></div></div><div class="rp-mac"><p class="rp-ml">Saturated fat</p><p class="rp-mv">23<em>g</em></p><p class="rp-mt">Limit 21 g</p><div class="rp-mb m-r"><i style="width:100%"></i><span>110%</span></div></div></div><p class="rp-foot">Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.</p></div><div class="sr-part" id="sr-gaps" data-sr="sr-gaps"><div class="rp-hrow"><h5>Full breakdown</h5><span>Showing only nutrients that need attention, everything else is on track.</span></div><p class="rp-grp">Vitamins</p><div class="rp-bd"><span class="rp-bn">Vitamin D3</span><div><i class="rp-bt"><b style="width:6%"></b></i><p>Good food sources include eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter.</p></div><span class="rp-bp">6%</span></div><p class="rp-grp">Minerals</p><div class="rp-bd"><span class="rp-bn">Iron</span><div><i class="rp-bt"><b style="width:57%"></b></i><p>Good food sources include lentils, eggs and iron-fortified cereals.</p></div><span class="rp-bp">57%</span></div></div><div class="sr-part" id="sr-safety" data-sr="sr-safety"><div class="sr-hr"></div><p class="rp-foot">The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use.</p><p class="sr-rev">Request human review</p></div></div></div><p class="sr-note">Every figure in it is the engine's, for one fictional customer on a sample catalogue. The photographs are ours: the sample catalogue has none.</p></div></div></section>
+<section class="sr-pitch"><div class="wrap"><div class="sr-pitch-head"><h2 class="h2">Turn customer needs into more sales.</h2><p class="lead">Build a personalised shopping experience that helps every customer find the right products, increases conversions, and drives bigger baskets. No coding. No complicated setup. Just smarter selling.</p></div><ul class="sr-pitch-list"><li><b>Convert more visitors into customers.</b><span>Help shoppers find exactly what they need instead of leaving overwhelmed by choice.</span></li><li><b>Increase average order value.</b><span>Recommend complementary products based on each customer&#x27;s individual needs.</span></li><li><b>Personalisation backed by science.</b><span>Go beyond generic quizzes with intelligent recommendations built on nutritional science and real customer data.</span></li><li><b>Launch in an afternoon.</b><span>Connect your Shopify store, customise your quiz, and go live with a simple embed.</span></li><li><b>Your brand. Your experience.</b><span>Fully customise the questions, design, recommendations, and customer journey. No code required.</span></li><li><b>Turn customer insights into growth.</b><span>Discover what your customers want, where they drop off, and which products they actually click.</span></li></ul></div></section>
+<section class="theme-dark closer sc-reveal sc-reveal--top" id="contact">
+  <div class="wrap">
+    <h2 class="h1">Put the engine to work on your store.</h2>
+    <p class="lead">Try the demo, or book 15 minutes with us.</p>
+    <div class="closer-ctas">
+      <a href="/try" class="btn btn-primary btn-lg">Try the demo</a>
+      <a href="" class="btn btn-ghost btn-lg" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39');">Book a call</a>
     </div>
+    <div class="closer-foot">Or email us at <a href="mailto:contact@blend-technologies.com">contact@blend-technologies.com</a></div>
+  </div>
+</section>
+</main>
 
-    <div class="report-frame" id="report">
-      <button type="button" class="fs-btn" id="fsBtn" aria-label="View fullscreen">
-        <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-        <svg id="fsIconExit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
-        <span class="fs-label" id="fsLabel">Fullscreen</span>
-      </button>
-      <div class="report-viewport">
-        <div class="embed-loading" id="embedLoading"><span class="embed-spinner" aria-hidden="true"></span><span class="embed-note">Loading the live demo…</span></div>
-        <iframe id="reportFrame" title="A sample wellness report from the Blend demo quiz"
-                src="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+<footer class="theme-dark footer sc-reveal sc-reveal--bottom">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#FFFFFF"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
+        <p class="footer-tag">The engine behind personalised product recommendations.</p>
+        <a class="footer-li" href="https://www.linkedin.com/company/blendtechnologiesuk/" rel="me noopener" target="_blank">LinkedIn</a>
+        <form class="footer-news" id="news-form" action="#" method="post" novalidate>
+          <label for="news-email">Your work email</label>
+          <input type="email" id="news-email" name="email" placeholder="Your work email" required autocomplete="email">
+          <button type="submit" id="news-submit">Subscribe</button>
+        </form>
+      </div>
+      <div class="footer-col"><h5>Product</h5><ul><li><a href="/how-it-works">How it works</a></li><li><a href="/#pricing">Pricing</a></li><li><a href="/science">The engine</a></li><li><a href="/try">Try it yourself</a></li><li><a href="/sample-report">Sample report</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Use cases</h5><ul><li><a href="/use-cases/shopify">For Shopify brands</a></li><li><a href="/use-cases/supplement-brands">For supplement brands</a></li><li><a href="/use-cases/compare">vs other quiz tools</a></li></ul></div>
+      <div class="footer-col"><h5>Company</h5><ul>
+        <li><a href="mailto:contact@blend-technologies.com">Contact</a></li>
+        <li><a href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39" target="_blank" rel="noopener">Book a call</a></li>
+        <li><a href="/terms">Terms</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/sub-processors">Sub-processors</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-trust"><span class="footer-trust-label">Built for trust.</span><span>UK GDPR + Data Protection Act 2018 &middot; Health data processed only with explicit consent &middot; International transfers under Standard Contractual Clauses &middot; Not medical advice.</span></div>
+    <div class="footer-bottom"><span>&#169; <span id="year">2026</span> Blend Technologies LTD. All rights reserved.</span><span>Registered in England &amp; Wales, company no. 17236631 &middot; ICO registration ZC236476</span><span><a href="" onclick="return blendOpenCookieSettings();" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Cookie settings</a> &middot; contact@blend-technologies.com</span></div>
+  </div>
+</footer>
+
 <script>
-/* Hide the loader once the embed has arrived.
-   `load` on the element is the only signal this side gets for a
-   cross-origin document, and it fires for an error page too, so this only
-   ever means "stopped waiting", never "it worked".
-
-   RIGHT HERE, NOT AT THE END OF THE BODY. A frame served from cache can
-   fire `load` before a script further down the page has run, and then the
-   listener never hears it and the spinner sits on top of a perfectly good
-   quiz. `complete` is not readable across an origin, so the defence is
-   position: the parser reaches this immediately after the iframe, long
-   before any network can answer.
-
-   It also has to be its own <script>. The first attempt appended this to a
-   <script src="cookie-consent.js">, and a script element with a src ignores
-   its inline content entirely, without a word in the console.
-
-   The 4s fallback is for the case that beats both: an embed that never
-   announces itself at all. A reader should be allowed to look at whatever
-   is there rather than at a spinner forever. */
-(function(){
-  var veil = document.getElementById('embedLoading');
-  var frame = veil && veil.parentElement.querySelector('iframe');
-  if (!veil || !frame) return;
-  var box = veil.parentElement;
-  box.classList.add('is-embed-loading');
-  var done = false;
-  function reveal(){
-    if (done) return;
-    done = true;
-    box.classList.remove('is-embed-loading');
-    veil.style.opacity = '0';
-    setTimeout(function(){ veil.hidden = true; }, 260);
-  }
-  frame.addEventListener('load', reveal);
-  setTimeout(reveal, 4000);
-})();
+document.getElementById('year').textContent = new Date().getFullYear();
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 8), {passive:true});
+const toggle = document.getElementById('nav-toggle');
+toggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
 </script>
-      </div>
-    </div>
-  </div>
-
-  <div class="report-foot">
-    <p>Every figure in it is computed for one person. <a href="https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526/results/02edf24c-8c6d-46a8-81af-faffc931abfa" target="_blank" rel="noopener">Open the full report</a>, <a href="/science">how the engine produces it</a>, or <a href="/try">take the quiz yourself</a>.</p>
-  </div>
-</div>
 
 <script>
-// Nav, same behavior as blend-technologies.com
+/* Swipe-deck dots for the three scenarios. Timer-based rather than rAF, and
+   driven by the media-query change as well as resize: rAF and
+   IntersectionObserver are delivered on the rendering pipeline and never fire
+   in a non-rendering tab, which makes them unverifiable and silently dead. */
 (function(){
-  const nav = document.getElementById('nav');
-  const toggle = document.getElementById('nav-toggle');
-  const links = document.getElementById('nav-links');
-  const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
-  setScrolled();
-  window.addEventListener('scroll', setScrolled, {passive:true});
-  toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(open));
-  });
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    nav.classList.remove('open');
-    toggle.setAttribute('aria-expanded','false');
-  }));
-})();
+  var MQ = window.matchMedia('(max-width:660px)');
+  var dots = null, bt = null;
 
-/* Full size, for reading.
-   The Fullscreen API where it works, a fixed-position fallback where it
-   does not — iOS Safari grants fullscreen only to <video>. Lifted from
-   /try, which embeds the quiz the same way, rather than written twice. */
-(function(){
-  var wrap = document.getElementById('report');
-  var btn = document.getElementById('fsBtn');
-  var lbl = document.getElementById('fsLabel');
-  var iconExpand = document.getElementById('fsIconExpand');
-  var iconExit = document.getElementById('fsIconExit');
-  if (!wrap || !btn) return;
+  function clear(){ if(dots && dots.parentNode){ dots.parentNode.removeChild(dots); } dots = null; }
 
-  var pseudoFs = false;
-  var isApiFs = function(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); };
-  var isOn = function(){ return isApiFs() || pseudoFs; };
-
-  var sync = function(){
-    var on = isOn();
-    lbl.textContent = on ? 'Exit fullscreen' : 'Fullscreen';
-    btn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'View fullscreen');
-    iconExpand.style.display = on ? 'none' : 'block';
-    iconExit.style.display = on ? 'block' : 'none';
-  };
-  var enterPseudo = function(){
-    if (isApiFs()) return;
-    pseudoFs = true;
-    wrap.classList.add('is-pseudo-fs');
-    document.body.classList.add('is-fs-locked');
-    sync();
-  };
-  var exitPseudo = function(){
-    pseudoFs = false;
-    wrap.classList.remove('is-pseudo-fs');
-    document.body.classList.remove('is-fs-locked');
-    sync();
-  };
-
-  btn.addEventListener('click', function(){
-    if (isOn()) {
-      if (pseudoFs) { exitPseudo(); return; }
-      try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
-      return;
-    }
-    /* requestFullscreen REJECTS A PROMISE; it does not throw. The try/catch
-       around it caught nothing, and the `return` ran before the rejection
-       arrived — so wherever the API says no, the button did nothing at all
-       and the fallback that exists for exactly that case never ran. Seen
-       here: the browser pane refuses the request, and three clicks changed
-       nothing on the page.
-
-       A permissions policy is the common way to be told no, and the iframe
-       inside this frame is cross-origin, so "the API exists" and "the API
-       will work" are different questions. The webkit spelling answers
-       neither — it returns undefined — so that path asks the document
-       afterwards instead. */
-    var req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
-    if (!req) { enterPseudo(); return; }
-
-    var p = null;
-    try { p = req.call(wrap); } catch (e) { enterPseudo(); return; }
-
-    if (p && typeof p.catch === 'function') p.catch(function(){ enterPseudo(); });
-    else setTimeout(function(){ if (!isApiFs()) enterPseudo(); }, 120);
-  });
-
-  document.addEventListener('fullscreenchange', sync);
-  document.addEventListener('webkitfullscreenchange', sync);
-  /* Hardware Esc exits the fallback too, which the API would do for us. */
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && pseudoFs) exitPseudo(); });
-})();
-
-/* The answers that produced the report beside them.
-   Progressive enhancement on purpose: the section ships `hidden` and only
-   appears once the data is in hand, so a failing proxy, a blocked request
-   or no JavaScript leaves the page exactly as it would have been. */
-(function(){
-  var sec = document.getElementById('answers');
-  var pf = document.getElementById('answersProfile');
-  var grid = document.getElementById('answersGrid');
-  if (!sec || !pf || !grid) return;
-
-  /* textContent everywhere below, never innerHTML: every string here is a
-     brand's own quiz copy coming back over the wire, and this page has no
-     business executing it. */
-  function el(tag, cls, text){
-    var n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (text != null) n.textContent = text;
-    return n;
-  }
-
-  /** A labelled block, or nothing at all when there is nothing in it.
-      Every row of the profile is best-effort (api/_demo-summary.mjs drops
-      a question it cannot find rather than printing it empty), so the
-      panel has to be built to come up short without looking broken. */
-  function block(label, body){
-    if (!body) return null;
-    var b = el('div', 'pf-block');
-    b.appendChild(el('h3', 'pf-label', label));
-    b.appendChild(body);
-    return b;
-  }
-
-  function chips(items){
-    if (!items || !items.length) return null;
-    var ul = el('ul', 'pf-chips');
-    items.forEach(function(t){ ul.appendChild(el('li', null, t)); });
-    return ul;
-  }
-
-  /* Outlined pills, not the gold ones the goals wear: these are what the
-     customer TOLD us, not what they asked for, and the report draws the
-     same distinction in its own two pill rows. */
-  function tags(items){
-    if (!items || !items.length) return null;
-    var ul = el('ul', 'pf-tags');
-    items.forEach(function(t){ ul.appendChild(el('li', null, t)); });
-    return ul;
-  }
-
-  /* The report's macro tile: a tiny uppercase label over the value, in a
-     bordered box. `cls` picks how many across. */
-  function tiles(rows, cls){
-    if (!rows || !rows.length) return null;
-    var dl = el('dl', 'pf-tiles' + (cls ? ' ' + cls : ''));
-    rows.forEach(function(r){
-      var w = el('div');
-      w.appendChild(el('dt', null, r.k));
-      w.appendChild(el('dd', null, r.v));
-      dl.appendChild(w);
+  function build(){
+    clear();
+    if(!MQ.matches) return;
+    var deck = document.querySelector('.cases-grid');
+    if(!deck) return;
+    var cards = Array.prototype.filter.call(deck.children, function(c){
+      return c.nodeType === 1 && c.offsetWidth > 0;
     });
-    return dl;
+    if(cards.length < 2) return;
+    if(deck.scrollWidth <= deck.clientWidth + 4) return;
+
+    dots = document.createElement('div');
+    dots.className = 'deck-dots';
+    dots.setAttribute('role','tablist');
+    dots.setAttribute('aria-label','Choose a use case');
+
+    cards.forEach(function(card, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role','tab');
+      b.setAttribute('aria-label','Use case ' + (i+1) + ' of ' + cards.length);
+      b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+      b.addEventListener('click', function(){
+        deck.scrollTo({ left: card.offsetLeft - deck.offsetLeft, behavior: 'smooth' });
+      });
+      dots.appendChild(b);
+    });
+    deck.parentNode.insertBefore(dots, deck.nextSibling);
+
+    function sync(){
+      var mid = deck.scrollLeft + deck.clientWidth / 2, best = 0, bestD = Infinity;
+      cards.forEach(function(c, i){
+        var c0 = c.offsetLeft - deck.offsetLeft;
+        var d = Math.abs(c0 + c.offsetWidth / 2 - mid);
+        if(d < bestD){ bestD = d; best = i; }
+      });
+      Array.prototype.forEach.call(dots.children, function(b, i){
+        b.setAttribute('aria-current', i === best ? 'true' : 'false');
+      });
+    }
+    deck.addEventListener('scroll', sync, { passive: true });
   }
 
-  /* The proxy is a Vercel edge function, so it does not exist under a
-     plain static server: every local preview, and every capture the
-     visual-diff suite takes, saw this panel hidden — which is how it came
-     to be reported twice as missing when it had been live the whole time.
-     demo-answers.json is the same payload vendored by
-     tools/sync-demo-answers.mjs, and tools/check-demo-report.mjs refuses
-     when it stops matching the live submission, so the fallback cannot
-     quietly become a second, wrong copy. That is exactly what went wrong
-     with the report fragment this page used to inline. */
-  fetch('/api/demo-answers', { headers: { accept: 'application/json' } })
-    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
-    .catch(function(){
-      return fetch('/demo-answers.json', { headers: { accept: 'application/json' } })
-        .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); });
-    })
-    .then(function(d){
-      if (!d || !Array.isArray(d.answers) || !d.answers.length) return;
-      var p = d.profile || {};
+  function schedule(){ build(); clearTimeout(bt); bt = setTimeout(build, 120); }
 
-      if (p.name) {
-        document.getElementById('answersTitle').textContent =
-          'What ' + p.name + ' told the quiz';
-      }
-      if (p.identity && p.identity.length) {
-        document.getElementById('answersByline').textContent =
-          p.identity.join(' · ');
-      }
-      var count = document.getElementById('answersCount');
-      if (count) count.textContent = d.count + ' answers.';
-
-      /* Goals first: they are what the customer asked for, and the plan is
-         ordered by them. Then what they reported, then how they live, then
-         what they eat — which is the order the engine reads them in and
-         the order the report's own sections follow. */
-      [
-        block('Goals', chips(p.goals)),
-        block('What they reported', tags(p.flags)),
-        block('Day to day', tiles(p.day)),
-        block('How often they eat', tiles(p.intake))
-      ].forEach(function(b){ if (b) pf.appendChild(b); });
-
-      var frag = document.createDocumentFragment();
-      d.answers.forEach(function(row){
-        var wrap = el('div');
-        wrap.appendChild(el('dt', null, row.q));
-        wrap.appendChild(el('dd', null, row.a));
-        frag.appendChild(wrap);
-      });
-      grid.appendChild(frag);
-
-      sec.hidden = false;
-
-      /* Nothing is withheld from a reader who wants it; the transcript is
-         just not the first thing they meet. */
-      var more = document.getElementById('answersMore');
-      if (more) {
-        var open = false;
-        var sync = function(){
-          grid.hidden = !open;
-          more.textContent = open
-            ? 'Hide the full transcript'
-            : 'See all ' + d.count + ' answers';
-          more.setAttribute('aria-expanded', String(open));
-        };
-        more.hidden = false;
-        more.addEventListener('click', function(){ open = !open; sync(); });
-        sync();
-      }
-    })
-    .catch(function(){ /* the report still stands on its own */ });
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);
+  else schedule();
+  if(MQ.addEventListener) MQ.addEventListener('change', schedule);
+  else if(MQ.addListener) MQ.addListener(schedule);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+  window.addEventListener('load', schedule);
+  var t = null;
+  window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(schedule, 160); }, { passive: true });
 })();
-
-/* The expand control, the palette swatches and the height listener all
-   lived here and all drove the INLINED fragment. The report is a live
-   cross-origin document now: it carries its own expand dialogs, its own
-   colours, and its own scrolling, and nothing on this page can or should
-   reach into it. */
-
-
 </script>
-
+<script src="/scroll-cards.js"></script>
+<script>
+/* The footer's newsletter form, as on the homepage. */
+(function(){var f=document.getElementById('news-form');if(!f)return;f.addEventListener('submit',function(e){e.preventDefault();var b=document.getElementById('news-submit'),i=document.getElementById('news-email');b.textContent='Thanks \u2713';b.disabled=true;i.value='';setTimeout(function(){b.textContent='Subscribe';b.disabled=false;},3000);});})();
+</script>
 <div id="blend-cookie-banner" class="blend-cookie-banner hidden" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-text">
   <div class="blend-cookie-banner-inner">
     <div class="blend-cookie-banner-content">
@@ -1017,4 +441,6 @@ html,body{max-width:100%;overflow-x:clip}
 
 <script src="/cookie-consent.js"></script>
 
-</body></html>
+<script src="/sample-report.js" defer></script>
+</body>
+</html>

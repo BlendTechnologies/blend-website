@@ -45,11 +45,11 @@ jobs:
       - name: Every page carries the cookie consent system
         run: node tools/check-cookie-consent.mjs
 
-      # /sample-report embeds a LIVE result from the demo quiz, and a
-      # results link is good for 90 days. Without this the page becomes one
-      # line of grey text on day 91 and every other check still passes.
-      - name: The sample report is still a live demo result
-        run: node tools/check-demo-report.mjs
+      # /sample-report draws the engine's output for one customer, vendored
+      # in sample-report.json. It embedded a live result until that result
+      # was deleted and the page showed "Page not found" in its frame.
+      - name: The sample report shows the engine's figures
+        run: node tools/check-sample-report.mjs
 
       # /try's embed lost its padding to a selector that had joined the one
       # above it. Valid CSS, matching nothing, invisible to a baseline.
