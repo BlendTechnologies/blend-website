@@ -20,6 +20,12 @@ playing a short loop (founder, 2026-10-21: "gifs for the how it works").
 Their rules live once, in `product-screens.css`, linked by both pages; the
 markup is copied, the homepage is the source, and
 `node tools/check-screens.mjs` refuses when a copy differs.
+Step 01 of /how-it-works has a fifth, the Catalogue (`.kx`, 2026-10-22),
+which is on that page only, so there is no copy to check. It is directed
+rather than walked through ("more than just someone strolling around the
+webapp"): a camera over the page, `--cx --cy --cs` per beat. Its prices are
+in pounds, because `tools/check-prices.mjs` holds every `$` figure on the
+site to `pricing.json`, and its product descriptions make no health claims.
 What keeps them honest:
 
 - **Words** come from `apps/webapp/lib/copy.ts`, and **counts** from the

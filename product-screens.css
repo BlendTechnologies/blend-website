@@ -3,7 +3,8 @@
    ------------------------------------------------------------
    The dashboard's own screens, rebuilt in code from the founder's
    screenshots (2026-10-21): the quiz builder (.bx), the results
-   builder (.bx.rx), Analytics (.ax) and Contacts (.cx). Each is drawn
+   builder (.bx.rx), Analytics (.ax) and Contacts (.cx), and the
+   Catalogue (.kx, 2026-10-22, /how-it-works only so far). Each is drawn
    at the width it was captured, 2000px, and scaled to its frame by
    --k, which the page sets from the frame's width, so it is sharp at
    any size and is not an image.
@@ -317,3 +318,85 @@
 .cx-note{margin-top:33px !important;font-size:13px;line-height:17px;color:#52525B}
 .cx-note + .cx-note{margin-top:24px !important}
 .cx-note b{font-weight:400;color:#18181B;text-decoration:underline;text-underline-offset:2px}
+
+/* ---- 05: Catalogue, rebuilt (founder's screenshots, 2026-10-22) ---------
+   The dashboard's Catalogue page at the size it was captured (2000 x 1125),
+   before and after a store connects: the empty page, the Shopify card typed
+   into and connected, the two confirmations, Blend AI's prompt and the
+   product cards. Both states are in the markup and the page's choreography
+   (how-it-works.html, "01, the catalogue") moves between them and moves a
+   camera (.kx-cam, --cx --cy --cs) over the page. The store and products are
+   the demo store's; the descriptions are plain statements of what is in each
+   product, not the demo data's health claims, and the prices are in pounds:
+   tools/check-prices.mjs holds every $ figure on the site to pricing.json,
+   and these are a shop's prices, not Blend's. The ... menu leaves out
+   Delete all. Goes stale when the page's look changes. */
+.kx{position:absolute;left:0;top:0;width:2000px;height:1125px;overflow:hidden;transform:scale(var(--k,.374));transform-origin:0 0;
+  background:#FAFAFA;color:#18181B;font-family:"Inter","Inter var",-apple-system,system-ui,sans-serif;font-size:15px;line-height:1.4;text-align:left;pointer-events:none}
+.kx p,.kx h4,.kx h5{margin:0}
+.kx svg{display:block}
+.kx-cam{position:absolute;left:0;top:0;width:2000px;transform:translate(var(--cx,0px),var(--cy,0px)) scale(var(--cs,1));transform-origin:0 0;
+  transition:transform 1.2s cubic-bezier(.65,0,.25,1)}
+.kx-pg{width:1066px;margin:0 auto;padding:40px 0 60px}
+.kx-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:40px}
+.kx h4{font-size:38px;font-weight:700;line-height:1.2;letter-spacing:-.02em}
+.kx h4 span{color:#52525B}
+.kx-sub{margin-top:3px !important;color:#3F3F46}
+.kx-acts{position:relative;display:flex;gap:9px}
+.kx-btn{display:inline-flex;align-items:center;justify-content:center;flex:none;height:44px;padding:0 16px;border:1px solid #E4E4E7;border-radius:8px;
+  background:#FFFFFF;font-size:15px;font-weight:500;color:#18181B;white-space:nowrap;transition:background-color .2s ease}
+.kx-gold{border-color:#93652F;background:#93652F;color:#FFFFFF}
+.kx-more{width:44px;padding:0}
+.kx-menu{position:absolute;top:54px;right:0;z-index:2;display:flex;flex-direction:column;width:222px;padding:8px;border:1px solid #E4E4E7;border-radius:12px;
+  background:#FFFFFF;box-shadow:0 10px 28px rgba(24,24,27,.10),0 2px 6px rgba(24,24,27,.05);opacity:0;transform:translateY(-6px) scale(.97);transform-origin:100% 0}
+.kx-menu span{display:flex;align-items:center;height:40px;padding:0 10px;border-radius:8px;white-space:nowrap}
+.kx-card{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:25px;min-height:89px;padding:0 20px;
+  border:1px solid #E4E4E7;border-radius:12px;background:#FFFFFF;box-shadow:0 1px 2px rgba(24,24,27,.04),0 4px 14px rgba(24,24,27,.03)}
+.kx-store{margin-top:42px}
+.kx-t{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600;line-height:1.3}
+.kx-t i{flex:none;width:7px;height:7px;border-radius:50%;background:#3F3F46}
+.kx-on .kx-t i{background:#16A34A}
+.kx-d{margin-top:6px !important;color:#3F3F46}
+.kx-row{display:flex;align-items:center;gap:9px}
+/* the two states of a card share one cell; the choreography fades between them */
+.kx-sw{display:grid}
+.kx-sw > *{grid-area:1/1}
+.kx-sw.kx-r{justify-items:end}
+.kx-on{opacity:0}
+.kx-in{position:relative;display:flex;align-items:center;width:222px;height:43px;padding:0 9px;overflow:hidden;border:1px solid #E4E4E7;border-radius:8px;
+  background:#FFFFFF;white-space:nowrap}
+.kx-in em{font-style:normal;color:#A1A1AA}
+.kx-in b{position:absolute;left:9px;font-weight:400;clip-path:inset(0 100% 0 0)}
+.kx-ban{display:flex;align-items:center;height:46px;max-height:0;margin-top:0;padding:0 17px;overflow:hidden;opacity:0;
+  border:0 solid #86EFAC;border-radius:10px;background:#F0FDF4;color:#15803D;box-sizing:border-box}
+.kx-card.kx-flt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;align-items:end;gap:13px;padding:26px 20px 20px}
+.kx-lb{display:block;margin-bottom:8px;font-size:12.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#3F3F46}
+.kx-fd{display:flex;align-items:center;justify-content:space-between;height:43px;padding:0 9px;border:1px solid #E4E4E7;border-radius:8px;color:#A1A1AA}
+.kx-fd.is-set{color:#18181B}
+.kx-ai{display:flex;align-items:center;gap:16px;margin-top:25px;height:110px;padding:0 20px;border:1px solid #EAD7BF;border-radius:12px;
+  background:linear-gradient(100deg,#F4EADD 0%,#FAF5EF 45%,#FFFDFB 100%)}
+.kx-dots{flex:none;width:46px;height:46px}
+.kx-eb{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;letter-spacing:.1em;color:#93652F}
+.kx-eb span{padding:0 7px;border:1.5px solid #C9A57A;border-radius:999px;font-size:12px;line-height:17px}
+.kx-ai h5{margin-top:3px !important;font-size:21px;font-weight:600;letter-spacing:-.01em}
+.kx-ai .kx-d{margin-top:4px !important}
+.kx-go{display:grid;place-items:center;flex:none;width:40px;height:40px;margin-left:auto;border:1px solid #D9B98F;border-radius:50%;background:#F7EEE3;color:#93652F}
+.kx-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;height:157px;margin-top:25px;
+  border:1.5px dashed #E4E4E7;border-radius:12px;color:#3F3F46}
+.kx-pgn{margin-top:34px !important;color:#3F3F46}
+.kx-grid{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:25px}
+.kx-p{height:447px;padding:20px;border:1px solid #E4E4E7;border-radius:12px;background:#FFFFFF;box-shadow:0 1px 2px rgba(24,24,27,.04),0 4px 14px rgba(24,24,27,.03)}
+.kx-ph{display:flex;align-items:flex-start;gap:12px}
+.kx-th{flex:none;width:48px;height:48px;overflow:hidden;border-radius:10px;background:#F1EADF}
+.kx-th img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.35)}
+.kx-nm{display:flex;align-items:baseline;gap:8px;font-size:17px;font-weight:500;letter-spacing:-.01em;white-space:nowrap}
+.kx-nm small{font-size:13px;font-weight:400;color:#52525B}
+.kx-cat{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:6px;background:#F4F4F5;font-size:12.5px;color:#3F3F46}
+.kx-ph .kx-more{margin-left:auto}
+.kx-rv{display:flex;align-items:center;gap:6px;margin-top:14px !important;font-size:13px;color:#C2410C}
+.kx-p p:not(.kx-rv){font-size:12.5px;line-height:16px;color:#3F3F46}
+.kx-p .kx-nt{margin-top:10px !important}
+.kx-p .kx-mk{margin-top:24px !important;text-decoration:underline;text-underline-offset:2px}
+.kx-p .kx-dl{margin-top:24px !important;color:#18181B}
+.kx-p .kx-ds{margin-top:4px !important}
+.kx-p .kx-url{margin-top:16px !important;color:#18181B;text-decoration:underline;text-underline-offset:2px}
