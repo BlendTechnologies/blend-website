@@ -116,7 +116,7 @@
    it is on .sc-hero::before: the surfaces spec reads it as lit, and
    theme.css leaves .hero-card out of its ::after wash for plain dark
    boxes, or it would be painted twice. The height is the content and the
-   composition's own padding (page-hero.css's .ph, or use-case.css), with
+   composition's own padding (page-hero.css's .ph), with
    no viewport minimum. No overflow:hidden, so nothing is clipped at the
    card's edge by the card itself. */
 .hero-card{margin:8px var(--sc-inset) 0;border-radius:var(--sc-round);
