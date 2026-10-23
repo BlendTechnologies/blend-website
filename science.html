@@ -52,7 +52,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .skip:focus{left:16px}
 .wrap{max-width:var(--content);margin:0 auto;padding:0 32px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+.h1{font-size:clamp(34px,3.9vw,56px);line-height:1;letter-spacing:-.02em;font-weight:500;margin:0;text-wrap:balance}
 .h2{font-size:clamp(24px,2.5vw,30px);line-height:1.1875;letter-spacing:-.02em;font-weight:500;margin:0;text-wrap:balance}
 .lead{font-size:15px;line-height:1.5;letter-spacing:-.013em;color:var(--ink-80);margin:0;font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 19px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:-.005em;transition:background .18s ease,color .18s ease,border-color .18s ease;white-space:nowrap;min-height:38px;}
@@ -227,17 +227,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer > .wrap{position:relative;z-index:1}
 .footer a:hover{color:var(--white)}
 .footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
 .footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
 .footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
 .footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
-.footer-news{margin-top:24px;display:flex;gap:8px;max-width:360px}
-.footer-news label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.footer-news input{flex:1;padding:12px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--white);font:inherit;font-size:14px;outline:none;min-height:42px}
-.footer-news input::placeholder{color:rgba(255,255,255,.4)}
-.footer-news input:focus{border-color:rgba(255,255,255,.5)}
-.footer-news button{padding:12px 16px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:500;min-height:42px;border:1px solid var(--line-strong)}
-.footer-news button:hover{background:rgba(255,255,255,.85)}
 .footer-col h5{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.45);margin:0 0 14px;font-weight:400}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .footer-col a{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.78);transition:color .15s ease}
@@ -245,7 +238,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
 .footer-trust-label{color:var(--gold);font-weight:400}
 .footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
-@media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}.footer-news{max-width:none}}
+@media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}}
 /* ============================================================
    MOBILE, slidable card carousels (≤760px)
    Desktop is untouched. Tablet (761-860) swipes .personas and .pricing
@@ -927,11 +920,12 @@ body{background:var(--ground)}
    yellow and red); gold stays on what a reader presses and on the one they
    have chosen (the tab underline, the pressed market, the open box's edge). */
 
-/* The homepage's light content cards: flat --n-100, no edge. */
-.sci-gbox{background:var(--n-100);border-color:transparent}
-.sci-gbox[aria-expanded="true"]{background:var(--n-100);border-color:var(--gold)}
-.sci-glist{background:var(--n-100);border-color:transparent}
-.sci-card:not(.tm){background:var(--n-100);border-color:transparent;
+/* White with a hairline, as every card on the site is since 2026-10-22 (the
+   founder: "grey boxes do not exist anywhere else"); these were the last
+   seven on flat --n-100. science.css draws the hairline and the white, so
+   only the open box's gold edge is said here. */
+.sci-gbox[aria-expanded="true"]{border-color:var(--gold)}
+.sci-card:not(.tm){background:var(--surface);border-color:var(--line);
   -webkit-backdrop-filter:none;backdrop-filter:none}
 
 </style>
@@ -1193,14 +1187,8 @@ body{background:var(--ground)}
         <a href="/" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#FFFFFF"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
         <p class="footer-tag">The engine behind personalised product recommendations.</p>
         <a class="footer-li" href="https://www.linkedin.com/company/blendtechnologiesuk/" rel="me noopener" target="_blank">LinkedIn</a>
-        <form class="footer-news" id="news-form" action="#" method="post" novalidate>
-          <label for="news-email">Your work email</label>
-          <input type="email" id="news-email" name="email" placeholder="Your work email" required autocomplete="email">
-          <button type="submit" id="news-submit">Subscribe</button>
-        </form>
       </div>
       <div class="footer-col"><h5>Product</h5><ul><li><a href="/how-it-works">How it works</a></li><li><a href="/#pricing">Pricing</a></li><li><a href="/science">The engine</a></li><li><a href="/try">Try it yourself</a></li><li><a href="/sample-report">Sample report</a></li><li><a href="/#faq">FAQ</a></li></ul></div>
-      <div class="footer-col"><h5>Use cases</h5><ul><li><a href="/use-cases/shopify">For Shopify brands</a></li><li><a href="/use-cases/supplement-brands">For supplement brands</a></li><li><a href="/use-cases/compare">vs other quiz tools</a></li></ul></div>
       <div class="footer-col"><h5>Company</h5><ul>
         <li><a href="mailto:contact@blend-technologies.com">Contact</a></li>
         <li><a href="" onclick="return blendBookDemo('https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&text_color=F3F1ED&primary_color=B47F39');">Book a call</a></li>
@@ -1225,8 +1213,6 @@ const links = document.getElementById('nav-links');
 toggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
 links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
 
-const newsForm = document.getElementById('news-form');
-if (newsForm) { newsForm.addEventListener('submit', e => { e.preventDefault(); const btn = document.getElementById('news-submit'); const inp = document.getElementById('news-email'); btn.textContent = 'Thanks ✓'; btn.disabled = true; inp.value = ''; setTimeout(() => { btn.textContent = 'Subscribe'; btn.disabled = false; }, 3000); }); }
 
 /* science:goal-subs */
 const GOAL_SUBS = {"Bone & Joint Health":["Joint stiffness or discomfort","Bone strength","Bone density with age","Cartilage and joint support","Reduced flexibility","Aches after activity","Bouncing back after a strain"],"Boost Energy":["Ongoing tiredness","Afternoon dips","Low daily stamina","Slow to bounce back after illness","Run-down","Caffeine reliance"],"Build Muscle":["Difficulty building muscle","Slow recovery","Low workout stamina","Plateau","Low pre-workout energy"],"Cognitive Health":["Difficulty concentrating","Forgetfulness or memory lapses","Reduced mental clarity","Brain fog","Afternoon mental fatigue","Slow recall under pressure","Focus and productivity"],"Eye Health":["Screen eye strain","Dry or tired eyes","Night-vision support","Maintaining vision with age","Light sensitivity"],"Healthy Weight Gain":["Struggle to gain weight","Low appetite","Feel like a fast metabolism","Gain fat not muscle","Low energy to train"],"General Health Support":[],"Gut Health":["Occasional gas","Bloating","Indigestion","Heartburn or reflux","Constipation","Loose stools","Tummy cramping","Over-full after small meals","Irregular bowel habits","Discomfort after dairy","Discomfort after gluten or wheat","Sluggish on fatty meals","Occasional nausea"],"Healthy Ageing & Longevity":["Visible signs of ageing","Lower energy with age","Slower recovery","Everyday antioxidant support","Maintaining muscle","Skin or joint changes with age"],"Heart Health":["Support healthy cholesterol","Support healthy blood pressure","Cold hands and feet","Support healthy circulation","Occasional leg or ankle puffiness","Family history of heart concerns","Support healthy triglycerides"],"Hormonal Balance":["Premenstrual mood changes","Cycle-related bloating","Skin changes with cycle","Low energy with cycle","Irregular patterns"],"Immunity":["Frequent colds or sniffles","Seasonal sensitivities","Slow to bounce back","Run-down when busy or travelling","Frequent sore throats"],"Increase Endurance":["Low workout stamina","Cramps","Slow recovery","Electrolyte loss from sweating"],"Sexual Health":["Desire or libido","Stamina and staying power","Blood flow and vitality","Performance confidence","Arousal and sensitivity","Comfort and dryness","Overall vitality"],"Liver Health":["Heavy or sluggish after rich meals","Frequent social drinking","High pollution or chemical exposure","Poor tolerance of fatty foods","Looking for a reset","Lifestyle-related dull skin","Morning-after recovery"],"Lose Weight":["Sugar or carb cravings","Energy dips after meals","Hard to lose despite effort","Constant hunger or low fullness","Stubborn midsection","Late-night snacking"],"Lung Health":["Support healthy breathing","Seasonal or airborne sensitivity","Stamina and breathing during activity","Active-outdoor-lifestyle support"],"Menopause":["Hot flushes","Night sweats","Mood changes","Sleep disruption","Low energy","Changes in skin or hair"],"Mood & Emotions":["Low or flat mood","Irritability","Feeling overwhelmed","Nervousness or on edge","Emotional eating"],"Prostate Health":["Frequent urination","Night-time urination","Weaker flow","General prostate support"],"Sleep":["Trouble falling asleep","Waking during the night","Waking unrested","Short sleep","Racing mind at bedtime","Shift work","Jet lag"],"Stress":["Feeling overwhelmed","Trouble winding down","Everyday tension","Stress-related eating","Restlessness"],"Testosterone Health":["Low energy or drive","Reduced muscle tone","Low desire","Low stamina","Mood or motivation dips"],"Urinary Health":["Bladder comfort","Urinary tract comfort","Bladder control comfort","Kidney and fluid support"],"Blood Sugar Support":["Strong sugar or carb cravings","Energy crashes after meals","Afternoon slumps","Late-night snacking","Steady-energy goal"],"Thyroid & Metabolism Support":["Slow-metabolism feeling","Often feeling cold","Unexplained tiredness with weight changes","Low daily energy","Sluggish after meals"],"Cycle Support":["Irregular or missed periods","Heavy or uncomfortable periods","Premenstrual mood changes","Cycle bloating","Low energy around your period"],"Conception Support":["Trying to conceive","Preparing to try","Supporting reproductive health"],"Prenatal Support":["First trimester","Second trimester","Third trimester","Planning pregnancy nutrition"],"Postnatal Support":["Postnatal tiredness","Hair changes after birth","Breastfeeding nutrition","Rebuilding energy"],"Men's Fertility":["Trying to conceive","Preparing to try","Supporting reproductive health"],"Skin Health":["Blemish-prone skin","Dry skin","Dry, sensitive or irritated skin","Fine lines and wrinkles","Loss of firmness","Dull or uneven tone","Redness or sensitivity"],"Hair Health":["Hair thinning or shedding","Slow hair growth","Brittle hair","Split ends","Dull or lifeless hair","Scalp concerns"],"Nail Health":["Brittle or weak nails","Peeling or splitting nails","Slow nail growth","Ridges or discolouration"],"Mass Gain":["Difficulty gaining size","Low appetite for a surplus","Slow recovery","Strength plateau"],"Tone & Definition":["Struggle to lean out","Holding stubborn fat","Muscle definition","Recovery between sessions"],"Strength & Power":["Strength plateau","Low power output","Slow recovery","Pre-workout energy"],"Recovery & Repair":["Soreness after training","Slow recovery between sessions","Poor sleep after hard sessions","Muscle cramps"],"Hydration & Electrolytes":["Muscle cramps","After heavy sweating or exercise","Hot-climate or outdoor work","Post-workout","Dehydration headaches","Frequent travel or flying"],"Plant-Based Nutrition":["Following a vegan or vegetarian diet","Low energy on plant-based","Want complete daily nutrition","Concerned about common gaps","New to plant-based"],"Everyday Comfort":["Soreness after exercise","Everyday aches or stiffness","Bouncing back after intense activity","General muscle and joint comfort"]};
