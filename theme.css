@@ -370,11 +370,14 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
 /* Cards stop being opaque white slabs on a white page: on a wash they are
    glass, which is what keeps the softness when the cream goes. */
-.tier,.faq-item,.mode-card,.split-card,.uc-card,.sci-card{
+/* Not .faq-item (founder, 2026-10-31: "the text is white background and the
+   page is gray. Needs to blend"): a question row is a hairline on the page,
+   not a card, and the glass read as white slabs on the lit ground. */
+.tier,.mode-card,.split-card,.uc-card,.sci-card{
   background:var(--glass);
   backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur)}
 
 @media(prefers-reduced-transparency:reduce){
-  .glass,.tier,.faq-item,.mode-card,.split-card,.uc-card,.sci-card{
+  .glass,.tier,.mode-card,.split-card,.uc-card,.sci-card{
     background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}
 }
