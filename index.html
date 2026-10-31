@@ -1238,8 +1238,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .tour-bits[data-step="4"] .tour-bit.c3{left:4%;top:auto;bottom:-12%;transform-origin:0 100%}
 }
 .tour.is-held{overflow:clip}
-.tour.is-held > .tour-stage{position:sticky;top:0;height:100vh;min-height:0}
-@supports(height:100svh){.tour.is-held > .tour-stage{height:100svh}}
+.tour.is-held > .tour-stage{position:sticky;top:var(--tour-top,0px);height:auto;min-height:0}
+/* the held stage is its own height since 2026-10-31; nothing to resolve here */
 .tour.is-held > .tour-space{height:var(--tour-run,0px)}
 @media(prefers-reduced-motion:reduce){.tour-media,.tq-pm::before,.tq-pm::after,.tour-swap > *,.cx-r,.cx-btn,.ax-pg{transition:none}
   .tour-bit,.tour-bits.is-on .tour-bit.is-in{transition:none}.tour-swap > *{transform:none}}
@@ -2517,22 +2517,11 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 .eng-more a:hover span{transform:translateX(3px)}
 .eng-more a:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
 @media(prefers-reduced-motion:reduce){.eng-more a span{transition:none}}
-/* ---- A full screen, held for three scrolls (founder, 2026-10-21) ---------
-   "What about the 100vh for the engine? The 3 scrolls could be the 01, 02 and
-   03." When the band reaches the top it IS the window: its content is held in
-   the middle of the screen below the bar, and the next three short stretches
-   of scrolling are the three steps, each playing its part of the run (01: the
-   profile, intakes, targets and gaps; 02: scoring and safety; 03: the plan).
-   About a fifth of the window each, so two flicks get a reader past it.
-   The script turns it on from 761 when the content fits the window, not
-   under reduced motion, and only where overflow:clip exists (the band's
-   overflow:hidden would make it the sticky box's scroller, and it would never
-   hold). Otherwise the band is as above and the run plays on its timer. */
-.eng-space{height:0}
-#science.is-held{overflow:clip;padding:0}
-#science.is-held > .wrap{position:sticky;top:0;height:100vh;
-  display:flex;flex-direction:column;justify-content:center;padding-top:var(--nav-h)}
-#science.is-held > .eng-space{height:var(--eng-run,0px)}
+/* The band used to be a full screen held for three scrolls (2026-10-21), each
+   stretch of scrolling playing one of the three steps. Taken out on
+   2026-10-31 (founder: "it feels heavy and people don't notice it"): the band
+   is in the flow and the run plays on its own timer when it comes into view,
+   which is what the component does when nothing drives it. */
 /* The three steps follow the run. The terminal names seven technical stages;
    these say the same in three plain ones, so the step a stage belongs to is
    lit and its rule fills gold as that part plays; the others step back. The
@@ -2686,6 +2675,29 @@ a.vrow:hover,a.vrow:focus-visible{
 @media(min-width:2300px){:root{--content:1760px}
   .h1{font-size:clamp(34px,3.9vw,72px)}.h2{font-size:clamp(24px,2.5vw,38px)}.lead{font-size:17px}
   #how .step h3,.eng-steps h3{font-size:20px}#how .step p,.eng-steps p{font-size:16px}}
+
+/* ---- One rhythm between the sections (founder, 2026-10-31: "make sure
+   white space between each section feels the same, currently some sections
+   feel like they got more white space than others") -----------------------
+   Measured at 1440 by 900 before this: 62 above each dark card, 72 to 136
+   between the light sections, and 290 and 236 either side of the product
+   tour, whose stage was a full viewport with its content centred in it. Now
+   every block is 96 from the next, counting a dark card's edge as content:
+   48 of padding on each side of a light block, the full 96 where a block
+   meets a card. The tour's stage is its own height with 48 either side; while
+   it is held it sticks at --tour-top, which the script sets so the stage sits
+   centred on the screen, so the hold looks as it did. Desktop only until the
+   phone and tablet are validated. */
+@media(min-width:861px){
+  #opener{min-height:0;padding:56px 0 48px}
+  #how,.opener + #how{padding-top:48px;padding-bottom:48px}
+  #science.science{padding:48px 0}
+  .tour-stage{min-height:0;padding:48px 0}
+  #product + .section{padding:48px 0 96px}
+  #pricing{padding:96px 0 48px}
+  #faq{padding:48px 0 96px}
+  .footer{padding-top:56px}
+}
 </style>
 <script>
 /* The hero intro's start state has to be on the document before the hero's
@@ -2783,7 +2795,7 @@ a.vrow:hover,a.vrow:focus-visible{
 </section>
 <section class="section section-cream" id="how">
   <div class="wrap">
-    <div class="section-head"><h2 class="h2">How it works</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
+    <div class="section-head"><h2 class="h2">From your catalogue to their perfect plan.</h2><p class="lead">Six steps from your catalogue to their personalised plan.</p></div>
     <div class="steps">
       <a class="step" href="/how-it-works#step-1"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="29" r="3.6" fill="#22C55E"/><text x="33" y="32.5" font-size="11" font-weight="600" fill="#18181B">Store connected</text><defs><clipPath id="t1c"><rect class="t-type" x="33" y="39" width="117" height="12"/></clipPath></defs><g clip-path="url(#t1c)"><text x="33" y="47" font-size="9" font-weight="500" fill="#52525B">yourbrand.myshopify.com</text></g><rect class="t-caret" x="148" y="39.5" width="1.2" height="9" fill="#96682B"/><rect x="20" y="62" width="206" height="134" rx="7" fill="#FFFFFF" stroke="#E4E4E7"/><g class="t-row" style="--d:1.2s"><rect x="30" y="70" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="73" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="76.5" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="77.5" font-size="8.5" font-weight="600" fill="#18181B">Essential Creatine</text><text x="56" y="87.5" font-size="7" font-weight="500" fill="#52525B">Powder · 300 g</text><text x="216" y="82.5" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£24</text></g><line x1="30" y1="95.5" x2="216" y2="95.5" stroke="#E4E4E7"/><g class="t-row" style="--d:1.32s"><rect x="30" y="103.5" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="106.5" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="110" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="111" font-size="8.5" font-weight="600" fill="#18181B">Daily Greens</text><text x="56" y="121" font-size="7" font-weight="500" fill="#52525B">Powder · 30 servings</text><text x="216" y="116" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£39</text></g><line x1="30" y1="129" x2="216" y2="129" stroke="#E4E4E7"/><g class="t-row" style="--d:1.44s"><rect x="30" y="137" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="140" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="143.5" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="144.5" font-size="8.5" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><text x="56" y="154.5" font-size="7" font-weight="500" fill="#52525B">Capsules · 60</text><text x="216" y="149.5" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£28</text></g><line x1="30" y1="162.5" x2="216" y2="162.5" stroke="#E4E4E7"/><g class="t-row" style="--d:1.56s"><rect x="30" y="170.5" width="18" height="18" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/><rect x="35.5" y="173.5" width="7" height="3" rx="1" fill="#D4D4D8"/><rect x="34" y="177" width="10" height="9" rx="2" fill="#D4D4D8"/><text x="56" y="178" font-size="8.5" font-weight="600" fill="#18181B">Gut Health</text><text x="56" y="188" font-size="7" font-weight="500" fill="#52525B">Capsules · 30</text><text x="216" y="183" font-size="8" font-weight="500" fill="#18181B" text-anchor="end">£32</text></g><g class="t-press" style="--d:.92s"><rect x="146" y="210" width="80" height="18" rx="5" fill="#96682B"/><text x="186" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Import products</text></g></svg></span></span><div class="step-body"><h3>01. Connect your store</h3><p>Shopify, CSV or manual. Your entire catalogue in and ready within minutes.</p></div></a>
       <a class="step" href="/how-it-works#step-2"><span class="step-thumb" aria-hidden="true"><span class="step-ui"><svg viewBox="0 0 246 246" fill="none" xmlns="http://www.w3.org/2000/svg"><svg x="20" y="17" width="13" height="13" viewBox="0 0 24 24"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg><text x="38" y="27.5" font-size="10.5" font-weight="600" fill="#18181B">Match my catalogue</text><rect x="20" y="38" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0s" x="29" y="45" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0s"><rect x="29" y="45" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 49.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="52.5" font-size="8.5" font-weight="600" fill="#18181B">Essential Creatine</text><text x="45" y="66.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="58" width="87.4" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="99.7" y="65.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Creatine Monohydrate</text><rect x="20" y="80" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.25s" x="29" y="87" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.25s"><rect x="29" y="87" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 91.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="94.5" font-size="8.5" font-weight="600" fill="#18181B">Vitamin B Complex</text><text x="45" y="108.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="100" width="16.84" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="64.42" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">B6</text><rect x="75.84" y="100" width="20.76" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="86.22" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">B12</text><rect x="99.6" y="100" width="32.52" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="115.86" y="107.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Folate</text><rect x="20" y="122" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.5s" x="29" y="129" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.5s"><rect x="29" y="129" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 133.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="136.5" font-size="8.5" font-weight="600" fill="#18181B">Sleep &amp; Recovery</text><text x="45" y="150.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="142" width="44.28" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="78.14" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Magnesium</text><rect x="103.28" y="142" width="48.2" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="127.38" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">L-Theanine</text><rect x="154.48" y="142" width="36.44" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="172.7" y="149.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Glycine</text><rect x="20" y="164" width="206" height="36" rx="6" fill="#FFFFFF" stroke="#E4E4E7"/><rect class="t-ghost" style="animation-delay:0.75s" x="29" y="171" width="9" height="9" rx="2" fill="#F4F4F5" stroke="#D4D4D8"/><g class="t-real" style="animation-delay:0.75s"><rect x="29" y="171" width="9" height="9" rx="2" fill="#96682B"/><path d="M31.2 175.6l1.8 1.9 3.1-3.4" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g><text x="45" y="178.5" font-size="8.5" font-weight="600" fill="#18181B">Immune Support</text><text x="45" y="192.4" font-size="8" font-weight="500" fill="#52525B">&#8594;</text><rect x="56" y="184" width="44.28" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="78.14" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Vitamin C</text><rect x="103.28" y="184" width="24.68" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="115.62" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Zinc</text><rect x="130.96" y="184" width="48.2" height="11" rx="3" fill="#F4F4F5" stroke="#E4E4E7"/><text x="155.06" y="191.6" font-size="7" font-weight="500" fill="#3F3F46" text-anchor="middle">Vitamin D3</text><g class="t-press" style="--d:1.5s"><rect x="156" y="210" width="70" height="18" rx="5" fill="#96682B"/><text x="191" y="222" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle">Apply match</text></g></svg></span></span><div class="step-body"><h3>02. Match your catalogue<span class="ai-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="21.00" cy="12.00" r="2.6" fill="#E4572E"/><circle cx="19.97" cy="16.98" r="2" fill="#F2A65A"/><circle cx="15.77" cy="19.73" r="1.5" fill="#F7C548"/><circle cx="11.04" cy="21.15" r="2.3" fill="#5BC0BE"/><circle cx="6.58" cy="18.93" r="1.4" fill="#3A86FF"/><circle cx="3.07" cy="15.25" r="2.1" fill="#5E60CE"/><circle cx="3.49" cy="10.19" r="1.3" fill="#7B2CBF"/><circle cx="5.31" cy="5.54" r="1.8" fill="#B5179E"/><circle cx="9.85" cy="3.36" r="1.2" fill="#F72585"/><circle cx="14.81" cy="3.35" r="2.4" fill="#E4572E"/><circle cx="18.51" cy="6.54" r="1.6" fill="#F2A65A"/><circle cx="21.23" cy="9.35" r="1.1" fill="#F7C548"/><circle cx="16.32" cy="13.57" r="1.5" fill="#F7C548"/><circle cx="8.36" cy="9.90" r="1.2" fill="#3A86FF"/></svg>AI</span></h3><p>Import your catalogue and let Blend organise products, ingredients and benefits for intelligent recommendations.</p></div></a>
@@ -2802,7 +2814,7 @@ a.vrow:hover,a.vrow:focus-visible{
 
 <section class="science" id="science">
   <div class="wrap">
-    <div class="science-head"><h2 class="h2">How the engine works.</h2><p class="lead">Unlike traditional quizzes that connect predefined answers to products, Blend combines customer needs, research and your product catalogue to deliver intelligent, explainable recommendations.</p></div>
+    <div class="science-head"><h2 class="h2">Every recommendation has a reason.</h2><p class="lead">Unlike traditional quizzes that connect predefined answers to products, Blend combines customer needs, research and your product catalogue to deliver intelligent, explainable recommendations.</p></div>
     <div class="eng-term tm" data-term data-tm-hold="4300,1600,1600,1800,2600,2600,1600" data-tm-cols="20" data-tm-persona-ms="3500">
       <div class="tm-top">
         <span class="tm-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -2848,7 +2860,6 @@ a.vrow:hover,a.vrow:focus-visible{
     </ol>
     <p class="eng-more">How a score is built, what gates it and where the numbers come from. <a href="/science">Explore the engine <span aria-hidden="true">&#8594;</span></a></p>
   </div>
-  <div class="eng-space" aria-hidden="true"></div>
 </section>
 <section class="tour" id="product" aria-labelledby="tour-title">
   <h2 class="tour-sr" id="tour-title">The product</h2>
@@ -2941,7 +2952,7 @@ a.vrow:hover,a.vrow:focus-visible{
 
 <section class="section section--tight section-cream">
   <div class="wrap">
-    <div class="section-head"><h2 class="h2">Who it's for</h2><p class="lead">Any catalogue where the right product depends on the person.</p></div>
+    <div class="section-head"><h2 class="h2">Built for products where the right choice depends on the person.</h2><p class="lead">Any catalogue where the right product depends on the person.</p></div>
     <div class="vsplit">
       <article class="vlead">
         <div class="vlead-photo" aria-hidden="true"></div>
@@ -2969,18 +2980,18 @@ a.vrow:hover,a.vrow:focus-visible{
 
 <section class="theme-dark trust" id="trust" aria-labelledby="trust-h">
   <div class="wrap">
-    <h2 class="h2" id="trust-h">We value your trust.</h2>
+    <h2 class="h2" id="trust-h">Personalisation built for sensitive data.</h2>
     <ul class="trust-badges" role="list">
       <li class="trust-badge"><svg class="trust-ring" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="tico" d="M60 60m-47 0a47 47 0 1 1 94 0a47 47 0 1 1-94 0"/></defs><text class="trust-ringtext" textLength="295" lengthAdjust="spacing"><textPath href="#tico">Information Commissioner&#8217;s Office &middot; Registration ZC236476 &middot; </textPath></text></svg><svg class="trust-em" width="22" height="24" viewBox="0 0 24 26" aria-hidden="true"><mask id="tem1"><path d="M12 1 2 4.6v7c0 6 4.1 10.4 10 12.4 5.9-2 10-6.4 10-12.4v-7Z" fill="#fff"/><path d="m7.4 13.2 3.1 3.1 6.2-6.6" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></mask><rect width="24" height="26" fill="currentColor" mask="url(#tem1)"/></svg><span class="trust-k">ICO</span><span class="trust-s">Registered</span></li>
       <li class="trust-badge"><svg class="trust-ring" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="tst" d="M0-4.2 1.23-1.3 4.4-1.3 1.85.58 2.8 3.6 0 1.84-2.8 3.6-1.85.58-4.4-1.3-1.23-1.3Z" fill="currentColor"/></defs><use href="#tst" x="60.00" y="14.00"/><use href="#tst" x="83.00" y="20.16"/><use href="#tst" x="99.84" y="37.00"/><use href="#tst" x="106.00" y="60.00"/><use href="#tst" x="99.84" y="83.00"/><use href="#tst" x="83.00" y="99.84"/><use href="#tst" x="60.00" y="106.00"/><use href="#tst" x="37.00" y="99.84"/><use href="#tst" x="20.16" y="83.00"/><use href="#tst" x="14.00" y="60.00"/><use href="#tst" x="20.16" y="37.00"/><use href="#tst" x="37.00" y="20.16"/></svg><span class="trust-k">GDPR</span><span class="trust-s">UK + EU</span></li>
       <li class="trust-badge"><svg class="trust-em trust-map" width="44" height="38" viewBox="0 0 44 38" aria-hidden="true"><g fill="rgba(255,255,255,.42)"><circle cx="26.6" cy="1.9" r="1.1"/><circle cx="29.8" cy="1.9" r="1.1"/><circle cx="32.8" cy="1.9" r="1.1"/><circle cx="23.5" cy="5.0" r="1.1"/><circle cx="26.6" cy="5.0" r="1.1"/><circle cx="29.8" cy="5.0" r="1.1"/><circle cx="32.8" cy="5.0" r="1.1"/><circle cx="36.0" cy="5.0" r="1.1"/><circle cx="39.0" cy="5.0" r="1.1"/><circle cx="42.2" cy="5.0" r="1.1"/><circle cx="20.4" cy="8.1" r="1.1"/><circle cx="23.5" cy="8.1" r="1.1"/><circle cx="26.6" cy="8.1" r="1.1"/><circle cx="29.8" cy="8.1" r="1.1"/><circle cx="39.0" cy="8.1" r="1.1"/><circle cx="42.2" cy="8.1" r="1.1"/><circle cx="17.3" cy="11.2" r="1.1"/><circle cx="20.4" cy="11.2" r="1.1"/><circle cx="23.5" cy="11.2" r="1.1"/><circle cx="26.6" cy="11.2" r="1.1"/><circle cx="29.8" cy="11.2" r="1.1"/><circle cx="36.0" cy="11.2" r="1.1"/><circle cx="39.0" cy="11.2" r="1.1"/><circle cx="42.2" cy="11.2" r="1.1"/><circle cx="8.0" cy="14.3" r="1.1"/><circle cx="17.3" cy="14.3" r="1.1"/><circle cx="20.4" cy="14.3" r="1.1"/><circle cx="23.5" cy="14.3" r="1.1"/><circle cx="26.6" cy="14.3" r="1.1"/><circle cx="29.8" cy="14.3" r="1.1"/><circle cx="36.0" cy="14.3" r="1.1"/><circle cx="39.0" cy="14.3" r="1.1"/><circle cx="42.2" cy="14.3" r="1.1"/><circle cx="4.9" cy="17.4" r="1.1"/><circle cx="8.0" cy="17.4" r="1.1"/><circle cx="11.1" cy="17.4" r="1.1"/><circle cx="20.4" cy="17.4" r="1.1"/><circle cx="23.5" cy="17.4" r="1.1"/><circle cx="26.6" cy="17.4" r="1.1"/><circle cx="29.8" cy="17.4" r="1.1"/><circle cx="32.8" cy="17.4" r="1.1"/><circle cx="36.0" cy="17.4" r="1.1"/><circle cx="39.0" cy="17.4" r="1.1"/><circle cx="42.2" cy="17.4" r="1.1"/><circle cx="8.0" cy="20.6" r="1.1"/><circle cx="11.1" cy="20.6" r="1.1"/><circle cx="17.3" cy="20.6" r="1.1"/><circle cx="20.4" cy="20.6" r="1.1"/><circle cx="23.5" cy="20.6" r="1.1"/><circle cx="26.6" cy="20.6" r="1.1"/><circle cx="29.8" cy="20.6" r="1.1"/><circle cx="32.8" cy="20.6" r="1.1"/><circle cx="36.0" cy="20.6" r="1.1"/><circle cx="39.0" cy="20.6" r="1.1"/><circle cx="42.2" cy="20.6" r="1.1"/><circle cx="11.1" cy="23.6" r="1.1"/><circle cx="14.2" cy="23.6" r="1.1"/><circle cx="17.3" cy="23.6" r="1.1"/><circle cx="23.5" cy="23.6" r="1.1"/><circle cx="26.6" cy="23.6" r="1.1"/><circle cx="29.8" cy="23.6" r="1.1"/><circle cx="32.8" cy="23.6" r="1.1"/><circle cx="36.0" cy="23.6" r="1.1"/><circle cx="39.0" cy="23.6" r="1.1"/><circle cx="42.2" cy="23.6" r="1.1"/><circle cx="11.1" cy="26.8" r="1.1"/><circle cx="14.2" cy="26.8" r="1.1"/><circle cx="17.3" cy="26.8" r="1.1"/><circle cx="20.4" cy="26.8" r="1.1"/><circle cx="23.5" cy="26.8" r="1.1"/><circle cx="26.6" cy="26.8" r="1.1"/><circle cx="29.8" cy="26.8" r="1.1"/><circle cx="32.8" cy="26.8" r="1.1"/><circle cx="36.0" cy="26.8" r="1.1"/><circle cx="39.0" cy="26.8" r="1.1"/><circle cx="42.2" cy="26.8" r="1.1"/><circle cx="1.8" cy="29.9" r="1.1"/><circle cx="4.9" cy="29.9" r="1.1"/><circle cx="8.0" cy="29.9" r="1.1"/><circle cx="11.1" cy="29.9" r="1.1"/><circle cx="14.2" cy="29.9" r="1.1"/><circle cx="23.5" cy="29.9" r="1.1"/><circle cx="26.6" cy="29.9" r="1.1"/><circle cx="29.8" cy="29.9" r="1.1"/><circle cx="32.8" cy="29.9" r="1.1"/><circle cx="36.0" cy="29.9" r="1.1"/><circle cx="39.0" cy="29.9" r="1.1"/><circle cx="42.2" cy="29.9" r="1.1"/><circle cx="1.8" cy="33.0" r="1.1"/><circle cx="4.9" cy="33.0" r="1.1"/><circle cx="8.0" cy="33.0" r="1.1"/><circle cx="11.1" cy="33.0" r="1.1"/><circle cx="29.8" cy="33.0" r="1.1"/><circle cx="32.8" cy="33.0" r="1.1"/><circle cx="36.0" cy="33.0" r="1.1"/><circle cx="39.0" cy="33.0" r="1.1"/><circle cx="42.2" cy="33.0" r="1.1"/><circle cx="4.9" cy="36.0" r="1.1"/><circle cx="8.0" cy="36.0" r="1.1"/><circle cx="11.1" cy="36.0" r="1.1"/><circle cx="26.6" cy="36.0" r="1.1"/><circle cx="36.0" cy="36.0" r="1.1"/><circle cx="39.0" cy="36.0" r="1.1"/></g><circle cx="1.8" cy="17.4" r="1.7" fill="#fff"/><circle cx="20.4" cy="23.6" r="1.7" fill="#fff"/></svg><span class="trust-k">EU hosting</span></li>
     </ul>
-    <p class="trust-p">Health data is the most personal data there is, so we treat it that way. Encrypted in transit and at rest. Stored and processed in the EU. Used only with explicit consent. Never sold.</p>
+    <p class="trust-p">Health data is deeply personal, and we treat it accordingly. It is encrypted in transit and at rest, stored and processed in the EU, used only with explicit consent, and never sold.</p>
   </div>
 </section>
 <section class="section section-cream" id="pricing">
   <div class="wrap">
-    <div class="section-head"><h2 class="h2">Pricing</h2><p class="lead">Start free for 15 days, then choose the plan that fits your catalogue.</p></div>
+    <div class="section-head"><h2 class="h2">Start personalising for $49/month.</h2><p class="lead">Start free for 15 days, then choose the plan that fits your catalogue.</p></div>
     <div class="pricing-controls">
       <div class="billing-toggle">
         <button id="billing-monthly" class="active" type="button">Monthly</button>
@@ -3639,7 +3650,9 @@ window.addEventListener('load', function(){
       card.style.setProperty('--f0', f0.toFixed(3));
     });
   }
-  function start(){ return tour.getBoundingClientRect().top + window.scrollY; }
+  /* The stage sticks at --tour-top, not at the window's top (2026-10-31), so
+     the hold begins that much earlier than the section's top. */
+  function start(){ return tour.getBoundingClientRect().top + window.scrollY - (pin.top || 0); }
   function measure(){
     tour.classList.remove('is-held');
     var stage = tour.querySelector('.tour-stage');
@@ -3647,6 +3660,9 @@ window.addEventListener('load', function(){
       window.innerHeight >= 620 && stage.offsetHeight <= window.innerHeight + 2;
     tour.classList.toggle('is-held', pin.on);
     if(!pin.on){ tabs.forEach(function(t){ t.style.removeProperty('--p'); }); return; }
+    var navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 68;
+    pin.top = Math.max(navH, Math.round((window.innerHeight - stage.offsetHeight) / 2));
+    tour.style.setProperty('--tour-top', pin.top + 'px');
     pin.step = Math.round(Math.max(70, window.innerHeight * 0.085));
     tour.style.setProperty('--tour-run', (pin.step * total) + 'px');
   }
@@ -3738,53 +3754,6 @@ window.addEventListener('load', function(){
     if(k >= 0 && k < tabs.length) go(k);
   }, { passive: true });
   reset();
-});
-
-/* ---- The engine's three scrolls ------------------------------------------
-   Waits for load: engine-terminal.js comes after this and gives the card
-   tmPart. pin.start is the scroll at which the band's top meets the window's;
-   from there each pin.step of scroll is one of the three steps. Before it,
-   while the band is arriving, step 01 is already playing; past it, the plan.
-   Out of sight the run pauses, and coming back plays the step again. */
-window.addEventListener('load', function(){
-  var sec = document.getElementById('science');
-  var held = sec && sec.querySelector(':scope > .wrap');
-  var card = held && held.querySelector('[data-term]');
-  if(!card || typeof card.tmPart !== 'function') return;
-  var wide = window.matchMedia('(min-width:761px)');
-  var still = window.matchMedia('(prefers-reduced-motion:reduce)');
-  var PARTS = [[0, 3], [4, 5], [6, 6]];
-  var pin = { on: false, start: 0, step: 0 }, at = -1;
-  function measure(){
-    var navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 68;
-    sec.classList.remove('is-held');
-    var fits = held.offsetHeight <= window.innerHeight - navH - 24;   /* measured unheld */
-    pin.on = wide.matches && !still.matches && CSS.supports('overflow', 'clip') && fits;
-    sec.classList.toggle('is-held', pin.on);
-    if(pin.on) card.dataset.tmDriven = '1'; else delete card.dataset.tmDriven;
-    if(!pin.on) return;
-    pin.step = Math.round(Math.max(150, window.innerHeight * 0.2));
-    sec.style.setProperty('--eng-run', (pin.step * 3) + 'px');
-    pin.start = sec.getBoundingClientRect().top + window.scrollY;
-  }
-  function follow(){
-    if(!pin.on) return;
-    var r = sec.getBoundingClientRect();
-    if(r.bottom < 0 || r.top > window.innerHeight){ if(at !== -1){ card.tmPause(); at = -1; } return; }
-    var k = Math.floor((window.scrollY - pin.start) / pin.step);
-    k = Math.max(0, Math.min(2, k));
-    if(k === at) return;
-    at = k;
-    card.tmPart(PARTS[k][0], PARTS[k][1]);
-  }
-  card.addEventListener('tm-restart', function(){
-    at = -1;
-    window.scrollTo({ top: pin.start, behavior: still.matches ? 'auto' : 'smooth' });
-    follow();
-  });
-  window.addEventListener('scroll', follow, { passive: true });
-  window.addEventListener('resize', function(){ measure(); at = -1; follow(); });
-  measure(); follow();
 });
 
 /* ---- The engine's three steps follow its run ----------------------------
