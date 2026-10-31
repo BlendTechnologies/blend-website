@@ -164,8 +164,13 @@ under the six tiles and the engine's three steps go up with them, at the
 end of the homepage sheet so they beat the base sizes. Body copy stays at
 its reading size. A real CSS `zoom` was tried first and rejected: the
 page's scroll holds mix `offsetHeight` with `innerHeight`, and 21 viewport
-units would all need dividing by it. The inner pages keep their 1200px
-content box; widening them is a separate decision.
+units would all need dividing by it. The inner pages followed the same
+day ("do the same for the inner pages"): the same steps from each page's
+own base (a 1200 page goes 1340, 1460, 1620), the hero's `.ph .h1` and
+inner column with them, and How it works' step headings and leads. The
+documents (the legal pages, the three articles) keep their measured
+reading column, which legal.css caps on purpose, so there the widening
+reaches the hero and the footer.
 
 **The FAQ rows carry no fill**: `theme.css` leaves `.faq-item` out of the
 glass list, because white glass on the lit ground read as white slabs.
