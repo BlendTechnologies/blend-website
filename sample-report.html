@@ -436,6 +436,19 @@ html,body{max-width:100%;overflow-x:clip}
   @media(max-width:1000px){ .report-frame{position:relative;top:auto} }
 
   :root{--report-pad:12px}
+
+/* ---- Larger screens (founder, 2026-10-31: "a version that fits in larger
+   screens", then "do the same for the inner pages") -----------------------
+   The content box widens with the window from 1680 in the homepage's steps
+   (this page's box is 1200px at 1440, the homepage's is 1340), and the display
+   type goes up with it; the hero's inner column widens so the lead keeps
+   its measure. Body copy stays at its reading size. Last in the sheet on
+   purpose, so these beat the base sizes above at equal specificity. */
+@media(min-width:1680px){:root{--content:1340px}}
+@media(min-width:1920px){:root{--content:1460px}
+  .h1,.ph .h1{font-size:clamp(34px,3.9vw,64px)}.h2{font-size:clamp(24px,2.5vw,34px)}.lead{font-size:16px}.ph-inner{max-width:960px}}
+@media(min-width:2300px){:root{--content:1620px}
+  .h1,.ph .h1{font-size:clamp(34px,3.9vw,72px)}.h2{font-size:clamp(24px,2.5vw,38px)}.lead{font-size:17px}.ph-inner{max-width:1040px}}
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sample wellness report | Blend","url":"https://www.blend-technologies.com/sample-report","description":"The report a customer receives at the end of a Blend quiz, with the reason behind every pick and the safety notices that apply to them. Yours to configure.","isPartOf":{"@type":"WebSite","name":"Blend","url":"https://www.blend-technologies.com/"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.blend-technologies.com/"},{"@type":"ListItem","position":2,"name":"Sample report","item":"https://www.blend-technologies.com/sample-report"}]}}</script>
 </head>
 <body>
