@@ -131,6 +131,45 @@ tour and the films use the whole recipe; /how-it-works leaves out the
 backdrop blur, which over the ground light changes nothing visible and made
 the phone capture of that page flaky.
 
+**The bar is a pill once the page moves** (2026-10-31, founder, from
+superpower.com: "stays like it is on page load, and as soon as you scroll,
+becomes like this"). `nav.css`: at rest the bar is as it was; with `.scrolled`
+the bar's own box goes clear and `.nav-inner` closes into a floating pill,
+840 wide, 46 tall, 15 from the top, black at .6 over a blur, white type. On a
+phone it is the screen less 12px either side, and it is NOT a pill while the
+sheet is open (`:not(.open)`): a translate or a backdrop-filter on the inner
+would make it the sheet's containing block and the sheet would come out the
+pill's width. The bar's box keeps `--nav-h`, so nothing under it moves.
+
+**The footer is the page** (same day: "in white as a continuation of the
+page"). `<footer class="footer">`, ink on the page's white, on every page.
+Where a page has a closing call to action it is a dark card of its own
+(`.closer`, `.sc-reveal` with four corners) with the footer under it; where
+it has none (the legal pages, the three use-case articles) the footer opens
+on a hairline at the content's width. Each page still carries its own
+`.footer*` rules inline; they were mapped from white alphas to the ink
+tokens in one pass, and a new page copies a current one.
+
+**The trust card** (same day, from superpower's "We value your trust"): a
+dark card on the homepage between the prices and the questions, three
+badges and one sentence. Only what `/privacy` and `/sub-processors` already
+say: the ICO registration, UK GDPR, the EU processing region. No SOC 2 and
+no EU AI Act until there is a report or an assessment on file; a badge is a
+claim. The sentence's four claims are the policy's.
+
+**Larger screens** (same day: "a version that fits in larger screens"). The
+homepage's `--content` and the bar's `--nav-w` widen in steps from 1680
+(1480, 1600 at 1920, 1760 at 2300), and the display type and the captions
+under the six tiles and the engine's three steps go up with them, at the
+end of the homepage sheet so they beat the base sizes. Body copy stays at
+its reading size. A real CSS `zoom` was tried first and rejected: the
+page's scroll holds mix `offsetHeight` with `innerHeight`, and 21 viewport
+units would all need dividing by it. The inner pages keep their 1200px
+content box; widening them is a separate decision.
+
+**The FAQ rows carry no fill**: `theme.css` leaves `.faq-item` out of the
+glass list, because white glass on the lit ground read as white slabs.
+
 ## The use-case articles
 
 `/use-cases/shopify`, `/use-cases/supplement-brands` and `/use-cases/compare`

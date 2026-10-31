@@ -61,9 +61,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* footer */
 .footer{position:relative;overflow:hidden;background:transparent;color:var(--ink-60);padding:0 0 32px}
 @media (max-width:760px){.footer{padding:76px 0 28px}}
-/* The page ends on a hairline at the content's width, as the rules under the
-   links do; the footer is the page now (2026-10-31). */
-.footer > .wrap{position:relative;z-index:1;border-top:1px solid var(--line);padding-top:48px}
+/* The page ends on a hairline the width of the rules under the links, inside
+   the wrap's gutter; the footer is the page now (2026-10-31). */
+.footer > .wrap{position:relative;z-index:1}
+.footer > .wrap > .footer-grid{border-top:1px solid var(--line);padding-top:48px}
 .footer a:hover{color:var(--ink)}
 .footer a:focus-visible{outline:2px solid var(--gold-active);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
