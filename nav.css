@@ -159,3 +159,31 @@ body:has(.sc-hero) .nav:not(.scrolled) .logo svg{ filter:brightness(0) invert(1)
   .nav-actions .btn{ padding:8px 16px;font-size:14px }
   .nav .logo svg{ height:24px }
 }
+
+/* ---- The bar becomes a pill once the page moves (founder, 2026-10-31, from
+   superpower.com: "Stays like it is on page load, and as soon as you scroll,
+   becomes like this"). At rest the bar is as it was: full width, light on a
+   light page, see-through over a dark hero. From the first scrolled pixel the
+   bar's own box goes clear and its inner closes into a floating pill: 840
+   wide, 46 tall, 15 from the top, black at .6 over a 22px blur, white type,
+   fully round, the gold button inside it. Measured on superpower.com. The
+   inner animates and the bar does not, so sticky and fixed are untouched, the
+   bar's box keeps its height, and nothing under it moves. Desktop only: below
+   861 nav-mobile.css owns the bar and the sheet. */
+@media (min-width:861px){
+  .nav .nav-inner{transition:max-width .25s cubic-bezier(.16,1,.3,1),background-color .25s cubic-bezier(.16,1,.3,1),
+    height .25s cubic-bezier(.16,1,.3,1),translate .25s cubic-bezier(.16,1,.3,1),padding .25s cubic-bezier(.16,1,.3,1),
+    border-radius .25s ease,color .2s ease}
+  .nav.scrolled{height:var(--nav-h);background:transparent;border-bottom-color:transparent;
+    backdrop-filter:none;-webkit-backdrop-filter:none}
+  .nav.scrolled .nav-inner{max-width:840px;height:46px;translate:0 15px;padding:0 6px 0 22px;border-radius:999px;gap:20px;
+    background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(22px) saturate(140%);backdrop-filter:blur(22px) saturate(140%);
+    color:#fff}
+  .nav.scrolled .logo svg{filter:brightness(0) invert(1)}
+  .nav.scrolled .nav-links a{color:rgba(255,255,255,.82)}
+  .nav.scrolled .nav-links a:hover,.nav.scrolled .nav-links a.active{color:#fff}
+  .nav.scrolled .nav-links a:focus-visible{outline-color:#fff}
+  .nav.scrolled .nav-login{color:rgba(255,255,255,.7)}
+  .nav.scrolled .nav-login:hover{color:#fff}
+  .nav.scrolled .nav-toggle{color:#fff}
+}
