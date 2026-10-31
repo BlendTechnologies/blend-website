@@ -646,8 +646,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    trackpad swipe moves it, and the script settles it on a card. The 6px top
    and bottom keep the focus ring and the hover lift inside the box.
 
-   Four across from 1200, three from 761 (an iPad held upright is 768 to
-   834), each square at least 211px there. Below 761 it is the phone's own
+   Three across from 761 (founder, 2026-10-31: "make the boxes bigger"; it
+   was four from 1200), each square at least 211px on an iPad held upright
+   (768 to 834). Below 761 it is the phone's own
    swipe deck, with the cards smaller than the other decks' 86% so the next
    one shows more of itself (founder, 2026-10-20: "on phone small version
    of animation works better"). */
@@ -675,7 +676,6 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .how-run{height:0}
 #how.is-pinned > .wrap{position:sticky;top:var(--how-top,68px)}
 #how.is-pinned > .how-run{height:var(--how-run,0px)}
-@media(min-width:1200px){#how .step{flex-basis:calc((100% - 36px) / 4)}}
 /* 86% on a phone, the width every other deck on the page uses (founder,
    2026-10-20: "increase the size of each box"), with a 4% frame. A phone
    has no hover, so the card the reader has swiped to plays its step:
@@ -801,15 +801,18 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    The page's one dark block. Its shape is the shared .sc-reveal in
    scroll-cards.css; what is here is the ground it sits on and the type
    that goes over it. */
-.science{position:relative;padding:120px 0;background:transparent;color:var(--white);overflow:hidden}
+/* On the page's white (founder, 2026-10-31: "I would like to see it in a
+   white background like the rest of the page"); the terminal is the one
+   dark thing in it, in the frame the other screens wear. */
+.science{position:relative;padding:120px 0;background:transparent;color:var(--ink);overflow:hidden}
 .science .wrap{position:relative;z-index:1}
 .science-head{max-width:800px}
 /* The section heading's own size (founder, 2026-10-21: "the same size as
    other headings like How it works"); it was set larger on 2026-10-20. */
 .science-head .h2{max-width:none}
-.science-head .eyebrow{color:var(--muted-on-dark)}
+.science-head .eyebrow{color:var(--muted)}
 .science-head h2{margin-top:14px}
-.science-head .lead{color:var(--muted-on-dark);margin-top:20px}
+.science-head .lead{color:var(--ink-60);margin-top:20px}
 .science-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:64px}
 .sci-stat{padding:24px 20px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
 .sci-n{font-size:48px;font-weight:500;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
@@ -961,6 +964,29 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   .tier{padding:24px 20px;gap:13px}
   .tier-list li{font-size:13.5px}
 }
+/* ---- Trust (founder, 2026-10-31, from superpower.com's "We value your
+   trust"): a dark card between the prices and the questions, with the
+   three things on file and a sentence on what happens to health data.
+   Only what /privacy and /sub-processors already say: the ICO
+   registration, UK GDPR (the policy also serves EU users under the EU
+   one), and the EU processing region. No SOC 2 and no EU AI Act, because
+   there is no report or assessment behind either yet. The sentence's four
+   claims are the policy's: TLS and AES-256, EU storage and processing of
+   quiz data, explicit consent, no sale of personal data. */
+.trust{margin:0 var(--sc-inset);padding:88px 32px;border-radius:var(--sc-round);background:var(--deep);text-align:center}
+.trust .h2{color:var(--white)}
+.trust-badges{list-style:none;margin:44px auto 0;padding:0;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.trust-badge{position:relative;width:112px;height:112px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--white)}
+.trust-badge > svg{display:block;margin-bottom:2px}
+.trust-badge .trust-ring{position:absolute;inset:0;width:100%;height:100%;margin:0;pointer-events:none;color:rgba(255,255,255,.9)}
+.trust-k{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;line-height:1.15;white-space:nowrap}
+.trust-s{font-size:9px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.2}
+.trust-p{margin:44px auto 0;max-width:620px;font-size:15px;line-height:1.6;color:var(--muted-on-dark);text-wrap:balance}
+/* Edge to edge and square on a phone, as the end card is (scroll-cards.css):
+   a card 24px off every edge reads as one more card in the page. */
+@media(max-width:560px){.trust{margin:0;border-radius:0;padding:64px 20px}.trust > .wrap{padding:0}.trust-badges{gap:14px}.trust-badge{width:100px;height:100px}.trust-p{margin-top:36px}}
+@media(max-width:860px){.trust{padding:72px 24px}}
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
 .faq-item > summary{padding:20px 4px;font-size:16px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
@@ -1404,7 +1430,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    The engine's move again: beige section, black layer inside it, clipped
    from a rounded card to full bleed as it arrives. The border-top is gone
    because the card's own edge is the divider now. */
-.closer{position:relative;padding:120px 0 72px;text-align:center;background:var(--page);color:var(--white);overflow:hidden}
+.closer{position:relative;padding:120px 0 112px;text-align:center;background:var(--page);color:var(--white);overflow:hidden}
 /* The closing band and the footer are one card, not two. The closer insets
    its top and sides and rounds only its top corners; the footer insets its
    sides and bottom and rounds only its bottom corners; neither insets the
@@ -1438,22 +1464,25 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .closer-foot{margin-top:28px;font-size:14px;color:rgba(255,255,255,.62)}
 .closer-foot a{color:var(--white);border-bottom:1px solid rgba(255,255,255,.4)}
 .closer-foot a:hover{border-bottom-color:var(--white)}
-.footer{position:relative;overflow:hidden;background:transparent;color:rgba(255,255,255,.72);padding:48px 0 32px}
+/* The footer is the page (founder, 2026-10-31: "in white as a continuation
+   of the page (background of page, black text)"): no card, no dark, the
+   closing call to action above it is a card of its own now. */
+.footer{position:relative;overflow:hidden;background:transparent;color:var(--ink-60);padding:8px 0 32px}
 @media (max-width:760px){.footer{padding:76px 0 28px}}
 .footer > .wrap{position:relative;z-index:1}
-.footer a:hover{color:var(--white)}
-.footer a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.footer a:hover{color:var(--ink)}
+.footer a:focus-visible{outline:2px solid var(--gold-active);outline-offset:2px;border-radius:4px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
-.footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:rgba(255,255,255,.78);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px}
-.footer-li:hover{color:var(--white);border-bottom-color:rgba(255,255,255,.6)}
-.footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:rgba(255,255,255,.6);line-height:1.55}
-.footer-col h5{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.45);margin:0 0 14px;font-weight:400}
+.footer-brand .footer-li{display:inline-block;margin-top:12px;font-size:14px;color:var(--ink-80);border-bottom:1px solid var(--line-strong);padding-bottom:1px}
+.footer-li:hover{color:var(--ink);border-bottom-color:var(--ink-60)}
+.footer-tag{margin-top:7px;font-size:15px;max-width:320px;color:var(--ink-60);line-height:1.55}
+.footer-col h5{font-size:15px;letter-spacing:-.013em;color:var(--n-500);margin:0 0 14px;font-weight:400}
 .footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
-.footer-col a{font-size:15px;letter-spacing:-.013em;color:rgba(255,255,255,.78);transition:color .15s ease}
-.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.45)}
-.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
-.footer-trust-label{color:var(--gold);font-weight:400}
-.footer-trust + .footer-bottom{margin-top:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
+.footer-col a{font-size:15px;letter-spacing:-.013em;color:var(--ink-80);transition:color .15s ease}
+.footer-bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--n-500)}
+.footer-trust{margin-top:48px;padding:12px 0 16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;font-size:13px;color:var(--ink-60);text-align:center;line-height:1.5}
+.footer-trust-label{color:var(--gold-text);font-weight:400}
+.footer-trust + .footer-bottom{margin-top:0;border-top:1px solid var(--line);padding-top:16px}
 @media(max-width:860px){.closer{padding:88px 0 72px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-brand{grid-column:1/-1}}
  
 /* ============================================================
@@ -1973,6 +2002,11 @@ html,body{max-width:100%;overflow-x:clip}
 .faq-ask-a:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
 
 .faq-split .faq-list{max-width:none;margin:0}
+/* No fill on the rows (founder, 2026-10-31: "the text is white background
+   and the page is gray. Needs to blend"): theme.css dresses .faq-item in
+   white glass, which read as white slabs on the lit page. The hairlines are
+   the rows. */
+.faq-split .faq-item{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
 /* The open question steps up a weight. There is no webfont here — the stack
    falls through to the system face — so 400/500 rather than a 450 that would
    round somewhere different on every machine. */
@@ -2432,7 +2466,10 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 
    Only placement belongs here. The component brings its own palette, which
    is what lets it sit in this dark card on an otherwise light page. */
-.eng-term{margin-top:28px;border:1px solid rgba(255,255,255,.08);border-radius:18px}
+.eng-term{margin-top:28px;border:var(--glass-rim) solid var(--frame-rim);border-radius:calc(18px + var(--glass-rim));
+  background-clip:padding-box;box-shadow:var(--frame-shadow);
+  outline:1px solid rgba(24,24,27,.10);outline-offset:calc(-1 * var(--glass-rim) - 1px);
+  -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur)}
 /* Shorter on the homepage (founder, 2026-10-20). The run is 16s against
    /science's 25 (data-tm-hold on the card), with the profile held 3.5s in
    both. The matrix is 20 across and 8 down rather than 16 by 10, the same
@@ -2442,9 +2479,9 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    ground (founder, 2026-10-21). */
 .eng-steps{list-style:none;margin:28px 0 0;padding:0;display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,3.5vw,52px)}
-.eng-steps li{display:flex;flex-direction:column;gap:7px;padding-top:17px;border-top:1px solid rgba(255,255,255,.14)}
-.eng-steps h3{margin:0;font-size:16px;font-weight:500;letter-spacing:-.012em;color:#FAFAFA}
-.eng-steps p{margin:0;font-size:14px;line-height:1.55;color:rgba(255,255,255,.66)}
+.eng-steps li{display:flex;flex-direction:column;gap:7px;padding-top:17px;border-top:1px solid var(--line-strong)}
+.eng-steps h3{margin:0;font-size:16px;font-weight:500;letter-spacing:-.012em;color:var(--ink)}
+.eng-steps p{margin:0;font-size:14px;line-height:1.55;color:var(--ink-60)}
 @media(max-width:760px){.eng-steps{grid-template-columns:minmax(0,1fr);gap:20px;margin-top:28px}}
 #science .tm-mx{grid-template-columns:repeat(20,1fr)}
 #science .tm-logwrap{min-height:176px}
@@ -2464,11 +2501,11 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 #science .science-head{max-width:none}
 #science .science-head h2{margin-top:0}
 #science .science-head .lead{margin-top:12px;max-width:900px;text-wrap:balance}
-.eng-more{margin:24px 0 0;font-size:14px;color:rgba(255,255,255,.6)}
-.eng-more a{color:var(--gold);font-weight:500;white-space:nowrap}
+.eng-more{margin:24px 0 0;font-size:14px;color:var(--ink-60)}
+.eng-more a{color:var(--gold-text);font-weight:500;white-space:nowrap}
 .eng-more a span{display:inline-block;transition:transform .18s ease}
 .eng-more a:hover span{transform:translateX(3px)}
-.eng-more a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.eng-more a:focus-visible{outline:2px solid var(--gold-active);outline-offset:3px;border-radius:4px}
 @media(prefers-reduced-motion:reduce){.eng-more a span{transition:none}}
 /* ---- A full screen, held for three scrolls (founder, 2026-10-21) ---------
    "What about the 100vh for the engine? The 3 scrolls could be the 01, 02 and
@@ -2497,10 +2534,10 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
 .eng-steps li::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;border-radius:2px;
   background:var(--gold);transform:scaleX(0);transform-origin:0 50%}
 .eng-steps h3,.eng-steps p{transition:color .3s ease}
-.eng-steps.is-live li{border-top-color:rgba(255,255,255,.1)}
-.eng-steps.is-live li:not(.is-on) h3{color:rgba(255,255,255,.52)}
-.eng-steps.is-live li:not(.is-on) p{color:rgba(255,255,255,.5)}
-.eng-steps.is-live li.is-on p{color:rgba(255,255,255,.78)}
+.eng-steps.is-live li{border-top-color:var(--line)}
+.eng-steps.is-live li:not(.is-on) h3{color:var(--ink-40)}
+.eng-steps.is-live li:not(.is-on) p{color:var(--ink-40)}
+.eng-steps.is-live li.is-on p{color:var(--ink-80)}
 .eng-steps.is-live li.is-done::before{transform:scaleX(1);opacity:.45}
 .eng-steps.is-live li.is-on::before{animation:eng-fill var(--fill,4s) linear both}
 @keyframes eng-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -2518,15 +2555,17 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
    - the step ticks and the buttons stay gold: they are Blend's controls
    - the "running" light is the system green (founder, 2026-10-20): it says
      the engine is live, which is a status, not a control
-   The panel is the hero's dark smoked glass, with soft neutral light behind
-   it so the frost has something to soften. */
+   The panel was the hero's dark smoked glass while the band was a dark
+   card. On the page's white (2026-10-31) it is a solid near-black window in
+   the frosted frame the other screens wear: the frost is the border, the
+   fill is clipped inside it, and the blur only shows through the rim. */
 #science .tm{
   --t-ink:#F4F4F5;--t-dim:#A1A1AA;--t-line:rgba(255,255,255,.1);
   --t-ok:#4ADE80;--t-bad:#F87171;--t-short:#FDE047;--t-data:rgba(255,255,255,.55);
-  background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.015) 55%),rgba(20,21,23,.38);
-  -webkit-backdrop-filter:blur(40px) saturate(120%);backdrop-filter:blur(40px) saturate(120%);
-  border-color:rgba(255,255,255,.12);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+  background:var(--deep);background-clip:padding-box;
+  -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
+  border-color:var(--frame-rim);
+  box-shadow:var(--frame-shadow)}
 #science .tm-k{color:var(--t-dim)}
 #science .tm-line.is-short .tm-f,#science .tm-line.is-short .tm-s{color:var(--t-short)}
 #science .tm-line.is-ok .tm-s{color:rgba(74,222,128,.85)}
@@ -2622,6 +2661,21 @@ a.vrow:hover,a.vrow:focus-visible{
 
 .btn-primary:hover,.tier-cta.gold:hover{background:var(--gold)}
 .btn-primary:active,.tier-cta.gold:active{background:var(--gold-strong)}
+
+/* ---- Larger screens (founder, 2026-10-31: "a version that fits in larger
+   screens") -------------------------------------------------------------
+   The content box and the bar widen with the window from 1680, and the
+   display type and the captions under the six tiles and the engine's three
+   steps go up with them, so a 27-inch screen is not a 1340px column with a
+   third of the screen empty either side. Last in the sheet on purpose: the
+   sizes it raises are set above at the same specificity. */
+@media(min-width:1680px){:root{--content:1480px}}
+@media(min-width:1920px){:root{--content:1600px}
+  .h1{font-size:clamp(34px,3.9vw,64px)}.h2{font-size:clamp(24px,2.5vw,34px)}.lead{font-size:16px}
+  #how .step h3,.eng-steps h3{font-size:18px}#how .step p,.eng-steps p{font-size:15px}#how .step p{max-width:42ch}}
+@media(min-width:2300px){:root{--content:1760px}
+  .h1{font-size:clamp(34px,3.9vw,72px)}.h2{font-size:clamp(24px,2.5vw,38px)}.lead{font-size:17px}
+  #how .step h3,.eng-steps h3{font-size:20px}#how .step p,.eng-steps p{font-size:16px}}
 </style>
 <script>
 /* The hero intro's start state has to be on the document before the hero's
@@ -2736,7 +2790,7 @@ a.vrow:hover,a.vrow:focus-visible{
   <div class="how-run" aria-hidden="true"></div>
 </section>
 
-<section class="theme-dark science sc-reveal" data-sc="reveal" id="science">
+<section class="science" id="science">
   <div class="wrap">
     <div class="science-head"><h2 class="h2">How the engine works.</h2><p class="lead">Unlike traditional quizzes that connect predefined answers to products, Blend combines customer needs, research and your product catalogue to deliver intelligent, explainable recommendations.</p></div>
     <div class="eng-term tm" data-term data-tm-hold="4300,1600,1600,1800,2600,2600,1600" data-tm-cols="20" data-tm-persona-ms="3500">
@@ -2952,6 +3006,17 @@ a.vrow:hover,a.vrow:focus-visible{
     <div class="pricing-foot">15-day free trial on every plan. Nothing is charged until it ends, and you can cancel any time before. VAT is added at checkout based on your country; business customers can enter a VAT number for reverse charge.<details><summary>What counts as a response?</summary><p>One response = one customer who completes a quiz end-to-end. Abandoned quizzes, partial submissions, and repeat responses from the same user within 24 hours do not count.</p></details></div>
   </div>
 </section>
+<section class="theme-dark trust" id="trust" aria-labelledby="trust-h">
+  <div class="wrap">
+    <h2 class="h2" id="trust-h">We value your trust.</h2>
+    <ul class="trust-badges" role="list">
+      <li class="trust-badge"><svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><path d="M7 1 1.5 3v4.5c0 3.6 2.3 6.3 5.5 7.5 3.2-1.2 5.5-3.9 5.5-7.5V3Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="m4.8 8 1.6 1.6L9.4 6.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="trust-k">ICO</span><span class="trust-s">Registered</span></li>
+      <li class="trust-badge"><svg class="trust-ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="tst" d="M0-3.2.94-.98 3.3-.98 1.4.5 2.1 2.8 0 1.4-2.1 2.8-1.4.5-3.3-.98-.94-.98Z" fill="currentColor"/></defs><g transform="translate(50 50)"><use href="#tst" transform="rotate(0) translate(0 -41)"/><use href="#tst" transform="rotate(30) translate(0 -41)"/><use href="#tst" transform="rotate(60) translate(0 -41)"/><use href="#tst" transform="rotate(90) translate(0 -41)"/><use href="#tst" transform="rotate(120) translate(0 -41)"/><use href="#tst" transform="rotate(150) translate(0 -41)"/><use href="#tst" transform="rotate(180) translate(0 -41)"/><use href="#tst" transform="rotate(210) translate(0 -41)"/><use href="#tst" transform="rotate(240) translate(0 -41)"/><use href="#tst" transform="rotate(270) translate(0 -41)"/><use href="#tst" transform="rotate(300) translate(0 -41)"/><use href="#tst" transform="rotate(330) translate(0 -41)"/></g></svg><span class="trust-k">GDPR</span><span class="trust-s">UK + EU</span></li>
+      <li class="trust-badge"><svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><rect x="1.5" y="1.5" width="11" height="4.6" rx="1.3" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="1.5" y="9.9" width="11" height="4.6" rx="1.3" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="4.1" cy="3.8" r=".95" fill="currentColor"/><circle cx="4.1" cy="12.2" r=".95" fill="currentColor"/></svg><span class="trust-k">EU hosting</span><span class="trust-s">Frankfurt &middot; Ireland</span></li>
+    </ul>
+    <p class="trust-p">Health data is the most personal data there is. It is encrypted in transit and at rest, stored and processed in the EU, used only with explicit consent, and never sold.</p>
+  </div>
+</section>
 <section class="section section--tight section-cream" id="faq">
   <div class="wrap">
     <div class="faq-split">
@@ -2971,7 +3036,7 @@ a.vrow:hover,a.vrow:focus-visible{
     </div></div>
   </div>
 </section>
-<section class="theme-dark closer sc-reveal sc-reveal--top" id="contact">
+<section class="theme-dark closer sc-reveal" id="contact">
   <div class="wrap">
     <h2 class="h1">Put the engine to work on your store.</h2>
     <p class="lead">Try the demo, or book 15 minutes with us.</p>
@@ -2984,11 +3049,11 @@ a.vrow:hover,a.vrow:focus-visible{
   </div>
 </section>
 </main>
-<footer class="theme-dark footer sc-reveal sc-reveal--bottom">
+<footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#FFFFFF"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
+        <a href="#" class="logo" aria-label="Blend home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-244.60000000000002 0 6571.800000000001 2332.2" height="26" style="display:block"><g transform="translate(0 1899.6) scale(1 -1)" fill="#000000"><g transform="translate(0 0)"><path d="M165 0V1490H714Q873 1490 977.0 1438.0Q1081 1386 1132.0 1297.5Q1183 1209 1183 1099Q1183 1006 1149.0 942.5Q1115 879 1057.5 840.5Q1000 802 931 784V769Q1006 766 1077.0 721.5Q1148 677 1194.5 596.5Q1241 516 1241 401Q1241 288 1187.5 197.0Q1134 106 1023.0 53.0Q912 0 738 0ZM393 196H715Q875 196 945.0 258.0Q1015 320 1015 412Q1015 484 979.5 542.0Q944 600 879.0 634.5Q814 669 724 669H393ZM393 845H692Q767 845 828.0 874.0Q889 903 924.0 956.0Q959 1009 959 1080Q959 1172 895.0 1233.5Q831 1295 698 1295H393Z"/></g><g transform="translate(1324.52 0)"><path d="M368 1490V0H148V1490Z"/></g><g transform="translate(1820.04 0)"><path d="M630 -23Q465 -23 345.0 48.0Q225 119 160.5 248.0Q96 377 96 551Q96 723 159.5 854.0Q223 985 339.0 1058.5Q455 1132 611 1132Q707 1132 796.0 1100.5Q885 1069 956.0 1002.0Q1027 935 1068.5 828.5Q1110 722 1110 570V492H219V656H997L894 602Q894 705 862.0 783.5Q830 862 767.5 906.0Q705 950 611 950Q518 950 452.0 905.0Q386 860 351.5 786.5Q317 713 317 626V514Q317 399 356.5 319.5Q396 240 467.0 199.5Q538 159 632 159Q694 159 744.0 176.5Q794 194 830.5 229.5Q867 265 886 317L1093 268Q1066 182 1002.5 116.0Q939 50 844.5 13.5Q750 -23 630 -23Z"/></g><g transform="translate(3002.56 0)"><path d="M368 662V0H148V1118H358L360 844H337Q386 994 479.0 1063.0Q572 1132 704 1132Q818 1132 903.0 1084.0Q988 1036 1036.0 942.5Q1084 849 1084 710V0H864V683Q864 804 801.0 872.0Q738 940 628 940Q554 940 495.0 907.5Q436 875 402.0 813.0Q368 751 368 662Z"/></g><g transform="translate(4214.08 0)"><path d="M564 -22Q428 -22 322.0 47.5Q216 117 156.0 246.5Q96 376 96 556Q96 738 157.0 867.0Q218 996 324.0 1064.0Q430 1132 564 1132Q668 1132 731.5 1097.5Q795 1063 831.0 1017.0Q867 971 886 936H898V1490H1118V0H904V175H886Q867 139 830.0 93.0Q793 47 729.0 12.5Q665 -22 564 -22ZM612 165Q706 165 770.5 215.0Q835 265 868.5 353.5Q902 442 902 558Q902 675 869.0 761.5Q836 848 771.5 896.5Q707 945 612 945Q515 945 450.5 894.0Q386 843 353.5 755.5Q321 668 321 558Q321 447 354.0 358.0Q387 269 452.0 217.0Q517 165 612 165Z"/></g><g transform="translate(5459.6 0)"><path d="M311 -15Q249 -15 206.0 28.0Q163 71 163 132Q163 194 206.0 236.5Q249 279 311 279Q372 279 415.0 236.5Q458 194 458 132Q458 71 415.0 28.0Q372 -15 311 -15Z"/></g></g></svg></a>
         <p class="footer-tag">The engine behind personalised product recommendations.</p>
         <a class="footer-li" href="https://www.linkedin.com/company/blendtechnologiesuk/" rel="me noopener" target="_blank">LinkedIn</a>
       </div>
