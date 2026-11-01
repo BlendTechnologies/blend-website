@@ -2686,8 +2686,12 @@ a.vrow:hover,a.vrow:focus-visible{
    48 of padding on each side of a light block, the full 96 where a block
    meets a card. The tour's stage is its own height with 48 either side; while
    it is held it sticks at --tour-top, which the script sets so the stage sits
-   centred on the screen, so the hold looks as it did. Desktop only until the
-   phone and tablet are validated. */
+   centred on the screen, so the hold looks as it did.
+   The step scales with the screen: 96 on desktop, 80 on a tablet, 64 on a
+   phone (validated 2026-11-01). Where a block meets the hero the opener's top
+   gives back the card's inset, and where the closer meets the footer the
+   footer's top gives back the closer's bottom margin (the inset, 0 on a
+   phone), so the eye sees the same step there too. */
 @media(min-width:861px){
   #opener{min-height:0;padding:56px 0 48px}
   #how,.opener + #how{padding-top:48px;padding-bottom:48px}
@@ -2697,6 +2701,26 @@ a.vrow:hover,a.vrow:focus-visible{
   #pricing{padding:96px 0 48px}
   #faq{padding:48px 0 96px}
   .footer{padding-top:56px}
+}
+@media(max-width:860px){
+  #opener{min-height:0;padding:40px 0}
+  #how,.opener + #how{padding-top:40px;padding-bottom:40px}
+  #science.science{padding:40px 0}
+  .tour-stage{min-height:0;padding:40px 0}
+  #product + .section{padding:40px 0 80px}
+  #pricing{padding:80px 0 40px}
+  #faq{padding:40px 0 80px}
+  .footer{padding-top:40px}
+}
+@media(max-width:560px){
+  #opener{padding:40px 0 32px}
+  #how,.opener + #how{padding-top:32px;padding-bottom:32px}
+  #science.science{padding:32px 0}
+  .tour-stage{padding:32px 0}
+  #product + .section{padding:32px 0 64px}
+  #pricing{padding:64px 0 32px}
+  #faq{padding:32px 0 64px}
+  .footer{padding-top:64px}
 }
 </style>
 <script>
