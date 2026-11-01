@@ -2668,13 +2668,19 @@ a.vrow:hover,a.vrow:focus-visible{
    steps go up with them, so a 27-inch screen is not a 1340px column with a
    third of the screen empty either side. Last in the sheet on purpose: the
    sizes it raises are set above at the same specificity. */
-@media(min-width:1680px){:root{--content:1480px}}
+@media(min-width:1680px){:root{--content:1480px}
+  /* The six tiles stop at their desktop size (founder, 2026-11-01: "on
+     extremely big screens the boxes are getting bigger too. That's too
+     much. They shouldn't get bigger than desktop"): a third of the 1276px
+     row a 1440 window gives them, captions included, and the row shows
+     more of them instead. */
+  #how .step{flex:0 0 calc((1276px - 24px) / 3)}}
 @media(min-width:1920px){:root{--content:1600px}
   .h1{font-size:clamp(34px,3.9vw,64px)}.h2{font-size:clamp(24px,2.5vw,34px)}.lead{font-size:16px}
-  #how .step h3,.eng-steps h3{font-size:18px}#how .step p,.eng-steps p{font-size:15px}#how .step p{max-width:42ch}}
+  .eng-steps h3{font-size:18px}.eng-steps p{font-size:15px}}
 @media(min-width:2300px){:root{--content:1760px}
   .h1{font-size:clamp(34px,3.9vw,72px)}.h2{font-size:clamp(24px,2.5vw,38px)}.lead{font-size:17px}
-  #how .step h3,.eng-steps h3{font-size:20px}#how .step p,.eng-steps p{font-size:16px}}
+  .eng-steps h3{font-size:20px}.eng-steps p{font-size:16px}}
 
 /* ---- One rhythm between the sections (founder, 2026-10-31: "make sure
    white space between each section feels the same, currently some sections
