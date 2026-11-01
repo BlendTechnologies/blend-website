@@ -2687,14 +2687,13 @@ a.vrow:hover,a.vrow:focus-visible{
    meets a card. The tour's stage is its own height with 48 either side; while
    it is held it sticks at --tour-top, which the script sets so the stage sits
    centred on the screen, so the hold looks as it did.
-   The step scales with the screen. It was 96 on desktop, 80 on a tablet, 64
-   on a phone (validated 2026-11-01), then the founder, the same day: "now
-   everything is too tight". Desktop is 144 now, one and a half times that;
-   tablet and phone keep their values until the desktop is validated. Where a
-   block meets the hero the opener's top gives back the card's inset, and
-   where the closer meets the footer the footer's top gives back the closer's
-   bottom margin (the inset, 0 on a phone), so the eye sees the same step
-   there too. */
+   The step scales with the screen: 144 on desktop, 120 on a tablet, 96 on a
+   phone. It was 96, 80 and 64 (validated 2026-11-01), then the founder, the
+   same day: "now everything is too tight", so each went up by half and was
+   validated again. Where a block meets the hero the opener's top gives back
+   the card's inset, and where the closer meets the footer the footer's top
+   gives back the closer's bottom margin (the inset, 0 on a phone), so the
+   eye sees the same step there too. */
 @media(min-width:861px){
   #opener{min-height:0;padding:104px 0 72px}
   #how,.opener + #how{padding-top:72px;padding-bottom:72px}
@@ -2706,24 +2705,24 @@ a.vrow:hover,a.vrow:focus-visible{
   .footer{padding-top:104px}
 }
 @media(max-width:860px){
-  #opener{min-height:0;padding:40px 0}
-  #how,.opener + #how{padding-top:40px;padding-bottom:40px}
-  #science.science{padding:40px 0}
-  .tour-stage{min-height:0;padding:40px 0}
-  #product + .section{padding:40px 0 80px}
-  #pricing{padding:80px 0 40px}
-  #faq{padding:40px 0 80px}
-  .footer{padding-top:40px}
+  #opener{min-height:0;padding:80px 0 60px}
+  #how,.opener + #how{padding-top:60px;padding-bottom:60px}
+  #science.science{padding:60px 0}
+  .tour-stage{min-height:0;padding:60px 0}
+  #product + .section{padding:60px 0 120px}
+  #pricing{padding:120px 0 60px}
+  #faq{padding:60px 0 120px}
+  .footer{padding-top:80px}
 }
 @media(max-width:560px){
-  #opener{padding:40px 0 32px}
-  #how,.opener + #how{padding-top:32px;padding-bottom:32px}
-  #science.science{padding:32px 0}
-  .tour-stage{padding:32px 0}
-  #product + .section{padding:32px 0 64px}
-  #pricing{padding:64px 0 32px}
-  #faq{padding:32px 0 64px}
-  .footer{padding-top:64px}
+  #opener{padding:72px 0 48px}
+  #how,.opener + #how{padding-top:48px;padding-bottom:48px}
+  #science.science{padding:48px 0}
+  .tour-stage{padding:48px 0}
+  #product + .section{padding:48px 0 96px}
+  #pricing{padding:96px 0 48px}
+  #faq{padding:48px 0 96px}
+  .footer{padding-top:96px}
 }
 </style>
 <script>
