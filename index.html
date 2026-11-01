@@ -2668,13 +2668,19 @@ a.vrow:hover,a.vrow:focus-visible{
    steps go up with them, so a 27-inch screen is not a 1340px column with a
    third of the screen empty either side. Last in the sheet on purpose: the
    sizes it raises are set above at the same specificity. */
-@media(min-width:1680px){:root{--content:1480px}}
+@media(min-width:1680px){:root{--content:1480px}
+  /* The six tiles stop at their desktop size (founder, 2026-11-01: "on
+     extremely big screens the boxes are getting bigger too. That's too
+     much. They shouldn't get bigger than desktop"): a third of the 1276px
+     row a 1440 window gives them, captions included, and the row shows
+     more of them instead. */
+  #how .step{flex:0 0 calc((1276px - 24px) / 3)}}
 @media(min-width:1920px){:root{--content:1600px}
   .h1{font-size:clamp(34px,3.9vw,64px)}.h2{font-size:clamp(24px,2.5vw,34px)}.lead{font-size:16px}
-  #how .step h3,.eng-steps h3{font-size:18px}#how .step p,.eng-steps p{font-size:15px}#how .step p{max-width:42ch}}
+  .eng-steps h3{font-size:18px}.eng-steps p{font-size:15px}}
 @media(min-width:2300px){:root{--content:1760px}
   .h1{font-size:clamp(34px,3.9vw,72px)}.h2{font-size:clamp(24px,2.5vw,38px)}.lead{font-size:17px}
-  #how .step h3,.eng-steps h3{font-size:20px}#how .step p,.eng-steps p{font-size:16px}}
+  .eng-steps h3{font-size:20px}.eng-steps p{font-size:16px}}
 
 /* ---- One rhythm between the sections (founder, 2026-10-31: "make sure
    white space between each section feels the same, currently some sections
@@ -2723,6 +2729,25 @@ a.vrow:hover,a.vrow:focus-visible{
   #pricing{padding:96px 0 48px}
   #faq{padding:48px 0 96px}
   .footer{padding-top:96px}
+}
+/* ---- Founder's notes, 2026-11-01, afternoon ---------------------------
+   "Six steps, one engine, every plan personalised. -> Align left": the How
+   it works head sits at the content's left edge (centred again on a phone,
+   where the site centres every lone introduction). "Every recommendation
+   has a reason. ... -> center": the engine's head centres, its lead with
+   it. "Add the same border to the inner box of the 6 steps": the tiles'
+   floating UI takes the hero cards' frame, the same hairline and the same
+   inset light. "The width of sensitive data is too large and looks odd":
+   the trust card was as wide as the islands; it takes the content column's
+   width now, so its edges line up with the pricing cards under it. */
+#how .section-head{margin-left:0;margin-right:0;text-align:left}
+#science .science-head{text-align:center;margin-left:auto;margin-right:auto}
+#science .science-head .lead{margin-left:auto;margin-right:auto}
+#how .step-ui{border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.trust{width:calc(100% - 2 * var(--sc-inset));max-width:calc(var(--content) - 64px);margin-left:auto;margin-right:auto}
+@media(max-width:560px){
+  #how .section-head{text-align:center;margin-left:auto;margin-right:auto}
+  .trust{width:100%;max-width:none;margin:0}
 }
 </style>
 <script>
@@ -3017,7 +3042,7 @@ a.vrow:hover,a.vrow:focus-visible{
 </section>
 <section class="section section-cream" id="pricing">
   <div class="wrap">
-    <div class="section-head"><h2 class="h2">Start personalising for $49/month.</h2><p class="lead">Start free for 15 days, then choose the plan that fits your catalogue.</p></div>
+    <div class="section-head"><h2 class="h2">Start personalising for <span id="pricing-from">$49/month</span>.</h2><p class="lead">Start free for 15 days, then choose the plan that fits your catalogue.</p></div>
     <div class="pricing-controls">
       <div class="billing-toggle">
         <button id="billing-monthly" class="active" type="button">Monthly</button>
@@ -3461,6 +3486,19 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
           annualEl.style.display = 'block';
         } else if (annualEl) {
           annualEl.style.display = 'none';
+        }
+
+        /* The heading's figure is the Starter tier's, in the visitor's
+           currency and cycle (founder, 2026-11-01: "this sentence doesn't
+           work because of the different prices depending on location").
+           On yearly it is the monthly equivalent, as the card's second
+           line, so the sentence keeps its "/month". */
+        if (tierName === 'starter') {
+          const fromEl = document.getElementById('pricing-from');
+          if (fromEl) {
+            const perMonth = currentCycle === 'yearly' ? Math.round(price / 12) : price;
+            fromEl.textContent = symbol + new Intl.NumberFormat('en-US').format(perMonth) + '/month';
+          }
         }
       }
 

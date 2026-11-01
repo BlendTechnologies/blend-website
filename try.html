@@ -162,6 +162,17 @@ html,body{max-width:100%;overflow-x:clip}
   .h1,.ph .h1{font-size:clamp(34px,3.9vw,64px)}.h2{font-size:clamp(24px,2.5vw,34px)}.lead{font-size:16px}.ph-inner{max-width:960px}}
 @media(min-width:2300px){:root{--content:1620px}
   .h1,.ph .h1{font-size:clamp(34px,3.9vw,72px)}.h2{font-size:clamp(24px,2.5vw,38px)}.lead{font-size:17px}.ph-inner{max-width:1040px}}
+/* ---- One step between blocks, as on the homepage (founder, 2026-11-01:
+   "Make sure the sections in the entire website are like in home page"):
+   144 on desktop, a dark card's edge counting as content, the closing
+   card's bottom margin given back by the footer's top. Measured, as the
+   homepage's was. Tablet and phone follow once the desktop is validated. */
+@media(min-width:861px){.try-embed-section{padding-bottom:144px}.footer{padding-top:104px}}
+/* Tablet and phone follow the desktop step: 120 to 860 wide, 96 to 560, the
+   hero card's inset and the closer's bottom margin given back as above
+   (validated 2026-11-01). */
+@media(max-width:860px){.try-embed-section{padding-bottom:120px}.footer{padding-top:80px}}
+@media(max-width:560px){.try-embed-section{padding-bottom:96px}.footer{padding-top:96px}}
 </style>
 <link rel="stylesheet" href="cookie-consent.css">
   <link rel="stylesheet" href="/theme.css">

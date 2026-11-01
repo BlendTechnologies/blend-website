@@ -117,3 +117,15 @@
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
 .btn-ghost:hover{border-color:var(--ink);background:var(--hover-surface)}
 .ar-body .ar-next-go a.btn-ghost{color:var(--ink)}
+
+/* ---- One step between blocks, as on the homepage (founder, 2026-11-01:
+   "Make sure the sections in the entire website are like in home page"):
+   144 on desktop, a dark card's edge counting as content, the closing
+   card's bottom margin given back by the footer's top. Measured, as the
+   homepage's was. Tablet and phone follow once the desktop is validated. */
+@media(min-width:861px){.ar{padding-bottom:144px}}
+/* Tablet and phone follow the desktop step: 120 to 860 wide, 96 to 560, no
+   hero here, so the top stays where it was
+   (validated 2026-11-01). */
+@media(max-width:860px){body .ar{padding-top:56px;padding-bottom:120px}}
+@media(max-width:560px){body .ar{padding-top:56px;padding-bottom:96px}}
