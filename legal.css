@@ -109,3 +109,8 @@
    card's bottom margin given back by the footer's top. Measured, as the
    homepage's was. Tablet and phone follow once the desktop is validated. */
 @media(min-width:861px){.legal{padding-top:104px;padding-bottom:144px}}
+/* Tablet and phone follow the desktop step: 120 to 860 wide, 96 to 560, the
+   hero card's inset and the closer's bottom margin given back as above
+   (validated 2026-11-01). */
+@media(max-width:860px){body .legal{padding-top:80px;padding-bottom:120px}body .footer{padding-top:0}}
+@media(max-width:560px){body .legal{padding-top:72px;padding-bottom:96px}}

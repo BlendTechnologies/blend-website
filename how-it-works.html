@@ -1801,6 +1801,11 @@ body{background:var(--ground)}
    homepage's was. Tablet and phone follow once the desktop is validated. */
 @media(min-width:901px){.hw-stage{margin-top:144px}.hw-steps{padding-bottom:144px}}
 @media(min-width:861px){.footer{padding-top:104px}}
+/* Tablet and phone follow the desktop step: 120 to 860 wide, 96 to 560, the
+   hero card's inset and the closer's bottom margin given back as above
+   (validated 2026-11-01). */
+@media(max-width:900px){.ph + .hw-steps{padding-top:80px}.hw-steps{padding-bottom:120px}.footer{padding-top:80px}}
+@media(max-width:560px){.ph + .hw-steps{padding-top:72px}.hw-steps{padding-bottom:96px}.footer{padding-top:96px}}
 </style>
 <!-- After the page's own styles, as on the homepage, so the screens win every
      tie: both pages carry an older .rp-name and .rp-badge from another component. -->
