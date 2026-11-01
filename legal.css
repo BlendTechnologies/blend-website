@@ -102,3 +102,10 @@
 .lg-ix .ph-ix-item[aria-current="page"] .ph-ix-name{color:var(--ink)}
 @media(max-width:960px){.lg-ix{display:grid}}
 @media(max-width:560px){.lg-ix .ph-ix-item{flex-direction:column;align-items:center;gap:2px}}
+
+/* ---- One step between blocks, as on the homepage (founder, 2026-11-01:
+   "Make sure the sections in the entire website are like in home page"):
+   144 on desktop, a dark card's edge counting as content, the closing
+   card's bottom margin given back by the footer's top. Measured, as the
+   homepage's was. Tablet and phone follow once the desktop is validated. */
+@media(min-width:861px){.legal{padding-top:104px;padding-bottom:144px}}

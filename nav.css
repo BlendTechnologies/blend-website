@@ -53,14 +53,15 @@
 
 .nav{
   position:sticky;top:0;z-index:50;
-  /* follows --ground, which went from cream to white on 2026-10-20.
-     Hardcoded here because the bar needs the alpha, and a token cannot
-     carry one. The surfaces spec caught this: /try read a cream nav on a
-     white page. */
-  background:rgba(255,255,255,.88);
-  backdrop-filter:saturate(180%) blur(20px);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:1px solid var(--line);
+  /* The bar has no shell of its own (founder, 2026-11-01: "the nav
+     background is not the right colour on other non homepage pages"). It
+     was white at .88 over a blur, with a hairline under it, and since the
+     ground took its soft grey light (2026-10-31) that read as a white strip
+     on a grey page on every inner page. At rest it is the page: whatever
+     the ground paints runs up behind it. Scrolled, it is the pill
+     (.nav-inner below), and the bar stays clear around it. */
+  background:transparent;
+  border-bottom:1px solid transparent;
   transition:background-color .2s ease,border-color .2s ease,color .2s ease;
 }
 /* `:has` rather than a class the page has to remember to set: the bar is
