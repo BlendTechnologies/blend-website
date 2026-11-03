@@ -385,7 +385,8 @@ html,body{max-width:100%;overflow-x:clip}
   .report-frame:fullscreen,
   .report-frame:-webkit-full-screen,
   .report-frame.is-pseudo-fs{max-width:none;width:100vw;height:100vh;height:100dvh;
-    margin:0;padding:0;border-radius:0;box-shadow:none}
+    margin:0;padding:0;border:0;outline:0;border-radius:0;box-shadow:none;
+    -webkit-backdrop-filter:none;backdrop-filter:none}
   .report-frame.is-pseudo-fs{position:fixed;inset:0;z-index:9999}
   .report-frame:fullscreen .report-viewport,
   .report-frame:-webkit-full-screen .report-viewport,
@@ -417,11 +418,19 @@ html,body{max-width:100%;overflow-x:clip}
      shadow this one. */
   .report-frame{position:sticky;top:calc(var(--nav-h) + 18px);
     max-width:none;margin:0;
-    padding:var(--report-pad);border-radius:16px;overflow:hidden;
+    padding:var(--report-pad);border-radius:calc(16px + var(--glass-rim));overflow:hidden;
     /* The margin has to be paper, not page, or the report sits in a second
        frame of a different colour: the report's own white. */
     background:#FFFFFF;
-    box-shadow:var(--shadow-lg)}
+    /* Round the paper, the site's glass rim, the same frame as the tour and
+       the films (founder, 2026-11-03: "add borders like in the other screen
+       borders"): a 5px pane of frost with the paper clipped inside it, a
+       hairline pulled in over the rim's last pixel, and the one shadow the
+       system allows. theme.css, "A frame round a screen". */
+    border:var(--glass-rim) solid var(--frame-rim);background-clip:padding-box;
+    -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
+    outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
+    box-shadow:var(--frame-shadow)}
 
   .report-foot{max-width:720px;margin:26px auto 0;text-align:center;
     font-size:14px;color:var(--muted)}
