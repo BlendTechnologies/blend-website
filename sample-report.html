@@ -186,6 +186,12 @@ html,body{max-width:100%;overflow-x:clip}
   /* The three short sentences are the objection handler, so they read as an
      aside to the promise above rather than as more of it. */
   .pitch-sub{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+  .pitch-bar{grid-column:1 / -1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;
+    margin:0;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);
+    font-size:12.5px;line-height:1.5;color:var(--muted)}
+  .pitch-bar a{white-space:nowrap}
+  .pitch-bar a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(255,255,255,.35)}
+  .pitch-bar a:hover{text-decoration-color:currentColor}
   .pitch-cta{align-self:end}
   .pitch-cta .btn{gap:10px}
   .btn-arrow{font-size:15px;line-height:1;transition:transform .18s ease}
@@ -385,7 +391,8 @@ html,body{max-width:100%;overflow-x:clip}
   .report-frame:fullscreen,
   .report-frame:-webkit-full-screen,
   .report-frame.is-pseudo-fs{max-width:none;width:100vw;height:100vh;height:100dvh;
-    margin:0;padding:0;border-radius:0;box-shadow:none}
+    margin:0;padding:0;border:0;outline:0;border-radius:0;box-shadow:none;
+    -webkit-backdrop-filter:none;backdrop-filter:none}
   .report-frame.is-pseudo-fs{position:fixed;inset:0;z-index:9999}
   .report-frame:fullscreen .report-viewport,
   .report-frame:-webkit-full-screen .report-viewport,
@@ -417,11 +424,19 @@ html,body{max-width:100%;overflow-x:clip}
      shadow this one. */
   .report-frame{position:sticky;top:calc(var(--nav-h) + 18px);
     max-width:none;margin:0;
-    padding:var(--report-pad);border-radius:16px;overflow:hidden;
+    padding:var(--report-pad);border-radius:calc(16px + var(--glass-rim));overflow:hidden;
     /* The margin has to be paper, not page, or the report sits in a second
        frame of a different colour: the report's own white. */
     background:#FFFFFF;
-    box-shadow:var(--shadow-lg)}
+    /* Round the paper, the site's glass rim, the same frame as the tour and
+       the films (founder, 2026-11-03: "add borders like in the other screen
+       borders"): a 5px pane of frost with the paper clipped inside it, a
+       hairline pulled in over the rim's last pixel, and the one shadow the
+       system allows. theme.css, "A frame round a screen". */
+    border:var(--glass-rim) solid var(--frame-rim);background-clip:padding-box;
+    -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
+    outline:1px solid rgba(24,24,27,.06);outline-offset:calc(-1 * var(--glass-rim));
+    box-shadow:var(--frame-shadow)}
 
   .report-foot{max-width:720px;margin:26px auto 0;text-align:center;
     font-size:14px;color:var(--muted)}
@@ -584,6 +599,15 @@ html,body{max-width:100%;overflow-x:clip}
         <span>Discover what your customers want, where they drop off, and
           which products they actually click.</span></li>
     </ul>
+    <!-- The six points speak to a brand with no quiz yet. The bar under the
+         three columns is for the brand that already runs one (founder,
+         2026-11-03: "we also need to convince other brands to join", and
+         "thin bar under the 3 columns"), in the words /use-cases/compare
+         already uses: tag-based tools map answers to products; Blend scores
+         the catalogue and says why. -->
+    <p class="pitch-bar"><span>Already run a quiz? Most map answers to tags.
+      Blend scores every product for each customer, with the reason.</span>
+      <a href="/use-cases/compare">See how Blend compares</a></p>
   </section>
 
   <!-- ONE EXAMPLE: the answers a customer gave, beside the report they
