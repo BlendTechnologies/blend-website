@@ -186,6 +186,8 @@ html,body{max-width:100%;overflow-x:clip}
   /* The three short sentences are the objection handler, so they read as an
      aside to the promise above rather than as more of it. */
   .pitch-sub{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+  .pitch-sub a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(255,255,255,.35)}
+  .pitch-sub a:hover{text-decoration-color:currentColor}
   .pitch-cta{align-self:end}
   .pitch-cta .btn{gap:10px}
   .btn-arrow{font-size:15px;line-height:1;transition:transform .18s ease}
@@ -557,6 +559,16 @@ html,body{max-width:100%;overflow-x:clip}
           conversions, and drives bigger baskets.</p>
         <p class="pitch-sub">No coding. No complicated setup. Just smarter
           selling.</p>
+        <!-- The six points on the right speak to a brand with no quiz yet.
+             This line is for the brand that already runs one (founder,
+             2026-11-03: "we also need to convince other brands to join"),
+             in the words /use-cases/compare already uses: tag-based tools
+             map answers to products; Blend scores the catalogue and says
+             why. -->
+        <p class="pitch-sub pitch-sub--quiz">Already run a quiz? Most map
+          answers to product tags. Blend scores every product in your
+          catalogue against each customer's needs, and gives the reason.
+          <a href="/use-cases/compare">See how Blend compares</a>.</p>
       </div>
       <div class="pitch-cta">
         <a class="btn btn-primary" href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39"
