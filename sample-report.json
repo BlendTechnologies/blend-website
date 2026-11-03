@@ -1,7 +1,7 @@
 {
  "_": "The report /sample-report draws, from the engine's own output. tools/check-sample-report.mjs holds the page to it.",
- "_how": "POST /recommend/algo (contract 2.0) on the engine in-process, 2026-10-22, with the request below: Alex's 43 answers from demo-answers.json mapped to their stable ids the way the webapp's lib/quiz/engine-payload.ts does, country GB as the webapp sends for a UK visitor, against the Blend Demo tenant's catalogue. HTTP 200, 8 products of 37 candidates. In the UK the engine's legality gate removes Melatonin (prescription-only) and Cordyceps takes its place. The figures below are transcribed from that response. To refresh: re-run the request, and update this file and the page together.",
- "_display": "Two changes for the site's rules, not the engine's: the em dash in 'Omega-3 (Algae Oil — Vegan)' is a comma here, and the tag 'Healthy Aging' is spelt 'Healthy Ageing'. The demo catalogue has no prices and no photographs: no price is shown, and the photographs on the cards are the site's own.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526), 2026-11-03, replaying the request below through the public embed API exactly as the quiz runtime does: Alex's 43 answers by their stable ids, one PUT per question, then complete. Submission cff97673-b1c7-493e-bff1-892ecd50b73e, recommendation 2917de30-195d-4db5-86ae-383c2489255d, HTTP 200, 7 products from the demo catalogue of 111. The figures below are transcribed from that submission's results page, and each macro's colour is the bar colour it drew. To refresh: replay the request (the first complete after the engine has been idle can answer 502 'Couldn't verify the current consent terms'; the same call a moment later succeeds), and update this file and the page together.",
+ "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
  "request": {
   "contract_version": "2.0",
   "quiz_main": "1777914547769x511962629417775200",
@@ -275,7 +275,7 @@
  },
  "report": {
   "heading": "Your wellness plan",
-  "intro": "Based on your answers, your body needs extra support in 8 key areas. Your full plan is below, with the breakdown at the end.",
+  "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",
   "profile": [
    "34 years old",
    "170 cm",
@@ -292,106 +292,82 @@
   ],
   "products": [
    {
-    "name": "Omega-3 (Algae Oil, Vegan)",
+    "name": "Core Vitamin B12",
     "tier": "Essential",
     "tags": [
-     "Heart",
-     "Cognitive Health",
-     "Bones & Joints",
-     "Mood & Emotions",
-     "Healthy Ageing"
+     "Boost Energy",
+     "Plant-Based Nutrition"
     ],
-    "why": "Your omega 3 is at 8% of your target.",
-    "form": "Softgel",
+    "why": "Your answers suggest your vitamin B12 intake is below your target, and it matches your boost energy goal.",
+    "form": "Tablet",
+    "timing": "Morning"
+   },
+   {
+    "name": "Core Iron",
+    "tier": "Essential",
+    "tags": [
+     "Boost Energy",
+     "General Health Support"
+    ],
+    "why": "Your answers suggest your iron intake is below your target, and it matches your boost energy goal.",
+    "form": "Tablet",
+    "timing": "Evening"
+   },
+   {
+    "name": "Core Vitamin B Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Boost Energy",
+     "General Health Support"
+    ],
+    "why": "It helps with vitamin D3 and vitamin B12 that your answers suggest you may be short of, and you told us about afternoon dips.",
+    "form": "Tablet",
     "timing": "With meal"
    },
    {
-    "name": "Vitamin D3",
+    "name": "Core Vitamin D",
     "tier": "Essential",
     "tags": [
-     "Bones & Joints",
-     "Immunity",
-     "Healthy Ageing",
-     "Mood & Emotions"
+     "Bone & Joint Health",
+     "Immunity"
     ],
-    "why": "Your vitamin D3 is at 6% of your target, which one serving covers.",
+    "why": "Your answers suggest your vitamin D3 intake is below your target.",
     "form": "Softgel",
     "timing": "With meal",
     "caution": "Pair with Vitamin K2"
    },
    {
-    "name": "Iron",
-    "tier": "Essential",
-    "tags": [
-     "General Health Support",
-     "Boost Energy"
-    ],
-    "why": "Your iron is at 57% of your target, which one serving covers, and it matches your boost energy goal.",
-    "form": "Tablet",
-    "timing": "Evening"
-   },
-   {
-    "name": "Ashwagandha",
+    "name": "Peak Electrolyte Complex",
     "tier": "Recommended",
     "tags": [
-     "Stress",
-     "Sleep",
-     "Mood & Emotions",
-     "Testosterone Health"
-    ],
-    "why": "Chosen because you told us about trouble falling asleep and trouble winding down.",
-    "form": "Capsule",
-    "timing": "With meal"
-   },
-   {
-    "name": "L-Theanine",
-    "tier": "Recommended",
-    "tags": [
-     "Stress",
-     "Sleep",
-     "Mood & Emotions",
-     "Cognitive Health"
-    ],
-    "why": "Chosen because you told us about trouble falling asleep and racing mind at bedtime.",
-    "form": "Capsule",
-    "timing": "Before activity"
-   },
-   {
-    "name": "Multivitamin (Standard)",
-    "tier": "Recommended",
-    "tags": [
-     "General Health Support",
-     "Healthy Ageing",
      "Boost Energy",
-     "Immunity"
+     "Hydration & Electrolytes"
     ],
-    "why": "It helps with vitamin D3, iron, which you are short of, and it matches your boost energy goal.",
+    "why": "It matches your boost energy goal. This one is a multi-nutrient blend.",
+    "form": "Sachet",
+    "timing": "During activity"
+   },
+   {
+    "name": "Core Complete Multivitamin",
+    "tier": "Recommended",
+    "tags": [
+     "Boost Energy",
+     "General Health Support"
+    ],
+    "why": "It matches your boost energy goal. This one is a multi-nutrient blend.",
     "form": "Tablet",
     "timing": "With meal"
    },
    {
-    "name": "Creatine Monohydrate",
+    "name": "Peak Creatine Complex",
     "tier": "Recommended",
     "tags": [
-     "Build Muscle",
-     "Boost Energy",
-     "Cognitive Health",
-     "Increase Endurance"
+     "Stress",
+     "Strength & Power"
     ],
-    "why": "Chosen because it matches your boost energy goal.",
+    "why": "It matches your stress goal.",
     "form": "Scoop",
     "timing": "With meal"
-   },
-   {
-    "name": "Cordyceps",
-    "tier": "Recommended",
-    "tags": [
-     "Increase Endurance",
-     "Boost Energy"
-    ],
-    "why": "Chosen because it matches your boost energy goal. This one is a fungal extract.",
-    "form": "Capsule",
-    "timing": "Morning"
    }
   ],
   "macros": [
@@ -399,8 +375,8 @@
     "label": "Calories",
     "value": "2190",
     "unit": "kcal",
-    "target": "Target 1865 kcal",
-    "pct": 117,
+    "target": "Target 2148 kcal",
+    "pct": 102,
     "cls": "m-g"
    },
    {
@@ -415,16 +391,16 @@
     "label": "Carbs",
     "value": "288",
     "unit": "g",
-    "target": "Target 255 g",
-    "pct": 113,
+    "target": "Target 303 g",
+    "pct": 95,
     "cls": "m-g"
    },
    {
     "label": "Fat",
     "value": "68",
     "unit": "g",
-    "target": "Target 57 g",
-    "pct": 119,
+    "target": "Target 67 g",
+    "pct": 101,
     "cls": "m-g"
    },
    {
@@ -455,17 +431,17 @@
     "label": "Free sugars",
     "value": "29",
     "unit": "g",
-    "target": "Limit 23 g",
-    "pct": 126,
+    "target": "Limit 27 g",
+    "pct": 107,
     "cls": "m-r"
    },
    {
     "label": "Saturated fat",
     "value": "23",
     "unit": "g",
-    "target": "Limit 21 g",
-    "pct": 110,
-    "cls": "m-r"
+    "target": "Limit 24 g",
+    "pct": 96,
+    "cls": "m-o"
    }
   ],
   "macros_note": "Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.",
@@ -474,9 +450,14 @@
     "group": "Vitamins",
     "rows": [
      {
+      "name": "Vitamin B12",
+      "pct": 39,
+      "sources": "Sources: eggs and dairy foods."
+     },
+     {
       "name": "Vitamin D3",
-      "pct": 6,
-      "sources": "Good food sources include eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter."
+      "pct": 4,
+      "sources": "Sources: eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter."
      }
     ]
    },
@@ -485,13 +466,18 @@
     "rows": [
      {
       "name": "Iron",
-      "pct": 57,
-      "sources": "Good food sources include lentils, eggs and iron-fortified cereals."
+      "pct": 51,
+      "sources": "Sources: lentils, eggs and iron-fortified cereals."
+     },
+     {
+      "name": "Selenium",
+      "pct": 70,
+      "sources": "Sources: eggs and Brazil nuts. Selenium content varies more than tenfold with where the nuts were grown, so no fixed number reliably covers a day, and more than three or four is too many."
      }
     ]
    }
   ],
   "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use."
  },
- "_colours": "m-g is grey (informational), m-gr green (on track), m-b blue (water), m-r red (short or over), as product-screens.css names them; each macro's colour is the engine's verdict for it."
+ "_colours": "m-g is grey (informational), m-gr green (on track), m-b blue (water), m-o orange (near a limit), m-r red (short or over), as product-screens.css names them; each macro's colour is the engine's verdict for it, read off the demo's bar."
 }
