@@ -393,7 +393,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    it is sharp large and sharp small. */
 .proof-mark{position:relative;display:block;width:56px;height:56px}
 .proof-mark svg{position:absolute;left:50%;top:50%;display:block;width:168px;height:168px;max-width:none;margin:-84px 0 0 -84px;transform:scale(.33333)}
-.open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:500;color:var(--ink)}
+.open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:500;color:var(--ink);text-wrap:balance}
 .open-sub{margin:14px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.01em;color:var(--n-600)}
 /* The first time it comes into view (founder, 2026-10-21): the mark starts
    large over where the words will be and settles into its place while the
@@ -2701,7 +2701,7 @@ a.vrow:hover,a.vrow:focus-visible{
    gives back the closer's bottom margin (the inset, 0 on a phone), so the
    eye sees the same step there too. */
 @media(min-width:861px){
-  #opener{min-height:0;padding:152px 0 120px}
+  #opener{min-height:0;padding:152px 0 120px} /* a third more each side (founder, 2026-11-04: "a bit more white space around the opener"); the smaller screens take a third of their own step */
   #how,.opener + #how{padding-top:72px;padding-bottom:72px}
   #science.science{padding:72px 0}
   .tour-stage{min-height:0;padding:72px 0}
@@ -2711,7 +2711,7 @@ a.vrow:hover,a.vrow:focus-visible{
   .footer{padding-top:104px}
 }
 @media(max-width:860px){
-  #opener{min-height:0;padding:80px 0 60px}
+  #opener{min-height:0;padding:120px 0 100px}
   #how,.opener + #how{padding-top:60px;padding-bottom:60px}
   #science.science{padding:60px 0}
   .tour-stage{min-height:0;padding:60px 0}
@@ -2721,7 +2721,7 @@ a.vrow:hover,a.vrow:focus-visible{
   .footer{padding-top:80px}
 }
 @media(max-width:560px){
-  #opener{padding:72px 0 48px}
+  #opener{padding:104px 0 80px}
   #how,.opener + #how{padding-top:48px;padding-bottom:48px}
   #science.science{padding:48px 0}
   .tour-stage{padding:48px 0}
