@@ -13,7 +13,7 @@
 /* ---- the report ------------------------------------------------------- */
 .sr-report{padding:40px clamp(18px, 4vw, 44px) 36px;transform:none}
 .sr-report p,.sr-report h4,.sr-report h5{margin:0}
-.sr-report h4{font-size:clamp(26px, 3vw, 34px)}
+.sr-report h4{font-size:var(--rp-h4-size,clamp(26px, 3vw, 34px))}
 .sr-report h5{margin-top:30px}
 .sr-report .rp-hrow h5{margin:0}
 .sr-report .rp-wide{margin-top:44px !important}
@@ -29,17 +29,17 @@
 .sr-row .rp-body{display:flex;flex-direction:column;flex:1}
 .sr-row .rp-why{min-height:0}
 .sr-row .rp-add{margin-top:auto}
-.sr-form{margin:12px 0 14px !important;font-size:12.5px;color:#71717A}
-.sr-warn{display:flex;align-items:center;gap:6px;margin-top:10px !important;font-size:12.5px;font-weight:500;color:#9A3412}
+.sr-form{margin:12px 0 14px !important;font-size:12.5px;color:var(--rp-muted,#71717A)}
+.sr-warn{display:flex;align-items:center;gap:6px;margin-top:10px !important;font-size:12.5px;font-weight:500;color:var(--rp-warn,#9A3412)}
 .sr-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
-.sr-dots i{width:7px;height:7px;border-radius:50%;background:#D4D4D8;transition:width .25s ease,background-color .25s ease}
+.sr-dots i{width:7px;height:7px;border-radius:50%;background:var(--rp-track,#D4D4D8);transition:width .25s ease,background-color .25s ease}
 .sr-dots i.is-on{width:20px;border-radius:4px;background:var(--rp-btn,#96682A)}
 .sr-report .rp-macs{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:700px){.sr-report .rp-macs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sr-report .rp-bd{grid-template-columns:150px minmax(0,1fr) 48px}
 @media(max-width:560px){.sr-report .rp-bd{grid-template-columns:minmax(0,1fr) 44px}.sr-report .rp-bd > div{grid-column:1/-1;grid-row:2}}
-.sr-hr{margin-top:36px;border-top:1px solid #DCDADB}
-.sr-rev{margin-top:14px !important;font-size:14px;color:#3F3F46;text-decoration:underline;text-underline-offset:3px}
+.sr-hr{margin-top:36px;border-top:1px solid var(--rp-line,#DCDADB)}
+.sr-rev{margin-top:14px !important;font-size:14px;color:var(--rp-text,#3F3F46);text-decoration:underline;text-underline-offset:3px}
 
 /* THE TEMPLATE IS AN ORDER, NOT A SKIN. In the product (apps/webapp
    lib/report/report-templates.ts) a report template sets which sections
@@ -70,3 +70,17 @@
 .sr-report[data-template="essentials"] .rp-s-profile,
 .sr-report[data-template="essentials"] .rp-s-goals,
 .sr-report[data-template="essentials"] .rp-s-detail{display:none}
+
+/* The brand's other levers, read off the frame's --rp-* like the colours:
+   the hero's alignment (a centred heading and intro is the theme's text
+   alignment), a measure for a centred intro, a grid of products where the
+   brand chose one over the swipe row (productLayout), and the retake block
+   off for Essentials, which is the one template that hides it. */
+.sr-report .rp-s-hero{text-align:var(--rp-hero-align,left)}
+.sr-report .rp-top{justify-content:var(--rp-hero-justify,flex-start)}
+.sr-report .rp-intro{max-width:var(--rp-intro-max,none);margin-left:auto !important;margin-right:auto !important}
+.sr-report[data-layout="grid"] .sr-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;overflow:visible;scroll-snap-type:none}
+.sr-report[data-layout="grid"] .sr-row .rp-card{flex:none;width:auto}
+.sr-report[data-layout="grid"] .sr-dots{display:none}
+@media(max-width:700px){.sr-report[data-layout="grid"] .sr-row{grid-template-columns:minmax(0,1fr)}}
+.sr-report[data-template="essentials"] .rp-retake{display:none}
