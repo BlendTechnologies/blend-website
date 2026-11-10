@@ -39,8 +39,14 @@ need('heading', R.heading);
 need('intro', R.intro);
 R.profile.forEach(p => need('profile', p));
 R.goals.forEach(g => need('goal', g));
-const cards = (page.match(/class="rp-card"/g) || []).length;
-if (cards !== R.products.length) failures.push(`products: the page draws ${cards} cards, the engine returned ${R.products.length}`);
+/* One report a persona since 2026-11-10, and every one of them is held to
+   this file until each persona has a replay of its own. */
+const reports = page.split('<div class="rp sr-report"').slice(1);
+if (!reports.length) failures.push('the page draws no report');
+reports.forEach((r, i) => {
+  const cards = (r.match(/class="rp-card"/g) || []).length;
+  if (cards !== R.products.length) failures.push(`report ${i + 1}: the page draws ${cards} cards, the engine returned ${R.products.length}`);
+});
 R.products.forEach(p => {
   need('product', p.name);
   need(`${p.name}'s reason`, p.why);
@@ -63,4 +69,4 @@ if (failures.length) {
   console.error('\nsample-report.json is the engine\'s output. Change the page to match it, or re-run the engine and change both.');
   process.exit(1);
 }
-console.log(`PASSED: /sample-report shows the engine's ${R.products.length} picks, ${R.macros.length} macros and ${R.breakdown.reduce((n, g) => n + g.rows.length, 0)} gaps exactly as sample-report.json records them.`);
+console.log(`PASSED: /sample-report draws ${reports.length} report(s), each with the engine's ${R.products.length} picks, ${R.macros.length} macros and ${R.breakdown.reduce((n, g) => n + g.rows.length, 0)} gaps exactly as sample-report.json records them.`);
