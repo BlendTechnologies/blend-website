@@ -87,3 +87,11 @@
 .sr-report[data-layout="grid"] .sr-dots{display:none}
 @media(max-width:700px){.sr-report[data-layout="grid"] .sr-row{grid-template-columns:minmax(0,1fr)}}
 .sr-report[data-template="essentials"] .rp-retake{display:none}
+/* A brand's section toggles, after the template: the keys it switched off
+   (founder, 2026-11-10, for the shop: "remove what you told us matters and
+   your profile"). The markup stays, as the engine's data, and the check
+   still reads it; the section is not drawn, which is what the toggle does. */
+.sr-report[data-off~="profile"] .rp-s-profile,
+.sr-report[data-off~="goals"] .rp-s-goals,
+.sr-report[data-off~="score"] .rp-s-score,
+.sr-report[data-off~="detail"] .rp-s-detail{display:none}
