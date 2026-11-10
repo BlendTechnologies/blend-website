@@ -45,9 +45,6 @@
    touching both ends of its own pill. The ≤860 rule below already carried
    16px, so the phone had the roomier button and the desktop did not. */
 .btn-sm{padding:8px 18px;font-size:14px;min-height:38px}
-  .samplebar{background:var(--deep);color:rgba(255,255,255,.72);font-size:12px;
-    text-align:center;padding:8px 16px}
-  .samplebar b{color:#fff}
 
   .wrap{max-width:var(--content);margin:0 auto;padding:40px 32px 72px}
   @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -162,7 +159,7 @@ html,body{max-width:100%;overflow-x:clip}
      and the same rhythm inside both, because six benefits that do not line
      up read as two lists rather than one set. */
   .pitch{background:var(--deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
-    display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
+    display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);
     gap:30px 32px;align-items:start}
 
   /* The column stretches to the band's height and the call to action sits
@@ -183,9 +180,24 @@ html,body{max-width:100%;overflow-x:clip}
     font-weight:500;letter-spacing:-.025em;color:var(--ink)}
   .pitch-copy{display:grid;gap:12px;align-content:start}
   .pitch-lead{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
-  /* The three short sentences are the objection handler, so they read as an
-     aside to the promise above rather than as more of it. */
-  .pitch-sub{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+  /* The objection handler is three marks on one line: code, bolt, layers,
+     in the gold that reads on this ground (--sand, as the ticks below),
+     each with its word, divided by the hairline the homepage strip uses.
+
+     MEASURED, like the homepage strip. The site loads no webfont, so this
+     is Inter on this machine: 12px type, 13px marks, 9px either side of a
+     divider put the three at about 305 together. The headline's column
+     grew from 300 to 320 for them, and no further, because at 330 the
+     first benefit's title ("Convert more visitors into customers.") no
+     longer fits its column on one line. 15 of room for the strip, 5 for
+     the title. */
+  .pitch-strip{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;
+    align-items:center;gap:6px 0}
+  .pitch-strip li{display:inline-flex;align-items:center;gap:5px;padding:0 9px;
+    border-left:1px solid rgba(255,255,255,.14);font-size:12px;line-height:1.3;
+    color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+  .pitch-strip li:first-child{padding-left:0;border-left:0}
+  .pitch-strip svg{width:13px;height:13px;flex:0 0 auto;color:var(--sand)}
   .pitch-bar{grid-column:1 / -1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;
     margin:0;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);
     font-size:12.5px;line-height:1.5;color:var(--muted)}
@@ -342,7 +354,7 @@ html,body{max-width:100%;overflow-x:clip}
   .answers-all{margin-top:18px}
 
   /* Two columns of benefits under the pitch below 1000, one of each below
-     660. 300 of headline beside two 250px columns needs about 900 of card,
+     660. 320 of headline beside two 250px columns needs about 900 of card,
      and a phone has 307. */
   @media(max-width:1000px){
     .pitch{grid-template-columns:minmax(0,1fr);gap:26px}
@@ -483,12 +495,15 @@ html,body{max-width:100%;overflow-x:clip}
     </div>
   </div>
 </header>
-<!-- What the page is. The report below is drawn here, with the report's
-     own rules (product-screens.css, .rp), from the engine's output for one
-     fictional customer: sample-report.json vendors the request and the
-     figures, and tools/check-sample-report.mjs refuses when the page shows
-     a figure the file does not. -->
-<div class="samplebar"><b>Sample report</b>, the engine's plan for a fictional customer on a sample catalogue.</div>
+<!-- The report below is drawn here, with the report's own rules
+     (product-screens.css, .rp), from the engine's output for one fictional
+     customer: sample-report.json vendors the request and the figures, and
+     tools/check-sample-report.mjs refuses when the page shows a figure the
+     file does not.
+
+     The bar that used to name the page ("Sample report, the engine's plan
+     for a fictional customer on a sample catalogue") came out on the
+     founder's instruction (2026-11-10). The page opens on the pitch. -->
 <div class="wrap">
 
   <!-- The report, exactly as the product renders it.
@@ -536,7 +551,9 @@ html,body{max-width:100%;overflow-x:clip}
        report is a document; the document needs the inches. -->
   <!-- THE BENEFITS BAND. Three columns: the pitch, then two columns of
        business outcomes. Written to the founder's brief of 2026-10-19,
-       verbatim.
+       verbatim, and revised to the brief of 2026-11-10: a shorter lead,
+       three marks for the objection handler, AI in the afternoon line,
+       research in the science line, and the bar ends on why.
 
        ONE THING ON THE RECORD. "Convert more visitors into customers" and
        "Increase average order value" are outcome claims, and
@@ -568,10 +585,17 @@ html,body{max-width:100%;overflow-x:clip}
       <p class="pitch-head">Turn customer needs into more sales.</p>
       <div class="pitch-copy">
         <p class="pitch-lead">Build a personalised shopping experience that
-          helps every customer find the right products, increases
-          conversions, and drives bigger baskets.</p>
-        <p class="pitch-sub">No coding. No complicated setup. Just smarter
-          selling.</p>
+          helps every customer find the right products.</p>
+        <!-- The objection handler as three marks rather than a sentence
+             (founder, 2026-11-10, with a screenshot: code, bolt, layers in
+             the gold, each with its word, hairlines between). The sentence
+             it replaces said the same three things: no coding, no
+             complicated setup, smarter selling. -->
+        <ul class="pitch-strip">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>No coding</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Quick setup</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>Smarter selling</li>
+        </ul>
       </div>
       <div class="pitch-cta">
         <a class="btn btn-primary" href="https://calendly.com/julien-blend-technologies/demo?background_color=1E1E21&amp;text_color=F3F1ED&amp;primary_color=B47F39"
@@ -588,10 +612,11 @@ html,body{max-width:100%;overflow-x:clip}
           individual needs.</span></li>
       <li><b>Personalisation backed by science.</b>
         <span>Go beyond generic quizzes with intelligent recommendations
-          built on nutritional science and real customer data.</span></li>
+          grounded in nutritional science and research.</span></li>
       <li><b>Launch in an afternoon.</b>
-        <span>Connect your Shopify store, customise your quiz, and go live
-          with a simple embed.</span></li>
+        <span>Connect your Shopify store, let AI help build your catalogue
+          and recommendations, customise your quiz, and go live with a
+          simple embed.</span></li>
       <li><b>Your brand. Your experience.</b>
         <span>Fully customise the questions, design, recommendations, and
           customer journey. No code required.</span></li>
@@ -606,7 +631,7 @@ html,body{max-width:100%;overflow-x:clip}
          already uses: tag-based tools map answers to products; Blend scores
          the catalogue and says why. -->
     <p class="pitch-bar"><span>Already run a quiz? Most map answers to tags.
-      Blend scores every product for each customer, with the reason.</span>
+      Blend scores every product for each customer, and explains why.</span>
       <a href="/use-cases/compare">See how Blend compares</a></p>
   </section>
 
