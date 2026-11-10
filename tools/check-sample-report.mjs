@@ -50,7 +50,9 @@ reports.forEach((r, i) => {
 R.products.forEach(p => {
   need('product', p.name);
   need(`${p.name}'s reason`, p.why);
-  need(`${p.name}'s form`, `${p.form} · ${p.timing}`);
+  need(`${p.name}'s form`, p.form);
+  need(`${p.name}'s timing`, p.timing);
+  if (p.description) need(`${p.name}'s description`, p.description);
   if (p.caution) need(`${p.name}'s caution`, p.caution);
   p.tags.forEach(t => need(`${p.name}'s tag`, t));
 });

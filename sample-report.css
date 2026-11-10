@@ -45,11 +45,57 @@
 .sr-row .rp-body{display:flex;flex-direction:column;flex:1}
 .sr-row .rp-why{min-height:0}
 .sr-row .rp-add{margin-top:auto}
-.sr-form{margin:12px 0 14px !important;font-size:12.5px;color:var(--rp-muted,#71717A)}
+/* The engine's reason at full strength and the brand's description lighter
+   (founder, 2026-11-05), then the usage line: an icon and the brand's words
+   for when and for the form, a middle dot between, the labels read out and
+   not drawn. */
+.sr-report .rp-why{display:block;margin-top:12px !important;font-size:13.5px;line-height:19px;color:var(--rp-text,#403B34);min-height:0}
+.rp-desc{margin:8px 0 0 !important;font-size:12.5px;line-height:18px;color:var(--rp-muted,#6B6B6B);white-space:pre-line}
+.rp-use{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;margin:12px 0 14px !important;font-size:12.5px;color:var(--rp-muted,#71717A)}
+.rp-use > span{display:inline-flex;align-items:center;gap:4px}
+.rp-use > i{font-style:normal;opacity:.5}
+.rp-use svg{flex:0 0 auto}
+/* The expand control is a button now, and the larger card it opens. A
+   <dialog> in the top layer escapes the frame's half-scale transform, so
+   it opens at full size over the page, as the product's does inside its
+   builder preview; it stays inside the card in the DOM, so the brand's
+   --rp-* still reach it. */
+.rp-ex{border:0;padding:0;cursor:pointer;font:inherit}
+.rp-ex:focus-visible{outline:2px solid var(--rp-accent,#93652F);outline-offset:2px}
+/* margin:auto is what centres a <dialog> in the top layer, and this page's
+   reset (*{margin:0}) had taken it away: the card opened in the top-left
+   corner. max-height and overflow for a short window. */
+.rp-dialog{border:0;padding:0;margin:auto;background:transparent;max-width:min(880px,92vw);width:100%;max-height:92vh;overflow:auto;color:var(--rp-text,#403B34);font-family:var(--rp-font-body,inherit)}
+.rp-dialog::backdrop{background:rgba(10,10,10,.55)}
+.rp-x{position:relative;display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);background:var(--rp-card,#FFFFFF);border:1px solid var(--rp-line,#DEDEDE);border-radius:14px;overflow:hidden}
+.rp-x-media{position:relative;min-height:340px;background:var(--rp-ph,#E0E0E0)}
+.rp-x-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rp-x-body{padding:26px 28px 28px;display:flex;flex-direction:column}
+.rp-x-name{margin:0 0 4px !important;font-size:21px;font-weight:700;line-height:1.25;color:var(--rp-strong,#111)}
+.rp-x-body .rp-tags{margin-top:10px}
+.rp-x-body .rp-why{font-size:14.5px;line-height:21px}
+.rp-x-body .rp-desc{font-size:13.5px;line-height:20px}
+.rp-x-body .rp-use{font-size:13.5px;margin-top:14px !important}
+.rp-x-body .rp-add{margin-top:auto;height:40px;cursor:default}
+.rp-x-close{position:absolute;right:12px;top:12px;z-index:1;display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:var(--rp-ex,#FFFFFF);color:var(--rp-ex-text,#1A1A1A);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.rp-x-close:focus-visible{outline:2px solid var(--rp-accent,#93652F);outline-offset:2px}
+@media(max-width:640px){.rp-x{grid-template-columns:minmax(0,1fr)}.rp-x-media{min-height:220px}.rp-x-body{padding:20px}}
+/* The brand's mark beside the heading, where the product draws a logo
+   (config.showLogo). The homepage's drawing of the same report uses the
+   same B. */
+.sr-report .rp-logo{display:grid;place-items:center;flex:0 0 auto;width:40px;height:40px;border-radius:10px;
+  background:var(--rp-accent-soft,#F1E3CE);color:var(--rp-heading,#2E2A25);font-weight:700;font-size:22px;letter-spacing:-.04em;line-height:1}
 .sr-warn{display:flex;align-items:center;gap:6px;margin-top:10px !important;font-size:12.5px;font-weight:500;color:var(--rp-warn,#9A3412)}
-.sr-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
-.sr-dots i{width:7px;height:7px;border-radius:50%;background:var(--rp-track,#D4D4D8);transition:width .25s ease,background-color .25s ease}
-.sr-dots i.is-on{width:20px;border-radius:4px;background:var(--rp-btn,#96682A)}
+/* Dots as the product draws them: one a PAGE the row can scroll to, not
+   one a card, each a 24px button round a 6px dot, the active one wider
+   rather than only darker (card-carousel.tsx). Built by sample-report.js
+   from the row's measured travel; none when the row does not scroll. */
+.sr-dots{display:flex;justify-content:center;gap:2px;margin-top:12px;min-height:24px}
+.sr-dots:empty{display:none}
+.sr-dot{display:grid;place-items:center;width:24px;height:24px;border:0;padding:0;background:none;border-radius:50%;cursor:pointer}
+.sr-dot:focus-visible{outline:2px solid var(--rp-accent,#93652F)}
+.sr-dot i{display:block;width:6px;height:6px;border-radius:999px;background:var(--rp-track,#D4D4D8);transition:width .2s ease,background-color .2s ease}
+.sr-dot[aria-current="true"] i{width:16px;background:var(--rp-btn,#96682A)}
 .sr-report .rp-macs{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:700px){.sr-report .rp-macs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sr-report .rp-bd{grid-template-columns:150px minmax(0,1fr) 48px}
@@ -75,12 +121,18 @@
 .sr-report .rp-s-profile{order:3}
 .sr-report .rp-s-goals{order:4}
 .sr-report .rp-s-products{order:5}
-.sr-report .rp-s-detail{order:6}
-.sr-report .rp-s-foot{order:7}
+.sr-report .rp-s-retake{order:6}
+.sr-report .rp-s-detail{order:7}
+.sr-report .rp-s-foot{order:9}
+/* The retake is its own section in the product, and a brand drags it where
+   it wants it: the clinic's goes after everything (founder, 2026-11-10,
+   "put retake all the way down"). */
+.sr-report[data-retake="last"] .rp-s-retake{order:8}
 /* Storefront: leads with what to buy, then who they are, detail in two. */
 .sr-report[data-template="storefront"] .rp-s-products{order:3}
-.sr-report[data-template="storefront"] .rp-s-goals{order:4}
-.sr-report[data-template="storefront"] .rp-s-profile{order:5}
+.sr-report[data-template="storefront"] .rp-s-retake{order:4}
+.sr-report[data-template="storefront"] .rp-s-goals{order:5}
+.sr-report[data-template="storefront"] .rp-s-profile{order:6}
 .sr-report[data-template="storefront"] .rp-s-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;align-items:start}
 .sr-report[data-template="storefront"] .rp-macs{grid-template-columns:repeat(2,minmax(0,1fr))}
 .sr-report[data-template="storefront"] .rp-bd{grid-template-columns:120px minmax(0,1fr) 44px}
@@ -102,7 +154,7 @@
 .sr-report[data-layout="grid"] .sr-row .rp-card{flex:none;width:auto}
 .sr-report[data-layout="grid"] .sr-dots{display:none}
 @media(max-width:700px){.sr-report[data-layout="grid"] .sr-row{grid-template-columns:minmax(0,1fr)}}
-.sr-report[data-template="essentials"] .rp-retake{display:none}
+.sr-report[data-template="essentials"] .rp-s-retake{display:none}
 /* A brand's section toggles, after the template: the keys it switched off
    (founder, 2026-11-10, for the shop: "remove what you told us matters and
    your profile"). The markup stays, as the engine's data, and the check
