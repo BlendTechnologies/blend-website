@@ -13,12 +13,12 @@
 /* ---- the report ------------------------------------------------------- */
 .sr-report{padding:40px clamp(18px, 4vw, 44px) 36px;transform:none}
 .sr-report p,.sr-report h4,.sr-report h5{margin:0}
-.sr-report h4{font-size:clamp(26px, 3vw, 34px)}
+.sr-report h4{font-size:var(--rp-h4-size,clamp(26px, 3vw, 34px))}
 .sr-report h5{margin-top:30px}
 .sr-report .rp-hrow h5{margin:0}
 .sr-report .rp-wide{margin-top:44px !important}
-.sr-report .rp-add,.sr-report .rp-retake span{background:#96682A}
-.sr-report .rp-badge:not(.is-rec){background:#F1E3CE;color:#93652F}
+.sr-report .rp-add,.sr-report .rp-retake span{background:var(--rp-btn,#96682A);color:var(--rp-btn-text,#fff)}
+.sr-report .rp-badge:not(.is-rec){background:var(--rp-accent-soft,#F1E3CE);color:var(--rp-accent,#93652F)}
 .sr-report .rp-hrow{flex-wrap:wrap;gap:4px 16px}
 .sr-row{display:flex;gap:14px;margin-top:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
   overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
@@ -29,14 +29,69 @@
 .sr-row .rp-body{display:flex;flex-direction:column;flex:1}
 .sr-row .rp-why{min-height:0}
 .sr-row .rp-add{margin-top:auto}
-.sr-form{margin:12px 0 14px !important;font-size:12.5px;color:#71717A}
-.sr-warn{display:flex;align-items:center;gap:6px;margin-top:10px !important;font-size:12.5px;font-weight:500;color:#9A3412}
+.sr-form{margin:12px 0 14px !important;font-size:12.5px;color:var(--rp-muted,#71717A)}
+.sr-warn{display:flex;align-items:center;gap:6px;margin-top:10px !important;font-size:12.5px;font-weight:500;color:var(--rp-warn,#9A3412)}
 .sr-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
-.sr-dots i{width:7px;height:7px;border-radius:50%;background:#D4D4D8;transition:width .25s ease,background-color .25s ease}
-.sr-dots i.is-on{width:20px;border-radius:4px;background:#96682A}
+.sr-dots i{width:7px;height:7px;border-radius:50%;background:var(--rp-track,#D4D4D8);transition:width .25s ease,background-color .25s ease}
+.sr-dots i.is-on{width:20px;border-radius:4px;background:var(--rp-btn,#96682A)}
 .sr-report .rp-macs{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:700px){.sr-report .rp-macs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sr-report .rp-bd{grid-template-columns:150px minmax(0,1fr) 48px}
 @media(max-width:560px){.sr-report .rp-bd{grid-template-columns:minmax(0,1fr) 44px}.sr-report .rp-bd > div{grid-column:1/-1;grid-row:2}}
-.sr-hr{margin-top:36px;border-top:1px solid #DCDADB}
-.sr-rev{margin-top:14px !important;font-size:14px;color:#3F3F46;text-decoration:underline;text-underline-offset:3px}
+.sr-hr{margin-top:36px;border-top:1px solid var(--rp-line,#DCDADB)}
+.sr-rev{margin-top:14px !important;font-size:14px;color:var(--rp-text,#3F3F46);text-decoration:underline;text-underline-offset:3px}
+
+/* THE TEMPLATE IS AN ORDER, NOT A SKIN. In the product (apps/webapp
+   lib/report/report-templates.ts) a report template sets which sections
+   show, in what order, and whether the nutrition detail runs one column or
+   two; colours come from the brand's theme. So the report is drawn once,
+   its sections wrapped (.rp-s-*), and data-template orders them. Three of
+   the six templates are drawn here, the three that leave the health score
+   off: Classic (the full report), Storefront (products first, detail in two
+   columns), Essentials (plan and products, nothing else). The brand's
+   colours are --rp-* on the frame, read by product-screens.css. */
+.sr-report{display:flex;flex-direction:column}
+.rp-s,.rp-d{min-width:0}
+.sr-report .rp-s-hero{order:1}
+/* The score, where a brand that turns it on drags it: straight after the
+   opening, which is where the Clinical template puts it. */
+.sr-report .rp-s-score{order:2}
+.sr-report .rp-s-profile{order:3}
+.sr-report .rp-s-goals{order:4}
+.sr-report .rp-s-products{order:5}
+.sr-report .rp-s-detail{order:6}
+.sr-report .rp-s-foot{order:7}
+/* Storefront: leads with what to buy, then who they are, detail in two. */
+.sr-report[data-template="storefront"] .rp-s-products{order:3}
+.sr-report[data-template="storefront"] .rp-s-goals{order:4}
+.sr-report[data-template="storefront"] .rp-s-profile{order:5}
+.sr-report[data-template="storefront"] .rp-s-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;align-items:start}
+.sr-report[data-template="storefront"] .rp-macs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sr-report[data-template="storefront"] .rp-bd{grid-template-columns:120px minmax(0,1fr) 44px}
+@media(max-width:700px){.sr-report[data-template="storefront"] .rp-s-detail{grid-template-columns:minmax(0,1fr)}}
+/* Essentials: plan and products only. */
+.sr-report[data-template="essentials"] .rp-s-profile,
+.sr-report[data-template="essentials"] .rp-s-goals,
+.sr-report[data-template="essentials"] .rp-s-detail{display:none}
+
+/* The brand's other levers, read off the frame's --rp-* like the colours:
+   the hero's alignment (a centred heading and intro is the theme's text
+   alignment), a measure for a centred intro, a grid of products where the
+   brand chose one over the swipe row (productLayout), and the retake block
+   off for Essentials, which is the one template that hides it. */
+.sr-report .rp-s-hero{text-align:var(--rp-hero-align,left)}
+.sr-report .rp-top{justify-content:var(--rp-hero-justify,flex-start)}
+.sr-report .rp-intro{max-width:var(--rp-intro-max,none);margin-left:auto !important;margin-right:auto !important}
+.sr-report[data-layout="grid"] .sr-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;overflow:visible;scroll-snap-type:none}
+.sr-report[data-layout="grid"] .sr-row .rp-card{flex:none;width:auto}
+.sr-report[data-layout="grid"] .sr-dots{display:none}
+@media(max-width:700px){.sr-report[data-layout="grid"] .sr-row{grid-template-columns:minmax(0,1fr)}}
+.sr-report[data-template="essentials"] .rp-retake{display:none}
+/* A brand's section toggles, after the template: the keys it switched off
+   (founder, 2026-11-10, for the shop: "remove what you told us matters and
+   your profile"). The markup stays, as the engine's data, and the check
+   still reads it; the section is not drawn, which is what the toggle does. */
+.sr-report[data-off~="profile"] .rp-s-profile,
+.sr-report[data-off~="goals"] .rp-s-goals,
+.sr-report[data-off~="score"] .rp-s-score,
+.sr-report[data-off~="detail"] .rp-s-detail{display:none}
