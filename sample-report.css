@@ -53,15 +53,18 @@
 .sr-report{display:flex;flex-direction:column}
 .rp-s,.rp-d{min-width:0}
 .sr-report .rp-s-hero{order:1}
-.sr-report .rp-s-profile{order:2}
-.sr-report .rp-s-goals{order:3}
-.sr-report .rp-s-products{order:4}
-.sr-report .rp-s-detail{order:5}
-.sr-report .rp-s-foot{order:6}
+/* The score, where a brand that turns it on drags it: straight after the
+   opening, which is where the Clinical template puts it. */
+.sr-report .rp-s-score{order:2}
+.sr-report .rp-s-profile{order:3}
+.sr-report .rp-s-goals{order:4}
+.sr-report .rp-s-products{order:5}
+.sr-report .rp-s-detail{order:6}
+.sr-report .rp-s-foot{order:7}
 /* Storefront: leads with what to buy, then who they are, detail in two. */
-.sr-report[data-template="storefront"] .rp-s-products{order:2}
-.sr-report[data-template="storefront"] .rp-s-goals{order:3}
-.sr-report[data-template="storefront"] .rp-s-profile{order:4}
+.sr-report[data-template="storefront"] .rp-s-products{order:3}
+.sr-report[data-template="storefront"] .rp-s-goals{order:4}
+.sr-report[data-template="storefront"] .rp-s-profile{order:5}
 .sr-report[data-template="storefront"] .rp-s-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;align-items:start}
 .sr-report[data-template="storefront"] .rp-macs{grid-template-columns:repeat(2,minmax(0,1fr))}
 .sr-report[data-template="storefront"] .rp-bd{grid-template-columns:120px minmax(0,1fr) 44px}

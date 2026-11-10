@@ -62,6 +62,13 @@ R.macros.forEach(m => {
 });
 R.breakdown.forEach(g => g.rows.forEach(b => { need(b.name, `${b.pct}%`); need(`${b.name}'s sources`, b.sources); }));
 need('disclaimer', R.disclaimer);
+/* A drawn score is a figure like any other. While a report draws one and the
+   engine's output here carries none, the page is showing a number the engine
+   did not produce, and that is exactly what this check exists to refuse. */
+reports.forEach((r, i) => {
+  if (r.includes('class="rp-score"') && R.health_score === undefined)
+    failures.push(`report ${i + 1} draws a wellness score; sample-report.json carries none. Replay the request with the score on, record it, and draw that.`);
+});
 if (/<iframe/i.test(page)) failures.push('the page embeds an iframe again: the report is drawn here, not loaded from the webapp');
 
 if (failures.length) {
