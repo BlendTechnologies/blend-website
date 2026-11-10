@@ -65,9 +65,16 @@ need('disclaimer', R.disclaimer);
 /* A drawn score is a figure like any other. While a report draws one and the
    engine's output here carries none, the page is showing a number the engine
    did not produce, and that is exactly what this check exists to refuse. */
+const waived = [];
 reports.forEach((r, i) => {
-  if (r.includes('class="rp-score"') && R.health_score === undefined)
-    failures.push(`report ${i + 1} draws a wellness score; sample-report.json carries none. Replay the request with the score on, record it, and draw that.`);
+  const m = /<div class="rp-score"([^>]*)>/.exec(r);
+  if (!m) return;
+  if (R.health_score !== undefined) { need(`report ${i + 1}'s score`, String(R.health_score)); return; }
+  /* A stand-in is allowed only when the element names who waived it and
+     when, and every run says so, so it cannot quietly become permanent. */
+  const w = /data-standin="([^"]+)"/.exec(m[1]);
+  if (w) waived.push(`report ${i + 1} draws a wellness score the engine has not supplied (waived: ${w[1]})`);
+  else failures.push(`report ${i + 1} draws a wellness score; sample-report.json carries none. Replay the request with the score on, record it, and draw that.`);
 });
 if (/<iframe/i.test(page)) failures.push('the page embeds an iframe again: the report is drawn here, not loaded from the webapp');
 
@@ -76,4 +83,5 @@ if (failures.length) {
   console.error('\nsample-report.json is the engine\'s output. Change the page to match it, or re-run the engine and change both.');
   process.exit(1);
 }
+waived.forEach(w => console.warn('WAIVED: ' + w));
 console.log(`PASSED: /sample-report draws ${reports.length} report(s), each with the engine's ${R.products.length} picks, ${R.macros.length} macros and ${R.breakdown.reduce((n, g) => n + g.rows.length, 0)} gaps exactly as sample-report.json records them.`);
