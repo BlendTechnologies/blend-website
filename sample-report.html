@@ -363,7 +363,11 @@ html,body{max-width:100%;overflow-x:clip}
      660. 320 of headline beside two 250px columns needs about 900 of card,
      and a phone has 307. */
   @media(max-width:1000px){
-    .pitch{grid-template-columns:minmax(0,1fr);gap:26px}
+    /* One column, so there are two row boundaries: 26 between the pitch
+       and the benefits as before, carried by the list's own margin, and
+       the desktop's 14 above the bar. */
+    .pitch{grid-template-columns:minmax(0,1fr);gap:14px}
+    .pitch-list{margin-top:12px}
     .pitch-say{grid-template-rows:none;gap:16px}
     .pitch-cta{align-self:start}
   }
@@ -376,6 +380,16 @@ html,body{max-width:100%;overflow-x:clip}
     .pitch-list li:nth-child(3n+1)::before{top:19px}
     .pitch-list li:first-child{border-top:0;padding-top:0}
     .pitch-list li:first-child::before{top:5px}
+  }
+  /* On a phone the three marks keep their row and lose their dividers:
+     with 9 either side of a hairline they measure 307, and a 360 phone
+     has 292 of card. Word and mark, 14 apart, measure 290 and fit from
+     360 up; under that the third wraps under the first two, cleanly,
+     because there is no divider to strand at the start of a line. The
+     homepage strip changes form on a phone the same way. */
+  @media(max-width:560px){
+    .pitch-strip{gap:8px 14px}
+    .pitch-strip li{border-left:0;padding:0}
   }
   @media(max-width:760px){
     .pitch{padding:22px 18px}
