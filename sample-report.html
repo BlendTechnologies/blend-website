@@ -416,11 +416,16 @@ html,body{max-width:100%;overflow-x:clip}
      food scale on the right, which is about level. Beside the report the
      card is 360 wide and never reaches this. 700 rather than 600 because
      at 600 the scale's column has 113px for "Plant-based alternatives",
-     which wraps. */
+     which wraps. The LAST block takes the right column, not the fourth:
+     Helen's long card has five, and her food scale is the fifth, so on
+     her card it spans four rows and the whole left column sits beside
+     it. Not "span 4" for every card: an empty fourth row still carries
+     the 18px row gap, and Alex's validated tablet card grew by that. */
   @container (min-width:700px){
     .pf{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px}
     .pf-block{align-content:start}
-    .pf-block:nth-child(4){grid-column:2;grid-row:1 / span 3}
+    .pf-block:last-child{grid-column:2;grid-row:1 / span 3}
+    .pf-block:nth-child(5){grid-row:1 / span 4}
   }
 
   /* The full transcript, behind a disclosure. Nothing is hidden from a
