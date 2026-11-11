@@ -400,6 +400,21 @@ html,body{max-width:100%;overflow-x:clip}
   .pf-scale b{display:block;width:6px;height:6px;border-radius:50%;background:var(--line)}
   .pf-scale b.on{background:var(--gold)}
   .pf-scale span{font-size:11px;color:var(--muted);text-align:right;white-space:nowrap}
+  /* TWO ACROSS WHEN THE CARD IS WIDE. Under 1000 the split goes to one
+     column and this card is the full measure, 770 on a tablet: one column
+     of blocks there puts a food group's dots 500px from its name, and the
+     report a visitor came for 1,100px down. The aside is a size container
+     for this (above), so the blocks go two across by the card's own width
+     rather than the window's: the three short blocks down the left, the
+     food scale on the right, which is about level. Beside the report the
+     card is 360 wide and never reaches this. 700 rather than 600 because
+     at 600 the scale's column has 113px for "Plant-based alternatives",
+     which wraps. */
+  @container (min-width:700px){
+    .pf{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px}
+    .pf-block{align-content:start}
+    .pf-block:nth-child(4){grid-column:2;grid-row:1 / span 3}
+  }
 
   /* The full transcript, behind a disclosure. Nothing is hidden from a
      reader who wants it; it is just not the first thing they meet.
