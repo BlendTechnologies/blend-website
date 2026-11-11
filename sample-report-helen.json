@@ -1,0 +1,548 @@
+{
+ "_": "The report /sample-report draws for Helen, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication 22ad552d-425c-4fd0-a017-3ef0c0e32ae5), 2026-11-11, replaying the request below through the public embed API exactly as the quiz runtime does: 51 answers by their stable ids, one PUT per question, then complete. Submission 901b9eea-b0a9-49c4-844c-b155557b4ccd, recommendation 81c75877-1d34-4a0f-b46f-003b6e7f73c7, HTTP 200, 7 products from the demo catalogue. The figures below were read from that submission's rendered results page by the website session's extractor (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The demo's published report configuration keeps the wellness score off, so the results page shows none and this file carries none. The brand's description for each product is the first paragraph the results page shows for it; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. To refresh: replay the request and update this file and the page together.",
+ "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
+ "persona": "helen",
+ "request": {
+  "contract_version": "2.0",
+  "quiz_main": "1777914547769x511962629417775200",
+  "choices": [
+   {
+    "question_id": "002XNOTI",
+    "answer_ids": [
+     "002XNOTIX001XIACC",
+     "002XNOTIX002XITER"
+    ]
+   },
+   {
+    "question_id": "005XWHAT",
+    "answer_ids": [
+     "005XWHATX001XWOMA"
+    ]
+   },
+   {
+    "question_id": "007XWHIC",
+    "answer_ids": [
+     "007XWHICX001XMETR"
+    ]
+   },
+   {
+    "question_id": "013XWHAT",
+    "answer_ids": [
+     "013XWHATX007XPREF"
+    ]
+   },
+   {
+    "question_id": "014XAREY",
+    "answer_ids": [
+     "014XAREYX001XNO"
+    ]
+   },
+   {
+    "question_id": "015XDOYO",
+    "answer_ids": [
+     "015XDOYOX002XNO"
+    ]
+   },
+   {
+    "question_id": "017XAREY",
+    "answer_ids": [
+     "017XAREYX002XNO"
+    ]
+   },
+   {
+    "question_id": "021XHERE",
+    "answer_ids": [
+     "021XHEREX001XBONE",
+     "021XHEREX011XHEAL",
+     "021XHEREX014XIMMU"
+    ]
+   },
+   {
+    "question_id": "023XAREY",
+    "answer_ids": [
+     "023XAREYX003XBONE",
+     "023XAREYX001XJOIN"
+    ]
+   },
+   {
+    "question_id": "024XDOYO",
+    "answer_ids": [
+     "024XDOYOX003XSLOW"
+    ]
+   },
+   {
+    "question_id": "087XHEAL",
+    "answer_ids": [
+     "087XHEALX005XMAIN",
+     "087XHEALX003XSLOW"
+    ]
+   },
+   {
+    "question_id": "033XDOYO",
+    "answer_ids": [
+     "033XDOYOX001XNO"
+    ]
+   },
+   {
+    "question_id": "034XHOWM",
+    "answer_ids": [
+     "034XHOWMX001XLIMI"
+    ]
+   },
+   {
+    "question_id": "078XSLEE",
+    "answer_ids": [
+     "078XSLEEX004X78"
+    ]
+   },
+   {
+    "question_id": "035XEXCL",
+    "answer_ids": [
+     "035XEXCLX003XMODE"
+    ]
+   },
+   {
+    "question_id": "036XDOYO",
+    "answer_ids": [
+     "036XDOYOX001XYES"
+    ]
+   },
+   {
+    "question_id": "079XACTI",
+    "answer_ids": [
+     "079XACTIX007XMIND",
+     "079XACTIX006XOUTD"
+    ]
+   },
+   {
+    "question_id": "080XFREQ",
+    "answer_ids": [
+     "080XFREQX003X3"
+    ]
+   },
+   {
+    "question_id": "081XLENG",
+    "answer_ids": [
+     "081XLENGX002X3060"
+    ]
+   },
+   {
+    "question_id": "082XINTE",
+    "answer_ids": [
+     "082XINTEX002XMODE"
+    ]
+   },
+   {
+    "question_id": "044XLET'",
+    "answer_ids": [
+     "044XLET'X005XPRIM"
+    ]
+   },
+   {
+    "question_id": "045XDOAN",
+    "answer_ids": [
+     "045XDOANX006XPESC"
+    ]
+   },
+   {
+    "question_id": "046XWHAT",
+    "answer_ids": [
+     "046XWHATX001XBREA",
+     "046XWHATX003XLUNC",
+     "046XWHATX005XDINN"
+    ]
+   },
+   {
+    "question_id": "047XHOWO",
+    "answer_ids": [
+     "047XHOWOX002XRARE"
+    ]
+   },
+   {
+    "question_id": "048XWHAT",
+    "answer_ids": [
+     "048XWHATX003XAVER"
+    ]
+   },
+   {
+    "question_id": "051XSHOR",
+    "answer_ids": [
+     "051XSHORX001XIWAN"
+    ]
+   },
+   {
+    "question_id": "054XHOWO",
+    "answer_ids": [
+     "054XHOWOX001XNEVE"
+    ]
+   },
+   {
+    "question_id": "056XHOWO",
+    "answer_ids": [
+     "056XHOWOX003XSOME"
+    ]
+   },
+   {
+    "question_id": "057XWHAT",
+    "answer_ids": [
+     "057XWHATX003XOILY",
+     "057XWHATX007XWHIT"
+    ]
+   },
+   {
+    "question_id": "058XHOWM",
+    "answer_ids": [
+     "058XHOWMX003X6–10"
+    ]
+   },
+   {
+    "question_id": "059XHOWO",
+    "answer_ids": [
+     "059XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "060XWHAT",
+    "answer_ids": [
+     "060XWHATX004XYOGU",
+     "060XWHATX002XCHEE"
+    ]
+   },
+   {
+    "question_id": "061XHOWO",
+    "answer_ids": [
+     "061XHOWOX005XMORE"
+    ]
+   },
+   {
+    "question_id": "062XWHAT",
+    "answer_ids": [
+     "062XWHATX001XBERR",
+     "062XWHATX003XCITR"
+    ]
+   },
+   {
+    "question_id": "063XHOWO",
+    "answer_ids": [
+     "063XHOWOX005XMORE"
+    ]
+   },
+   {
+    "question_id": "064XWHAT",
+    "answer_ids": [
+     "064XWHATX010XSALA",
+     "064XWHATX002XBROC",
+     "064XWHATX004XLEGU"
+    ]
+   },
+   {
+    "question_id": "065XHOWO",
+    "answer_ids": [
+     "065XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "066XWHAT",
+    "answer_ids": [
+     "066XWHATX002XOATS",
+     "066XWHATX009XWHOL"
+    ]
+   },
+   {
+    "question_id": "067XHOWO",
+    "answer_ids": [
+     "067XHOWOX002XRARE"
+    ]
+   },
+   {
+    "question_id": "068XHOWO",
+    "answer_ids": [
+     "068XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "069XHOWO",
+    "answer_ids": [
+     "069XHOWOX002XRARE"
+    ]
+   },
+   {
+    "question_id": "070XWHAT",
+    "answer_ids": [
+     "070XWHATX004XCHOC"
+    ]
+   },
+   {
+    "question_id": "071XHOWO",
+    "answer_ids": [
+     "071XHOWOX001XNEVE"
+    ]
+   },
+   {
+    "question_id": "073XHOWM",
+    "answer_ids": [
+     "073XHOWMX014XABOU"
+    ]
+   },
+   {
+    "question_id": "074XWHAT",
+    "answer_ids": [
+     "074XWHATX008XTEA"
+    ]
+   },
+   {
+    "question_id": "075XHOWM",
+    "answer_ids": [
+     "075XHOWMX013X1TO2"
+    ]
+   },
+   {
+    "question_id": "076XWHAT",
+    "answer_ids": [
+     "076XWHATX005XWINE"
+    ]
+   }
+  ],
+  "values": [
+   {
+    "question_id": "004XWHAT",
+    "type": "text",
+    "value": "Helen"
+   },
+   {
+    "question_id": "006XHOWO",
+    "type": "number",
+    "value": 58
+   },
+   {
+    "question_id": "008XWHAT",
+    "type": "number",
+    "value": 165
+   },
+   {
+    "question_id": "009XWHAT",
+    "type": "number",
+    "value": 64
+   }
+  ]
+ },
+ "report": {
+  "heading": "Your wellness plan",
+  "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",
+  "key_areas": 7,
+  "profile": [
+   "58 years old",
+   "165 cm",
+   "64 kg",
+   "Pescatarian",
+   "Moderately Active",
+   "Healthy Weight",
+   "No Medical Condition"
+  ],
+  "goals": [
+   "Bone & Joint Health",
+   "Healthy Ageing & Longevity",
+   "Immunity"
+  ],
+  "products": [
+   {
+    "name": "Renew Glucosamine Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Bone & Joint Health",
+     "Healthy Ageing & Longevity",
+     "Everyday Comfort"
+    ],
+    "why": "You told us about bone density with age and joint stiffness or discomfort. This one is a multi-nutrient blend.",
+    "form": "Tablet",
+    "timing": "With meal",
+    "description": "A compound found in cartilage, usually made from the shells of shellfish.",
+    "price": "US$19.90"
+   },
+   {
+    "name": "Focus Quercetin Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Immunity",
+     "Healthy Ageing & Longevity",
+     "Lung Health"
+    ],
+    "why": "It matches your immunity goal.",
+    "form": "Capsule",
+    "timing": "Morning",
+    "description": "A plant pigment found in onion skin, capers and apple peel, paired here with the vitamin C it is usually taken alongside.",
+    "price": "US$21.90"
+   },
+   {
+    "name": "Peak Creatine Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Bone & Joint Health",
+     "Strength & Power",
+     "Recovery & Repair",
+     "Build Muscle",
+     "Mass Gain"
+    ],
+    "why": "It matches your bone & joint health goal.",
+    "form": "Scoop",
+    "timing": "With meal",
+    "description": "Stored in muscle and supplied in small amounts by red meat and fish. Monohydrate is the form nearly every study has used. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise. The beneficial effect is obtained with a daily intake of 3g of creatine.",
+    "price": "US$17.99"
+   },
+   {
+    "name": "Core Daily Vitamin D",
+    "tier": "Essential",
+    "tags": [
+     "Bone & Joint Health",
+     "Immunity",
+     "Healthy Ageing & Longevity"
+    ],
+    "why": "Your answers suggest your vitamin D3 intake is below your target, and you told us about bone density with age and joint stiffness or discomfort.",
+    "form": "Softgel",
+    "timing": "With meal",
+    "description": "Vitamin D3 with calcium, the mineral it exists to help the gut absorb. Vitamin D contributes to the normal function of the immune system and to the maintenance of normal bones.",
+    "price": "US$8.90"
+   },
+   {
+    "name": "Renew Collagen Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Bone & Joint Health",
+     "Immunity",
+     "Healthy Ageing & Longevity",
+     "Skin Health",
+     "Boost Energy"
+    ],
+    "why": "Your answers suggest your vitamin D3 intake is below your target, and you told us about bone density with age and joint stiffness or discomfort. It is a source of protein, which contributes to the maintenance of normal bones.",
+    "form": "Scoop",
+    "timing": "Morning",
+    "description": "Marine collagen built out with the vitamins and minerals skin and joints draw on, so it stands alone rather than beside a multivitamin. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
+    "price": "US$21.90"
+   },
+   {
+    "name": "Renew Curcumin Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Bone & Joint Health",
+     "Healthy Ageing & Longevity",
+     "Everyday Comfort"
+    ],
+    "why": "You told us about joint stiffness or discomfort.",
+    "form": "Capsule",
+    "timing": "Morning",
+    "description": "The yellow pigment in turmeric root, and the reason curry stains. It absorbs poorly alone, so black pepper extract usually travels with it.",
+    "price": "US$28.90"
+   },
+   {
+    "name": "Renew Turmeric Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Bone & Joint Health",
+     "Everyday Comfort",
+     "Gut Health"
+    ],
+    "why": "You told us about bone density with age and joint stiffness or discomfort. This one is a spice extract.",
+    "form": "Capsule",
+    "timing": "With meal",
+    "description": "Whole turmeric root with ginger and black pepper, the combination most kitchens already use together.",
+    "price": "US$8.90"
+   }
+  ],
+  "macros": [
+   {
+    "label": "Calories",
+    "value": "1846",
+    "unit": "kcal",
+    "target": "Target 2150 kcal",
+    "pct": 86,
+    "cls": "m-g"
+   },
+   {
+    "label": "Protein",
+    "value": "93",
+    "unit": "g",
+    "target": "Target 88 g",
+    "pct": 106,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Carbs",
+    "value": "188",
+    "unit": "g",
+    "target": "Target 301 g",
+    "pct": 62,
+    "cls": "m-g"
+   },
+   {
+    "label": "Fat",
+    "value": "67",
+    "unit": "g",
+    "target": "Target 66 g",
+    "pct": 102,
+    "cls": "m-g"
+   },
+   {
+    "label": "Water",
+    "value": "973",
+    "unit": "ml",
+    "target": "Drink 2251 ml",
+    "pct": 43,
+    "cls": "m-b"
+   },
+   {
+    "label": "Omega-3",
+    "value": "0.77",
+    "unit": "g",
+    "target": "Target 0.25 g",
+    "pct": 308,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Fibre",
+    "value": "51",
+    "unit": "g",
+    "target": "Target 30 g",
+    "pct": 170,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Free sugars",
+    "value": "13",
+    "unit": "g",
+    "target": "Limit 27 g",
+    "pct": 48,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Saturated fat",
+    "value": "18",
+    "unit": "g",
+    "target": "Limit 21 g",
+    "pct": 86,
+    "cls": "m-gr"
+   }
+  ],
+  "macros_note": "Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.",
+  "breakdown": [
+   {
+    "group": "Vitamins",
+    "rows": [
+     {
+      "name": "Vitamin D3",
+      "pct": 51,
+      "sources": "Sources: eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter."
+     }
+    ]
+   }
+  ],
+  "notices": [
+   {
+    "title": "Talk to a professional",
+    "lead": "Everyday Comfort",
+    "text": "Joint swelling with stiffness that lasts into the morning is worth seeing your GP about, as it can mean something other than ordinary wear. (If a joint is swollen or red, or stiffness lasts over an hour in the morning)"
+   }
+  ],
+  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use."
+ }
+}

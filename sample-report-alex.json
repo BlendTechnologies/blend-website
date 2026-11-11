@@ -1,0 +1,512 @@
+{
+ "_": "The report /sample-report draws for Alex, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication 22ad552d-425c-4fd0-a017-3ef0c0e32ae5), 2026-11-11, replaying the request below through the public embed API exactly as the quiz runtime does: 44 answers by their stable ids, one PUT per question, then complete. Submission 013ca480-e651-44db-a115-a513bef2e22f, recommendation f9c08c66-0acd-4de3-9d39-9ac5877d1d8f, HTTP 200, 7 products from the demo catalogue. The figures below were read from that submission's rendered results page by the website session's extractor (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The demo's published report configuration keeps the wellness score off, so the results page shows none and this file carries none. The brand's description for each product is the first paragraph the results page shows for it; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. To refresh: replay the request and update this file and the page together.",
+ "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
+ "persona": "alex",
+ "request": {
+  "contract_version": "2.0",
+  "quiz_main": "1777914547769x511962629417775200",
+  "choices": [
+   {
+    "question_id": "002XNOTI",
+    "answer_ids": [
+     "002XNOTIX001XIACC",
+     "002XNOTIX002XITER"
+    ]
+   },
+   {
+    "question_id": "005XWHAT",
+    "answer_ids": [
+     "005XWHATX001XWOMA"
+    ]
+   },
+   {
+    "question_id": "007XWHIC",
+    "answer_ids": [
+     "007XWHICX001XMETR"
+    ]
+   },
+   {
+    "question_id": "013XWHAT",
+    "answer_ids": [
+     "013XWHATX007XPREF"
+    ]
+   },
+   {
+    "question_id": "014XAREY",
+    "answer_ids": [
+     "014XAREYX001XNO"
+    ]
+   },
+   {
+    "question_id": "015XDOYO",
+    "answer_ids": [
+     "015XDOYOX002XNO"
+    ]
+   },
+   {
+    "question_id": "017XAREY",
+    "answer_ids": [
+     "017XAREYX002XNO"
+    ]
+   },
+   {
+    "question_id": "021XHERE",
+    "answer_ids": [
+     "021XHEREX023XSLEE",
+     "021XHEREX002XBOOS",
+     "021XHEREX024XSTRE",
+     "021XHEREX043XPLAN"
+    ]
+   },
+   {
+    "question_id": "025XAREY",
+    "answer_ids": [
+     "025XAREYX001XTROU",
+     "025XAREYX005XRACI"
+    ]
+   },
+   {
+    "question_id": "083XBOOS",
+    "answer_ids": [
+     "083XBOOSX002XAFTE",
+     "083XBOOSX006XCAFF"
+    ]
+   },
+   {
+    "question_id": "096XSTRE",
+    "answer_ids": [
+     "096XSTREX002XTROU"
+    ]
+   },
+   {
+    "question_id": "111XPLAN",
+    "answer_ids": [
+     "111XPLANX001XFOLL"
+    ]
+   },
+   {
+    "question_id": "033XDOYO",
+    "answer_ids": [
+     "033XDOYOX001XNO"
+    ]
+   },
+   {
+    "question_id": "034XHOWM",
+    "answer_ids": [
+     "034XHOWMX001XLIMI"
+    ]
+   },
+   {
+    "question_id": "078XSLEE",
+    "answer_ids": [
+     "078XSLEEX002X56"
+    ]
+   },
+   {
+    "question_id": "035XEXCL",
+    "answer_ids": [
+     "035XEXCLX002XLIGH"
+    ]
+   },
+   {
+    "question_id": "036XDOYO",
+    "answer_ids": [
+     "036XDOYOX001XYES"
+    ]
+   },
+   {
+    "question_id": "079XACTI",
+    "answer_ids": [
+     "079XACTIX007XMIND"
+    ]
+   },
+   {
+    "question_id": "080XFREQ",
+    "answer_ids": [
+     "080XFREQX002X2"
+    ]
+   },
+   {
+    "question_id": "081XLENG",
+    "answer_ids": [
+     "081XLENGX002X3060"
+    ]
+   },
+   {
+    "question_id": "082XINTE",
+    "answer_ids": [
+     "082XINTEX002XMODE"
+    ]
+   },
+   {
+    "question_id": "044XLET'",
+    "answer_ids": [
+     "044XLET'X004XBALA"
+    ]
+   },
+   {
+    "question_id": "045XDOAN",
+    "answer_ids": [
+     "045XDOANX002XVEGE"
+    ]
+   },
+   {
+    "question_id": "046XWHAT",
+    "answer_ids": [
+     "046XWHATX001XBREA",
+     "046XWHATX003XLUNC",
+     "046XWHATX005XDINN",
+     "046XWHATX004XAFTE"
+    ]
+   },
+   {
+    "question_id": "047XHOWO",
+    "answer_ids": [
+     "047XHOWOX003XSOME"
+    ]
+   },
+   {
+    "question_id": "048XWHAT",
+    "answer_ids": [
+     "048XWHATX003XAVER"
+    ]
+   },
+   {
+    "question_id": "051XSHOR",
+    "answer_ids": [
+     "051XSHORX001XIWAN"
+    ]
+   },
+   {
+    "question_id": "054XHOWO",
+    "answer_ids": [
+     "054XHOWOX001XNEVE"
+    ]
+   },
+   {
+    "question_id": "056XHOWO",
+    "answer_ids": [
+     "056XHOWOX001XNEVE"
+    ]
+   },
+   {
+    "question_id": "058XHOWM",
+    "answer_ids": [
+     "058XHOWMX002X1–5E"
+    ]
+   },
+   {
+    "question_id": "059XHOWO",
+    "answer_ids": [
+     "059XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "061XHOWO",
+    "answer_ids": [
+     "061XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "063XHOWO",
+    "answer_ids": [
+     "063XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "065XHOWO",
+    "answer_ids": [
+     "065XHOWOX004XDAIL"
+    ]
+   },
+   {
+    "question_id": "067XHOWO",
+    "answer_ids": [
+     "067XHOWOX003XSOME"
+    ]
+   },
+   {
+    "question_id": "068XHOWO",
+    "answer_ids": [
+     "068XHOWOX003XSOME"
+    ]
+   },
+   {
+    "question_id": "069XHOWO",
+    "answer_ids": [
+     "069XHOWOX002XRARE"
+    ]
+   },
+   {
+    "question_id": "071XHOWO",
+    "answer_ids": [
+     "071XHOWOX002XRARE"
+    ]
+   },
+   {
+    "question_id": "073XHOWM",
+    "answer_ids": [
+     "073XHOWMX015X2TO3"
+    ]
+   },
+   {
+    "question_id": "075XHOWM",
+    "answer_ids": [
+     "075XHOWMX012XNONE"
+    ]
+   }
+  ],
+  "values": [
+   {
+    "question_id": "004XWHAT",
+    "type": "text",
+    "value": "Alex"
+   },
+   {
+    "question_id": "006XHOWO",
+    "type": "number",
+    "value": 34
+   },
+   {
+    "question_id": "008XWHAT",
+    "type": "number",
+    "value": 170
+   },
+   {
+    "question_id": "009XWHAT",
+    "type": "number",
+    "value": 68
+   }
+  ]
+ },
+ "report": {
+  "heading": "Your wellness plan",
+  "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",
+  "key_areas": 7,
+  "profile": [
+   "34 years old",
+   "170 cm",
+   "68 kg",
+   "Vegetarian",
+   "Lightly Active",
+   "Healthy Weight",
+   "No Medical Condition"
+  ],
+  "goals": [
+   "Boost Energy",
+   "Sleep",
+   "Stress",
+   "Plant-Based Nutrition"
+  ],
+  "products": [
+   {
+    "name": "Core Vitamin B12",
+    "tier": "Essential",
+    "tags": [
+     "Boost Energy",
+     "Plant-Based Nutrition",
+     "Cognitive Health"
+    ],
+    "why": "Your answers suggest your vitamin B12 intake is below your target, and it matches your boost energy goal.",
+    "form": "Tablet",
+    "timing": "Morning",
+    "description": "Found almost nowhere outside animal foods, which is why it is the supplement most vegans take first. Methylcobalamin is the form the body uses directly. Vitamin B12 contributes to the reduction of tiredness and fatigue and to normal red blood cell formation.",
+    "price": "US$8.90"
+   },
+   {
+    "name": "Focus Quercetin Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Plant-Based Nutrition",
+     "Immunity",
+     "Healthy Ageing & Longevity",
+     "Lung Health"
+    ],
+    "why": "It matches your plant-based nutrition goal. This one is a plant extract.",
+    "form": "Capsule",
+    "timing": "Morning",
+    "description": "A plant pigment found in onion skin, capers and apple peel, paired here with the vitamin C it is usually taken alongside.",
+    "price": "US$21.90"
+   },
+   {
+    "name": "Peak Creatine Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Stress",
+     "Strength & Power",
+     "Recovery & Repair",
+     "Build Muscle",
+     "Mass Gain"
+    ],
+    "why": "It matches your stress goal.",
+    "form": "Scoop",
+    "timing": "With meal",
+    "description": "Stored in muscle and supplied in small amounts by red meat and fish. Monohydrate is the form nearly every study has used. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise. The beneficial effect is obtained with a daily intake of 3g of creatine.",
+    "price": "US$17.99"
+   },
+   {
+    "name": "Flora Probiotic Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Plant-Based Nutrition",
+     "Urinary Health",
+     "Gut Health"
+    ],
+    "why": "It matches your plant-based nutrition goal. This one is a digestive support.",
+    "form": "Capsule",
+    "timing": "Before meal",
+    "description": "Lactobacillus acidophilus with cranberry and B6, aimed at the urinary tract rather than the gut alone.",
+    "price": "US$24.90"
+   },
+   {
+    "name": "Calm Chamomile Extract",
+    "tier": "Recommended",
+    "tags": [
+     "Sleep",
+     "Stress"
+    ],
+    "why": "You told us about trouble falling asleep and trouble winding down.",
+    "form": "Capsule",
+    "timing": "Before bed",
+    "description": "The flower behind the evening tea, concentrated into a capsule so there is nothing to brew.",
+    "price": "US$10.90"
+   },
+   {
+    "name": "Calm Valerian Root",
+    "tier": "Recommended",
+    "tags": [
+     "Sleep",
+     "Stress"
+    ],
+    "why": "You told us about trouble falling asleep and racing mind at bedtime. This one is a herbal extract.",
+    "form": "Capsule",
+    "timing": "With meal",
+    "description": "A root from European herbal tradition, and one with a famously strong smell.",
+    "price": "US$12.90"
+   },
+   {
+    "name": "Calm L-Theanine",
+    "tier": "Recommended",
+    "tags": [
+     "Sleep",
+     "Stress"
+    ],
+    "why": "You told us about trouble falling asleep and racing mind at bedtime. This one is an amino acid.",
+    "form": "Capsule",
+    "timing": "Before activity",
+    "description": "An amino acid found in green tea leaves, taken in the evening rather than with a morning brew.",
+    "price": "US$16.90"
+   }
+  ],
+  "macros": [
+   {
+    "label": "Calories",
+    "value": "2190",
+    "unit": "kcal",
+    "target": "Target 2148 kcal",
+    "pct": 102,
+    "cls": "m-g"
+   },
+   {
+    "label": "Protein",
+    "value": "85",
+    "unit": "g",
+    "target": "Target 83 g",
+    "pct": 102,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Carbs",
+    "value": "288",
+    "unit": "g",
+    "target": "Target 303 g",
+    "pct": 95,
+    "cls": "m-g"
+   },
+   {
+    "label": "Fat",
+    "value": "68",
+    "unit": "g",
+    "target": "Target 67 g",
+    "pct": 101,
+    "cls": "m-g"
+   },
+   {
+    "label": "Water",
+    "value": "1336",
+    "unit": "ml",
+    "target": "Drink 2631 ml",
+    "pct": 51,
+    "cls": "m-b"
+   },
+   {
+    "label": "Omega-3",
+    "value": "0.02",
+    "unit": "g",
+    "target": "Target 0.25 g",
+    "pct": 8,
+    "cls": "m-r"
+   },
+   {
+    "label": "Fibre",
+    "value": "40",
+    "unit": "g",
+    "target": "Target 30 g",
+    "pct": 133,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Free sugars",
+    "value": "29",
+    "unit": "g",
+    "target": "Limit 27 g",
+    "pct": 107,
+    "cls": "m-r"
+   },
+   {
+    "label": "Saturated fat",
+    "value": "23",
+    "unit": "g",
+    "target": "Limit 24 g",
+    "pct": 96,
+    "cls": "m-o"
+   }
+  ],
+  "macros_note": "Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.",
+  "breakdown": [
+   {
+    "group": "Vitamins",
+    "rows": [
+     {
+      "name": "Vitamin B12",
+      "pct": 39,
+      "sources": "Sources: eggs and dairy foods."
+     },
+     {
+      "name": "Vitamin D3",
+      "pct": 4,
+      "sources": "Sources: eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter."
+     }
+    ]
+   },
+   {
+    "group": "Minerals",
+    "rows": [
+     {
+      "name": "Iron",
+      "pct": 51,
+      "sources": "Sources: lentils, eggs and iron-fortified cereals."
+     },
+     {
+      "name": "Selenium",
+      "pct": 70,
+      "sources": "Sources: eggs and Brazil nuts. Selenium content varies more than tenfold with where the nuts were grown, so no fixed number reliably covers a day, and more than three or four is too many."
+     }
+    ]
+   }
+  ],
+  "notices": [],
+  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use."
+ }
+}
