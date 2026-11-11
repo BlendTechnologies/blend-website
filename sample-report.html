@@ -378,7 +378,7 @@ html,body{max-width:100%;overflow-x:clip}
   /* One row per goal: the goal as a small label, its follow-up answers as
      the plain pills, and the question's own line under them. */
   .pf-rows{margin:0;display:grid;gap:10px}
-  .pf-rows > div{display:grid;grid-template-columns:50px minmax(0,1fr);gap:10px;align-items:start}
+  .pf-rows > div{display:grid;grid-template-columns:minmax(50px,max-content) minmax(0,1fr);gap:10px;align-items:start}
   .pf-rows dt{font-size:11px;font-weight:500;color:var(--ink-80);padding-top:5px;white-space:nowrap}
   .pf-rows dd{margin:0;min-width:0}
   .pf-rows .pf-why{margin:6px 0 0}
@@ -400,6 +400,13 @@ html,body{max-width:100%;overflow-x:clip}
   .pf-scale b{display:block;width:6px;height:6px;border-radius:50%;background:var(--line)}
   .pf-scale b.on{background:var(--gold)}
   .pf-scale span{font-size:11px;color:var(--muted);text-align:right;white-space:nowrap}
+  /* The value column is 76 wide, sized for Alex's longest step,
+     "Sometimes". Sam's and Helen's diets reach "More than once a day", 108
+     at this size, which 76 clipped at the card's edge. Widening the column
+     for them took the room from the food names, which wrapped instead and
+     moved the dots 42px from where Alex's sit. So on their cards the step
+     wraps to two lines and everything else stays where it is. */
+  .answers-about .pf-scale span{white-space:normal}
   /* TWO ACROSS WHEN THE CARD IS WIDE. Under 1000 the split goes to one
      column and this card is the full measure, 770 on a tablet: one column
      of blocks there puts a food group's dots 500px from its name, and the
@@ -876,13 +883,15 @@ html,body{max-width:100%;overflow-x:clip}
            name, a gender and a unit choice, and everything that produced a
            recommendation was below the fold of the cap. The shape below is
            Alex's profile; the 43 are still here, behind the button. -->
-      <section class="answers answers-about">
+      <section class="answers answers-about" data-standin="founder, 2026-11-11: a proposed submission ahead of the replay; nothing on this card is recorded">
         <div class="answers-head">
-          <h2>Sam, 28</h2>
-          <p class="answers-byline">Man &#183; 28 &#183; trains most days</p>
-          <p class="answers-sub">Lifts five days a week, runs twice. Recovery lags. The plan beside is the engine's sample, drawn on this brand's layout.</p>
+          <h2>Sam</h2>
+          <p class="answers-byline">Man · 28 · 182 cm · 84 kg</p>
+          <p class="answers-sub">The submission his replay will run from. The plan beside is the engine's sample, drawn on this brand's layout.</p>
         </div>
-        <div class="answers-body"><div class="pf"><div class="pf-block"><h3 class="pf-label">Goals</h3><ul class="pf-chips"><li>Strength &amp; Power</li><li>Recovery &amp; Repair</li><li>Hydration &amp; Electrolytes</li></ul></div></div></div>
+        <div class="answers-body">
+          <div class="pf"><div class="pf-block"><h3 class="pf-label">Goals</h3><p class="pf-why">Each goal selects a different evidence base, so this decides which nutrients are assessed at all.</p><ul class="pf-chips"><li>Strength &amp; Power</li><li>Recovery &amp; Repair</li><li>Hydration &amp; Electrolytes</li></ul></div><div class="pf-block"><h3 class="pf-label">What Sam reported</h3><p class="pf-why">One follow-up question for each goal chosen.</p><dl class="pf-rows"><div><dt>Strength</dt><dd><ul class="pf-tags"><li>Strength plateau</li></ul></dd></div><div><dt>Recovery</dt><dd><ul class="pf-tags"><li>Soreness after training</li><li>Slow recovery between sessions</li></ul></dd></div><div><dt>Hydration</dt><dd><ul class="pf-tags"><li>After heavy sweating or exercise</li><li>Muscle cramps</li></ul></dd></div></dl></div><div class="pf-block"><h3 class="pf-label">Day to day</h3><dl class="pf-tiles"><div><dt>Sleep</dt><dd>6–7 hours</dd></div><div><dt>Sun</dt><dd>Moderate</dd></div><div><dt>Daily routine</dt><dd>Lightly Active</dd></div><div><dt>Exercise</dt><dd>Strength &amp; Conditioning and Endurance Sports, seven times a week</dd></div></dl><p class="pf-also">Also: no smoking, one to two drinks a week, four to five drinks other than water a day; breakfast, a mid-morning snack, lunch, an afternoon snack and dinner, large portions, meals never skipped.</p></div><div class="pf-block"><h3 class="pf-label">What Sam eats</h3><p class="pf-why">The detailed path models your intake food group by food group.</p><p class="pf-diet"><span class="pf-tag">High-protein</span>Mixed diet with balanced and processed foods</p><dl class="pf-scale"><div><dt>Meat &amp; poultry</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b class=on></b><b></b><b></b></i><span>More than once a day</span></dd></div><div><dt>Fish &amp; seafood</dt><dd><i><b class=on></b><b class=on></b><b></b><b></b><b></b><b></b></i><span>Sometimes</span></dd></div><div><dt>Eggs, a week</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b></b><b></b><b></b></i><span>11–15</span></dd></div><div><dt>Dairy</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b class=on></b><b></b><b></b></i><span>More than once a day</span></dd></div><div><dt>Fruit</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b></b><b></b><b></b></i><span>Daily</span></dd></div><div><dt>Vegetables &amp; legumes</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b></b><b></b><b></b></i><span>Daily</span></dd></div><div><dt>Grains &amp; cereals</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b class=on></b><b></b><b></b></i><span>More than once a day</span></dd></div><div><dt>Plant-based alternatives</dt><dd><i><b></b><b></b><b></b><b></b><b></b><b></b></i><span>Never</span></dd></div><div><dt>Nuts &amp; seeds</dt><dd><i><b class=on></b><b class=on></b><b></b><b></b><b></b><b></b></i><span>Sometimes</span></dd></div><div><dt>Sweets &amp; desserts</dt><dd><i><b class=on></b><b class=on></b><b></b><b></b><b></b><b></b></i><span>Sometimes</span></dd></div><div><dt>Fast food &amp; ready meals</dt><dd><i><b class=on></b><b class=on></b><b></b><b></b><b></b><b></b></i><span>Sometimes</span></dd></div></dl></div></div>
+        </div>
       </section>
     </div>
 
@@ -909,13 +918,15 @@ html,body{max-width:100%;overflow-x:clip}
            name, a gender and a unit choice, and everything that produced a
            recommendation was below the fold of the cap. The shape below is
            Alex's profile; the 43 are still here, behind the button. -->
-      <section class="answers answers-about">
+      <section class="answers answers-about" data-standin="founder, 2026-11-11: a proposed submission ahead of the replay; nothing on this card is recorded">
         <div class="answers-head">
-          <h2>Helen, 58</h2>
-          <p class="answers-byline">Woman &#183; 58 &#183; sees a practitioner</p>
-          <p class="answers-sub">Interested in longevity. Little sun, keen to stay active. The plan beside is the engine's sample, drawn on this brand's layout.</p>
+          <h2>Helen</h2>
+          <p class="answers-byline">Woman · 58 · 165 cm · 64 kg</p>
+          <p class="answers-sub">The submission her replay will run from. The plan beside is the engine's sample, drawn on this brand's layout.</p>
         </div>
-        <div class="answers-body"><div class="pf"><div class="pf-block"><h3 class="pf-label">Goals</h3><ul class="pf-chips"><li>Bone &amp; Joint Health</li><li>Healthy Ageing &amp; Longevity</li><li>Immunity</li></ul></div></div></div>
+        <div class="answers-body">
+          <div class="pf"><div class="pf-block"><h3 class="pf-label">Goals</h3><p class="pf-why">Each goal selects a different evidence base, so this decides which nutrients are assessed at all.</p><ul class="pf-chips"><li>Bone &amp; Joint Health</li><li>Healthy Ageing &amp; Longevity</li><li>Immunity</li></ul></div><div class="pf-block"><h3 class="pf-label">What Helen reported</h3><p class="pf-why">One follow-up question for each goal chosen.</p><dl class="pf-rows"><div><dt>Bone &amp; joint</dt><dd><ul class="pf-tags"><li>Bone density with age</li><li>Joint stiffness or discomfort</li></ul></dd></div><div><dt>Ageing</dt><dd><ul class="pf-tags"><li>Maintaining muscle</li><li>Slower recovery</li></ul></dd></div><div><dt>Immunity</dt><dd><ul class="pf-tags"><li>Slow to bounce back</li></ul></dd></div></dl></div><div class="pf-block"><h3 class="pf-label">Day to day</h3><dl class="pf-tiles"><div><dt>Sleep</dt><dd>7–8 hours</dd></div><div><dt>Sun</dt><dd>Limited</dd></div><div><dt>Daily routine</dt><dd>Moderately Active</dd></div><div><dt>Exercise</dt><dd>Mind-Body Wellness and Outdoor &amp; Adventure Sports, three times a week</dd></div></dl><p class="pf-also">Also: no smoking, one to two drinks a week, about one drink other than water a day; breakfast, lunch and dinner, average portions, meals rarely skipped.</p></div><div class="pf-block"><h3 class="pf-label">What Helen eats</h3><p class="pf-why">The detailed path models your intake food group by food group.</p><p class="pf-diet"><span class="pf-tag">Pescatarian</span>Primarily whole foods with rarely processed or sugary foods</p><dl class="pf-scale"><div><dt>Meat &amp; poultry</dt><dd><i><b></b><b></b><b></b><b></b><b></b><b></b></i><span>Never</span></dd></div><div><dt>Fish &amp; seafood</dt><dd><i><b class=on></b><b class=on></b><b></b><b></b><b></b><b></b></i><span>Sometimes</span></dd></div><div><dt>Eggs, a week</dt><dd><i><b class=on></b><b class=on></b><b></b><b></b><b></b><b></b></i><span>6–10</span></dd></div><div><dt>Dairy</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b></b><b></b><b></b></i><span>Daily</span></dd></div><div><dt>Fruit</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b class=on></b><b></b><b></b></i><span>More than once a day</span></dd></div><div><dt>Vegetables &amp; legumes</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b class=on></b><b></b><b></b></i><span>More than once a day</span></dd></div><div><dt>Grains &amp; cereals</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b></b><b></b><b></b></i><span>Daily</span></dd></div><div><dt>Plant-based alternatives</dt><dd><i><b class=on></b><b></b><b></b><b></b><b></b><b></b></i><span>Rarely</span></dd></div><div><dt>Nuts &amp; seeds</dt><dd><i><b class=on></b><b class=on></b><b class=on></b><b></b><b></b><b></b></i><span>Daily</span></dd></div><div><dt>Sweets &amp; desserts</dt><dd><i><b class=on></b><b></b><b></b><b></b><b></b><b></b></i><span>Rarely</span></dd></div><div><dt>Fast food &amp; ready meals</dt><dd><i><b></b><b></b><b></b><b></b><b></b><b></b></i><span>Never</span></dd></div></dl></div></div>
+        </div>
       </section>
     </div>
 
