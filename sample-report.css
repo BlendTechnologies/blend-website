@@ -122,6 +122,11 @@
 .sr-report .rp-s-goals{order:4}
 .sr-report .rp-s-products{order:5}
 .sr-report .rp-s-retake{order:6}
+/* The engine's safety notice sits after the products, where the product
+   draws it: the same order as the products, so source order places it
+   just under them on every layout, before the retake (6) and, on the
+   layout that sends the retake last, before the detail (7). */
+.sr-report .rp-s-notice{order:5}
 .sr-report .rp-s-detail{order:7}
 .sr-report .rp-s-foot{order:9}
 /* The retake is its own section in the product, and a brand drags it where

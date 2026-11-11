@@ -1,0 +1,396 @@
+{
+ "_": "The report /sample-report draws for Sam, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication 22ad552d-425c-4fd0-a017-3ef0c0e32ae5), 2026-11-11, replaying the request below through the public embed API exactly as the quiz runtime does: 30 answers by their stable ids, one PUT per question, then complete. Submission bfe1625f-43bd-487e-8c82-7c4c38bb0133, recommendation c3d9b66a-d1db-4c55-a04e-504cedc16ee8, HTTP 200, 6 products from the demo catalogue. The figures below were read from that submission's rendered results page by the website session's extractor (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The demo's published report configuration keeps the wellness score off, so the results page shows none and this file carries none. The brand's description for each product is the first paragraph the results page shows for it; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. To refresh: replay the request and update this file and the page together.",
+ "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
+ "persona": "sam",
+ "request": {
+  "contract_version": "2.0",
+  "quiz_main": "1777914547769x511962629417775200",
+  "choices": [
+   {
+    "question_id": "002XNOTI",
+    "answer_ids": [
+     "002XNOTIX001XIACC",
+     "002XNOTIX002XITER"
+    ]
+   },
+   {
+    "question_id": "005XWHAT",
+    "answer_ids": [
+     "005XWHATX002XMAN"
+    ]
+   },
+   {
+    "question_id": "007XWHIC",
+    "answer_ids": [
+     "007XWHICX001XMETR"
+    ]
+   },
+   {
+    "question_id": "013XWHAT",
+    "answer_ids": [
+     "013XWHATX007XPREF"
+    ]
+   },
+   {
+    "question_id": "015XDOYO",
+    "answer_ids": [
+     "015XDOYOX002XNO"
+    ]
+   },
+   {
+    "question_id": "017XAREY",
+    "answer_ids": [
+     "017XAREYX002XNO"
+    ]
+   },
+   {
+    "question_id": "021XHERE",
+    "answer_ids": [
+     "021XHEREX040XSTRG",
+     "021XHEREX041XRECO",
+     "021XHEREX042XHYDR"
+    ]
+   },
+   {
+    "question_id": "108XSTRG",
+    "answer_ids": [
+     "108XSTRGX001XSTRE"
+    ]
+   },
+   {
+    "question_id": "109XRECO",
+    "answer_ids": [
+     "109XRECOX001XSORE",
+     "109XRECOX002XSLOW"
+    ]
+   },
+   {
+    "question_id": "110XHYDR",
+    "answer_ids": [
+     "110XHYDRX002XAFTE",
+     "110XHYDRX001XMUSC"
+    ]
+   },
+   {
+    "question_id": "033XDOYO",
+    "answer_ids": [
+     "033XDOYOX001XNO"
+    ]
+   },
+   {
+    "question_id": "034XHOWM",
+    "answer_ids": [
+     "034XHOWMX002XMODE"
+    ]
+   },
+   {
+    "question_id": "078XSLEE",
+    "answer_ids": [
+     "078XSLEEX003X67"
+    ]
+   },
+   {
+    "question_id": "035XEXCL",
+    "answer_ids": [
+     "035XEXCLX002XLIGH"
+    ]
+   },
+   {
+    "question_id": "036XDOYO",
+    "answer_ids": [
+     "036XDOYOX001XYES"
+    ]
+   },
+   {
+    "question_id": "079XACTI",
+    "answer_ids": [
+     "079XACTIX001XSTRE",
+     "079XACTIX002XENDU"
+    ]
+   },
+   {
+    "question_id": "080XFREQ",
+    "answer_ids": [
+     "080XFREQX007X7"
+    ]
+   },
+   {
+    "question_id": "081XLENG",
+    "answer_ids": [
+     "081XLENGX003X6090"
+    ]
+   },
+   {
+    "question_id": "082XINTE",
+    "answer_ids": [
+     "082XINTEX003XVIGO"
+    ]
+   },
+   {
+    "question_id": "044XLET'",
+    "answer_ids": [
+     "044XLET'X003XMIXE"
+    ]
+   },
+   {
+    "question_id": "045XDOAN",
+    "answer_ids": [
+     "045XDOANX014XHIGH"
+    ]
+   },
+   {
+    "question_id": "046XWHAT",
+    "answer_ids": [
+     "046XWHATX001XBREA",
+     "046XWHATX002XMID-",
+     "046XWHATX003XLUNC",
+     "046XWHATX004XAFTE",
+     "046XWHATX005XDINN"
+    ]
+   },
+   {
+    "question_id": "047XHOWO",
+    "answer_ids": [
+     "047XHOWOX001XNEVE"
+    ]
+   },
+   {
+    "question_id": "048XWHAT",
+    "answer_ids": [
+     "048XWHATX004XLARG"
+    ]
+   },
+   {
+    "question_id": "051XSHOR",
+    "answer_ids": [
+     "051XSHORX002XIWAN"
+    ]
+   },
+   {
+    "question_id": "052XNOPR",
+    "answer_ids": [
+     "052XNOPRX008XFISH",
+     "052XNOPRX011XPLAN"
+    ]
+   }
+  ],
+  "values": [
+   {
+    "question_id": "004XWHAT",
+    "type": "text",
+    "value": "Sam"
+   },
+   {
+    "question_id": "006XHOWO",
+    "type": "number",
+    "value": 28
+   },
+   {
+    "question_id": "008XWHAT",
+    "type": "number",
+    "value": 182
+   },
+   {
+    "question_id": "009XWHAT",
+    "type": "number",
+    "value": 84
+   }
+  ]
+ },
+ "report": {
+  "heading": "Your wellness plan",
+  "intro": "Based on your answers, your body needs extra support in 6 key areas. Your full plan is below, with the breakdown at the end.",
+  "key_areas": 6,
+  "profile": [
+   "28 years old",
+   "182 cm",
+   "84 kg",
+   "High-protein",
+   "Lightly Active",
+   "Overweight",
+   "No Medical Condition"
+  ],
+  "goals": [
+   "Strength & Power",
+   "Recovery & Repair",
+   "Hydration & Electrolytes"
+  ],
+  "products": [
+   {
+    "name": "Peak Creatine Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Strength & Power",
+     "Recovery & Repair",
+     "Build Muscle",
+     "Mass Gain"
+    ],
+    "why": "You told us about strength plateau and soreness after training.",
+    "form": "Scoop",
+    "timing": "With meal",
+    "description": "Stored in muscle and supplied in small amounts by red meat and fish. Monohydrate is the form nearly every study has used. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise. The beneficial effect is obtained with a daily intake of 3g of creatine.",
+    "price": "US$17.99"
+   },
+   {
+    "name": "Core Cod Liver Oil Complex",
+    "tier": "Essential",
+    "tags": [
+     "Heart Health",
+     "Cognitive Health",
+     "Eye Health"
+    ],
+    "why": "Your answers suggest your omega 3 intake is below your target, and you train regularly.",
+    "form": "Softgel",
+    "timing": "With meal",
+    "description": "Pressed from the livers of cod, a Northern European winter staple long before anyone knew what was in it. EPA and DHA contribute to the normal function of the heart. The beneficial effect is obtained with a daily intake of 250mg of EPA and DHA.",
+    "price": "US$21.90"
+   },
+   {
+    "name": "Peak Creatine Monohydrate",
+    "tier": "Recommended",
+    "tags": [
+     "Strength & Power",
+     "Build Muscle",
+     "Mass Gain"
+    ],
+    "why": "You told us about strength plateau and soreness after training.",
+    "form": "Scoop",
+    "timing": "With meal",
+    "description": "A compound muscles store naturally and red meat supplies in small amounts. Monohydrate is the form nearly every study has used. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise. The beneficial effect is obtained with a daily intake of 3g of creatine.",
+    "price": "US$5.99"
+   },
+   {
+    "name": "Core Daily Vitamin D",
+    "tier": "Essential",
+    "tags": [
+     "Bone & Joint Health",
+     "Immunity",
+     "Healthy Ageing & Longevity"
+    ],
+    "why": "Your answers suggest your vitamin D3 intake is below your target.",
+    "form": "Softgel",
+    "timing": "With meal",
+    "description": "Vitamin D3 with calcium, the mineral it exists to help the gut absorb. Vitamin D contributes to the normal function of the immune system and to the maintenance of normal bones.",
+    "price": "US$8.90",
+    "caution": "Pair with Vitamin K2 and Calcium"
+   },
+   {
+    "name": "Peak Glutamine",
+    "tier": "Recommended",
+    "tags": [
+     "Recovery & Repair",
+     "Build Muscle"
+    ],
+    "why": "It matches your recovery & repair goal. This one is an amino acid.",
+    "form": "Scoop",
+    "timing": "With meal",
+    "description": "The most abundant amino acid in blood, and one the body makes for itself in ordinary conditions.",
+    "price": "US$18.90"
+   },
+   {
+    "name": "Peak Joint Collagen",
+    "tier": "Recommended",
+    "tags": [
+     "Recovery & Repair",
+     "Bone & Joint Health",
+     "Everyday Comfort"
+    ],
+    "why": "It matches your recovery & repair goal. This one is a collagen.",
+    "form": "Scoop",
+    "timing": "Morning",
+    "description": "Bovine and marine collagen with black pepper extract, aimed at tendon and joint recovery rather than at skin.",
+    "price": "US$15.90"
+   }
+  ],
+  "macros": [
+   {
+    "label": "Calories",
+    "value": "4058",
+    "unit": "kcal",
+    "target": "Target 3377 kcal",
+    "pct": 120,
+    "cls": "m-g"
+   },
+   {
+    "label": "Protein",
+    "value": "230",
+    "unit": "g",
+    "target": "Target 185 g",
+    "pct": 124,
+    "cls": "m-gr"
+   },
+   {
+    "label": "Carbs",
+    "value": "328",
+    "unit": "g",
+    "target": "Target 377 g",
+    "pct": 87,
+    "cls": "m-g"
+   },
+   {
+    "label": "Fat",
+    "value": "192",
+    "unit": "g",
+    "target": "Target 125 g",
+    "pct": 154,
+    "cls": "m-g"
+   },
+   {
+    "label": "Water",
+    "value": "2086",
+    "unit": "ml",
+    "target": "Drink 3295 ml",
+    "pct": 63,
+    "cls": "m-b"
+   },
+   {
+    "label": "Omega-3",
+    "value": "0.22",
+    "unit": "g",
+    "target": "Target 0.25 g",
+    "pct": 88,
+    "cls": "m-o"
+   },
+   {
+    "label": "Fibre",
+    "value": "30",
+    "unit": "g",
+    "target": "Target 38 g",
+    "pct": 79,
+    "cls": "m-o"
+   },
+   {
+    "label": "Free sugars",
+    "value": "65",
+    "unit": "g",
+    "target": "Limit 42 g",
+    "pct": 155,
+    "cls": "m-r"
+   },
+   {
+    "label": "Saturated fat",
+    "value": "78",
+    "unit": "g",
+    "target": "Limit 37 g",
+    "pct": 211,
+    "cls": "m-r"
+   }
+  ],
+  "macros_note": "Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.",
+  "breakdown": [
+   {
+    "group": "Vitamins",
+    "rows": [
+     {
+      "name": "Vitamin D3",
+      "pct": 33,
+      "sources": "Sources: salmon, eggs and vitamin-D-fortified foods. Food alone rarely covers vitamin D, particularly in winter."
+     }
+    ]
+   }
+  ],
+  "notices": [],
+  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use."
+ }
+}

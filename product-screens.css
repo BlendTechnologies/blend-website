@@ -182,6 +182,13 @@
 .rp-bt b{display:block;height:100%;border-radius:3px;background:#C96851}
 .rp-bd p{margin:10px 0 0 !important;font-size:12.5px;color:var(--rp-muted,#8A8A8A)}
 .rp-bp{text-align:right;font-size:14px;font-weight:700;color:#C96851}
+/* A safety notice the engine attaches to an answer ("Talk to a professional",
+   wellness-report.tsx), drawn between the products and the retake as the
+   product draws it: the section heading on the rule, the goal it belongs to
+   in bold, the note in the body size. First needed on 2026-11-11, when
+   Helen's replay carried one for joint stiffness. */
+.rp-note{margin:14px 0 0 !important;font-size:14px;line-height:1.5;color:var(--rp-text,#403B34)}
+.rp-note b{font-weight:600}
 .rp-retake{display:grid;justify-items:center;gap:12px;margin-top:40px}
 .rp-retake span{display:grid;place-items:center;height:40px;padding:0 20px;border-radius:6px;background:var(--rp-btn,#000);color:var(--rp-btn-text,#fff);font-size:14.5px;font-weight:700}
 .rp-retake p{margin:0;font-size:13px;color:var(--rp-muted,#6B6B6B)}
