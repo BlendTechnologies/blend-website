@@ -610,22 +610,17 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    slate, sage and moss, so the row reads as a journey; the product tabs
    keep their own four. Same positions as before, stronger, on a base tinted
    the same way, with the mats' grain over the top. */
-#how .step-thumb{aspect-ratio:1/1;--l1:85% 0%;--l2:15% 70%;--l3:0% 8%;
-  /* Grey tiles (founder, 2026-11-13: "test the 6 steps with grey"): the
-     lit graphite in silver, one surface for all six; the step's colour
-     moves into the drawing, on --accent below, so the ramp still reads and
-     matches the mats on How it works. */
-  --isle-1:rgba(228,231,236,.40);--isle-1b:rgba(204,210,220,.16);--isle-2:rgba(132,138,150,.32);--isle-3:rgba(8,10,14,.66);--c0:#1A1B1E;
-  --isle-p1:var(--l1);--isle-p1b:50% 30%;--isle-p2:var(--l2);--isle-p3:var(--l3);
-  --accent:#D4A95E;
-  background-color:var(--c0);background-image:var(--wash-deep);
-  box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.07)}
-#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--l3:0% 0%;--accent:#DE7E60}
-#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--l3:0% 100%;--accent:#BA78AA}
-#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--l3:100% 100%;--accent:#9A9AE0}
-#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%;--l3:0% 0%;--accent:#86ABD4}
-#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%;--l3:0% 0%;--accent:#A3BF86}
-#how .step-thumb > *{position:relative;z-index:1}
+/* LIGHT CARDS, 2026-11-13 (founder: "don't divert too much from
+   elevenlabs.io; the colours on the six steps make no sense"). Their
+   feature cards: a warm off-white card, the drawing on it in its own light
+   colours, the title and the line under it, inside the card. The dark tile,
+   the glass and the per-step colours are gone; the drawings were made for
+   a light surface and render as drawn. */
+#how .step{background:var(--n-100);border:0;border-radius:16px;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.08);padding:14px 14px 20px;overflow:hidden}
+#how .step:hover,#how .step:focus-visible{background:var(--n-100);box-shadow:inset 0 0 0 .5px rgba(28,25,23,.18);transform:none}
+#how .step-thumb{aspect-ratio:1/1;background:none;border:0;box-shadow:none;border-radius:12px;padding:6%}
+#how .step:hover .step-thumb,#how .step:focus-visible .step-thumb{border-color:transparent}
+#how .step-body{padding:14px 4px 0}
 /* The drawings are square too (246 units, one per pixel at 1440), so the
    panel takes no padding of its own: the tile's 8% is the only margin. */
 /* Soft, matte glass, from the founder's reference (2026-10-20): a frosted
@@ -633,32 +628,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    outline; the blur and the fill are what separate it. Inside, the same
    rule: surfaces are fills a shade lighter, and only a selection gets a
    line. */
-#how .step-ui{padding:0;
-  background:rgba(255,255,255,.16);
-  -webkit-backdrop-filter:blur(28px) saturate(120%);backdrop-filter:blur(28px) saturate(120%);
-  border-color:transparent;
-  box-shadow:none}
-#how .step-ui svg [fill="#1C1917"]{fill:#F5F5F4}
-#how .step-ui svg [fill="#57534E"]{fill:#A8AAAC}
-#how .step-ui svg [fill="#44403C"]{fill:#D6D3D1}
-#how .step-ui svg rect[fill="#FFFFFF"],#how .step-ui svg rect[fill="#ffffff"]{fill:rgba(255,255,255,.06)}
-#how .step-ui svg [fill="#F5F5F4"]{fill:rgba(255,255,255,.06)}
-#how .step-ui svg [fill="#E7E5E4"]{fill:rgba(255,255,255,.14)}
-#how .step-ui svg rect[stroke="#E7E5E4"]{stroke:none}
-#how .step-ui svg line[stroke="#E7E5E4"]{stroke:rgba(255,255,255,.07)}
-#how .step-ui svg [fill="#D6D3D1"]{fill:rgba(255,255,255,.28)}
-#how .step-ui svg [stroke="#D6D3D1"]{stroke:rgba(255,255,255,.28)}
-#how .step-ui svg [fill="#F0FDF4"]{fill:rgba(34,197,94,.14)}
-#how .step-ui svg [stroke="#BBF7D0"]{stroke:rgba(74,222,128,.3)}
-#how .step-ui svg [fill="#15803D"]{fill:#4ADE80}
-#how .step-ui svg [stroke="#15803D"]{stroke:#4ADE80}
-#how .step-ui svg svg rect:not([fill]){fill:#D6D3D1}
-/* the drawing's gold accents take the step's colour, and the glass a
-   tinted hairline: a little more colourful, as asked, and the ramp lives
-   here now rather than on the tile */
-#how .step-ui svg [fill="#96682B"]{fill:var(--accent)}
-#how .step-ui svg [stroke="#96682B"]{stroke:var(--accent)}
-#how .step-ui{box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 38%, transparent)}
+#how .step-ui{padding:0;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:none}
 /* The row runs to both edges of the window, and its padding puts the first
    card on the content edge, so a card leaving on the left goes off the page
    rather than being cut at the gutter. --steps-bleed is that distance: half
@@ -2813,7 +2783,7 @@ a.vrow:hover,a.vrow:focus-visible{
 #how .section-head{margin-left:0;margin-right:0;text-align:left}
 #science .science-head{text-align:left;margin-left:auto;margin-right:auto}
 #science .science-head .lead{margin-left:auto;margin-right:auto}
-#how .step-ui{border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+#how .step-ui{border:0;box-shadow:none}
 .trust{width:calc(100% - 2 * var(--sc-inset));max-width:calc(var(--content) - 64px);margin-left:auto;margin-right:auto}
 @media(max-width:560px){
   #how .section-head{text-align:center;margin-left:auto;margin-right:auto}
