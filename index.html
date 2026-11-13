@@ -397,7 +397,8 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    transform scales a picture the browser has already drawn, so a 56px
    drawing blown up three times was a 56px bitmap blown up. Drawn at 168,
    it is sharp large and sharp small. */
-.proof-mark{position:relative;display:block;width:56px;height:56px}
+.proof-mark{position:relative;display:block;width:56px;height:56px;border-radius:14px;background-color:var(--deep);background-image:var(--wash-deep)}
+.proof-mark svg > rect:first-child{fill:transparent}
 .proof-mark svg{position:absolute;left:50%;top:50%;display:block;width:168px;height:168px;max-width:none;margin:-84px 0 0 -84px;transform:scale(.33333)}
 .open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:400;color:var(--ink);text-wrap:balance}
 .open-sub{margin:14px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.01em;color:var(--n-600)}
@@ -608,7 +609,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 #how .step-thumb{aspect-ratio:1/1;--l1:85% 0%;--l2:15% 70%;--l3:0% 8%;
   --isle-1:rgba(252,240,214,.74);--isle-1b:rgba(244,186,150,.40);--isle-2:rgba(222,160,80,.66);--isle-3:rgba(60,30,8,.72);--c0:#4E3412;
   --isle-p1:var(--l1);--isle-p1b:50% 30%;--isle-p2:var(--l2);--isle-p3:var(--l3);
-  background-color:var(--c0);background-image:var(--wash-deep)}
+  background-color:var(--c0);background-image:var(--wash-deep);
+  /* a touch darker, very lightly (founder, 2026-11-13) */
+  box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.07)}
 #how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--l3:0% 0%;--isle-1:rgba(252,216,200,.72);--isle-1b:rgba(236,150,170,.40);--isle-2:rgba(214,104,80,.68);--isle-3:rgba(56,10,30,.74);--c0:#4E1E24}
 #how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--l3:0% 100%;--isle-1:rgba(244,214,236,.70);--isle-1b:rgba(236,150,170,.36);--isle-2:rgba(160,86,140,.70);--isle-3:rgba(36,10,40,.76);--c0:#44203A}
 #how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--l3:100% 100%;--isle-1:rgba(222,220,246,.70);--isle-1b:rgba(190,180,230,.40);--isle-2:rgba(110,110,176,.70);--isle-3:rgba(14,14,54,.78);--c0:#2A2C5E}
