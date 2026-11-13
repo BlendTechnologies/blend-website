@@ -69,7 +69,7 @@ const verts = liveVerts.length < 2 ? '' : `
     <nav class="ph-ix sci-verts" aria-label="Categories" style="--ph-ix:${liveVerts.length}">` + liveVerts.map(([key]) =>
   `<a class="ph-ix-item${key === liveKey ? ' is-on' : ''}" href="#run" data-vertical="${esc(key)}"${key === liveKey ? ' aria-current="true"' : ''}><span class="ph-ix-line" aria-hidden="true"></span><span class="ph-ix-name">${esc(label(key))}</span></a>`).join('') + `</nav>`;
 
-const hero = `<section class="theme-dark ph ph--fill hero-card">
+const hero = `<section class="theme-dark ph ph--fill hero-card hc-engine">
   <div class="wrap">
     <div class="ph-inner">
       <h1 class="h1">A scoring engine you can audit, line by line.</h1>
