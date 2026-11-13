@@ -51,7 +51,7 @@
    not drawn. */
 .sr-report .rp-why{display:block;margin-top:12px !important;font-size:13.5px;line-height:19px;color:var(--rp-text,#403B34);min-height:0}
 .rp-desc{margin:8px 0 0 !important;font-size:12.5px;line-height:18px;color:var(--rp-muted,#6B6B6B);white-space:pre-line}
-.rp-use{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;margin:12px 0 14px !important;font-size:12.5px;color:var(--rp-muted,#71717A)}
+.rp-use{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;margin:12px 0 14px !important;font-size:12.5px;color:var(--rp-muted,#78716C)}
 .rp-use > span{display:inline-flex;align-items:center;gap:4px}
 .rp-use > i{font-style:normal;opacity:.5}
 .rp-use svg{flex:0 0 auto}
@@ -94,14 +94,14 @@
 .sr-dots:empty{display:none}
 .sr-dot{display:grid;place-items:center;width:24px;height:24px;border:0;padding:0;background:none;border-radius:50%;cursor:pointer}
 .sr-dot:focus-visible{outline:2px solid var(--rp-accent,#93652F)}
-.sr-dot i{display:block;width:6px;height:6px;border-radius:999px;background:var(--rp-track,#D4D4D8);transition:width .2s ease,background-color .2s ease}
+.sr-dot i{display:block;width:6px;height:6px;border-radius:999px;background:var(--rp-track,#D6D3D1);transition:width .2s ease,background-color .2s ease}
 .sr-dot[aria-current="true"] i{width:16px;background:var(--rp-btn,#96682A)}
 .sr-report .rp-macs{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:700px){.sr-report .rp-macs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sr-report .rp-bd{grid-template-columns:150px minmax(0,1fr) 48px}
 @media(max-width:560px){.sr-report .rp-bd{grid-template-columns:minmax(0,1fr) 44px}.sr-report .rp-bd > div{grid-column:1/-1;grid-row:2}}
 .sr-hr{margin-top:36px;border-top:1px solid var(--rp-line,#DCDADB)}
-.sr-rev{margin-top:14px !important;font-size:14px;color:var(--rp-text,#3F3F46);text-decoration:underline;text-underline-offset:3px}
+.sr-rev{margin-top:14px !important;font-size:14px;color:var(--rp-text,#44403C);text-decoration:underline;text-underline-offset:3px}
 
 /* THE TEMPLATE IS AN ORDER, NOT A SKIN. In the product (apps/webapp
    lib/report/report-templates.ts) a report template sets which sections
