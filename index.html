@@ -349,9 +349,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @media(max-width:760px){:root{--sec:58px;--sec-tight:54px;--sec-join:28px}}
 .section{padding:var(--sec) 0}
 .section--tight{padding:var(--sec-tight) 0}
-.section-head{max-width:680px;margin:0 auto 56px;text-align:center}
-.section-head .eyebrow{margin-bottom:14px;display:inline-block}
-.section-head .h2{margin-bottom:7px}
+/* The split header, since 2026-11-13 (founder, after elevenlabs.io): the
+   heading on the left, the paragraph on the right, top aligned, each in
+   its own half of the content width. An eyebrow, where there is one, runs
+   above the heading. The paragraph is a step larger than body copy, as it
+   is there. Below 860 the two stack, as before. */
+.section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:64px;align-items:start;max-width:none;margin:0 0 56px;text-align:left}
+.section-head .eyebrow{grid-column:1 / -1;margin-bottom:14px;display:inline-block;justify-self:start}
+.section-head .h2{grid-column:1;margin-bottom:0}
+.section-head .lead{grid-column:2;align-self:start;margin-top:6px;font-size:17px;line-height:1.5;max-width:530px}
 
 .section-cream{background:transparent}
 /* White where the hero's card leaves off, settling into the beige that the
@@ -439,7 +445,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   border-radius:999px;background:var(--n-100);border:1px solid var(--n-200);
   font-size:11px;line-height:16px;font-weight:500;letter-spacing:.02em;color:var(--n-700);vertical-align:2px}
 .ai-tag svg{width:11px;height:11px;display:block}
-@media(max-width:860px){.section-head{margin-bottom:48px}}
+@media(max-width:860px){.section-head{grid-template-columns:minmax(0,1fr);row-gap:12px;margin-bottom:48px}.section-head .lead{grid-column:1;margin-top:0;font-size:16px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
 .step{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;z-index:1}
 /* Muted amber-beige, not the full gold: six cards in a grid each wearing a
@@ -806,13 +812,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    dark thing in it, in the frame the other screens wear. */
 .science{position:relative;padding:120px 0;background:transparent;color:var(--ink);overflow:hidden}
 .science .wrap{position:relative;z-index:1}
-.science-head{max-width:800px}
+.science-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:64px;align-items:start;max-width:none;text-align:left}
+.science-head .h2{grid-column:1}
+.science-head .lead{grid-column:2;align-self:start;font-size:17px;line-height:1.5;max-width:530px}
 /* The section heading's own size (founder, 2026-10-21: "the same size as
    other headings like How it works"); it was set larger on 2026-10-20. */
 .science-head .h2{max-width:none}
 .science-head .eyebrow{color:var(--muted)}
 .science-head h2{margin-top:14px}
-.science-head .lead{color:var(--ink-60);margin-top:20px}
+.science-head .lead{color:var(--ink-60);margin-top:6px}
 .science-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:64px}
 .sci-stat{padding:24px 20px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
 .sci-n{font-size:48px;font-weight:500;letter-spacing:-.03em;color:var(--white);line-height:1;font-feature-settings:"tnum"}
