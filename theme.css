@@ -350,7 +350,7 @@ body:has(.sc-hero) .nav:not(.scrolled){
    screenshot suite twice before. */
 /* The recipe, resolved on each island so its own --isle-* win. Any element
    that paints var(--wash-deep) must be in this list or inside one of them. */
-.theme-dark,.sc-hero,.hero-card,.closer,.footer,.sc-reveal,.tm,.vlead,.split-card.brand,.tour-mat,#how .step-thumb,.proof-mark,.hw-shot{
+.theme-dark,.sc-hero,.hero-card,.closer,.footer,.sc-reveal,.tm,.vlead,.split-card.brand,.tour-mat,#how .step-thumb,.proof-mark,.hw-shot,.hw-stage-inner{
   --wash-deep:var(--grain-deep),
     linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.32) 100%),
     radial-gradient(80% 70% at var(--isle-p1), var(--isle-1) 0%, rgba(0,0,0,0) 60%),
@@ -369,7 +369,9 @@ body:has(.sc-hero) .nav:not(.scrolled){
    sage at the right, so the page that walks the six opens on all of them
    and reads nothing like the homepage's gold */
 .hc-journey{--hero-tint:#141612;--isle-1:rgba(250,240,222,.40);--isle-1b:rgba(214,104,80,.26);--isle-2:rgba(130,154,96,.34);--isle-3:rgba(14,14,54,.58);--isle-p1:0% 0%;--isle-p1b:30% 40%;--isle-p2:100% 100%;--isle-p3:65% 15%}
-.hc-engine{--hero-tint:#121B28;--isle-1:rgba(214,228,246,.42);--isle-1b:rgba(190,180,230,.20);--isle-2:rgba(86,120,168,.36);--isle-3:rgba(6,12,30,.70);--isle-p1:88% 0%;--isle-p1b:60% 25%;--isle-p2:40% 60%;--isle-p3:0% 100%}
+/* the engine page: graphite, cool and quiet, with the terminal below it the
+   one blue thing on the page (founder, 2026-11-13: "blue on blue looks weird") */
+.hc-engine{--hero-tint:#0F1113;--isle-1:rgba(226,230,238,.34);--isle-1b:rgba(196,204,222,.14);--isle-2:rgba(118,128,150,.24);--isle-3:rgba(6,12,30,.56);--isle-p1:50% 0%;--isle-p1b:28% 22%;--isle-p2:82% 68%;--isle-p3:0% 100%}
 .hc-cases{--hero-tint:#1A1012;--isle-1:rgba(252,216,200,.38);--isle-1b:rgba(236,150,170,.20);--isle-2:rgba(206,98,76,.32);--isle-3:rgba(50,12,28,.62);--isle-p1:15% 100%;--isle-p1b:40% 70%;--isle-p2:60% 40%;--isle-p3:100% 0%}
 .hc-quiet{--hero-tint:#0F1012;--isle-1:rgba(226,230,236,.34);--isle-1b:rgba(200,206,216,.14);--isle-2:rgba(128,134,146,.26);--isle-3:rgba(10,12,16,.62);--isle-p1:85% 100%;--isle-p1b:60% 80%;--isle-p2:35% 40%;--isle-p3:0% 0%}
 .pitch{--isle-p1:90% 100%;--isle-p1b:65% 75%;--isle-p2:35% 40%;--isle-p3:0% 0%}

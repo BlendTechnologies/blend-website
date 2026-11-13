@@ -397,9 +397,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    transform scales a picture the browser has already drawn, so a 56px
    drawing blown up three times was a 56px bitmap blown up. Drawn at 168,
    it is sharp large and sharp small. */
-.proof-mark{position:relative;display:block;width:56px;height:56px;border-radius:14px;background-color:var(--deep);background-image:var(--wash-deep)}
+.proof-mark{position:relative;display:block;width:56px;height:56px}
 .proof-mark svg > rect:first-child{fill:transparent}
-.proof-mark svg{position:absolute;left:50%;top:50%;display:block;width:168px;height:168px;max-width:none;margin:-84px 0 0 -84px;transform:scale(.33333)}
+/* the tile's background rides on the svg, so the arrival scales the tile
+   and its grid as one thing (founder, 2026-11-13: "this animation is
+   bugging": the grid slid over a tile that stayed put) */
+.proof-mark svg{position:absolute;left:50%;top:50%;display:block;width:168px;height:168px;max-width:none;margin:-84px 0 0 -84px;transform:scale(.33333);
+  border-radius:42px;background-color:var(--deep);background-image:var(--wash-deep)}
 .open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:400;color:var(--ink);text-wrap:balance}
 .open-sub{margin:14px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.01em;color:var(--n-600)}
 /* The first time it comes into view (founder, 2026-10-21): the mark starts
@@ -607,16 +611,20 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    keep their own four. Same positions as before, stronger, on a base tinted
    the same way, with the mats' grain over the top. */
 #how .step-thumb{aspect-ratio:1/1;--l1:85% 0%;--l2:15% 70%;--l3:0% 8%;
-  --isle-1:rgba(252,240,214,.74);--isle-1b:rgba(244,186,150,.40);--isle-2:rgba(222,160,80,.66);--isle-3:rgba(60,30,8,.72);--c0:#4E3412;
+  /* Grey tiles (founder, 2026-11-13: "test the 6 steps with grey"): the
+     lit graphite in silver, one surface for all six; the step's colour
+     moves into the drawing, on --accent below, so the ramp still reads and
+     matches the mats on How it works. */
+  --isle-1:rgba(228,231,236,.40);--isle-1b:rgba(204,210,220,.16);--isle-2:rgba(132,138,150,.32);--isle-3:rgba(8,10,14,.66);--c0:#1A1B1E;
   --isle-p1:var(--l1);--isle-p1b:50% 30%;--isle-p2:var(--l2);--isle-p3:var(--l3);
+  --accent:#D4A95E;
   background-color:var(--c0);background-image:var(--wash-deep);
-  /* a touch darker, very lightly (founder, 2026-11-13) */
   box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.07)}
-#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--l3:0% 0%;--isle-1:rgba(252,216,200,.72);--isle-1b:rgba(236,150,170,.40);--isle-2:rgba(214,104,80,.68);--isle-3:rgba(56,10,30,.74);--c0:#4E1E24}
-#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--l3:0% 100%;--isle-1:rgba(244,214,236,.70);--isle-1b:rgba(236,150,170,.36);--isle-2:rgba(160,86,140,.70);--isle-3:rgba(36,10,40,.76);--c0:#44203A}
-#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--l3:100% 100%;--isle-1:rgba(222,220,246,.70);--isle-1b:rgba(190,180,230,.40);--isle-2:rgba(110,110,176,.70);--isle-3:rgba(14,14,54,.78);--c0:#2A2C5E}
-#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%;--l3:0% 0%;--isle-1:rgba(214,228,246,.70);--isle-1b:rgba(190,180,230,.38);--isle-2:rgba(90,124,172,.70);--isle-3:rgba(6,14,36,.78);--c0:#1E3A58}
-#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%;--l3:0% 0%;--isle-1:rgba(232,240,210,.70);--isle-1b:rgba(200,224,180,.38);--isle-2:rgba(130,154,96,.70);--isle-3:rgba(10,30,14,.78);--c0:#2A4430}
+#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--l3:0% 0%;--accent:#DE7E60}
+#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--l3:0% 100%;--accent:#BA78AA}
+#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--l3:100% 100%;--accent:#9A9AE0}
+#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%;--l3:0% 0%;--accent:#86ABD4}
+#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%;--l3:0% 0%;--accent:#A3BF86}
 #how .step-thumb > *{position:relative;z-index:1}
 /* The drawings are square too (246 units, one per pixel at 1440), so the
    panel takes no padding of its own: the tile's 8% is the only margin. */
@@ -645,6 +653,12 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 #how .step-ui svg [fill="#15803D"]{fill:#4ADE80}
 #how .step-ui svg [stroke="#15803D"]{stroke:#4ADE80}
 #how .step-ui svg svg rect:not([fill]){fill:#D6D3D1}
+/* the drawing's gold accents take the step's colour, and the glass a
+   tinted hairline: a little more colourful, as asked, and the ramp lives
+   here now rather than on the tile */
+#how .step-ui svg [fill="#96682B"]{fill:var(--accent)}
+#how .step-ui svg [stroke="#96682B"]{stroke:var(--accent)}
+#how .step-ui{box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 38%, transparent)}
 /* The row runs to both edges of the window, and its padding puts the first
    card on the content edge, so a card leaving on the left goes off the page
    rather than being cut at the gutter. --steps-bleed is that distance: half
