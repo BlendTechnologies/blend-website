@@ -94,8 +94,24 @@
               radial-gradient(90% 80% at 95% 10%, rgba(180,127,57,.18) 0%, rgba(180,127,57,0) 60%);
   --wash-cool:radial-gradient(100% 80% at 80% 0%, rgba(28,25,23,.05) 0%, rgba(28,25,23,0) 55%);
   /* On the dark islands, where the same idea has to work in reverse. */
-  --wash-deep:radial-gradient(90% 70% at 20% 0%, rgba(231,207,163,.16) 0%, rgba(231,207,163,0) 55%),
-              radial-gradient(80% 70% at 90% 15%, rgba(180,127,57,.14) 0%, rgba(180,127,57,0) 60%);
+  /* LIT GRAPHITE, 2026-11-13. One recipe for every dark surface (founder:
+     "we need to pick one direction and apply it to all dark backgrounds"):
+     the near-black base, two coloured lights, a fine white grain. Only the
+     HUE changes, and it follows a role: gold and sand where Blend speaks
+     (the hero, the trust band, the closer, the footer, the inner pages'
+     hero cards, the use-case card), the product's hue where a product is
+     shown (the tour mats, the six steps), slate where the engine runs (the
+     terminal, the how-it-works engine band). The defaults below are the
+     brand pair; an island overrides --isle-1/--isle-2 (and the positions
+     --isle-p1/--isle-p2 so no two lights sit in the same place) on itself.
+     --wash-deep is declared again on the island scopes further down, so
+     the var()s resolve on the island and not here at the root. */
+  --isle-1:rgba(231,207,163,.30);--isle-2:rgba(180,127,57,.28);
+  --isle-p1:20% 0%;--isle-p2:90% 15%;
+  --grain-deep:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .085 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --wash-deep:var(--grain-deep),
+    radial-gradient(90% 70% at var(--isle-p1), var(--isle-1) 0%, rgba(0,0,0,0) 58%),
+    radial-gradient(80% 70% at var(--isle-p2), var(--isle-2) 0%, rgba(0,0,0,0) 62%);
 
   /* GLASS, one definition. rgba fill plus a blur, no border: measured on
      superpower, the translucency does the separating and an outline on
@@ -318,6 +334,14 @@ body:has(.sc-hero) .nav:not(.scrolled){
    read('.closer', '::before') by name and says so in its own comment. That
    check exists because a colour regression of exactly this kind passed a
    screenshot suite twice before. */
+/* The recipe, resolved on each island so its own --isle-* win. Any element
+   that paints var(--wash-deep) must be in this list or inside one of them. */
+.theme-dark,.sc-hero,.hero-card,.closer,.footer,.sc-reveal,.tm,.vlead,.split-card.brand,.tour-mat{
+  --wash-deep:var(--grain-deep),
+    radial-gradient(90% 70% at var(--isle-p1), var(--isle-1) 0%, rgba(0,0,0,0) 58%),
+    radial-gradient(80% 70% at var(--isle-p2), var(--isle-2) 0%, rgba(0,0,0,0) 62%)}
+/* slate where the engine runs */
+.tm{--isle-1:rgba(143,163,184,.26);--isle-2:rgba(60,83,112,.40);--isle-p1:12% 0%;--isle-p2:92% 100%}
 .theme-dark,.sc-hero,.closer,.footer{position:relative;isolation:isolate}
 /* NOT on .sc-hero or any .sc-reveal. Their shape is a clip-path on their own
    ::before, not a border-radius on the box, so `border-radius:inherit` here

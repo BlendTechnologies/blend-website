@@ -714,7 +714,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .split-card{padding:40px;border-radius:14px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .split-card.customers{background:var(--surface);border:1px solid var(--line)}
-.split-card.brand{background:var(--deep);color:var(--white);border:1px solid transparent}
+.split-card.brand{background-color:var(--deep);background-image:var(--wash-deep);color:var(--white);border:1px solid transparent}
 .split-pill{display:inline-flex;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
 .split-card.brand .split-pill{color:rgba(255,255,255,.55)}
 .split-card h3{font-size:19px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:500}
@@ -1150,14 +1150,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    blended in overlay, no image assets. */
 .tour-visual{position:relative}
 .tour-device{z-index:1}
-.tour-mat{position:absolute;inset:-28px;border-radius:calc(clamp(20px, 2.1vw, 30px) + 14px);overflow:hidden;isolation:isolate;opacity:0;transition:opacity .45s ease;pointer-events:none}
-.tour-mat::before{content:"";position:absolute;inset:-22%;filter:blur(30px);transform:scale(1.12);
-  background:radial-gradient(60% 55% at 28% 22%,var(--m1) 0%,transparent 70%),radial-gradient(55% 60% at 78% 70%,var(--m2) 0%,transparent 70%),radial-gradient(70% 70% at 60% 30%,var(--m3) 0%,transparent 75%),var(--m0)}
-.tour-mat::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px 128px;mix-blend-mode:overlay;opacity:.7}
-.tour-mat[data-step="1"]{--m0:#7A4E1C;--m1:#E7CFA3;--m2:#C9683A;--m3:#B47F39}
-.tour-mat[data-step="2"]{--m0:#5A2430;--m1:#E8826B;--m2:#8E4A7A;--m3:#B14935}
-.tour-mat[data-step="3"]{--m0:#1F2A3A;--m1:#8FA3B8;--m2:#3C5370;--m3:#2A3B52}
-.tour-mat[data-step="4"]{--m0:#3E4A35;--m1:#C9CFAE;--m2:#4F5E3F;--m3:#8FA06F}
+.tour-mat{position:absolute;inset:-28px;border-radius:calc(clamp(20px, 2.1vw, 30px) + 14px);overflow:hidden;opacity:0;transition:opacity .45s ease;pointer-events:none;
+  background-color:var(--c0);background-image:var(--wash-deep)}
+/* the product hues, on the lit-graphite recipe (2026-11-13): deep bases, the
+   product's pair of lights, the same grain as every other dark surface */
+.tour-mat[data-step="1"]{--c0:#1A150E;--isle-1:rgba(231,207,163,.40);--isle-2:rgba(201,104,58,.36);--isle-p1:25% 0%;--isle-p2:85% 100%}
+.tour-mat[data-step="2"]{--c0:#1B1012;--isle-1:rgba(232,130,107,.36);--isle-2:rgba(142,74,122,.42);--isle-p1:80% 0%;--isle-p2:15% 100%}
+.tour-mat[data-step="3"]{--c0:#0F161E;--isle-1:rgba(143,163,184,.34);--isle-2:rgba(60,83,112,.46);--isle-p1:20% 100%;--isle-p2:85% 10%}
+.tour-mat[data-step="4"]{--c0:#121A14;--isle-1:rgba(201,207,174,.32);--isle-2:rgba(79,94,63,.48);--isle-p1:75% 100%;--isle-p2:20% 0%}
 .tour[data-step="1"] .tour-mat[data-step="1"],.tour[data-step="2"] .tour-mat[data-step="2"],.tour[data-step="3"] .tour-mat[data-step="3"],.tour[data-step="4"] .tour-mat[data-step="4"]{opacity:1}
 /* the dot: beside the step's name, in the step's hue */
 .num-pill:nth-child(1){--dot:#C9A26A}.num-pill:nth-child(2){--dot:#C9684F}.num-pill:nth-child(3){--dot:#5F7A99}.num-pill:nth-child(4){--dot:#7E8F62}
@@ -1332,6 +1332,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vlead-photo{position:absolute;inset:0;z-index:0;pointer-events:none;
   background:url(/images/daily-energy-blend-front.jpg) right center / auto 104% no-repeat;
   transform-origin:72% 50%;transition:transform .55s cubic-bezier(.2,.7,.25,1)}
+/* the brand lights and grain over the photo, under the words (2026-11-13) */
+.vlead::after{content:"";position:absolute;inset:0;z-index:1;background-image:var(--wash-deep);pointer-events:none;border-radius:inherit}
+.vlead > *{position:relative;z-index:2}
+.vlead > .vlead-photo{z-index:0}
 .vlead:hover .vlead-photo{transform:scale(1.08)}
 @media (prefers-reduced-motion:reduce){.vlead-photo{transition:none}.vlead:hover .vlead-photo{transform:none}}
 /* Directional, not a flat wash: opaque where the words are, gone by the time
@@ -2614,6 +2618,8 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
   border-color:var(--frame-rim);
   box-shadow:var(--frame-shadow)}
+/* the engine, lit slate on the one recipe (2026-11-13); after the shorthand above */
+#science .tm{background-image:var(--wash-deep)}
 #science .tm-k{color:var(--t-dim)}
 #science .tm-line.is-short .tm-f,#science .tm-line.is-short .tm-s{color:var(--t-short)}
 #science .tm-line.is-ok .tm-s{color:rgba(74,222,128,.85)}
