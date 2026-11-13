@@ -1117,6 +1117,29 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tour-media.is-on{opacity:1}
 .tour-media > span{font-size:13px;color:var(--n-600)}
 .tour-media video,.tour-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* ---- The hue behind the screen (2026-11-13) --------------------------------
+   Founder: "perfect" to one hue per product, after elevenlabs.io. A grainy
+   gradient mat sits behind the glass device, one per step, and crossfades
+   with the screens; the glass rim blurs it, which is what the rim is for.
+   These four colours appear here and as the dot beside each step's name,
+   and nowhere else on the page: colour says which product, nothing more.
+   Built in CSS only: three blurred radial gradients, an SVG grain tile
+   blended in overlay, no image assets. */
+.tour-visual{position:relative}
+.tour-device{z-index:1}
+.tour-mat{position:absolute;inset:-28px;border-radius:calc(clamp(20px, 2.1vw, 30px) + 14px);overflow:hidden;isolation:isolate;opacity:0;transition:opacity .45s ease;pointer-events:none}
+.tour-mat::before{content:"";position:absolute;inset:-22%;filter:blur(30px);transform:scale(1.12);
+  background:radial-gradient(60% 55% at 28% 22%,var(--m1) 0%,transparent 70%),radial-gradient(55% 60% at 78% 70%,var(--m2) 0%,transparent 70%),radial-gradient(70% 70% at 60% 30%,var(--m3) 0%,transparent 75%),var(--m0)}
+.tour-mat::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px 128px;mix-blend-mode:overlay;opacity:.7}
+.tour-mat[data-step="1"]{--m0:#7A4E1C;--m1:#E7CFA3;--m2:#C9683A;--m3:#B47F39}
+.tour-mat[data-step="2"]{--m0:#5A2430;--m1:#E8826B;--m2:#8E4A7A;--m3:#B14935}
+.tour-mat[data-step="3"]{--m0:#1F2A3A;--m1:#8FA3B8;--m2:#3C5370;--m3:#2A3B52}
+.tour-mat[data-step="4"]{--m0:#3E4A35;--m1:#C9CFAE;--m2:#4F5E3F;--m3:#8FA06F}
+.tour[data-step="1"] .tour-mat[data-step="1"],.tour[data-step="2"] .tour-mat[data-step="2"],.tour[data-step="3"] .tour-mat[data-step="3"],.tour[data-step="4"] .tour-mat[data-step="4"]{opacity:1}
+/* the dot: beside the step's name, in the step's hue */
+.num-pill:nth-child(1){--dot:#C9A26A}.num-pill:nth-child(2){--dot:#C9684F}.num-pill:nth-child(3){--dot:#5F7A99}.num-pill:nth-child(4){--dot:#7E8F62}
+.num-pill .l::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--dot);margin-right:8px;vertical-align:1px}
+
 /* The product screens' rules are in /product-screens.css, linked here
    so they keep this exact place in the cascade (the tour's card rules
    below still come after them). */
@@ -1241,7 +1264,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .tour.is-held > .tour-stage{position:sticky;top:var(--tour-top,0px);height:auto;min-height:0}
 /* the held stage is its own height since 2026-10-31; nothing to resolve here */
 .tour.is-held > .tour-space{height:var(--tour-run,0px)}
-@media(prefers-reduced-motion:reduce){.tour-media,.tq-pm::before,.tq-pm::after,.tour-swap > *,.cx-r,.cx-btn,.ax-pg{transition:none}
+@media(prefers-reduced-motion:reduce){.tour-media,.tour-mat,.tq-pm::before,.tq-pm::after,.tour-swap > *,.cx-r,.cx-btn,.ax-pg{transition:none}
   .tour-bit,.tour-bits.is-on .tour-bit.is-in{transition:none}.tour-swap > *{transform:none}}
 @media(max-width:900px){
   .tour-stage{min-height:0;padding:64px 0 40px}
@@ -2912,7 +2935,7 @@ a.vrow:hover,a.vrow:focus-visible{
     <p class="eng-more">How a score is built, what gates it and where the numbers come from. <a href="/science">Explore the engine <span aria-hidden="true">&#8594;</span></a></p>
   </div>
 </section>
-<section class="tour" id="product" aria-labelledby="tour-title">
+<section class="tour" id="product" aria-labelledby="tour-title" data-step="1">
   <h2 class="tour-sr" id="tour-title">The product</h2>
   <div class="tour-stage">
     <div class="wrap tour-grid">
@@ -2957,7 +2980,7 @@ a.vrow:hover,a.vrow:focus-visible{
             </div>
         </div>
       </div>
-      <div class="tour-visual" aria-hidden="true">
+      <div class="tour-visual" aria-hidden="true"><div class="tour-mat" data-step="1"></div><div class="tour-mat" data-step="2"></div><div class="tour-mat" data-step="3"></div><div class="tour-mat" data-step="4"></div>
         <!-- PLACEHOLDERS: one recording per step from the webapp's demo
              account, muted, looping, playsinline, each filling its box. -->
         <div class="tour-device">
@@ -3667,6 +3690,7 @@ window.addEventListener('load', function(){
     });
     tour.querySelectorAll('.tour-panel').forEach(function(p, i){ p.classList.toggle('is-on', i === k); });
     tour.querySelectorAll('.tour-media').forEach(function(m, i){ m.classList.toggle('is-on', i === k); });
+    tour.setAttribute('data-step', String(k + 1));
     detach(k);
   }
   /* DETACH (founder, 2026-10-21: the cards should "detach from the picture").
