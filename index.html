@@ -1148,6 +1148,9 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 /* the dot: beside the step's name, in the step's hue */
 .num-pill:nth-child(1){--dot:#C9A26A}.num-pill:nth-child(2){--dot:#C9684F}.num-pill:nth-child(3){--dot:#5F7A99}.num-pill:nth-child(4){--dot:#7E8F62}
 .num-pill .l::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--dot);margin-right:8px;vertical-align:1px}
+/* narrower windows: the mat keeps inside the page gutter */
+@media(max-width:1100px){.tour-mat{inset:-16px;border-radius:calc(clamp(20px, 2.1vw, 30px) + 8px)}}
+@media(max-width:600px){.tour-mat{inset:-10px;border-radius:calc(clamp(20px, 2.1vw, 30px) + 6px)}}
 
 /* The product screens' rules are in /product-screens.css, linked here
    so they keep this exact place in the cascade (the tour's card rules
