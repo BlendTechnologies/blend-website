@@ -257,6 +257,12 @@ html,body{max-width:100%;overflow-x:clip}
    site's one: the edge warms, nothing moves. */
 .ph + .cases-section{padding-top:72px}
 .case-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:none;transform:none}
+/* the same card as the homepage's six steps (founder, 2026-11-13: "give these
+   boxes the same grey as the six steps"): a warm off-white fill, a half-pixel
+   edge, no shadow; the edge darkens a little on hover */
+.case-card{background:var(--n-100);border-color:transparent;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.08)}
+.case-card:hover,.case-card:focus-visible{border-color:transparent;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.18);transform:none}
+.case-card-icon{background:#FFFFFF;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.08)}
 .case-card:hover,.case-card:focus-visible{border-color:var(--hover-border);box-shadow:none;transform:none}
 .case-card-icon,.case-card-icon.shopify{background:var(--surface);border:1px solid var(--line);border-radius:12px}
 .case-card-icon svg,.case-card-icon.shopify svg{color:var(--n-700)}
