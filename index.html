@@ -411,7 +411,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 @keyframes pg-scan{0%,100%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}36%{fill:rgba(255,255,255,.16)}}
 @keyframes pg-pick{0%,100%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}40%,88%{fill:#4ADE80}}
 @keyframes pg-drop{0%,100%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}40%,84%{fill:#F87171}}
-.proof-mark .c{animation:pg-scan 3.6s ease-in-out calc(var(--i) * 90ms) infinite}
+/* One run, not a loop, since 2026-11-13: the wave crosses once as the
+   opener arrives and settles on the resting frame, the picks green and the
+   exclusions red. */
+.proof-mark .c{animation:pg-scan 3.6s ease-in-out calc(var(--i) * 90ms) 1 both}
 .proof-mark .c.pick{animation-name:pg-pick}
 .proof-mark .c.drop{animation-name:pg-drop}
 @media(prefers-reduced-motion:reduce){.proof-mark .c{animation:none}}
@@ -772,9 +775,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);
   mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
 .gm-rail{display:flex;gap:8px;width:max-content;will-change:transform}
-.gm-rail.a{animation:gm-l 68s linear infinite}
-.gm-rail.b{animation:gm-r 74s linear infinite}
-.gm:hover .gm-rail{animation-play-state:paused}
+/* Still since 2026-11-13 (founder, after elevenlabs.io: nothing in the
+   chrome loops; the motion is in the demos). The two rails keep their
+   offset and the mask's soft ends; they no longer crawl. */
+.gm-rail.a{transform:translateX(0)}
+.gm-rail.b{transform:translateX(-50%)}
 @keyframes gm-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes gm-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 .gm-chip{flex:0 0 auto;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:12px;font-weight:500;color:var(--ink-80);letter-spacing:-.005em;white-space:nowrap;cursor:pointer;font-family:inherit;transition:border-color .16s ease,color .16s ease,background .16s ease}
