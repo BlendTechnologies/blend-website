@@ -420,11 +420,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    The resting frame, which is what reduced motion and the screenshot suite
    see, is the end of a run: the picks green, the exclusions red. */
 @keyframes pg-scan{0%,100%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}36%{fill:rgba(255,255,255,.16)}}
-@keyframes pg-pick{0%,100%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}40%,88%{fill:#4ADE80}}
-@keyframes pg-drop{0%,100%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}40%,84%{fill:#F87171}}
+@keyframes pg-pick{0%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}40%,100%{fill:#4ADE80}}
+@keyframes pg-drop{0%{fill:rgba(255,255,255,.16)}18%{fill:rgba(255,255,255,.55)}40%,100%{fill:#F87171}}
 /* One run, not a loop, since 2026-11-13: the wave crosses once as the
    opener arrives and settles on the resting frame, the picks green and the
-   exclusions red. */
+   exclusions red. The pick and drop keyframes END on their colour for that
+   reason: while the run looped, their last frame could return to grey and
+   nobody saw it; played once, that grey was the frame that stayed (founder,
+   2026-11-13: "where did the colours go?"). */
 .proof-mark .c{animation:pg-scan 3.6s ease-in-out calc(var(--i) * 90ms) 1 both}
 .proof-mark .c.pick{animation-name:pg-pick}
 .proof-mark .c.drop{animation-name:pg-drop}
