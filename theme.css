@@ -358,7 +358,7 @@ body:has(.sc-hero) .nav:not(.scrolled){
     radial-gradient(110% 95% at var(--isle-p2), var(--isle-2) 0%, rgba(0,0,0,0) 74%),
     radial-gradient(90% 80% at var(--isle-p3), var(--isle-3) 0%, rgba(0,0,0,0) 72%)}
 /* slate where the engine runs */
-.tm{--isle-1:rgba(214,228,246,.80);--isle-1b:rgba(190,180,230,.40);--isle-2:rgba(86,120,168,.68);--isle-3:rgba(6,12,30,.84);--isle-p1:10% 0%;--isle-p1b:35% 25%;--isle-p2:60% 55%;--isle-p3:100% 100%}
+.tm{--isle-1:rgba(214,228,246,.80);--isle-1b:rgba(190,180,230,.40);--isle-2:rgba(86,120,168,.68);--isle-3:rgba(6,12,30,.84);--isle-p1:12% 100%;--isle-p1b:35% 78%;--isle-p2:60% 45%;--isle-p3:100% 0%}
 /* the brand bands put their haze where no words sit */
 .trust{--isle-p1:8% 0%;--isle-p1b:30% 20%;--isle-p2:70% 60%;--isle-p3:100% 100%}
 .closer,.sc-reveal{--isle-p1:92% 100%;--isle-p1b:70% 80%;--isle-p2:40% 40%;--isle-p3:0% 0%}
