@@ -590,15 +590,24 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    strengths as --wash-deep, so the tiles read as pieces of the same night as
    the top of the page. The lights are not in the same place twice (founder,
    2026-10-20): --l1 is the pale sand one, --l2 the gold, set per tile. */
+/* Since 2026-11-13 the two lights carry a hue per tile (founder: "also for
+   the 6 steps", after the tour's mats). The six run as one ramp in order,
+   sand and gold, coral and amber, coral and plum, plum and slate, steel and
+   slate, sage and moss, so the row reads as a journey; the product tabs
+   keep their own four. Same positions as before, stronger, on a base tinted
+   the same way, with the mats' grain over the top. */
 #how .step-thumb{aspect-ratio:1/1;--l1:20% 0%;--l2:90% 15%;
-  background:radial-gradient(90% 70% at var(--l1), rgba(231,207,163,.16) 0%, rgba(231,207,163,0) 55%),
-    radial-gradient(80% 70% at var(--l2), rgba(180,127,57,.14) 0%, rgba(180,127,57,0) 60%),
-    #0E0E10}
-#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%}
-#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%}
-#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%}
-#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%}
-#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%}
+  --c1:rgba(231,207,163,.36);--c2:rgba(180,127,57,.34);--c0:#1A150E;
+  background:radial-gradient(90% 70% at var(--l1), var(--c1) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(80% 70% at var(--l2), var(--c2) 0%, rgba(0,0,0,0) 62%),
+    var(--c0)}
+#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--c1:rgba(232,130,107,.32);--c2:rgba(201,104,58,.34);--c0:#1B1210}
+#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--c1:rgba(232,130,107,.26);--c2:rgba(142,74,122,.38);--c0:#191014}
+#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--c1:rgba(142,74,122,.28);--c2:rgba(60,83,112,.44);--c0:#13131E}
+#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%;--c1:rgba(143,163,184,.30);--c2:rgba(60,83,112,.40);--c0:#0F161E}
+#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%;--c1:rgba(143,160,111,.30);--c2:rgba(79,94,63,.44);--c0:#10171A}
+#how .step-thumb::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px 128px;mix-blend-mode:overlay;opacity:.55;pointer-events:none}
+#how .step-thumb > *{position:relative;z-index:1}
 /* The drawings are square too (246 units, one per pixel at 1440), so the
    panel takes no padding of its own: the tile's 8% is the only margin. */
 /* Soft, matte glass, from the founder's reference (2026-10-20): a frosted
