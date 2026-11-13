@@ -397,9 +397,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    transform scales a picture the browser has already drawn, so a 56px
    drawing blown up three times was a 56px bitmap blown up. Drawn at 168,
    it is sharp large and sharp small. */
-.proof-mark{position:relative;display:block;width:56px;height:56px;border-radius:14px;background-color:var(--deep);background-image:var(--wash-deep)}
+.proof-mark{position:relative;display:block;width:56px;height:56px}
 .proof-mark svg > rect:first-child{fill:transparent}
-.proof-mark svg{position:absolute;left:50%;top:50%;display:block;width:168px;height:168px;max-width:none;margin:-84px 0 0 -84px;transform:scale(.33333)}
+/* the tile's background rides on the svg, so the arrival scales the tile
+   and its grid as one thing (founder, 2026-11-13: "this animation is
+   bugging": the grid slid over a tile that stayed put) */
+.proof-mark svg{position:absolute;left:50%;top:50%;display:block;width:168px;height:168px;max-width:none;margin:-84px 0 0 -84px;transform:scale(.33333);
+  border-radius:42px;background-color:var(--deep);background-image:var(--wash-deep)}
 .open-h{margin:24px 0 0;font-size:clamp(30px,3.2vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:400;color:var(--ink);text-wrap:balance}
 .open-sub{margin:14px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.01em;color:var(--n-600)}
 /* The first time it comes into view (founder, 2026-10-21): the mark starts
@@ -606,18 +610,19 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    slate, sage and moss, so the row reads as a journey; the product tabs
    keep their own four. Same positions as before, stronger, on a base tinted
    the same way, with the mats' grain over the top. */
-#how .step-thumb{aspect-ratio:1/1;--l1:85% 0%;--l2:15% 70%;--l3:0% 8%;
-  --isle-1:rgba(252,240,214,.74);--isle-1b:rgba(244,186,150,.40);--isle-2:rgba(222,160,80,.66);--isle-3:rgba(60,30,8,.72);--c0:#4E3412;
-  --isle-p1:var(--l1);--isle-p1b:50% 30%;--isle-p2:var(--l2);--isle-p3:var(--l3);
-  background-color:var(--c0);background-image:var(--wash-deep);
-  /* a touch darker, very lightly (founder, 2026-11-13) */
-  box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.07)}
-#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--l3:0% 0%;--isle-1:rgba(252,216,200,.72);--isle-1b:rgba(236,150,170,.40);--isle-2:rgba(214,104,80,.68);--isle-3:rgba(56,10,30,.74);--c0:#4E1E24}
-#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--l3:0% 100%;--isle-1:rgba(244,214,236,.70);--isle-1b:rgba(236,150,170,.36);--isle-2:rgba(160,86,140,.70);--isle-3:rgba(36,10,40,.76);--c0:#44203A}
-#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--l3:100% 100%;--isle-1:rgba(222,220,246,.70);--isle-1b:rgba(190,180,230,.40);--isle-2:rgba(110,110,176,.70);--isle-3:rgba(14,14,54,.78);--c0:#2A2C5E}
-#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%;--l3:0% 0%;--isle-1:rgba(214,228,246,.70);--isle-1b:rgba(190,180,230,.38);--isle-2:rgba(90,124,172,.70);--isle-3:rgba(6,14,36,.78);--c0:#1E3A58}
-#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%;--l3:0% 0%;--isle-1:rgba(232,240,210,.70);--isle-1b:rgba(200,224,180,.38);--isle-2:rgba(130,154,96,.70);--isle-3:rgba(10,30,14,.78);--c0:#2A4430}
-#how .step-thumb > *{position:relative;z-index:1}
+/* LIGHT CARDS, 2026-11-13 (founder: "don't divert too much from
+   elevenlabs.io; the colours on the six steps make no sense"). Their
+   feature cards: a warm off-white card, the drawing on it in its own light
+   colours, the title and the line under it, inside the card. The dark tile,
+   the glass and the per-step colours are gone; the drawings were made for
+   a light surface and render as drawn. */
+#how .step{background:none;border:0;border-radius:0;box-shadow:none;padding:0;overflow:visible}
+#how .step:hover,#how .step:focus-visible{background:none;box-shadow:none;transform:none}
+/* the card is the picture; the title and the line stay under it, outside
+   (founder, 2026-11-13: "keep the text outside of the 6 steps") */
+#how .step-thumb{aspect-ratio:1/1;background:var(--n-100);border:1px solid transparent;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.08);border-radius:16px;padding:8%}
+#how .step:hover .step-thumb,#how .step:focus-visible .step-thumb{border-color:transparent;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.18)}
+#how .step-body{padding:16px 2px 0}
 /* The drawings are square too (246 units, one per pixel at 1440), so the
    panel takes no padding of its own: the tile's 8% is the only margin. */
 /* Soft, matte glass, from the founder's reference (2026-10-20): a frosted
@@ -625,26 +630,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    outline; the blur and the fill are what separate it. Inside, the same
    rule: surfaces are fills a shade lighter, and only a selection gets a
    line. */
-#how .step-ui{padding:0;
-  background:rgba(255,255,255,.16);
-  -webkit-backdrop-filter:blur(28px) saturate(120%);backdrop-filter:blur(28px) saturate(120%);
-  border-color:transparent;
-  box-shadow:none}
-#how .step-ui svg [fill="#1C1917"]{fill:#F5F5F4}
-#how .step-ui svg [fill="#57534E"]{fill:#A8AAAC}
-#how .step-ui svg [fill="#44403C"]{fill:#D6D3D1}
-#how .step-ui svg rect[fill="#FFFFFF"],#how .step-ui svg rect[fill="#ffffff"]{fill:rgba(255,255,255,.06)}
-#how .step-ui svg [fill="#F5F5F4"]{fill:rgba(255,255,255,.06)}
-#how .step-ui svg [fill="#E7E5E4"]{fill:rgba(255,255,255,.14)}
-#how .step-ui svg rect[stroke="#E7E5E4"]{stroke:none}
-#how .step-ui svg line[stroke="#E7E5E4"]{stroke:rgba(255,255,255,.07)}
-#how .step-ui svg [fill="#D6D3D1"]{fill:rgba(255,255,255,.28)}
-#how .step-ui svg [stroke="#D6D3D1"]{stroke:rgba(255,255,255,.28)}
-#how .step-ui svg [fill="#F0FDF4"]{fill:rgba(34,197,94,.14)}
-#how .step-ui svg [stroke="#BBF7D0"]{stroke:rgba(74,222,128,.3)}
-#how .step-ui svg [fill="#15803D"]{fill:#4ADE80}
-#how .step-ui svg [stroke="#15803D"]{stroke:#4ADE80}
-#how .step-ui svg svg rect:not([fill]){fill:#D6D3D1}
+#how .step-ui{padding:0;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:none}
 /* The row runs to both edges of the window, and its padding puts the first
    card on the content edge, so a card leaving on the left goes off the page
    rather than being cut at the gutter. --steps-bleed is that distance: half
@@ -2799,7 +2785,7 @@ a.vrow:hover,a.vrow:focus-visible{
 #how .section-head{margin-left:0;margin-right:0;text-align:left}
 #science .science-head{text-align:left;margin-left:auto;margin-right:auto}
 #science .science-head .lead{margin-left:auto;margin-right:auto}
-#how .step-ui{border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+#how .step-ui{border:0;box-shadow:none}
 .trust{width:calc(100% - 2 * var(--sc-inset));max-width:calc(var(--content) - 64px);margin-left:auto;margin-right:auto}
 @media(max-width:560px){
   #how .section-head{text-align:center;margin-left:auto;margin-right:auto}

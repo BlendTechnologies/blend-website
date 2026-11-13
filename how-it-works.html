@@ -1594,12 +1594,12 @@ body{background:var(--ground)}
 /* Each step's colour, the homepage's six as one ramp, a touch darker
    (founder, 2026-11-13: "like the padding in the 4 steps"). On the figure,
    so the scene behind a drawing and the mat round a film share it. */
-.hw-shot{--c0:#4E3412;--isle-1:rgba(252,240,214,.70);--isle-1b:rgba(244,186,150,.38);--isle-2:rgba(222,160,80,.62);--isle-3:rgba(60,30,8,.72);--isle-p1:85% 0%;--isle-p1b:50% 30%;--isle-p2:15% 70%;--isle-p3:0% 8%}
-.hw-shot[data-step="2"]{--c0:#4E1E24;--isle-1:rgba(252,216,200,.68);--isle-1b:rgba(236,150,170,.38);--isle-2:rgba(214,104,80,.64);--isle-3:rgba(56,10,30,.74);--isle-p1:85% 100%;--isle-p1b:55% 70%;--isle-p2:5% 30%;--isle-p3:0% 0%}
-.hw-shot[data-step="3"]{--c0:#44203A;--isle-1:rgba(244,214,236,.66);--isle-1b:rgba(236,150,170,.34);--isle-2:rgba(160,86,140,.66);--isle-3:rgba(36,10,40,.76);--isle-p1:50% 0%;--isle-p1b:30% 30%;--isle-p2:100% 85%;--isle-p3:0% 100%}
-.hw-shot[data-step="4"]{--c0:#2A2C5E;--isle-1:rgba(222,220,246,.66);--isle-1b:rgba(190,180,230,.38);--isle-2:rgba(110,110,176,.66);--isle-3:rgba(14,14,54,.78);--isle-p1:0% 85%;--isle-p1b:30% 60%;--isle-p2:80% 0%;--isle-p3:100% 100%}
-.hw-shot[data-step="5"]{--c0:#1E3A58;--isle-1:rgba(214,228,246,.66);--isle-1b:rgba(190,180,230,.36);--isle-2:rgba(90,124,172,.66);--isle-3:rgba(6,14,36,.78);--isle-p1:100% 25%;--isle-p1b:70% 45%;--isle-p2:20% 100%;--isle-p3:0% 0%}
-.hw-shot[data-step="6"]{--c0:#2A4430;--isle-1:rgba(232,240,210,.66);--isle-1b:rgba(200,224,180,.36);--isle-2:rgba(130,154,96,.66);--isle-3:rgba(10,30,14,.78);--isle-p1:30% 100%;--isle-p1b:50% 70%;--isle-p2:95% 55%;--isle-p3:0% 0%}
+.hw-shot,.hw-stage-inner{--c0:#4E3412;--isle-1:rgba(252,240,214,.70);--isle-1b:rgba(244,186,150,.38);--isle-2:rgba(222,160,80,.62);--isle-3:rgba(60,30,8,.72);--isle-p1:85% 0%;--isle-p1b:50% 30%;--isle-p2:15% 70%;--isle-p3:0% 8%}
+.hw-shot[data-step="2"],.hw-stage-inner[data-step="2"]{--c0:#4E1E24;--isle-1:rgba(252,216,200,.68);--isle-1b:rgba(236,150,170,.38);--isle-2:rgba(214,104,80,.64);--isle-3:rgba(56,10,30,.74);--isle-p1:85% 100%;--isle-p1b:55% 70%;--isle-p2:5% 30%;--isle-p3:0% 0%}
+.hw-shot[data-step="3"],.hw-stage-inner[data-step="3"]{--c0:#44203A;--isle-1:rgba(244,214,236,.66);--isle-1b:rgba(236,150,170,.34);--isle-2:rgba(160,86,140,.66);--isle-3:rgba(36,10,40,.76);--isle-p1:50% 0%;--isle-p1b:30% 30%;--isle-p2:100% 85%;--isle-p3:0% 100%}
+.hw-shot[data-step="4"],.hw-stage-inner[data-step="4"]{--c0:#2A2C5E;--isle-1:rgba(222,220,246,.66);--isle-1b:rgba(190,180,230,.38);--isle-2:rgba(110,110,176,.66);--isle-3:rgba(14,14,54,.78);--isle-p1:0% 85%;--isle-p1b:30% 60%;--isle-p2:80% 0%;--isle-p3:100% 100%}
+.hw-shot[data-step="5"],.hw-stage-inner[data-step="5"]{--c0:#1E3A58;--isle-1:rgba(214,228,246,.66);--isle-1b:rgba(190,180,230,.36);--isle-2:rgba(90,124,172,.66);--isle-3:rgba(6,14,36,.78);--isle-p1:100% 25%;--isle-p1b:70% 45%;--isle-p2:20% 100%;--isle-p3:0% 0%}
+.hw-shot[data-step="6"],.hw-stage-inner[data-step="6"]{--c0:#2A4430;--isle-1:rgba(232,240,210,.66);--isle-1b:rgba(200,224,180,.36);--isle-2:rgba(130,154,96,.66);--isle-3:rgba(10,30,14,.78);--isle-p1:30% 100%;--isle-p1b:50% 70%;--isle-p2:95% 55%;--isle-p3:0% 0%}
 .hw-scene{position:absolute;inset:0;display:grid;place-items:center;
   background-color:var(--c0);background-image:var(--wash-deep);box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.07)}
 .hw-ui{display:block;height:84%;aspect-ratio:1/1;border-radius:16px;background:rgba(255,255,255,.06);
@@ -1744,14 +1744,27 @@ body{background:var(--ground)}
    every width once the founder had seen it (2026-10-22). */
 .hw-stage-inner,.hw-stage .hw-shot:has(.hw-screen){overflow:visible}
 .hw-shot:has(.hw-screen) .hw-scene{background:none;box-shadow:none}
-/* and the colour goes round it instead: the homepage tour's mat, the same
-   28px past the glass, in the step's hue (founder, 2026-11-13) */
-.hw-shot:has(.hw-screen){isolation:isolate}
-.hw-shot:has(.hw-screen)::before{content:"";position:absolute;inset:-28px;z-index:-1;pointer-events:none;
-  border-radius:calc(clamp(16px, 2.1vw, 30px) + 14px);
+/* and the colour goes round it instead, the homepage tour's mat, 12px past
+   the glass (founder, 2026-11-13: "reduce paddings"). ONE mat, on the
+   pinned stage, in the colour of the step the script marks on it: the
+   colour cuts from step to step with no blend, while the screens keep their
+   crossfade ("change without transition is better"). Two mats blending
+   through each other was the smear reported on scroll. */
+.hw-stage-inner::before{content:"";position:absolute;inset:-12px;z-index:0;pointer-events:none;
+  border-radius:calc(clamp(16px, 2.1vw, 30px) + 6px);
   background-color:var(--c0);background-image:var(--wash-deep);box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.07)}
-@media(max-width:1100px){.hw-shot:has(.hw-screen)::before{inset:-16px;border-radius:calc(clamp(16px, 2.1vw, 30px) + 8px)}}
-@media(max-width:600px){.hw-shot:has(.hw-screen)::before{inset:-10px;border-radius:calc(clamp(16px, 2.1vw, 30px) + 6px)}}
+.hw-stage-inner > *{position:relative;z-index:1}
+/* the frames keep their own position: absolute on the pinned stage from the
+   base rule, in flow below 900 from its media rule */
+.hw-stage .hw-shot{z-index:1}
+@media(max-width:1100px){.hw-stage-inner::before{inset:-10px;border-radius:calc(clamp(16px, 2.1vw, 30px) + 5px)}}
+/* below the pin the six frames stack in flow, so each carries its own */
+@media(max-width:900px){
+  .hw-stage-inner::before{content:none}
+  .hw-shot:has(.hw-screen){isolation:isolate}
+  .hw-shot:has(.hw-screen)::before{content:"";position:absolute;inset:-8px;z-index:-1;pointer-events:none;
+    border-radius:calc(clamp(16px, 2.1vw, 30px) + 4px);
+    background-color:var(--c0);background-image:var(--wash-deep);box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.07)}}
 /* The tour's frame, glass since 2026-10-22 (theme.css, "A frame round a
    screen"; founder: "decrease border width of placeholder (soft, holistic,
    glass effect)"). Without the recipe's backdrop blur here: over the
@@ -2243,6 +2256,7 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav
         if (current !== null) { void f.offsetWidth; f.classList.add(down ? 'is-down' : 'is-up'); }
       }
       f.classList.toggle('is-active', s === step);
+      if(s === step && f.parentElement) f.parentElement.setAttribute('data-step', String(step));
     });
     current = step;
     clearTimeout(settle);
