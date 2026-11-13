@@ -40,8 +40,8 @@
   font-size:14px;line-height:1.4;color:var(--ink-80);text-decoration:none;transition:color .15s ease,background-color .15s ease}
 .lg-toc a::before{content:counter(lg, decimal-leading-zero);font-size:12px;font-weight:500;line-height:1.65;color:var(--gold-active);
   font-variant-numeric:tabular-nums}
-.lg-toc a:hover{color:var(--ink);background:var(--ground-2, #FAFAFA)}
-.lg-toc a.is-on{color:var(--ink);background:var(--ground-2, #FAFAFA)}
+.lg-toc a:hover{color:var(--ink);background:var(--ground-2, #FAFAF9)}
+.lg-toc a.is-on{color:var(--ink);background:var(--ground-2, #FAFAF9)}
 .lg-toc a.is-on::after{content:"";position:absolute;left:-10px;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--gold-active)}
 @media(min-width:1024px){
   /* beside the text the contents are always open, and their title is a label */
@@ -68,13 +68,13 @@
 .legal-content strong{color:var(--ink);font-weight:500}
 .legal-content em{color:var(--ink);font-style:italic}
 .legal-callout{margin:20px 0;padding:14px 18px;border:1px solid var(--line);border-left:3px solid var(--gold-active);
-  border-radius:0 12px 12px 0;background:var(--ground-2, #FAFAFA);font-size:14px;color:var(--ink-80)}
+  border-radius:0 12px 12px 0;background:var(--ground-2, #FAFAF9);font-size:14px;color:var(--ink-80)}
 
 /* ---- the sub-processors table ------------------------------------------ */
 .legal-content table{width:100%;margin:28px 0 20px;border-collapse:separate;border-spacing:0;font-size:14px;line-height:1.5;
   border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface, #fff)}
 .legal-content th{padding:14px 16px;text-align:left;vertical-align:bottom;font-size:12px;font-weight:500;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--muted);background:var(--ground-2, #FAFAFA);border-bottom:1px solid var(--line)}
+  text-transform:uppercase;color:var(--muted);background:var(--ground-2, #FAFAF9);border-bottom:1px solid var(--line)}
 .legal-content td{padding:16px;vertical-align:top;color:var(--ink-80);border-bottom:1px solid var(--line)}
 .legal-content tr:last-child td{border-bottom:0}
 .legal-content td:first-child{color:var(--ink);white-space:nowrap}

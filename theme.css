@@ -65,13 +65,13 @@
 
 :root{
   /* text */
-  --ink:#18181B;--ink-80:rgba(24,24,27,.84);--ink-60:rgba(24,24,27,.68);--ink-40:rgba(24,24,27,.52);
-  --muted:rgba(24,24,27,.64);--muted-on-dark:rgba(255,255,255,.72);
+  --ink:#1C1917;--ink-80:rgba(28,25,23,.84);--ink-60:rgba(28,25,23,.68);--ink-40:rgba(28,25,23,.52);
+  --muted:rgba(28,25,23,.64);--muted-on-dark:rgba(255,255,255,.72);
   --white:#ffffff;
 
   /* WHITE. The ground was #EEEAE3 warm cream and is now white, with
-     #FAFAFA for a section that needs to step back. Measured on
-     superpower.com: body #fff, section fills #fafafa, text rgb(24,24,27),
+     #FAFAF9 for a section that needs to step back. Measured on
+     superpower.com: body #fff, section fills #fafaf9, text rgb(28,25,23),
      which is a COOLER near-black than our #1A1916 and is what stops a
      white page reading as yellowish.
 
@@ -83,7 +83,7 @@
      The separation cream used to give is now gradients and glass, which
      is the whole point of the direction: softness from light, not from
      a tinted slab. */
-  --ground:#FFFFFF;--ground-2:#FAFAFA;--deep:#0E0E10;
+  --ground:#FFFFFF;--ground-2:#FAFAF9;--deep:#0E0E10;
 
   /* THE GRADIENTS. One warm, one cool, both very low contrast: they are
      atmosphere, not decoration, and anything a reader can name as "a
@@ -92,7 +92,7 @@
      look like a flat tint, which is what the hero did before these. */
   --wash-warm:radial-gradient(120% 90% at 15% 0%, rgba(231,207,163,.38) 0%, rgba(231,207,163,0) 58%),
               radial-gradient(90% 80% at 95% 10%, rgba(180,127,57,.18) 0%, rgba(180,127,57,0) 60%);
-  --wash-cool:radial-gradient(100% 80% at 80% 0%, rgba(24,24,27,.05) 0%, rgba(24,24,27,0) 55%);
+  --wash-cool:radial-gradient(100% 80% at 80% 0%, rgba(28,25,23,.05) 0%, rgba(28,25,23,0) 55%);
   /* On the dark islands, where the same idea has to work in reverse. */
   --wash-deep:radial-gradient(90% 70% at 20% 0%, rgba(231,207,163,.16) 0%, rgba(231,207,163,0) 55%),
               radial-gradient(80% 70% at 90% 15%, rgba(180,127,57,.14) 0%, rgba(180,127,57,0) 60%);
@@ -109,11 +109,11 @@
      something. With --ground it went dark with its own contents and the
      band painted near-black edge to edge, card and surround alike. */
   --page:#FFFFFF;
-  --surface:#FFFFFF;--surface-2:#FAFAFA;--surface-up:#FFFFFF;
+  --surface:#FFFFFF;--surface-2:#FAFAF9;--surface-up:#FFFFFF;
   /* the same ground under its older names, so existing rules resolve */
   /* ONE GROUND. These were #EEEAE3, the same value as --ground, so the page
      was a single colour and surfaces.spec's "does not band" walk passed.
-     Setting them to #FAFAFA against a white --ground reintroduced the
+     Setting them to #FAFAF9 against a white --ground reintroduced the
      banding that walk exists to catch: a section starting a shade darker
      than the body it butts against is the first thing a person notices and
      the last thing a screenshot does.
@@ -133,13 +133,13 @@
      using --sand and --gold directly, because those do not need to. */
   --gold-text:var(--gold-hover);
 
-  --line:rgba(24,24,27,.09);--line-strong:rgba(24,24,27,.16);
+  --line:rgba(28,25,23,.09);--line-strong:rgba(28,25,23,.16);
 
   /* darkened from #C4513B and #3E8A4F, which read 3.82 and 3.54 on the
      ground. These clear 4.5 on the ground and on white. */
   --red-soft:#B14935;--green-soft:#367744;
 
-  --hover-surface:#F4F4F5;--hover-border:#B47F39;
+  --hover-surface:#F5F5F4;--hover-border:#B47F39;
 
   --r-sm:12px;--r-md:16px;--r-lg:20px;--r-xl:24px;
 
@@ -159,24 +159,37 @@
   --nav-h:68px;
 }
 
+/* ---- WARM GREYS, 2026-11-13 ---------------------------------------------
+   The ramp below was Tailwind's zinc, chosen on 2026-10-20 for its cool
+   cast. The founder pointed at elevenlabs.io on 2026-11-13: a near-white
+   page whose greys are all warm (secondary text #777169, lines #EBE8E4,
+   frames #F5F3F1) and whose chrome carries no other colour. Measured, that
+   ramp is Tailwind's stone to within a digit, so the swap keeps the rule
+   that the webapp shares these values: zinc-N becomes stone-N, position for
+   position, and the webapp lane has the same mapping in
+   docs/webapp/WARM_NEUTRALS_BRIEF_2026-11-13.md. The page stays white; only
+   the text, lines and step-back surfaces change temperature. The dark
+   islands keep #0E0E10 because the hero does not move without the
+   founder's word. Founder's call: "warm both". */
 /* ---- THE SYSTEM, 2026-10-20 --------------------------------------------
    Founder-approved. The source is docs/DESIGN_SYSTEM.md in the workspace;
    this is the website's copy of its tokens, and the webapp will carry the
    same names. Three rules, and every other choice follows from them:
 
-     1. SURFACES ARE NEUTRAL. White, the zinc greys, near-black, and glass
-        in those tones. Nothing beige, cream or tan.
+     1. SURFACES ARE NEUTRAL. White, the stone greys, near-black, and glass
+        in those tones. Nothing beige, cream or tan. (The greys were
+        Tailwind's zinc until 2026-11-13; see the note above this block.)
      2. COLOUR MEANS SOMETHING. Green on track, yellow attention, red a gap,
         on small things only (dots, pills, thin lines, bars, letters), and
         never as the only signal: there is always a word or a number too.
      3. GOLD IS BLEND. Actions, the active state in Blend's own UI, the
         brand. Never a status, never a data series, never decoration.
 
-   The neutral ramp is Tailwind's zinc on purpose: the webapp is Tailwind,
+   The neutral ramp is Tailwind's STONE on purpose: the webapp is Tailwind,
    so the two products share these values without a translation table. */
 :root{
-  --n-0:#FFFFFF;--n-50:#FAFAFA;--n-100:#F4F4F5;--n-200:#E4E4E7;--n-300:#D4D4D8;--n-400:#A1A1AA;
-  --n-500:#71717A;--n-600:#52525B;--n-700:#3F3F46;--n-800:#27272A;--n-900:#18181B;--n-950:#0E0E10;
+  --n-0:#FFFFFF;--n-50:#FAFAF9;--n-100:#F5F5F4;--n-200:#E7E5E4;--n-300:#D6D3D1;--n-400:#A8A29E;
+  --n-500:#78716C;--n-600:#57534E;--n-700:#44403C;--n-800:#292524;--n-900:#1C1917;--n-950:#0E0E10;
   /* Secondary text is --n-500 on SOLID white and --n-50 only (4.8:1). On
      --n-100, on glass, over a wash -- anywhere the ground is not flat white --
      it is --n-600: --n-500 measured 4.40:1 on --n-100 and 3.9-4.4:1 over the
@@ -196,11 +209,11 @@
      pricing tiers and the FAQ until those sections are migrated. */
   --sys-glass:linear-gradient(180deg,rgba(255,255,255,.78) 0%,rgba(255,255,255,.52) 100%);
   --sys-glass-blur:blur(28px) saturate(150%);
-  --sys-glass-edge:rgba(24,24,27,.07);
+  --sys-glass-edge:rgba(28,25,23,.07);
   --sys-glass-shadow:inset 0 1px 0 rgba(255,255,255,.95);
   /* SMOKED GLASS on the white ground, for the one dark element in a light
      section: superpower's FAQ rows, grey frost with white type. */
-  --sys-smoke:rgba(24,24,27,.74);
+  --sys-smoke:rgba(28,25,23,.74);
   --sys-smoke-blur:blur(32px) saturate(140%);
   --sys-smoke-edge:rgba(255,255,255,.10);
   --sys-smoke-shadow:inset 0 1px 0 rgba(255,255,255,.10);
@@ -212,9 +225,9 @@
   /* the ground's light: three soft greys at the window's edges, top left,
      right and low, with the middle left white (body::before below) */
   --ground-light:
-    radial-gradient(48% 55% at 0% 0%, rgba(24,24,27,.06) 0%, rgba(24,24,27,0) 100%),
-    radial-gradient(42% 50% at 100% 58%, rgba(24,24,27,.05) 0%, rgba(24,24,27,0) 100%),
-    radial-gradient(55% 45% at 22% 100%, rgba(24,24,27,.04) 0%, rgba(24,24,27,0) 100%);
+    radial-gradient(48% 55% at 0% 0%, rgba(28,25,23,.06) 0%, rgba(28,25,23,0) 100%),
+    radial-gradient(42% 50% at 100% 58%, rgba(28,25,23,.05) 0%, rgba(28,25,23,0) 100%),
+    radial-gradient(55% 45% at 22% 100%, rgba(28,25,23,.04) 0%, rgba(28,25,23,0) 100%);
   --ground-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .02 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --sys-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -225,9 +238,9 @@
    its last 10%, so the section has no edge. Add `has-wash wash-neutral`. */
 .has-wash.wash-neutral::before{
   background-image:var(--sys-grain),
-    radial-gradient(30% 42% at 18% 42%, rgba(24,24,27,.07) 0%, rgba(24,24,27,0) 100%),
-    radial-gradient(28% 40% at 82% 62%, rgba(24,24,27,.06) 0%, rgba(24,24,27,0) 100%),
-    radial-gradient(36% 46% at 50% 72%, rgba(24,24,27,.045) 0%, rgba(24,24,27,0) 100%)}
+    radial-gradient(30% 42% at 18% 42%, rgba(28,25,23,.07) 0%, rgba(28,25,23,0) 100%),
+    radial-gradient(28% 40% at 82% 62%, rgba(28,25,23,.06) 0%, rgba(28,25,23,0) 100%),
+    radial-gradient(36% 46% at 50% 72%, rgba(28,25,23,.045) 0%, rgba(28,25,23,0) 100%)}
 
 /* ---- Dark islands -------------------------------------------------------
    Everything a light-theme rule reads, redefined. A component inside the
@@ -359,7 +372,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 :root{--glass-rim:5px;
   --frame-rim:rgba(255,255,255,.55);
   --frame-blur:blur(18px) saturate(140%);
-  --frame-shadow:0 0 0 1px rgba(24,24,27,.08),0 18px 44px -18px rgba(24,24,27,.16)}
+  --frame-shadow:0 0 0 1px rgba(28,25,23,.08),0 18px 44px -18px rgba(28,25,23,.16)}
 
 /* GLASS, anywhere. Light over a wash, dark over an island. */
 .glass{background:var(--glass);

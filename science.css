@@ -71,7 +71,7 @@
 .sci-verts .is-on .ph-ix-name{color:#EDE6DA}
 
 /* A tooltip, shared by the categories, the run marker and the warning. */
-.sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:#18181B;color:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.14);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
+.sci-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:5px;background:#1C1917;color:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.14);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:3}
 
 [class*="sci-"]:hover > .sci-tip,[class*="sci-"]:focus-visible > .sci-tip{opacity:1;transform:translateX(-50%) translateY(0)}
 
