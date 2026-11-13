@@ -616,11 +616,13 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    colours, the title and the line under it, inside the card. The dark tile,
    the glass and the per-step colours are gone; the drawings were made for
    a light surface and render as drawn. */
-#how .step{background:var(--n-100);border:0;border-radius:16px;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.08);padding:14px 14px 20px;overflow:hidden}
-#how .step:hover,#how .step:focus-visible{background:var(--n-100);box-shadow:inset 0 0 0 .5px rgba(28,25,23,.18);transform:none}
-#how .step-thumb{aspect-ratio:1/1;background:none;border:0;box-shadow:none;border-radius:12px;padding:6%}
-#how .step:hover .step-thumb,#how .step:focus-visible .step-thumb{border-color:transparent}
-#how .step-body{padding:14px 4px 0}
+#how .step{background:none;border:0;border-radius:0;box-shadow:none;padding:0;overflow:visible}
+#how .step:hover,#how .step:focus-visible{background:none;box-shadow:none;transform:none}
+/* the card is the picture; the title and the line stay under it, outside
+   (founder, 2026-11-13: "keep the text outside of the 6 steps") */
+#how .step-thumb{aspect-ratio:1/1;background:var(--n-100);border:1px solid transparent;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.08);border-radius:16px;padding:8%}
+#how .step:hover .step-thumb,#how .step:focus-visible .step-thumb{border-color:transparent;box-shadow:inset 0 0 0 .5px rgba(28,25,23,.18)}
+#how .step-body{padding:16px 2px 0}
 /* The drawings are square too (246 units, one per pixel at 1440), so the
    panel takes no padding of its own: the tile's 8% is the only margin. */
 /* Soft, matte glass, from the founder's reference (2026-10-20): a frosted
