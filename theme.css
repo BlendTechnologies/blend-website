@@ -94,8 +94,38 @@
               radial-gradient(90% 80% at 95% 10%, rgba(180,127,57,.18) 0%, rgba(180,127,57,0) 60%);
   --wash-cool:radial-gradient(100% 80% at 80% 0%, rgba(28,25,23,.05) 0%, rgba(28,25,23,0) 55%);
   /* On the dark islands, where the same idea has to work in reverse. */
-  --wash-deep:radial-gradient(90% 70% at 20% 0%, rgba(231,207,163,.16) 0%, rgba(231,207,163,0) 55%),
-              radial-gradient(80% 70% at 90% 15%, rgba(180,127,57,.14) 0%, rgba(180,127,57,0) 60%);
+  /* LIT GRAPHITE, 2026-11-13. One recipe for every dark surface (founder:
+     "we need to pick one direction and apply it to all dark backgrounds"):
+     the near-black base, two coloured lights, a fine white grain. Only the
+     HUE changes, and it follows a role: gold and sand where Blend speaks
+     (the hero, the trust band, the closer, the footer, the inner pages'
+     hero cards, the use-case card), the product's hue where a product is
+     shown (the tour mats, the six steps), slate where the engine runs (the
+     terminal, the how-it-works engine band). The defaults below are the
+     brand pair; an island overrides --isle-1/--isle-2 (and the positions
+     --isle-p1/--isle-p2 so no two lights sit in the same place) on itself.
+     --wash-deep is declared again on the island scopes further down, so
+     the var()s resolve on the island and not here at the root. */
+  /* three lights: a near-white HAZE in the hue (--isle-1), the hue itself
+     at mid strength (--isle-2), and the hue's SHADOW in the opposite corner
+     (--isle-3), plus a soft darkening towards the foot for the words. It is
+     the value range of the elevenlabs.io cards: coloured light on fog, not
+     spots on black. */
+  /* TWO VOLUMES. The bands (hero, trust, closer, the inner pages' hero
+     cards, the pitch) are full-bleed slabs: at card strength the gradient
+     stretches into sepia, so they take the recipe QUIET, a lit black. The
+     cards (the step tiles, the tour mats, the terminal) are frames at card
+     size and take it LOUD, where it reads as coloured light. Same shapes,
+     same grain, different alpha. */
+  --isle-1:rgba(250,240,222,.34);--isle-1b:rgba(236,190,160,.16);--isle-2:rgba(196,150,96,.28);--isle-3:rgba(30,16,8,.60);
+  --isle-p1:85% 0%;--isle-p1b:65% 25%;--isle-p2:45% 60%;--isle-p3:0% 100%;
+  --grain-deep:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --wash-deep:var(--grain-deep),
+    linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.32) 100%),
+    radial-gradient(80% 70% at var(--isle-p1), var(--isle-1) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(60% 90% at var(--isle-p1b), var(--isle-1b) 0%, rgba(0,0,0,0) 62%),
+    radial-gradient(110% 95% at var(--isle-p2), var(--isle-2) 0%, rgba(0,0,0,0) 74%),
+    radial-gradient(90% 80% at var(--isle-p3), var(--isle-3) 0%, rgba(0,0,0,0) 72%);
 
   /* GLASS, one definition. rgba fill plus a blur, no border: measured on
      superpower, the translucency does the separating and an outline on
@@ -318,6 +348,21 @@ body:has(.sc-hero) .nav:not(.scrolled){
    read('.closer', '::before') by name and says so in its own comment. That
    check exists because a colour regression of exactly this kind passed a
    screenshot suite twice before. */
+/* The recipe, resolved on each island so its own --isle-* win. Any element
+   that paints var(--wash-deep) must be in this list or inside one of them. */
+.theme-dark,.sc-hero,.hero-card,.closer,.footer,.sc-reveal,.tm,.vlead,.split-card.brand,.tour-mat,#how .step-thumb{
+  --wash-deep:var(--grain-deep),
+    linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.32) 100%),
+    radial-gradient(80% 70% at var(--isle-p1), var(--isle-1) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(60% 90% at var(--isle-p1b), var(--isle-1b) 0%, rgba(0,0,0,0) 62%),
+    radial-gradient(110% 95% at var(--isle-p2), var(--isle-2) 0%, rgba(0,0,0,0) 74%),
+    radial-gradient(90% 80% at var(--isle-p3), var(--isle-3) 0%, rgba(0,0,0,0) 72%)}
+/* slate where the engine runs */
+.tm{--isle-1:rgba(214,228,246,.80);--isle-1b:rgba(190,180,230,.40);--isle-2:rgba(86,120,168,.68);--isle-3:rgba(6,12,30,.84);--isle-p1:12% 100%;--isle-p1b:35% 78%;--isle-p2:60% 45%;--isle-p3:100% 0%}
+/* the brand bands put their haze where no words sit */
+.trust{--isle-p1:8% 0%;--isle-p1b:30% 20%;--isle-p2:70% 60%;--isle-p3:100% 100%}
+.closer,.sc-reveal{--isle-p1:92% 100%;--isle-p1b:70% 80%;--isle-p2:40% 40%;--isle-p3:0% 0%}
+.hero-card{--isle-p1:90% 0%;--isle-p1b:65% 25%;--isle-p2:45% 60%;--isle-p3:0% 100%}
 .theme-dark,.sc-hero,.closer,.footer{position:relative;isolation:isolate}
 /* NOT on .sc-hero or any .sc-reveal. Their shape is a clip-path on their own
    ::before, not a border-radius on the box, so `border-radius:inherit` here

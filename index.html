@@ -605,17 +605,15 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    slate, sage and moss, so the row reads as a journey; the product tabs
    keep their own four. Same positions as before, stronger, on a base tinted
    the same way, with the mats' grain over the top. */
-#how .step-thumb{aspect-ratio:1/1;--l1:20% 0%;--l2:90% 15%;
-  --c1:rgba(231,207,163,.36);--c2:rgba(180,127,57,.34);--c0:#1A150E;
-  background:radial-gradient(90% 70% at var(--l1), var(--c1) 0%, rgba(0,0,0,0) 60%),
-    radial-gradient(80% 70% at var(--l2), var(--c2) 0%, rgba(0,0,0,0) 62%),
-    var(--c0)}
-#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--c1:rgba(232,130,107,.32);--c2:rgba(201,104,58,.34);--c0:#1B1210}
-#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--c1:rgba(232,130,107,.26);--c2:rgba(142,74,122,.38);--c0:#191014}
-#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--c1:rgba(142,74,122,.28);--c2:rgba(60,83,112,.44);--c0:#13131E}
-#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%;--c1:rgba(143,163,184,.30);--c2:rgba(60,83,112,.40);--c0:#0F161E}
-#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%;--c1:rgba(143,160,111,.30);--c2:rgba(79,94,63,.44);--c0:#10171A}
-#how .step-thumb::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px 128px;mix-blend-mode:overlay;opacity:.55;pointer-events:none}
+#how .step-thumb{aspect-ratio:1/1;--l1:85% 0%;--l2:15% 70%;--l3:0% 8%;
+  --isle-1:rgba(252,240,214,.74);--isle-1b:rgba(244,186,150,.40);--isle-2:rgba(222,160,80,.66);--isle-3:rgba(60,30,8,.72);--c0:#4E3412;
+  --isle-p1:var(--l1);--isle-p1b:50% 30%;--isle-p2:var(--l2);--isle-p3:var(--l3);
+  background-color:var(--c0);background-image:var(--wash-deep)}
+#how .step:nth-child(2) .step-thumb{--l1:85% 100%;--l2:5% 30%;--l3:0% 0%;--isle-1:rgba(252,216,200,.72);--isle-1b:rgba(236,150,170,.40);--isle-2:rgba(214,104,80,.68);--isle-3:rgba(56,10,30,.74);--c0:#4E1E24}
+#how .step:nth-child(3) .step-thumb{--l1:50% 0%;--l2:100% 85%;--l3:0% 100%;--isle-1:rgba(244,214,236,.70);--isle-1b:rgba(236,150,170,.36);--isle-2:rgba(160,86,140,.70);--isle-3:rgba(36,10,40,.76);--c0:#44203A}
+#how .step:nth-child(4) .step-thumb{--l1:0% 85%;--l2:80% 0%;--l3:100% 100%;--isle-1:rgba(222,220,246,.70);--isle-1b:rgba(190,180,230,.40);--isle-2:rgba(110,110,176,.70);--isle-3:rgba(14,14,54,.78);--c0:#2A2C5E}
+#how .step:nth-child(5) .step-thumb{--l1:100% 25%;--l2:20% 100%;--l3:0% 0%;--isle-1:rgba(214,228,246,.70);--isle-1b:rgba(190,180,230,.38);--isle-2:rgba(90,124,172,.70);--isle-3:rgba(6,14,36,.78);--c0:#1E3A58}
+#how .step:nth-child(6) .step-thumb{--l1:30% 100%;--l2:95% 55%;--l3:0% 0%;--isle-1:rgba(232,240,210,.70);--isle-1b:rgba(200,224,180,.38);--isle-2:rgba(130,154,96,.70);--isle-3:rgba(10,30,14,.78);--c0:#2A4430}
 #how .step-thumb > *{position:relative;z-index:1}
 /* The drawings are square too (246 units, one per pixel at 1440), so the
    panel takes no padding of its own: the tile's 8% is the only margin. */
@@ -625,7 +623,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    rule: surfaces are fills a shade lighter, and only a selection gets a
    line. */
 #how .step-ui{padding:0;
-  background:rgba(255,255,255,.06);
+  background:rgba(255,255,255,.16);
   -webkit-backdrop-filter:blur(28px) saturate(120%);backdrop-filter:blur(28px) saturate(120%);
   border-color:transparent;
   box-shadow:none}
@@ -714,7 +712,7 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .split-card{padding:40px;border-radius:14px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .split-card.customers{background:var(--surface);border:1px solid var(--line)}
-.split-card.brand{background:var(--deep);color:var(--white);border:1px solid transparent}
+.split-card.brand{background-color:var(--deep);background-image:var(--wash-deep);color:var(--white);border:1px solid transparent}
 .split-pill{display:inline-flex;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;color:var(--muted)}
 .split-card.brand .split-pill{color:rgba(255,255,255,.55)}
 .split-card h3{font-size:19px;line-height:1.25;margin:14px 0 18px;max-width:440px;letter-spacing:-.018em;font-weight:500}
@@ -1150,14 +1148,14 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    blended in overlay, no image assets. */
 .tour-visual{position:relative}
 .tour-device{z-index:1}
-.tour-mat{position:absolute;inset:-28px;border-radius:calc(clamp(20px, 2.1vw, 30px) + 14px);overflow:hidden;isolation:isolate;opacity:0;transition:opacity .45s ease;pointer-events:none}
-.tour-mat::before{content:"";position:absolute;inset:-22%;filter:blur(30px);transform:scale(1.12);
-  background:radial-gradient(60% 55% at 28% 22%,var(--m1) 0%,transparent 70%),radial-gradient(55% 60% at 78% 70%,var(--m2) 0%,transparent 70%),radial-gradient(70% 70% at 60% 30%,var(--m3) 0%,transparent 75%),var(--m0)}
-.tour-mat::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px 128px;mix-blend-mode:overlay;opacity:.7}
-.tour-mat[data-step="1"]{--m0:#7A4E1C;--m1:#E7CFA3;--m2:#C9683A;--m3:#B47F39}
-.tour-mat[data-step="2"]{--m0:#5A2430;--m1:#E8826B;--m2:#8E4A7A;--m3:#B14935}
-.tour-mat[data-step="3"]{--m0:#1F2A3A;--m1:#8FA3B8;--m2:#3C5370;--m3:#2A3B52}
-.tour-mat[data-step="4"]{--m0:#3E4A35;--m1:#C9CFAE;--m2:#4F5E3F;--m3:#8FA06F}
+.tour-mat{position:absolute;inset:-28px;border-radius:calc(clamp(20px, 2.1vw, 30px) + 14px);overflow:hidden;opacity:0;transition:opacity .45s ease;pointer-events:none;
+  background-color:var(--c0);background-image:var(--wash-deep)}
+/* the product hues, on the lit-graphite recipe (2026-11-13): deep bases, the
+   product's pair of lights, the same grain as every other dark surface */
+.tour-mat[data-step="1"]{--c0:#6A4518;--isle-1:rgba(252,240,214,.86);--isle-1b:rgba(244,186,150,.46);--isle-2:rgba(222,160,80,.74);--isle-3:rgba(60,30,8,.66);--isle-p1:20% 0%;--isle-p1b:45% 20%;--isle-p2:60% 55%;--isle-p3:100% 100%}
+.tour-mat[data-step="2"]{--c0:#6A2430;--isle-1:rgba(252,216,200,.84);--isle-1b:rgba(236,150,170,.46);--isle-2:rgba(214,104,80,.76);--isle-3:rgba(56,10,30,.70);--isle-p1:80% 0%;--isle-p1b:55% 20%;--isle-p2:45% 55%;--isle-p3:0% 100%}
+.tour-mat[data-step="3"]{--c0:#22406A;--isle-1:rgba(214,228,246,.82);--isle-1b:rgba(190,180,230,.44);--isle-2:rgba(90,124,172,.74);--isle-3:rgba(6,14,36,.76);--isle-p1:15% 100%;--isle-p1b:35% 70%;--isle-p2:55% 45%;--isle-p3:95% 0%}
+.tour-mat[data-step="4"]{--c0:#2E4A2C;--isle-1:rgba(232,240,210,.82);--isle-1b:rgba(200,224,180,.42);--isle-2:rgba(130,154,96,.76);--isle-3:rgba(10,30,14,.76);--isle-p1:85% 100%;--isle-p1b:60% 70%;--isle-p2:50% 50%;--isle-p3:10% 0%}
 .tour[data-step="1"] .tour-mat[data-step="1"],.tour[data-step="2"] .tour-mat[data-step="2"],.tour[data-step="3"] .tour-mat[data-step="3"],.tour[data-step="4"] .tour-mat[data-step="4"]{opacity:1}
 /* the dot: beside the step's name, in the step's hue */
 .num-pill:nth-child(1){--dot:#C9A26A}.num-pill:nth-child(2){--dot:#C9684F}.num-pill:nth-child(3){--dot:#5F7A99}.num-pill:nth-child(4){--dot:#7E8F62}
@@ -1332,6 +1330,10 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .vlead-photo{position:absolute;inset:0;z-index:0;pointer-events:none;
   background:url(/images/daily-energy-blend-front.jpg) right center / auto 104% no-repeat;
   transform-origin:72% 50%;transition:transform .55s cubic-bezier(.2,.7,.25,1)}
+/* the brand lights and grain over the photo, under the words (2026-11-13) */
+.vlead::after{content:"";position:absolute;inset:0;z-index:1;background-image:var(--wash-deep);pointer-events:none;border-radius:inherit}
+.vlead > *{position:relative;z-index:2}
+.vlead > .vlead-photo{z-index:0}
 .vlead:hover .vlead-photo{transform:scale(1.08)}
 @media (prefers-reduced-motion:reduce){.vlead-photo{transition:none}.vlead:hover .vlead-photo{transform:none}}
 /* Directional, not a flat wash: opaque where the words are, gone by the time
@@ -2614,6 +2616,8 @@ section[id^="step-"]{scroll-margin-top:var(--nav-h)}
   -webkit-backdrop-filter:var(--frame-blur);backdrop-filter:var(--frame-blur);
   border-color:var(--frame-rim);
   box-shadow:var(--frame-shadow)}
+/* the engine, lit slate on the one recipe (2026-11-13); after the shorthand above */
+#science .tm{background-color:#1B2D48;background-image:var(--wash-deep)}
 #science .tm-k{color:var(--t-dim)}
 #science .tm-line.is-short .tm-f,#science .tm-line.is-short .tm-s{color:var(--t-short)}
 #science .tm-line.is-ok .tm-s{color:rgba(74,222,128,.85)}
