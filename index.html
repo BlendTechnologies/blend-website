@@ -1010,10 +1010,27 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
 .trust-k{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;line-height:1.15;white-space:nowrap}
 .trust-s{font-size:9px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.2}
 .trust-p{margin:44px auto 0;max-width:620px;font-size:15px;line-height:1.6;color:var(--muted-on-dark);text-wrap:balance}
-/* Edge to edge and square on a phone, as the end card is (scroll-cards.css):
-   a card 24px off every edge reads as one more card in the page. */
-@media(max-width:560px){.trust{margin:0;border-radius:0;padding:64px 20px}.trust > .wrap{padding:0}.trust-badges{gap:14px}.trust-badge{width:104px;height:104px}.trust-p{margin-top:36px}}
 @media(max-width:860px){.trust{padding:72px 24px}}
+/* A card on a phone too, as the end card is again (scroll-cards.css, website
+   #193): 24px off each side and a 24px corner from the island tokens, the
+   text starting where the end card's does. It ran edge to edge from
+   2026-10-31 so that three 104px badges could share one row; at 375 they
+   wrapped anyway. The badges now take what the row has, 104px at 430, 94 at
+   390, 89 at 375, and their labels scale with them (container units), so
+   the three stay on one row at every phone width (founder, 2026-11-14:
+   "what about personalisation built for sensitive data?"; validated).
+   Below 104px the seal scales as one drawing: emblem, inner ring, gaps and
+   both labels in container units, so a smaller seal is the same seal. The
+   lower labels sat on their rings even at 104 ("Registered" on the ICO ring
+   text, "EU hosting" on its inner ring): the stack lifts 3px, the small
+   label is 8.5px, the name 10.6px with .02em tracking, measured clear at
+   375, 390 and 430. The 860 rule above comes first so this padding wins. */
+@media(max-width:560px){.trust{padding:64px 20px}.trust > .wrap{padding:0}.trust-badges{gap:10px}
+  .trust-badge{width:auto;height:auto;flex:0 0 clamp(86px,calc((100% - 20px)/3),104px);aspect-ratio:1/1;container-type:inline-size;padding-bottom:6px;gap:min(3px,2.9cqw)}
+  .trust-badge::before{inset:min(5px,4.8cqw)}
+  .trust-badge .trust-em{width:min(22px,21.2cqw);height:auto;margin-bottom:min(5px,4.8cqw)}
+  .trust-badge .trust-map{width:min(44px,42.3cqw);margin-bottom:min(7px,6.7cqw)}
+  .trust-k{font-size:min(10.6px,10.2cqw);letter-spacing:.02em}.trust-s{font-size:min(8.5px,8.2cqw)}.trust-p{margin-top:36px}}
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
 .faq-item > summary{padding:20px 4px;font-size:16px;font-weight:500;color:var(--ink);cursor:pointer;list-style:none;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;letter-spacing:-.005em;transition:color .18s ease}
@@ -2806,7 +2823,6 @@ a.vrow:hover,a.vrow:focus-visible{
 .trust{width:calc(100% - 2 * var(--sc-inset));max-width:calc(var(--content) - 64px);margin-left:auto;margin-right:auto}
 @media(max-width:560px){
   #how .section-head{text-align:center;margin-left:auto;margin-right:auto}
-  .trust{width:100%;max-width:none;margin:0}
 }
 </style>
 <script>
