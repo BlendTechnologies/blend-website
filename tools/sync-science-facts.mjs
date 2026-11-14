@@ -174,23 +174,6 @@ ${goals.length > SHOWN ? `      <button type="button" class="sci-goalmore" data-
    This is the only thing left on the page that reads the real trace. */
 const steps = trace.steps;
 
-/* ---- 2b. what the engine does, in three lines -------------------------------
-   The only plain-language explanation on the page, and the only part that
-   describes the walkthrough in words rather than in motion. Deliberately
-   short: no formula, no threshold, no scoring rule. */
-const STEPS = [
-  ['Understand the customer', 'Their answers describe their goals, preferences and relevant health information.'],
-  ['Assess the catalogue', 'Blend scores products against their profile and applies safety checks.'],
-  ['Explain the recommendations', 'The customer receives a personalised plan with a reason for each recommendation.'],
-];
-const steps3 = `<section class="sci-sec sci-steps-sec" id="how">
-  <div class="wrap">
-    <ol class="sci-steps sci-in">
-${STEPS.map(([t, d], i) => `      <li><h3>${pad(i + 1)}. ${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n')}
-    </ol>
-  </div>
-</section>`;
-
 /* ---- 3. the terminal -------------------------------------------------------
    One dark terminal that runs for the whole walkthrough: a log scrolling up
    the left, the catalogue as a pixel matrix on the right, a heading and one
@@ -240,6 +223,22 @@ const ticks = STAGE_NAMES.map(([n], i) =>
   `<button type="button" class="tm-tick" data-goto="${i}" aria-label="${esc(n)}"${i === 6 ? ' aria-current="step"' : ''}></button>`).join('');
 const heads = STAGE_NAMES.map(([n, say], i) =>
   `<span class="tm-head" data-head="${i}"${i === 6 ? '' : ' hidden'}><b>${n}</b>${say}</span>`).join('');
+
+/* ---- 2b. the seven stages, as the walkthrough's legend --------------------
+   Under the terminal, in its own stage names. The homepage says the three
+   things the engine does under the same terminal; this page names the seven
+   stages the run above goes through, so the two pages stop repeating each
+   other (founder, 2026-11-14). Names only: the sentence for each stage is
+   what the terminal's caption says while that stage runs ("looks a bit
+   crowded"). Each is a button that takes the run to its stage, and the
+   running one is lit (science.js). */
+const steps3 = `<section class="sci-sec sci-steps-sec" id="how">
+  <div class="wrap">
+    <ol class="sci-stages sci-in" aria-label="The seven stages">
+${STAGE_NAMES.map(([n], i) => `      <li><button type="button" class="sci-stage" data-stage="${i}"><span class="sci-stage-n">${pad(i + 1)}</span><span class="sci-stage-t">${n}</span></button></li>`).join('\n')}
+    </ol>
+  </div>
+</section>`;
 
 const run = `<section class="sci-sec" id="run">
   <div class="wrap">

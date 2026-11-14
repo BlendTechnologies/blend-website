@@ -285,12 +285,36 @@ button.sci-goalmore:focus-visible{outline:2px solid var(--gold);outline-offset:2
    Under the walkthrough: the motion shows it, these say it. Three columns on
    a wide screen, a sequence on a narrow one, no enclosing cards. */
 .sci-steps-sec{--sec:clamp(52px,5.5vw,76px)}
-.sci-steps{list-style:none;margin:0 auto;padding:0;max-width:1060px;display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,3.5vw,52px)}
-.sci-steps li{display:flex;flex-direction:column;gap:7px;padding-top:17px;
-  border-top:1px solid var(--line)}
-.sci-steps h3{margin:0;font-size:16px;font-weight:500;letter-spacing:-.012em;color:var(--ink)}
-.sci-steps p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
-@media (max-width:760px){
-  .sci-steps{grid-template-columns:minmax(0,1fr);gap:22px}
+/* The seven stages as the walkthrough's legend: number and name only, 28px
+   under the terminal as the homepage's three steps are under theirs, inset
+   to the terminal's padding so the seven stand under the seven stage ticks.
+   As the run reaches a stage its name is lit and a gold rule fills its
+   hairline, the way the homepage lights its three; the others dim while a
+   run plays and are at full strength before one starts. Each is a button:
+   it takes the run to that stage. Seven across at desktop, four at tablet
+   (four and three), two on a phone. */
+.sci-stages{list-style:none;margin:28px auto 0;padding:0 22px;display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));gap:clamp(12px,1.4vw,22px)}
+.sci-stages li{position:relative;border-top:1px solid var(--line)}
+.sci-stages li::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;border-radius:2px;
+  background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s cubic-bezier(.2,.7,.25,1)}
+.sci-stages li.is-on::before{transform:scaleX(1)}
+.sci-stage{display:flex;flex-direction:column;gap:5px;width:100%;margin:0;padding:12px 0 2px;border:0;border-radius:4px;
+  background:none;font:inherit;text-align:left;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none}
+.sci-stage-n{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-60)}
+.sci-stage-t{font-size:13.5px;line-height:1.3;font-weight:500;letter-spacing:-.01em;transition:color .3s ease}
+.sci-stages.is-live li:not(.is-on) .sci-stage-t{color:var(--ink-40)}
+.sci-stage:hover .sci-stage-t{color:var(--ink)}
+.sci-stage:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+@media (max-width:1000px){
+  .sci-stages{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:20px}
+}
+@media (max-width:860px){
+  .sci-stages{padding:0 16px}  /* the terminal's own inset narrows here */
+}
+@media (max-width:560px){
+  .sci-stages{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .sci-stages li::before,.sci-stage-t{transition:none}
 }
