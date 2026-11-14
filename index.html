@@ -1151,6 +1151,11 @@ button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
    and the crossfade between steps is the rim changing colour. */
 .tour-device{border-color:transparent}
 .tour-frame{z-index:1}
+/* and the five cards stay on top of the screen they detach from: lifting the
+   frame over the mats had put them under it, so each showed only the part
+   that stood past the frame's edge (founder, 2026-11-14: "there's a bug
+   here"). Mats 0, frame 1, cards 2, all inside the device's own stack. */
+.tour-bit{z-index:2}
 .tour-mat{position:absolute;inset:calc(-1 * var(--glass-rim));z-index:0;border-radius:clamp(20px, 2.1vw, 30px);overflow:hidden;opacity:0;transition:opacity .45s ease;pointer-events:none;
   background-color:var(--c0);background-image:var(--wash-deep)}
 /* the product hues, on the lit-graphite recipe (2026-11-13): deep bases, the
