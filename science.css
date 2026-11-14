@@ -280,17 +280,3 @@ button.sci-goalmore:focus-visible{outline:2px solid var(--gold);outline-offset:2
 
 .sci-legal{display:block;margin-top:8px;font-size:12.5px;color:var(--ink-60)}
 
-
-/* ---- what the engine does, in three lines -------------------------------
-   Under the walkthrough: the motion shows it, these say it. Three columns on
-   a wide screen, a sequence on a narrow one, no enclosing cards. */
-.sci-steps-sec{--sec:clamp(52px,5.5vw,76px)}
-.sci-steps{list-style:none;margin:0 auto;padding:0;max-width:1060px;display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,3.5vw,52px)}
-.sci-steps li{display:flex;flex-direction:column;gap:7px;padding-top:17px;
-  border-top:1px solid var(--line)}
-.sci-steps h3{margin:0;font-size:16px;font-weight:500;letter-spacing:-.012em;color:var(--ink)}
-.sci-steps p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-80)}
-@media (max-width:760px){
-  .sci-steps{grid-template-columns:minmax(0,1fr);gap:22px}
-}

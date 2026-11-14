@@ -174,29 +174,19 @@ ${goals.length > SHOWN ? `      <button type="button" class="sci-goalmore" data-
    This is the only thing left on the page that reads the real trace. */
 const steps = trace.steps;
 
-/* ---- 2b. what the engine does, in three lines -------------------------------
-   The only plain-language explanation on the page, and the only part that
-   describes the walkthrough in words rather than in motion. Deliberately
-   short: no formula, no threshold, no scoring rule. */
-const STEPS = [
-  ['Understand the customer', 'Their answers describe their goals, preferences and relevant health information.'],
-  ['Assess the catalogue', 'Blend scores products against their profile and applies safety checks.'],
-  ['Explain the recommendations', 'The customer receives a personalised plan with a reason for each recommendation.'],
-];
-const steps3 = `<section class="sci-sec sci-steps-sec" id="how">
-  <div class="wrap">
-    <ol class="sci-steps sci-in">
-${STEPS.map(([t, d], i) => `      <li><h3>${pad(i + 1)}. ${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n')}
-    </ol>
-  </div>
-</section>`;
-
 /* ---- 3. the terminal -------------------------------------------------------
    One dark terminal that runs for the whole walkthrough: a log scrolling up
    the left, the catalogue as a pixel matrix on the right, a heading and one
    sentence above them that hold still long enough to read, and seven stage
    ticks. The terminal does not restart between stages; only what it is
    printing changes.
+
+   Nothing sits under it. The three steps that used to follow (and the
+   seven-stage legend proposed in their place) said in a second voice what
+   the heading and sentence above the log already say for the stage that is
+   running (founder, 2026-11-14: "there's already an explanatory text with
+   title inside the box"). The homepage keeps its three steps; here the
+   terminal is its own caption.
 
    PRESENTATION DATA ONLY. The log lines are generated in science.js from
    small pools of illustrative text. No score, weight, threshold or mapping
@@ -474,7 +464,7 @@ for (const key of Object.keys(PUBLIC_V)) {
 
 const data = `<script type="application/json" id="sci-data">${JSON.stringify({ verticals: PUBLIC_V, trace: { customer: trace.customer, counts: trace.counts } }).replace(/</g, '\\u003c')}</script>`;
 
-const body = [hero, run, steps3, productsSec, covers, safety, markets, cta, data].join('\n\n');
+const body = [hero, run, productsSec, covers, safety, markets, cta, data].join('\n\n');
 
 /* ---- splice ------------------------------------------------------------------ */
 let page = readFileSync(PAGE, 'utf8');
