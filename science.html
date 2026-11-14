@@ -952,13 +952,11 @@ body{background:var(--ground)}
    (validated 2026-11-01). */
 @media(max-width:860px){#run{padding-top:80px}.sci-sec{padding-bottom:120px}.footer{padding-top:80px}}
 @media(max-width:560px){#run{padding-top:72px}.sci-sec{padding-bottom:96px}.footer{padding-top:96px}}
-/* The three steps are the walkthrough's caption, not a section of their own
-   (founder, 2026-11-14: "here the gap is larger"): on the homepage the same
-   three lines sit 28px under the same terminal, here they sat a full section
-   gap away. The run's section gives up its bottom padding and the steps take
-   the homepage's 28px; the 144 stays below them, before the products. */
+/* The stages under the terminal are its caption, not a section of their own
+   (founder, 2026-11-14: "here the gap is larger"): the run's section gives
+   up its bottom padding, the legend takes the homepage's 28px (science.css),
+   and the 144 stays below it, before the products. */
 #run{padding-bottom:0}
-.sci-steps{margin-top:28px}
 </style>
 </head>
 <body>
@@ -1050,10 +1048,14 @@ body{background:var(--ground)}
 
 <section class="sci-sec sci-steps-sec" id="how">
   <div class="wrap">
-    <ol class="sci-steps sci-in">
-      <li><h3>01. Understand the customer</h3><p>Their answers describe their goals, preferences and relevant health information.</p></li>
-      <li><h3>02. Assess the catalogue</h3><p>Blend scores products against their profile and applies safety checks.</p></li>
-      <li><h3>03. Explain the recommendations</h3><p>The customer receives a personalised plan with a reason for each recommendation.</p></li>
+    <ol class="sci-stages sci-in" aria-label="The seven stages">
+      <li><button type="button" class="sci-stage" data-stage="0"><span class="sci-stage-n">01</span><span class="sci-stage-t">Reading the signals</span></button></li>
+      <li><button type="button" class="sci-stage" data-stage="1"><span class="sci-stage-n">02</span><span class="sci-stage-t">Estimating intakes</span></button></li>
+      <li><button type="button" class="sci-stage" data-stage="2"><span class="sci-stage-n">03</span><span class="sci-stage-t">Determining targets</span></button></li>
+      <li><button type="button" class="sci-stage" data-stage="3"><span class="sci-stage-n">04</span><span class="sci-stage-t">Calculating gaps</span></button></li>
+      <li><button type="button" class="sci-stage" data-stage="4"><span class="sci-stage-n">05</span><span class="sci-stage-t">Scoring the catalogue</span></button></li>
+      <li><button type="button" class="sci-stage" data-stage="5"><span class="sci-stage-n">06</span><span class="sci-stage-t">Applying safety checks</span></button></li>
+      <li><button type="button" class="sci-stage" data-stage="6"><span class="sci-stage-n">07</span><span class="sci-stage-t">Building the personalised plan</span></button></li>
     </ol>
   </div>
 </section>

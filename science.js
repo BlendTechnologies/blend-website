@@ -54,6 +54,32 @@
 
   /* An index on everything that arrives in order, so one rule can stagger
      a list of any length without a nth-child for each position. */
+  /* The legend under the walkthrough: the seven stages, each lit as the run
+     reaches it (the card tells its stage on 'tm-stage', as the homepage's
+     three steps listen for), and each a button that takes the run to that
+     stage through the card's own tick. */
+  (function legend() {
+    var card = $('#run [data-term]'), list = $('#how .sci-stages');
+    if (!card || !list) return;
+    var items = $$('li', list), ticks = $$('.tm-tick', card);
+    list.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-stage]') : null;
+      if (!b) return;
+      var t = ticks[+b.getAttribute('data-stage')];
+      if (t) t.click();
+    });
+    if (reduce) return;
+    card.addEventListener('tm-stage', function (e) {
+      var k = e.detail && e.detail.stage;
+      if (typeof k !== 'number') return;
+      list.classList.add('is-live');
+      items.forEach(function (li, i) {
+        li.classList.toggle('is-on', i === k);
+        li.classList.toggle('is-done', i < k);
+      });
+    });
+  })();
+
   (function order() {
     $$('.sci-goalgrid').forEach(function (grid) {
       $$('.sci-goalname', grid).forEach(function (el, i) { el.style.setProperty('--i', i); });
