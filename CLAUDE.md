@@ -381,6 +381,7 @@ both engines, and across a sweep of widths, not at three.
 - `node tools/check-css-shape.mjs`
 - `node tools/check-dashes.mjs`
 - `node tools/check-product-facts.mjs`
+- `node tools/refresh.mjs --check`
 - `python3 ../../tools/check_british_english.py`
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`
 
@@ -388,6 +389,54 @@ All but the last now also run in CI on every PR (`.github/workflows/checks.yml`)
 They used to be this list alone, and the site drifted anyway: it claimed "30+
 product attributes" about *scoring* while `/science` said 25, and an outside
 reviewer found it before we did. A list of commands is not a gate.
+
+## The borrowed pieces: sources.json and tools/refresh.mjs
+
+About two dozen pieces of this site are somebody else's: figures the engine
+computes, screens of the webapp rebuilt in code, reports the engine returned,
+and sample data invented to look like either. `sources.json` names every one
+of them, with where it sits (an anchor in the markup), where its truth lives
+(paths in the workspace), how it is refreshed, and when it last was. Until
+2026-11-15 no such list existed, so nobody could say what was stale: the trace
+export had grown for a month and the only check compared the page with the
+page's own copy of it.
+
+- `node tools/refresh.mjs --check` holds the manifest to the pages and runs in
+  CI: every anchor must exist, and every film, tour screen and drawn report on
+  the pages must be named. A piece removed from a page comes out of the
+  manifest in the same PR.
+- `node tools/refresh.mjs --report` needs the workspace (walked up to, or
+  `BLEND_OS`, or `--workspace`). It regenerates the exports into a staged copy,
+  compares them with the copies here, asks git what moved under every other
+  piece's sources since it was refreshed, checks the facts the site states
+  (enum counts, strings, values in the exports, an address answering) and
+  prints four parts: changed automatically, needs a hand, not measured, nothing
+  moved. Commits under a piece's sources are informational when every fact it
+  states still holds or its regenerated output is identical.
+- `node tools/refresh.mjs` does the same and writes: the fresh exports, the
+  regenerated page, the vendored facts, and stamps `last_refreshed` on what it
+  rewrote. It refuses a workspace checkout that is behind or dirty under the
+  sources, because the exporters read files and the shared checkout is usually
+  on a feature branch (2026-11-15: 197 commits behind under the engine and the
+  webapp). Run it from a worktree at `origin/main`.
+- `node tools/refresh.mjs --stamp <id,id>` records a refresh done by hand (a
+  redraw, a re-typed figure) at today's date and the workspace's HEAD. Never
+  edit the dates by hand.
+
+**A probe that reports nothing is a broken probe until proven otherwise.** Each
+generated piece lists `sanity` paths; a fresh export that is empty or less than
+half the site's copy at one of them is reported as not measured and nothing of
+it is written. On the first run against main the trace exporter read a
+catalogue of 7 products where the site's run has 51 and recommended none; that
+was the catalogue it was handed, not the engine. The engine's tenant store
+reads `data/clients/tenants/<tenant>/catalog.json`, which is gitignored, so a
+worktree needs a copy of it; `data/tenants/<tenant>/` is a seven-entry test
+fixture and the wrong one.
+
+Nothing here decides what the site should say. The report says what moved; the
+founder decides on desktop, as always. The drawn screens cannot be regenerated:
+for those the report names the commits under the components they mirror, and
+the call is leave it, redraw what the diff names, or replace it with a capture.
 
 ## Figures the engine owns
 

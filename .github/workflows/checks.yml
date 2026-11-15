@@ -61,3 +61,10 @@ jobs:
       # checker says so and compares against the vendored copy.
       - name: Governed figures match PRODUCT_FACTS
         run: node tools/check-product-facts.mjs
+
+      # sources.json names every borrowed piece on the site and where it sits.
+      # Every anchor must exist on its page, and every film, tour screen and
+      # drawn report on the pages must be named. The workspace side of the
+      # same tool (--report) runs where the workspace is, not here.
+      - name: The manifest of borrowed pieces agrees with the pages
+        run: node tools/refresh.mjs --check
