@@ -402,12 +402,50 @@ both engines, and across a sweep of widths, not at three.
 - `node tools/check-product-facts.mjs`
 - `node tools/refresh.mjs --check`
 - `python3 ../../tools/check_british_english.py`
+- or all of the above in one go, plus a fresh regeneration: `node tools/update.mjs` (see "One command")
 - the visual-diff suite in the workspace: `cd ../../tools/visual-diff && npm run check`
 
 All but the last now also run in CI on every PR (`.github/workflows/checks.yml`).
 They used to be this list alone, and the site drifted anyway: it claimed "30+
 product attributes" about *scoring* while `/science` said 25, and an outside
 reviewer found it before we did. A list of commands is not a gate.
+
+## One command: tools/update.mjs
+
+Founder, 2026-11-15: "What I asked is for you to be able to update everything
+with one command." This is it:
+
+```
+node tools/update.mjs
+```
+
+From any website checkout, with the workspace above it (or `BLEND_OS`). It
+fetches and makes a fresh website branch `chore/site-update-<date>` at
+`origin/main` under the workspace's `.claude/worktrees/`; makes a detached
+workspace checkout at `origin/main` beside it and copies the demo tenant's
+gitignored catalogue in; runs `tools/refresh.mjs` against it (the science
+exports and page, the product facts, written and stamped; the stated facts
+checked; the commits under every drawn piece listed); runs
+`tools/replay-sample-report.mjs --write` (three real submissions on the demo,
+the three reports and transcripts redrawn, stamped); runs every check in the
+before-merging list and the British English check on what changed; prints
+what changed, what needs a hand, what was not measured, and where the branch
+is; removes the workspace checkout. `--report` measures and writes nothing
+(no submission either: the replay plans and re-reads the recorded pages).
+`--no-replay` leaves the reports alone; `--here` runs in the current checkout;
+`--keep-workspace` keeps the workspace checkout for a look.
+
+What it cannot do, and says so each time: the tour screens, films, step
+tiles, hero and terminals are drawn by hand. For those it lists the commits
+under the components they mirror since they were drawn, and the call is a
+person's: leave, redraw what the diff names, or replace with a capture. A
+capture rig over the seeded demo brand's dashboard would make them
+regenerable; it needs the webapp lane and a credential this repository does
+not hold. Two sources of truth, named in its output: the science page reads
+the engine at main, the sample reports read the live demo.
+
+Nothing it writes ships by itself. The branch is shown to the founder on
+desktop at 1440 first; the PR comes after.
 
 ## The borrowed pieces: sources.json and tools/refresh.mjs
 
