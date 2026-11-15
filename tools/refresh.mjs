@@ -236,7 +236,7 @@ function traceSummary(was, now) {
 
 function genScience(ws) {
   const exp = mkdtempSync(join(tmpdir(), 'blend-exports-')); tmp.push(exp);
-  const py = f => join(ws, 'algorithms', 'personalization', 'tools', f);
+  const py = f => join(ws, 'algorithms/personalization/tools', f);
   const res = {
     facts: run('python3', [py('export_science_facts.py'), '--out-dir', exp], { cwd: ws }),
     trace: run('python3', [py('export_engine_trace.py'), '--out-dir', exp], { cwd: ws }),
