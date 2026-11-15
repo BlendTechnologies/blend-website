@@ -1,0 +1,1033 @@
+{
+  "_": "Every piece of this site that is borrowed from somewhere else: a figure the engine computes, a screen of the webapp rebuilt in code, a report the engine returned, sample data invented to look like either. For each: where it sits, where its truth lives, how it is refreshed, and when it last was. tools/refresh.mjs reads this; --check holds it to the pages in CI, --report says what has moved in the sources since each piece was refreshed, and a plain run regenerates what has a generator. Edit the dates with --stamp, not by hand. Commits under a piece's sources are informational when every fact it states still holds or when its regenerated output is identical; they call for a hand otherwise.",
+  "_kinds": {
+    "ui": {
+      "generated": "the markup is written by a tool from an export",
+      "drawn": "the markup was rebuilt by hand from screenshots of the product",
+      "none": "prose or data only"
+    },
+    "data": {
+      "generated": "written by a tool from the engine or the workspace, never typed",
+      "replayed": "the engine's real output for one request, vendored with the request",
+      "copied": "typed by hand from a source that exists; goes stale when the source moves",
+      "invented": "sample data with no source; stale only when the product changes shape",
+      "live": "fetched when the page is viewed; nothing is vendored"
+    }
+  },
+  "_fact_kinds": {
+    "enum-count": "the number of members of a z.enum in a webapp file on origin/main equals `expect`",
+    "contains": "a webapp file on origin/main still carries each string in `texts`",
+    "export": "a value read from a fresh engine export (`from`: science-facts or engine-trace) at `path` equals `expect`; `reduce` may be length or sum-lengths; [*] maps over an array",
+    "url": "the address answers 200"
+  },
+  "pieces": [
+    {
+      "id": "science-facts",
+      "page": "science.html",
+      "what": "The whole of /science between the science:body markers: the counts, every goal by name, the attributes, the safety checks by group, the three market reference sets, the food model's sources. Written from blend-mockups/science/science-facts.json.",
+      "ui": "generated",
+      "data": "generated",
+      "anchors": [
+        {
+          "page": "science.html",
+          "contains": "<!-- science:body -->"
+        },
+        {
+          "page": "blend-mockups/science/science-facts.json",
+          "contains": "\"_generated_by\": \"algorithms/personalization/tools/export_science_facts.py\""
+        }
+      ],
+      "sources": [
+        "algorithms/personalization/tools/export_science_facts.py",
+        "algorithms/personalization/data",
+        "algorithms/personalization/v1_layers",
+        "algorithms/personalization/taxonomy",
+        "algorithms/personalization/engine",
+        "algorithms/personalization/api.py"
+      ],
+      "generator": "science",
+      "refresh": "node tools/refresh.mjs (runs export_science_facts.py in the workspace, copies the export in, runs sync-science-facts.mjs)",
+      "checked_by": "node tools/sync-science-facts.mjs --check, in this repository's CI: refuses a page that disagrees with the export. Nothing in CI compares the export with the engine; that is what --report is for.",
+      "last_refreshed": {
+        "date": "2026-10-16",
+        "workspace_commit": null,
+        "note": "website #105. The workspace commit the export was read at was not recorded; from now on it is."
+      },
+      "sanity": [
+        "verticals.health.counts.products_audited.value",
+        "verticals.health.counts.safety_checks.value",
+        "verticals.health.counts.goals.value",
+        "verticals.health.goals"
+      ]
+    },
+    {
+      "id": "science-trace",
+      "page": "science.html",
+      "what": "Isabel's real run: the counts in the hero of the run section (51 scored, 30 passed, 5 recommended), the checks marked as having fired in the safety section, and the customer and counts embedded in #sci-data. Written from blend-mockups/science/engine-trace.json.",
+      "ui": "generated",
+      "data": "generated",
+      "anchors": [
+        {
+          "page": "science.html",
+          "contains": "id=\"sci-data\""
+        },
+        {
+          "page": "blend-mockups/science/engine-trace.json",
+          "contains": "\"_generated_by\": \"algorithms/personalization/tools/export_engine_trace.py\""
+        }
+      ],
+      "sources": [
+        "algorithms/personalization/tools/export_engine_trace.py",
+        "algorithms/personalization/tools/build_persona.py",
+        "algorithms/personalization/api.py",
+        "algorithms/personalization/v1_layers",
+        "algorithms/personalization/engine",
+        "algorithms/personalization/data"
+      ],
+      "source_note": "The run is against the Blend demo tenant's catalogue on disk, which the engine's tenant store reads from algorithms/personalization/data/clients/tenants/<tenant>/catalog.json (the path that is the Render disk in production). It is gitignored: a change to it moves the run and shows in no git log, the exporter cannot run where it is absent, and a worktree needs a copy. Do not confuse it with data/tenants/<tenant>/, a seven-entry test fixture that made the first run against main report 7 products and no plan.",
+      "generator": "science",
+      "refresh": "node tools/refresh.mjs (runs export_engine_trace.py in the workspace, copies the export in, runs sync-science-facts.mjs)",
+      "checked_by": "node tools/sync-science-facts.mjs --check, in this repository's CI.",
+      "last_refreshed": {
+        "date": "2026-10-15",
+        "workspace_commit": null,
+        "note": "website #101. A request to the algorithm lane for a regenerated run with the whole scored pool is open (workspace docs/algo-lane-engine-page-run-2026-11-14.md)."
+      },
+      "sanity": [
+        "catalogue.products",
+        "counts.scored",
+        "counts.passed_the_checks",
+        "counts.recommended",
+        "steps[6].picks",
+        "steps[5].removed",
+        "steps[4].top_candidates"
+      ]
+    },
+    {
+      "id": "product-facts",
+      "page": "product-facts.json",
+      "what": "The governed figures vendored from the workspace's PRODUCT_FACTS.md: attributes the scorer reads, safety gates, the signal floor and ceiling. check-product-facts.mjs holds every page's prose and structured data to them.",
+      "ui": "none",
+      "data": "generated",
+      "anchors": [
+        {
+          "page": "product-facts.json",
+          "contains": "\"_source\": \"PRODUCT_FACTS.md"
+        }
+      ],
+      "sources": [
+        "PRODUCT_FACTS.md"
+      ],
+      "generator": "product-facts",
+      "refresh": "node tools/refresh.mjs (runs sync-product-facts.mjs against the workspace)",
+      "checked_by": "node tools/check-product-facts.mjs, in CI; it also compares the vendored copy with the markdown whenever the workspace is reachable.",
+      "last_refreshed": {
+        "date": "2026-10-17",
+        "workspace_commit": null,
+        "note": "website #113."
+      },
+      "sanity": [
+        "facts"
+      ]
+    },
+    {
+      "id": "governed-claims",
+      "page": "index.html, use-cases/*.html",
+      "what": "The sentences that state what the engine scores and checks: 25 product attributes, 17 safety gates, up to 64 personalised inputs, 16 always asked. In the FAQ, the JSON-LD, the use-case articles.",
+      "ui": "none",
+      "data": "copied",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "25 product attributes"
+        },
+        {
+          "page": "use-cases/supplement-brands.html",
+          "contains": "17 safety gates"
+        }
+      ],
+      "sources": [
+        "PRODUCT_FACTS.md"
+      ],
+      "refresh": "By hand, where check-product-facts.mjs points.",
+      "checked_by": "node tools/check-product-facts.mjs, in CI: a claim about scoring or safety has to carry the governed number.",
+      "last_refreshed": {
+        "date": "2026-10-17",
+        "workspace_commit": null,
+        "note": "The day the checker arrived and the claims were made to agree."
+      },
+      "commits_are_informational": "check-product-facts.mjs holds every page to product-facts.json in CI, and the product-facts piece says whether that copy still matches the markdown; a commit to PRODUCT_FACTS.md on its own is not a reason to touch the pages."
+    },
+    {
+      "id": "countries-claim",
+      "page": "index.html",
+      "what": "The FAQ's sentence that the engine ships nutrient requirements for 30 countries: the US and Canada, the UK, and the 27 EU member states.",
+      "ui": "none",
+      "data": "copied",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "30 countries"
+        }
+      ],
+      "sources": [
+        "algorithms/personalization/data/market_rdi_overlays.json",
+        "algorithms/personalization/tools/export_science_facts.py"
+      ],
+      "facts": [
+        {
+          "kind": "export",
+          "from": "science-facts",
+          "path": "verticals.health.countries.reference_sets[*].countries",
+          "reduce": "sum-lengths",
+          "expect": 30,
+          "site": "30 countries"
+        },
+        {
+          "kind": "export",
+          "from": "science-facts",
+          "path": "verticals.health.countries.reference_sets",
+          "reduce": "length",
+          "expect": 3,
+          "site": "the US and Canada, the UK, and the EU: three reference sets"
+        }
+      ],
+      "refresh": "By hand, in the FAQ answer and its JSON-LD copy.",
+      "checked_by": "the facts above, by --report",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": "The sentence's date is not recorded; the facts are the guard."
+      }
+    },
+    {
+      "id": "sample-report-alex",
+      "page": "sample-report.html",
+      "what": "Alex's report, drawn on the page from the engine's own output for her 44 answers: seven picks with tiers, reasons, forms and the one caution, nine macros, the gaps, the food sources. Her answers are demo-answers.json.",
+      "ui": "drawn",
+      "data": "replayed",
+      "anchors": [
+        {
+          "page": "sample-report.html",
+          "contains": "<div class=\"rp sr-report\" data-template=\"storefront\""
+        },
+        {
+          "page": "sample-report-alex.json",
+          "contains": "\"_how\""
+        },
+        {
+          "page": "demo-answers.json",
+          "contains": "\"_how\""
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/quiz",
+        "apps/webapp/components/wellness-report.tsx",
+        "apps/webapp/components/report",
+        "apps/webapp/lib/report",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "source_note": "The figures come from the Blend Demo tenant on app.blend-technologies.com through the public embed API, replayed exactly as the quiz runtime does. The demo catalogue and the engine behind it are live state, not files; the webapp paths above are what decides how a report is shown.",
+      "refresh": null,
+      "refresh_note": "The replay script of 2026-11-11 lived in a session scratchpad and was not committed. Until it is rebuilt (workspace NEXT_STEPS), a refresh means re-running the request by hand and changing the file and the page together.",
+      "checked_by": "node tools/check-sample-report.mjs, in CI: the page may show nothing the file does not.",
+      "last_refreshed": {
+        "date": "2026-11-11",
+        "workspace_commit": null,
+        "note": "Submission 013ca480-e651-44db-a115-a513bef2e22f."
+      }
+    },
+    {
+      "id": "sample-report-sam",
+      "page": "sample-report.html",
+      "what": "Sam's report, from the engine's output for his 30 answers.",
+      "ui": "drawn",
+      "data": "replayed",
+      "anchors": [
+        {
+          "page": "sample-report.html",
+          "contains": "<div class=\"rp sr-report\" data-template=\"essentials\""
+        },
+        {
+          "page": "sample-report-sam.json",
+          "contains": "\"_how\""
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/quiz",
+        "apps/webapp/components/wellness-report.tsx",
+        "apps/webapp/components/report",
+        "apps/webapp/lib/report",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": null,
+      "refresh_note": "As for Alex: the replay script is to be rebuilt.",
+      "checked_by": "node tools/check-sample-report.mjs, in CI.",
+      "last_refreshed": {
+        "date": "2026-11-11",
+        "workspace_commit": null,
+        "note": "Submission bfe1625f-43bd-487e-8c82-7c4c38bb0133."
+      }
+    },
+    {
+      "id": "sample-report-helen",
+      "page": "sample-report.html",
+      "what": "Helen's report, from the engine's output for her 51 answers.",
+      "ui": "drawn",
+      "data": "replayed",
+      "anchors": [
+        {
+          "page": "sample-report.html",
+          "contains": "<div class=\"rp sr-report\" data-template=\"classic\""
+        },
+        {
+          "page": "sample-report-helen.json",
+          "contains": "\"_how\""
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/quiz",
+        "apps/webapp/components/wellness-report.tsx",
+        "apps/webapp/components/report",
+        "apps/webapp/lib/report",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": null,
+      "refresh_note": "As for Alex: the replay script is to be rebuilt.",
+      "checked_by": "node tools/check-sample-report.mjs, in CI.",
+      "last_refreshed": {
+        "date": "2026-11-11",
+        "workspace_commit": null,
+        "note": "Submission 901b9eea-b0a9-49c4-844c-b155557b4ccd."
+      }
+    },
+    {
+      "id": "webapp-enums",
+      "page": "index.html, how-it-works.html",
+      "what": "The counts the site quotes from the editor's own vocabulary: twelve layouts, four answer styles, six button styles, eight transitions. In the FAQ, on the quiz builder's cards in the tour, and in the design film.",
+      "ui": "none",
+      "data": "copied",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "twelve layouts"
+        },
+        {
+          "page": "index.html",
+          "contains": "12 to choose from"
+        }
+      ],
+      "sources": [
+        "apps/webapp/lib/schemas/theme.ts"
+      ],
+      "facts": [
+        {
+          "kind": "enum-count",
+          "file": "apps/webapp/lib/schemas/theme.ts",
+          "name": "QuizLayoutIdSchema",
+          "expect": 12,
+          "site": "twelve layouts"
+        },
+        {
+          "kind": "enum-count",
+          "file": "apps/webapp/lib/schemas/theme.ts",
+          "name": "QuizOptionStyleSchema",
+          "expect": 4,
+          "site": "four answer styles"
+        },
+        {
+          "kind": "enum-count",
+          "file": "apps/webapp/lib/schemas/theme.ts",
+          "name": "QuizNavStyleSchema",
+          "expect": 6,
+          "site": "six button styles"
+        },
+        {
+          "kind": "enum-count",
+          "file": "apps/webapp/lib/schemas/theme.ts",
+          "name": "QuizTransitionSchema",
+          "expect": 8,
+          "site": "eight transitions"
+        }
+      ],
+      "refresh": "By hand, in the FAQ, the tour's quiz builder and the design film.",
+      "checked_by": "the facts above, by --report",
+      "last_refreshed": {
+        "date": "2026-10-21",
+        "workspace_commit": null,
+        "note": "Checked against theme.ts when the tour was drawn."
+      }
+    },
+    {
+      "id": "webapp-words",
+      "page": "index.html, how-it-works.html",
+      "what": "The product's own words as the drawn screens show them: panel names, section labels, button text. The site must not show a label the product does not have.",
+      "ui": "none",
+      "data": "copied",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "Brand essentials"
+        },
+        {
+          "page": "how-it-works.html",
+          "contains": "Goals offered to customers"
+        }
+      ],
+      "sources": [
+        "apps/webapp/lib/copy.ts",
+        "apps/webapp/components/theme/theme-editor.tsx",
+        "apps/webapp/app/dashboard/quiz-builder/editor/editor-shell.tsx",
+        "apps/webapp/app/dashboard/quiz-builder/editor/setup-modal.tsx",
+        "apps/webapp/app/dashboard/analytics/page.tsx",
+        "apps/webapp/components/wellness-report.tsx"
+      ],
+      "facts": [
+        {
+          "kind": "contains",
+          "file": "apps/webapp/lib/copy.ts",
+          "texts": [
+            "Match my catalogue",
+            "Import products",
+            "Recommendation engine",
+            "Needs review",
+            "Mark as other",
+            "Embed code",
+            "Direct link",
+            "Where it can be used",
+            "Quiz insights",
+            "Answer insights",
+            "Who wants what",
+            "Export CSV",
+            "Purchase tracking",
+            "Drag to reorder",
+            "What the card shows",
+            "Started the quiz",
+            "Completed the quiz",
+            "Clicked a recommended product",
+            "Retake the quiz",
+            "Your macros",
+            "What you told us matters",
+            "Scan my catalogue",
+            "Which product is this",
+            "Publish quiz",
+            "Build my quiz",
+            "Open editor"
+          ],
+          "site": "labels across the tour and the films"
+        },
+        {
+          "kind": "contains",
+          "file": "apps/webapp/components/theme/theme-editor.tsx",
+          "texts": [
+            "Brand essentials",
+            "Layout & spacing",
+            "Answers & buttons"
+          ],
+          "site": "the design panel's section names"
+        },
+        {
+          "kind": "contains",
+          "file": "apps/webapp/app/dashboard/quiz-builder/editor/editor-shell.tsx",
+          "texts": [
+            "Brand design",
+            "Quiz setup"
+          ],
+          "site": "the editor's tabs"
+        },
+        {
+          "kind": "contains",
+          "file": "apps/webapp/app/dashboard/quiz-builder/editor/setup-modal.tsx",
+          "texts": [
+            "Goals offered to customers",
+            "Question groups",
+            "Built-in protections",
+            "Active goals"
+          ],
+          "site": "the quiz setup panel in the design film"
+        },
+        {
+          "kind": "contains",
+          "file": "apps/webapp/app/dashboard/analytics/page.tsx",
+          "texts": [
+            "Completion by goal",
+            "Product insights"
+          ],
+          "site": "the analytics screen and film"
+        },
+        {
+          "kind": "contains",
+          "file": "apps/webapp/components/wellness-report.tsx",
+          "texts": [
+            "Product warnings",
+            "Your wellness plan"
+          ],
+          "site": "the recommend film and the results builder"
+        }
+      ],
+      "refresh": "By hand, on the screen that shows the word.",
+      "checked_by": "the facts above, by --report",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      },
+      "note": "The strings in the facts are what is measured. A label the site shows that is not listed here is not measured; add it when a screen is drawn or redrawn."
+    },
+    {
+      "id": "film-match-tags",
+      "page": "how-it-works.html",
+      "what": "In the match film: the engine reference each invented product is matched to, and every goal and 'Not suitable for' tag the matched cards show. A combined product's tags are all of its ingredients' together.",
+      "ui": "none",
+      "data": "copied",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "data-demo=\"match\""
+        },
+        {
+          "page": "how-it-works.html",
+          "contains": "Not suitable for"
+        }
+      ],
+      "sources": [
+        "algorithms/personalization/data/product_taxonomy.json"
+      ],
+      "refresh": "By hand from product_taxonomy.json. Never type a restriction in.",
+      "checked_by": "nothing yet",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "film-design-goals",
+      "page": "how-it-works.html",
+      "what": "In the design film's quiz setup panel: 41 goals, 41 of 41 active, 34 available and 7 unavailable, and the number of demo products behind each goal.",
+      "ui": "none",
+      "data": "copied",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "Active goals"
+        }
+      ],
+      "sources": [
+        "algorithms/personalization/taxonomy/registry.json",
+        "algorithms/personalization/data/quiz_answers.json"
+      ],
+      "facts": [
+        {
+          "kind": "export",
+          "from": "science-facts",
+          "path": "verticals.health.counts.goals.value",
+          "expect": 41,
+          "site": "Active goals 41, 41 of 41 active"
+        }
+      ],
+      "unmeasured": "The 34 available, 7 unavailable and the products per goal come from the demo brand's catalogue in the webapp, which is live state. Nothing on disk to compare them with.",
+      "refresh": "By hand from the demo brand's quiz setup panel.",
+      "checked_by": "the goal count above, by --report; the rest by nothing",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "use-case-figures",
+      "page": "use-cases/*.html",
+      "what": "Figures in the articles that are neither the engine's nor the webapp's: a forty-product grid, six search terms at around 5,000 searches a month.",
+      "ui": "none",
+      "data": "copied",
+      "anchors": [
+        {
+          "page": "use-cases/index.html",
+          "contains": "forty-product grid"
+        },
+        {
+          "page": "use-cases/supplement-brands.html",
+          "contains": "5,000 searches"
+        }
+      ],
+      "sources": [],
+      "unmeasured": "The search volumes were read from a keyword tool on 2026-10-22 and no file holds them. The forty-product grid is a figure of speech.",
+      "refresh": "By hand.",
+      "checked_by": "nothing",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": "The articles say 'Updated 22 October 2026'."
+      }
+    },
+    {
+      "id": "tour-quiz-builder",
+      "page": "index.html",
+      "what": "Tour screen 01, the quiz builder (.bx): the editor's rail, canvas and panel rebuilt at 2000px from the founder's screenshots and scaled into the frame.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "<div class=\"bx\" aria-hidden=\"true\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard/quiz-builder/editor",
+        "apps/webapp/components/theme",
+        "apps/webapp/components/dashboard/quiz-console.tsx",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": "Redraw from fresh screenshots; the rules are in product-screens.css under 01.",
+      "checked_by": "node tools/check-screens.mjs holds copies to the homepage; nothing holds the homepage to the product",
+      "last_refreshed": {
+        "date": "2026-10-21",
+        "workspace_commit": null,
+        "note": "website #134."
+      }
+    },
+    {
+      "id": "tour-results-builder",
+      "page": "index.html",
+      "what": "Tour screen 02, the results builder (.bx.rx): the report editor with the plan drawn in it.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "<div class=\"bx rx\" aria-hidden=\"true\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/components/dashboard/report-builder.tsx",
+        "apps/webapp/components/dashboard/report-preview-frame.tsx",
+        "apps/webapp/components/dashboard/report-layout-thumbnail.tsx",
+        "apps/webapp/components/wellness-report.tsx",
+        "apps/webapp/components/report",
+        "apps/webapp/lib/report"
+      ],
+      "refresh": "Redraw from fresh screenshots; product-screens.css under 02.",
+      "checked_by": "as tour-quiz-builder",
+      "last_refreshed": {
+        "date": "2026-10-21",
+        "workspace_commit": null,
+        "note": "website #134."
+      }
+    },
+    {
+      "id": "tour-analytics",
+      "page": "index.html",
+      "what": "Tour screen 03, Analytics (.ax): the whole page, scrolled to the part each card is about. Its numbers are invented and add up: 1,284 starts, 912 completions, 486 clicks, 231 carts, four products a plan, 27 euros a product. Purchased stays 'Coming soon' because purchase tracking is.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "<div class=\"ax\" aria-hidden=\"true\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard/analytics",
+        "apps/webapp/components/dashboard/metric-explorer.tsx",
+        "apps/webapp/components/dashboard/answer-insights.tsx",
+        "apps/webapp/components/dashboard/cross-tab-grid.tsx",
+        "apps/webapp/components/dashboard/charts.tsx",
+        "apps/webapp/components/dashboard/metric-bar-row.tsx",
+        "apps/webapp/components/dashboard/metric-chart.tsx",
+        "apps/webapp/components/dashboard/time-series-chart.tsx",
+        "apps/webapp/components/dashboard/daily-activity-chart.tsx",
+        "apps/webapp/components/dashboard/paged-metric-list.tsx",
+        "apps/webapp/components/dashboard/locked-insight-group.tsx",
+        "apps/webapp/components/dashboard/custom-range-control.tsx"
+      ],
+      "refresh": "Redraw from fresh screenshots; product-screens.css under 03. Never fill in a figure the product cannot produce.",
+      "checked_by": "as tour-quiz-builder",
+      "last_refreshed": {
+        "date": "2026-10-21",
+        "workspace_commit": null,
+        "note": "website #134."
+      }
+    },
+    {
+      "id": "tour-contacts",
+      "page": "index.html",
+      "what": "Tour screen 04, Contacts (.cx): invented shoppers on the reserved example domains, and the button is Remove, never Erase.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "<div class=\"cx\" aria-hidden=\"true\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard/contacts",
+        "apps/webapp/components/dashboard/erase-data-subject-panel.tsx",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": "Redraw from fresh screenshots; product-screens.css under 04.",
+      "checked_by": "as tour-quiz-builder",
+      "last_refreshed": {
+        "date": "2026-10-21",
+        "workspace_commit": null,
+        "note": "website #134."
+      }
+    },
+    {
+      "id": "film-catalogue",
+      "page": "how-it-works.html",
+      "what": "Step 01's film, the Catalogue (.kx): a camera over the dashboard as a store connects, 51 invented products arrive with pound prices and descriptions that make no health claims, and the engine syncs.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "<div class=\"hw-screen\" data-demo=\"catalogue\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard/catalogue",
+        "apps/webapp/components/dashboard/catalogue",
+        "apps/webapp/components/dashboard/shopify-connect.tsx",
+        "apps/webapp/components/dashboard/catalogue-card-menu.tsx",
+        "apps/webapp/components/dashboard/product-tag-pills.tsx",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": "Redraw from fresh screenshots; films.css and films.js carry its beats.",
+      "checked_by": "nothing holds the film to the product",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "film-match",
+      "page": "how-it-works.html",
+      "what": "Step 02's film, Match (.mx): Blend AI's scan, its list of matches and a combined product's edit page. The tags it shows are film-match-tags.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "<div class=\"hw-screen\" data-demo=\"match\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard/catalogue/match",
+        "apps/webapp/app/dashboard/catalogue/assistant-actions.ts",
+        "apps/webapp/components/dashboard/catalogue/match-assistant.tsx",
+        "apps/webapp/components/dashboard/goal-tag-picker.tsx",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": "Redraw from fresh screenshots; films.css and films.js.",
+      "checked_by": "nothing holds the film to the product",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "film-design",
+      "page": "how-it-works.html",
+      "what": "Step 03's film, Design (.qx): the quiz page and its editor, every panel, and one quiz screen drawn from the brand's variables.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "<div class=\"hw-screen\" data-demo=\"design\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard/quiz-builder/editor",
+        "apps/webapp/components/theme",
+        "apps/webapp/components/dashboard/quiz-preview-frame.tsx",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": "Redraw from fresh screenshots; films.css and films.js.",
+      "checked_by": "nothing holds the film to the product",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "film-recommend",
+      "page": "how-it-works.html",
+      "what": "Step 04's film, Recommend (.wx): the results editor's wellness plan, drawn with the report's own rules, and its style and text panels. Its report is invented: a 34 year old, a score of 72, three products with canister photographs and the authorised wording for each nutrient.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "<div class=\"hw-screen\" data-demo=\"recommend\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/components/dashboard/report-builder.tsx",
+        "apps/webapp/components/dashboard/report-preview-frame.tsx",
+        "apps/webapp/components/wellness-report.tsx",
+        "apps/webapp/components/report",
+        "apps/webapp/lib/report",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": "Redraw from fresh screenshots; films.css and films.js.",
+      "checked_by": "nothing holds the film to the product",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "film-launch",
+      "page": "how-it-works.html",
+      "what": "Step 05's film, Launch (.lx): the quiz page as Design leaves it, the embed panel and Publish. The embed code and link carry an invented quiz id and the address yourbrand.com.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "<div class=\"hw-screen\" data-demo=\"launch\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/components/dashboard/quiz-embed-drawer.tsx",
+        "apps/webapp/components/dashboard/embed-settings-form.tsx",
+        "apps/webapp/components/dashboard/embed-mode-thumbnail.tsx",
+        "apps/webapp/components/dashboard/publish-agreement-modal.tsx",
+        "apps/webapp/components/dashboard/quiz-console.tsx",
+        "apps/webapp/lib/copy.ts"
+      ],
+      "refresh": "Redraw from fresh screenshots; films.css and films.js.",
+      "checked_by": "nothing holds the film to the product",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "film-analytics",
+      "page": "how-it-works.html",
+      "what": "Step 06's film, Analyse (.ax.vx): the homepage's Analytics set in the dashboard, with the states its film needs. The same invented figures as tour-analytics; the question and its answers are the demo quiz's own.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "how-it-works.html",
+          "contains": "<div class=\"hw-screen\" data-demo=\"analytics\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard/analytics",
+        "apps/webapp/components/dashboard/metric-explorer.tsx",
+        "apps/webapp/components/dashboard/answer-insights.tsx",
+        "apps/webapp/components/dashboard/cross-tab-grid.tsx",
+        "apps/webapp/components/dashboard/charts.tsx",
+        "apps/webapp/components/dashboard/metric-bar-row.tsx",
+        "apps/webapp/components/dashboard/time-series-chart.tsx",
+        "apps/webapp/components/dashboard/paged-metric-list.tsx",
+        "apps/webapp/supabase/seed/quiz-demo.json"
+      ],
+      "refresh": "Regenerate from the homepage's Analytics markup, then the film's states; films.css and films.js.",
+      "checked_by": "nothing holds the film to the product",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "home-steps",
+      "page": "index.html",
+      "what": "The six step tiles under 'From your catalogue to their perfect plan': each with a small drawn screen (.t-*) that types, scans, picks and draws. Step 05 shows invented intake figures.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "<div class=\"steps\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/dashboard",
+        "apps/webapp/components/dashboard",
+        "apps/webapp/components/wellness-report.tsx"
+      ],
+      "refresh": "Redraw; the tiles' rules are in the homepage's own sheet.",
+      "checked_by": "nothing",
+      "last_refreshed": {
+        "date": "2026-10-09",
+        "workspace_commit": null,
+        "note": "website #87; moved to their own page and back since, the drawings unchanged."
+      }
+    },
+    {
+      "id": "hero-quiz",
+      "page": "index.html",
+      "what": "The hero's quiz: one quiz screen in a fictional client's theme, which is why it is exempt from the gold rule.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "<div class=\"quiz\" id=\"quiz\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/quiz",
+        "apps/webapp/components/quiz",
+        "apps/webapp/components/theme/quiz-slide-frame.tsx",
+        "apps/webapp/components/theme/quiz-navigation.tsx",
+        "apps/webapp/components/theme/quiz-theme-surface.tsx"
+      ],
+      "refresh": "Redraw. The hero does not change without the founder's word.",
+      "checked_by": "nothing",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": "website #138, the scaled pair."
+      }
+    },
+    {
+      "id": "hero-plan",
+      "page": "index.html",
+      "what": "The hero's plan: the fictional client's report with its product cards, macros and percentages (iron at 39% of target, omega-3 at 8%), all invented.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "<div class=\"pc-deck\">"
+        }
+      ],
+      "sources": [
+        "apps/webapp/components/wellness-report.tsx",
+        "apps/webapp/components/report",
+        "apps/webapp/lib/report"
+      ],
+      "refresh": "Redraw. The hero does not change without the founder's word.",
+      "checked_by": "nothing",
+      "last_refreshed": {
+        "date": "2026-10-22",
+        "workspace_commit": null,
+        "note": "website #138."
+      }
+    },
+    {
+      "id": "home-terminal",
+      "page": "index.html",
+      "what": "The engine terminal under 'Every recommendation has a reason': seven stages, a profile card for an invented customer, a matrix and a three-product plan. Every line is assembled from sample pools in engine-terminal.js; the page says 'Illustrative simulation. Sample data.'",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "index.html",
+          "contains": "data-tm-hold="
+        },
+        {
+          "page": "index.html",
+          "contains": "Illustrative simulation. Sample data."
+        }
+      ],
+      "sources": [
+        "algorithms/personalization/tools/export_engine_trace.py",
+        "algorithms/personalization/api.py"
+      ],
+      "facts": [
+        {
+          "kind": "export",
+          "from": "engine-trace",
+          "path": "steps",
+          "reduce": "length",
+          "expect": 7,
+          "site": "seven stages"
+        }
+      ],
+      "refresh": "By hand in engine-terminal.js. A rebuild of the run from the real export is waiting on the algorithm lane's reply.",
+      "checked_by": "the stage count above, by --report",
+      "last_refreshed": {
+        "date": "2026-10-16",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "science-terminal",
+      "page": "science.html",
+      "what": "The same terminal on /science, with its ticks and controls. Illustrative, while the page's data around it is Isabel's real run.",
+      "ui": "drawn",
+      "data": "invented",
+      "anchors": [
+        {
+          "page": "science.html",
+          "contains": "<div class=\"sci-card tm sci-in\" data-term>"
+        },
+        {
+          "page": "science.html",
+          "contains": "Illustrative simulation. Sample data."
+        }
+      ],
+      "sources": [
+        "algorithms/personalization/tools/export_engine_trace.py",
+        "algorithms/personalization/api.py"
+      ],
+      "facts": [
+        {
+          "kind": "export",
+          "from": "engine-trace",
+          "path": "steps",
+          "reduce": "length",
+          "expect": 7,
+          "site": "seven stages"
+        }
+      ],
+      "refresh": "As home-terminal.",
+      "checked_by": "the stage count above, by --report",
+      "last_refreshed": {
+        "date": "2026-10-15",
+        "workspace_commit": null,
+        "note": null
+      }
+    },
+    {
+      "id": "try-embed",
+      "page": "try.html",
+      "what": "The live demo quiz in an iframe. Whatever the demo publication is today is what a visitor gets; nothing is vendored.",
+      "ui": "none",
+      "data": "live",
+      "anchors": [
+        {
+          "page": "try.html",
+          "contains": "<iframe src=\"https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526\""
+        }
+      ],
+      "sources": [
+        "apps/webapp/app/quiz",
+        "apps/webapp/app/embed",
+        "apps/webapp/app/api/embed"
+      ],
+      "facts": [
+        {
+          "kind": "url",
+          "url": "https://app.blend-technologies.com/quiz/928d8ad4333a4dc4b13e7d86f7557526",
+          "site": "the frame on /try"
+        }
+      ],
+      "refresh": null,
+      "refresh_note": "Nothing to refresh. The address must keep answering; the sample report once embedded a result that was deleted under it.",
+      "checked_by": "the address above, by --report",
+      "last_refreshed": {
+        "date": null,
+        "workspace_commit": null,
+        "note": "Live."
+      }
+    }
+  ],
+  "_sanity": "For a generated piece, paths in a fresh export that must not be empty, zero, or less than half of the site's copy. A probe that reports nothing where the site shows something is a broken probe until proven otherwise (workspace CLAUDE.md, Measurement Discipline); the piece is reported as not measured and nothing is written."
+}

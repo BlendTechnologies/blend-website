@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /* Regenerate product-facts.json from PRODUCT_FACTS.md.
 
-   Run from a full workspace checkout. The website repo on its own cannot see
-   the markdown, which is the whole reason the figures are vendored — see
-   "Figures the engine owns" in CLAUDE.md.
+   Run from a full workspace checkout, or with BLEND_OS pointing at one. The
+   website repo on its own cannot see the markdown, which is the whole reason
+   the figures are vendored ("Figures the engine owns" in CLAUDE.md).
 
    Add a figure by adding its row name to product-facts.json's `facts` object
    with any value, then running this; the value and the note come from the
@@ -12,12 +12,20 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { findWorkspace } from './workspace.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const site = join(here, '..');
 const out = join(site, 'product-facts.json');
 const doc = JSON.parse(readFileSync(out, 'utf8'));
-const md = readFileSync(join(site, '..', '..', 'PRODUCT_FACTS.md'), 'utf8');
+/* The workspace is found by walking up (tools/workspace.mjs), so this also
+   runs from a worktree under .claude/worktrees/, where ../../ is not it. */
+const ws = findWorkspace(site);
+if (!ws) {
+  console.error('FAILED: no Blend-OS workspace above this checkout, and BLEND_OS is not set. PRODUCT_FACTS.md lives there.');
+  process.exit(1);
+}
+const md = readFileSync(join(ws, 'PRODUCT_FACTS.md'), 'utf8');
 
 /* Rows look like:  | <name> | **25** | <why> | */
 const rows = new Map();
