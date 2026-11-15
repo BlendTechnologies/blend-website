@@ -228,9 +228,9 @@
         "apps/webapp/lib/copy.ts"
       ],
       "source_note": "The figures come from the Blend Demo tenant on app.blend-technologies.com through the public embed API, replayed exactly as the quiz runtime does. The demo catalogue and the engine behind it are live state, not files; the webapp paths above are what decides how a report is shown.",
-      "refresh": null,
-      "refresh_note": "The replay script of 2026-11-11 lived in a session scratchpad and was not committed. Until it is rebuilt (workspace NEXT_STEPS), a refresh means re-running the request by hand and changing the file and the page together.",
-      "checked_by": "node tools/check-sample-report.mjs, in CI: the page may show nothing the file does not.",
+      "refresh": "node tools/replay-sample-report.mjs --write alex",
+      "refresh_note": "Replayed by tools/replay-sample-report.mjs: --plan says whether her 44 recorded answers still fit the live quiz, --extract reads her recorded submission's page again, --report replays and compares, --write replays, writes this file, redraws her report and transcript and stamps this entry. Each replay is a real submission on the demo tenant. --redraw draws the page from the file with no network, and CI refuses a page that is not what the files draw.",
+      "checked_by": "node tools/check-sample-report.mjs (the page may show nothing the file does not) and node tools/replay-sample-report.mjs --redraw --check (the report is what the file draws), both in CI.",
       "last_refreshed": {
         "date": "2026-11-11",
         "workspace_commit": null,
@@ -260,9 +260,9 @@
         "apps/webapp/lib/report",
         "apps/webapp/lib/copy.ts"
       ],
-      "refresh": null,
-      "refresh_note": "As for Alex: the replay script is to be rebuilt.",
-      "checked_by": "node tools/check-sample-report.mjs, in CI.",
+      "refresh": "node tools/replay-sample-report.mjs --write sam",
+      "refresh_note": "As for Alex: tools/replay-sample-report.mjs, with his 30 answers.",
+      "checked_by": "node tools/check-sample-report.mjs (the page may show nothing the file does not) and node tools/replay-sample-report.mjs --redraw --check (the report is what the file draws), both in CI.",
       "last_refreshed": {
         "date": "2026-11-11",
         "workspace_commit": null,
@@ -292,9 +292,9 @@
         "apps/webapp/lib/report",
         "apps/webapp/lib/copy.ts"
       ],
-      "refresh": null,
-      "refresh_note": "As for Alex: the replay script is to be rebuilt.",
-      "checked_by": "node tools/check-sample-report.mjs, in CI.",
+      "refresh": "node tools/replay-sample-report.mjs --write helen",
+      "refresh_note": "As for Alex: tools/replay-sample-report.mjs, with her 51 answers.",
+      "checked_by": "node tools/check-sample-report.mjs (the page may show nothing the file does not) and node tools/replay-sample-report.mjs --redraw --check (the report is what the file draws), both in CI.",
       "last_refreshed": {
         "date": "2026-11-11",
         "workspace_commit": null,

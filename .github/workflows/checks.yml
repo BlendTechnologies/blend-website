@@ -51,6 +51,9 @@ jobs:
       - name: The sample report shows the engine's figures
         run: node tools/check-sample-report.mjs
 
+      - name: The sample reports are what their files draw
+        run: node tools/replay-sample-report.mjs --redraw --check
+
       # /try's embed lost its padding to a selector that had joined the one
       # above it. Valid CSS, matching nothing, invisible to a baseline.
       - name: CSS parses as the rules it looks like
