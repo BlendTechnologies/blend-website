@@ -280,6 +280,12 @@
    }
   ]
  },
+ "run": {
+  "submission_id": "013ca480-e651-44db-a115-a513bef2e22f",
+  "recommendation_id": "f9c08c66-0acd-4de3-9d39-9ac5877d1d8f",
+  "publication_id": "22ad552d-425c-4fd0-a017-3ef0c0e32ae5",
+  "completed": "2026-11-11T14:25:24Z"
+ },
  "report": {
   "heading": "Your wellness plan",
   "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",

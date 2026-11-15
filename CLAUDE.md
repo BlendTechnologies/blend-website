@@ -220,14 +220,32 @@ while the check guarding it passed: it read the 404 as "could not reach".
 An embedded result can be taken down by anything that touches the demo
 account, and nothing in this repository can see it go.
 
-- **Every figure is the engine's.** `sample-report.json` vendors the request
-  (Alex's 43 answers in `demo-answers.json`, mapped to stable ids the way the
-  webapp's `lib/quiz/engine-payload.ts` does, country GB) and what the engine
-  returned for it against the demo tenant's catalogue: eight picks with their
-  tiers, reasons, forms and the one caution, nine macros, two gaps, and the
-  report's own words. `node tools/check-sample-report.mjs` refuses when the
-  page shows anything the file does not. To change a figure, re-run the
-  request and change both.
+- **Every figure is the engine's.** Three reports, three files (2026-11-11):
+  `sample-report-{alex,sam,helen}.json` each vendor a persona's request (the
+  answers by their stable ids; Alex's are also `demo-answers.json`), the run
+  that answered it (`run`: submission, recommendation, publication, when) and
+  what the demo's results page showed for it: the picks with their tiers,
+  reasons, forms, timings and cautions, nine macros, the gaps, the notices,
+  the report's own words. `node tools/check-sample-report.mjs` refuses when a
+  report shows anything its file does not.
+- **The reports are replayed and drawn by `tools/replay-sample-report.mjs`**
+  (2026-11-15; until then the replay lived in a session scratchpad and the
+  figures could be checked but not re-run). `--plan` is read-only and says
+  whether each recorded request still fits the live quiz, with the webapp's
+  own visibility rules. `--extract` reads the recorded submissions' pages
+  again. `--report` replays each persona through the public embed API, reads
+  the rendered results page in the workspace's Playwright, and says what moved
+  against the file; `--write` does that and writes the file, redraws the
+  report and the answer transcript, and stamps `sources.json`. **A replay is a
+  real submission on the Blend Demo tenant** and counts in its analytics, so
+  nothing replays without a reason. `--redraw` draws the page from the files
+  with no network, and `--redraw --check` runs in CI: the cards, chips,
+  macros, breakdown and notices of each report are what its file draws, so a
+  change to that markup is made in the tool, never on the page by hand. The
+  chrome around them (hero, headings, retake, the score stand-in) is the
+  page's. A page that reads no products, a bar in a colour the page has no
+  class for, a macro label the tool has never met: "not measured", and nothing
+  of that persona is written.
 - **In the UK, Melatonin is out.** The engine's legality gate removes it
   (prescription-only) and Cordyceps takes its place.
 - **Two spellings are the site's, not the engine's**: the em dash in the
@@ -378,6 +396,7 @@ both engines, and across a sweep of widths, not at three.
 - `node tools/check-screens.mjs`
 - `node tools/check-cookie-consent.mjs`
 - `node tools/check-sample-report.mjs`
+- `node tools/replay-sample-report.mjs --redraw --check`
 - `node tools/check-css-shape.mjs`
 - `node tools/check-dashes.mjs`
 - `node tools/check-product-facts.mjs`
@@ -432,6 +451,10 @@ was the catalogue it was handed, not the engine. The engine's tenant store
 reads `data/clients/tenants/<tenant>/catalog.json`, which is gitignored, so a
 worktree needs a copy of it; `data/tenants/<tenant>/` is a seven-entry test
 fixture and the wrong one.
+
+The three sample reports are `replayed` data: `refresh.mjs` does not re-run
+them, because a replay is a real submission on the demo; it names the command
+(`tools/replay-sample-report.mjs`, above) and leaves the run to a person.
 
 Nothing here decides what the site should say. The report says what moved; the
 founder decides on desktop, as always. The drawn screens cannot be regenerated:

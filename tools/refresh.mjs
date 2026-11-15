@@ -438,6 +438,7 @@ async function main() {
       else lines.push(`holds: ${r.text}`);
     }
     if (p.data === 'replayed' && !p.refresh) { if (where !== 'auto' && where !== 'unmeasured') where = 'hand'; lines.push(`cannot be re-run: ${p.refresh_note || 'no refresh command'}`); }
+    else if (p.data === 'replayed') lines.push(`re-run by hand: ${p.refresh} (a replay is a real submission on the demo, so it is not run from here)`);
     if (p.unmeasured) { if (where === 'quiet') where = 'unmeasured'; lines.push(`not measured: ${p.unmeasured}`); }
     if (p.source_note && where !== 'quiet') lines.push(`note: ${p.source_note}`);
     groups[where].push({ p, lines });
