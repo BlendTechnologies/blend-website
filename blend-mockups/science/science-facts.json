@@ -11,30 +11,30 @@
       "status": "live",
       "counts": {
         "products_audited": {
-          "value": 223,
+          "value": 237,
           "label": "products audited for safety and composition",
           "basis": "rows in the engine's master product table",
           "site_claim": "200+",
           "agrees_with_site_claim": true
         },
         "products_activated": {
-          "value": 116,
+          "value": 143,
           "label": "of those, cleared for recommendation",
           "basis": "the master table's activation column"
         },
         "product_attributes": {
-          "value": 25,
+          "value": 33,
           "label": "attributes recorded for every product in a brand's catalogue",
           "basis": "fields on the catalogue product record. Of these, 18 drive matching, safety, ranking or plan structure and the rest are commerce and catalogue bookkeeping, so this is what is recorded rather than what is scored",
           "site_claim": "25",
-          "agrees_with_site_claim": true
+          "agrees_with_site_claim": false
         },
         "safety_checks": {
-          "value": 17,
+          "value": 19,
           "label": "safety checks every product passes",
-          "basis": "gate functions in the engine's safety chain. Sixteen remove a product and one adds a warning without removing anything",
+          "basis": "gate functions in the engine's safety chain: 17 remove a product, 1 moves it to the alternatives instead and 1 adds a warning without removing anything",
           "site_claim": "17",
-          "agrees_with_site_claim": true
+          "agrees_with_site_claim": false
         },
         "plan_checks": {
           "value": 6,
@@ -49,7 +49,7 @@
           "basis": "checks that demote a product presented against a health claim it does not hold. Counted separately from the two figures above, neither of which includes them"
         },
         "advisory_notices": {
-          "value": 7,
+          "value": 10,
           "label": "advisory notices the plan can carry",
           "basis": "checks that annotate a plan without changing what is in it"
         },
@@ -72,9 +72,9 @@
           "basis": "visible answers on the quiz's goal question"
         },
         "subgoals": {
-          "value": 252,
+          "value": 240,
           "label": "specific concerns under those goals",
-          "basis": "answers across 40 subgoal questions"
+          "basis": "answers across 39 subgoal questions"
         }
       },
       "calculations_per_customer": {
@@ -84,23 +84,24 @@
         "formula": "food rows x nutrient columns"
       },
       "product_attributes": {
-        "recorded": 25,
+        "recorded": 33,
         "by_role": {
-          "catalogue": 2,
+          "catalogue": 7,
           "matching": 9,
           "ranking": 1,
           "commerce": 5,
           "plan": 1,
-          "safety": 7
+          "safety": 7,
+          "claims": 3
         },
         "drive_a_recommendation": 18
       },
       "products": {
         "note": "Selected products from the master table, with six of the attributes recorded for every product. Values are read from the table as they stand; an empty field is shown empty.",
         "attributes_shown": 6,
-        "attributes_recorded": 25,
+        "attributes_recorded": 33,
         "shown": 4,
-        "more_in_table": 219,
+        "more_in_table": 233,
         "items": [
           {
             "name": "Vitamin D3",
@@ -152,7 +153,7 @@
               },
               {
                 "label": "Goals matched",
-                "value": "Sleep, Stress, Mood & Emotions, Bone & Joint Health, Boost Energy, Cycle Support, Prenatal Support, Everyday Comfort, Recovery & Repair"
+                "value": "Sleep, Stress, Mood & Emotions, Bone & Joint Health, Energy & Tiredness, Cycle Support, Prenatal Support, Everyday Comfort, Recovery & Repair, Hydration & Electrolytes"
               },
               {
                 "label": "Not suitable for",
@@ -210,7 +211,7 @@
               },
               {
                 "label": "Goals matched",
-                "value": "Build Muscle, Increase Endurance, Mass Gain, Tone & Definition, Strength & Power, Recovery & Repair"
+                "value": "Build Muscle, Mass Gain, Tone & Definition, Strength & Power, Recovery & Repair, Cognitive Health"
               },
               {
                 "label": "Not suitable for",
@@ -232,6 +233,12 @@
           "group": "medication conflicts",
           "effect": "warns",
           "does": "Adds a warning to products whose own label cautions against a medication the customer is on, and removes nothing."
+        },
+        {
+          "name": "Combined bleeding risk",
+          "group": "medication conflicts",
+          "effect": "demotes",
+          "does": "Moves products out of the plan when a customer on a blood thinner would otherwise take several that each add to bleeding risk."
         },
         {
           "name": "Diagnosed condition conflict",
@@ -312,6 +319,12 @@
           "does": "Removes any product whose serving would take the customer's total intake of a nutrient past its tolerable upper limit."
         },
         {
+          "name": "Combined upper limit",
+          "group": "upper limits",
+          "effect": "removes",
+          "does": "Removes the least-needed product when the plan's products together would take a nutrient past its tolerable upper limit."
+        },
+        {
           "name": "Diet compatibility",
           "group": "diet",
           "effect": "removes",
@@ -325,10 +338,10 @@
         }
       ],
       "safety_check_counts_by_group": {
-        "medication conflicts": 2,
+        "medication conflicts": 3,
         "contraindications": 9,
         "interactions": 1,
-        "upper limits": 3,
+        "upper limits": 4,
         "diet": 2
       },
       "plan_checks": [
@@ -433,6 +446,24 @@
             "group": "advisory",
             "effect": "warns",
             "does": "Attaches the no-endorsement note to products that require one."
+          },
+          {
+            "name": "Condition caution",
+            "group": "advisory",
+            "effect": "warns",
+            "does": "Adds a caution to a product that interacts with a condition the customer has declared, and removes nothing."
+          },
+          {
+            "name": "Product pairing caution",
+            "group": "advisory",
+            "effect": "warns",
+            "does": "Adds a caution when the plan holds both products of a pair reviewed for an interaction, and removes nothing."
+          },
+          {
+            "name": "Creatine over 70",
+            "group": "advisory",
+            "effect": "warns",
+            "does": "Refers creatine to a professional for a customer aged 70 or over who does not train, rather than presenting it as a straightforward buy."
           }
         ]
       },
@@ -447,7 +478,7 @@
             "shortfall_before_recommend": 0.25,
             "shortfall_pct": 25.0,
             "strictness": "strict",
-            "upper_limit": 2000,
+            "upper_limit": 2500,
             "upper_limit_unit": "mg",
             "target_reference_adult": 700.0
           },
@@ -635,7 +666,7 @@
                 "shortfall_before_recommend": 0.25,
                 "shortfall_pct": 25.0,
                 "strictness": "strict",
-                "upper_limit": 2000
+                "upper_limit": 2500
               },
               {
                 "nutrient": "Vitamin A",
@@ -737,7 +768,7 @@
                 "shortfall_before_recommend": 0.25,
                 "shortfall_pct": 25.0,
                 "strictness": "strict",
-                "upper_limit": 2000
+                "upper_limit": 2500
               },
               {
                 "nutrient": "Vitamin A",
@@ -817,7 +848,7 @@
                 "shortfall_before_recommend": 0.25,
                 "shortfall_pct": 25.0,
                 "strictness": "strict",
-                "upper_limit": 2000
+                "upper_limit": 2500
               },
               {
                 "nutrient": "Vitamin A",
@@ -901,7 +932,7 @@
           ]
         },
         {
-          "goal": "Boost Energy",
+          "goal": "Energy & Tiredness",
           "subgoals": [
             "Ongoing tiredness",
             "Afternoon dips",
@@ -952,7 +983,6 @@
           "subgoals": [
             "Struggle to gain weight",
             "Low appetite",
-            "Feel like a fast metabolism",
             "Gain fat not muscle",
             "Low energy to train",
             "None of the above."
@@ -1045,7 +1075,6 @@
             "Stamina and staying power",
             "Blood flow and vitality",
             "Performance confidence",
-            "Arousal and sensitivity",
             "Comfort and dryness",
             "Overall vitality",
             "None of the above."
@@ -1078,13 +1107,7 @@
         },
         {
           "goal": "Lung Health",
-          "subgoals": [
-            "Support healthy breathing",
-            "Seasonal or airborne sensitivity",
-            "Stamina and breathing during activity",
-            "Active-outdoor-lifestyle support",
-            "None of the above."
-          ]
+          "subgoals": []
         },
         {
           "goal": "Menopause",
@@ -1105,7 +1128,6 @@
             "Irritability",
             "Feeling overwhelmed",
             "Nervousness or on edge",
-            "Emotional eating",
             "None of the above."
           ]
         },
@@ -1138,7 +1160,6 @@
             "Feeling overwhelmed",
             "Trouble winding down",
             "Everyday tension",
-            "Stress-related eating",
             "Restlessness",
             "None of the above."
           ]
@@ -1244,7 +1265,6 @@
             "Fine lines and wrinkles",
             "Loss of firmness",
             "Dull or uneven tone",
-            "Redness or sensitivity",
             "None of the above."
           ]
         },
@@ -1254,9 +1274,7 @@
             "Hair thinning or shedding",
             "Slow hair growth",
             "Brittle hair",
-            "Split ends",
             "Dull or lifeless hair",
-            "Scalp concerns",
             "None of the above."
           ]
         },
@@ -1284,7 +1302,7 @@
           "goal": "Tone & Definition",
           "subgoals": [
             "Struggle to lean out",
-            "Holding stubborn fat",
+            "Keep muscle while losing fat",
             "Muscle definition",
             "Recovery between sessions",
             "None of the above."
