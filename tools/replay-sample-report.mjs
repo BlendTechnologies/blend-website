@@ -18,6 +18,9 @@
  *   node tools/replay-sample-report.mjs --write   [who ...]    replay, extract, write the files, redraw the page, stamp sources.json
  *   node tools/replay-sample-report.mjs --redraw [--check]     draw the page from the files here, no network; --check only says whether it would change
  *     --keep <dir>   save every results page, submission transcript and extract there
+ *     alex=<submission id>[:<recommendation id>]   with --extract, --report or --write: read THAT
+ *                    submission's page instead of making one. For the day the reader breaks
+ *                    after the results page is redesigned and the submissions already exist.
  *
  * WHAT A REPLAY IS. The request in each file is the persona's answers by their
  * stable ids. It is first planned against the live quiz definition
@@ -38,6 +41,16 @@
  * workspace's Playwright (tools/visual-diff/node_modules), found through
  * tools/workspace.mjs or named by BLEND_PLAYWRIGHT; this site has no
  * dependencies of its own.
+ *
+ * THE PAGE IT READS. Written against the results page as redesigned on
+ * 2026-11-19 and 2026-11-20 (webapp #1583 to #1605): a product is a list item
+ * under "Recommended products" with its name, tier badge, goal pills, sub-goal
+ * pills, why, a When/Serving row whose labels are visually hidden, "Your match"
+ * dots and price; its <dialog> repeats that with the full description. The
+ * products under "Other products in this range" are alternatives: listed by
+ * name, never read as picks. The first reader keyed on every <dialog> and a
+ * "Why:" prefix, and on 2026-11-20 it read 29 alternatives as picks and no why
+ * at all; the guard below refused all three personas, as it should.
  *
  * A PROBE THAT READS NOTHING IS BROKEN. A page with no products, no macros, a
  * bar in a colour this site has no class for, a macro label this tool has never
@@ -82,7 +95,14 @@ if (picked.length !== 1) {
   process.exit(2);
 }
 const mode = picked[0].slice(2);
-const personas = WHO.filter(w => argv.includes(w));
+/* alex=<submission>[:<recommendation>] names a submission that already exists
+   (today's replay, read again after the reader was mended) instead of making one. */
+const GIVEN = {};
+for (const a of argv) {
+  const m = /^(alex|sam|helen)=([0-9a-f-]{36})(?::([0-9a-f-]{36}))?$/i.exec(a);
+  if (m) GIVEN[m[1].toLowerCase()] = { submission_id: m[2], recommendation_id: m[3] || null };
+}
+const personas = WHO.filter(w => argv.includes(w) || GIVEN[w]);
 if (!personas.length) personas.push(...WHO);
 const keep = after('--keep');
 const today = new Date().toISOString().slice(0, 10);
@@ -249,64 +269,108 @@ async function openBrowser() {
   throw new Error('no headless browser. This site has no dependencies of its own and borrows the workspace\'s Playwright (tools/visual-diff: run npm install there), or set BLEND_PLAYWRIGHT to a playwright/index.mjs.');
 }
 
-/* Runs inside the page. Self-contained: nothing from this file is in scope. */
+/* Runs inside the page. Self-contained: nothing from this file is in scope.
+   Structural where it can be (headings, list items, the hidden labels, the
+   aria-label of the dots), never a Tailwind class. */
 function readPage() {
-  const T = el => (el ? (typeof el.innerText === 'string' ? el.innerText : el.textContent || '') : '').replace(/\s+/g, ' ').trim();
-  const lines = el => el.innerText.split('\n').map(s => s.trim()).filter(Boolean);
-  const secs = [...document.querySelectorAll('section')];
-  const secBy = re => secs.find(s => re.test(T(s.querySelector('h1,h2')) || ''));
+  const T = el => (el ? el.textContent || '' : '').replace(/\s+/g, ' ').trim();
+  const visible = el => { if (!el) return ''; const c = el.cloneNode(true); c.querySelectorAll('.sr-only').forEach(x => x.remove()); return T(c); };
+  const headed = re => { for (const h of document.querySelectorAll('h1,h2,h3')) if (re.test(T(h))) return { h, sec: h.closest('section') || h.parentElement }; return null; };
+  const lists = sec => sec ? [...sec.querySelectorAll('ul')].map(u => [...u.children].map(li => T(li)).filter(Boolean)) : [];
   const heading = T(document.querySelector('h1'));
-  const introSec = secs.find(s => s.querySelector('h1'));
-  const intro = introSec ? T([...introSec.querySelectorAll('p')].find(x => /Based on your answers|Your answers/.test(T(x)))) : '';
-  const chips = re => { const s = secBy(re); return s ? lines(s).slice(1) : []; };
-  const products = [...document.querySelectorAll('dialog')].map(d => {
-    const leaves = [...d.querySelectorAll('*')].filter(e => e.children.length === 0 && T(e)).map(e => ({ tag: e.tagName, t: T(e) }));
-    const texts = leaves.map(l => l.t);
-    const name = texts[0]; const tier = texts[1];
-    const descIdx = leaves.findIndex((l, i) => i > 1 && l.tag === 'P');
-    const tags = texts.slice(2, descIdx).filter(t => !/^Caution/.test(t));
-    const paras = leaves.slice(descIdx).filter(l => l.tag === 'P').map(l => l.t);
-    const els = [...d.querySelectorAll('p, span, div, li')].map(e => T(e));
-    const pick = re => { const c = els.filter(t => re.test(t)).sort((a, b) => a.length - b.length); return c[0] || ''; };
-    const why = pick(/^Why: .{3,}/).replace(/^Why: /, '');
-    const timing = pick(/^When: (?!.*Serving).{2,}/).replace(/^When: /, '');
-    const form = pick(/^Serving: .{2,}/).replace(/^Serving: /, '');
-    const caution = pick(/^Note: .{5,}/) || null;
-    const price = texts.find(t => /^US\$|^£|^€/.test(t)) || null;
-    const descBlock = paras.find(t => !/^Why: |^When: |^Serving: /.test(t) && t.length > 30) || '';
+  const intro = T([...document.querySelectorAll('p')].find(x => /Based on your answers/.test(T(x))));
+  const prof = headed(/^Your profile|^Your details/);
+  const profile = prof ? lists(prof.sec).flat() : [];
+  const told = headed(/told us matters|^Your priorities|^Your goals/);
+  const [goals = [], subgoals = []] = told ? lists(told.sec) : [];
+  const sg = document.querySelector('[role="group"][aria-label*="score"]');
+  const sa = sg ? /:\s*(\d{1,3})\s*,\s*(.+)$/.exec(sg.getAttribute('aria-label') || '') : null;
+  const health_score = sa ? Number(sa[1]) : null;
+  const health_band = sa ? sa[2].trim() : null;
+
+  const isPrice = t => /^(US\$|£|€)\s?\d/.test(t);
+  const readCard = li => {
+    const c = li.cloneNode(true);
+    c.querySelectorAll('dialog, button').forEach(x => x.remove());
+    const nameP = c.querySelector('p');
+    const name = T(nameP);
+    const tier = [...c.querySelectorAll('span')].map(T).find(t => /^(Essential|Recommended|Optional)$/.test(t)) || '';
+    const uls = [...c.querySelectorAll('ul')];
+    const tags = uls[0] ? [...uls[0].children].map(T).filter(Boolean) : [];
+    const subtags = uls[1] ? [...uls[1].children].map(T).filter(Boolean) : [];
+    const ps = [...c.querySelectorAll('p')].filter(p => p !== nameP && !p.hasAttribute('data-match-dots'));
+    const useP = ps.find(p => p.querySelector('.sr-only') && /When:|Serving:/.test(T(p)));
+    const labelled = {};
+    if (useP) for (const sp of useP.querySelectorAll('span')) { const sr = sp.querySelector(':scope > .sr-only'); if (sr) labelled[T(sr).replace(/:$/, '')] = visible(sp); }
+    const body = ps.filter(p => p !== useP && !/^(Your match|Caution|Note)\b/.test(T(p)) && !isPrice(T(p)));
+    const why = visible(body[0]);
+    const caution = ps.map(T).find(t => /^(Caution|Note)\b/.test(t)) || null;
+    const price = [...c.querySelectorAll('span, p')].map(T).find(isPrice) || null;
+    const dots = li.querySelector('[data-match-dots]');
+    const ma = dots ? /(\d+)\s*\/\s*(\d+)/.exec(dots.querySelector('[aria-label]')?.getAttribute('aria-label') || '') : null;
+    const match = ma ? { score: Number(ma[1]), of: Number(ma[2]) } : (dots ? { score: Number(dots.getAttribute('data-match-dots')), of: 5 } : null);
+    /* the full description is on the expanded card; the why there ends in a hidden "Why:" and the use row carries hidden labels, so both are told apart by that */
+    const dlg = li.querySelector('dialog');
+    const dps = dlg ? [...dlg.querySelectorAll('p')] : [];
+    const descBlock = dps.filter(p => !p.querySelector('.sr-only') && !p.hasAttribute('data-match-dots')).map(T)
+      .find(t => t !== name && t !== why && !isPrice(t) && !/^(Your match|Caution|Note)\b/.test(t) && t.length > 30) || '';
     const m = descBlock.match(/^(.*?)(?:\s+When to take it\.\s+(.*?))?(?:\s+Ingredients\.\s+(.*?))?$/);
-    return { name, tier, tags, why, timing, form, price, description: m ? m[1] : descBlock, caution };
-  });
-  const mac = secBy(/macros|Daily intake/i);
-  const ml = mac ? lines(mac).slice(2) : [];
-  const macros = [];
-  for (let i = 0; i + 4 < ml.length; i += 5) macros.push({ label: ml[i], value: ml[i + 1], unit: ml[i + 2], target: ml[i + 3], pct: parseInt(ml[i + 4]) });
-  const macroBars = mac ? [...mac.querySelectorAll('[style*="width"]')].map(e => ({
-    w: e.style.width,
-    bg: ((e.getAttribute('style') || '').match(/background(?:-color)?:\s*([^;]+)/) || [])[1] || getComputedStyle(e).backgroundColor,
-  })) : [];
-  const bd = secBy(/breakdown/i);
-  const bl = bd ? lines(bd).slice(2) : [];
-  const breakdown = []; let g = null;
-  for (const l of bl) {
-    if (/^\d+%$/.test(l) && g && g.rows.length) g.rows[g.rows.length - 1].pct = parseInt(l);
-    else if (/^• /.test(l) && g && g.rows.length) g.rows[g.rows.length - 1].sources = l.replace(/^• /, '');
-    else if (/^(Vitamins|Minerals|Macronutrients|Other|Fatty acids|Amino acids)$/i.test(l) || !g) { g = { group: l, rows: [] }; breakdown.push(g); }
-    else g.rows.push({ name: l });
+    return { name, tier, tags, subtags, why, timing: labelled.When || '', form: labelled.Serving || '', price, caution, match, description: m ? m[1] : descBlock };
+  };
+  const rec = headed(/^Recommended products|^Your products|^Your plan/);
+  /* a card is a list item with its own expanded <dialog>; the pills inside it are list items without one */
+  const cards = rec ? [...rec.sec.querySelectorAll('li')].filter(li => li.querySelector('dialog')) : [];
+  const products = cards.map(readCard);
+  const det = [...document.querySelectorAll('details')].find(d => /Other products/i.test(T(d.querySelector('summary'))));
+  const others = det ? [...det.querySelectorAll('li')].filter(li => li.querySelector('dialog')).map(li => T(li.querySelector('p'))) : [];
+  const othersCount = det ? (Number((/(\d+)\s+products?/.exec(T(det.querySelector('summary'))) || [])[1]) || others.length) : 0;
+
+  const style = el => (el ? el.getAttribute('style') || '' : '');
+  const bgOf = el => (style(el).match(/background(?:-color)?:\s*([^;]+)/) || [])[1] || (el ? getComputedStyle(el).backgroundColor : '');
+  const mac = headed(/^Your macros|Daily intake/i);
+  const grid = mac ? [...mac.sec.querySelectorAll('div')].find(d => d.children.length >= 4 && [...d.children].every(ch => ch.querySelector('[style*="width"]'))) : null;
+  const macros = grid ? [...grid.children].map(tile => {
+    const top = tile.children[0], bottom = tile.children[1];
+    const ps = top ? [...top.querySelectorAll(':scope > p')] : [];
+    const vs = ps[1] ? [...ps[1].querySelectorAll('span')].map(T) : [];
+    const bar = tile.querySelector('[style*="width"]');
+    const pctT = bottom ? [...bottom.querySelectorAll('span')].map(T).find(t => /%$/.test(t.replace(/\s/g, ''))) : null;
+    const note = [...tile.children].slice(2).map(T).filter(Boolean).join(' ') || null;
+    return { label: T(ps[0]), value: vs[0] || '', unit: vs[1] || '', target: T(ps[2]), pct: pctT ? parseInt(pctT) : NaN, w: (style(bar).match(/width:\s*([^;]+)/) || [])[1] || '', bg: bgOf(bar), note };
+  }) : [];
+
+  const bd = headed(/^Full breakdown|breakdown/i);
+  const breakdown = [];
+  if (bd) for (const h3 of bd.sec.querySelectorAll('h3')) {
+    const rows = [];
+    for (const row of h3.nextElementSibling ? [...h3.nextElementSibling.children] : []) {
+      const ps = [...row.querySelectorAll('p')].map(p => T(p).replace(/^•\s*/, '').replace(/\s*•$/, ''));
+      const pct = ps.map(t => /^(\d{1,3})\s*%$/.exec(t)).find(Boolean);
+      const sources = ps.find(t => /^Sources:/.test(t)) || '';
+      rows.push({ name: ps[0] || '', pct: pct ? Number(pct[1]) : NaN, sources, bg: bgOf(row.querySelector('[style*="width"]')) });
+    }
+    breakdown.push({ group: T(h3), rows });
   }
-  const nh = [...document.querySelectorAll('h2,h3')].find(h => /Talk to a professional|Talk to an expert/i.test(T(h)));
-  const notices = nh ? lines(nh.closest('section') || nh.parentElement) : [];
+
+  const notices = [];
+  for (const h of document.querySelectorAll('h2,h3')) {
+    if (!/Talk to a professional|Talk to an expert/i.test(T(h))) continue;
+    const sec = h.closest('section') || h.parentElement;
+    for (const li of sec.querySelectorAll('li')) {
+      const lead = T(li.querySelector('span'));
+      const text = T(li).replace(lead, '').replace(/^\s*:\s*/, '').trim();
+      notices.push({ title: T(h), lead, text });
+    }
+  }
   const disclaimer = T([...document.querySelectorAll('p')].find(x => /effectiveness and suitability/.test(T(x))));
-  const sc = secBy(/wellness score|health score/i);
-  const scLine = sc ? lines(sc).find(l => /^\d{1,3}$/.test(l)) : null;
-  return { heading, intro, profile: chips(/Your profile|Your details/), goals: chips(/told us matters|priorities/), products, macros, macroBars, breakdown, notices, disclaimer, health_score: scLine ? parseInt(scLine) : null };
+  return { heading, intro, profile, goals, subgoals, products, others, othersCount, macros, breakdown, notices, disclaimer, health_score, health_band };
 }
 
 async function extract(browser, sid) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   try {
     await page.goto(`${BASE}/quiz/${KEY}/results/${sid}`, { waitUntil: 'load', timeout: 60000 });
-    await page.waitForSelector('dialog', { timeout: 30000 }).catch(() => {});
+    await page.waitForSelector('[data-match-dots], dialog', { timeout: 30000 }).catch(() => {});
     await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
     const raw = await page.evaluate(readPage);
     const html = await page.content();
@@ -340,38 +404,39 @@ function shape(raw, old) {
   const ka = /in (\d+) (?:key )?areas/.exec(raw.intro || '');
   need(ka, `the intro names no number of areas: ${JSON.stringify(raw.intro)}`);
   const products = raw.products.map(p => {
-    for (const k of ['name', 'tier', 'why', 'form', 'timing', 'description']) need(p[k], `${p.name || 'a product'}: no ${k} read`);
-    const d = { name: p.name, tier: p.tier, tags: p.tags, why: p.why, form: p.form, timing: p.timing, description: p.description, price: p.price };
-    if (p.caution) d.caution = p.caution.replace(/^Note: /, '');
+    for (const k of ['name', 'tier', 'why', 'form', 'timing']) need(p[k], `${p.name || 'a product'}: no ${k} read`);
+    need(p.match && Number.isFinite(p.match.score), `${p.name || 'a product'}: no match dots read`);
+    const d = { name: p.name, tier: p.tier, tags: p.tags, subtags: p.subtags, why: p.why, form: p.form, timing: p.timing, description: p.description || '', price: p.price, match: p.match };
+    if (p.caution) d.caution = p.caution.replace(/^(Note|Caution): /, '');
     return d;
   });
-  need(raw.macroBars.length === raw.macros.length, `${raw.macros.length} macros but ${raw.macroBars.length} bars`);
-  const macros = raw.macros.map((m, i) => {
-    const bg = raw.macroBars[i]?.bg || '';
-    const cls = colourClass(bg);
-    need(cls, `${m.label}: bar colour ${JSON.stringify(bg)} is none the page draws (m-g, m-gr, m-b, m-r, m-o)`);
-    need(LABEL[m.label], `macro label ${JSON.stringify(m.label)} is new to this tool`);
+  need(products.some(p => p.description), 'no product carries a description: the expanded card was not read');
+  const macros = raw.macros.map(m => {
+    const key = String(m.label || '').toUpperCase();
+    const cls = colourClass(m.bg);
+    need(cls, `${m.label}: bar colour ${JSON.stringify(m.bg)} is none the page draws (m-g, m-gr, m-b, m-r, m-o)`);
+    need(LABEL[key], `macro label ${JSON.stringify(m.label)} is new to this tool`);
     need(Number.isFinite(m.pct), `${m.label}: no percentage read`);
-    return { label: LABEL[m.label] || m.label, value: m.value, unit: m.unit, target: m.target, pct: m.pct, cls };
+    need(m.value && m.unit && m.target, `${m.label}: value, unit or target not read`);
+    const out = { label: LABEL[key] || m.label, value: m.value, unit: m.unit, target: m.target, pct: m.pct, cls };
+    if (m.note) out.note = m.note;
+    return out;
   });
-  for (const g of raw.breakdown) for (const r of g.rows) {
+  const breakdown = raw.breakdown.map(g => ({ group: g.group, rows: g.rows.map(r => {
+    need(r.name, `a breakdown row under ${g.group} has no name`);
     need(Number.isFinite(r.pct), `breakdown ${r.name}: no percentage read`);
     need(r.sources, `breakdown ${r.name}: no sources line read`);
-  }
-  const notices = [];
-  if (raw.notices.length) {
-    const [title, ...body] = raw.notices;
-    for (const b of body) {
-      const i = b.indexOf(': ');
-      notices.push(i > 0 ? { title, lead: b.slice(0, i), text: b.slice(i + 2) } : { title, lead: '', text: b });
-    }
-  }
+    const cls = colourClass(r.bg);
+    need(cls, `breakdown ${r.name}: bar colour ${JSON.stringify(r.bg)} is none the page draws`);
+    return { name: r.name, pct: r.pct, sources: r.sources, cls };
+  }) }));
   const report = {
     heading: raw.heading, intro: raw.intro, key_areas: ka ? Number(ka[1]) : null,
-    profile: raw.profile.map(c => c.replace(/\*$/, '')), goals: raw.goals, products, macros,
-    macros_note: old.report.macros_note, breakdown: raw.breakdown, notices, disclaimer: raw.disclaimer,
+    profile: raw.profile.map(c => c.replace(/\*$/, '')), goals: raw.goals, subgoals: raw.subgoals, products, macros,
+    macros_note: old.report.macros_note, breakdown, notices: raw.notices, disclaimer: raw.disclaimer,
+    other_products: { count: raw.othersCount, names: raw.others },
   };
-  if (raw.health_score != null) report.health_score = raw.health_score;
+  if (raw.health_score != null) { report.health_score = raw.health_score; report.health_band = raw.health_band; }
   return { report, problems };
 }
 
@@ -386,20 +451,21 @@ function compare(a, b) {
   };
   sets('profile', a.profile, b.profile);
   sets('goals', a.goals, b.goals);
+  sets('sub-goals', a.subgoals || [], b.subgoals || []);
   const A = new Map(a.products.map(p => [p.name, p])), B = new Map(b.products.map(p => [p.name, p]));
   for (const [n, p] of A) if (!B.has(n)) out.push(`product out: ${n} (${p.tier})`);
   for (const [n, p] of B) if (!A.has(n)) out.push(`product in: ${n} (${p.tier})`);
   for (const [n, p] of A) {
     const q = B.get(n);
     if (!q) continue;
-    for (const k of ['tier', 'tags', 'why', 'form', 'timing', 'description', 'caution', 'price']) if (!same(p[k], q[k])) out.push(`${n}: ${k} ${JSON.stringify(p[k])} -> ${JSON.stringify(q[k])}`);
+    for (const k of ['tier', 'tags', 'subtags', 'why', 'form', 'timing', 'description', 'caution', 'price', 'match']) if (!same(p[k], q[k])) out.push(`${n}: ${k} ${JSON.stringify(p[k])} -> ${JSON.stringify(q[k])}`);
   }
   if (A.size === B.size && [...A.keys()].every(n => B.has(n)) && !same([...A.keys()], [...B.keys()])) out.push('products: same picks, new order');
   const MA = new Map(a.macros.map(m => [m.label, m])), MB = new Map(b.macros.map(m => [m.label, m]));
   for (const [l, m] of MA) {
     const n = MB.get(l);
     if (!n) { out.push(`macro gone: ${l}`); continue; }
-    const ch = ['value', 'unit', 'target', 'pct', 'cls'].filter(k => !same(m[k], n[k])).map(k => `${k} ${m[k]} -> ${n[k]}`);
+    const ch = ['value', 'unit', 'target', 'pct', 'cls', 'note'].filter(k => !same(m[k], n[k])).map(k => `${k} ${m[k]} -> ${n[k]}`);
     if (ch.length) out.push(`${l}: ${ch.join(', ')}`);
   }
   for (const l of MB.keys()) if (!MA.has(l)) out.push(`macro new: ${l}`);
@@ -408,13 +474,14 @@ function compare(a, b) {
   for (const [n, r] of RA) {
     const s = RB.get(n);
     if (!s) { out.push(`breakdown row gone: ${n} (${r.pct}%)`); continue; }
-    const ch = ['pct', 'sources', 'group'].filter(k => r[k] !== s[k]).map(k => `${k} ${JSON.stringify(r[k])} -> ${JSON.stringify(s[k])}`);
+    const ch = ['pct', 'sources', 'group', 'cls'].filter(k => r[k] !== s[k]).map(k => `${k} ${JSON.stringify(r[k])} -> ${JSON.stringify(s[k])}`);
     if (ch.length) out.push(`${n}: ${ch.join(', ')}`);
   }
   for (const [n, s] of RB) if (!RA.has(n)) out.push(`breakdown row new: ${n} (${s.pct}%)`);
   if (!same(a.notices || [], b.notices || [])) out.push(`notices: ${JSON.stringify(a.notices || [])} -> ${JSON.stringify(b.notices || [])}`);
   if (a.disclaimer !== b.disclaimer) out.push('disclaimer: the wording changed');
   if ((a.health_score ?? null) !== (b.health_score ?? null)) out.push(`wellness score: ${a.health_score ?? 'none'} -> ${b.health_score ?? 'none'}`);
+  if ((a.other_products?.count ?? null) !== (b.other_products?.count ?? null)) out.push(`other products in this range: ${a.other_products?.count ?? 'not recorded'} -> ${b.other_products?.count ?? 'none'}`);
   if (a.heading !== b.heading) out.push(`the webapp's heading: ${JSON.stringify(a.heading)} -> ${JSON.stringify(b.heading)}`);
   if (a.intro !== b.intro) out.push(`the webapp's intro sentence: ${JSON.stringify(a.intro)} -> ${JSON.stringify(b.intro)}`);
   return out;
@@ -579,12 +646,14 @@ function how(w, n, run, rep) {
   const score = rep.health_score == null
     ? "The demo's published report configuration keeps the wellness score off, so the results page shows none and this file carries none."
     : `The results page showed a wellness score of ${rep.health_score}, recorded as health_score.`;
-  return `POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed ${KEY}, publication ${run.publication_id}), ${run.completed.slice(0, 10)}, `
+  return `POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed ${KEY}, publication ${run.publication_id || 'not recorded'}), ${run.completed.slice(0, 10)}, `
     + `replaying the request below through the public embed API exactly as the quiz runtime does: ${n} answers by their stable ids, one PUT per question, then complete. `
-    + `Submission ${run.submission_id}, recommendation ${run.recommendation_id}, HTTP 200, ${rep.products.length} products from the demo catalogue. `
+    + `Submission ${run.submission_id}, recommendation ${run.recommendation_id || 'not recorded'}, HTTP 200, ${rep.products.length} products from the demo catalogue. `
     + `The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. `
     + `The submission's country is whatever the server read from the request's origin; the embed API does not return it. ${score} `
-    + `The brand's description for each product is the first paragraph the results page shows for it; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. `
+    + `The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. `
+    + `The page's goal pills, sub-goal pills and "Your match" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals); this page draws the first two goal pills of a card and nothing else of those. `
+    + `The products under "Other products in this range" are listed by name under other_products and not drawn. `
     + `To refresh: node tools/replay-sample-report.mjs --write ${w}.`;
 }
 
@@ -672,6 +741,7 @@ async function main() {
       + (recorded.size === 1 && recorded.has(quiz.publicationId) ? ' (the one the recorded runs answered).' : ` (the recorded runs answered ${[...recorded].join(', ') || 'an unrecorded publication'}: the demo has published since).`));
     const plans = {};
     for (const w of personas) {
+      if (GIVEN[w] && mode !== 'plan') { say(`${cap(w)}: submission ${GIVEN[w].submission_id} given; its page is read and nothing is replayed.`); continue; }
       const { steps, issues } = plan(files[w].request, quiz);
       plans[w] = steps;
       const n = files[w].request.choices.length + files[w].request.values.length;
@@ -688,8 +758,10 @@ async function main() {
     }
 
     say('');
-    say(`${mode === 'write' ? 'Replaying and writing' : 'Replaying, writing nothing'}. Each persona creates one submission on the Blend Demo tenant; it counts in the demo's analytics.`);
+    const toReplay = personas.filter(w => !GIVEN[w] && plans[w] && !failed.some(f => f.startsWith(`${w}:`)));
+    if (toReplay.length) say(`${mode === 'write' ? 'Replaying and writing' : 'Replaying, writing nothing'}. Each persona creates one submission on the Blend Demo tenant; it counts in the demo's analytics.`);
     for (const w of personas) {
+      if (GIVEN[w]) { results[w] = { run: { ...GIVEN[w], publication_id: null, completed: null }, given: true, n: null }; continue; }
       if (!plans[w] || failed.some(f => f.startsWith(`${w}:`))) continue;
       try {
         const run = await replay(w, plans[w], quiz.publicationId, say);
@@ -702,11 +774,12 @@ async function main() {
     }
   } else {
     for (const w of personas) {
+      if (GIVEN[w]) { results[w] = { run: { ...GIVEN[w], publication_id: null, completed: null }, given: true, n: null }; continue; }
       const run = files[w].run;
       if (!run?.submission_id) { failed.push(`${w}: the file records no submission to read again`); continue; }
       results[w] = { run, n: files[w].request.choices.length + files[w].request.values.length };
     }
-    say(`Reading the recorded submissions' results pages again; no new submission.`);
+    say(`Reading the ${Object.values(results).some(r => r.given) ? 'given' : 'recorded'} submissions' results pages again; no new submission.`);
   }
 
   const todo = Object.keys(results);
@@ -721,6 +794,11 @@ async function main() {
           keepFile(`extract-${w}.json`, JSON.stringify(raw, null, 1));
           const sub = await submission(r.run.submission_id);
           keepFile(`submission-${w}.json`, JSON.stringify(sub, null, 1));
+          if (r.given) {
+            /* the submission's own record of when and against which publication, where the API says; else today and unrecorded */
+            r.run.publication_id = sub.publicationId ?? sub.publication_id ?? null;
+            r.run.completed = sub.completedAt ?? sub.completed_at ?? new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+          }
           keepFile(`run-${w}.json`, JSON.stringify(r.run, null, 1));
           const { report, problems } = shape(raw, files[w]);
           if (problems.length) {
@@ -730,6 +808,7 @@ async function main() {
           }
           r.rep = report;
           r.rows = transcript(sub);
+          if (r.n == null) r.n = r.rows.length;
           r.moved = compare(files[w].report, report);
         } catch (e) {
           failed.push(`${w}: ${e.message}`);

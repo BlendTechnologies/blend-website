@@ -246,6 +246,22 @@ account, and nothing in this repository can see it go.
   page's. A page that reads no products, a bar in a colour the page has no
   class for, a macro label the tool has never met: "not measured", and nothing
   of that persona is written.
+- **The reader follows the results page as redesigned on 2026-11-19 and 20**
+  (webapp #1583 to #1605; tool mended 2026-11-20). A product is a list item
+  under "Recommended products": name, tier badge, goal pills, sub-goal pills,
+  the why, a When/Serving row with hidden labels, "Your match" dots, price;
+  its dialog repeats that with the full description. The cards under "Other
+  products in this range" are alternatives, listed by name in the file
+  (`other_products`) and never read as picks. Each product now records its
+  sub-goal pills (`subtags`) and dots (`match`), the heading its sub-goals
+  (`subgoals`), the score its band, a breakdown row its bar colour, a macro
+  its note; the page draws a card's first two goal pills and none of the
+  rest, so the drawing did not move. The first reader keyed on every dialog
+  and a "Why:" prefix; on 2026-11-20 it read 29 alternatives as picks and no
+  why at all, and the guard refused all three personas, as it should. When
+  that happens again, mend the reader and read the day's submissions back
+  without making new ones: `--extract alex=<submission id>[:<recommendation
+  id>]`, and `--write` with the same form writes them.
 - **In the UK, Melatonin is out.** The engine's legality gate removes it
   (prescription-only) and Cordyceps takes its place.
 - **Two spellings are the site's, not the engine's**: the em dash in the
