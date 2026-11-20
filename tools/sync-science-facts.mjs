@@ -328,14 +328,14 @@ const exampleList = `      <div class="sci-glist" id="sci-examples">` +
 const safety = `<section class="sci-sec" id="safety">
   <div class="wrap">
     <div class="sci-head sci-in">
-      <h2 class="h2">${num(h.counts.safety_checks.value)} checks that can remove a product. None can be switched off.</h2>
+      <h2 class="h2">${num(h.counts.safety_checks.value)} safety checks every product passes. None can be switched off.</h2>
       <p class="lead">Interactions, contraindications and the customer&#8217;s own conditions are checked before a product can be recommended.</p>
     </div>
     <div class="sci-groups sci-in">
 ${groupTiles}
     </div>
 ${exampleList}
-    <p class="sci-prod-foot sci-in">${num(examples.length)} of the ${num(h.counts.safety_checks.value)} checks that can remove a product.</p>
+    <p class="sci-prod-foot sci-in">${num(examples.length)} of the ${num(h.counts.safety_checks.value)} safety checks.</p>
   </div>
 </section>`;
 

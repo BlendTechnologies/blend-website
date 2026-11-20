@@ -49,8 +49,8 @@
       "refresh": "node tools/refresh.mjs (runs export_science_facts.py in the workspace, copies the export in, runs sync-science-facts.mjs)",
       "checked_by": "node tools/sync-science-facts.mjs --check, in this repository's CI: refuses a page that disagrees with the export. Nothing in CI compares the export with the engine; that is what --report is for.",
       "last_refreshed": {
-        "date": "2026-10-16",
-        "workspace_commit": null,
+        "date": "2026-11-20",
+        "workspace_commit": "dc50c04880b53858db0a11a3aa236fd350ca1e05",
         "note": "website #105. The workspace commit the export was read at was not recorded; from now on it is."
       },
       "sanity": [
@@ -89,8 +89,8 @@
       "refresh": "node tools/refresh.mjs (runs export_engine_trace.py in the workspace, copies the export in, runs sync-science-facts.mjs)",
       "checked_by": "node tools/sync-science-facts.mjs --check, in this repository's CI.",
       "last_refreshed": {
-        "date": "2026-10-15",
-        "workspace_commit": null,
+        "date": "2026-11-20",
+        "workspace_commit": "dc50c04880b53858db0a11a3aa236fd350ca1e05",
         "note": "website #101. A request to the algorithm lane for a regenerated run with the whole scored pool is open (workspace docs/algo-lane-engine-page-run-2026-11-14.md)."
       },
       "sanity": [
@@ -133,17 +133,17 @@
     {
       "id": "governed-claims",
       "page": "index.html, use-cases/*.html",
-      "what": "The sentences that state what the engine scores and checks: 25 product attributes, 17 safety gates, up to 64 personalised inputs, 16 always asked. In the FAQ, the JSON-LD, the use-case articles.",
+      "what": "The sentences that state what the engine scores and checks: 18 product attributes that drive a recommendation (33 recorded), 19 safety gates, up to 64 personalised inputs, 16 always asked. In the FAQ, the JSON-LD, the use-case articles.",
       "ui": "none",
       "data": "copied",
       "anchors": [
         {
           "page": "index.html",
-          "contains": "25 product attributes"
+          "contains": "18 product attributes"
         },
         {
           "page": "use-cases/supplement-brands.html",
-          "contains": "17 safety gates"
+          "contains": "19 safety gates"
         }
       ],
       "sources": [
