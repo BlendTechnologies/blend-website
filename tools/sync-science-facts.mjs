@@ -91,6 +91,11 @@ const hero = `<section class="theme-dark ph ph--fill hero-card hc-engine">
    thing dropped between the taxonomy and the page. */
 const SIGNAL = x => x.trim().toLowerCase() !== 'none of the above.';
 const goals = h.goals.map(g => ({ goal: g.goal, subgoals: g.subgoals.filter(SIGNAL) }));
+/* The headline counts what the lists show. The export's sub-goal count includes
+   one "None of the above." per follow-up question, which PRODUCT_FACTS.md says
+   is not a signal and is not shown externally; the page printed that larger
+   number as "signals" until 2026-11-20. */
+const signalCount = goals.reduce((n, g) => n + g.subgoals.length, 0);
 const goalList = goals.map(g => g.goal);
 const openGoal = goals.find(g => /gut health/i.test(g.goal)) || goals[0];
 /* Ten goals open and the rest behind "+31 more" (the design review of
@@ -154,7 +159,7 @@ const covers = `<section class="sci-sec" id="covers">
   <div class="wrap">
     <hr class="sci-divider sci-in">
     <div class="sci-head sci-in">
-      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${h.counts.subgoals.value}">${num(h.counts.subgoals.value)}</span> signals</h2>
+      <h2 class="h2"><span data-count="${h.counts.goals.value}">${num(h.counts.goals.value)}</span> goals &#183; <span data-count="${signalCount}">${num(signalCount)}</span> signals</h2>
       <p class="lead">Explore a goal to see the signals behind it.</p>
     </div>
     <div class="sci-goalgrid sci-in" id="sci-goals" data-goals>
