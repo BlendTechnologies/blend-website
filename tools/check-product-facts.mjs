@@ -80,12 +80,20 @@ function canonical() {
    ever have seen it and no screenshot test could. */
 const CLAIMS = [
   {
-    fact: 'Product attributes the scorer reads',
+    fact: 'Product attributes that drive a recommendation',
     what: 'a claim about what the engine SCORES',
-    // "scores ... using 25 product attributes", "25 product attributes scored"
+    // "using 18 product attributes", "18 product attributes driving each recommendation"
     find: /(\d+)\+?\s*(?:scored\s+)?product attributes/gi,
-    note: 'the 31-column width of supplements_db.json is a claim about the DATA; '
-        + 'a sentence about scoring takes the scorer\'s number',
+    note: 'the engine records 33 attributes for every product and 31 is the width of '
+        + 'supplements_db.json; a sentence about scoring takes the 18 that drive a recommendation',
+  },
+  {
+    fact: 'Product attributes recorded per product',
+    what: 'a claim about what the engine RECORDS for a product',
+    // "33 attributes recorded for every product", "records 33 attributes for every product"
+    find: /(\d+)\+?\s*attributes (?:recorded|for every product)/gi,
+    note: 'recorded is not scored: 18 of the 33 drive a recommendation, and a sentence '
+        + 'about scoring takes that row',
   },
   {
     fact: 'Maximum signals per user (ceiling)',
@@ -112,7 +120,7 @@ const CLAIMS = [
 
 /* /science writes these from the engine export and is checked by
    sync-science-facts.mjs; re-checking the generated block here would only
-   duplicate that, and its "3 of the 17" phrasing is deliberate. */
+   duplicate that, and its "3 of the 19" phrasing is deliberate. */
 const SKIP = new Set(['science.html']);
 
 function pages(dir, acc = []) {

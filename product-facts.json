@@ -2,13 +2,17 @@
   "_source": "PRODUCT_FACTS.md in the Blend-OS workspace. Regenerate with `node tools/sync-product-facts.mjs` from a full checkout; never edit by hand.",
   "_why": "The website is its own repository and PRODUCT_FACTS.md is not in it, so the governed figures are vendored here the same way pricing.json vendors prices. check-product-facts.mjs compares the site against this file, and additionally against PRODUCT_FACTS.md itself whenever that file is reachable.",
   "facts": {
-    "Product attributes the scorer reads": {
-      "value": 25,
-      "why": "Fields on the `ClientProduct` dataclass. This is the number to use whenever the claim is about what is *scored*. The 31 above is the width of the data file and is a different claim."
+    "Product attributes recorded per product": {
+      "value": 33,
+      "why": "Fields on the `ClientProduct` dataclass, re-counted 2026-11-20 (was 25; the eight added are the label fields of #1472 and the catalogue id). This is what is *recorded*, never what is *scored*: see the"
+    },
+    "Product attributes that drive a recommendation": {
+      "value": 18,
+      "why": "Of the 33, the ones the role map in `tools/export_science_facts.py` marks matching (9), safety (7), ranking (1) or plan structure (1). The rest are commerce (5), catalogue bookkeeping (7), or label fi"
     },
     "Safety gates that run on a recommendation": {
-      "value": 17,
-      "why": "Gate functions in `v1_layers/safety.py` that belong to a safety group: contraindications 9, upper limits 3, medication conflicts 2, diet 2, interactions 1."
+      "value": 19,
+      "why": "Gate functions in `v1_layers/safety.py` that belong to a safety group, re-counted 2026-11-20 (was 17): contraindications 9, upper limits 4, medication conflicts 3, diet 2, interactions 1. 17 remove a "
     },
     "Guaranteed signals per user (floor)": {
       "value": 16,

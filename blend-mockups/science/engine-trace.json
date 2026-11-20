@@ -27,7 +27,7 @@
     "medication": "Antihypertensives",
     "goals": "Sleep, Heart Health, Bone & Joint Health",
     "route": "full",
-    "health_score": "69",
+    "health_score": "68",
     "health_score_label": "Fair",
     "health_score_note": "The health score is part of the real customer report, which is why it appears here."
   },
@@ -37,8 +37,14 @@
   },
   "counts": {
     "scored": 51,
-    "passed_the_checks": 30,
-    "recommended": 5
+    "passed_the_checks": 33,
+    "recommended": 7
+  },
+  "nutrients_reported": {
+    "total": 42,
+    "as_coverage_of_target": 29,
+    "as_amount_against_target": 13,
+    "rule": "The per-nutrient breakdown in steps 2 to 4 is every nutrient the engine models and reports for this customer, not a chosen subset. The vitamins and minerals are exactly the engine's own micronutrient display set, each reported as coverage of her personal target and capped at 100 %. The macros and energy-balance nutrients are the remaining reported fields, each an amount against a target; several of them are ceilings, so sitting below the figure is not a shortfall, and the engine's own flag decides that. This total is the same figure the facts page publishes as the nutrients the model reports per person, read from the same source, so the two cannot disagree. The page chooses how many to surface."
   },
   "steps": [
     {
@@ -171,118 +177,335 @@
       "lines": [
         {
           "text": "Food modelled per day",
-          "value": "1241 g",
+          "value": "1115 g",
           "note": "Built from her meal pattern, portion size and how often she eats each food group."
         },
         {
           "text": "Energy from that food",
-          "value": "2137 kcal"
+          "value": "1918 kcal"
         },
         {
           "text": "Protein from that food",
-          "value": "99 g"
+          "value": "89 g"
         },
         {
           "text": "Fibre from that food",
-          "value": "27 g"
+          "value": "24 g"
         }
       ],
       "per_nutrient": [
         {
-          "nutrient": "Calcium",
-          "intake_from_food": 1198.13,
+          "nutrient": "Boron",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 618.44,
           "unit": "mg"
         },
         {
-          "nutrient": "Vitamin D3",
-          "intake_from_food": 15.47,
-          "unit": "mcg",
-          "source": "Food plus modelled skin synthesis. The engine adds a sun credit to the same total, from her sun exposure answer, her skin tone, her country's latitude and the month, so this figure is not food alone."
+          "nutrient": "Calcium",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 1074.98,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Chloride",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 5567.58,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Chromium",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 20.34,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Cobalt",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 22.75,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Copper",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 1.64,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Iodine",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 163.09,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Iron",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 9.66,
+          "unit": "mg"
         },
         {
           "nutrient": "Magnesium",
-          "intake_from_food": 339.44,
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 304.62,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Manganese",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 3.47,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Phosphorus",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 1533.37,
           "unit": "mg"
         },
         {
           "nutrient": "Potassium",
-          "intake_from_food": 2106.64,
-          "unit": "mg"
-        },
-        {
-          "nutrient": "Iron",
-          "intake_from_food": 10.76,
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 1891.13,
           "unit": "mg"
         },
         {
           "nutrient": "Selenium",
-          "intake_from_food": 92.94,
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 83.41,
           "unit": "mcg"
         },
         {
+          "nutrient": "Sodium",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 1675.68,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Sulfur",
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 738.06,
+          "unit": "mg"
+        },
+        {
           "nutrient": "Zinc",
-          "intake_from_food": 10.79,
+          "group": "minerals",
+          "measure": "coverage",
+          "intake_from_food": 9.68,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin A",
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 574.77,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Vitamin B1 (Thiamin)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 1.1,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B2 (Riboflavin)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 1.22,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B3 (Niacin Equivalent)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 24.07,
           "unit": "mg"
         },
         {
           "nutrient": "Vitamin B5 (Pantothenic Acid)",
-          "intake_from_food": 3.61,
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 3.24,
           "unit": "mg"
         },
         {
+          "nutrient": "Vitamin B6 (Pyridoxine)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 1.15,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B7 (Biotin)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 34.89,
+          "unit": "mcg"
+        },
+        {
           "nutrient": "Vitamin B9 (Folate)",
-          "intake_from_food": 250.68,
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 225.01,
           "unit": "mcg"
         },
         {
           "nutrient": "Vitamin B12 (Cobalamin)",
-          "intake_from_food": 8.25,
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 7.4,
           "unit": "mcg"
         },
         {
           "nutrient": "Vitamin C (Ascorbic Acid)",
-          "intake_from_food": 76.28,
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 68.43,
           "unit": "mg"
         },
         {
+          "nutrient": "Vitamin D3",
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 14.39,
+          "unit": "mcg",
+          "source": "Food plus modelled skin synthesis. The engine adds a sun credit to the same total, from her sun exposure answer, her skin tone, her country's latitude and the month, so this figure is not food alone."
+        },
+        {
           "nutrient": "Vitamin E (Alpha-Tocopherol)",
-          "intake_from_food": 9.57,
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 8.6,
           "unit": "mg"
         },
         {
           "nutrient": "Vitamin K",
-          "intake_from_food": 88.07,
+          "group": "vitamins",
+          "measure": "coverage",
+          "intake_from_food": 79.14,
           "unit": "mcg"
         },
         {
           "nutrient": "Omega-3 (EPA and DHA)",
-          "intake_from_food": 1.093,
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 0.98,
           "unit": "g/day"
+        },
+        {
+          "nutrient": "Energy",
+          "group": "macros",
+          "measure": "amount",
+          "intake_from_food": 1918.0
+        },
+        {
+          "nutrient": "Carbohydrate",
+          "group": "macros",
+          "measure": "amount",
+          "intake_from_food": 214.0
+        },
+        {
+          "nutrient": "Fat",
+          "group": "macros",
+          "measure": "amount",
+          "intake_from_food": 72.0
+        },
+        {
+          "nutrient": "Protein",
+          "group": "macros",
+          "measure": "amount",
+          "intake_from_food": 89.0
+        },
+        {
+          "nutrient": "Water",
+          "group": "macros",
+          "measure": "amount",
+          "intake_from_food": 717.0
+        },
+        {
+          "nutrient": "Cholesterol",
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 260.0
+        },
+        {
+          "nutrient": "Fibre",
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 24.0
+        },
+        {
+          "nutrient": "Free Sugars",
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 27.0
+        },
+        {
+          "nutrient": "Monounsaturated Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 24.0
+        },
+        {
+          "nutrient": "Polyunsaturated Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 12.0
+        },
+        {
+          "nutrient": "Saturated Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 28.0
+        },
+        {
+          "nutrient": "Trans Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "intake_from_food": 1.0
         }
       ],
       "already_met_by_diet": {
         "nutrients_reading_as_met": [
+          "Boron",
           "Calcium",
-          "Vitamin D3",
-          "Magnesium",
+          "Chloride",
+          "Chromium",
+          "Cobalt",
+          "Copper",
+          "Iodine",
           "Iron",
+          "Magnesium",
+          "Manganese",
+          "Phosphorus",
           "Selenium",
+          "Sodium",
+          "Sulfur",
           "Zinc",
+          "Vitamin A",
+          "Vitamin B1 (Thiamin)",
+          "Vitamin B2 (Riboflavin)",
+          "Vitamin B3 (Niacin Equivalent)",
+          "Vitamin B6 (Pyridoxine)",
           "Vitamin B9 (Folate)",
           "Vitamin B12 (Cobalamin)",
           "Vitamin C (Ascorbic Acid)",
-          "Vitamin K"
+          "Vitamin D3"
         ],
-        "products_removed": [
-          {
-            "product": "Omega-3 (Algae Oil — Vegan)",
-            "because": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
-          },
-          {
-            "product": "Omega-3 (Fish Oil)",
-            "because": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
-          }
-        ]
+        "products_removed": []
       }
     },
     {
@@ -297,7 +520,7 @@
       "lines": [
         {
           "text": "Energy target",
-          "value": "1664 kcal/day",
+          "value": "1921 kcal/day",
           "basis": "Mifflin-St Jeor resting metabolic rate, with her daily activity answer"
         },
         {
@@ -308,74 +531,286 @@
       ],
       "per_nutrient": [
         {
+          "nutrient": "Boron",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 1.0,
+          "unit": "mg"
+        },
+        {
           "nutrient": "Calcium",
+          "group": "minerals",
+          "measure": "coverage",
           "target": 700.0,
           "unit": "mg"
         },
         {
-          "nutrient": "Vitamin D3",
-          "target": 10.0,
+          "nutrient": "Chloride",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 2000.0,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Chromium",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 20.0,
           "unit": "mcg"
         },
         {
-          "nutrient": "Magnesium",
-          "target": 297.0,
+          "nutrient": "Cobalt",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 0.1,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Copper",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 1.2,
           "unit": "mg"
         },
         {
-          "nutrient": "Potassium",
-          "target": 3500.0,
-          "unit": "mg"
+          "nutrient": "Iodine",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 140.0,
+          "unit": "mcg"
         },
         {
           "nutrient": "Iron",
+          "group": "minerals",
+          "measure": "coverage",
           "target": 8.7,
           "unit": "mg"
         },
         {
+          "nutrient": "Magnesium",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 270.0,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Manganese",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 3.0,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Phosphorus",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 550.0,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Potassium",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 3500.0,
+          "unit": "mg"
+        },
+        {
           "nutrient": "Selenium",
-          "target": 66.0,
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 60.0,
           "unit": "mcg"
         },
         {
+          "nutrient": "Sodium",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 1500.0,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Sulfur",
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 50.0,
+          "unit": "mg"
+        },
+        {
           "nutrient": "Zinc",
-          "target": 7.7,
+          "group": "minerals",
+          "measure": "coverage",
+          "target": 7.0,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin A",
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 540.0,
+          "unit": "mcg"
+        },
+        {
+          "nutrient": "Vitamin B1 (Thiamin)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 0.8,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B2 (Riboflavin)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 1.1,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B3 (Niacin Equivalent)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 13.2,
           "unit": "mg"
         },
         {
           "nutrient": "Vitamin B5 (Pantothenic Acid)",
-          "target": 5.25,
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 5.0,
           "unit": "mg"
         },
         {
+          "nutrient": "Vitamin B6 (Pyridoxine)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 1.2,
+          "unit": "mg"
+        },
+        {
+          "nutrient": "Vitamin B7 (Biotin)",
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 40.0,
+          "unit": "mcg"
+        },
+        {
           "nutrient": "Vitamin B9 (Folate)",
-          "target": 230.0,
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 200.0,
           "unit": "mcg"
         },
         {
           "nutrient": "Vitamin B12 (Cobalamin)",
-          "target": 1.65,
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 1.5,
           "unit": "mcg"
         },
         {
           "nutrient": "Vitamin C (Ascorbic Acid)",
+          "group": "vitamins",
+          "measure": "coverage",
           "target": 75.0,
           "unit": "mg"
         },
         {
+          "nutrient": "Vitamin D3",
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 10.0,
+          "unit": "mcg"
+        },
+        {
           "nutrient": "Vitamin E (Alpha-Tocopherol)",
-          "target": 11.55,
+          "group": "vitamins",
+          "measure": "coverage",
+          "target": 11.0,
           "unit": "mg"
         },
         {
           "nutrient": "Vitamin K",
+          "group": "vitamins",
+          "measure": "coverage",
           "target": 90.0,
           "unit": "mcg"
         },
         {
           "nutrient": "Omega-3 (EPA and DHA)",
-          "target": "1.0",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 1.0,
           "unit": "g/day"
+        },
+        {
+          "nutrient": "Energy",
+          "group": "macros",
+          "measure": "amount",
+          "target": 1921.0
+        },
+        {
+          "nutrient": "Carbohydrate",
+          "group": "macros",
+          "measure": "amount",
+          "target": 266.0
+        },
+        {
+          "nutrient": "Fat",
+          "group": "macros",
+          "measure": "amount",
+          "target": 59.0
+        },
+        {
+          "nutrient": "Protein",
+          "group": "macros",
+          "measure": "amount",
+          "target": 81.0
+        },
+        {
+          "nutrient": "Water",
+          "group": "macros",
+          "measure": "amount",
+          "target": 2346.0
+        },
+        {
+          "nutrient": "Cholesterol",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 200.0
+        },
+        {
+          "nutrient": "Fibre",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 30.0
+        },
+        {
+          "nutrient": "Free Sugars",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 24.0
+        },
+        {
+          "nutrient": "Monounsaturated Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 24.0
+        },
+        {
+          "nutrient": "Polyunsaturated Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 12.0
+        },
+        {
+          "nutrient": "Saturated Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 15.0
+        },
+        {
+          "nutrient": "Trans Fat",
+          "group": "nutrients",
+          "measure": "amount",
+          "target": 2.1
         }
       ]
     },
@@ -385,16 +820,40 @@
       "note": "Vitamins and minerals are reported as coverage of her own target and stop at 100%, so a nutrient she already gets enough of reads as met rather than as a surplus. Nutrients that are ceilings rather than targets, free sugars and saturated fat among them, are not shortfalls when they sit below the figure and are not listed here.",
       "lines": [
         {
-          "text": "Potassium: 60% of target",
-          "value": "2106.64 mg from food"
+          "text": "Potassium: 54% of target",
+          "value": "1891.13 mg from food"
         },
         {
-          "text": "Vitamin B5 (Pantothenic Acid): 68% of target",
-          "value": "3.61 mg from food"
+          "text": "Vitamin B5 (Pantothenic Acid): 64% of target",
+          "value": "3.24 mg from food"
         },
         {
-          "text": "Vitamin E (Alpha-Tocopherol): 82% of target",
-          "value": "9.57 mg from food"
+          "text": "Vitamin B7 (Biotin): 87% of target",
+          "value": "34.89 mcg from food"
+        },
+        {
+          "text": "Vitamin E (Alpha-Tocopherol): 78% of target",
+          "value": "8.6 mg from food"
+        },
+        {
+          "text": "Vitamin K: 87% of target",
+          "value": "79.14 mcg from food"
+        },
+        {
+          "text": "Omega-3 (EPA and DHA)",
+          "value": "0.98 g/day from food against a 1.0 target"
+        },
+        {
+          "text": "Energy",
+          "value": "1918.0  from food against a 1921.0 target"
+        },
+        {
+          "text": "Carbohydrate",
+          "value": "214.0  from food against a 266.0 target"
+        },
+        {
+          "text": "Fibre",
+          "value": "24.0  from food against a 30.0 target"
         }
       ]
     },
@@ -420,37 +879,27 @@
         },
         {
           "text": "Survived the checks and entered the ranking",
-          "value": 30
+          "value": 33
         },
         {
           "text": "Recommended",
-          "value": 5
+          "value": 7
         }
       ],
       "top_candidates": [
         {
           "position": 1,
-          "product": "Multivitamin (Women's 50+)",
-          "ranked_by": "A combination product covering several of her shortfalls, widest coverage first",
+          "product": "Omega-3 (Fish Oil)",
+          "ranked_by": "Fills a measured shortfall in one nutrient, worst shortfall first",
           "catalogue_rating": 3,
           "factors": [
-            "A combination product covering several of her shortfalls, widest coverage first",
-            "the goal it matches is Bone & Joint Health"
+            "Fills a measured shortfall in one nutrient, worst shortfall first",
+            "the goal it matches is Heart Health"
           ],
-          "reason_shown_to_the_customer": "Chosen because it helps with potassium, vitamin B5 and 1 other, which you are short of, and it matches your bone & joint health goal."
+          "reason_shown_to_the_customer": "Part of the plan built from your answers. This one is an omega-3 source."
         },
         {
           "position": 2,
-          "product": "B-Complex",
-          "ranked_by": "A combination product covering several of her shortfalls, widest coverage first",
-          "catalogue_rating": 3,
-          "factors": [
-            "A combination product covering several of her shortfalls, widest coverage first"
-          ],
-          "reason_shown_to_the_customer": "Chosen because your vitamin B5 is at 68% of your target, which one serving covers, and it matches a goal you chose."
-        },
-        {
-          "position": 3,
           "product": "Collagen Peptides (Type I & III)",
           "ranked_by": "Matches one of her goals",
           "catalogue_rating": 3,
@@ -458,10 +907,32 @@
             "Matches one of her goals",
             "the goal it matches is Bone & Joint Health"
           ],
-          "reason_shown_to_the_customer": "Chosen because it matches your bone & joint health goal. It is a source of protein, which contributes to the maintenance of normal bones."
+          "reason_shown_to_the_customer": "Included in the plan your answers built. This one is a collagen."
+        },
+        {
+          "position": 3,
+          "product": "Multivitamin (Standard)",
+          "ranked_by": "A combination product covering several of her shortfalls, widest coverage first",
+          "catalogue_rating": 3,
+          "factors": [
+            "A combination product covering several of her shortfalls, widest coverage first",
+            "the goal it matches is Sleep"
+          ],
+          "reason_shown_to_the_customer": "It helps with potassium, pantothenic acid and vitamin E, which your answers suggest you may be short of. This one is a multi-nutrient blend."
         },
         {
           "position": 4,
+          "product": "Creatine Monohydrate",
+          "ranked_by": "Matches one of her goals",
+          "catalogue_rating": 3,
+          "factors": [
+            "Matches one of her goals",
+            "the goal it matches is Sleep"
+          ],
+          "reason_shown_to_the_customer": "Also part of the plan built from your answers."
+        },
+        {
+          "position": 5,
           "product": "L-Theanine",
           "ranked_by": "Matches one of her goals",
           "catalogue_rating": 3,
@@ -469,17 +940,29 @@
             "Matches one of her goals",
             "the goal it matches is Sleep"
           ],
-          "reason_shown_to_the_customer": "Chosen because it matches your sleep goal."
+          "reason_shown_to_the_customer": "Part of the plan built from your answers. This one is an amino acid."
         },
         {
-          "position": 5,
-          "product": "Cordyceps",
+          "position": 6,
+          "product": "Marine Collagen",
           "ranked_by": "Matches one of her goals",
-          "catalogue_rating": 2,
+          "catalogue_rating": 3,
           "factors": [
-            "Matches one of her goals"
+            "Matches one of her goals",
+            "the goal it matches is Bone & Joint Health"
           ],
-          "reason_shown_to_the_customer": "Chosen because it matches a goal you chose."
+          "reason_shown_to_the_customer": "Included in the plan your answers built. This one is a collagen."
+        },
+        {
+          "position": 7,
+          "product": "Multivitamin (Women's 50+)",
+          "ranked_by": "A combination product covering several of her shortfalls, widest coverage first",
+          "catalogue_rating": 3,
+          "factors": [
+            "A combination product covering several of her shortfalls, widest coverage first",
+            "the goal it matches is Bone & Joint Health"
+          ],
+          "reason_shown_to_the_customer": "It helps with potassium, pantothenic acid and vitamin E, which we estimate you may be short of. This one is a multi-nutrient blend."
         }
       ]
     },
@@ -531,6 +1014,13 @@
           "why": "This product is contraindicated for users with Cardiovascular Diseases."
         },
         {
+          "product": "Omega-3 (Algae Oil — Vegan)",
+          "check": "Diet compatibility",
+          "group": "diet",
+          "kind": "safety check",
+          "why": "Vegan-specific product variant. The standard (non-vegan) variant is the appropriate match for a non-plant diet."
+        },
+        {
           "product": "Vegan Collagen",
           "check": "Diet compatibility",
           "group": "diet",
@@ -566,6 +1056,13 @@
           "why": "Cannot be taken with Antihypertensives. Flagged by the brand's own catalogue."
         },
         {
+          "product": "Magnesium",
+          "check": "Declared medication conflict",
+          "group": "medication conflicts",
+          "kind": "safety check",
+          "why": "Check with your prescriber before taking this alongside antihypertensives."
+        },
+        {
           "product": "Magnesium Glycinate",
           "check": "Hard medication conflict",
           "group": "medication conflicts",
@@ -591,7 +1088,7 @@
           "check": "Tolerable upper limit",
           "group": "upper limits",
           "kind": "safety check",
-          "why": "Her diet already supplies 92.9 mcg. The engine works to 90% of the 255.0 mcg upper limit, which leaves 136.6 mcg of headroom, and one serving of this product is 200.0 mcg.",
+          "why": "Her diet already supplies 83.4 mcg. The engine works to 90% of the 255.0 mcg upper limit, which leaves 146.1 mcg of headroom, and one serving of this product is 200.0 mcg.",
           "upper_limit": 255.0
         },
         {
@@ -599,36 +1096,57 @@
           "check": "Tolerable upper limit",
           "group": "upper limits",
           "kind": "safety check",
-          "why": "Her diet already supplies 10.8 mg. The engine works to 90% of the 25.0 mg upper limit, which leaves 11.7 mg of headroom, and one serving of this product is 15.0 mg.",
+          "why": "Her diet already supplies 9.7 mg. The engine works to 90% of the 25.0 mg upper limit, which leaves 12.8 mg of headroom, and one serving of this product is 15.0 mg.",
           "upper_limit": 25.0
         },
         {
-          "product": "Omega-3 (Algae Oil — Vegan)",
-          "check": "Already met by diet",
-          "group": "need",
-          "kind": "plan check",
-          "why": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
-        },
-        {
-          "product": "Omega-3 (Fish Oil)",
-          "check": "Already met by diet",
-          "group": "need",
-          "kind": "plan check",
-          "why": "Her food already supplies 1.093 g of EPA and DHA a day against her own 1.0 g target, so there is no shortfall for this product to fill."
-        },
-        {
-          "product": "Marine Collagen",
-          "check": "One per product family",
+          "product": "B-Complex",
+          "check": "Multivitamin against standalone",
           "group": "redundancy",
           "kind": "plan check",
-          "why": "Family 'collagen' already represented by Collagen Peptides (Type I & III) (better goal/rating match)."
+          "why": "A multivitamin already supplies B vitamins, and stacking a standalone would take total intake close to the tolerable upper limit for vitamin B6."
         },
         {
-          "product": "Multivitamin (Standard)",
-          "check": "One per product family",
+          "product": "Selenium",
+          "check": "Multivitamin against standalone",
           "group": "redundancy",
           "kind": "plan check",
-          "why": "Family 'multivitamin' already represented by Multivitamin (Women's 50+) (better goal/rating match)."
+          "why": "A multivitamin already supplies Selenium, and stacking a standalone would take total intake close to or over the tolerable upper limit."
+        },
+        {
+          "product": "Vitamin B6",
+          "check": "Multivitamin against standalone",
+          "group": "redundancy",
+          "kind": "plan check",
+          "why": "A multivitamin already closes your Vitamin B6 gap on its own."
+        },
+        {
+          "product": "Vitamin B7",
+          "check": "Multivitamin against standalone",
+          "group": "redundancy",
+          "kind": "plan check",
+          "why": "A multivitamin already closes your Vitamin B7 gap on its own."
+        },
+        {
+          "product": "Vitamin C",
+          "check": "Multivitamin against standalone",
+          "group": "redundancy",
+          "kind": "plan check",
+          "why": "A multivitamin already closes your Vitamin C gap on its own."
+        },
+        {
+          "product": "Vitamin K2",
+          "check": "Multivitamin against standalone",
+          "group": "redundancy",
+          "kind": "plan check",
+          "why": "A multivitamin already closes your Vitamin K2 gap on its own."
+        },
+        {
+          "product": "Zinc",
+          "check": "Multivitamin against standalone",
+          "group": "redundancy",
+          "kind": "plan check",
+          "why": "A multivitamin already supplies Zinc, and stacking a standalone would take total intake close to or over the tolerable upper limit."
         }
       ],
       "removed_by_check": {
@@ -636,12 +1154,12 @@
         "Age band suitability": 2,
         "Diagnosed condition conflict": 2,
         "Beta-carotene for smokers": 1,
-        "Diet compatibility": 1,
+        "Diet compatibility": 2,
         "Stimulants against sleep": 1,
         "Hard medication conflict": 6,
+        "Declared medication conflict": 1,
         "Tolerable upper limit": 2,
-        "Already met by diet": 2,
-        "One per product family": 2
+        "Multivitamin against standalone": 7
       }
     },
     {
@@ -650,33 +1168,45 @@
       "picks": [
         {
           "position": "1",
-          "product": "Multivitamin (Women's 50+)",
-          "tier": "Recommended",
-          "why": "Chosen because it helps with potassium, vitamin B5 and 1 other, which you are short of, and it matches your bone & joint health goal."
+          "product": "Omega-3 (Fish Oil)",
+          "tier": "Essential",
+          "why": "Part of the plan built from your answers. This one is an omega-3 source."
         },
         {
           "position": "2",
-          "product": "B-Complex",
+          "product": "Collagen Peptides (Type I & III)",
           "tier": "Recommended",
-          "why": "Chosen because your vitamin B5 is at 68% of your target, which one serving covers, and it matches a goal you chose."
+          "why": "Included in the plan your answers built. This one is a collagen."
         },
         {
           "position": "3",
-          "product": "Collagen Peptides (Type I & III)",
+          "product": "Multivitamin (Standard)",
           "tier": "Recommended",
-          "why": "Chosen because it matches your bone & joint health goal. It is a source of protein, which contributes to the maintenance of normal bones."
+          "why": "It helps with potassium, pantothenic acid and vitamin E, which your answers suggest you may be short of. This one is a multi-nutrient blend."
         },
         {
           "position": "4",
-          "product": "L-Theanine",
+          "product": "Creatine Monohydrate",
           "tier": "Recommended",
-          "why": "Chosen because it matches your sleep goal."
+          "why": "Also part of the plan built from your answers."
         },
         {
           "position": "5",
-          "product": "Cordyceps",
+          "product": "L-Theanine",
           "tier": "Recommended",
-          "why": "Chosen because it matches a goal you chose."
+          "why": "Part of the plan built from your answers. This one is an amino acid."
+        },
+        {
+          "position": "6",
+          "product": "Marine Collagen",
+          "tier": "Recommended",
+          "why": "Included in the plan your answers built. This one is a collagen."
+        },
+        {
+          "position": "7",
+          "product": "Multivitamin (Women's 50+)",
+          "tier": "Recommended",
+          "why": "It helps with potassium, pantothenic acid and vitamin E, which we estimate you may be short of. This one is a multi-nutrient blend."
         }
       ]
     }
