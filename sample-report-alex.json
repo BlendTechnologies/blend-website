@@ -1,6 +1,6 @@
 {
  "_": "The report /sample-report draws for Alex, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
- "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication 22ad552d-425c-4fd0-a017-3ef0c0e32ae5), 2026-11-11, replaying the request below through the public embed API exactly as the quiz runtime does: 44 answers by their stable ids, one PUT per question, then complete. Submission 013ca480-e651-44db-a115-a513bef2e22f, recommendation f9c08c66-0acd-4de3-9d39-9ac5877d1d8f, HTTP 200, 7 products from the demo catalogue. The figures below were read from that submission's rendered results page by the website session's extractor (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The demo's published report configuration keeps the wellness score off, so the results page shows none and this file carries none. The brand's description for each product is the first paragraph the results page shows for it; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. To refresh: replay the request and update this file and the page together.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication not recorded), 2026-11-20, replaying the request below through the public embed API exactly as the quiz runtime does: 44 answers by their stable ids, one PUT per question, then complete. Submission 7ee16e96-d247-4e6c-9d8d-7ccf0ff86e51, recommendation 9832b1f0-11f9-4753-b1b1-956227681c43, HTTP 200, 6 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 81, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals); this page draws the first two goal pills of a card and nothing else of those. The products under \"Other products in this range\" are listed by name under other_products and not drawn. To refresh: node tools/replay-sample-report.mjs --write alex.",
  "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
  "persona": "alex",
  "request": {
@@ -281,15 +281,15 @@
   ]
  },
  "run": {
-  "submission_id": "013ca480-e651-44db-a115-a513bef2e22f",
-  "recommendation_id": "f9c08c66-0acd-4de3-9d39-9ac5877d1d8f",
-  "publication_id": "22ad552d-425c-4fd0-a017-3ef0c0e32ae5",
-  "completed": "2026-11-11T14:25:24Z"
+  "submission_id": "7ee16e96-d247-4e6c-9d8d-7ccf0ff86e51",
+  "recommendation_id": "9832b1f0-11f9-4753-b1b1-956227681c43",
+  "publication_id": null,
+  "completed": "2026-11-20T12:21:46Z"
  },
  "report": {
   "heading": "Your wellness plan",
-  "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",
-  "key_areas": 7,
+  "intro": "Based on your answers, your body needs extra support in 6 key areas. Your full plan is below, with the breakdown at the end.",
+  "key_areas": 6,
   "profile": [
    "34 years old",
    "170 cm",
@@ -300,70 +300,40 @@
    "No Medical Condition"
   ],
   "goals": [
-   "Boost Energy",
+   "Energy & Tiredness",
    "Sleep",
    "Stress",
    "Plant-Based Nutrition"
   ],
+  "subgoals": [
+   "Afternoon dips",
+   "Caffeine reliance",
+   "Trouble falling asleep",
+   "Racing mind at bedtime",
+   "Trouble winding down",
+   "Following a vegan or vegetarian diet"
+  ],
   "products": [
    {
-    "name": "Core Vitamin B12",
+    "name": "Core Vegan Vitamin D3",
     "tier": "Essential",
     "tags": [
-     "Boost Energy",
-     "Plant-Based Nutrition",
-     "Cognitive Health"
+     "Plant-Based Nutrition"
     ],
-    "why": "Your answers suggest your vitamin B12 intake is below your target, and it matches your boost energy goal.",
-    "form": "Tablet",
-    "timing": "Morning",
-    "description": "Found almost nowhere outside animal foods, which is why it is the supplement most vegans take first. Methylcobalamin is the form the body uses directly. Vitamin B12 contributes to the reduction of tiredness and fatigue and to normal red blood cell formation.",
-    "price": "US$8.90"
-   },
-   {
-    "name": "Focus Quercetin Complex",
-    "tier": "Recommended",
-    "tags": [
-     "Plant-Based Nutrition",
-     "Immunity",
-     "Healthy Ageing & Longevity",
-     "Lung Health"
+    "subtags": [
+     "Joint stiffness or discomfort",
+     "Bone strength",
+     "Bone density with age"
     ],
-    "why": "It matches your plant-based nutrition goal. This one is a plant extract.",
-    "form": "Capsule",
-    "timing": "Morning",
-    "description": "A plant pigment found in onion skin, capers and apple peel, paired here with the vitamin C it is usually taken alongside.",
-    "price": "US$21.90"
-   },
-   {
-    "name": "Peak Creatine Complex",
-    "tier": "Recommended",
-    "tags": [
-     "Stress",
-     "Strength & Power",
-     "Recovery & Repair",
-     "Build Muscle",
-     "Mass Gain"
-    ],
-    "why": "It matches your stress goal.",
-    "form": "Scoop",
+    "why": "Your answers suggest your vitamin D intake is below your target, and you told us you get little sun. This one is a vitamin.",
+    "form": "Softgel",
     "timing": "With meal",
-    "description": "Stored in muscle and supplied in small amounts by red meat and fish. Monohydrate is the form nearly every study has used. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise. The beneficial effect is obtained with a daily intake of 3g of creatine.",
-    "price": "US$17.99"
-   },
-   {
-    "name": "Flora Probiotic Complex",
-    "tier": "Recommended",
-    "tags": [
-     "Plant-Based Nutrition",
-     "Urinary Health",
-     "Gut Health"
-    ],
-    "why": "It matches your plant-based nutrition goal. This one is a digestive support.",
-    "form": "Capsule",
-    "timing": "Before meal",
-    "description": "Lactobacillus acidophilus with cranberry and B6, aimed at the urinary tract rather than the gut alone.",
-    "price": "US$24.90"
+    "description": "",
+    "price": null,
+    "match": {
+     "score": 5,
+     "of": 5
+    }
    },
    {
     "name": "Calm Chamomile Extract",
@@ -372,24 +342,38 @@
      "Sleep",
      "Stress"
     ],
-    "why": "You told us about trouble falling asleep and trouble winding down.",
+    "subtags": [
+     "Trouble falling asleep",
+     "Trouble winding down"
+    ],
+    "why": "Part of the plan built from your answers. This one is a herbal extract.",
     "form": "Capsule",
     "timing": "Before bed",
     "description": "The flower behind the evening tea, concentrated into a capsule so there is nothing to brew.",
-    "price": "US$10.90"
+    "price": "€10.90",
+    "match": {
+     "score": 5,
+     "of": 5
+    }
    },
    {
-    "name": "Calm Valerian Root",
+    "name": "Core Multivitamin Gummies",
     "tier": "Recommended",
     "tags": [
-     "Sleep",
-     "Stress"
+     "Energy & Tiredness"
     ],
-    "why": "You told us about trouble falling asleep and racing mind at bedtime. This one is a herbal extract.",
-    "form": "Capsule",
+    "subtags": [
+     "Ongoing tiredness"
+    ],
+    "why": "Included in the plan your answers built. This one is a multi-nutrient blend.",
+    "form": "Tablet",
     "timing": "With meal",
-    "description": "A root from European herbal tradition, and one with a famously strong smell.",
-    "price": "US$12.90"
+    "description": "A chewable multivitamin, set in pectin rather than gelatin, for anyone who would rather not swallow a capsule. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
+    "price": "€17.99",
+    "match": {
+     "score": 5,
+     "of": 5
+    }
    },
    {
     "name": "Calm L-Theanine",
@@ -398,52 +382,99 @@
      "Sleep",
      "Stress"
     ],
-    "why": "You told us about trouble falling asleep and racing mind at bedtime. This one is an amino acid.",
+    "subtags": [
+     "Trouble falling asleep",
+     "Racing mind at bedtime",
+     "Trouble winding down"
+    ],
+    "why": "Also part of the plan built from your answers. This one is an amino acid.",
     "form": "Capsule",
     "timing": "Before activity",
     "description": "An amino acid found in green tea leaves, taken in the evening rather than with a morning brew.",
-    "price": "US$16.90"
+    "price": "€16.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
+   },
+   {
+    "name": "Focus Mushroom Superblend Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Energy & Tiredness"
+    ],
+    "subtags": [
+     "Low workout stamina"
+    ],
+    "why": "Part of the plan built from your answers. This one is a fungal extract.",
+    "form": "Capsule",
+    "timing": "Morning",
+    "description": "A blend of mushroom extracts used for centuries in East Asia, among them cordyceps and lion's mane.",
+    "price": "€22.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
+   },
+   {
+    "name": "Peak L-Carnitine Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Energy & Tiredness"
+    ],
+    "subtags": [
+     "Ongoing tiredness"
+    ],
+    "why": "Included in the plan your answers built. This one is an amino acid.",
+    "form": "Capsule",
+    "timing": "With meal",
+    "description": "Built from two amino acids and carried mostly in red meat. Its name comes from the Latin for flesh. Chromium contributes to normal macronutrient metabolism and to the maintenance of normal blood glucose levels.",
+    "price": "€9.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
    }
   ],
   "macros": [
    {
     "label": "Calories",
-    "value": "2190",
+    "value": "2333",
     "unit": "kcal",
     "target": "Target 2148 kcal",
-    "pct": 102,
+    "pct": 109,
     "cls": "m-g"
    },
    {
     "label": "Protein",
-    "value": "85",
+    "value": "90",
     "unit": "g",
-    "target": "Target 83 g",
-    "pct": 102,
+    "target": "Target 82 g",
+    "pct": 110,
     "cls": "m-gr"
    },
    {
     "label": "Carbs",
-    "value": "288",
+    "value": "307",
     "unit": "g",
-    "target": "Target 303 g",
-    "pct": 95,
-    "cls": "m-g"
-   },
-   {
-    "label": "Fat",
-    "value": "68",
-    "unit": "g",
-    "target": "Target 67 g",
+    "target": "Target 304 g",
     "pct": 101,
     "cls": "m-g"
    },
    {
+    "label": "Fat",
+    "value": "72",
+    "unit": "g",
+    "target": "Target 67 g",
+    "pct": 107,
+    "cls": "m-g"
+   },
+   {
     "label": "Water",
-    "value": "1336",
+    "value": "1361",
     "unit": "ml",
-    "target": "Drink 2631 ml",
-    "pct": 51,
+    "target": "Drink 2630 ml",
+    "pct": 52,
     "cls": "m-b"
    },
    {
@@ -452,14 +483,15 @@
     "unit": "g",
     "target": "Target 0.25 g",
     "pct": 8,
-    "cls": "m-r"
+    "cls": "m-r",
+    "note": "The products that cover this do not fit your diet."
    },
    {
     "label": "Fibre",
-    "value": "40",
+    "value": "43",
     "unit": "g",
     "target": "Target 30 g",
-    "pct": 133,
+    "pct": 143,
     "cls": "m-gr"
    },
    {
@@ -472,11 +504,11 @@
    },
    {
     "label": "Saturated fat",
-    "value": "23",
+    "value": "25",
     "unit": "g",
     "target": "Limit 24 g",
-    "pct": 96,
-    "cls": "m-o"
+    "pct": 104,
+    "cls": "m-r"
    }
   ],
   "macros_note": "Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.",
@@ -486,13 +518,15 @@
     "rows": [
      {
       "name": "Vitamin B12",
-      "pct": 39,
-      "sources": "Sources: eggs and dairy foods."
+      "pct": 40,
+      "sources": "Sources: eggs and dairy foods.",
+      "cls": "m-r"
      },
      {
       "name": "Vitamin D3",
       "pct": 4,
-      "sources": "Sources: eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter."
+      "sources": "Sources: eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter.",
+      "cls": "m-r"
      }
     ]
    },
@@ -501,18 +535,56 @@
     "rows": [
      {
       "name": "Iron",
-      "pct": 51,
-      "sources": "Sources: lentils, eggs and iron-fortified cereals."
+      "pct": 54,
+      "sources": "Sources: lentils, eggs and iron-fortified cereals.",
+      "cls": "m-r"
      },
      {
       "name": "Selenium",
-      "pct": 70,
-      "sources": "Sources: eggs and Brazil nuts. Selenium content varies more than tenfold with where the nuts were grown, so no fixed number reliably covers a day, and more than three or four is too many."
+      "pct": 74,
+      "sources": "Sources: eggs and Brazil nuts. Selenium content varies more than tenfold with where the nuts were grown, so no fixed number reliably covers a day, and more than three or four is too many.",
+      "cls": "m-o"
      }
     ]
    }
   ],
   "notices": [],
-  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use."
+  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use.",
+  "other_products": {
+   "count": 29,
+   "names": [
+    "Core Pure Vitamin D3",
+    "Calm Valerian Root",
+    "Core Advanced Multivitamins",
+    "Core Daily Multivitamin",
+    "Renew Multivitamins Complex",
+    "Core All In One",
+    "Peak Brown Rice Protein",
+    "Peak Mass Gainer",
+    "Peak Pea Protein Isolate",
+    "Peak Plant-Based Protein",
+    "Peak Soya Protein Isolate",
+    "Core Boron",
+    "Core Cod Liver Oil Complex",
+    "Core Daily Magnesium",
+    "Core Daily ZMA",
+    "Core Evening Primrose Oil Complex",
+    "Core Magnesium Bisglycinate",
+    "Core Magnesium Complex",
+    "Core Minerals Complex",
+    "Core Sea Kelp",
+    "Core Sea Moss",
+    "Core Zinc & Magnesium",
+    "Flora Apple Cider Vinegar",
+    "Focus Ginkgo Biloba Extract",
+    "Peak Beef Protein Isolate 97",
+    "Peak Conjugated Linoleic Acid",
+    "Peak Guarana",
+    "Renew MSM Complex",
+    "Renew Silica"
+   ]
+  },
+  "health_score": 81,
+  "health_band": "Good"
  }
 }

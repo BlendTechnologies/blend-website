@@ -232,9 +232,9 @@
       "refresh_note": "Replayed by tools/replay-sample-report.mjs: --plan says whether her 44 recorded answers still fit the live quiz, --extract reads her recorded submission's page again, --report replays and compares, --write replays, writes this file, redraws her report and transcript and stamps this entry. Each replay is a real submission on the demo tenant. --redraw draws the page from the file with no network, and CI refuses a page that is not what the files draw.",
       "checked_by": "node tools/check-sample-report.mjs (the page may show nothing the file does not) and node tools/replay-sample-report.mjs --redraw --check (the report is what the file draws), both in CI.",
       "last_refreshed": {
-        "date": "2026-11-11",
+        "date": "2026-11-20",
         "workspace_commit": null,
-        "note": "Submission 013ca480-e651-44db-a115-a513bef2e22f."
+        "note": "Submission 7ee16e96-d247-4e6c-9d8d-7ccf0ff86e51."
       }
     },
     {
@@ -264,9 +264,9 @@
       "refresh_note": "As for Alex: tools/replay-sample-report.mjs, with his 30 answers.",
       "checked_by": "node tools/check-sample-report.mjs (the page may show nothing the file does not) and node tools/replay-sample-report.mjs --redraw --check (the report is what the file draws), both in CI.",
       "last_refreshed": {
-        "date": "2026-11-11",
+        "date": "2026-11-20",
         "workspace_commit": null,
-        "note": "Submission bfe1625f-43bd-487e-8c82-7c4c38bb0133."
+        "note": "Submission 000e59f4-d258-46b2-9381-fee1c330f94e."
       }
     },
     {
@@ -296,9 +296,9 @@
       "refresh_note": "As for Alex: tools/replay-sample-report.mjs, with her 51 answers.",
       "checked_by": "node tools/check-sample-report.mjs (the page may show nothing the file does not) and node tools/replay-sample-report.mjs --redraw --check (the report is what the file draws), both in CI.",
       "last_refreshed": {
-        "date": "2026-11-11",
+        "date": "2026-11-20",
         "workspace_commit": null,
-        "note": "Submission 901b9eea-b0a9-49c4-844c-b155557b4ccd."
+        "note": "Submission 075b6622-b184-4959-b251-4c4eeb9f5733."
       }
     },
     {
