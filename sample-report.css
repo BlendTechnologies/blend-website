@@ -168,3 +168,132 @@
 .sr-report[data-off~="goals"] .rp-s-goals,
 .sr-report[data-off~="score"] .rp-s-score,
 .sr-report[data-off~="detail"] .rp-s-detail{display:none}
+
+
+/* ============================================================
+   TODAY'S CARD, TODAY'S PAGE (2026-11-20; founder: "the drawing needs to be
+   today's version of the webapp"). The report component as it stands on
+   main (apps/webapp/components/wellness-report.tsx, 2026-11-19/20): a
+   compact card is a square photograph with the tier on it, a fixed-height
+   body whose middle fades out, and a floor with "Your match" dots, the
+   price and the button; a row (the Essentials presentation) is a 160px
+   thumbnail, the words held to its height and faded, and a side column with
+   the same three things and the expand. Goal pills in the brand's accent
+   when they are the customer's own goals, sub-goal pills under them.
+   "Other products in this range" after the plan, open, nine then "Show N
+   more". The score with its band and sentence. A note under a macro tile.
+   Breakdown bars in the row's colour. The safety briefing boxed. "Request
+   human review" under the disclaimer. Every rule here is scoped to
+   .sr-report so the homepage's drawing of the plan (product-screens.css)
+   does not move. Sizes are the live page's at 1440, measured 2026-11-20.
+   ============================================================ */
+.sr-report .rp-card{display:flex;flex-direction:column;border-radius:var(--rp-radius,8px)}
+.sr-report .rp-ph{height:auto;aspect-ratio:1/1}
+.sr-report .rp-ex{right:12px;top:12px;width:32px;height:32px;border:1px solid var(--rp-line,#D9D9D9);background:var(--rp-card,#FFFFFF);color:var(--rp-strong,#111)}
+.sr-report .rp-body{display:flex;flex-direction:column;flex:0 0 auto;height:250px;min-height:0;padding:0}
+.sr-report .rp-head{flex:0 0 auto;padding:12px 16px 0}
+.sr-report .rp-name{margin:0 !important;font-size:14px;font-weight:600;line-height:1.35;overflow-wrap:anywhere}
+.sr-report .rp-main{position:relative;display:flex;flex:1 1 auto;flex-direction:column;gap:10px;min-height:0;overflow:hidden;padding:10px 16px 0}
+.sr-report .rp-fade{position:absolute;left:0;right:0;bottom:0;height:48px;pointer-events:none;
+  background:linear-gradient(to top,var(--rp-card,#FFFFFF),color-mix(in srgb,var(--rp-card,#FFFFFF) 80%,transparent),transparent)}
+.sr-report .rp-floor{display:flex;flex:0 0 auto;flex-direction:column;gap:6px;padding:8px 16px 16px}
+.sr-report .rp-tags{margin:0;padding:0;border:0;gap:6px}
+.sr-report .rp-tags span{height:20px;padding:0 8px;border:1px solid var(--rp-line,#D9D9D9);font-size:11px;font-weight:500;color:color-mix(in srgb,var(--rp-strong,#000) 60%,transparent)}
+.sr-report .rp-tags span.is-goal{border-color:color-mix(in srgb,var(--rp-accent,#96682A) 50%,transparent);color:var(--rp-accent,#96682A)}
+.sr-report .rp-sub{display:flex;flex-wrap:wrap;gap:4px}
+.sr-report .rp-sub span{display:inline-flex;align-items:center;height:20px;padding:0 6px;border:1px solid color-mix(in srgb,var(--rp-line,#D9D9D9) 50%,transparent);border-radius:999px;
+  font-size:11px;color:color-mix(in srgb,var(--rp-strong,#000) 40%,transparent)}
+.sr-report .rp-why{display:block;margin:0 !important;font-size:13px;line-height:1.6;color:var(--rp-strong,#000);min-height:auto}
+/* Nothing inside the faded block gives way but the block itself: a paragraph that shrank to nothing drew the description over the reason (2026-11-20). */
+.sr-report .rp-main > *,.sr-report .rp-prose > *,.sr-report .rp-x-main > *{flex:0 0 auto}
+.sr-report .rp-desc{margin:0 !important;font-size:13px;line-height:1.6;color:color-mix(in srgb,var(--rp-strong,#000) 60%,transparent)}
+.sr-report .rp-use{margin:0 !important;font-size:13px;color:color-mix(in srgb,var(--rp-strong,#000) 60%,transparent)}
+.sr-report .sr-warn{margin:0 !important}
+.sr-report .rp-match{display:flex;align-items:center;gap:8px;margin:0 !important;font-size:12px;font-weight:500;white-space:nowrap;color:var(--rp-strong,#000)}
+.sr-report .rp-dots{display:inline-flex;align-items:center;gap:4px}
+.sr-report .rp-dots i{display:block;width:8px;height:8px;border-radius:50%}
+.sr-report .rp-price{margin:0 !important;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--rp-strong,#000)}
+.sr-report .rp-add{margin:0;height:36px;border-radius:var(--rp-radius,8px);font-size:14px;font-weight:600}
+.sr-row .rp-add{margin-top:0}
+.sr-row .rp-body{flex:0 0 auto}
+/* the rows presentation */
+.sr-report .rp-rows{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.sr-report .rp-row{flex-direction:row;align-items:flex-start;gap:12px;padding:16px;height:auto}
+.sr-report .rp-thumb{flex:0 0 160px;width:160px;height:160px;overflow:hidden;border-radius:var(--rp-radius,8px);background:var(--rp-ph,#E0E0E0)}
+.sr-report .rp-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.sr-report .rp-row-body{display:flex;flex:1 1 auto;flex-direction:column;gap:6px;min-width:0;max-height:160px;overflow:hidden}
+.sr-report .rp-row-head{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.sr-report .rp-row .rp-badge{position:static}
+.sr-report .rp-prose{display:flex;flex:1 1 auto;flex-direction:column;gap:4px;min-height:0;max-width:640px;overflow:hidden;padding-bottom:24px;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 24px),transparent)}
+.sr-report .rp-row .rp-why{font-size:14px;line-height:1.625}
+.sr-report .rp-row-side{display:flex;align-items:center;gap:12px;align-self:stretch;padding-left:16px;border-left:1px solid color-mix(in srgb,var(--rp-line,#D9D9D9) 70%,transparent)}
+.sr-report .rp-row-buy{display:flex;flex-direction:column;gap:6px;min-width:128px}
+.sr-report .rp-row .rp-ex{position:static;flex:0 0 auto}
+/* the expanded card */
+.sr-report .rp-x-media .rp-badge{position:absolute;left:12px;top:12px;z-index:1}
+.sr-report .rp-x-body{padding:0}
+.sr-report .rp-x-head{display:flex;flex:0 0 auto;flex-direction:column;gap:8px;padding:20px 56px 0 20px}
+.sr-report .rp-x-head .rp-tags{margin:0}
+.sr-report .rp-x-main{display:flex;flex:1 1 auto;flex-direction:column;gap:8px;min-height:0;overflow:auto;padding:12px 20px}
+.sr-report .rp-x-floor{display:flex;flex:0 0 auto;flex-direction:column;gap:6px;padding:16px 20px;border-top:1px solid var(--rp-line,#DEDEDE)}
+.sr-report .rp-x-name{margin:0 !important;font-size:20px}
+.sr-report .rp-x-body .rp-why,.sr-report .rp-x-body .rp-desc,.sr-report .rp-x-body .rp-use{font-size:13px;line-height:1.6}
+.sr-report .rp-x-body .rp-add{margin-top:0;height:40px}
+/* sub-goals under the goal chips */
+.sr-report .rp-chips-sub{gap:6px;margin-top:6px}
+.sr-report .rp-chips-sub .rp-chip{height:22px;padding:0 8px;font-size:12px;border-color:color-mix(in srgb,var(--rp-line,#C5BCAF) 50%,transparent);color:color-mix(in srgb,var(--rp-text,#403B34) 55%,transparent)}
+/* "Other products in this range" */
+.sr-report .rp-s-others{margin-top:40px}
+.sr-report .rp-others > summary{display:flex;align-items:center;gap:8px;min-height:44px;width:fit-content;cursor:pointer;list-style:none;font-size:14px;font-weight:600;color:var(--rp-heading,#3D3A34)}
+.sr-report .rp-others > summary::-webkit-details-marker,.sr-report .rp-more > summary::-webkit-details-marker{display:none}
+.sr-report .rp-others > summary i{font-style:normal;color:color-mix(in srgb,var(--rp-text,#403B34) 50%,transparent);transition:transform .2s ease}
+.sr-report .rp-others[open] > summary i{transform:rotate(90deg)}
+.sr-report .rp-count{font-size:12px;font-weight:400;color:color-mix(in srgb,var(--rp-text,#403B34) 50%,transparent)}
+.sr-report .rp-others-list{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+.sr-report .rp-others-list .sr-row,.sr-report .rp-others-list .rp-rows{margin-top:0}
+.sr-report .rp-more > summary{display:flex;align-items:center;min-height:44px;width:fit-content;cursor:pointer;list-style:none;font-size:12px;font-weight:500;text-decoration:underline;text-underline-offset:4px;color:color-mix(in srgb,var(--rp-text,#403B34) 70%,transparent)}
+.sr-report .rp-more[open] > summary{display:none}
+/* the score, with its band and sentence; the bar in the score's own colour */
+.sr-report .rp-score{padding:20px;border-radius:var(--rp-radius,8px)}
+.sr-report .rp-score i{height:8px;margin-top:12px;border-radius:999px;background:color-mix(in srgb,var(--rp-track,#F0F0F0) 100%,transparent)}
+.sr-report .rp-score i.m-gr{background:rgba(106,168,79,.14)}.sr-report .rp-score i.m-gr b{background:#6AA84F}
+.sr-report .rp-score i.m-o{background:rgba(199,126,47,.14)}.sr-report .rp-score i.m-o b{background:#C77E2F}
+.sr-report .rp-score i.m-r{background:rgba(216,97,74,.14)}.sr-report .rp-score i.m-r b{background:#D8614A}
+.sr-report .rp-score i.m-b{background:rgba(74,114,172,.14)}.sr-report .rp-score i.m-b b{background:#4A72AC}
+.sr-report .rp-score i.m-g{background:rgba(64,59,52,.1)}.sr-report .rp-score i.m-g b{background:rgba(64,59,52,.35)}
+.sr-report .rp-good{margin-top:12px !important;font-size:14px;font-weight:600;color:var(--rp-strong,#000)}
+.sr-report .rp-sn{margin-top:6px !important;font-size:13px;line-height:1.6;color:color-mix(in srgb,var(--rp-strong,#000) 70%,transparent)}
+/* a note under a macro tile */
+.sr-report .rp-mn{margin-top:6px !important;font-size:12px;line-height:1.4;color:color-mix(in srgb,var(--rp-text,#403B34) 80%,transparent)}
+/* the bar colours exactly as the webapp paints them (lib/nutrients/status), replacing the approximations the first drawing used */
+.sr-report .m-gr i{background:#6AA84F}.sr-report .m-gr span{color:#6AA84F}
+.sr-report .m-o i{background:#C77E2F}.sr-report .m-o span{color:#C77E2F}
+.sr-report .m-r i{background:#D8614A}.sr-report .m-r span{color:#D8614A}
+.sr-report .m-b i{background:#4A72AC}.sr-report .m-b span{color:#4A72AC}
+.sr-report .m-g i{background:rgba(64,59,52,.35)}.sr-report .m-g span{color:rgba(64,59,52,.35)}
+/* the breakdown bars in the row's colour */
+.sr-report .rp-bt.m-gr b{background:#6AA84F}.sr-report .rp-bp.m-gr{color:#6AA84F}
+.sr-report .rp-bt.m-o b{background:#C77E2F}.sr-report .rp-bp.m-o{color:#C77E2F}
+.sr-report .rp-bt.m-r b{background:#D8614A}.sr-report .rp-bp.m-r{color:#D8614A}
+.sr-report .rp-bt.m-b b{background:#4A72AC}.sr-report .rp-bp.m-b{color:#4A72AC}
+.sr-report .rp-bt.m-g b{background:rgba(64,59,52,.35)}.sr-report .rp-bp.m-g{color:rgba(64,59,52,.35)}
+/* the safety briefing, boxed as the webapp boxes it after the products */
+.sr-report .rp-brief{margin-top:16px;padding:16px 20px;border:1px solid var(--rp-line,#DEDEDE);border-radius:var(--rp-radius,8px);background:var(--rp-card,#FFFFFF)}
+.sr-report .rp-brief h5{margin:0;padding:0;border:0;font-size:13px;font-weight:600;color:var(--rp-strong,#000)}
+.sr-report .rp-brief ul{display:flex;flex-direction:column;gap:6px;margin:8px 0 0;padding:0;list-style:none}
+.sr-report .rp-brief li{font-size:13px;line-height:1.6;color:color-mix(in srgb,var(--rp-strong,#000) 75%,transparent)}
+.sr-report .rp-brief li b{font-weight:500}
+/* the sections' order, with the alternatives and the briefing after the products */
+.sr-report .rp-s-notice{order:6}
+.sr-report .rp-s-others{order:7}
+.sr-report .rp-s-retake{order:8}
+.sr-report .rp-s-detail{order:9}
+.sr-report .rp-s-foot{order:12}
+.sr-report[data-retake="last"] .rp-s-retake{order:11}
+.sr-report[data-template="storefront"] .rp-s-products{order:3}
+.sr-report[data-template="storefront"] .rp-s-notice{order:4}
+.sr-report[data-template="storefront"] .rp-s-others{order:5}
+.sr-report[data-template="storefront"] .rp-s-retake{order:6}
+.sr-report[data-template="storefront"] .rp-s-goals{order:7}
+.sr-report[data-template="storefront"] .rp-s-profile{order:8}
