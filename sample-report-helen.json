@@ -331,7 +331,7 @@
   "submission_id": "075b6622-b184-4959-b251-4c4eeb9f5733",
   "recommendation_id": "0bacde1c-8e5f-4252-b765-e3c6cba4e8af",
   "publication_id": null,
-  "completed": "2026-11-20T12:48:53Z"
+  "completed": "2026-11-20T22:42:10Z"
  },
  "report": {
   "heading": "Your wellness plan",
@@ -365,9 +365,7 @@
     "tags": [
      "Bone & Joint Health"
     ],
-    "subtags": [
-     "Support healthy blood pressure"
-    ],
+    "subtags": [],
     "why": "Your answers suggest your vitamin D intake is below your target, and you told us you get little sun. This one is a mineral.",
     "form": "Tablet",
     "timing": "After activity",
@@ -385,9 +383,7 @@
      "Healthy Ageing & Longevity",
      "Immunity"
     ],
-    "subtags": [
-     "Ongoing tiredness"
-    ],
+    "subtags": [],
     "why": "Shown because you chose immunity as a goal. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
     "form": "Tablet",
     "timing": "With meal",
@@ -462,11 +458,7 @@
     "tags": [
      "Immunity"
     ],
-    "subtags": [
-     "Support healthy cholesterol",
-     "Support healthy blood pressure",
-     "Support healthy circulation"
-    ],
+    "subtags": [],
     "why": "Also part of the plan built from your answers. This one is a herbal extract.",
     "form": "Capsule",
     "timing": "With meal",
@@ -483,9 +475,7 @@
     "tags": [
      "Healthy Ageing & Longevity"
     ],
-    "subtags": [
-     "General prostate support"
-    ],
+    "subtags": [],
     "why": "Part of the plan built from your answers. This one is a carotenoid.",
     "form": "Softgel",
     "timing": "Empty stomach",
@@ -666,8 +656,6 @@
       "Immunity"
      ],
      "subtags": [
-      "Ongoing tiredness",
-      "Run-down",
       "Frequent colds or sniffles"
      ],
      "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a multi-nutrient blend.",
@@ -687,9 +675,7 @@
       "Bone & Joint Health",
       "Immunity"
      ],
-     "subtags": [
-      "Ongoing tiredness"
-     ],
+     "subtags": [],
      "why": "Here because immunity is one of the goals you chose. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
      "form": "Tablet",
      "timing": "With meal",
@@ -707,11 +693,7 @@
       "Healthy Ageing & Longevity",
       "Immunity"
      ],
-     "subtags": [
-      "Dry, sensitive or irritated skin",
-      "Fine lines and wrinkles",
-      "Loss of firmness"
-     ],
+     "subtags": [],
      "why": "Included in the plan your answers built. This one is a collagen.",
      "form": "Scoop",
      "timing": "Morning",
@@ -769,9 +751,7 @@
       "Strength & Power",
       "Recovery & Repair"
      ],
-     "subtags": [
-      "Following a vegan or vegetarian diet"
-     ],
+     "subtags": [],
      "why": "Protein, creatine and amino acids in a single shake, for people who would rather not measure out three. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 24 g. Ingredients. V+ Protein Blend (Pea Protein Isolate, Brown Rice Protein, Pumpkin Seed Protein, Flaxseed, Quinoa), Creatine Monohydrate, Vegan BCAA.",
      "form": "Scoop",
      "timing": "With meal",
@@ -1046,9 +1026,7 @@
      "tags": [
       "Bone & Joint Health"
      ],
-     "subtags": [
-      "Ongoing tiredness"
-     ],
+     "subtags": [],
      "why": "Three magnesium forms in one tablet, for people who find a single form sits poorly. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 400 mg, 107% NRV. Ingredients. Magnesium Oxide; Magnesium Bisglycinate; Magnesium Glycinate.",
      "form": "Tablet",
      "timing": "Before bed",
@@ -1098,9 +1076,7 @@
       "Energy & Tiredness",
       "Cognitive Health"
      ],
-     "subtags": [
-      "Irregular patterns"
-     ],
+     "subtags": [],
      "why": "A brown seaweed cut from cold coastal water, and one of the few foods naturally dense in iodine. When to take it. In the morning. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Iodine 435 µg, 290% NRV. Ingredients. Sea Kelp (providing Iodine).",
      "form": "Tablet",
      "timing": "Evening",
@@ -1133,9 +1109,7 @@
       "Bone & Joint Health",
       "Immunity"
      ],
-     "subtags": [
-      "Ongoing tiredness"
-     ],
+     "subtags": [],
      "why": "Two minerals taken together: zinc from shellfish and red meat, magnesium from leafy greens, nuts and wholegrains. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 250 mg, 67% NRV; Zinc 15 mg, 150% NRV. Ingredients. Magnesium Salt of Citric Acid, Zinc Mono-L-Methionine Sulphate.",
      "form": "Tablet",
      "timing": "Before bed",

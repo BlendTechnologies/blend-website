@@ -202,7 +202,7 @@
   "submission_id": "000e59f4-d258-46b2-9381-fee1c330f94e",
   "recommendation_id": "eb6e9148-cf70-4732-821a-2b0f0bccbb00",
   "publication_id": null,
-  "completed": "2026-11-20T12:48:50Z"
+  "completed": "2026-11-20T22:42:08Z"
  },
  "report": {
   "heading": "Your wellness plan",
@@ -241,7 +241,7 @@
     "subtags": [
      "Difficulty concentrating",
      "Reduced mental clarity",
-     "Aches after activity"
+     "Forgetfulness or memory lapses"
     ],
     "why": "Your answers suggest your omega-3 intake is below your target, and you told us you train 7 times a week. This one is an omega-3 source.",
     "form": "Softgel",
@@ -341,9 +341,7 @@
     "tags": [
      "Recovery & Repair"
     ],
-    "subtags": [
-     "Cartilage and joint support"
-    ],
+    "subtags": [],
     "why": "Included in the plan your answers built. This one is a collagen.",
     "form": "Scoop",
     "timing": "Morning",
@@ -482,7 +480,7 @@
      "subtags": [
       "Difficulty concentrating",
       "Reduced mental clarity",
-      "Aches after activity"
+      "Forgetfulness or memory lapses"
      ],
      "why": "Your omega-3 intake looks low against your target, based on your answers, and you told us you train 7 times a week. This one is an omega-3 source.",
      "form": "Softgel",
@@ -498,14 +496,9 @@
      "name": "Peak Whey Mass Gainer",
      "tier": "Recommended",
      "tags": [
-      "Strength & Power",
-      "Recovery & Repair"
+      "Strength & Power"
      ],
-     "subtags": [
-      "Struggle to gain weight",
-      "Low appetite",
-      "Low appetite for a surplus"
-     ],
+     "subtags": [],
      "why": "Also part of the plan built from your answers. This one is a protein powder.",
      "form": "Scoop",
      "timing": "After activity",
@@ -561,11 +554,7 @@
      "tags": [
       "Hydration & Electrolytes"
      ],
-     "subtags": [
-      "Ongoing tiredness",
-      "Bone strength",
-      "Bone density with age"
-     ],
+     "subtags": [],
      "why": "A mineral found in leafy greens, nuts, pulses and wholegrains, and one of the first things lost in sweat. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 250 mg, 67% NRV. Ingredients. Magnesium Citrate.",
      "form": "Tablet",
      "timing": "Before bed",
@@ -579,11 +568,7 @@
      "tags": [
       "Recovery & Repair"
      ],
-     "subtags": [
-      "Frequent colds or sniffles",
-      "Slow to bounce back",
-      "Run-down when busy or travelling"
-     ],
+     "subtags": [],
      "why": "Zinc, magnesium and vitamin B6 in one capsule, a combination first put together for athletes in the 1990s. Zinc contributes to the normal function of the immune system and to normal testosterone levels in the blood. When to take it. Before bed. Serving size: 2 capsules a day. 60 capsules per pack. Supplement facts per daily serving (2 capsules): Vitamin B6 4.3 mg, 307% NRV; Magnesium 186 mg, 50% NRV; Zinc 12 mg, 120% NRV. Ingredients. Zinc; Magnesium; Vitamin B6.",
      "form": "Tablet",
      "timing": "With meal",
@@ -633,11 +618,7 @@
      "tags": [
       "Hydration & Electrolytes"
      ],
-     "subtags": [
-      "Ongoing tiredness",
-      "Bone strength",
-      "Bone density with age"
-     ],
+     "subtags": [],
      "why": "Magnesium chelated to glycine and buffered with oxide, which holds a higher dose per tablet than glycinate alone. The mineral itself comes from leafy greens, nuts and wholegrains. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 300 mg, 80% NRV. Ingredients. Buffered Magnesium Bisglycinate (Magnesium Bisglycinate, Magnesium Oxide).",
      "form": "Capsule",
      "timing": "Before bed",
@@ -727,9 +708,7 @@
       "Energy & Tiredness",
       "Cognitive Health"
      ],
-     "subtags": [
-      "Irregular patterns"
-     ],
+     "subtags": [],
      "why": "A brown seaweed cut from cold coastal water, and one of the few foods naturally dense in iodine. When to take it. In the morning. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Iodine 435 µg, 290% NRV. Ingredients. Sea Kelp (providing Iodine).",
      "form": "Tablet",
      "timing": "Evening",

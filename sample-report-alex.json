@@ -284,7 +284,7 @@
   "submission_id": "7ee16e96-d247-4e6c-9d8d-7ccf0ff86e51",
   "recommendation_id": "9832b1f0-11f9-4753-b1b1-956227681c43",
   "publication_id": null,
-  "completed": "2026-11-20T12:48:47Z"
+  "completed": "2026-11-20T22:42:05Z"
  },
  "report": {
   "heading": "Your wellness plan",
@@ -320,11 +320,7 @@
     "tags": [
      "Plant-Based Nutrition"
     ],
-    "subtags": [
-     "Joint stiffness or discomfort",
-     "Bone strength",
-     "Bone density with age"
-    ],
+    "subtags": [],
     "why": "Your answers suggest your vitamin D intake is below your target, and you told us you get little sun. This one is a vitamin.",
     "form": "Softgel",
     "timing": "With meal",
@@ -362,9 +358,7 @@
     "tags": [
      "Energy & Tiredness"
     ],
-    "subtags": [
-     "Ongoing tiredness"
-    ],
+    "subtags": [],
     "why": "Included in the plan your answers built. This one is a multi-nutrient blend.",
     "form": "Tablet",
     "timing": "With meal",
@@ -389,7 +383,7 @@
     ],
     "why": "Also part of the plan built from your answers. This one is an amino acid.",
     "form": "Capsule",
-    "timing": "Before activity",
+    "timing": "Before bed",
     "description": "An amino acid found in green tea leaves, taken in the evening rather than with a morning brew.",
     "price": "€16.90",
     "match": {
@@ -422,9 +416,7 @@
     "tags": [
      "Energy & Tiredness"
     ],
-    "subtags": [
-     "Ongoing tiredness"
-    ],
+    "subtags": [],
     "why": "Included in the plan your answers built. This one is an amino acid.",
     "form": "Capsule",
     "timing": "With meal",
@@ -559,11 +551,7 @@
      "tags": [
       "Plant-Based Nutrition"
      ],
-     "subtags": [
-      "Bone strength",
-      "Joint stiffness or discomfort",
-      "Bone density with age"
-     ],
+     "subtags": [],
      "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a vitamin.",
      "form": "Softgel",
      "timing": "With meal",
@@ -601,11 +589,7 @@
      "tags": [
       "Energy & Tiredness"
      ],
-     "subtags": [
-      "Ongoing tiredness",
-      "Run-down",
-      "Frequent colds or sniffles"
-     ],
+     "subtags": [],
      "why": "From your answers, your vitamin D intake looks lower than your target, and you told us you get little sun. This one is a multi-nutrient blend.",
      "form": "Tablet",
      "timing": "With meal",
@@ -622,9 +606,7 @@
      "tags": [
       "Energy & Tiredness"
      ],
-     "subtags": [
-      "Ongoing tiredness"
-     ],
+     "subtags": [],
      "why": "Your iron intake looks low against your target, based on your answers, and you told us you follow a vegetarian diet.",
      "form": "Tablet",
      "timing": "With meal",
@@ -643,9 +625,9 @@
       "Plant-Based Nutrition"
      ],
      "subtags": [
-      "Ongoing tiredness",
-      "Run-down",
-      "Frequent colds or sniffles"
+      "Want complete daily nutrition",
+      "Concerned about common gaps",
+      "New to plant-based"
      ],
      "why": "Your answers suggest your vitamin D intake is below your target, and you told us you get little sun. This one is a multi-nutrient blend.",
      "form": "Tablet",
@@ -802,8 +784,7 @@
      ],
      "subtags": [
       "Ongoing tiredness",
-      "Bone strength",
-      "Bone density with age"
+      "Restlessness"
      ],
      "why": "A mineral found in leafy greens, nuts, pulses and wholegrains, and one of the first things lost in sweat. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 250 mg, 67% NRV. Ingredients. Magnesium Citrate.",
      "form": "Tablet",
@@ -818,11 +799,7 @@
      "tags": [
       "Energy & Tiredness"
      ],
-     "subtags": [
-      "Frequent colds or sniffles",
-      "Slow to bounce back",
-      "Run-down when busy or travelling"
-     ],
+     "subtags": [],
      "why": "Zinc, magnesium and vitamin B6 in one capsule, a combination first put together for athletes in the 1990s. Zinc contributes to the normal function of the immune system and to normal testosterone levels in the blood. When to take it. Before bed. Serving size: 2 capsules a day. 60 capsules per pack. Supplement facts per daily serving (2 capsules): Vitamin B6 4.3 mg, 307% NRV; Magnesium 186 mg, 50% NRV; Zinc 12 mg, 120% NRV. Ingredients. Zinc; Magnesium; Vitamin B6.",
      "form": "Tablet",
      "timing": "With meal",
@@ -890,9 +867,7 @@
      "tags": [
       "Energy & Tiredness"
      ],
-     "subtags": [
-      "Bone strength"
-     ],
+     "subtags": [],
      "why": "Minerals with vitamin D3: calcium, magnesium, zinc and the trace elements most diets run short of. Calcium contributes to the maintenance of normal bones and to normal muscle function. When to take it. With a meal. Serving size: 2 tablets a day. 120 tablets per pack. Supplement facts per daily serving (2 tablets): Vitamin D3 25 µg, 500% NRV; Calcium 800 mg, 100% NRV; Magnesium 360 mg, 96% NRV; Zinc 5 mg, 50% NRV; Copper 1 mg, 100% NRV; Selenium 100 µg, 182% NRV; Manganese 1 mg, 50% NRV; Boron 0.6 mg. Ingredients. Calcium; Magnesium; Zinc; Vitamin D3; Copper; Selenium; Boron; Manganese.",
      "form": "Capsule",
      "timing": "With meal",
@@ -906,9 +881,7 @@
      "tags": [
       "Energy & Tiredness"
      ],
-     "subtags": [
-      "Irregular patterns"
-     ],
+     "subtags": [],
      "why": "A brown seaweed cut from cold coastal water, and one of the few foods naturally dense in iodine. When to take it. In the morning. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Iodine 435 µg, 290% NRV. Ingredients. Sea Kelp (providing Iodine).",
      "form": "Tablet",
      "timing": "Evening",
