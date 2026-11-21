@@ -254,14 +254,33 @@ account, and nothing in this repository can see it go.
   products in this range" are alternatives, listed by name in the file
   (`other_products`) and never read as picks. Each product now records its
   sub-goal pills (`subtags`) and dots (`match`), the heading its sub-goals
-  (`subgoals`), the score its band, a breakdown row its bar colour, a macro
-  its note; the page draws a card's first two goal pills and none of the
-  rest, so the drawing did not move. The first reader keyed on every dialog
+  (`subgoals`), the score its band, sentence and colour, a breakdown row its
+  bar colour, a macro its note, and the products under "Other products in
+  this range" in full (`other_products.items`). The first reader keyed on every dialog
   and a "Why:" prefix; on 2026-11-20 it read 29 alternatives as picks and no
   why at all, and the guard refused all three personas, as it should. When
   that happens again, mend the reader and read the day's submissions back
   without making new ones: `--extract alex=<submission id>[:<recommendation
   id>]`, and `--write` with the same form writes them.
+- **The drawing is today's webapp** (founder, 2026-11-20: "the drawing needs
+  to be today's version of the webapp"; webapp `components/wellness-report.tsx`
+  as on main that day). Each block keeps its template as the product defines
+  it: Storefront and Classic draw the cards presentation (a square photograph
+  with the tier on it, the name, goal pills in the brand's accent when they
+  are the customer's own goals, sub-goal pills, the reason and description
+  faded at a fixed height, and a floor with "Your match" dots, the price and
+  the button); Essentials draws rows (a 160px thumbnail, the words held to its
+  height, a side column with the same three things and the expand). After the
+  plan, "Other products in this range" open, nine then "Show N more", in the
+  same presentation; the safety briefing boxed; the score with its band and
+  sentence; a note under a macro tile; breakdown bars in the row's colour;
+  the bars in the webapp's own colours. All of it is in `sample-report.css`
+  under `.sr-report`, so the homepage's drawing of the plan does not move. The
+  page's chrome holds each brand's wording (headings, the button's label on
+  `data-add`, the retake and the footer) and empty list markers
+  (`<!--/list-->`, `<!--/others-->`) the tool fills; the page is about 600 KB
+  with the alternatives drawn in full, most of it repeated markup that
+  compresses well.
 - **In the UK, Melatonin is out.** The engine's legality gate removes it
   (prescription-only) and Cordyceps takes its place.
 - **Two spellings are the site's, not the engine's**: the em dash in the

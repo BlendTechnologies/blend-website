@@ -287,6 +287,9 @@ function readPage() {
   const sa = sg ? /:\s*(\d{1,3})\s*,\s*(.+)$/.exec(sg.getAttribute('aria-label') || '') : null;
   const health_score = sa ? Number(sa[1]) : null;
   const health_band = sa ? sa[2].trim() : null;
+  /* the band's sentence is the longest paragraph in the box; the bar's colour is the filled layer's background */
+  const health_text = sg ? ([...sg.querySelectorAll('p')].map(T).filter(t => t.length > 40).sort((a, b) => b.length - a.length)[0] || null) : null;
+  const health_bg = sg ? (([...sg.querySelectorAll('div[style]')].map(d => d.getAttribute('style') || '').find(st => /width:/.test(st)) || '').match(/background(?:-color)?:\s*([^;]+)/) || [])[1] || null : null;
 
   const isPrice = t => /^(US\$|£|€)\s?\d/.test(t);
   const readCard = li => {
@@ -322,7 +325,7 @@ function readPage() {
   const cards = rec ? [...rec.sec.querySelectorAll('li')].filter(li => li.querySelector('dialog')) : [];
   const products = cards.map(readCard);
   const det = [...document.querySelectorAll('details')].find(d => /Other products/i.test(T(d.querySelector('summary'))));
-  const others = det ? [...det.querySelectorAll('li')].filter(li => li.querySelector('dialog')).map(li => T(li.querySelector('p'))) : [];
+  const others = det ? [...det.querySelectorAll('li')].filter(li => li.querySelector('dialog')).map(readCard) : [];
   const othersCount = det ? (Number((/(\d+)\s+products?/.exec(T(det.querySelector('summary'))) || [])[1]) || others.length) : 0;
 
   const style = el => (el ? el.getAttribute('style') || '' : '');
@@ -363,7 +366,7 @@ function readPage() {
     }
   }
   const disclaimer = T([...document.querySelectorAll('p')].find(x => /effectiveness and suitability/.test(T(x))));
-  return { heading, intro, profile, goals, subgoals, products, others, othersCount, macros, breakdown, notices, disclaimer, health_score, health_band };
+  return { heading, intro, profile, goals, subgoals, products, others, othersCount, macros, breakdown, notices, disclaimer, health_score, health_band, health_text, health_bg };
 }
 
 async function extract(browser, sid) {
@@ -403,14 +406,20 @@ function shape(raw, old) {
   need(raw.goals.length, 'no goal chips read');
   const ka = /in (\d+) (?:key )?areas/.exec(raw.intro || '');
   need(ka, `the intro names no number of areas: ${JSON.stringify(raw.intro)}`);
-  const products = raw.products.map(p => {
-    for (const k of ['name', 'tier', 'why', 'form', 'timing']) need(p[k], `${p.name || 'a product'}: no ${k} read`);
-    need(p.match && Number.isFinite(p.match.score), `${p.name || 'a product'}: no match dots read`);
-    const d = { name: p.name, tier: p.tier, tags: p.tags, subtags: p.subtags, why: p.why, form: p.form, timing: p.timing, description: p.description || '', price: p.price, match: p.match };
+  const shapeCard = (p, pick) => {
+    /* a brand's other product carries no tier and may carry no dots (TierBadge and MatchLine draw nothing); a pick carries both */
+    for (const k of ['name', 'why', 'form', 'timing']) need(p[k], `${p.name || 'a product'}: no ${k} read`);
+    if (pick) need(p.tier, `${p.name || 'a product'}: no tier read`);
+    if (pick) need(p.match && Number.isFinite(p.match.score), `${p.name || 'a product'}: no match dots read`);
+    const d = { name: p.name, tier: p.tier, tags: p.tags, subtags: p.subtags, why: p.why, form: p.form, timing: p.timing, description: p.description || '', price: p.price, match: p.match && Number.isFinite(p.match.score) ? p.match : null };
     if (p.caution) d.caution = p.caution.replace(/^(Note|Caution): /, '');
     return d;
-  });
+  };
+  const products = raw.products.map(p => shapeCard(p, true));
   need(products.some(p => p.description), 'no product carries a description: the expanded card was not read');
+  /* the alternatives under "Other products in this range": the page says how many, and every card is read like a pick */
+  const others = raw.others.map(p => shapeCard(p, false));
+  need(raw.othersCount === others.length, `the page says ${raw.othersCount} other products and ${others.length} were read`);
   const macros = raw.macros.map(m => {
     const key = String(m.label || '').toUpperCase();
     const cls = colourClass(m.bg);
@@ -434,9 +443,16 @@ function shape(raw, old) {
     heading: raw.heading, intro: raw.intro, key_areas: ka ? Number(ka[1]) : null,
     profile: raw.profile.map(c => c.replace(/\*$/, '')), goals: raw.goals, subgoals: raw.subgoals, products, macros,
     macros_note: old.report.macros_note, breakdown, notices: raw.notices, disclaimer: raw.disclaimer,
-    other_products: { count: raw.othersCount, names: raw.others },
+    other_products: { count: raw.othersCount, items: others },
   };
-  if (raw.health_score != null) { report.health_score = raw.health_score; report.health_band = raw.health_band; }
+  if (raw.health_score != null) {
+    report.health_score = raw.health_score;
+    report.health_band = raw.health_band;
+    report.health_text = raw.health_text;
+    const hc = colourClass(raw.health_bg);
+    need(hc, `the wellness score's bar colour ${JSON.stringify(raw.health_bg)} is none the page draws`);
+    report.health_cls = hc;
+  }
   return { report, problems };
 }
 
@@ -482,6 +498,11 @@ function compare(a, b) {
   if (a.disclaimer !== b.disclaimer) out.push('disclaimer: the wording changed');
   if ((a.health_score ?? null) !== (b.health_score ?? null)) out.push(`wellness score: ${a.health_score ?? 'none'} -> ${b.health_score ?? 'none'}`);
   if ((a.other_products?.count ?? null) !== (b.other_products?.count ?? null)) out.push(`other products in this range: ${a.other_products?.count ?? 'not recorded'} -> ${b.other_products?.count ?? 'none'}`);
+  else {
+    const OA = (a.other_products?.items || []).map(p => p.name), OB = (b.other_products?.items || []).map(p => p.name);
+    if (OA.length && OB.length) sets('other products', OA, OB);
+  }
+  if ((a.health_band ?? null) !== (b.health_band ?? null)) out.push(`wellness band: ${a.health_band ?? 'none'} -> ${b.health_band ?? 'none'}`);
   if (a.heading !== b.heading) out.push(`the webapp's heading: ${JSON.stringify(a.heading)} -> ${JSON.stringify(b.heading)}`);
   if (a.intro !== b.intro) out.push(`the webapp's intro sentence: ${JSON.stringify(a.intro)} -> ${JSON.stringify(b.intro)}`);
   return out;
@@ -532,40 +553,91 @@ const CLOSE = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" strok
 /* The photographs are the site's own, in rotation; the demo's products have none the site may use. */
 const IMGS = ['daily-energy-blend-detail.jpg', 'daily-energy-blend-in-context.jpg', 'daily-energy-blend-front.jpg'];
 
-const tags = ts => `<div class="rp-tags">${ts.map(t => `<span>${esc(t)}</span>`).join('')}</div>`;
-const chips = xs => `<div class="rp-chips">${xs.map(x => `<span class="rp-chip">${esc(x)}</span>`).join('')}</div>`;
+/* Match dots: the webapp's five shades (lib/quiz/recommendation-view.ts, MATCH_DOT_SHADES) and the soft green behind an empty one. */
+const DOT_SHADES = ['#C0DD97', '#97C459', '#639922', '#3B6D11', '#27500A'];
+const DOT_OFF = 'rgb(99 153 34 / 0.18)';
+const MATCH_LABEL = 'Your match';
+const MATCH_ARIA = 'How well this fits your quiz answers';
+/* The first nine alternatives show; the rest sit behind "Show N more" (wellness-report.tsx OPTIONAL_VISIBLE). */
+const OTHERS_VISIBLE = 9;
 
-function card(p, i, add, w) {
+/* A goal pill reads in the brand's accent when it is one of the customer's own goals (BenefitPills, matchesGoal). */
+const tags = (ts, goals) => ts && ts.length ? `<div class="rp-tags">${ts.map(t => `<span${(goals || []).includes(t) ? ' class="is-goal"' : ''}>${esc(t)}</span>`).join('')}</div>` : '';
+const subtags = ss => ss && ss.length ? `<div class="rp-sub">${ss.map(t => `<span>${esc(t)}</span>`).join('')}</div>` : '';
+const chips = xs => `<div class="rp-chips">${xs.map(x => `<span class="rp-chip">${esc(x)}</span>`).join('')}</div>`;
+const subchips = xs => xs && xs.length ? `<div class="rp-chips rp-chips-sub">${xs.map(x => `<span class="rp-chip">${esc(x)}</span>`).join('')}</div>` : '';
+const matchLine = m => {
+  if (!m || !Number.isFinite(m.score)) return '';
+  const n = Math.max(0, Math.min(5, m.score));
+  const shade = DOT_SHADES[n - 1] || DOT_SHADES[0];
+  return `<p class="rp-match" data-match="${n}"><span>${MATCH_LABEL}</span><span class="rp-dots" role="img" aria-label="${MATCH_ARIA}: ${n} / 5">`
+    + [1, 2, 3, 4, 5].map(i => `<i style="background:${i <= n ? shade : DOT_OFF}"></i>`).join('') + '</span></p>';
+};
+const priceLine = p => p.price ? `<p class="rp-price">${esc(p.price)}</p>` : '';
+
+/* The pieces every face of a card shares (wellness-report.tsx ProductCardFace, ProductRows). */
+function cardParts(p, i, add, w, goals) {
   const name = esc(p.name);
   const img = `<img src="/images/${IMGS[i % IMGS.length]}" alt="" loading="lazy" decoding="async">`;
-  const badge = p.tier === 'Recommended' ? 'rp-badge is-rec' : 'rp-badge';
-  const why = `<p class="rp-why"><span class="sr-only">Why: </span>${esc(p.why)}</p>`;
+  const badge = p.tier ? `<span class="${p.tier === 'Recommended' ? 'rp-badge is-rec' : 'rp-badge'}">${esc(p.tier)}</span>` : '';
+  const why = p.why ? `<p class="rp-why"><span class="sr-only">Why: </span>${esc(p.why)}</p>` : '';
   const warn = p.caution ? `<p class="sr-warn">${WARN}<span>${esc(p.caution)}</span></p>` : '';
-  const desc = `<p class="rp-desc">${esc(p.description)}</p>`;
+  const desc = p.description ? `<p class="rp-desc">${esc(p.description)}</p>` : '';
   const use = `<p class="rp-use"><span>${glyph(iconName(p.timing, TIMING, 'clock'), `${w}: ${p.name}, timing "${p.timing}"`)}<span class="sr-only">When </span>${esc(p.timing)}</span>`
     + `<i aria-hidden="true">&#183;</i><span>${glyph(iconName(p.form, SERVING, 'pill'), `${w}: ${p.name}, serving "${p.form}"`)}<span class="sr-only">Serving </span>${esc(p.form)}</span></p>`;
-  const body = `<p class="rp-name">${name}</p>${tags(p.tags.slice(0, 2))}${why}${warn}${desc}${use}<span class="rp-add">${add}</span>`;
-  const xbody = `<p class="rp-x-name">${name}</p>${tags(p.tags)}${why}${warn}${desc}${use}<span class="rp-add">${add}</span>`;
-  return `<div class="rp-card"><div class="rp-ph"><span class="${badge}">${esc(p.tier)}</span>`
-    + `<button type="button" class="rp-ex" aria-label="See everything about ${name}">${EXPAND}</button>${img}</div>`
-    + `<div class="rp-body">${body}</div>`
-    + `<dialog class="rp-dialog" aria-label="${name}"><div class="rp-x"><button type="button" class="rp-x-close" aria-label="Close ${name}">${CLOSE}</button>`
-    + `<div class="rp-x-media">${img}</div><div class="rp-x-body">${xbody}</div></div></dialog></div>`;
+  const buy = `${matchLine(p.match)}${priceLine(p)}<span class="rp-add">${add}</span>`;
+  const expand = `<button type="button" class="rp-ex" aria-label="See everything about ${name}">${EXPAND}</button>`;
+  /* the expanded face: photograph with the tier on it, the head, a scrolling middle, a pinned floor */
+  const dialog = `<dialog class="rp-dialog" aria-label="${name}"><div class="rp-x"><button type="button" class="rp-x-close" aria-label="Close ${name}">${CLOSE}</button>`
+    + `<div class="rp-x-media">${badge}${img}</div><div class="rp-x-body"><div class="rp-x-head"><p class="rp-x-name">${name}</p>${tags(p.tags, goals)}${subtags(p.subtags)}</div>`
+    + `<div class="rp-x-main">${desc}${why}${use}</div><div class="rp-x-floor">${warn}${buy}</div></div></div></dialog>`;
+  return { name, img, badge, why, warn, desc, use, buy, expand, dialog };
 }
 
+/* The compact card of the cards presentation: square photograph with the tier on it, a fixed-height body whose
+   middle fades, and a floor with the dots, the price and the button. */
+function cardCompact(p, i, add, w, goals, alt) {
+  const c = cardParts(p, i, add, w, goals);
+  return `<div class="rp-card${alt ? ' is-alt' : ''}"><div class="rp-ph">${c.badge}${c.expand}${c.img}</div>`
+    + `<div class="rp-body"><div class="rp-head"><p class="rp-name">${c.name}</p></div>`
+    + `<div class="rp-main">${tags(p.tags, goals)}${subtags(p.subtags)}${c.why}${c.desc}${c.use}${c.warn}<i class="rp-fade" aria-hidden="true"></i></div>`
+    + `<div class="rp-floor">${c.buy}</div></div>${c.dialog}</div>`;
+}
+
+/* A row of the rows presentation: thumbnail, the words held to its height and faded, a side column with the dots,
+   the price, the button and the expand. */
+function cardRow(p, i, add, w, goals, alt) {
+  const c = cardParts(p, i, add, w, goals);
+  return `<div class="rp-card rp-row${alt ? ' is-alt' : ''}"><div class="rp-thumb">${c.img}</div>`
+    + `<div class="rp-row-body"><div class="rp-row-head"><p class="rp-name">${c.name}</p>${c.badge}${tags(p.tags, goals)}</div>${subtags(p.subtags)}`
+    + `<div class="rp-prose">${c.warn}${c.why}${c.desc}${c.use}</div></div>`
+    + `<div class="rp-row-side"><div class="rp-row-buy">${c.buy}</div>${c.expand}</div>${c.dialog}</div>`;
+}
+
+const cardsOf = (ps, add, w, goals, pres, alt, offset) => ps.map((p, i) => (pres === 'rows' ? cardRow : cardCompact)(p, i + offset, add, w, goals, alt)).join('');
+
+/* A list of cards in a presentation: a swipe row with its dots (the carousel), or rows. */
+const list = (cards, pres, label) => pres === 'rows'
+  ? `<div class="rp-rows">${cards}</div>`
+  : `<div class="sr-row" aria-label="${esc(label)}, scroll sideways">${cards}</div><div class="sr-dots" aria-label="${esc(label)}, pages"></div>`;
+
 const macro = m => `<div class="rp-mac"><p class="rp-ml">${esc(m.label)}</p><p class="rp-mv">${m.value}<em>${m.unit}</em></p>`
-  + `<p class="rp-mt">${esc(m.target)}</p><div class="rp-mb ${m.cls}"><i style="width:${Math.min(m.pct, 100)}%"></i><span>${m.pct}%</span></div></div>`;
+  + `<p class="rp-mt">${esc(m.target)}</p><div class="rp-mb ${m.cls}"><i style="width:${Math.min(m.pct, 100)}%"></i><span>${m.pct}%</span></div>`
+  + `${m.note ? `<p class="rp-mn">${esc(m.note)}</p>` : ''}</div>`;
 
-const group = g => `<p class="rp-grp">${esc(g.group)}</p>` + g.rows.map(r => `<div class="rp-bd"><span class="rp-bn">${esc(r.name)}</span><div><i class="rp-bt"><b style="width:${r.pct}%"></b></i>`
-  + `<p>${esc(r.sources)}</p></div><span class="rp-bp">${r.pct}%</span></div>`).join('');
+const group = g => `<p class="rp-grp">${esc(g.group)}</p>` + g.rows.map(r => `<div class="rp-bd"><span class="rp-bn">${esc(r.name)}</span><div><i class="rp-bt${r.cls ? ` ${r.cls}` : ''}"><b style="width:${Math.min(r.pct, 100)}%"></b></i>`
+  + `<p>${esc(r.sources)}</p></div><span class="rp-bp${r.cls ? ` ${r.cls}` : ''}">${r.pct}%</span></div>`).join('');
 
-/* One section per title, every notice under it a line of its own. */
+/* The safety briefing as the webapp boxes it after the products: a title and one line per note, the lead in medium weight. */
 function noticeSections(notices) {
   const byTitle = new Map();
   for (const n of notices) { if (!byTitle.has(n.title)) byTitle.set(n.title, []); byTitle.get(n.title).push(n); }
-  return [...byTitle].map(([title, ns]) => `<div class="rp-s rp-s-notice"><div class="rp-d"><div class="rp-hrow"><h5>${esc(title)}</h5></div>`
-    + ns.map(n => `<p class="rp-note">${n.lead ? `<b>${esc(n.lead)}:</b> ` : ''}${esc(n.text)}</p>`).join('') + '</div></div>').join('');
+  return [...byTitle].map(([title, ns]) => `<div class="rp-s rp-s-notice"><div class="rp-brief"><h5>${esc(title)}</h5><ul>`
+    + ns.map(n => `<li>${n.lead ? `<b>${esc(n.lead)}</b>: ` : ''}${esc(n.text)}</li>`).join('') + '</ul></div></div>').join('');
 }
+
+const scoreBox = rep => `<div class="rp-score"><p><b>${rep.health_score}</b><em>/100</em></p><i class="${rep.health_cls || ''}"><b style="width:${Math.max(0, Math.min(100, rep.health_score))}%"></b></i>`
+  + `${rep.health_band ? `<p class="rp-good">${esc(rep.health_band)}</p>` : ''}${rep.health_text ? `<p class="rp-sn">${esc(rep.health_text)}</p>` : ''}</div>`;
 
 /** The data-bearing regions of one report block rewritten; the chrome around them untouched. */
 function redrawBlock(blk, rep, w) {
@@ -575,17 +647,33 @@ function redrawBlock(blk, rep, w) {
     return s.slice(0, m.index) + fn(m) + s.slice(m.index + m[0].length);
   };
   const at = (s, needle, from, what) => { const i = s.indexOf(needle, from); if (i < 0) throw new Error(`${cap(w)}'s report: cannot find ${what} on the page`); return i; };
+  const open = blk.slice(0, blk.indexOf('>') + 1);
+  const pres = /data-presentation="rows"/.test(open) ? 'rows' : 'cards';
+  const goals = rep.goals || [];
 
   blk = once(blk, /(<p class="rp-intro">[^<]*?)\d+( (?:key )?areas\b)/, m => `${m[1]}${rep.key_areas}${m[2]}`, 'the number of areas in the intro');
   blk = once(blk, /(<div class="rp-s rp-s-profile"><h5>[^<]*<\/h5>)<div class="rp-chips">.*?<\/div>/s, m => m[1] + chips(rep.profile), 'the profile chips');
-  blk = once(blk, /(<div class="rp-s rp-s-goals"><h5>[^<]*<\/h5>)<div class="rp-chips">.*?<\/div>/s, m => m[1] + chips(rep.goals), 'the goal chips');
+  blk = once(blk, /(<div class="rp-s rp-s-goals"><h5>[^<]*<\/h5>)<div class="rp-chips">.*?<\/div>(?:<div class="rp-chips rp-chips-sub">.*?<\/div>)?/s, m => m[1] + chips(goals) + subchips(rep.subgoals), 'the goal chips');
 
-  /* the cards: from the first to the dots that page them; the label on the
-     button is the brand's and is read off the page */
-  const add = /<span class="rp-add">([^<]*)<\/span>/.exec(blk);
-  if (!add) throw new Error(`${cap(w)}'s report: no card to read the button label from`);
-  const c0 = at(blk, '<div class="rp-card">', 0, 'the first card'), c1 = at(blk, '<div class="sr-dots"', c0, 'the dots after the cards');
-  blk = blk.slice(0, c0) + rep.products.map((p, i) => card(p, i, add[1], w)).join('') + '</div>' + blk.slice(c1);
+  /* the picks: between the products section's list marker and its end; the button's label is the brand's, on the marker */
+  const ps = at(blk, '<div class="rp-s rp-s-products">', 0, 'the products section');
+  const pm = at(blk, '<div class="rp-list"', ps, 'the products list');
+  const pa = /<div class="rp-list" data-add="([^"]*)" data-label="([^"]*)">/.exec(blk.slice(pm));
+  if (!pa) throw new Error(`${cap(w)}'s report: the products list names no button label`);
+  const add = pa[1], label = pa[2];
+  const pe = at(blk, '<!--/list-->', pm, 'the end of the products list');
+  blk = blk.slice(0, pm + pa[0].length) + list(cardsOf(rep.products, add, w, goals, pres, false, 0), pres, label) + blk.slice(pe);
+
+  /* the alternatives: the first nine open, the rest behind "Show N more" */
+  const items = rep.other_products?.items || [];
+  const count = rep.other_products?.count ?? items.length;
+  const o0 = at(blk, '<div class="rp-others-list">', 0, 'the list of other products') + '<div class="rp-others-list">'.length;
+  const o1 = at(blk, '<!--/others-->', o0, 'the end of the list of other products');
+  const first = items.slice(0, OTHERS_VISIBLE), rest = items.slice(OTHERS_VISIBLE);
+  const others = list(cardsOf(first, add, w, goals, pres, true, rep.products.length), pres, 'Other products')
+    + (rest.length ? `<details class="rp-more"><summary>Show ${rest.length} more</summary>${list(cardsOf(rest, add, w, goals, pres, true, rep.products.length + first.length), pres, 'More products')}</details>` : '');
+  blk = blk.slice(0, o0) + others + blk.slice(o1);
+  blk = once(blk, /<span class="rp-count">[^<]*<\/span>/, () => `<span class="rp-count">${count === 1 ? '1 product' : `${count} products`}</span>`, 'the count of other products');
 
   const m0 = at(blk, '<div class="rp-macs">', 0, 'the macros');
   const m1 = at(blk, '<p class="rp-foot">', m0, 'the note under the macros');
@@ -598,14 +686,13 @@ function redrawBlock(blk, rep, w) {
   const f0 = at(blk, '<div class="rp-s rp-s-foot"', h0, 'the disclaimer');
   blk = blk.slice(0, h0) + rep.breakdown.map(group).join('') + '</div></div>' + blk.slice(f0);
 
-  blk = blk.replace(/<div class="rp-s rp-s-notice">.*?<\/p><\/div><\/div>/gs, '');
+  blk = blk.replace(/<div class="rp-s rp-s-notice">.*?<\/ul><\/div><\/div>/gs, '');
   const r0 = at(blk, '<div class="rp-s rp-s-retake">', 0, 'the retake line');
   blk = blk.slice(0, r0) + noticeSections(rep.notices || []) + blk.slice(r0);
 
   /* a score the engine supplied replaces the stand-in; a block without a score section draws none */
   if (rep.health_score != null && blk.includes('<div class="rp-score"')) {
-    blk = once(blk, /<div class="rp-score"[^>]*><p><b>\d+<\/b><em>\/100<\/em><\/p><i><b style="width:\d+%"><\/b><\/i>/,
-      () => `<div class="rp-score"><p><b>${rep.health_score}</b><em>/100</em></p><i><b style="width:${rep.health_score}%"></b></i>`, 'the score');
+    blk = once(blk, /<div class="rp-score"[^>]*>.*?<\/div>/s, () => scoreBox(rep), 'the score');
   }
   return blk;
 }
@@ -652,8 +739,8 @@ function how(w, n, run, rep) {
     + `The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. `
     + `The submission's country is whatever the server read from the request's origin; the embed API does not return it. ${score} `
     + `The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. `
-    + `The page's goal pills, sub-goal pills and "Your match" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals); this page draws the first two goal pills of a card and nothing else of those. `
-    + `The products under "Other products in this range" are listed by name under other_products and not drawn. `
+    + `The page's goal pills, sub-goal pills and "Your match" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. `
+    + `The products under "Other products in this range" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind "Show N more", as the webapp does. `
     + `To refresh: node tools/replay-sample-report.mjs --write ${w}.`;
 }
 
