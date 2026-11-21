@@ -1,6 +1,6 @@
 {
  "_": "The report /sample-report draws for Helen, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
- "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication 22ad552d-425c-4fd0-a017-3ef0c0e32ae5), 2026-11-11, replaying the request below through the public embed API exactly as the quiz runtime does: 51 answers by their stable ids, one PUT per question, then complete. Submission 901b9eea-b0a9-49c4-844c-b155557b4ccd, recommendation 81c75877-1d34-4a0f-b46f-003b6e7f73c7, HTTP 200, 7 products from the demo catalogue. The figures below were read from that submission's rendered results page by the website session's extractor (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The demo's published report configuration keeps the wellness score off, so the results page shows none and this file carries none. The brand's description for each product is the first paragraph the results page shows for it; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. To refresh: replay the request and update this file and the page together.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication a2fc5b0e-8d6d-4c68-8537-cd266d67de52), 2026-11-21, replaying the request below through the public embed API exactly as the quiz runtime does: 51 answers by their stable ids, one PUT per question, then complete. Submission a129de96-fed5-4a63-8fab-ceceebcaa0bb, recommendation ec12a57c-85c7-48fe-9e21-a23d3afe81f9, HTTP 200, 10 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 98, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. The products under \"Other products in this range\" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind \"Show N more\", as the webapp does. To refresh: node tools/replay-sample-report.mjs --write helen.",
  "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
  "persona": "helen",
  "request": {
@@ -328,15 +328,15 @@
   ]
  },
  "run": {
-  "submission_id": "901b9eea-b0a9-49c4-844c-b155557b4ccd",
-  "recommendation_id": "81c75877-1d34-4a0f-b46f-003b6e7f73c7",
-  "publication_id": "22ad552d-425c-4fd0-a017-3ef0c0e32ae5",
-  "completed": "2026-11-11T14:26:49Z"
+  "submission_id": "a129de96-fed5-4a63-8fab-ceceebcaa0bb",
+  "recommendation_id": "ec12a57c-85c7-48fe-9e21-a23d3afe81f9",
+  "publication_id": "a2fc5b0e-8d6d-4c68-8537-cd266d67de52",
+  "completed": "2026-11-21T15:10:13Z"
  },
  "report": {
   "heading": "Your wellness plan",
-  "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",
-  "key_areas": 7,
+  "intro": "Based on your answers, your body needs extra support in 10 key areas. Your full plan is below, with the breakdown at the end.",
+  "key_areas": 10,
   "profile": [
    "58 years old",
    "165 cm",
@@ -351,165 +351,261 @@
    "Healthy Ageing & Longevity",
    "Immunity"
   ],
+  "subgoals": [
+   "Joint stiffness or discomfort",
+   "Bone density with age",
+   "Slower recovery",
+   "Maintaining muscle",
+   "Slow to bounce back"
+  ],
   "products": [
    {
-    "name": "Renew Glucosamine Complex",
-    "tier": "Recommended",
-    "tags": [
-     "Bone & Joint Health",
-     "Healthy Ageing & Longevity",
-     "Everyday Comfort"
-    ],
-    "why": "You told us about bone density with age and joint stiffness or discomfort. This one is a multi-nutrient blend.",
-    "form": "Tablet",
-    "timing": "With meal",
-    "description": "A compound found in cartilage, usually made from the shells of shellfish.",
-    "price": "US$19.90"
-   },
-   {
-    "name": "Focus Quercetin Complex",
-    "tier": "Recommended",
-    "tags": [
-     "Immunity",
-     "Healthy Ageing & Longevity",
-     "Lung Health"
-    ],
-    "why": "It matches your immunity goal.",
-    "form": "Capsule",
-    "timing": "Morning",
-    "description": "A plant pigment found in onion skin, capers and apple peel, paired here with the vitamin C it is usually taken alongside.",
-    "price": "US$21.90"
-   },
-   {
-    "name": "Peak Creatine Complex",
-    "tier": "Recommended",
-    "tags": [
-     "Bone & Joint Health",
-     "Strength & Power",
-     "Recovery & Repair",
-     "Build Muscle",
-     "Mass Gain"
-    ],
-    "why": "It matches your bone & joint health goal.",
-    "form": "Scoop",
-    "timing": "With meal",
-    "description": "Stored in muscle and supplied in small amounts by red meat and fish. Monohydrate is the form nearly every study has used. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise. The beneficial effect is obtained with a daily intake of 3g of creatine.",
-    "price": "US$17.99"
-   },
-   {
-    "name": "Core Daily Vitamin D",
+    "name": "Core Potassium Complex",
     "tier": "Essential",
     "tags": [
-     "Bone & Joint Health",
-     "Immunity",
-     "Healthy Ageing & Longevity"
+     "Bone & Joint Health"
     ],
-    "why": "Your answers suggest your vitamin D3 intake is below your target, and you told us about bone density with age and joint stiffness or discomfort.",
-    "form": "Softgel",
-    "timing": "With meal",
-    "description": "Vitamin D3 with calcium, the mineral it exists to help the gut absorb. Vitamin D contributes to the normal function of the immune system and to the maintenance of normal bones.",
-    "price": "US$8.90"
+    "subtags": [],
+    "why": "Your answers suggest your vitamin D intake is below your target, and you told us you get little sun. This one is a mineral.",
+    "form": "Tablet",
+    "timing": "After activity",
+    "description": "A mineral carried in potatoes, bananas, pulses and leafy greens, and the most abundant one inside the body's own cells. Potassium contributes to normal muscle function and to the maintenance of normal blood pressure.",
+    "price": "€16.90",
+    "match": {
+     "score": 5,
+     "of": 5
+    }
    },
    {
-    "name": "Renew Collagen Complex",
+    "name": "Core Advanced Multivitamins",
     "tier": "Recommended",
     "tags": [
      "Bone & Joint Health",
-     "Immunity",
-     "Healthy Ageing & Longevity",
-     "Skin Health",
-     "Boost Energy"
+     "Immunity"
     ],
-    "why": "Your answers suggest your vitamin D3 intake is below your target, and you told us about bone density with age and joint stiffness or discomfort. It is a source of protein, which contributes to the maintenance of normal bones.",
-    "form": "Scoop",
-    "timing": "Morning",
-    "description": "Marine collagen built out with the vitamins and minerals skin and joints draw on, so it stands alone rather than beside a multivitamin. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
-    "price": "US$21.90"
+    "subtags": [
+     "Frequent colds or sniffles"
+    ],
+    "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a multi-nutrient blend.",
+    "form": "Tablet",
+    "timing": "With meal",
+    "description": "A higher strength multivitamin, for someone already eating well who wants the remaining gaps closed rather than the basics covered.",
+    "price": "€23.90",
+    "match": {
+     "score": 5,
+     "of": 5
+    }
    },
    {
     "name": "Renew Curcumin Complex",
     "tier": "Recommended",
     "tags": [
      "Bone & Joint Health",
-     "Healthy Ageing & Longevity",
-     "Everyday Comfort"
+     "Healthy Ageing & Longevity"
     ],
-    "why": "You told us about joint stiffness or discomfort.",
+    "subtags": [
+     "Joint stiffness or discomfort"
+    ],
+    "why": "Part of the plan built from your answers. This one is a herbal extract.",
     "form": "Capsule",
     "timing": "Morning",
     "description": "The yellow pigment in turmeric root, and the reason curry stains. It absorbs poorly alone, so black pepper extract usually travels with it.",
-    "price": "US$28.90"
+    "price": "€28.90",
+    "match": {
+     "score": 5,
+     "of": 5
+    }
    },
    {
-    "name": "Renew Turmeric Complex",
+    "name": "Renew Daily Marine Collagen",
     "tier": "Recommended",
     "tags": [
      "Bone & Joint Health",
-     "Everyday Comfort",
-     "Gut Health"
+     "Healthy Ageing & Longevity"
     ],
-    "why": "You told us about bone density with age and joint stiffness or discomfort. This one is a spice extract.",
+    "subtags": [
+     "Joint stiffness or discomfort",
+     "Bone density with age"
+    ],
+    "why": "Shown because you chose bone & joint health as a goal. It contains protein, which contributes to the maintenance of normal bones.",
+    "form": "Scoop",
+    "timing": "Morning",
+    "description": "Collagen taken from fish skin rather than cattle hide. Type I, the kind most abundant in human skin.",
+    "price": "€16.90",
+    "match": {
+     "score": 5,
+     "of": 5
+    }
+   },
+   {
+    "name": "Core Alpha Lipoic Acid",
+    "tier": "Recommended",
+    "tags": [
+     "Healthy Ageing & Longevity"
+    ],
+    "subtags": [],
+    "why": "Included in the plan your answers built. This one is an antioxidant.",
+    "form": "Capsule",
+    "timing": "Empty stomach",
+    "description": "A fatty acid the body makes in small amounts, also found in spinach, broccoli and offal.",
+    "price": "€23.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
+   },
+   {
+    "name": "Core Garlic",
+    "tier": "Recommended",
+    "tags": [
+     "Immunity"
+    ],
+    "subtags": [],
+    "why": "Also part of the plan built from your answers. This one is a herbal extract.",
     "form": "Capsule",
     "timing": "With meal",
-    "description": "Whole turmeric root with ginger and black pepper, the combination most kitchens already use together.",
-    "price": "US$8.90"
+    "description": "Aged garlic oil, concentrated from Allium sativum and deodorised.",
+    "price": "€16.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
+   },
+   {
+    "name": "Core Lycopene",
+    "tier": "Recommended",
+    "tags": [
+     "Healthy Ageing & Longevity"
+    ],
+    "subtags": [],
+    "why": "Part of the plan built from your answers. This one is a carotenoid.",
+    "form": "Softgel",
+    "timing": "Empty stomach",
+    "description": "The red pigment of the tomato, which the body takes up more readily once the fruit has been cooked.",
+    "price": "€10.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
+   },
+   {
+    "name": "Focus Quercetin Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Healthy Ageing & Longevity",
+     "Immunity"
+    ],
+    "subtags": [
+     "Frequent colds or sniffles",
+     "Seasonal sensitivities"
+    ],
+    "why": "Included in the plan your answers built. This one is a plant extract.",
+    "form": "Capsule",
+    "timing": "Morning",
+    "description": "A plant pigment found in onion skin, capers and apple peel, paired here with the vitamin C it is usually taken alongside.",
+    "price": "€21.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
+   },
+   {
+    "name": "Renew Glucosamine Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Bone & Joint Health",
+     "Healthy Ageing & Longevity"
+    ],
+    "subtags": [
+     "Joint stiffness or discomfort",
+     "Bone density with age"
+    ],
+    "why": "Also part of the plan built from your answers. This one is a multi-nutrient blend.",
+    "form": "Tablet",
+    "timing": "With meal",
+    "description": "A compound found in cartilage, usually made from the shells of shellfish.",
+    "price": "€19.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
+   },
+   {
+    "name": "Renew Hyaluronic Acid",
+    "tier": "Recommended",
+    "tags": [
+     "Bone & Joint Health",
+     "Healthy Ageing & Longevity"
+    ],
+    "subtags": [
+     "Joint stiffness or discomfort"
+    ],
+    "why": "Part of the plan built from your answers.",
+    "form": "Capsule",
+    "timing": "Morning",
+    "description": "A molecule the body makes that holds many times its own weight in water, concentrated in skin, joints and the eye.",
+    "price": "€9.90",
+    "match": {
+     "score": 4,
+     "of": 5
+    }
    }
   ],
   "macros": [
    {
     "label": "Calories",
-    "value": "1846",
+    "value": "1954",
     "unit": "kcal",
     "target": "Target 2150 kcal",
-    "pct": 86,
+    "pct": 91,
     "cls": "m-g"
    },
    {
     "label": "Protein",
-    "value": "93",
+    "value": "98",
     "unit": "g",
     "target": "Target 88 g",
-    "pct": 106,
+    "pct": 111,
     "cls": "m-gr"
    },
    {
     "label": "Carbs",
-    "value": "188",
+    "value": "201",
     "unit": "g",
-    "target": "Target 301 g",
-    "pct": 62,
+    "target": "Target 299 g",
+    "pct": 67,
     "cls": "m-g"
    },
    {
     "label": "Fat",
-    "value": "67",
+    "value": "71",
     "unit": "g",
-    "target": "Target 66 g",
-    "pct": 102,
+    "target": "Target 67 g",
+    "pct": 106,
     "cls": "m-g"
    },
    {
     "label": "Water",
-    "value": "973",
+    "value": "1002",
     "unit": "ml",
-    "target": "Drink 2251 ml",
-    "pct": 43,
+    "target": "Drink 2250 ml",
+    "pct": 45,
     "cls": "m-b"
    },
    {
     "label": "Omega-3",
-    "value": "0.77",
+    "value": "0.83",
     "unit": "g",
     "target": "Target 0.25 g",
-    "pct": 308,
+    "pct": 332,
     "cls": "m-gr"
    },
    {
     "label": "Fibre",
-    "value": "51",
+    "value": "53",
     "unit": "g",
     "target": "Target 30 g",
-    "pct": 170,
+    "pct": 177,
     "cls": "m-gr"
    },
    {
@@ -522,11 +618,11 @@
    },
    {
     "label": "Saturated fat",
-    "value": "18",
+    "value": "19",
     "unit": "g",
     "target": "Limit 21 g",
-    "pct": 86,
-    "cls": "m-gr"
+    "pct": 90,
+    "cls": "m-o"
    }
   ],
   "macros_note": "Your intake is estimated from your height, weight, age and activity, then adjusted for your portion sizes and how often you skip meals. It is an estimate of a typical day, not a record of what you ate.",
@@ -536,8 +632,9 @@
     "rows": [
      {
       "name": "Vitamin D3",
-      "pct": 51,
-      "sources": "Sources: eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter."
+      "pct": 53,
+      "sources": "Sources: eggs, vitamin-D-fortified foods and UV-exposed mushrooms. Food alone rarely covers vitamin D, particularly in winter.",
+      "cls": "m-r"
      }
     ]
    }
@@ -545,10 +642,591 @@
   "notices": [
    {
     "title": "Talk to a professional",
-    "lead": "Everyday Comfort",
+    "lead": "Bone & Joint Health",
     "text": "Joint swelling with stiffness that lasts into the morning is worth seeing your GP about, as it can mean something other than ordinary wear. (If a joint is swollen or red, or stiffness lasts over an hour in the morning)"
    }
   ],
-  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use."
+  "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use.",
+  "other_products": {
+   "count": 33,
+   "items": [
+    {
+     "name": "Core Daily Multivitamin",
+     "tier": "Recommended",
+     "tags": [
+      "Bone & Joint Health",
+      "Immunity"
+     ],
+     "subtags": [],
+     "why": "Included because you picked immunity as a goal. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "A broad spread of vitamins and minerals in a single tablet, for people who would rather not keep a shelf of bottles. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
+     "price": "€15.99",
+     "match": {
+      "score": 4,
+      "of": 5
+     }
+    },
+    {
+     "name": "Core Multivitamin Gummies",
+     "tier": "Recommended",
+     "tags": [
+      "Healthy Ageing & Longevity",
+      "Immunity"
+     ],
+     "subtags": [],
+     "why": "Here because immunity is one of the goals you chose. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "A chewable multivitamin, set in pectin rather than gelatin, for anyone who would rather not swallow a capsule. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
+     "price": "€17.99",
+     "match": {
+      "score": 4,
+      "of": 5
+     }
+    },
+    {
+     "name": "Renew Marine Collagen & Vitamin C",
+     "tier": "Recommended",
+     "tags": [
+      "Healthy Ageing & Longevity",
+      "Immunity"
+     ],
+     "subtags": [],
+     "why": "Included in the plan your answers built. This one is a collagen.",
+     "form": "Scoop",
+     "timing": "Morning",
+     "description": "Marine collagen and vitamin C in one capsule, since the body cannot form collagen without the vitamin. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
+     "price": "€9.90",
+     "match": {
+      "score": 4,
+      "of": 5
+     }
+    },
+    {
+     "name": "Renew Multivitamins Complex",
+     "tier": "Recommended",
+     "tags": [
+      "Immunity"
+     ],
+     "subtags": [
+      "Slow to bounce back"
+     ],
+     "why": "From your answers, your vitamin D intake looks lower than your target, and you told us you get little sun. This one is a multi-nutrient blend.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "A multivitamin built around what skin, hair and nails draw on: vitamins A and E, biotin and folate, alongside the everyday basics. Biotin contributes to the maintenance of normal hair and skin and to normal psychological function.",
+     "price": "€11.99",
+     "match": {
+      "score": 4,
+      "of": 5
+     }
+    },
+    {
+     "name": "Renew Turmeric Complex",
+     "tier": "Recommended",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [
+      "Joint stiffness or discomfort",
+      "Bone density with age"
+     ],
+     "why": "Also part of the plan built from your answers. This one is a spice extract.",
+     "form": "Capsule",
+     "timing": "With meal",
+     "description": "Whole turmeric root with ginger and black pepper, the combination most kitchens already use together.",
+     "price": "€8.90",
+     "match": {
+      "score": 4,
+      "of": 5
+     }
+    },
+    {
+     "name": "Core All In One",
+     "tier": "",
+     "tags": [
+      "Build Muscle",
+      "Strength & Power",
+      "Recovery & Repair"
+     ],
+     "subtags": [],
+     "why": "Protein, creatine and amino acids in a single shake, for people who would rather not measure out three. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 24 g. Ingredients. V+ Protein Blend (Pea Protein Isolate, Brown Rice Protein, Pumpkin Seed Protein, Flaxseed, Quinoa), Creatine Monohydrate, Vegan BCAA.",
+     "form": "Scoop",
+     "timing": "With meal",
+     "description": "",
+     "price": "€34.90",
+     "match": null
+    },
+    {
+     "name": "Peak Brown Rice Protein",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Healthy Ageing & Longevity"
+     ],
+     "subtags": [
+      "Slower recovery",
+      "Maintaining muscle"
+     ],
+     "why": "Protein separated from whole brown rice, usually blended with pea to round out its amino acids. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 24 g. Ingredients. Brown Rice Protein, Flavouring.",
+     "form": "Scoop",
+     "timing": "With meal",
+     "description": "",
+     "price": "€18.99",
+     "match": null
+    },
+    {
+     "name": "Peak Mass Gainer",
+     "tier": "",
+     "tags": [
+      "Build Muscle",
+      "Mass Gain",
+      "Plant-Based Nutrition"
+     ],
+     "subtags": [
+      "Following a vegan or vegetarian diet"
+     ],
+     "why": "Oats with a pea, rice and seed protein blend: the same idea without the dairy. When to take it. After activity. Serving size: 1 scoop (75 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 30 g. Ingredients. Ultra Fine Oats, V+ Protein Blend (Pea, Brown Rice, Pumpkin Seed, Flaxseed, Quinoa), Cocoa, Maca Powder.",
+     "form": "Scoop",
+     "timing": "With meal",
+     "description": "",
+     "price": "€35.90",
+     "match": null
+    },
+    {
+     "name": "Peak Pea Protein Isolate",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Healthy Ageing & Longevity"
+     ],
+     "subtags": [
+      "Slower recovery",
+      "Maintaining muscle"
+     ],
+     "why": "Milled and filtered from yellow split peas, the most neutral tasting of the plant proteins. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 24 g. Ingredients. Pea Protein Isolate, Flavouring.",
+     "form": "Scoop",
+     "timing": "With meal",
+     "description": "",
+     "price": "€9.90",
+     "match": null
+    },
+    {
+     "name": "Peak Plant-Based Protein",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Healthy Ageing & Longevity"
+     ],
+     "subtags": [
+      "Slower recovery",
+      "Maintaining muscle"
+     ],
+     "why": "Pea, soya, pumpkin seed, quinoa and flaxseed protein blended, since no single plant covers all nine essential amino acids well. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 24 g. Ingredients. Pea, Soy, Pumpkin, Quinoa and Flaxseed protein blend.",
+     "form": "Scoop",
+     "timing": "With meal",
+     "description": "",
+     "price": "€12.99",
+     "match": null
+    },
+    {
+     "name": "Peak Soya Protein Isolate",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Healthy Ageing & Longevity"
+     ],
+     "subtags": [
+      "Slower recovery",
+      "Maintaining muscle"
+     ],
+     "why": "Protein isolated from the soya bean, one of the few plant sources that carries all nine essential amino acids. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 24 g. Ingredients. Soya Protein Isolate, Flavouring, Sucralose.",
+     "form": "Scoop",
+     "timing": "With meal",
+     "description": "",
+     "price": "€17.99",
+     "match": null
+    },
+    {
+     "name": "Peak Clear Protein",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [
+      "Bone strength"
+     ],
+     "why": "Hydrolysed collagen and whey together, cut short enough to dissolve clear rather than cloudy. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 20 g. Ingredients. Clear Protein Blend (Hydrolysed Collagen (Bovine), Whey Protein Hydrolysate (Milk)), Flavourings, Citric Acid, Sucralose.",
+     "form": "Scoop",
+     "timing": "After activity",
+     "description": "",
+     "price": "€22.90",
+     "match": null
+    },
+    {
+     "name": "Peak Clear Whey All In One",
+     "tier": "",
+     "tags": [
+      "Build Muscle",
+      "Strength & Power",
+      "Recovery & Repair"
+     ],
+     "subtags": [
+      "Difficulty building muscle",
+      "Slow recovery",
+      "Plateau"
+     ],
+     "why": "Clear whey with creatine, glutamine and the branched chain amino acids already in it, so one scoop replaces four tubs. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 20 g. Ingredients. Hydrolysed Whey Protein Isolate (Milk), Maltodextrin, Creatine Monohydrate, L-Glutamine, BCAA (Leucine, Isoleucine, Valine).",
+     "form": "Scoop",
+     "timing": "After activity",
+     "description": "",
+     "price": "€26.90",
+     "match": null
+    },
+    {
+     "name": "Peak Clear Whey Isolate",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Healthy Ageing & Longevity"
+     ],
+     "subtags": [
+      "Maintaining muscle"
+     ],
+     "why": "Whey hydrolysed into shorter chains, which is what lets it dissolve clear and taste like a cordial rather than a shake. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 20 g. Ingredients. Whey Protein Hydrolysate (Milk), Flavouring, Polydimethylsiloxane, Silicon Dioxide, Sucralose, Citric Acid, Beetroot Red.",
+     "form": "Scoop",
+     "timing": "After activity",
+     "description": "",
+     "price": "€30.90",
+     "match": null
+    },
+    {
+     "name": "Peak Whey Protein Isolate",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Healthy Ageing & Longevity"
+     ],
+     "subtags": [
+      "Maintaining muscle"
+     ],
+     "why": "Whey filtered further than concentrate, so most of the lactose and the fat is gone and what is left is close to pure protein. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 24 g. Ingredients. Whey Protein Isolate, Flavouring.",
+     "form": "Scoop",
+     "timing": "After activity",
+     "description": "",
+     "price": "€38.90",
+     "match": null
+    },
+    {
+     "name": "Core Boron",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [
+      "Joint stiffness or discomfort",
+      "Bone density with age"
+     ],
+     "why": "A trace element taken up by plants from soil and found in fruit, nuts and pulses. When to take it. In the morning. Serving size: 2 capsules a day. 60 capsules per pack. Supplement facts per daily serving (2 capsules): Boron 4 mg. Ingredients. Boron.",
+     "form": "Capsule",
+     "timing": "Morning",
+     "description": "",
+     "price": "€11.99",
+     "match": null
+    },
+    {
+     "name": "Core Cod Liver Oil Complex",
+     "tier": "",
+     "tags": [
+      "Heart Health",
+      "Cognitive Health",
+      "Eye Health"
+     ],
+     "subtags": [
+      "Difficulty concentrating",
+      "Reduced mental clarity",
+      "Forgetfulness or memory lapses"
+     ],
+     "why": "Pressed from the livers of cod, a Northern European winter staple long before anyone knew what was in it. EPA and DHA contribute to the normal function of the heart. The beneficial effect is obtained with a daily intake of 250mg of EPA and DHA. When to take it. With a meal. Serving size: 2 capsules a day. 60 capsules per pack. Supplement facts per daily serving (2 capsules): EPA 80 mg; DHA 90 mg. Ingredients. Cod Liver Oil; EPA; DHA; Omega-3.",
+     "form": "Softgel",
+     "timing": "With meal",
+     "description": "",
+     "price": "€21.90",
+     "match": null
+    },
+    {
+     "name": "Core Daily Magnesium",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [
+      "Bone density with age"
+     ],
+     "why": "A mineral found in leafy greens, nuts, pulses and wholegrains, and one of the first things lost in sweat. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 250 mg, 67% NRV. Ingredients. Magnesium Citrate.",
+     "form": "Tablet",
+     "timing": "Before bed",
+     "description": "",
+     "price": "€11.99",
+     "match": null
+    },
+    {
+     "name": "Core Daily ZMA",
+     "tier": "",
+     "tags": [
+      "Immunity"
+     ],
+     "subtags": [
+      "Slow to bounce back"
+     ],
+     "why": "Zinc, magnesium and vitamin B6 in one capsule, a combination first put together for athletes in the 1990s. Zinc contributes to the normal function of the immune system and to normal testosterone levels in the blood. When to take it. Before bed. Serving size: 2 capsules a day. 60 capsules per pack. Supplement facts per daily serving (2 capsules): Vitamin B6 4.3 mg, 307% NRV; Magnesium 186 mg, 50% NRV; Zinc 12 mg, 120% NRV. Ingredients. Zinc; Magnesium; Vitamin B6.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "",
+     "price": "€8.90",
+     "match": null
+    },
+    {
+     "name": "Core Evening Primrose Oil Complex",
+     "tier": "",
+     "tags": [
+      "Healthy Ageing & Longevity"
+     ],
+     "subtags": [
+      "Everyday antioxidant support"
+     ],
+     "why": "Pressed from the seed of a North American wildflower that opens its petals at dusk. Vitamin E contributes to the protection of cells from oxidative stress. When to take it. With a meal. Serving size: 1 softgel a day. 90 softgels per pack. Supplement facts per daily serving (1 softgel): Vitamin B6 1.4 mg, 100% NRV; Vitamin E 10 mg, 83% NRV. Ingredients. Evening Primrose Oil; Vitamin E; Vitamin B6.",
+     "form": "Softgel",
+     "timing": "With meal",
+     "description": "",
+     "price": "€11.99",
+     "match": null
+    },
+    {
+     "name": "Core Magnesium Bisglycinate",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [
+      "Bone density with age"
+     ],
+     "why": "Magnesium chelated to glycine and buffered with oxide, which holds a higher dose per tablet than glycinate alone. The mineral itself comes from leafy greens, nuts and wholegrains. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 300 mg, 80% NRV. Ingredients. Buffered Magnesium Bisglycinate (Magnesium Bisglycinate, Magnesium Oxide).",
+     "form": "Capsule",
+     "timing": "Before bed",
+     "description": "",
+     "price": "€12.90",
+     "match": null
+    },
+    {
+     "name": "Core Magnesium Complex",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [],
+     "why": "Three magnesium forms in one tablet, for people who find a single form sits poorly. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 400 mg, 107% NRV. Ingredients. Magnesium Oxide; Magnesium Bisglycinate; Magnesium Glycinate.",
+     "form": "Tablet",
+     "timing": "Before bed",
+     "description": "",
+     "price": "€23.90",
+     "match": null
+    },
+    {
+     "name": "Core Minerals Complex",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Immunity"
+     ],
+     "subtags": [
+      "Bone strength"
+     ],
+     "why": "Minerals with vitamin D3: calcium, magnesium, zinc and the trace elements most diets run short of. Calcium contributes to the maintenance of normal bones and to normal muscle function. When to take it. With a meal. Serving size: 2 tablets a day. 120 tablets per pack. Supplement facts per daily serving (2 tablets): Vitamin D3 25 µg, 500% NRV; Calcium 800 mg, 100% NRV; Magnesium 360 mg, 96% NRV; Zinc 5 mg, 50% NRV; Copper 1 mg, 100% NRV; Selenium 100 µg, 182% NRV; Manganese 1 mg, 50% NRV; Boron 0.6 mg. Ingredients. Calcium; Magnesium; Zinc; Vitamin D3; Copper; Selenium; Boron; Manganese.",
+     "form": "Capsule",
+     "timing": "With meal",
+     "description": "",
+     "price": "€9.90",
+     "match": null
+    },
+    {
+     "name": "Core Red Clover Extract",
+     "tier": "",
+     "tags": [
+      "Menopause",
+      "Hormonal Balance"
+     ],
+     "subtags": [
+      "Night sweats"
+     ],
+     "why": "A meadow flower whose extract carries isoflavones, the same family of plant compounds found in soy. When to take it. With a meal. Serving size: 1 tablet a day. 60 tablets per pack. Ingredients. Red Clover extract.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "",
+     "price": "€13.90",
+     "match": null
+    },
+    {
+     "name": "Core Sea Kelp",
+     "tier": "",
+     "tags": [
+      "Thyroid & Metabolism Support",
+      "Energy & Tiredness",
+      "Cognitive Health"
+     ],
+     "subtags": [],
+     "why": "A brown seaweed cut from cold coastal water, and one of the few foods naturally dense in iodine. When to take it. In the morning. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Iodine 435 µg, 290% NRV. Ingredients. Sea Kelp (providing Iodine).",
+     "form": "Tablet",
+     "timing": "Evening",
+     "description": "",
+     "price": "€11.99",
+     "match": null
+    },
+    {
+     "name": "Core Sea Moss",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [
+      "Bloating",
+      "Indigestion",
+      "Constipation"
+     ],
+     "why": "A red seaweed prised off Atlantic rocks, harvested traditionally in Ireland and the Caribbean. When to take it. In the morning. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Calcium 200 mg, 25% NRV. Ingredients. Sea Moss; Calcium.",
+     "form": "Capsule",
+     "timing": "Morning",
+     "description": "",
+     "price": "€23.90",
+     "match": null
+    },
+    {
+     "name": "Core Zinc & Magnesium",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health",
+      "Immunity"
+     ],
+     "subtags": [],
+     "why": "Two minerals taken together: zinc from shellfish and red meat, magnesium from leafy greens, nuts and wholegrains. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function. When to take it. Before bed. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Magnesium 250 mg, 67% NRV; Zinc 15 mg, 150% NRV. Ingredients. Magnesium Salt of Citric Acid, Zinc Mono-L-Methionine Sulphate.",
+     "form": "Tablet",
+     "timing": "Before bed",
+     "description": "",
+     "price": "€9.90",
+     "match": null
+    },
+    {
+     "name": "Flora Apple Cider Vinegar",
+     "tier": "",
+     "tags": [
+      "Gut Health",
+      "Lose Weight",
+      "Blood Sugar Support"
+     ],
+     "subtags": [
+      "Bloating",
+      "Indigestion",
+      "Occasional gas"
+     ],
+     "why": "Fermented apple juice, dried onto a carrier so that it can be put in a capsule instead of a spoon. When to take it. Before a meal. Serving size: 2 capsules a day. 60 capsules per pack. Ingredients. Apple Cider Vinegar Powder.",
+     "form": "Other",
+     "timing": "Before meal",
+     "description": "",
+     "price": "€11.99",
+     "match": null
+    },
+    {
+     "name": "Focus Ginkgo Biloba Extract",
+     "tier": "",
+     "tags": [
+      "Cognitive Health",
+      "Energy & Tiredness",
+      "Heart Health"
+     ],
+     "subtags": [],
+     "why": "An extract of the fan-shaped leaf of Ginkgo biloba, a tree older than the dinosaurs and now found mostly in cultivation. When to take it. In the morning. Serving size: 1 tablet a day. 60 tablets per pack. Supplement facts per daily serving (1 tablet): Pantothenic acid (vitamin B5) 6 mg, 100% NRV. Ingredients. Ginkgo Biloba Extract; Pantothenic Acid (Vitamin B5).",
+     "form": "Tablet",
+     "timing": "Morning",
+     "description": "",
+     "price": "€19.99",
+     "match": null
+    },
+    {
+     "name": "Peak Conjugated Linoleic Acid",
+     "tier": "",
+     "tags": [
+      "Lose Weight",
+      "Tone & Definition"
+     ],
+     "subtags": [],
+     "why": "A fatty acid found naturally in beef and dairy fat, and pressed for supplements from safflower oil. When to take it. With a meal. Serving size: 1 softgel a day. 90 softgels per pack. Ingredients. Conjugated Linoleic Acid (CLA) from safflower oil.",
+     "form": "Softgel",
+     "timing": "With meal",
+     "description": "",
+     "price": "€14.90",
+     "match": null
+    },
+    {
+     "name": "Peak Guarana",
+     "tier": "",
+     "tags": [
+      "Energy & Tiredness",
+      "Cognitive Health",
+      "Lose Weight"
+     ],
+     "subtags": [
+      "Ongoing tiredness"
+     ],
+     "why": "The seed of an Amazonian climbing plant, roasted and ground, and naturally richer in caffeine than coffee. When to take it. With a meal. Serving size: 2 capsules a day. 60 capsules per pack. Ingredients. Guarana seed extract.",
+     "form": "Capsule",
+     "timing": "With meal",
+     "description": "",
+     "price": "€7.90",
+     "match": null
+    },
+    {
+     "name": "Renew MSM Complex",
+     "tier": "",
+     "tags": [
+      "Bone & Joint Health"
+     ],
+     "subtags": [
+      "Joint stiffness or discomfort"
+     ],
+     "why": "An organic sulphur compound present in small amounts in fresh vegetables, milk and grains. The initials stand for methylsulphonylmethane. When to take it. With a meal. Serving size: 3 tablets a day. 180 tablets per pack. Supplement facts per daily serving (3 tablets): Vitamin C 120 mg, 150% NRV. Ingredients. MSM; Vitamin C; Collagen.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "",
+     "price": "€17.99",
+     "match": null
+    },
+    {
+     "name": "Renew Silica",
+     "tier": "",
+     "tags": [
+      "Hair Health",
+      "Nail Health",
+      "Skin Health"
+     ],
+     "subtags": [
+      "Slow hair growth",
+      "Brittle or weak nails",
+      "Peeling or splitting nails"
+     ],
+     "why": "A mineral drawn from horsetail, and found in hair, nails and the connective tissue under the skin. When to take it. With a meal. Serving size: 2 capsules a day. 60 capsules per pack. Ingredients. Horsetail Extract (providing Silica).",
+     "form": "Capsule",
+     "timing": "With meal",
+     "description": "",
+     "price": "€11.90",
+     "match": null
+    }
+   ]
+  },
+  "health_score": 98,
+  "health_band": "Excellent",
+  "health_text": "Your answers point to a strong wellness profile across the areas we asked about.",
+  "health_cls": "m-gr"
  }
 }

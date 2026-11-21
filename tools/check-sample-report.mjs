@@ -55,17 +55,30 @@ reports.forEach((r, i) => {
   R.profile.forEach(p => need('profile chip', p));
   R.goals.forEach(g => need('goal', g));
 
-  const cards = (r.match(/class="rp-card"/g) || []).length;
+  (R.subgoals || []).forEach(g => need('sub-goal', g));
+
+  const cards = (r.match(/<div class="rp-card(?: rp-row)?">/g) || []).length;
   if (cards !== R.products.length) failures.push(`${who}'s report: the page draws ${cards} cards, the engine returned ${R.products.length}`);
-  R.products.forEach(p => {
-    need('product', p.name);
+  const card = (p, what) => {
+    need(what, p.name);
     need(`${p.name}'s reason`, p.why);
     need(`${p.name}'s form`, p.form);
     need(`${p.name}'s timing`, p.timing);
     if (p.description) need(`${p.name}'s description`, p.description);
     if (p.caution) need(`${p.name}'s caution`, p.caution);
+    if (p.price) need(`${p.name}'s price`, p.price);
     p.tags.forEach(t => need(`${p.name}'s tag`, t));
-  });
+    (p.subtags || []).forEach(t => need(`${p.name}'s sub-goal`, t));
+    if (p.match && !r.includes(`data-match="${p.match.score}"`)) failures.push(`${who}'s report: ${p.name}'s match dots (${p.match.score}) are not drawn`);
+  };
+  R.products.forEach(p => card(p, 'product'));
+
+  /* the alternatives under "Other products in this range", drawn the same way */
+  const others = R.other_products?.items || [];
+  const alts = (r.match(/<div class="rp-card(?: rp-row)? is-alt">/g) || []).length;
+  if (alts !== others.length) failures.push(`${who}'s report: the page draws ${alts} other products, the engine returned ${others.length}`);
+  others.forEach(p => card(p, 'other product'));
+  if (R.other_products && !r.includes(`<span class="rp-count">${R.other_products.count === 1 ? '1 product' : `${R.other_products.count} products`}</span>`)) failures.push(`${who}'s report: the count of other products is not ${R.other_products.count}`);
   R.macros.forEach(m => {
     need(m.label, `${m.value}${m.unit}`.replace(/(\d)([a-z])/, '$1 $2'));
     need(`${m.label}'s target`, m.target);
@@ -81,7 +94,12 @@ reports.forEach((r, i) => {
      did not produce, and that is exactly what this check exists to refuse. */
   const m = /<div class="rp-score"([^>]*)>/.exec(r);
   if (!m) return;
-  if (R.health_score !== undefined && R.health_score !== null) { need(`${who}'s score`, String(R.health_score)); return; }
+  if (R.health_score !== undefined && R.health_score !== null) {
+    need(`${who}'s score`, String(R.health_score));
+    if (R.health_band) need(`${who}'s score band`, R.health_band);
+    if (R.health_text) need(`${who}'s score sentence`, R.health_text);
+    return;
+  }
   /* A stand-in is allowed only when the element names who waived it and
      when, and every run says so, so it cannot quietly become permanent. */
   const w = /data-standin="([^"]+)"/.exec(m[1]);
