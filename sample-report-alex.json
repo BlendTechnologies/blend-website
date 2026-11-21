@@ -1,6 +1,6 @@
 {
  "_": "The report /sample-report draws for Alex, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
- "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication not recorded), 2026-11-20, replaying the request below through the public embed API exactly as the quiz runtime does: 44 answers by their stable ids, one PUT per question, then complete. Submission 7ee16e96-d247-4e6c-9d8d-7ccf0ff86e51, recommendation 9832b1f0-11f9-4753-b1b1-956227681c43, HTTP 200, 6 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 81, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. The products under \"Other products in this range\" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind \"Show N more\", as the webapp does. To refresh: node tools/replay-sample-report.mjs --write alex.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication a2fc5b0e-8d6d-4c68-8537-cd266d67de52), 2026-11-21, replaying the request below through the public embed API exactly as the quiz runtime does: 44 answers by their stable ids, one PUT per question, then complete. Submission 677fed25-b2c6-4b66-8e57-afccec12f02f, recommendation 7a8b7164-5f1d-4a47-a864-1d7c878017c9, HTTP 200, 7 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 81, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. The products under \"Other products in this range\" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind \"Show N more\", as the webapp does. To refresh: node tools/replay-sample-report.mjs --write alex.",
  "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
  "persona": "alex",
  "request": {
@@ -281,15 +281,15 @@
   ]
  },
  "run": {
-  "submission_id": "7ee16e96-d247-4e6c-9d8d-7ccf0ff86e51",
-  "recommendation_id": "9832b1f0-11f9-4753-b1b1-956227681c43",
-  "publication_id": null,
-  "completed": "2026-11-20T22:42:05Z"
+  "submission_id": "677fed25-b2c6-4b66-8e57-afccec12f02f",
+  "recommendation_id": "7a8b7164-5f1d-4a47-a864-1d7c878017c9",
+  "publication_id": "a2fc5b0e-8d6d-4c68-8537-cd266d67de52",
+  "completed": "2026-11-21T15:09:42Z"
  },
  "report": {
   "heading": "Your wellness plan",
-  "intro": "Based on your answers, your body needs extra support in 6 key areas. Your full plan is below, with the breakdown at the end.",
-  "key_areas": 6,
+  "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",
+  "key_areas": 7,
   "profile": [
    "34 years old",
    "170 cm",
@@ -315,13 +315,33 @@
   ],
   "products": [
    {
+    "name": "Core Iron",
+    "tier": "Essential",
+    "tags": [
+     "Energy & Tiredness",
+     "Plant-Based Nutrition"
+    ],
+    "subtags": [
+     "Following a vegan or vegetarian diet"
+    ],
+    "why": "Your answers suggest your iron intake is below your target, and you told us you follow a vegetarian diet. This one is a mineral.",
+    "form": "Tablet",
+    "timing": "Evening",
+    "description": "The mineral that makes blood red, found in red meat, pulses and dark greens. Bisglycinate is chelated, which is gentler than sulphate. Iron contributes to normal formation of red blood cells and haemoglobin, and to the reduction of tiredness and fatigue.",
+    "price": "€10.99",
+    "match": {
+     "score": 5,
+     "of": 5
+    }
+   },
+   {
     "name": "Core Vegan Vitamin D3",
     "tier": "Essential",
     "tags": [
      "Plant-Based Nutrition"
     ],
     "subtags": [],
-    "why": "Your answers suggest your vitamin D intake is below your target, and you told us you get little sun. This one is a vitamin.",
+    "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a vitamin.",
     "form": "Softgel",
     "timing": "With meal",
     "description": "",
@@ -353,17 +373,17 @@
     }
    },
    {
-    "name": "Core Multivitamin Gummies",
+    "name": "Core Advanced Multivitamins",
     "tier": "Recommended",
     "tags": [
      "Energy & Tiredness"
     ],
     "subtags": [],
-    "why": "Included in the plan your answers built. This one is a multi-nutrient blend.",
+    "why": "From your answers, your vitamin D intake looks lower than your target, and you told us you get little sun. This one is a multi-nutrient blend.",
     "form": "Tablet",
     "timing": "With meal",
-    "description": "A chewable multivitamin, set in pectin rather than gelatin, for anyone who would rather not swallow a capsule. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
-    "price": "€17.99",
+    "description": "A higher strength multivitamin, for someone already eating well who wants the remaining gaps closed rather than the basics covered.",
+    "price": "€23.90",
     "match": {
      "score": 5,
      "of": 5
@@ -381,7 +401,7 @@
      "Racing mind at bedtime",
      "Trouble winding down"
     ],
-    "why": "Also part of the plan built from your answers. This one is an amino acid.",
+    "why": "Included in the plan your answers built. This one is an amino acid.",
     "form": "Capsule",
     "timing": "Before bed",
     "description": "An amino acid found in green tea leaves, taken in the evening rather than with a morning brew.",
@@ -400,7 +420,7 @@
     "subtags": [
      "Low workout stamina"
     ],
-    "why": "Part of the plan built from your answers. This one is a fungal extract.",
+    "why": "Also part of the plan built from your answers. This one is a fungal extract.",
     "form": "Capsule",
     "timing": "Morning",
     "description": "A blend of mushroom extracts used for centuries in East Asia, among them cordyceps and lion's mane.",
@@ -417,7 +437,7 @@
      "Energy & Tiredness"
     ],
     "subtags": [],
-    "why": "Included in the plan your answers built. This one is an amino acid.",
+    "why": "Part of the plan built from your answers. This one is an amino acid.",
     "form": "Capsule",
     "timing": "With meal",
     "description": "Built from two amino acids and carried mostly in red meat. Its name comes from the Latin for flesh. Chromium contributes to normal macronutrient metabolism and to the maintenance of normal blood glucose levels.",
@@ -543,7 +563,7 @@
   "notices": [],
   "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use.",
   "other_products": {
-   "count": 29,
+   "count": 25,
    "items": [
     {
      "name": "Core Pure Vitamin D3",
@@ -552,7 +572,7 @@
       "Plant-Based Nutrition"
      ],
      "subtags": [],
-     "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a vitamin.",
+     "why": "Your vitamin D intake looks low against your target, based on your answers, and you told us you get little sun. This one is a vitamin.",
      "form": "Softgel",
      "timing": "With meal",
      "description": "Made in skin from sunlight, which is why northern winters are a problem for it. D3 is the form animals produce. Vitamin D contributes to the normal function of the immune system and to the maintenance of normal bones.",
@@ -573,28 +593,11 @@
       "Trouble falling asleep",
       "Racing mind at bedtime"
      ],
-     "why": "Also part of the plan built from your answers. This one is a herbal extract.",
+     "why": "Included in the plan your answers built. This one is a herbal extract.",
      "form": "Capsule",
      "timing": "With meal",
      "description": "A root from European herbal tradition, and one with a famously strong smell.",
      "price": "€12.90",
-     "match": {
-      "score": 4,
-      "of": 5
-     }
-    },
-    {
-     "name": "Core Advanced Multivitamins",
-     "tier": "Recommended",
-     "tags": [
-      "Energy & Tiredness"
-     ],
-     "subtags": [],
-     "why": "From your answers, your vitamin D intake looks lower than your target, and you told us you get little sun. This one is a multi-nutrient blend.",
-     "form": "Tablet",
-     "timing": "With meal",
-     "description": "A higher strength multivitamin, for someone already eating well who wants the remaining gaps closed rather than the basics covered.",
-     "price": "€23.90",
      "match": {
       "score": 4,
       "of": 5
@@ -607,11 +610,28 @@
       "Energy & Tiredness"
      ],
      "subtags": [],
-     "why": "Your iron intake looks low against your target, based on your answers, and you told us you follow a vegetarian diet.",
+     "why": "Your answers suggest your iron intake is below your target, and you told us you follow a vegetarian diet. This one is a multi-nutrient blend.",
      "form": "Tablet",
      "timing": "With meal",
      "description": "A broad spread of vitamins and minerals in a single tablet, for people who would rather not keep a shelf of bottles. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
      "price": "€15.99",
+     "match": {
+      "score": 4,
+      "of": 5
+     }
+    },
+    {
+     "name": "Core Multivitamin Gummies",
+     "tier": "Recommended",
+     "tags": [
+      "Energy & Tiredness"
+     ],
+     "subtags": [],
+     "why": "Also part of the plan built from your answers. This one is a multi-nutrient blend.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "A chewable multivitamin, set in pectin rather than gelatin, for anyone who would rather not swallow a capsule. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
+     "price": "€17.99",
      "match": {
       "score": 4,
       "of": 5
@@ -629,7 +649,7 @@
       "Concerned about common gaps",
       "New to plant-based"
      ],
-     "why": "Your answers suggest your vitamin D intake is below your target, and you told us you get little sun. This one is a multi-nutrient blend.",
+     "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a multi-nutrient blend.",
      "form": "Tablet",
      "timing": "With meal",
      "description": "A multivitamin built around what skin, hair and nails draw on: vitamins A and E, biotin and folate, alongside the everyday basics. Biotin contributes to the maintenance of normal hair and skin and to normal psychological function.",
@@ -755,26 +775,6 @@
      "match": null
     },
     {
-     "name": "Core Cod Liver Oil Complex",
-     "tier": "",
-     "tags": [
-      "Heart Health",
-      "Cognitive Health",
-      "Eye Health"
-     ],
-     "subtags": [
-      "Difficulty concentrating",
-      "Reduced mental clarity",
-      "Forgetfulness or memory lapses"
-     ],
-     "why": "Pressed from the livers of cod, a Northern European winter staple long before anyone knew what was in it. EPA and DHA contribute to the normal function of the heart. The beneficial effect is obtained with a daily intake of 250mg of EPA and DHA. When to take it. With a meal. Serving size: 2 capsules a day. 60 capsules per pack. Supplement facts per daily serving (2 capsules): EPA 80 mg; DHA 90 mg. Ingredients. Cod Liver Oil; EPA; DHA; Omega-3.",
-     "form": "Softgel",
-     "timing": "With meal",
-     "description": "",
-     "price": "€21.90",
-     "match": null
-    },
-    {
      "name": "Core Daily Magnesium",
      "tier": "",
      "tags": [
@@ -805,24 +805,6 @@
      "timing": "With meal",
      "description": "",
      "price": "€8.90",
-     "match": null
-    },
-    {
-     "name": "Core Evening Primrose Oil Complex",
-     "tier": "",
-     "tags": [
-      "Hormonal Balance",
-      "Healthy Ageing & Longevity",
-      "Cycle Support"
-     ],
-     "subtags": [
-      "Everyday antioxidant support"
-     ],
-     "why": "Pressed from the seed of a North American wildflower that opens its petals at dusk. Vitamin E contributes to the protection of cells from oxidative stress. When to take it. With a meal. Serving size: 1 softgel a day. 90 softgels per pack. Supplement facts per daily serving (1 softgel): Vitamin B6 1.4 mg, 100% NRV; Vitamin E 10 mg, 83% NRV. Ingredients. Evening Primrose Oil; Vitamin E; Vitamin B6.",
-     "form": "Softgel",
-     "timing": "With meal",
-     "description": "",
-     "price": "€11.99",
      "match": null
     },
     {
@@ -956,37 +938,6 @@
      "timing": "Morning",
      "description": "",
      "price": "€19.99",
-     "match": null
-    },
-    {
-     "name": "Peak Beef Protein Isolate 97",
-     "tier": "",
-     "tags": [
-      "Build Muscle",
-      "Recovery & Repair",
-      "Bone & Joint Health"
-     ],
-     "subtags": [],
-     "why": "Hydrolysed beef protein, a non-dairy alternative to whey for people who avoid milk. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 27 g. Ingredients. Hydrolysed Beef Protein Isolate.",
-     "form": "Scoop",
-     "timing": "After activity",
-     "description": "",
-     "price": "€32.99",
-     "match": null
-    },
-    {
-     "name": "Peak Conjugated Linoleic Acid",
-     "tier": "",
-     "tags": [
-      "Lose Weight",
-      "Tone & Definition"
-     ],
-     "subtags": [],
-     "why": "A fatty acid found naturally in beef and dairy fat, and pressed for supplements from safflower oil. When to take it. With a meal. Serving size: 1 softgel a day. 90 softgels per pack. Ingredients. Conjugated Linoleic Acid (CLA) from safflower oil.",
-     "form": "Softgel",
-     "timing": "With meal",
-     "description": "",
-     "price": "€14.90",
      "match": null
     },
     {

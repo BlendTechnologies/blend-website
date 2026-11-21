@@ -1,6 +1,6 @@
 {
  "_": "The report /sample-report draws for Helen, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
- "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication not recorded), 2026-11-20, replaying the request below through the public embed API exactly as the quiz runtime does: 51 answers by their stable ids, one PUT per question, then complete. Submission 075b6622-b184-4959-b251-4c4eeb9f5733, recommendation 0bacde1c-8e5f-4252-b765-e3c6cba4e8af, HTTP 200, 10 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 98, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. The products under \"Other products in this range\" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind \"Show N more\", as the webapp does. To refresh: node tools/replay-sample-report.mjs --write helen.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication a2fc5b0e-8d6d-4c68-8537-cd266d67de52), 2026-11-21, replaying the request below through the public embed API exactly as the quiz runtime does: 51 answers by their stable ids, one PUT per question, then complete. Submission a129de96-fed5-4a63-8fab-ceceebcaa0bb, recommendation ec12a57c-85c7-48fe-9e21-a23d3afe81f9, HTTP 200, 10 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 98, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. The products under \"Other products in this range\" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind \"Show N more\", as the webapp does. To refresh: node tools/replay-sample-report.mjs --write helen.",
  "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
  "persona": "helen",
  "request": {
@@ -328,10 +328,10 @@
   ]
  },
  "run": {
-  "submission_id": "075b6622-b184-4959-b251-4c4eeb9f5733",
-  "recommendation_id": "0bacde1c-8e5f-4252-b765-e3c6cba4e8af",
-  "publication_id": null,
-  "completed": "2026-11-20T22:42:10Z"
+  "submission_id": "a129de96-fed5-4a63-8fab-ceceebcaa0bb",
+  "recommendation_id": "ec12a57c-85c7-48fe-9e21-a23d3afe81f9",
+  "publication_id": "a2fc5b0e-8d6d-4c68-8537-cd266d67de52",
+  "completed": "2026-11-21T15:10:13Z"
  },
  "report": {
   "heading": "Your wellness plan",
@@ -377,18 +377,20 @@
     }
    },
    {
-    "name": "Core Multivitamin Gummies",
+    "name": "Core Advanced Multivitamins",
     "tier": "Recommended",
     "tags": [
-     "Healthy Ageing & Longevity",
+     "Bone & Joint Health",
      "Immunity"
     ],
-    "subtags": [],
-    "why": "Shown because you chose immunity as a goal. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
+    "subtags": [
+     "Frequent colds or sniffles"
+    ],
+    "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a multi-nutrient blend.",
     "form": "Tablet",
     "timing": "With meal",
-    "description": "A chewable multivitamin, set in pectin rather than gelatin, for anyone who would rather not swallow a capsule. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
-    "price": "€17.99",
+    "description": "A higher strength multivitamin, for someone already eating well who wants the remaining gaps closed rather than the basics covered.",
+    "price": "€23.90",
     "match": {
      "score": 5,
      "of": 5
@@ -425,7 +427,7 @@
      "Joint stiffness or discomfort",
      "Bone density with age"
     ],
-    "why": "Included because you picked bone & joint health as a goal. It contains protein, which contributes to the maintenance of normal bones.",
+    "why": "Shown because you chose bone & joint health as a goal. It contains protein, which contributes to the maintenance of normal bones.",
     "form": "Scoop",
     "timing": "Morning",
     "description": "Collagen taken from fish skin rather than cattle hide. Type I, the kind most abundant in human skin.",
@@ -646,28 +648,8 @@
   ],
   "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use.",
   "other_products": {
-   "count": 34,
+   "count": 33,
    "items": [
-    {
-     "name": "Core Advanced Multivitamins",
-     "tier": "Recommended",
-     "tags": [
-      "Bone & Joint Health",
-      "Immunity"
-     ],
-     "subtags": [
-      "Frequent colds or sniffles"
-     ],
-     "why": "We estimate your vitamin D intake is below your target, and you told us you get little sun. This one is a multi-nutrient blend.",
-     "form": "Tablet",
-     "timing": "With meal",
-     "description": "A higher strength multivitamin, for someone already eating well who wants the remaining gaps closed rather than the basics covered.",
-     "price": "€23.90",
-     "match": {
-      "score": 4,
-      "of": 5
-     }
-    },
     {
      "name": "Core Daily Multivitamin",
      "tier": "Recommended",
@@ -676,11 +658,29 @@
       "Immunity"
      ],
      "subtags": [],
-     "why": "Here because immunity is one of the goals you chose. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
+     "why": "Included because you picked immunity as a goal. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
      "form": "Tablet",
      "timing": "With meal",
      "description": "A broad spread of vitamins and minerals in a single tablet, for people who would rather not keep a shelf of bottles. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
      "price": "€15.99",
+     "match": {
+      "score": 4,
+      "of": 5
+     }
+    },
+    {
+     "name": "Core Multivitamin Gummies",
+     "tier": "Recommended",
+     "tags": [
+      "Healthy Ageing & Longevity",
+      "Immunity"
+     ],
+     "subtags": [],
+     "why": "Here because immunity is one of the goals you chose. It contains vitamin C, which contributes to the normal function of the immune system. This one is a multi-nutrient blend.",
+     "form": "Tablet",
+     "timing": "With meal",
+     "description": "A chewable multivitamin, set in pectin rather than gelatin, for anyone who would rather not swallow a capsule. Vitamin C contributes to the normal function of the immune system and to the reduction of tiredness and fatigue.",
+     "price": "€17.99",
      "match": {
       "score": 4,
       "of": 5
@@ -1151,20 +1151,6 @@
      "timing": "Morning",
      "description": "",
      "price": "€19.99",
-     "match": null
-    },
-    {
-     "name": "Peak Beef Protein Isolate 97",
-     "tier": "",
-     "tags": [
-      "Bone & Joint Health"
-     ],
-     "subtags": [],
-     "why": "Hydrolysed beef protein, a non-dairy alternative to whey for people who avoid milk. Protein contributes to a growth in muscle mass and to the maintenance of normal bones. When to take it. After activity. Serving size: 1 scoop (30 g) a day. 30 servings per pack. Supplement facts per daily serving (1 scoop): Protein 27 g. Ingredients. Hydrolysed Beef Protein Isolate.",
-     "form": "Scoop",
-     "timing": "After activity",
-     "description": "",
-     "price": "€32.99",
      "match": null
     },
     {
