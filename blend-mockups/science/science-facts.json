@@ -26,15 +26,15 @@
           "value": 33,
           "label": "attributes recorded for every product in a brand's catalogue",
           "basis": "fields on the catalogue product record. Of these, 18 drive matching, safety, ranking or plan structure and the rest are commerce and catalogue bookkeeping, so this is what is recorded rather than what is scored",
-          "site_claim": "25",
-          "agrees_with_site_claim": false
+          "site_claim": "33",
+          "agrees_with_site_claim": true
         },
         "safety_checks": {
           "value": 19,
           "label": "safety checks every product passes",
           "basis": "gate functions in the engine's safety chain: 17 remove a product, 1 moves it to the alternatives instead and 1 adds a warning without removing anything",
-          "site_claim": "17",
-          "agrees_with_site_claim": false
+          "site_claim": "19",
+          "agrees_with_site_claim": true
         },
         "plan_checks": {
           "value": 6,
@@ -67,7 +67,7 @@
           "vitamins": 13
         },
         "goals": {
-          "value": 41,
+          "value": 40,
           "label": "goals a customer can choose from",
           "basis": "visible answers on the quiz's goal question"
         },
@@ -1104,10 +1104,6 @@
             "Late-night snacking",
             "None of the above."
           ]
-        },
-        {
-          "goal": "Lung Health",
-          "subgoals": []
         },
         {
           "goal": "Menopause",

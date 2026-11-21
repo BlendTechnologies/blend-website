@@ -49,8 +49,8 @@
       "refresh": "node tools/refresh.mjs (runs export_science_facts.py in the workspace, copies the export in, runs sync-science-facts.mjs)",
       "checked_by": "node tools/sync-science-facts.mjs --check, in this repository's CI: refuses a page that disagrees with the export. Nothing in CI compares the export with the engine; that is what --report is for.",
       "last_refreshed": {
-        "date": "2026-11-20",
-        "workspace_commit": "dc50c04880b53858db0a11a3aa236fd350ca1e05",
+        "date": "2026-11-21",
+        "workspace_commit": "0fe46559ae3b284adc395c85cd5e25712dff15ff",
         "note": "website #105. The workspace commit the export was read at was not recorded; from now on it is."
       },
       "sanity": [
