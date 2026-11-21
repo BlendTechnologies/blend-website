@@ -202,8 +202,8 @@ merging anything that touches either.
 here. `blend-mockups/science/science-facts.json` is generated from the
 engine by `algorithms/personalization/tools/export_science_facts.py` and
 arrives with the mockup export;
-`node tools/sync-science-facts.mjs` writes the stat strip, the goal rails
-and the `GOAL_SUBS` map from it, between `science:*` markers. To change one
+`node tools/sync-science-facts.mjs` writes everything between the
+`science:body` markers from it, the goals and their sub-goals included. To change one
 of those numbers, change the engine and regenerate — editing the page by
 hand will be overwritten, and `--check` refuses a stale page.
 
