@@ -2281,6 +2281,14 @@ html,body{max-width:100%;overflow-x:clip}
      card is nine pixels shorter; the rows give that back. */
   .nb{gap:7px}
 }
+/* On the smallest phones the card's row is 140px wide and "Before bed" with
+   "Capsule" needs 143, so the line broke in two and left its dot hanging at
+   the end of the first. Up to 340 wide the gaps in the line close by a pixel
+   or two each, and every card's line stays whole. */
+@media(max-width:340px){
+  .pc-use{column-gap:4px}
+  .pc-use > span{gap:3px}
+}
 
 /* ---- The hero pair: a client's quiz, in smoked glass ---------------------
    A FICTIONAL CLIENT's white-labelled quiz, not Blend's own interface, so it
