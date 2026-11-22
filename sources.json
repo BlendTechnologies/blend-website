@@ -264,9 +264,9 @@
       "refresh_note": "As for Alex: tools/replay-sample-report.mjs, with his 30 answers.",
       "checked_by": "node tools/check-sample-report.mjs (the page may show nothing the file does not) and node tools/replay-sample-report.mjs --redraw --check (the report is what the file draws), both in CI.",
       "last_refreshed": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "workspace_commit": null,
-        "note": "Submission 000e59f4-d258-46b2-9381-fee1c330f94e."
+        "note": "Submission 488cb211-5987-4cb3-ad86-721a1b1ecc57."
       }
     },
     {
