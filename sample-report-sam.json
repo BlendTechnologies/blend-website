@@ -1,6 +1,6 @@
 {
  "_": "The report /sample-report draws for Sam, from the engine's own output. tools/check-sample-report.mjs holds that report to this file.",
- "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication not recorded), 2026-11-20, replaying the request below through the public embed API exactly as the quiz runtime does: 30 answers by their stable ids, one PUT per question, then complete. Submission 000e59f4-d258-46b2-9381-fee1c330f94e, recommendation eb6e9148-cf70-4732-821a-2b0f0bccbb00, HTTP 200, 6 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 72, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. The products under \"Other products in this range\" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind \"Show N more\", as the webapp does. To refresh: node tools/replay-sample-report.mjs --write sam.",
+ "_how": "POST .../complete on the live demo (app.blend-technologies.com, the Blend Demo tenant, embed 928d8ad4333a4dc4b13e7d86f7557526, publication not recorded), 2026-11-22, replaying the request below through the public embed API exactly as the quiz runtime does: 30 answers by their stable ids, one PUT per question, then complete. Submission 488cb211-5987-4cb3-ad86-721a1b1ecc57, recommendation 14a06e28-4a2b-4315-b3f2-60811be64dee, HTTP 200, 7 products from the demo catalogue. The figures below were read from that submission's rendered results page by tools/replay-sample-report.mjs (a headless browser over the live page), and each macro's colour is the bar colour it drew. The submission's country is whatever the server read from the request's origin; the embed API does not return it. The results page showed a wellness score of 72, recorded as health_score. The brand's description for each product is the first paragraph its expanded card shows; the claim, the timing sentence and the ingredients that follow it are not drawn here, as before. The page's goal pills, sub-goal pills and \"Your match\" dots are recorded for each product (tags, subtags, match) and the goal pills under the heading (goals, subgoals), and drawn as the webapp draws them on 2026-11-20. The products under \"Other products in this range\" are recorded in full under other_products.items and drawn the same way, the first nine open and the rest behind \"Show N more\", as the webapp does. To refresh: node tools/replay-sample-report.mjs --write sam.",
  "_display": "Three changes for the site's rules, not the engine's: the profile chip 'Healthy Weight*' loses its asterisk (the webapp's BMI footnote is not drawn here); the 'Caution' tag the demo puts on Core Vitamin D is drawn as the card's caution line instead of a tag; and no price is shown, as before (the demo lists US dollar prices; the sample report has no price slot). The photographs on the cards are the site's own.",
  "persona": "sam",
  "request": {
@@ -199,15 +199,15 @@
   ]
  },
  "run": {
-  "submission_id": "000e59f4-d258-46b2-9381-fee1c330f94e",
-  "recommendation_id": "eb6e9148-cf70-4732-821a-2b0f0bccbb00",
+  "submission_id": "488cb211-5987-4cb3-ad86-721a1b1ecc57",
+  "recommendation_id": "14a06e28-4a2b-4315-b3f2-60811be64dee",
   "publication_id": null,
-  "completed": "2026-11-20T22:42:08Z"
+  "completed": "2026-11-22T13:43:29Z"
  },
  "report": {
   "heading": "Your wellness plan",
-  "intro": "Based on your answers, your body needs extra support in 6 key areas. Your full plan is below, with the breakdown at the end.",
-  "key_areas": 6,
+  "intro": "Based on your answers, your body needs extra support in 7 key areas. Your full plan is below, with the breakdown at the end.",
+  "key_areas": 7,
   "profile": [
    "28 years old",
    "182 cm",
@@ -294,6 +294,26 @@
      "score": 5,
      "of": 5
     }
+   },
+   {
+    "name": "Peak Endurance Electrolyte Complex",
+    "tier": "Recommended",
+    "tags": [
+     "Hydration & Electrolytes"
+    ],
+    "subtags": [
+     "After heavy sweating or exercise"
+    ],
+    "why": "Shown because you chose hydration & electrolytes as a goal. It contains magnesium, which contributes to electrolyte balance. This one is a multi-nutrient blend.",
+    "form": "Sachet",
+    "timing": "During activity",
+    "description": "Sodium, potassium, magnesium and calcium in an effervescent tablet that dissolves in a bottle of water, made for long sessions and hot days. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function.",
+    "price": "€12.99",
+    "match": {
+     "score": 5,
+     "of": 5
+    },
+    "caution": "This is included because of the long, hard training you told us about, which loses sodium in sweat. Your food already gives you plenty of sodium, so take it around your sessions rather than with meals."
    },
    {
     "name": "Core Advanced Multivitamins",
@@ -444,7 +464,7 @@
   "notices": [],
   "disclaimer": "The effectiveness and suitability of these recommendations depend on the accuracy of the information you submitted. Product information and health claims are supplied by the brand whose products appear in this report. Dosages are based on publicly available clinical and nutritional data. This report is intended for general wellness guidance only and does not constitute medical advice, clinical diagnosis, or treatment guidance of any kind. Always consult a qualified healthcare professional before making changes to your supplement routine. Blend Technologies acts solely as a technology platform and accepts no liability for the accuracy of third-party product data or for any health outcomes resulting from its use.",
   "other_products": {
-   "count": 24,
+   "count": 25,
    "items": [
     {
      "name": "Core Omega 3 Complex",
@@ -491,6 +511,26 @@
       "score": 5,
       "of": 5
      }
+    },
+    {
+     "name": "Peak Electrolyte Complex",
+     "tier": "Recommended",
+     "tags": [
+      "Hydration & Electrolytes"
+     ],
+     "subtags": [
+      "After heavy sweating or exercise"
+     ],
+     "why": "Included because you picked hydration & electrolytes as a goal. It contains magnesium, which contributes to electrolyte balance. This one is a multi-nutrient blend.",
+     "form": "Sachet",
+     "timing": "During activity",
+     "description": "The salts that leave the body in sweat: sodium, potassium, calcium and magnesium, blended to be drunk rather than swallowed. Magnesium contributes to a reduction of tiredness and fatigue, and to normal muscle function.",
+     "price": "€10.99",
+     "match": {
+      "score": 5,
+      "of": 5
+     },
+     "caution": "This is included because of the long, hard training you told us about, which loses sodium in sweat. Your food already gives you plenty of sodium, so take it around your sessions rather than with meals."
     },
     {
      "name": "Peak Whey Mass Gainer",

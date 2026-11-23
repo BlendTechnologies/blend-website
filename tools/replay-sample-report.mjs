@@ -307,7 +307,10 @@ function readPage() {
     if (useP) for (const sp of useP.querySelectorAll('span')) { const sr = sp.querySelector(':scope > .sr-only'); if (sr) labelled[T(sr).replace(/:$/, '')] = visible(sp); }
     const body = ps.filter(p => p !== useP && !/^(Your match|Caution|Note)\b/.test(T(p)) && !isPrice(T(p)));
     const why = visible(body[0]);
-    const caution = ps.map(T).find(t => /^(Caution|Note)\b/.test(t)) || null;
+    /* the caution's wording. The row draws it as a <span> (the webapp's CautionNote: an icon, then "Note: ..."); only the
+       expanded card, cut from this clone above, has it as a <p>. Reading <p> alone found none on 2026-11-22, when Sam's
+       electrolyte card was the first to carry one. The colon and the words after it keep a bare "Caution" pill out. */
+    const caution = [...c.querySelectorAll('p, span')].map(T).find(t => /^(Caution|Note):\s*\S/.test(t)) || null;
     const price = [...c.querySelectorAll('span, p')].map(T).find(isPrice) || null;
     const dots = li.querySelector('[data-match-dots]');
     const ma = dots ? /(\d+)\s*\/\s*(\d+)/.exec(dots.querySelector('[aria-label]')?.getAttribute('aria-label') || '') : null;
@@ -547,7 +550,9 @@ const glyph = (name, what) => {
   if (!GLYPH[name]) throw new Error(`no glyph on this page for "${name}" (${what}); the webapp has one and sample-report.html does not yet`);
   return GLYPH[name];
 };
-const WARN = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18h.01"/></svg>';
+/* The webapp's CautionIcon, and the prefix its CautionNote writes before the wording (lib/copy.ts, results.products.warningPrefix). */
+const WARN = '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5L14.5 13.5h-13L8 2.5z"/><path d="M8 6.8v2.6M8 11.6h.01"/></svg>';
+const WARN_PREFIX = 'Note:';
 const EXPAND = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
 const CLOSE = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>';
 /* The photographs are the site's own, in rotation; the demo's products have none the site may use. */
@@ -581,7 +586,7 @@ function cardParts(p, i, add, w, goals) {
   const img = `<img src="/images/${IMGS[i % IMGS.length]}" alt="" loading="lazy" decoding="async">`;
   const badge = p.tier ? `<span class="${p.tier === 'Recommended' ? 'rp-badge is-rec' : 'rp-badge'}">${esc(p.tier)}</span>` : '';
   const why = p.why ? `<p class="rp-why"><span class="sr-only">Why: </span>${esc(p.why)}</p>` : '';
-  const warn = p.caution ? `<p class="sr-warn">${WARN}<span>${esc(p.caution)}</span></p>` : '';
+  const warn = p.caution ? `<p class="sr-warn">${WARN}<span>${WARN_PREFIX} ${esc(p.caution)}</span></p>` : '';
   const desc = p.description ? `<p class="rp-desc">${esc(p.description)}</p>` : '';
   const use = `<p class="rp-use"><span>${glyph(iconName(p.timing, TIMING, 'clock'), `${w}: ${p.name}, timing "${p.timing}"`)}<span class="sr-only">When </span>${esc(p.timing)}</span>`
     + `<i aria-hidden="true">&#183;</i><span>${glyph(iconName(p.form, SERVING, 'pill'), `${w}: ${p.name}, serving "${p.form}"`)}<span class="sr-only">Serving </span>${esc(p.form)}</span></p>`;
