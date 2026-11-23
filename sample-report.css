@@ -261,23 +261,25 @@
 .sr-report .rp-score i.m-o{background:rgba(199,126,47,.14)}.sr-report .rp-score i.m-o b{background:#C77E2F}
 .sr-report .rp-score i.m-r{background:rgba(216,97,74,.14)}.sr-report .rp-score i.m-r b{background:#D8614A}
 .sr-report .rp-score i.m-b{background:rgba(74,114,172,.14)}.sr-report .rp-score i.m-b b{background:#4A72AC}
-.sr-report .rp-score i.m-g{background:rgba(64,59,52,.1)}.sr-report .rp-score i.m-g b{background:rgba(64,59,52,.35)}
+.sr-report .rp-score i.m-g{background:color-mix(in srgb,var(--rp-text,#403B34) 10%,transparent)}.sr-report .rp-score i.m-g b{background:color-mix(in srgb,var(--rp-text,#403B34) 35%,transparent)}
 .sr-report .rp-good{margin-top:12px !important;font-size:14px;font-weight:600;color:var(--rp-strong,#000)}
 .sr-report .rp-sn{margin-top:6px !important;font-size:13px;line-height:1.6;color:color-mix(in srgb,var(--rp-strong,#000) 70%,transparent)}
 /* a note under a macro tile */
 .sr-report .rp-mn{margin-top:6px !important;font-size:12px;line-height:1.4;color:color-mix(in srgb,var(--rp-text,#403B34) 80%,transparent)}
-/* the bar colours exactly as the webapp paints them (lib/nutrients/status), replacing the approximations the first drawing used */
+/* the bar colours exactly as the webapp paints them (lib/nutrients/status), replacing the approximations the first drawing used.
+   The neutral one (calories, carbs, fat: a reading the webapp declines to judge) is the report's own text colour at 35%, as the
+   webapp's is; written as a fixed dark ink it vanished on a dark report. */
 .sr-report .m-gr i{background:#6AA84F}.sr-report .m-gr span{color:#6AA84F}
 .sr-report .m-o i{background:#C77E2F}.sr-report .m-o span{color:#C77E2F}
 .sr-report .m-r i{background:#D8614A}.sr-report .m-r span{color:#D8614A}
 .sr-report .m-b i{background:#4A72AC}.sr-report .m-b span{color:#4A72AC}
-.sr-report .m-g i{background:rgba(64,59,52,.35)}.sr-report .m-g span{color:rgba(64,59,52,.35)}
+.sr-report .m-g i{background:color-mix(in srgb,var(--rp-text,#403B34) 35%,transparent)}.sr-report .m-g span{color:color-mix(in srgb,var(--rp-text,#403B34) 35%,transparent)}
 /* the breakdown bars in the row's colour */
 .sr-report .rp-bt.m-gr b{background:#6AA84F}.sr-report .rp-bp.m-gr{color:#6AA84F}
 .sr-report .rp-bt.m-o b{background:#C77E2F}.sr-report .rp-bp.m-o{color:#C77E2F}
 .sr-report .rp-bt.m-r b{background:#D8614A}.sr-report .rp-bp.m-r{color:#D8614A}
 .sr-report .rp-bt.m-b b{background:#4A72AC}.sr-report .rp-bp.m-b{color:#4A72AC}
-.sr-report .rp-bt.m-g b{background:rgba(64,59,52,.35)}.sr-report .rp-bp.m-g{color:rgba(64,59,52,.35)}
+.sr-report .rp-bt.m-g b{background:color-mix(in srgb,var(--rp-text,#403B34) 35%,transparent)}.sr-report .rp-bp.m-g{color:color-mix(in srgb,var(--rp-text,#403B34) 35%,transparent)}
 /* the safety briefing, boxed as the webapp boxes it after the products */
 .sr-report .rp-brief{margin-top:16px;padding:16px 20px;border:1px solid var(--rp-line,#DEDEDE);border-radius:var(--rp-radius,8px);background:var(--rp-card,#FFFFFF)}
 .sr-report .rp-brief h5{margin:0;padding:0;border:0;font-size:13px;font-weight:600;color:var(--rp-strong,#000)}
